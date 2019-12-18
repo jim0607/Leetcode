@@ -7,4 +7,4 @@
 - [1027. Longest Arithmetic Sequence.py](Solutions/1027.LongestArithmeticSequence.py) (M)
 - [0873. Length of Longest Fibonacci Subsequence](Solutions/0873.LengthofLongestFibonacciSubsequence.py) (M)
 ### Classic DP Problem
-- [801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
+- [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
