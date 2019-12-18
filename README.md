@@ -8,3 +8,6 @@
 - [0873. Length of Longest Fibonacci Subsequence](Solutions/0873.LengthofLongestFibonacciSubsequence.py) (M)
 ### Classic DP Problem
 - [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
+- [1143. Longest Common Subsequence](Solutions/1143.Longest-Common-Subsequence.py) (M)
+- [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (M)
+- [0064. Minimum Path Sum](Solutions/0064.Minimum-Path-Sum.py) (M)
