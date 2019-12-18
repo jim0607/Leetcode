@@ -20,4 +20,4 @@
 - [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (M)
 - [0221. Maximal Square](Solutions/0221.Maximal-Square.py) (M)
 - [0486. Predict the Winner](Solutions/0486.Predict-the-Winner.py) (M)
-- [983. Minimum Cost For Tickets](Solutions/983.Minimum-Cost-For-Tickets.py) (M)
+- [0983. Minimum Cost For Tickets](Solutions/0983.Minimum-Cost-For-Tickets.py) (M)
