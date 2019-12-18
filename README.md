@@ -5,5 +5,6 @@
 - [0300. Longest Increasing Subsequence](Solutions/0300.LongestIncreasingSubsequence.py) (M)
 - [0673. Number of Longest Increasing Subsequence.py](Solutions/0673.NumberofLongestIncreasingSubsequence.py) (M)
 - [1027. Longest Arithmetic Sequence.py](Solutions/1027.LongestArithmeticSequence.py) (M)
-- [0873. Length of Longest Fibonacci Subsequence.py](Solutions/0873.LengthofLongestFibonacciSubsequence.py) (M)
+- [0873. Length of Longest Fibonacci Subsequence](Solutions/0873.LengthofLongestFibonacciSubsequence.py) (M)
 ### Classic DP Problem
+- [801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
