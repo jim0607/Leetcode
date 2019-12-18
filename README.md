@@ -1,4 +1,4 @@
 # Medium-Green---DP
 ## 最长子序列问题
 
-[example](/example/profile.md)
+[example](/Solutions/5. Longest Palindromic Substring.py)
