@@ -11,4 +11,6 @@
 4. 理解二分法的三个境界：
     1. 熟记背诵模板
     2. OOXX的思考方法解决first X或者last O的问题，注意要画图可以帮助理解好问题，有时候空想是想不出来的。
+      eg: First bad version; Search in a big sorted array, Find minimum in Rotate sorted Array II, maximum number in mountain
     3. Half half的二分法本质。
+      eg: Find peak element; Search in rotated sorted array
