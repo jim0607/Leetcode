@@ -30,4 +30,4 @@
 - [0343. Integer Break](Solutions/0343.Integer-Break.py) (M)
 - [1223. Dice Roll Simulation](Solutions/1223.Dice-Roll-Simulation.py) (M)
 - [1105. Filling Bookcase Shelves](Solutions/1105.Filling-Bookcase-Shelves.py) (M)
-## [Binary Search](/Binary-Search)
+## [Binary Search](/Binary-Search.py)
