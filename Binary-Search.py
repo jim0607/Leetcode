@@ -12,16 +12,16 @@
 		else:
 			start = mid
 	# 二分法的本质是夹逼法：在每一轮循环中排除一半以上的元素，于是在对数级别的时间复杂度内，就可以把区间“夹逼” 只剩下 1 个数，而这个数是不是我们要找的数，单独判断就可以了。
-	if nums[start] == target:
-		return start
 	if nums[end] == target:
+		return start
+	if nums[start] == target:   # 注意这里的顺序，先判断start还是先判断end，取决于是往左逼还是往右逼，如果是往左逼，把start放在end后面判断可以保证去到first position of X.
 		return end
 	return -1
   
 4. 理解二分法的三个境界：
     1. 熟记背诵模板
     2. OOXX的思考方法解决找数组当中first X或者last O的问题，注意要画图可以帮助理解好问题，有时候空想是想不出来的。
-      eg: 34（经典）153 (经典), 154, 1095, 658, 4, search a 2D matrix; Wood count; Search in a big sorted array, Recover rotated array; Find minimum in Rotate sorted Array II, maximum number in mountain
+      eg: 34（经典）153 (经典), Find minimum in Rotate sorted Array II， 875. Koko Eating Bananas， medium of two sorted array
     3. Half half是二分法本质，每次去掉没有答案的那一半，保留有答案的那一半。
       eg: Find peak element; Search in rotated sorted array, 300
 				
