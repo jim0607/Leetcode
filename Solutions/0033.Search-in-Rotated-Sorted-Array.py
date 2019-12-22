@@ -93,17 +93,17 @@ class Solution:
         while start + 1 < end:
             mid = start + (end - start) // 2
             if target < nums[0]:
-                if target <= nums[mid] <= nums[0]:
+                if target <= nums[mid] <= nums[0]:   # 这里nums[mid] <= nums[0]表明选择往左边夹
                     end = mid
                 else:
                     start = mid
             elif target > nums[0]:
-                if nums[0] <= nums[mid] < target:
+                if nums[0] <= nums[mid] < target:  # 这里nums[mid] < nums[0]与上面保持一致选择往左边夹
                     start = mid
                 else:
                     end = mid
         if nums[end] == target:
             return end
-        if nums[start] == target:
+        if nums[start] == target:   # 这里后判断start是因为上面选择了往左边夹
             return start
         return -1
