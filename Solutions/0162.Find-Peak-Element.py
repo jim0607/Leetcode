@@ -13,7 +13,7 @@ Output: 2
 Explanation: 3 is a peak element and your function should return the index number 2.
 
 
-"""变形的OOOXXX问题，画个图分四种情况讨论即可"""
+"""变形的OOOXXX问题，画个图分四种情况讨论就可以判断是drop left还是drop right了"""
 class Solution:
     def findPeakElement(self, nums: List[int]) -> int:
         lens = len(nums)
@@ -42,4 +42,3 @@ class Solution:
             return start           
             
 """It should be noted that the problem says nums[i] ≠ nums[i+1], if not, it has to be O(N), eg: [2,2,2,2,2,2,3,2,2,2,2,2],如果nums[mid]取到的是2，那根本没办法判断是要丢掉左边还是右边，因为很可能nums[mid-1]=nums[mid]=nums[mid+1]"""
-        
