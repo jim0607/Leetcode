@@ -7,7 +7,7 @@
 	while start + 1 < end:   # 在退出循环的时候，一定有 left == right 成立，此时返回 left 或者 right 都可以
 		mid = start + (end-start) // 2 #防止溢出，尤其是在left和right都很大的情况下
 		# 循环内只写两个分支，一个分支排除中位数，另一个分支不排除中位数，循环中不单独对中位数作判断,这一点很重要，希望读者结合具体练习仔细体会，每次循环开始的时候都单独做一次判断，在统计意义上看，二分时候的中位数恰好是目标元素的概率并不高，并且即使要这么做，也不是普适性的，不能解决绝大部分的问题。
-    		if nums[mid] >= target:
+    		if nums[mid] >= target:  # 注意这个模板是在遇到相等的就去掉右边的，所以是一个劲的往左逼近。
 			end = mid
 		else:
 			start = mid
@@ -20,8 +20,8 @@
   
 4. 理解二分法的三个境界：
     1. 熟记背诵模板
-    2. OOXX的思考方法解决first X或者last O的问题，注意要画图可以帮助理解好问题，有时候空想是想不出来的。
-      eg: 34（经典）153, 154, 1095, 658, 4, first position of target, last position of target, search a 2D matrix; search insertion position; First bad version; Wood count; Search in a big sorted array, Recover rotated array; Find minimum in Rotate sorted Array II, maximum number in mountain
+    2. OOXX的思考方法解决找数组当中first X或者last O的问题，注意要画图可以帮助理解好问题，有时候空想是想不出来的。
+      eg: 34（经典）153 (经典), 154, 1095, 658, 4, search a 2D matrix; Wood count; Search in a big sorted array, Recover rotated array; Find minimum in Rotate sorted Array II, maximum number in mountain
     3. Half half是二分法本质，每次去掉没有答案的那一半，保留有答案的那一半。
       eg: Find peak element; Search in rotated sorted array, 300
 				
