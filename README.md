@@ -1,5 +1,6 @@
 ## [Binary Search](/Binary-Search.py)
 - [0704. Binary Search](Solutions/0704.Binary-Search.py) (E)
+- [0702. Search in a Sorted Array of Unknown Size](Solutions/0702.Search-in-a-Sorted-Array-of-Unknown-Size.py) (M) .(The key is to find the end point using double method, same as dynamic array)
 - [0069. Sqrt(x)](Solutions/0069.Sqrt(x).py) (E)
 - [0034. Find First and Last Position of Element in Sorted Array](Solutions/0034.Find-First-and-Last-Position-of-Element-in-Sorted-Array.py) (M)
 - [0035. Search Insert Position](Solutions/0035.Search-Insert-Position.py) (E)
