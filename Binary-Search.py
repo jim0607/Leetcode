@@ -24,3 +24,4 @@
       eg: 704, 69. sqrt(x); 287; 153, 154, 1095, 658, 4, search a 2D matrix; search insertion position; First bad version; Wood count; Search in a big sorted array, Recover rotated array; Find minimum in Rotate sorted Array II, maximum number in mountain
     3. Half half是二分法本质，每次去掉没有答案的那一半，保留有答案的那一半。
       eg: Find peak element; Search in rotated sorted array, 300
+				
