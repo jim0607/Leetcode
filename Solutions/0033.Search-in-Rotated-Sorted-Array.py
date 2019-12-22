@@ -78,3 +78,32 @@ class Solution:
         if nums[start] == target:
             return start
         return -1 
+    
+    
+# 九章算法模板真香！画个图分几个区间讨论就可以了！  
+"""Approach 2: one pass approach"""
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        lens = len(nums)
+        if lens == 0:
+            return -1
+        start, end = 0, lens - 1
+        if target == nums[0]:
+            return 0
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            if target < nums[0]:
+                if target <= nums[mid] <= nums[0]:
+                    end = mid
+                else:
+                    start = mid
+            elif target > nums[0]:
+                if nums[0] <= nums[mid] < target:
+                    start = mid
+                else:
+                    end = mid
+        if nums[end] == target:
+            return end
+        if nums[start] == target:
+            return start
+        return -1
