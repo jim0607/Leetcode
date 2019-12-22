@@ -1,6 +1,8 @@
 ## [Binary Search](/Binary-Search.py)
 - [0704. Binary Search](Solutions/0704.Binary-Search.py) (E)
 - [0069. Sqrt(x)](Solutions/0069.Sqrt(x).py) (E)
+- [34. Find First and Last Position of Element in Sorted Array](Solutions/0034.Find-First-and-Last-Position-of-Element-in-Sorted-Array.py) (E)
+
 
 
 ## Dynamic Programming
