@@ -1,4 +1,5 @@
 ## [Binary Search](/Binary-Search.py)
+- [704. Binary Search](Solutions/704.Binary-Search.py) (E)
 
 ## Dynamic Programming
 ### [Longest Subsequece Problems](/Longest-Subsequece-Problem)
