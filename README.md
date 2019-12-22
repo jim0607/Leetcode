@@ -2,6 +2,9 @@
 - [0704. Binary Search](Solutions/0704.Binary-Search.py) (E)
 - [0069. Sqrt(x)](Solutions/0069.Sqrt(x).py) (E)
 - [0034. Find First and Last Position of Element in Sorted Array](Solutions/0034.Find-First-and-Last-Position-of-Element-in-Sorted-Array.py) (M)
+- [0035. Search Insert Position](Solutions/0035.Search-Insert-Position.py) (E)
+- [0278. First Bad Version](Solutions/0278.First-Bad-Version.py) (E)
+
 
 
 
