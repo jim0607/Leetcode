@@ -32,3 +32,21 @@ class Solution:
             return nums[end]
         if nums[start] < nums[0]:  # # 寻找第一个X的问题，需要返回尽量小的值，所以需要把小的值start放在后面判断，这样如果nums[end]和nums[start]都小于nums[0]的话，就应该取较小的start。
             return nums[start]
+
+        
+"""为了更好的去解follow up questions: 154. Find Minimum in Rotated Sorted Array II（存在重复的数）,我们采用下面的方法，instead of comapring nums[mid] and nums[0], we compare nums[mid] and nums[end]. It should be noted that end is always on the right of the minimum point, and start is alwyas on the left, that is why the algorithm works."""
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        lens = len(nums)
+        if lens == 0:
+            return 0
+        if nums[-1] >= nums[0]:  # 如果已经排好序了，那minimum就是第一个数
+            return nums[0]
+        start, end = 0, lens - 1
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            if nums[mid] < nums[end]:
+                end = mid
+            elif nums[mid] > nums[end]:
+                start = mid
+        return min(nums[start], nums[end])
