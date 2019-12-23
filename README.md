@@ -6,7 +6,7 @@
 - [0035. Search Insert Position](Solutions/0035.Search-Insert-Position.py) (E)
 - [0278. First Bad Version](Solutions/0278.First-Bad-Version.py) (E)
 - [0153. Find Minimum in Rotated Sorted Array](Solutions/0153.Find-Minimum-in-Rotated-Sorted-Array.py) (M)
-- [0154. Find Minimum in Rotated Sorted Array II](Solutions/0154.Find-Minimum-in-Rotated-Sorted-Array-II.py) (M)
+- [0154. Find Minimum in Rotated Sorted Array II](Solutions/0154.Find-Minimum-in-Rotated-Sorted-Array-II.py) (H)
 - [0033. Search in Rotated Sorted Array](Solutions/0033.Search-in-Rotated-Sorted-Array.py) (M)
 - [0852. Peak Index in a Mountain Array](Solutions/0852.Peak-Index-in-a-Mountain-Array.py) (E)
 - [0162. Find Peak Element](Solutions/0162.Find-Peak-Element.py) (M)
