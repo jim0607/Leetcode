@@ -21,7 +21,5 @@
 4. 理解二分法的三个境界：
     1. 熟记背诵模板
     2. OOXX的思考方法解决找数组当中first X或者last O的问题，注意要画图可以帮助理解好问题，有时候空想是想不出来的。
-      eg: 34（经典）153 (经典), Find minimum in Rotate sorted Array II， 875. Koko Eating Bananas， medium of two sorted array
     3. Half half是二分法本质，每次去掉没有答案的那一半，保留有答案的那一半。
-      eg: Find peak element; Search in rotated sorted array, 300
 				
