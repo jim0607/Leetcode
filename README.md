@@ -48,3 +48,7 @@
 - [1223. Dice Roll Simulation](Solutions/1223.Dice-Roll-Simulation.py) (M)
 - [1105. Filling Bookcase Shelves](Solutions/1105.Filling-Bookcase-Shelves.py) (M)
 
+
+## Rabin Karp Algorithm
+- [0028. Implement strStr()](Solutions/0028.Implement-strStr().py) (E) (Rabin Karp Algorithm O(M+N), use Hashcode, ord(ch)-ord("a"))
+
