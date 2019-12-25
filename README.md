@@ -5,6 +5,8 @@
 - [0596. Minimum Subtree](Solutions/0596.Minimum-Subtree.py) (LintCode) (Divide and Conquer + Traverse)
 - [0597. Subtree with Maximum Average](Solutions/0597.Subtree-with-Maximum-Average.py) (LintCode) (Divide and Conquer + Traverse + resultType)
 - [0110. Balanced Binary Tree](Solutions/0110.Balanced-Binary-Tree.py) (E) (resultType, used for return multipule values)
+- [0236. Lowest Common Ancestor of a Binary Tree](Solutions/0236.Lowest-Common-Ancestor-of-a-Binary-Tree.py) (M)
+
 
 
 
