@@ -61,3 +61,7 @@ class Solution:
             return False, -1
         
         return True, 1 + max(leftHeight, rightHeight)
+
+Time complexity : O(n)
+For every subtree, we compute its height in constant time as well as compare the height of its children.
+Space complexity : O(n). The recursion stack may go up to O(n) if the tree is unbalanced.
