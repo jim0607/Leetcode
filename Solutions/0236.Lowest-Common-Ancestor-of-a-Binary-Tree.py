@@ -81,7 +81,7 @@ class Solution:
         p_isInRight, q_isInRight, rightNode = self.helper(root.right, p, q)
 
         # 2. 递归的拆解conquer，conquer的过程其实是往上走一步，用bottom up的思想去理解会好理解很多
-        p_isUnderRoot = p_isInLeft or p_isInRight or p is root
+        p_isUnderRoot = p_isInLeft or p_isInRight or p is root  # bottom up的思想，总有一个点p==root成立，所以不用担心p_isUnderRoot永远为False
         q_isUnderRoot = q_isInLeft or q_isInRight or q is root
         
         if p is root or q is root:
