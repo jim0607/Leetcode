@@ -1,5 +1,8 @@
 ## [Binary Tree, Divide and Conquer](/Binary-Tree-Divide-and-Conquer.py)
 - [0144. Binary Tree Preorder Traversal](Solutions/0144.Binary-Tree-Preorder-Traversal.py) (M)
+- [0104. Maximum Depth of Binary Tree](Solutions/0104.Maximum-Depth-of-Binary-Tree.py) (E) (Divide and Conquer vs Traverse)
+- [0257. Binary Tree Paths](Solutions/0257.Binary-Tree-Paths.py) (E)
+- [0596. Minimum Subtree](Solutions/0596.Minimum-Subtree.py) (LintCode) (Divide and Conquer + Traverse)
 
 
 
@@ -23,7 +26,7 @@
 
 
 ## Dynamic Programming
-### [Longest Subsequece Problems](/Longest-Subsequece-Problem)
+### [Longest Subsequece Problems](/Longest-Subsequece-Problem.py)
 - [0005. Longest Palindromic Substring](Solutions/0005.LongestPalindromicSubstring.py) (Center spread O(N^2); DP(N^2))
 - [0516. Longest Palindromic Subsequence](Solutions/0516.LongestPalindromicSubsequence.py) (M)
 - [0300. Longest Increasing Subsequence](Solutions/0300.LongestIncreasingSubsequence.py) (M)
