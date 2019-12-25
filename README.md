@@ -1,3 +1,8 @@
+## [Binary Tree, Divide and Conquer](/Binary-Tree-Divide-and-Conquer.py)
+- [0144. Binary Tree Preorder Traversal](Solutions/0144.Binary-Tree-Preorder-Traversal.py) (M)
+
+
+
 ## [Binary Search](/Binary-Search.py)
 - [0704. Binary Search](Solutions/0704.Binary-Search.py) (E)
 - [0702. Search in a Sorted Array of Unknown Size](Solutions/0702.Search-in-a-Sorted-Array-of-Unknown-Size.py) (M) (Find end point using "double method", same as dynamic array)
