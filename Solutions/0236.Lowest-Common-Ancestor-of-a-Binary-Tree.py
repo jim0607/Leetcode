@@ -66,7 +66,7 @@ class Solution:
         if not root:
             return None
         p_isUnderRoot, q_isUnderRoot, rt = self.helper(root, p, q)
-        if p_isUnderRoot and q_isUnderRoot:
+        if p_isUnderRoot and q_isUnderRoot:     # 不要if判断直接return self.helper(root, p, q)[2]也行，这里的if是为了回答follow up questions: what if we do not know whether p, q are nodes in the tree or not.
             return rt
         return None
         
