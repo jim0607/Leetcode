@@ -88,7 +88,7 @@ class Solution:
             root.right = root.left
             root.left = None
         
-        # 这里顺序很重要，一定是先return right_last，再return left_last，都为None的话return root
+        # 这里顺序很重要，一定是先return right_last，再return left_last，都为None的话return root，因为如果把root排好了之后right_last应该是最后一个节点了
         if right_last: 
             return right_last
         
