@@ -8,5 +8,20 @@
 实现递归有两种方法：Traverse; Divide and Conquer
 Traverse vs Divide Conquer:
   • They are both Recursion Algorithm
-  • Result in parameter vs Result in return value
+  • Result in parameter(所以往往要用到global variable作为结果那个我们关心的parameter) vs Result in return value
   • Top down vs Bottom up
+  
+  Divide and conquer/merge用的最多，也更简洁易懂。
+  1. divide and conquer is also called bottom up resursion。divide的过程是往下走一步，conquer的过程其实是往上走一步
+  2. divide and conquer的返回值就是我们想要的结果
+  3. 有时返回值不止一个的，我们需要将result打包起来，如110. Balanced Binary Tree， 1. 递归的定义：返回以root为根的二叉树（是不是balanced, 高度）
+  4. 重点是conquer部分，找到拆成左子树之后左右的性质对root这个根节点是什么关系即可！！
+  
+  最好Traversal 和 divide and conquer的方法都写一遍进行比较理解。
+  BST的问题用traverse中序遍历的方法会比较简洁一些，因为BST的中序遍历得到的是一个递增（非递减）的数组。
+  
+  必“背”程序：
+• 非递归版本的 Pre Order, In Order！！
+
+几乎所有的二叉树的时间复杂度都是O(N)！！N是节点个数。
+空间复杂度是O(h), h是递归的深度，如果是平衡二叉树h=logN, 如果不是平衡二叉树，则最坏情况是h=N。
