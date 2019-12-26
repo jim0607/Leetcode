@@ -69,28 +69,25 @@ class Solution:
         if p_isUnderRoot and q_isUnderRoot:     # 不要if判断直接return self.helper(root, p, q)[2]也行，这里的if是为了回答follow up questions: what if we do not know whether p, q are nodes in the tree or not.
             return rt
         return None
-        
-    # 1. 递归的定义：return root为根,p, q 在不在root根节点下，以及LCA
-    def helper(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> (bool, bool, 'TreeNode'):
-        # 3. 递归的出口：
-        if not root:
-            return False, False, None
-        
+  
         # 2. 递归的的拆解divide，divide的过程是往下走一步
         p_isInLeft, q_isInLeft, leftNode = self.helper(root.left, p, q)
         p_isInRight, q_isInRight, rightNode = self.helper(root.right, p, q)
-
-        # 2. 递归的拆解conquer，conquer的过程其实是往上走一步，用bottom up的思想去理解会好理解很多
+        
         p_isUnderRoot = p_isInLeft or p_isInRight or p is root  # bottom up的思想，总有一个点p==root成立，所以不用担心p_isUnderRoot永远为False
         q_isUnderRoot = q_isInLeft or q_isInRight or q is root
         
-        if p is root or q is root:
-            return q_isUnderRoot, q_isUnderRoot, root
+        # 3. 递归的出口写在这里因为要用到p_isUnderRoot, q_isUnderRoot，只要程序的出口在conquer后面就可以了
+        if p is root:
+            return True, q_isUnderRoot, root
+        if q is root:
+            return p_isUnderRoot, True, root
         
+        # 2. 递归的拆解conquer，conquer的过程其实是往上走一步，用bottom up的思想去理解会好理解很多
         if leftNode and rightNode:
             return p_isUnderRoot, q_isUnderRoot, root
         if leftNode:
             return p_isUnderRoot, q_isUnderRoot, leftNode
         if rightNode:
             return p_isUnderRoot, q_isUnderRoot, rightNode
-        return p_isUnderRoot, q_isUnderRoot, None
+        return p_isUnderRoot, q_isUnderRoot, None         
