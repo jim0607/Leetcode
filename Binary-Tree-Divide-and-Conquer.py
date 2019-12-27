@@ -25,3 +25,6 @@ Traverse vs Divide Conquer:
 
 几乎所有的二叉树的时间复杂度都是O(N)！！N是节点个数。
 空间复杂度是O(h), h是递归的深度，如果是平衡二叉树h=logN, 如果不是平衡二叉树，则最坏情况是h=N。
+
+BST一般使用in Order Traverse的方法，将node一次放入arr中自然形成sortedArr
+BST中的查找问题往往可以使用divide and conquer的方法，每次将要查找的val与root比较，如果大于就去右边查找，小于就去左边查找。
