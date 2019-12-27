@@ -84,3 +84,23 @@ class Solution:
 
 # @lc code=end
 
+
+"""solution 2. divide and conquer
+solution 1 is easy to understand, but it costs extra space to store all the nodes"""
+class Solution:
+    def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
+        """
+        return the node larger then p and right next to p
+        """
+        if not root:
+            return None
+        
+        # divide
+        left = self.inorderSuccessor(root.left, p)
+        right = self.inorderSuccessor(root.right, p)
+
+        # conquer (or to find how left and right relates to the results)
+        if p.val < root.val:
+            return left or root
+        else:         
+            return right
