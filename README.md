@@ -10,6 +10,8 @@
 - [0098. Validate Binary Search Tree](Solutions/0098.Validate-Binary-Search-Tree.py) (M)
 - [0426. Convert Binary Search Tree to Sorted Doubly Linked List](Solutions/0426.Convert-Binary-Search-Tree-to-Sorted-Doubly-Linked-List.py) (M) (这种改变成linked list的题真是一头雾水呀)
 - [0114. Flatten Binary Tree to Linked List](Solutions/0114.Flatten-Binary-Tree-to-Linked-List.py) (M)
+- [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (M)
+- [0285. Inorder Successor in BST](Solutions/0285.Inorder-Successor-in-BST.py) (M)
 
 
 
