@@ -22,6 +22,7 @@ Traverse vs Divide Conquer:
   
   必“背”程序：
 • 非递归版本的 Pre Order (144), In Order (98)！！
+merge sort 是最有名的divide and conquer！
 
 几乎所有的二叉树的时间复杂度都是O(N)！！N是节点个数。
 空间复杂度是O(h), h是递归的深度，如果是平衡二叉树h=logN, 如果不是平衡二叉树，则最坏情况是h=N。
