@@ -1,4 +1,4 @@
-## [Binary Tree, Divide and Conquer](/Binary-Tree-Divide-and-Conquer.py)
+## [Binary Tree, Divide and Conquer](/Binary-Tree-Divide-and-Conquer.py) (memorize the iterative version using stack)
 - [0144. Binary Tree Preorder Traversal](Solutions/0144.Binary-Tree-Preorder-Traversal.py) (M)
 - [0104. Maximum Depth of Binary Tree](Solutions/0104.Maximum-Depth-of-Binary-Tree.py) (E) (Divide and Conquer vs Traverse)
 - [0257. Binary Tree Paths](Solutions/0257.Binary-Tree-Paths.py) (E)
