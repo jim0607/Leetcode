@@ -42,3 +42,23 @@ class Solution:
             result += right
         
         return result
+
+      
+# this iteration method has to be memorized firmly
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        stack, res = [root], []
+        while stack:
+            root = stack.pop()
+            res.append(root.val)
+            if root.right:
+                stack.append(root.right)
+            if root.left:
+                stack.append(root.left)
+
+        return res
+
+# Time complexity : we visit each node exactly once, thus the time complexity is O(N), where N is the number of nodes, i.e. the size of tree.
+# Space complexity : depending on the tree structure, we could keep up to the entire tree, therefore, the space complexity is O(N).
