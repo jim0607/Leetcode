@@ -14,6 +14,8 @@
 - [0114. Flatten Binary Tree to Linked List](Solutions/0114.Flatten-Binary-Tree-to-Linked-List.py) (M)
 - [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (M)
 - [0285. Inorder Successor in BST](Solutions/0285.Inorder-Successor-in-BST.py) (M)
+- [0701. Insert into a Binary Search Tree](Solutions/0701.Insert-into-a-Binary-Search-Tree.py) (M)
+- [0450. Delete Node in a BST](Solutions/0450.Delete-Node-in-a-BST.py) (M)
 
 
 
