@@ -1,4 +1,4 @@
-## [Sort]
+## Sort
 - [0912. Sort an Array](Solutions/0912.Sort-an-Array.py) (M) (quick sort vs. merge sort)
 
 
