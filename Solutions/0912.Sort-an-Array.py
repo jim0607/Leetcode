@@ -58,7 +58,7 @@ class Solution:
         leftArr = self._mergeSort_(arr[:mid])
         rightArr = self._mergeSort_(arr[mid:])
 
-        # conquer/merge
+        # conquer/merge, 很多解法喜欢在这里定义一个meger函数，其实没有必要。
         i, j, k = 0, 0, 0
         while i < len(leftArr) and j < len(rightArr):
             if leftArr[i] < rightArr[j]:
