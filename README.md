@@ -1,5 +1,6 @@
-## Sort
+## [Sort](/Sort.py) 
 - [0912. Sort an Array](Solutions/0912.Sort-an-Array.py) (M) (quick sort vs. merge sort)
+
 
 
 ## [Binary Tree, Divide and Conquer](/Binary-Tree-Divide-and-Conquer.py) 
