@@ -15,10 +15,11 @@ Time:     N*logN in average, N^2 worst case:                                    
           as povit value, eg:(1,2,3,4,5,6,7,8), then the
           time complexity is N^2
           
-Space:    O(1)                                           O(N) because need to merge leftArr and rightArr into one array
+Space:    O(1)                                   O(N) because need to merge leftArr and rightArr into one array
 
-Stabel:   No                                             Yes, meaning for example: [3,2,1,3,4], after merge sort, the number 3
-                                                         on the left will still be on the left in the sorted arr [1,2,3,3,4]
+Stabel:   No                                     Yes, meaning for example: [3,2,1,3,4], there are two 3s in the unsorted arr
+                                                 after merge sort, the number 3 on the left will still be on the left, while
+                                                 the 3 on the right will still on he riht in the sorted arr [1,2,3,3,4]
                                                          
                                                          
                                                         
