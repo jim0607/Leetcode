@@ -1,4 +1,5 @@
-## [Breadth First Search](/Breadth-First-Search.py) 
+## [Breadth First Search](/Breadth-First-Search.py)
+- [0297. Serialize and Deserialize Binary Tree](Solutions/0297.Serialize-and-Deserialize-Binary-Tree.py) (H)
 - [0102. Binary Tree Level Order Traversal](Solutions/0102.Binary-Tree-Level-Order-Traversal.py) (M)
 
 
