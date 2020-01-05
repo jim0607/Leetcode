@@ -67,11 +67,11 @@ class Solution:
         edges = {x: [] for x in range(numCourses)}
         for u, v in prerequisites:
             edges[v].append(u)
-
+            
+        # 找到所有节点的inDegree值
         inDegree = {}
         inDegree = self.get_inDegree(numCourses, prerequisites)
 
-        # 找到所有节点的inDegree值
         # Topological sort - BFS
         q = collections.deque()
         for n, val in inDegree.items():
