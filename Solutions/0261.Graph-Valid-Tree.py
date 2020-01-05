@@ -53,20 +53,20 @@ class Solution:
             neighbors[u].append(v)
             neighbors[v].append(u)
         
-        visited = {}
         from collections import deque
         q = deque()
-        # 与二叉树的BFS相比多加了一行visited，每一次将一个node加入队列，都需要同时改变visited的值，就像是一对好基友
+        # 与二叉树的BFS相比多加了一行visited
         q.append(0)
-        visited[0] = True
+        visited = {}
         while q:
+            # 每次pop出一个node，都要标记这个node被访问过了，这是与二叉树BFS的区别，因为图是有环的
+            # 每一次将一个node pop出队列，都需要同时改变visited的值，就像是一对好基友
             currNode = q.popleft()
             visited[currNode] = True
             for node in neighbors[currNode]:  # 这里体现BFS，首先访问currNode节点的左右邻居节点
                 # 如果已经访问过就不再访问了，这样可以保证每个节点都被访问过一次
-                if node not in visited:  # 没访问过就加入队列同时改变visited的值（这两个操作是一对好基友）
+                if node not in visited:  # 没访问过就加入队列
                     q.append(node)
-                    visited[node] = True
         
         return len(visited) == n  # 每个节点都被访问过且都被访问过一次
 
