@@ -22,7 +22,7 @@ BFS都是用queue，注意python实现的时候用list （可以用linked list�
   * Binary Tree Level order traversal (层级遍历)
   BFS解二叉树问题的模板：
   q = deque(）
-  q.append([root])
+  q.append(root)
   result = []
   while q:
     node = q.popleft()
