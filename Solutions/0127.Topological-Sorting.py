@@ -67,6 +67,13 @@ class Solution:
                     q.append(neighbor)
         
         return order
+    
+        """follow up question: what if topological order 在这个图中不存在，怎么办？也就是说如果出现了环状依赖的节点怎么办？
+        if len(order) == len(graph):
+            return order
+        else:
+            return None
+        """
         
     # 写完主程序之后再来写子程序
     def getIndgree(self, graph):
