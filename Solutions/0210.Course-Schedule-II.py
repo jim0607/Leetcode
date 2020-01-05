@@ -55,6 +55,12 @@
 # 
 #
 
+
+”“”所有的topological sort 都是两步：
+1. 从数字关系求出 indegrees 和 neighbors
+2. 然后 BFS“”“
+
+
 # @lc code=start
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
