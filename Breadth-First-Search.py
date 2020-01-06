@@ -74,9 +74,42 @@ Topological sort 必考，其实也非常模板化，一定要记住。
 坐标变换数组：deltaX, deltaY
 一般需要一个 inBound 函数用于判断下一步是否出界了
 一般需要两个for循环去扫描棋盘数组的每个位置，然后选择从某些个位置出发开始BFS，在BFS的时候记录visited=set()，所以bfs函数往往是def bfs(grid, i, j, visited)
-带层序遍历的
+棋盘上带层序遍历的BFS的模板为(必须背诵)：
+    visited = set()
+    # bsf 层序遍历，输出层数
+    def bfs(self, x, y, visited):
+        steps = 0
+        q = collections.deque()
+        q.append((x, y))
+        visited.add((x, y))     # 一对孪生兄弟
+        while q:
+            lens = len(q)   # 层序遍历必备句式1
+            steps += 1      # 层序遍历必备句式2
+            for _ in range(lens):   # 层序遍历必备句式之最重要
+                (curr_x, curr_y) = q.popleft()    # 层序遍历必备句式4
+                for delta_x, delta_y in self.MOVES:   # 层序遍历必备句式3
+                    new_x = curr_x + delta_x          # 层序遍历必备句式5
+                    new_y = curr_y + delta_y          # 层序遍历必备句式6
+                    if self.inBound(new_x, new_y) and (new_x, new_y) not in visited:
+                        q.append((new_x, new_y))
+                        visited.add((new_x, new_y))     # 孪生兄弟
+                      
+棋盘上不需要层序遍历的BFS的模板为(必须背诵) (eg: 200. Number of Islands)：
 
-
+    visited = set()
+    def bfs(self, grid, x, y, visited):
+        q = collections.deque()
+        q.append((x, y))
+        visited.add((x, y))  # visited最好与append同事出现，像一对孪生兄弟
+        while q:
+            (x, y) = q.popleft()
+            # 这一步相当于之前图里面的for neighbor in neighbors
+            for delta_x, delta_y in self.MOVES:
+                next_x = x + delta_x
+                next_y = y + delta_y
+                if self.isBound(next_x, next_y, grid) and grid[next_x][next_y] == "1" and (next_x, next_y) not in visited:
+                    q.append((next_x, next_y))
+                    visited.add((next_x, next_y))  # visited最好与append同事出现，像一对孪生兄弟
 
 
 
