@@ -59,9 +59,9 @@ topological sorting 拓扑排序 （针对有向图）
 * 拓扑排序是一个一个按顺序你把节点删掉，按什么样的顺序呢？就是保证先删掉的节点不会影响到后删掉的节点。
 *** 
 所有的topological sort 都是两步：
-1. 从数字关系求出每个节点的inDegrees（就是找节点与相邻节点的依赖关系） 
+1. 从数字关系求出每个节点的inDegrees（就是找节点与相邻节点的依赖关系） (inDegrees = collections.defaultdict(list))，key是node, val是这个node的indegree
    和 每个节点的neighbors （edges = collections.defaultdict(list)), key是node, val是装有这个node的neighbor的list
-2. 然后 BFS
+2. 然后 BFS，背诵模板就可以了。
 ***
 Topological sort 必考，其实也非常模板化，一定要记住。
 
@@ -74,11 +74,7 @@ Topological sort 必考，其实也非常模板化，一定要记住。
 坐标变换数组：deltaX, deltaY
 一般需要一个 inBound 函数用于判断下一步是否出界了
 一般需要两个for循环去扫描棋盘数组的每个位置，然后选择从某些个位置出发开始BFS，在BFS的时候记录visited=set()，所以bfs函数往往是def bfs(grid, i, j, visited)
-
-
-
-
-
+带层序遍历的
 
 
 
