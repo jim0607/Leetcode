@@ -17,7 +17,7 @@
 
 ### [BFS in Matrix]
 - [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (M)
-- [0994. Rotting Oranges](Solutions/00994.Rotting-Oranges.py) (M)  (需要层序遍历)
+- [0994. Rotting Oranges](Solutions/0994.Rotting-Oranges.py) (M)  (需要层序遍历)
 
 
 ## [Sort](/Sort.py) 
