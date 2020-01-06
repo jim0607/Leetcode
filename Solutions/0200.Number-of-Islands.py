@@ -56,6 +56,7 @@ class Solution:
         
         islands = 0
         visited = set()
+        # 矩阵的BFS必然先来两个for循环，遍历所有的节点，然后选某些节点作为起点做BFS
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j] == "1" and (i, j) not in visited:
