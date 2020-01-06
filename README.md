@@ -13,9 +13,11 @@
 - [0127. Topological Sorting](Solutions/0127.Topological-Sorting.py) (LintCode M) (Topological Sorting)
 - [0207. Course Schedule](Solutions/0207.Course-Schedule.py) (M) (Topological Sort)
 - [0210. Course Schedule II](Solutions/0210.Course-Schedule-II.py) (M) (Naked Topological Sort)
-- [0444. Sequence Reconstruction](Solutions/0444.Sequence-Reconstruction.py) (M) (Naked Topological Sort)
+- [0444. Sequence Reconstruction](Solutions/0444.Sequence-Reconstruction.py) (M)
 
-
+### [BFS in Matrix]
+- [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (M)
+- [0994. Rotting Oranges](Solutions/00994.Rotting-Oranges.py) (M)  (需要层序遍历)
 
 
 ## [Sort](/Sort.py) 
