@@ -64,6 +64,32 @@ topological sorting 拓扑排序 （针对有向图）
 2. 然后 BFS，背诵模板就可以了。
 ***
 Topological sort 必考，其实也非常模板化，一定要记住。
+模板如下：
+        # 1. 用一个hashmap来存储每个节点的相邻节点
+        edges = {i: [] for i in range(numCourses)}
+        for edge in prerequisites:
+            edges[edge[1]].append(edge[0])
+     
+        # 2. 用一个hashmap来存储每个节点的indgree的值
+        inDegree = {}
+        inDegree = self.get_inDegree(numCourses, prerequisites)
+
+        # BFS 模板
+        q = collections.deque()
+        # 初始化q，先把q里面装入那些indegree=0的node
+        for n, cnt in inDegree.items():
+            if cnt == 0:
+                q.append(n)
+        cntCourses = 0
+        while q:
+            currNode = q.popleft()
+            cntCourses += 1
+            for neighbor in edges[currNode]:
+                inDegree[neighbor] -= 1
+                if inDegree[neighbor] == 0:
+                    q.append(neighbor)
+
+        return cntCourses == numCourses
 
 
 
@@ -74,7 +100,7 @@ Topological sort 必考，其实也非常模板化，一定要记住。
 坐标变换数组：deltaX, deltaY
 一般需要一个 inBound 函数用于判断下一步是否出界了
 一般需要两个for循环去扫描棋盘数组的每个位置，然后选择从某些个位置出发开始BFS，在BFS的时候记录visited=set()，所以bfs函数往往是def bfs(grid, i, j, visited)
-棋盘上带层序遍历的BFS的模板为(必须背诵)：
+棋盘上带层序遍历的BFS的模板为(必须背诵)(eg: 骑士在棋盘上的最短路径问题，word ladder问题)：
     visited = set()
     # bsf 层序遍历，输出层数
     def bfs(self, x, y, visited):
@@ -95,7 +121,7 @@ Topological sort 必考，其实也非常模板化，一定要记住。
                         visited.add((new_x, new_y))     # 孪生兄弟
                       
 棋盘上不需要层序遍历的BFS的模板为(必须背诵) (eg: 200. Number of Islands)：
-
+与上面的模板相比就是少了一句lens = len(q) 和一个for循环 for _ in range(lens):
     visited = set()
     def bfs(self, grid, x, y, visited):
         q = collections.deque()
