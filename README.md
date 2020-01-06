@@ -20,6 +20,8 @@
 - [0994. Rotting Oranges](Solutions/0994.Rotting-Oranges.py) (M) (需要层序遍历)
 - [1197. Minimum Knight Moves](Solutions/1197.Minimum-Knight-Moves.py) (！！M) (需要层序遍历，利用对称解决LTE问题，也可以从两端同时开始BFS)
 - [0127. Word Ladder](Solutions/0127.Word-Ladder.py) (！！M) (层序遍历BFS，LTE，双端BFS看不太懂)
+- [0317 Shortest Distance from All Buildings](Solutions/0317.Shortest-Distance-from-All-Buildings.py) (！！H) (选择1为起点做层序遍历的BFS)
+
 
 
 ## [Sort](/Sort.py) 
