@@ -1,23 +1,25 @@
 ## [Breadth First Search](/Breadth-First-Search.py)
 ### [BFS in Trees]
-- [0102. Binary Tree Level Order Traversal](Solutions/0102.Binary-Tree-Level-Order-Traversal.py) (M)
-- [0103. Binary Tree Zigzag Level Order Traversal](Solutions/0103.Binary-Tree-Zigzag-Level-Order-Traversal.py) (M)
-- [0107. Binary Tree Level Order Traversal II](Solutions/0107.Binary-Tree-Level-Order-Traversal-II.py) (E)
-- [0199. Binary Tree Right Side View](Solutions/0199.Binary-Tree-Right-Side-View.py) (M)
+- [0102. Binary Tree Level Order Traversal](Solutions/0102.Binary-Tree-Level-Order-Traversal.py) (！！！M)
+- [0103. Binary Tree Zigzag Level Order Traversal](Solutions/0103.Binary-Tree-Zigzag-Level-Order-Traversal.py) (！M)
+- [0107. Binary Tree Level Order Traversal II](Solutions/0107.Binary-Tree-Level-Order-Traversal-II.py) (！E)
+- [0199. Binary Tree Right Side View](Solutions/0199.Binary-Tree-Right-Side-View.py) (！！M)
 - [0111. Minimum Depth of Binary Tree](Solutions/0111.Minimum-Depth-of-Binary-Tree.py) (E)
 - [0297. Serialize and Deserialize Binary Tree](Solutions/0297.Serialize-and-Deserialize-Binary-Tree.py) (H)
 
 ### [BFS in Graphs]
 - [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (M)
 - [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (M)
-- [0127. Topological Sorting](Solutions/0127.Topological-Sorting.py) (LintCode M) (Topological Sorting)
-- [0207. Course Schedule](Solutions/0207.Course-Schedule.py) (M) (Topological Sort)
-- [0210. Course Schedule II](Solutions/0210.Course-Schedule-II.py) (M) (Naked Topological Sort)
+- [0127. Topological Sorting](Solutions/0127.Topological-Sorting.py) (LintCode M) (！！！Topological Sorting)
+- [0207. Course Schedule](Solutions/0207.Course-Schedule.py) (M) (！！！Topological Sort)
+- [0210. Course Schedule II](Solutions/0210.Course-Schedule-II.py) (M) (！！！Naked Topological Sort)
 - [0444. Sequence Reconstruction](Solutions/0444.Sequence-Reconstruction.py) (M)
 
 ### [BFS in Matrix]
 - [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (M)
-- [0994. Rotting Oranges](Solutions/0994.Rotting-Oranges.py) (M)  (需要层序遍历)
+- [0994. Rotting Oranges](Solutions/0994.Rotting-Oranges.py) (M) (！！！需要层序遍历)
+- [1197. Minimum Knight Moves](Solutions/1197.Minimum-Knight-Moves.py) (M) (！！！需要层序遍历，利用对称解决LTE问题，也可以从两端同时开始BFS)
+- [0127. Word Ladder](Solutions/0127.Word-Ladder.py) (M) (！！！层序遍历BFS，LTE，双端BFS看不太懂)
 
 
 ## [Sort](/Sort.py) 
