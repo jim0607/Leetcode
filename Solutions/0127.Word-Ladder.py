@@ -101,18 +101,35 @@ class Solution:
         
         return 0
 
+# """    
+#     # O(N*L), 本题中N很大，L比较小不会超过6，所以主要的时间复杂度花在了N身上
+#     def get_next_word(self, currWord, wordList):
+#         res = []
+#         for word in wordList:               # O(N), N is the number of word in wordList
+#             cnt = 0
+#             for i in range(len(word)):      # O(L), L is the legth of the word
+#                 if word[i] != currWord[i]:
+#                     cnt += 1
+#             if cnt == 1:
+#                 res.append(word)
+
+#         return res
+# """
+    # 因为N很大， 想一个办法避免掉O(N)，可以将其做成一个hashmap
+    # O(26*L+N) << O(L*N)
     def get_next_word(self, currWord, wordList):
-        res = []
-        for word in wordList:
-            cnt = 0
-            for i in range(len(word)):
-                if word[i] != currWord[i]:
-                    cnt += 1
-            if cnt == 1:
-                res.append(word)
+        # convert List into set
+        wordSet = set(wordList)                                 # O(N)
 
-        return res
-
+        possible_words = []
+        for i in range(len(currWord)):                          # O(L)
+            for ch in "poiuytrewqasdfghjklmnbvcxz":             # O(26)
+                if ch != currWord[i]:
+                    possible_word = currWord[:i] + ch + currWord[i + 1:]
+                    if possible_word in wordSet:                # O(1)
+                        possible_words.append(possible_word)
         
+        return possible_words
+    
 # @lc code=end
 
