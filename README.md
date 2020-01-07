@@ -1,4 +1,11 @@
 ## [Depth First Search](/Depth-First-Search.py)
+- [0078. Subsets](Solutions/0078.Subsets.py) (！！M)(DFS + Back tracking)
+- [0090. Subsets II](Solutions/0090.Subsets-II.py) (！！M)(如果之前的那个2没被放进去，那么就不要放后面那个2，这样会造成重复)
+- [0039. Combination Sum](0039.Combination-Sum.py) (！M) (start是从i开始的，而不是subsets里面的i+1, 这是因为Subsets 一个数只能选一次，Combination Sum 一个数可以选很多次)
+- [0040. Combination Sum II](0040.Combination-Sum-II.py) (！M) (避免重复输出的方法与Subsets II一样)
+- [0131. Palindrome Partitioning](0131.Palindrome-Partitioning.py) (！M) (避免重复输出的方法与Subsets II一样)
+
+
 
 
 
