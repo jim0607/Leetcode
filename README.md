@@ -8,7 +8,10 @@
 - [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (！M) (这个题更确切应该叫Permutatino Sum，TLE)
 - [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (！M) (递归的定义很重要)
 
-
+### Permutation
+- [0046. Permutations](Solutions/0046.Permutations.py) (！！M)
+- [0047. Permutations II](Solutions/0047.Permutations-II.py) (！！M) (去重方法与Subsets是类似的)
+- [0051. N-Queens](Solutions/0051.N-Queens.py) (！H) (核心是nums=[0,1,2,3]的去重排列问题，去重需要做三个visited的判断)
 
 
 
