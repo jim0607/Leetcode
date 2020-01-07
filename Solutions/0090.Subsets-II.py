@@ -40,6 +40,30 @@ class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         nums = sorted(nums)  # 先排序，后面才可以进行比较nums[i] == nums[i-1]去重
         res = [] 
+        self.dfs(nums, 0, [], res)
+        
+        return res
+    
+    def dfs(self, nums, start, curr, res):
+        res.append(curr.copy())
+        
+        for i in range(start, len(nums)):
+            # [1, 2, 2]的遍历中，我们只取前面的那个2，如果前面的那个2没被放进去（i != startIndex），那么就不要放后面那个2，这样会造成重复。
+            if i !=0 and nums[i] == nums[i-1] and i != start:
+                continue
+            curr.append(nums[i])
+            self.dfs(nums, i + 1, curr, res)
+            curr.pop()
+      
+# @lc code=end
+
+
+写法二：用花花的写法
+# @lc code=start
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        nums = sorted(nums)  # 先排序，后面才可以进行比较nums[i] == nums[i-1]去重
+        res = [] 
         n = len(nums)
         for length in range(n + 1):
             self.dfs(nums, length, 0, [], res)
