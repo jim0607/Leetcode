@@ -48,8 +48,11 @@ class Solution:
         res.append(curr.copy())
         
         for i in range(start, len(nums)):
-            # [1, 2, 2]的遍历中，我们只取前面的那个2，如果前面的那个2没被放进去（i != startIndex），那么就不要放后面那个2，这样会造成重复。
-            if i !=0 and nums[i] == nums[i-1] and i != start:
+            # [1, 2, 2]的遍历中，我们只取前面的那个2，对于后面的那个2，
+            # 如果不是挨着前面那个2选的，也就是说ii != startIndex，那么就不要放后面那个2，
+            # 这样会造成重复出现[1,第一个2],[1,第二个2]
+            # 注意可以挨着第一个2来选第二个2是可以的，因为允许出现[1,2,2]作为答案。
+            if i != 0 and nums[i] == nums[i-1] and i != start:
                 continue
             curr.append(nums[i])
             self.dfs(nums, i + 1, curr, res)
