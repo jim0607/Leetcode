@@ -27,7 +27,15 @@ def subsets(self, nums: List[int]) -> List[List[int]]:
             self.dfs(nums, i + 1, curr, res)    # 从nums中的start位置开始，挑选一些数，放到curr（此时为[1,2]）中，然后存入res里面。这就相当于把所有的以[1, 2]开头的子集都找到，且放进res里面
             curr.pop()                          # [1, 2] -> [1]，然后在进入for循环，然后curr再append 2后面的数 3, curr 变成[1, 3]，然后......周而复始，直至for循环结束。
 
-    
+
+
+排列问题是顺序相关的，也就是
+排列permutation问题模板：
+与combination相比，少了startIndex这个参数，因为不需要care顺序了
+
+
+
+        
     
 递归三要素：
 1. 递归的定义：这个递归take哪些参数，返回什么值，做了什么事
