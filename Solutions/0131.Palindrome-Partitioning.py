@@ -45,7 +45,7 @@ class Solution:
 
         return res
 
-    # 递归的定义：从s中的start位置开始，挑一些位置切割，判断从start到i的部分是否为回文，如果是就放入curr中，如果start到了s末端了，就说明curr是一种可行方案，放入res中
+    # 递归的定义：从s中的start位置开始，挑一些位置切割，判断从start到i的部分是否为回文，如果是就放入res中
     def dfs(self, s: str, start: int, curr: list, res: list):
         # 递归的出口
         if start == len(s):
@@ -53,10 +53,9 @@ class Solution:
             return
         
         for i in range(start, len(s)):
-            subString = s[start:i+1]
-            if not self.is_palindrome(subString):
+            if not self.is_palindrome(s[start:i+1]):
                 continue
-            curr.append(subString)
+            curr.append(s[start:i+1])
             self.dfs(s, i + 1, curr, res)
             curr.pop()
 
