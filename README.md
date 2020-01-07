@@ -2,11 +2,11 @@
 ### Combination
 - [0078. Subsets](Solutions/0078.Subsets.py) (！！M)(DFS + Back tracking)
 - [0090. Subsets II](Solutions/0090.Subsets-II.py) (！！M)(如果之前的那个2没被放进去，那么就不要放后面那个2，这样来去重)
-- [0039. Combination Sum](0039.Combination-Sum.py) (！M) (start是从i开始的，而不是subsets里面的i+1, 这是因为Subsets 一个数只能选一次，Combination Sum 一个数可以选很多次)
-- [0518. Coin Change 2](0518.Coin-Change-2.py) (！M) (与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解，用DFS+Backtracking超时)
-- [0040. Combination Sum II](0040.Combination-Sum-II.py) (！M) (避免重复输出的方法与Subsets II一样)
-- [0377. Combination Sum IV](0377.Combination-Sum-IV.py) (！M) (这个题更确切应该叫Permutatino Sum，TLE)
-- [0131. Palindrome Partitioning](0131.Palindrome-Partitioning.py) (！M) (递归的定义很重要)
+- [0039. Combination Sum](Solutions/0039.Combination-Sum.py) (！M) (start是从i开始的，而不是subsets里面的i+1, 这是因为Subsets 一个数只能选一次，Combination Sum 一个数可以选很多次)
+- [0518. Coin Change 2](Solutions/0518.Coin-Change-2.py) (！M) (与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解，用DFS+Backtracking超时)
+- [0040. Combination Sum II](Solutions/0040.Combination-Sum-II.py) (！M) (避免重复输出的方法与Subsets II一样)
+- [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (！M) (这个题更确切应该叫Permutatino Sum，TLE)
+- [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (！M) (递归的定义很重要)
 
 
 
