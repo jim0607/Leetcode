@@ -1,11 +1,11 @@
 BFS的使用场景：
-1. 简单图的最短路径（如骑士问题，word ladder问题）
+1. 简单图的最短路径问题（如骑士问题，word ladder问题）
 2. 需要层序遍历
 
 DFS的使用场景：
-1. DFS 一般比BFS节省空间，因为BFS需要一个queue来存储至少一层的node。DFS的空间复杂度是递归的深度。
-2. 打印或输出所有组合的问题：combination （eg: subsets 问题）
-3. DFS 的考点是考你会不会写递归
+1. 打印/输出所有路径的问题一定是深度优先搜索。如果要求输出所有最短路径则需要DFS+BFS
+2. 打印或输出所有组合/排列的问题：combination/permutation （eg: subsets/permutations 问题）
+3. DFS 一般比BFS节省空间，因为BFS需要一个queue来存储至少一层的node。DFS的空间复杂度是递归的深度。DFS 的考点是考你会不会写递归
 
 组合搜索问题模型：求出所有满足条件的组合
 判断条件：组合中的元素是与顺序无关的
@@ -63,7 +63,9 @@ class Solution:
             visited[i] = False     # pop出来之后将visited[i]再变回False
 
 
-
+Search in Graph 的问题。
+        
+        
         
     
 递归三要素：
