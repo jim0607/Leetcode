@@ -107,7 +107,7 @@ class Solution:
             lens = len(q)
             currWord = q.popleft()
             for nextWord in self.get_next_words(currWord, wordList):
-                if nextWord not in distance.keys():
+                if nextWord not in distance.keys():     # 相当于if nextWord not in visited
                     distance[nextWord] = distance[currWord] + 1
                     q.append(nextWord)
 
@@ -117,7 +117,7 @@ class Solution:
             res.append(currWords.copy())    # deep copy
             return
         
-        for nextWord in self.get_next_words(currWord, wordList):
+        for nextWord in self.get_next_words(currWord, wordList):    # 相当于for neighbor in neighbors:
             if distance[nextWord] >= distance[currWord]:        # 不往远离end的方向走
                 continue
 
