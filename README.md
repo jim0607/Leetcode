@@ -36,7 +36,7 @@
 - [0210. Course Schedule II](Solutions/0210.Course-Schedule-II.py) (！！M) (Naked Topological Sort)
 - [0444. Sequence Reconstruction](Solutions/0444.Sequence-Reconstruction.py) (M)
 
-### BFS in Matrix !!
+### BFS in Matrix !!(隐式图搜索问题)
 - [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (M)
 - [0994. Rotting Oranges](Solutions/0994.Rotting-Oranges.py) (M) (需要层序遍历)
 - [1197. Minimum Knight Moves](Solutions/1197.Minimum-Knight-Moves.py) (！！M) (需要层序遍历，利用对称解决LTE问题，也可以从两端同时开始BFS)
