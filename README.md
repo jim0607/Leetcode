@@ -14,6 +14,10 @@
 - [0051. N-Queens](Solutions/0051.N-Queens.py) (！H) (核心是nums=[0,1,2,3]的去重排列问题，去重需要做三个visited的判断)
 - [0052. NQueens II](Solutions/0052.N-Queens-II.py) (H) 
 
+### 图上的搜索（打印/输出所有满足条件的路径必用DFS）
+- [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (！！H)（好神奇）
+
+
 
 ## [Breadth First Search](/Breadth-First-Search.py)
 ### BFS in Trees
