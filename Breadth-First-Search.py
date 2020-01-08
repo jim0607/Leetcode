@@ -19,6 +19,8 @@ BFS都是用queue，注意python实现的时候用list （可以用linked list�
 2. 最短路径(shortest path in simple graph)
   * 仅限简单图求最短路径（Dj...算法）
   * 即，图中每条边边长度都是一样的，且没有方向，即无向图
+  * 对于最短路径问题，有时候题目是隐式的BFS，比如word ladder，给你的是一个字符串，然后可通过一些变换，得到另外一些字符串，
+    我们可以认为一个字符串就是一个节点，通过这个节点可以连接到另外的一些节点。
   
 二叉树上的BFS：
   * Binary Tree Level order traversal (层级遍历)
