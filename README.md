@@ -12,7 +12,7 @@
 - [0046. Permutations](Solutions/0046.Permutations.py) (！！M)
 - [0047. Permutations II](Solutions/0047.Permutations-II.py) (！！M) (去重方法与Subsets是类似的)
 - [0051. N-Queens](Solutions/0051.N-Queens.py) (！H) (核心是nums=[0,1,2,3]的去重排列问题，去重需要做三个visited的判断)
-
+- [0052. NQueens II](Solutions/0052.N-Queens-II.py) (H) 
 
 
 ## [Breadth First Search](/Breadth-First-Search.py)
@@ -36,7 +36,7 @@
 - [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (M)
 - [0994. Rotting Oranges](Solutions/0994.Rotting-Oranges.py) (M) (需要层序遍历)
 - [1197. Minimum Knight Moves](Solutions/1197.Minimum-Knight-Moves.py) (！！M) (需要层序遍历，利用对称解决LTE问题，也可以从两端同时开始BFS)
-- [0127. Word Ladder](Solutions/0127.Word-Ladder.py) (！！M) (层序遍历BFS，LTE，双端BFS看不太懂)
+- [0127. Word Ladder](Solutions/0127.Word-Ladder.py) (！！M) (层序遍历BFS，双端BFS看不太懂)
 - [0317 Shortest Distance from All Buildings](Solutions/0317.Shortest-Distance-from-All-Buildings.py) (！！H) (选择1为起点做层序遍历的BFS)
 
 
