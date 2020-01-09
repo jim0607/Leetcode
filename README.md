@@ -1,3 +1,11 @@
+## [Linked List](/Linked-List.py)
+- [0206. Reverse Linked List](Solutions/0206.Reverse-Linked-List.py) (！！E) (需要熟背理解)
+- [0092. Reverse Linked List II](Solutions/0092.Reverse-Linked-List-II.py) (M)
+- [0024. Swap Nodes in Pairs](Solutions/0024.Swap-Nodes-in-Pairs.py) (M)
+- [0025. Reverse Nodes in k-Group](Solutions/0025.Reverse-Nodes-in-k-Group.py) (H)
+
+
+
 ## [Depth First Search](/Depth-First-Search.py)
 ### Combination
 - [0078. Subsets](Solutions/0078.Subsets.py) (！！M)(DFS + Back tracking)
