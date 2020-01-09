@@ -1,3 +1,4 @@
 做Linked List的题目一定要懂reference
 node其实是一个reference/pointer，
-一个Linked List Node占用8个字节，其中4个字节存储了一个数, 另外四个字节存储了一个指针，这个指针指向的位置是下一个Linked List Node的存储地址。
+一个Linked List Node在内存地址中占用8个字节的位置，其中的4个字节存储了一个数, 另外4个字节存储了一个指针，这个指针的信息是下一个Linked List Node的存储位置。
+node是
