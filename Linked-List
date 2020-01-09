@@ -1,0 +1,51 @@
+做Linked List的题目一定要懂reference
+node其实是一个reference/pointer
+一个Linked List Node在内存地址中占用8个字节的位置，其中的4个字节存储了一个数字也就是node.val; 另外4个字节存储了一个指针也就是node.next，这个指针的值是下一个Linked List Node在内存中的存储位置。
+所以node.val和node.next是存在物理内存中的，而node本身只是一个局部变量，并不存在物理内存中。
+所以如果我们去修改局部变量的话（如操作 node = someNode）, 根本不会改变原来node原来的连接关系。
+
+
+定义Node1 = LinkedListNode(1)的意思是定义一个局部变量Node1，这个局部变量Node1本质是一个reference/pointer，指向数字1的物理地址，这个物理地址中保存了数字1，占用4个字节，同时这个数字1右边的4个字节的地方也被占用，虽然那四个字节暂时存储的是None。
+同理Node2 = LinkedListNode(2) 也是类似的意思。
+接下来Node1.next = Node2 的意思是把刚刚在数字1旁边暂时存储None的那4个字节的物理空间放入一个pointer，这个pointer的值是LinkedListNode(2)的数值2物理地址（所以也叫pointer指向LinkedListNode(2)）。得到的链表结构如下：
+
+LinkedListNode(1)  LinkedListNode(2)
+  -------------      -------------  
+  |  1  |  ---|--->  |  2  |   --|--->  None
+  -------------      -------------
+   ^  ^                ^
+   |  |                |
+ Head Node1          Node2
+
+接下来定义Head = Node1的意思是定义一个局部变量Head指向Node1相同的物理地址，得到的链表结构如下：
+
+LinkedListNode(1)  LinkedListNode(2)
+  -------------      -------------  
+  |  1  |  ---|--->  |  2  |   --|--->  None
+  -------------      -------------
+   ^  ^                ^
+   |  |                |
+ Head Node1          Node2
+
+接下来操作 Node1 = Node2 做的事情是让Node1这个局部变量指向Node2这个局部变量所指向的物理地址（LinkedListNode(2)的数值存放的那个物理地址），而不是原来指向的那个地址（LinkedListNode(1)的数值存放的那个物理地址）。得到的链表结构如下：
+
+LinkedListNode(1)  LinkedListNode(2)
+  -------------      -------------  
+  |  1  |  ---|--->  |  2  |   --|--->  None
+  -------------      -------------
+   ^                  ^   ^
+   |                  |   |
+ Head              Node1  Node2
+ 
+我们看到，这时候Head还是指向LinkedListNode(1)的数值存放的那个物理地址，并没有因为Node1 = Node2的操作而发生改变，而且整个链表的结构也没有任何改变，还是1 -> 2 -> None
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
