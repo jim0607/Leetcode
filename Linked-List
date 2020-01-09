@@ -1,4 +1,4 @@
-做Linked List的题目一定要懂reference
+做Linked List的题目一定要懂reference/pointer，Linked List都是处理指针的问题。
 node其实是一个reference/pointer
 一个Linked List Node在内存地址中占用8个字节的位置，其中的4个字节存储了一个数字也就是node.val; 另外4个字节存储了一个指针也就是node.next，这个指针的值是下一个Linked List Node在内存中的存储位置。
 所以node.val和node.next是存在物理内存中的，而node本身只是一个局部变量，并不存在物理内存中。
@@ -44,6 +44,21 @@ LinkedListNode(1)  LinkedListNode(2)
  Head              Node1  Node2
  
 我们看到，这时候Head还是指向LinkedListNode(1)的数值存放的那个物理地址，并没有因为Node1 = Node2的操作而发生改变，而且整个链表的结构也没有任何改变。
+只有操作someNode.val = ..., someNode.next = ....才会让链表发生变化。
+
+
+做链表的复杂的问题，我们可以先想出大体的思路，然后再一个一个实现.
+复杂的题目可以先建一个dummy node来保存头部不动，模板如下：
+dummy = ListNode(0)
+dummy.next = head 
+curr = dummy or curr = dummy.next
+...中间程序(可能head会发生变化)...
+return dummy.next
+
+做题的过程做可以多开几个局部变量，这样代码会好读懂一些，像24. Swap Nodes in Pairs 那样，画出图来就知道reverse要干什么，connect要干什么了。
+
+
+
  
  
  
