@@ -1,4 +1,4 @@
-## [Linked List](/Linked-List.py)
+## [Linked List](/Linked-List)
 - [0206. Reverse Linked List](Solutions/0206.Reverse-Linked-List.py) (！！E) (需要熟背理解)
 - [0092. Reverse Linked List II](Solutions/0092.Reverse-Linked-List-II.py) (M)
 - [0024. Swap Nodes in Pairs](Solutions/0024.Swap-Nodes-in-Pairs.py) (M)
