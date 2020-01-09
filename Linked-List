@@ -4,6 +4,12 @@ node其实是一个reference/pointer
 所以node.val和node.next是存在物理内存中的，而node本身只是一个局部变量，并不存在物理内存中。
 所以如果我们去修改局部变量的话（如操作 node = someNode）, 根本不会改变原来node原来的连接关系。
 
+我们来解析一下下面的操作：
+Node1 = LinkedListNode(1)
+Node2 = LinkedListNode(2)
+Node1.next = Node2
+Head = Node1
+Node1 = Node2
 
 定义Node1 = LinkedListNode(1)的意思是定义一个局部变量Node1，这个局部变量Node1本质是一个reference/pointer，指向数字1的物理地址，这个物理地址中保存了数字1，占用4个字节，同时这个数字1右边的4个字节的地方也被占用，虽然那四个字节暂时存储的是None。
 同理Node2 = LinkedListNode(2) 也是类似的意思。
@@ -37,7 +43,7 @@ LinkedListNode(1)  LinkedListNode(2)
    |                  |   |
  Head              Node1  Node2
  
-我们看到，这时候Head还是指向LinkedListNode(1)的数值存放的那个物理地址，并没有因为Node1 = Node2的操作而发生改变，而且整个链表的结构也没有任何改变，还是1 -> 2 -> None
+我们看到，这时候Head还是指向LinkedListNode(1)的数值存放的那个物理地址，并没有因为Node1 = Node2的操作而发生改变，而且整个链表的结构也没有任何改变。
  
  
  
