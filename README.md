@@ -3,7 +3,7 @@
 - [0092. Reverse Linked List II](Solutions/0092.Reverse-Linked-List-II.py) (M)
 - [0024. Swap Nodes in Pairs](Solutions/0024.Swap-Nodes-in-Pairs.py) (M)
 - [0025. Reverse Nodes in k-Group](Solutions/0025.Reverse-Nodes-in-k-Group.py) (H)
-- [0021. Merge Two Sorted Lists](Solutions/0021.Merge-Two-Sorted-Lists.py) (H)
+- [0021. Merge Two Sorted Lists](Solutions/0021.Merge-Two-Sorted-Lists.py) (E)
 
 
 
