@@ -5,6 +5,7 @@
 - [0025. Reverse Nodes in k-Group](Solutions/0025.Reverse-Nodes-in-k-Group.py) (H)
 - [0021. Merge Two Sorted Lists](Solutions/0021.Merge-Two-Sorted-Lists.py) (E)
 - [0002. Add Two Numbers](Solutions/0002.Add-Two-Numbers.py) (E)
+- [0148. Sort List](High frequency) (E)
 
 
 
