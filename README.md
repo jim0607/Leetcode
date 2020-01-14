@@ -1,11 +1,15 @@
 ## [Linked List](/Linked-List)
+- [0148. Sort List](Solutions/0148.Sort-List.py) (！！M)
 - [0206. Reverse Linked List](Solutions/0206.Reverse-Linked-List.py) (！！E) (需要熟背理解)
 - [0092. Reverse Linked List II](Solutions/0092.Reverse-Linked-List-II.py) (M)
 - [0024. Swap Nodes in Pairs](Solutions/0024.Swap-Nodes-in-Pairs.py) (M)
 - [0025. Reverse Nodes in k-Group](Solutions/0025.Reverse-Nodes-in-k-Group.py) (H)
+- [0138. Copy List with Random Pointer](Solutions/0138.Copy-List-with-Random-Pointer.py) (M)
+- [0141. Linked List Cycle](Solutions/0141.Linked-List-Cycle.py) (E)
+- [0142. Linked List Cycle II](Solutions/0142.Linked-List-Cycle-II.py) (E)
+- [0160. Intersection of Two Linked Lists](Solutions/0160.Intersection-of-Two-Linked-Lists.py) (E)
 - [0021. Merge Two Sorted Lists](Solutions/0021.Merge-Two-Sorted-Lists.py) (E)
 - [0002. Add Two Numbers](Solutions/0002.Add-Two-Numbers.py) (E)
-- [0148. Sort List](High frequency) (E)
 
 
 
