@@ -32,7 +32,36 @@
 # 
 # 
 #
-"""方法1 TLE：用prefixSum, O(N^2), O(N)
+
+
+"""
+Solution 3: prefixSum+hashmap
+用prefixSum，hashmap来存储prefixSum中出现的数字频率, O(N), O(N)"""
+# @lc code=start
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        prefixSumMap = {0: 1}   # 注意prefixSumMap需要初始化，就像solution 2中的prefixSum = [0]那样
+        prefixSum, cnt = 0, 0
+
+        # Our problem is: find how many pairs of <i,j> satisfies i < j and prefixSum[j]-prefixSum[i] == k?
+        for num in nums:
+            prefixSum += num     # 这里的prefixSum 相当于 prefixSum[j]，一般的prefixSum[j]都是这样写的，而不是单独开一个数组出来寸prefixSum
+            if prefixSum - k in prefixSumMap:     # 等价于 if prefixSum[j+1]-prefixSum[i] == k
+                cnt += prefixSumMap[prefixSum - k]        
+            
+            # 将prefixSum 存入prefixSumMap中
+            if prefixSum in prefixSumMap:
+                prefixSumMap[prefixSum] += 1
+            else:
+                prefixSumMap[prefixSum] = 1
+            
+        return cnt
+
+
+"""
+Solution 2: prefixSum (TLE)
+find all the subArrSum by using subArrSum(i~j) = prefixSum[j+1] - prefixSum[i]
+O(N^2), O(N)"""
 # @lc code=start
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
@@ -42,29 +71,29 @@ class Solution:
             prefixSum.append(prefixSum[-1] + num)
 
         cnt = 0
-        for j in range(len(prefixSum)):
-            for i in range(j):
-                if prefixSum[j] - prefixSum[i] == k:
+        for j in range(len(nums)):
+            for i in range(j + 1):
+                # subArrSum(i~j包含i和j) = prefixSum[j+1] - prefixSum[i] 
+                # i==j时，subArr只有一个元素，所以i是可以等于j的，这就是为什么i in range(j + 1)
+                if prefixSum[j+1] - prefixSum[i] == k:
                     cnt += 1
 
-        return cnt"""
+        return cnt
 
-"""方法2：用prefixSum，hashmap来存储prefixSum中出现的数字频率, O(N), O(N)"""
+
+
+"""
+Solution 1: Brutal Force (TLE)
+find all the subArrSum by using sum(nums[i:j])
+O(N^3), O(1)"""
 # @lc code=start
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        prefixSumMap = {0: 1}
-        sums, cnt = 0, 0
-        # Our problem is: find how many pairs of <i,j> satisfies i < j and prefixSum[j]-prefixSum[i] == k?
-        for num in nums:
-            sums += num     # sums 相当于 prefixSum[j]，一般的prefixSum[i]都是这样写的，而不是单独开一个数组出来寸prefixSum
-            if sums - k in prefixSumMap:     # if prefixSum[j]-prefixSum[i] == k
-                cnt += prefixSumMap[sums - k]        
-                
-            if sums in prefixSumMap:
-                prefixSumMap[sums] += 1
-            else:
-                prefixSumMap[sums] = 1
-            
-            return cnt
-        
+        cnt = 0
+        for j in range(len(nums) + 1):
+            for i in range(j):
+                subArrSum = sum(nums[i:j])
+                if subArrSum == k:
+                    cnt += 1
+
+        return cnt
