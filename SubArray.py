@@ -14,7 +14,7 @@ subArr问题的模板（0560. Subarray Sum Equals K）： 一般都是 O(N), O(N
 一般都是prefixSum+hashmap来实现，prefixSum记录遍历到的那个地方之前所有的item加起来的和。
 hashmap的key是prefixSum，val是prefixSum中出现的数字频率（0560. Subarray Sum Equals K, prefixSumMap = {0: 1}）
 或者val是j/position (523. Continuous Subarray Sum, prefixSumMap = {0: -1} # key: prefixSum[j], val: j/position)
-或者val是prefixSum[j]%K (974. Subarray Sums Divisible by K, prefixSum_f = {0: 1} # key: prefixSum[j]%K, val: 出现的frequency)
+或者key是prefixSum[j]%K (974. Subarray Sums Divisible by K, prefixSum_f = {0: 1} # key: prefixSum[j]%K, val: 出现的frequency)
 
 0560. Subarray Sum Equals K:  几乎所有的subArr的问题都是一样的模板，要背熟。
 class Solution:
