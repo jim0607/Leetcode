@@ -1,4 +1,4 @@
-## [SubArray](/SubArray)
+## [SubArray](/SubArray.py)
 - [0053. Maximum Subarray](Solutions/0053.Maximum-Subarray.py) (E) (前缀和prefixSum)
 - [0724. Find Pivot Index](Solutions/0724.Find-Pivot-Index.py) (E) (prefixSum)
 - [0560. Subarray Sum Equals K](Solutions/0560.Subarray-Sum-Equals-K.py) (!!M) (prefixSum+hashmap)
