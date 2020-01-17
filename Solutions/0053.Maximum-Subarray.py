@@ -36,7 +36,7 @@ class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         # prefixSum记录前i个数的和，maxSum记录全局最大的值，minSum记录前i个数中的最小prefixSum
         prefixSum = 0
-        minSum = 0
+        minSum = 0      # 只能定义为0，因为初始的prefixSum是0
         maxSum = -float("inf")
         for num in nums:
             prefixSum += num
