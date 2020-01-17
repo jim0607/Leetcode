@@ -4,7 +4,7 @@
 - [0560. Subarray Sum Equals K](Solutions/0560.Subarray-Sum-Equals-K.py) (!!M) (prefixSum+hashmap)
 - [0523. Continuous Subarray Sum](Solutions/0523.Continuous-Subarray-Sum.py) (M) (prefixSum+hashmap)
 - [0974. Subarray Sums Divisible by K](Solutions/0974.Subarray-Sums-Divisible-by-K.py) (M) (prefixSum+hashmap)
-
+- [0139. Subarray Sum Closest](Solutions/0139.Subarray-Sum-Closest.py) (Lintcode) (prefixSum+hashmap)
 
 
 
