@@ -27,7 +27,7 @@ class Solution:
             prefixSum += num
             prefixSums.append((prefixSum, i))
             
-        prefixSums.sort()   # 默认按照第一个value也就是prefixSum来进行sort
+        prefixSums.sort()   # 默认按照第一个value也就是prefixSum来进行sort，这样最小的subArrSum (或者prefixSums[j+1][0] - prefixSums[i][0])就一定来自于相邻的两个prefisxSums了。
         
         closestVal = float("inf")
         res = []
