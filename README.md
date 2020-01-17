@@ -1,4 +1,5 @@
 ## [Sorted Array](/SortedArray.py)
+- [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py) (E) 
 
 
 
