@@ -1,6 +1,6 @@
 前缀和prefixSum[i]: the sum of all the items before i
-arr = [1, 2, 3, 4]
-prefixSum = [0, 1, 3, 6, 10]，构造prefixSum需要O(N)时间和O(N)空间
+arr =          [1, 2, 3, 2]
+prefixSum = [0, 1, 3, 6, 8]，构造prefixSum需要O(N)时间和O(N)空间
 Remember: len(prefixSum) == len(arr) + 1
 这样subArray的和就是sum(i~j包括i和j) = prefixSum[j+1] - prefixSum[i]，这样求任何一个subarray的和的时候只需要O(1)的时间复杂度就可以了.
 如果不用prefixSum，那就用sum(arr[i:j+1])，sum(arr[i:j+1])的时间复杂度是O(N)。
