@@ -17,7 +17,7 @@ Time:     N*logN in average, N^2 worst case:                                    
           
 Space:    O(1)                                   O(N) because need to merge leftArr and rightArr into one array
 
-Stabel:   No                                     Yes, meaning for example: [3,2,1,3,4], there are two 3s in the unsorted arr
+Stable:   No                                     Yes, meaning for example: [3,2,1,3,4], there are two 3s in the unsorted arr
                                                  after merge sort, the number 3 on the left will still be on the left, while
                                                  the 3 on the right will still on he riht in the sorted arr [1,2,3,3,4]
                                                          
