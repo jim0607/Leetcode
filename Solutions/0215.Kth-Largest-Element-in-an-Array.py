@@ -33,7 +33,8 @@
 # You may assume k is always valid, 1 ≤ k ≤ array's length.
 # 
 #
-"""use quick select method"""
+"""use quick select method
+Python quick select (use partition) average time O(N) and worst O(N^2)"""
 # @lc code=start
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
@@ -72,3 +73,4 @@ class Solution:
         return i
 
 # @lc code=end
+
