@@ -48,9 +48,9 @@ class Solution:
             return nums[start]
         
         pivot_pos = self._partition_(nums, start, end)
-        if start + (k - 1) < pivot_pos:
+        if k - 1 < pivot_pos:
             return self._quickSelect_(nums, start, pivot_pos - 1, k)
-        elif start + (k - 1) > pivot_pos: 
+        elif k - 1 > pivot_pos: 
             return self._quickSelect_(nums, pivot_pos + 1, end, k)
         else:
             return nums[pivot_pos]
@@ -72,4 +72,3 @@ class Solution:
         return i
 
 # @lc code=end
-
