@@ -61,7 +61,7 @@ class Solution:
         pivot = nums[i]
 
         while i < j:
-            while i < j and nums[j] < pivot:
+            while i < j and nums[j] <= pivot:
                 j -= 1
             nums[i] = nums[j]
             while i < j and nums[i] >= pivot:
