@@ -5,6 +5,8 @@
 
 ## [Sorted Array](/SortedArray.py)
 - [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py) (E) 
+- [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (M) (quick select) 
+
 
 
 
