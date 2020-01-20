@@ -39,7 +39,49 @@
 # 
 # 
 #
-"""O(k), k = (m+n)/2"""
+
+
+#
+"""solution 2: binary search, O(log(k)), k = min(m, n)
+解法来自 山景城一姐"""
+# @lc code=start
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        m = 0 if not nums1 else len(nums1)
+        n = 0 if not nums2 else len(nums2)
+        if m > n:
+            return self.findMedianSortedArrays(nums2, nums1)
+        if m == 0:
+            return (nums2[(n - 1) // 2] + nums2[n // 2]) / 2.0
+        
+        A_startK, A_endK = 0, m   # 每次binary search的范围
+        cutA, cutB = 0, 0       # 分别记录A，B分割线的左边的元素个数
+
+        while A_startK <= A_endK:
+            cutA = (A_endK + A_startK) // 2
+            cutB = (m + n + 1) // 2 - cutA
+
+            L1 = -float("inf") if cutA == 0 else nums1[cutA - 1]
+            L2 = -float("inf") if cutB == 0 else nums2[cutB - 1]
+            R1 = float("inf") if cutA == m else nums1[cutA]
+            R2 = float("inf") if cutB == n else nums2[cutB]
+
+            # 二分
+            if L1 > R2:
+                A_endK = cutA - 1 
+            elif L2 > R1:
+                A_startK = cutA + 1
+            else:
+                if (m + n) % 2 == 0:
+                    return (max(L1, L2) + min(R1, R2)) / 2.0
+                else:
+                    return max(L1, L2) / 1.0
+        
+# @lc code=end
+
+
+""""""solution 1: similar with merge two sorted array, trivial solution
+O(k), k = (m+n)/2"""
 # @lc code=start
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
@@ -68,5 +110,5 @@ class Solution:
                 return res
             k -= 1
         
-# @lc code=end
+# @lc code=end"""
 
