@@ -1,11 +1,13 @@
 ## [Two Pointers](/Two-pointers.py)
-#### 反向双指针
+### 反向双指针
 - [0977. Squares of a Sorted Array](Solutions/0977.Squares-of-a-Sorted-Array.py) (E) 
 
 
 
-#### 同向双指针
+### 同向双指针
 - [0283. Move Zeroes](Solutions/0283.Move-Zeroes.py) (E) 
+- [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (E) 
+
 
 
 ## Sorted Array
