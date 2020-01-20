@@ -1,3 +1,6 @@
+- [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) (E) 
+
+
 ## [Two Pointers](/Two-pointers.py)
 ### 反向双指针
 - [0977. Squares of a Sorted Array](Solutions/0977.Squares-of-a-Sorted-Array.py) (E) 
