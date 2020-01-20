@@ -80,7 +80,7 @@ class Solution:
 # @lc code=end
 
 
-""""""solution 1: similar with merge two sorted array, trivial solution
+"""solution 1: similar with merge two sorted array, trivial solution
 O(k), k = (m+n)/2"""
 # @lc code=start
 class Solution:
@@ -110,5 +110,4 @@ class Solution:
                 return res
             k -= 1
         
-# @lc code=end"""
-
+# @lc code=end
