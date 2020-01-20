@@ -4,7 +4,10 @@
 ## [Two Pointers](/Two-pointers.py)
 ### 反向双指针
 - [0977. Squares of a Sorted Array](Solutions/0977.Squares-of-a-Sorted-Array.py) (E) 
-
+#### Partition
+- [0031. Partition Array](Solutions/0031.Partition-Array.py) (Lintcode)
+- [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E)
+- [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
 
 
 ### 同向双指针
@@ -94,7 +97,12 @@
 
 
 ## [Sort](/Sort.py) 
-- [0912. Sort an Array](Solutions/0912.Sort-an-Array.py) (M) (quick sort vs. merge sort)
+- [0912. Sort an Array](Solutions/0912.Sort-an-Array.py) (M) (quick sort vs. merge sort) 
+- [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (M) (quick select)
+#### Partition
+- [0031. Partition Array](Solutions/0031.Partition-Array.py) (Lintcode)
+- [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E)
+- [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
 
 
 
