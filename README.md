@@ -30,7 +30,7 @@
 
 
 
-## Sorted Array
+## [Sorted Array] () 
 - [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py) (E) 
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (M) (quick select) 
 - [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) (Binary search) 
@@ -165,7 +165,7 @@
 
 
 
-## Dynamic Programming
+## [Dynamic Programming] ()
 ### [Longest Subsequece Problems](/Longest-Subsequece-Problem.py)
 - [0005. Longest Palindromic Substring](Solutions/0005.LongestPalindromicSubstring.py) (Center spread O(N^2); DP(N^2))
 - [0516. Longest Palindromic Subsequence](Solutions/0516.LongestPalindromicSubsequence.py) (M)
