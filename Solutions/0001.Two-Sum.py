@@ -21,7 +21,7 @@ class Solution:
         
         return None
         
-Solution 2: 
+Solution 2: hash map  O(N), O(N)
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         if not nums:
