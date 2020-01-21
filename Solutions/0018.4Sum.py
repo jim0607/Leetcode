@@ -13,7 +13,8 @@ A solution set is:
   [-2,  0, 0, 2]
 ]
 
-"""O(N^3)"""
+"""for循环nums[i]，然后for循环nums[j]，在用双指针解决twoSum问题
+O(N^3), O(1)"""
 class Solution:
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
         if not nums or len(nums) < 4:
