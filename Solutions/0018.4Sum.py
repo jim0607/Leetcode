@@ -13,7 +13,7 @@ A solution set is:
   [-2,  0, 0, 2]
 ]
 
-
+"""O(N^3)"""
 class Solution:
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
         if not nums or len(nums) < 4:
