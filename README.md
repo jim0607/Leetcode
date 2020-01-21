@@ -9,6 +9,8 @@
 - [0015. 3Sum](Solutions/0015.3Sum.py) (!!M) 
 - [0016. 3Sum Closest](Solutions/0016.3Sum-Closest.py) (M) 
 - [0259. 3Sum Smaller](Solutions/0259.3Sum-Smaller.py) (M) 
+- [0018. 4Sum](Solutions/0018.4Sum.py) (M) 
+- [0454. 4Sum II](Solutions/0454.4Sum-II.py) (M) 
 
 
 ## [Two Pointers](/Two-pointers.py)
