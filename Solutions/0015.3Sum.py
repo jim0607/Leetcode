@@ -43,7 +43,7 @@ class Solution:
             
         return res
     
-    # put all the combinations of [-target, nums[left], nums[right]] into res to fit nums[left] + nums[right] = target
+    # put all the combinations of [-target, nums[left], nums[right]] into res to fit nums[left] + nums[right] = target, in range of i+1 to lens-1
     def twoSum(self, nums, target, left, right, res):
         while left < right:
             if nums[left] + nums[right] > target:
