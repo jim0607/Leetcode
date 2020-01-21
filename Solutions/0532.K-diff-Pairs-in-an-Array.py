@@ -24,11 +24,11 @@ class Solution:
                 i += 1
             elif nums[j] - nums[i] < k or i == j:
                 j += 1
-            elif nums[j] - nums[i] == k:       # 想想dfs解subset问题里的去重是怎么做的：前面的3用到了，后面的3就跳过就可以了。
+            elif nums[j] - nums[i] == k:       
                 cnt += 1
                 i += 1
                 j += 1
-                while j < len(nums) and nums[j] == nums[j - 1]:
+                while j < len(nums) and nums[j] == nums[j - 1]:   # 想想dfs解subset问题里的去重是怎么做的：前面的3用到了，后面的3就跳过就可以了。
                     j += 1
                 
         return cnt
