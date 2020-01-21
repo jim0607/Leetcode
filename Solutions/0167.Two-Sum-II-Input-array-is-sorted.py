@@ -12,7 +12,8 @@ Input: numbers = [2,7,11,15], target = 9
 Output: [1,2]
 Explanation: The sum of 2 and 7 is 9. Therefore index1 = 1, index2 = 2.
 
-
+"""反向双指针
+O(N), O(1)"""
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         if not numbers:
