@@ -26,7 +26,7 @@ class Solution:
         
         lens = len(nums)
         left, index, right = 0, 0, lens - 1
-        while index <= right:       # be careful, index < right is not correct
+        while index <= right:       # be careful, index < right is not correct  （不太懂）
             if nums[index] == 0:
                 nums[index], nums[left] = nums[left], nums[index]
                 left += 1
