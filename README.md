@@ -1,15 +1,14 @@
-## [Two Sum](/)
-0001  
-167
-170
-653
-1099
-532
-0609 Lintcode
-15  !!
-16
-259
-
+## [Two Sum]
+- [0001. Two Sum](Solutions/0001.Two-Sum.py) (E) 
+- [0167. Two Sum II - Input array is sorted](Solutions/0167.Two-Sum-II-Input-array-is-sorted.py) (E)
+- [0170. Two Sum III - Data structure design](Solutions/0170.Two-Sum-III-Data-structure-design.py) (E)
+- [0653. Two Sum IV - Input is a BST](Solutions/0653.Two-Sum-IV-Input-is-a-BST.py) (E)
+- [1099. Two Sum Less Than K](Solutions/1099.Two-Sum-Less-Than-K.py) (E)
+- [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) 
+- [0609. Two Sum - Less than or equal to target](Solutions/0609.Two-Sum-Less-than-or-equal-to-target.py) (E) 
+- [0015. 3Sum](Solutions/0015.3Sum.py) (!!M) 
+- [0016. 3Sum Closest](Solutions/0016.3Sum-Closest.py) (M) 
+- [0259. 3Sum Smaller](Solutions/0259.3Sum-Smaller.py) (M) 
 
 
 ## [Two Pointers](/Two-pointers.py)
