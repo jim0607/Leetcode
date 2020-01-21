@@ -20,7 +20,8 @@ class Solution:
                     return [i, j]
         
         return None
-        
+
+九章算法：对于求 2 个变量如何组合的问题可以循环其中一个变量，然后研究另外一个变量如何变化
 Solution 2: hash map  O(N), O(N)
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
