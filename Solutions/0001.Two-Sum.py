@@ -22,6 +22,7 @@ class Solution:
         return None
 
 九章算法：对于求 2 个变量如何组合的问题可以循环其中一个变量，然后研究另外一个变量如何变化
+普世的方法是：for循环一个变量a，然后看另外一个变量target-a是不是在一个hashmap中。
 Solution 2: hash map  O(N), O(N)
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
