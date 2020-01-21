@@ -1,4 +1,4 @@
-## [Two Sum]
+## [Two Sum]()
 - [0001. Two Sum](Solutions/0001.Two-Sum.py) (E) 
 - [0167. Two Sum II - Input array is sorted](Solutions/0167.Two-Sum-II-Input-array-is-sorted.py) (E)
 - [0170. Two Sum III - Data structure design](Solutions/0170.Two-Sum-III-Data-structure-design.py) (E)
