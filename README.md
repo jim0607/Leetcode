@@ -26,7 +26,7 @@
 ### 同向双指针
 - [0283. Move Zeroes](Solutions/0283.Move-Zeroes.py) (E) 
 - [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (E) 
-532
+- [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) 
 
 
 
