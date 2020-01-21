@@ -5,9 +5,11 @@
 ### 反向双指针
 - [0977. Squares of a Sorted Array](Solutions/0977.Squares-of-a-Sorted-Array.py) (E) 
 #### Partition
-- [0031. Partition Array](Solutions/0031.Partition-Array.py) (Lintcode)
+- [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode)
 - [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E)
 - [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
+- [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) (三根指针partition成三个部分)
+
 
 
 ### 同向双指针
@@ -98,11 +100,14 @@
 
 ## [Sort](/Sort.py) 
 - [0912. Sort an Array](Solutions/0912.Sort-an-Array.py) (M) (quick sort vs. merge sort) 
+- [0969. Pancake Sorting](Solutions/0969.Pancake-Sorting.py) (M) (two flips to move the max_num to the end of arr) 
+
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (M) (quick select)
 #### Partition
 - [0031. Partition Array](Solutions/0031.Partition-Array.py) (Lintcode)
 - [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E)
 - [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
+- [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) (三根指针partition成三个部分)
 
 
 
