@@ -1,6 +1,3 @@
-- [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) (E) 
-
-
 ## [Two Pointers](/Two-pointers.py)
 ### 反向双指针
 - [0977. Squares of a Sorted Array](Solutions/0977.Squares-of-a-Sorted-Array.py) (E) 
@@ -9,6 +6,7 @@
 - [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E)
 - [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
 - [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) (三根指针partition成三个部分)
+- [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) (E) 
 
 
 
