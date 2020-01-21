@@ -54,11 +54,11 @@ class Solution:
         return res
 
       
-Solution 2: O(N^2 to N^4), O(N^2)
+Solution 2: O(N^2 to N^3), O(N^2)
 用一个hashmap 保存a + b
 for a:
   for b:
     hashmap.add(a+b)
 for c:
   for d:
-    -(c + d) in hashmap?   # 注意这里-(c + d) in hashmap?不是O(1)，因为可能a+b有很多种组合都得到同一个a+b的值，因为还要输出a和b，所以要关注有多少种组合，最坏的情况有O(N^2)种组合，最好的情况有O(1)种。
+    -(c + d) in hashmap?   # 注意这里-(c + d) in hashmap?不是O(1)，因为可能a+b有很多种组合都得到同一个a+b的值，因为还要输出a和b，所以要关注有多少种组合，最坏的情况有O(N)种组合，最好的情况有O(1)种。
