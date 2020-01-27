@@ -1,3 +1,12 @@
+## [Data Structure](/Data-Structure.py)
+### Stack and Queue
+- [0232. Implement Queue using Stacks](Solutions/0232.Implement-Queue-using-Stacks.py) (E) 
+- [0225. Implement Stack using Queues](Solutions/0225.Implement-Stack-using-Queues.py) (E) 
+- [0394. Decode String](Solutions/0394.Decode-String.py) (M) 
+
+
+
+
 ## [Two Sum]()
 - [0001. Two Sum](Solutions/0001.Two-Sum.py) (E) 
 - [0167. Two Sum II - Input array is sorted](Solutions/0167.Two-Sum-II-Input-array-is-sorted.py) (E)
