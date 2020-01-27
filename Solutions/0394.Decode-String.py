@@ -54,7 +54,7 @@ class Solution:
             elif ch == "[":
                 numStack.append(tempNum)
                 tempNum = 0
-                strStack.append("")     # 注意不能少，否则"3[a]2[bc]"会输出"aaabcaaabc"
+                strStack.append("")     # 注意不能少，否则strStack[-1]会报错！
             
             elif ch.isalpha():
                 strStack[-1] += ch      # 注意不能用strStack.append(ch)，因为我们想要行程一个整体才可以pop出来想要的。eg:2[bc]，要让"bc"形成整体才可以一起pop出来
@@ -62,7 +62,7 @@ class Solution:
             elif ch == "]":
                 tempStr = strStack.pop()
                 tempStr *= numStack.pop()
-                strStack[-1] += tempStr     # 这里不能用append，要细细品味呀。感觉处处是陷阱！
+                strStack[-1] += tempStr     # 这里不能用append，原因同上！
             
         return ''.join(strStack)
    
