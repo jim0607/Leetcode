@@ -18,9 +18,14 @@ pop: stack.pop()
 非递归实现DFS的主要数据结构
 非递归实现二叉树的pre,in,post-order的数据结构
 
+Iterator/Generator的问题大部分都是用stack来做。
+
 
 
 
 
 
 heap是通过二叉树实现的。
+
+
+
