@@ -2,8 +2,10 @@
 ### [Stack and Queue](/Data-Structure.py)
 - [0232. Implement Queue using Stacks](Solutions/0232.Implement-Queue-using-Stacks.py) (E) 
 - [0225. Implement Stack using Queues](Solutions/0225.Implement-Stack-using-Queues.py) (E) 
+155 (!!)
+716 (没搞懂！)
 - [0394. Decode String](Solutions/0394.Decode-String.py) (M) 
-### Iterator
+### [Iterator](/Data-Structure.py)
 341
 251
 281
