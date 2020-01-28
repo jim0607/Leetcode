@@ -59,6 +59,9 @@ return dummy.next
 
 做题的过程做可以多开几个局部变量，这样代码会好读懂一些，像24. Swap Nodes in Pairs 那样，画出图来就知道reverse要干什么，connect要干什么了。
 
+令狐冲：
+做 Linked List 的问题必须养成一个习惯，就是只要用了 a.x 就要检测 a 是不是 None，用了 a.x.y 就要检测 a和 a.x 是不是 None。否则 BUG 一堆堆。不怕多写一句废话，就怕多一个 BUG。
+
 
 
  
