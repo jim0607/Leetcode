@@ -24,6 +24,7 @@ Input:
 Output: [1,4,8,2,5,9,3,6,7].
 
 
+"""Solution: two pointers"""
 class ZigzagIterator:
     def __init__(self, v1: List[int], v2: List[int]):
         self.index1 = 0
