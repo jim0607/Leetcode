@@ -45,6 +45,7 @@ class NestedIterator:
     def next(self) -> int:
         return self.stack.pop().getInteger()
     
+    # 注意这类问题的主程序一般都写在hasNext里面！
     def hasNext(self) -> bool:
         while self.stack:
             topItem = self.stack[-1]
