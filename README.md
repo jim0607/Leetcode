@@ -2,17 +2,17 @@
 ### [Stack and Queue](/Data-Structure.py)
 - [0232. Implement Queue using Stacks](Solutions/0232.Implement-Queue-using-Stacks.py) (E) 
 - [0225. Implement Stack using Queues](Solutions/0225.Implement-Stack-using-Queues.py) (E) 
-155 (!!)
+- [0155. Min Stack](Solutions/0155.Min-Stack.py) (!!E) 
+
 716 (没搞懂！)
+
 - [0394. Decode String](Solutions/0394.Decode-String.py) (M) 
 ### [Iterator](/Data-Structure.py)
-341
-251
-281
-284
-173
-
-
+- [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (M) 
+- [0251. Flatten 2D Vector](Solutions/0251.Flatten-2D-Vector.py) (M)
+- [0281. Zigzag Iterator](Solutions/0281.Zigzag-Iterator.py) (M)
+- [0284. Peeking Iterator](Solutions/0284.Peeking-Iterator.py) (M)
+- [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (M)
 
 
 ## [Two Sum]()
