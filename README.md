@@ -3,6 +3,12 @@
 - [0232. Implement Queue using Stacks](Solutions/0232.Implement-Queue-using-Stacks.py) (E) 
 - [0225. Implement Stack using Queues](Solutions/0225.Implement-Stack-using-Queues.py) (E) 
 - [0394. Decode String](Solutions/0394.Decode-String.py) (M) 
+### Iterator
+341
+251
+281
+284
+173
 
 
 
