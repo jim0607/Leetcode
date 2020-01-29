@@ -48,7 +48,7 @@ class Solution:
         if start >= end:
             return nums[start]
         
-        pivot_pos = self._partition_(nums, start, end)
+        pivot_pos = self._partition_(nums, start, end)      # If that would be a quicksort algorithm, one would proceed recursively to use quicksort for the both parts that would result in \mathcal{O}(N \log N)O(NlogN) time complexity. Here there is no need to deal with both parts since now one knows in which part to search for N - kth smallest element, and that reduces average time complexity to \mathcal{O}(N)O(N).
         if k - 1 < pivot_pos:
             return self._quickSelect_(nums, start, pivot_pos - 1, k)
         elif k - 1 > pivot_pos: 
@@ -74,3 +74,19 @@ class Solution:
 
 # @lc code=end
 
+
+
+"""Solution 2: heap, O(N)"""
+import heapq
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        if not nums:
+            return None
+        
+        heapq.heapify(nums)                 # O(N)
+        m = len(nums) - k + 1   # 第k大就是倒数第lens-k+1小
+        while m > 0:                        # O(m*logN)
+            res = heapq.heappop(nums)       
+            m -= 1
+            
+        return res
