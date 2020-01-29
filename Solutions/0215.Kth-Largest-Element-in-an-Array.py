@@ -76,17 +76,15 @@ class Solution:
 
 
 
-"""Solution 2: heap, O(N)"""
+"""solution 2: heap
+time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的push 和pop都是logK"""
 import heapq
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        if not nums:
-            return None
-        
-        heapq.heapify(nums)                 # O(N)
-        m = len(nums) - k + 1   # 第k大就是倒数第lens-k+1小
-        while m > 0:                        # O(m*logN)
-            res = heapq.heappop(nums)       
-            m -= 1
-            
-        return res
+        heap = []
+        for num in nums:
+            heapq.heappush(heap, num)
+            if len(heap) > k:
+                heapq.heappop(heap)
+                
+        return heapq.heappop(heap)
