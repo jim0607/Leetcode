@@ -3,31 +3,31 @@
 - [0232. Implement Queue using Stacks](Solutions/0232.Implement-Queue-using-Stacks.py) (E) 
 - [0225. Implement Stack using Queues](Solutions/0225.Implement-Stack-using-Queues.py) (E) 
 - [0155. Min Stack](Solutions/0155.Min-Stack.py) (!!E) 
-
-716 (没搞懂！)
-
+- [0716 (没搞懂！)] (E) 
 - [0394. Decode String](Solutions/0394.Decode-String.py) (M) 
-### [Iterator](/Data-Structure.py)
+
+#### [Iterator](/Data-Structure.py)
 - [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (M) 
 - [0251. Flatten 2D Vector](Solutions/0251.Flatten-2D-Vector.py) (M)
 - [0281. Zigzag Iterator](Solutions/0281.Zigzag-Iterator.py) (M)
 - [0284. Peeking Iterator](Solutions/0284.Peeking-Iterator.py) (M)
 - [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (M)
-### [单调栈](/Data-Structure.py)
 
-### [单调栈](/Data-Structure.py)
+#### [单调栈](/Data-Structure.py)
 84. Largest Rectangle in Histogram  (H) (should understand later)
 
-146！
+
+### [Hashmap/Dictionary](/Data-Structure.py)
+- [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!M)
 
 
 ### [heap/heapq](/Data-Structure.py)
-264
-215
-347
-253   (以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间)
-973  （以squre来构建heap就可以了，heap中的元素是(square, point)）
-378
+- [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M)
+- [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (M)
+- [0253. Meeting Rooms II](Solutions/00253.Meeting-Rooms-II.py) (!!M) (以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间)
+- [0973. K Closest Points to Origin](Solutions/0973.K-Closest-Points-to-Origin.py) (M) （以squre来构建heap就可以了，heap中的元素是(square, point)）
+- [0378. Kth Smallest Element in a Sorted Matrix](Solutions/0378.Kth-Smallest-Element-in-a-Sorted-Matrix.py) (M)
+- [0264. Ugly Number II](Solutions/0264.Ugly-Number-II.py) (M)
 
 
 ## [Two Sum]()
