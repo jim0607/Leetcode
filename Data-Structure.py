@@ -55,15 +55,15 @@ Priority Queue or heap queue 使用heap实现的。
 或者可以使用Tree map来解决问题，Tree map使用BBST （balanced binary search tree）实现的，所有操作全是O(logN)。
 
 ****heapq非常重要****
-****heapq模块是python的一个标准库，在heapq中，使用的是最小堆。正因为堆的这种特殊结构，使得通过heapq模块，可以快速获取一个列表的前N个最大(小)值，即Top N。
-****python维护了一个堆，使用的存储结构是列表，通过heapq模块来管理、操作这个堆。heapq提供了插入、删除元素的方法，并且保证在插入或删除元素时，所有节点自动调整，保证堆的结构，同时尽量高效，复杂度为O(log n)，在大数据时，效率高于直接暴力sort排序。
+heapq模块是python的一个标准库，在heapq中，使用的是最小堆。正因为堆的这种特殊结构，使得通过heapq模块，可以快速获取一个列表的前N个最大(小)值，即Top N。
+python维护了一个堆，使用的存储结构是列表，通过heapq模块来管理、操作这个堆。heapq提供了插入、删除元素的方法，并且保证在插入或删除元素时，所有节点自动调整，保证堆的结构，同时尽量高效，复杂度为O(logN)，在大数据时，效率高于直接暴力sort排序。
 
-heapq的用法：
+******heapq的用法：*******
 
 import heapq
 
-data = [1,5,3,2,8,5]
-heapq.heapify(data)   # heapq.heapify(list) 往往
-
-
-
+list = [1,5,3,2,8,5]
+heapq.heapify(list)           # heapq.heapify(list) 往往用于创建堆, 将list 转换成堆，原地，线性时间O(N)。
+heapq[0]                      # O(1) 只访问最小的元素而不弹出它。
+heapq.heappop(list)           # O(logN) 弹出并返回 heap 的最小的元素，保持堆的不变性。如果堆为空，抛出 IndexError 。
+heapq.heappush(list, item)    # O(logN) 将 item 的值加入 heap 中。
