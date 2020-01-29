@@ -23,6 +23,11 @@
 
 ### [heap/heapq](/Data-Structure.py)
 264
+215
+347
+253   (以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间)
+973  （以squre来构建heap就可以了，heap中的元素是(square, point)）
+378
 
 
 ## [Two Sum]()
