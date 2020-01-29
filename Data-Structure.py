@@ -38,7 +38,7 @@ hashing的冲突解决方法：
 2. opend hashing: 如果出现冲突，也坚决不去紧接着的后面那个地址，而是将15排在8的后面，两个数都占1那个地址。
   
 如果hash_table_size不够大怎么办： re-hashing，若果存入的元素的个数大约hash_table_size的十分之一，那就要re-hashing了，不然冲突会很多。
-146. LRU!!!
+****146. LRU!!!
 
 
 
