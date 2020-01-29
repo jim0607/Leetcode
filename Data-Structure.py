@@ -23,6 +23,11 @@ Iterator/Generator的问题大部分都是用stack来做。
 
 
 2. Hash/Dictionary
+常见面试问题：what is hash map?
+Hash table or a Hashmap is a type of data structure that maps keys to its value pairs
+how to implement a hash map?
+using a hash function, for examples, we want to put an int 8 in hash map. First step is take mode 8%7 = 1, then choose to store 8 at address 1.
+when trying to find if an int say 8 is in the hashmap, first step is take mode 8%7 = 1, then compare the integer stored in adrress 1 to see if it is 8.  By using a funciton, we can realize O(1) find operation.
 O(1) Insert / O(1) Find / O(1) Delete
 hash function是针对任意一个key，算出其应该去到的地址。
 O(1) find的原理是：比如来了一个key，需要查找这个key在不在hash中，这个时候hash map是把key代入到hash fuction中，然后算出这个key对应的地址，然后直接去这个地址去看，如果这个地址里面有key了，就说明key in hash map，如果没有就key not in hash map，所以O(1) find是因为hash function计算只需要O(1)的时间。
@@ -37,7 +42,28 @@ hashing的冲突解决方法：
 
 
 
-heap是通过二叉树实现的。
+heap是通过二叉树实现的，该二叉树的特性：
+1. 结构特性：优先从上至下排列，同一层优先从左至右排列。
+2. 数值特性：min heap：父节点总是小于等于儿子的。max heap: father >= child
+支持操作：O(log N) Add / O(log N) Remove or pop / O(1) Min or Max
+Max Heap vs Min Heap
+
+Priority Queue or heap queue 使用heap实现的。
+一般都是使用heap queue而不是heap来解决实际题目，解决哪些实际题目呢？
+一般是查找最大值最小值的题目，因为可以在O(1)时间内找到最大值最小值，但是heap queue的delete任意一个值是O(N)
+
+或者可以使用Tree map来解决问题，Tree map使用BBST （balanced binary search tree）实现的，所有操作全是O(logN)。
+
+****heapq非常重要****
+****heapq模块是python的一个标准库，在heapq中，使用的是最小堆。正因为堆的这种特殊结构，使得通过heapq模块，可以快速获取一个列表的前N个最大(小)值，即Top N。
+****python维护了一个堆，使用的存储结构是列表，通过heapq模块来管理、操作这个堆。heapq提供了插入、删除元素的方法，并且保证在插入或删除元素时，所有节点自动调整，保证堆的结构，同时尽量高效，复杂度为O(log n)，在大数据时，效率高于直接暴力sort排序。
+
+heapq的用法：
+
+import heapq
+
+data = [1,5,3,2,8,5]
+heapq.heapify(data)   # heapq.heapify(list) 往往
 
 
 
