@@ -1,5 +1,9 @@
 
 ## [Dynamic Programming](Dynamic-Programming.py)
+- [0322. Coin Change](Solutions/0322.Coin-Change.py) (M) (状态: f[X]=最少用多少枚硬币拼出X; 转移方程：f[X] = min{f[X-2]+1, f[X-5]+1, f[X-7]+1})
+- [0062. Unique Paths](Solutions/0062.Unique-Paths.py) (M) (状态: f[i][j]=f[i][j]为机器人有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = f[i][j-1]+f[i-1][j])
+- [0063. Unique Paths II](Solutions/0063.Unique-Paths-II.py) (M) (状态: f[i][j]=f[i][j]为机器人有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = 0 if it is obstacle else f[i][j-1]+f[i-1][j])
+
 
 
 ### [Longest Subsequece Problems](/Longest-Subsequece-Problem.py)
@@ -15,7 +19,7 @@
 - [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (M)
 - [0064. Minimum Path Sum](Solutions/0064.Minimum-Path-Sum.py) (M)
 - [1049. Last Stone Weight II](Solutions/1049.Last-Stone-Weight-II.py) (M)
-- [0322. Coin Change](Solutions/0322.Coin-Change.py) (M)
+
 - [0714. Best Time to Buy and Sell Stock with Transaction Fee](Solutions/0714.Best-Time-to-Buy-and-Sell-Stock-with-Transaction-Fee.py) (M)
 - [1024. Video Stitching](Solutions/1024.Video-Stitching.py) (M)
 - [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M)
