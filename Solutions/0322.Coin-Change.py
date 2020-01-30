@@ -6,16 +6,16 @@ Input: coins = [1, 2, 5], amount = 11
 Output: 3 
 Explanation: 11 = 5 + 5 + 1
 
-
 """方法一：自下而上，时间复杂度：O(S*n)。空间复杂度：O(S)，dp 使用的空间。"""
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        # dp[i]表示amount = i时最少的组合方法数
-        # 递推关系是dp[i] = dp[i-coin]+1
-        dp = [float("inf")] * (amount+1)
-        dp[0] = 0
-        for coin in coins:
-            for i in range(coin, amount+1):
-                dp[i] = min(dp[i], dp[i-coin]+1)
-        return -1 if dp[amount]==float("inf") else dp[amount]
+        dp = [float("inf")] * (amount + 1)      # # dp[i]表示amount = i时最少的组合方法数
+        dp[0] = 0                               # 初始条件
+        for num in range(1, amount + 1):        # 注意for循环里不要包含初始条件
+            for coin in coins:
+                if num - coin >= 0:             # 这里判断num-coin>=0是为了防止越界
+                    dp[num] = min(dp[num - coin] + 1, dp[num])
+                
+        return dp[-1] if dp[-1] != float("inf") else -1
+
 """还有BFS,DFS的算法，后面可以多思考一下"""
