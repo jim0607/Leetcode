@@ -5,10 +5,12 @@
        - 有多少种方式走到右下角 
        - 有多少种方法选出k个数使得和是Sum
 eg: 62. Unique Paths
+       
 2.  求最大最小值！  （扣题目字眼，如find maximum sum, minimum cost, maximum length等）
        - 从左上角走到右下角路径的最大数字和
        - 最长上升子序列长度
 eg: 322.Coin Change
+       
 3.  求存在性
        - 取石子游戏，先手是否必胜
        - 能不能选出k个数使得和是Sum
