@@ -4,6 +4,8 @@
 - [0062. Unique Paths](Solutions/0062.Unique-Paths.py) (M) (状态: f[i][j]=f[i][j]为机器人有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = f[i][j-1]+f[i-1][j])
 - [0063. Unique Paths II](Solutions/0063.Unique-Paths-II.py) (M) (状态: f[i][j]=f[i][j]为机器人有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = 0 if it is obstacle else f[i][j-1]+f[i-1][j])
 
+55. Jump Game
+
 
 
 ### [Longest Subsequece Problems](/Longest-Subsequece-Problem.py)
