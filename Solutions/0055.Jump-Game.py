@@ -20,7 +20,7 @@ class Solution:
         dp[0] = True                # 初始条件
         for j in range(1, len(nums)):
             for i in range(j):
-                if dp[i] and i + nums[i] >= j:  # 转移方程
+                if dp[i] and i + nums[i] >= j:  # 转移方程：只要在dp[j]之前存在一个dp[i]=True且从这个i位置够得着j位置，那么dp[j]就为True
                     dp[j] = True
                     break
         
