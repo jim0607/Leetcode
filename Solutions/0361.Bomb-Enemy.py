@@ -15,52 +15,142 @@ E 0 W E
 Placing a bomb at (1,1) kills 3 enemies.
 
 
+"""brutal force: O(M*N*(M+N))"""
 class Solution:
     def maxKilledEnemies(self, grid: List[List[str]]) -> int:
         if not grid:
             return 0
-        len_row = len(grid)
-        len_col = len(grid[0])
-        res = 0
-        for i in range(len_row):
-            for j in range(len_col):
-                cnt = 0
+        
+        m, n = len(grid), len(grid[0])
+        res, tempCnt = 0, 0
+        for i in range(m):
+            for j in range(n):                
                 if grid[i][j] == "0":
-                    m = i-1
-                    while m >= 0:
-                        if grid[m][j] == "E":
-                            cnt += 1
-                            m -= 1
-                        elif grid[m][j] == "0":
-                            m -= 1
-                        else:
+                    tempCnt = 0
+                    
+                    # look up
+                    row, col = i, j
+                    while row >= 0:
+                        if grid[row][col] == "W":
                             break
-                    m = i+1
-                    while m < len_row:
-                        if grid[m][j] == "E":
-                            cnt += 1
-                            m += 1
-                        elif grid[m][j] == "0":
-                            m += 1
-                        else:
+                        elif grid[row][col] == "E":
+                            tempCnt += 1
+                        row -= 1
+                    
+                    # look down
+                    row, col = i, j
+                    while row < m:
+                        if grid[row][col] == "W":
                             break
-                    n = j-1
-                    while n >= 0:
-                        if grid[i][n] == "E":
-                            cnt += 1
-                            n -= 1
-                        elif grid[i][n] == "0":
-                            n -= 1
-                        else:
+                        elif grid[row][col] == "E":
+                            tempCnt += 1
+                        row += 1
+                    
+                    # look left:
+                    row, col = i, j
+                    while col >= 0:
+                        if grid[row][col] == "W":
                             break
-                    n = j+1
-                    while n < len_col:
-                        if grid[i][n] == "E":
-                            cnt += 1
-                            n += 1
-                        elif grid[i][n] == "0":
-                            n += 1
-                        else:
+                        elif grid[row][col] == "E":
+                            tempCnt += 1
+                        col -= 1
+                        
+                    # look right:
+                    row, col = i, j
+                    while col < n:
+                        if grid[row][col] == "W":
                             break
-                res = max(res, cnt)
+                        elif grid[row][col] == "E":
+                            tempCnt += 1
+                        col += 1
+                            
+                res = max(res, tempCnt)
+                    
         return res
+                        
+                        
+                        
+"""DP解法
+up[i][j]=在(i,j)位置能向上炸的敌人数目
+if (i,j) 是墙：up[i][j] = 0
+if (i,j) 是空地：up[i][j] = 0; up[i][j] += up[i-1][j]
+if (i,j) 是敌人：up[i][j] = 1; up[i][j] += up[i-1][j] 
+同理算出down[i][j], left[i][j], right[i][j]
+然后能炸的敌人数目为up+down+left+right
+O(M*N)"""
+class Solution:
+    def maxKilledEnemies(self, grid: List[List[str]]) -> int:
+        if not grid:
+            return 0
+        
+        m, n = len(grid), len(grid[0])
+        dp = [[0] * n for _ in range(m)]
+        res = [[0] * n for _ in range(m)]
+        
+        # up
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == "W":
+                    dp[i][j] = 0
+                else:
+                    dp[i][j] = 0
+                    if grid[i][j] == "E":
+                        dp[i][j] = 1
+                    
+                    if i - 1 >= 0:
+                        dp[i][j] += dp[i - 1][j]
+                        
+                res[i][j] += dp[i][j]        
+        
+        # down
+        for i in range(m - 1, -1, -1):
+            for j in range(n):
+                if grid[i][j] == "W":
+                    dp[i][j] = 0
+                else:
+                    dp[i][j] = 0
+                    if grid[i][j] == "E":
+                        dp[i][j] = 1
+                    
+                    if i + 1 < m:
+                        dp[i][j] += dp[i + 1][j]
+                        
+                res[i][j] += dp[i][j]
+                        
+        # left
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == "W":
+                    dp[i][j] = 0
+                else:
+                    dp[i][j] = 0
+                    if grid[i][j] == "E":
+                        dp[i][j] = 1
+                        
+                    if j - 1 >= 0:
+                        dp[i][j] += dp[i][j - 1]
+                        
+                res[i][j] += dp[i][j]
+                
+        # right
+        for i in range(m):
+            for j in range(n - 1, -1, -1):
+                if grid[i][j] == "W":
+                    dp[i][j] = 0
+                else:
+                    dp[i][j] = 0
+                    if grid[i][j] == "E":
+                        dp[i][j] = 1
+                        
+                    if j + 1 < n:
+                        dp[i][j] += dp[i][j + 1]
+                        
+                res[i][j] += dp[i][j]
+                
+        maxRes = 0        
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == "0":
+                    maxRes = max(maxRes, res[i][j])
+                    
+        return maxRes  
