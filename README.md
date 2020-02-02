@@ -1,21 +1,25 @@
 
 ## [Dynamic Programming](Dynamic-Programming.py)
-- [0322. Coin Change](Solutions/0322.Coin-Change.py) (M) (状态: f[X]=最少用多少枚硬币拼出X; 转移方程：f[X] = min{f[X-2]+1, f[X-5]+1, f[X-7]+1})
-
-
-55. Jump Game
-120. Triangle
-152. Maximum Product Subarray   （用一个数组记录最大的正数，另一个数组记录最小的负数）
-256
-91
-
+- [0322. Coin Change](Solutions/0322.Coin-Change.py) (M) (最小值问题。状态: f[X]=最少用多少枚硬币拼出X; 转移方程：f[X] = min{f[X-2]+1, f[X-5]+1, f[X-7]+1})
+- [0055. Jump Game](Solutions/0055.Jump-Game.py) (M) (存在性问题。状态: dp[j]表示能不能跳到位置j; 转移方程：dp[j]=True if dp[i] and i+nums[i]>=j) (TLE)
+- [0152. Maximum Product Subarray](Solutions/0152.Maximum-Product-Subarray.py) (M) (最大值问题。用一个数组记录最大的正数，另一个数组记录最小的负数)
 
 ### [坐标型DP](/Dynamic-Programming.py)
-- [0062. Unique Paths](Solutions/0062.Unique-Paths.py) (M) (状态: f[i][j]=f[i][j]为机器人有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = f[i][j-1]+f[i-1][j])
+- [0062. Unique Paths](Solutions/0062.Unique-Paths.py) (!!M) (状态: f[i][j]=f[i][j]为机器人有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = f[i][j-1]+f[i-1][j])
 - [0063. Unique Paths II](Solutions/0063.Unique-Paths-II.py) (M) (状态: f[i][j]=f[i][j]为机器人有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = 0 if it is obstacle else f[i][j-1]+f[i-1][j])
-64. Minimum Path Sum
-674
+- [0064. Minimum Path Sum](Solutions/0064.Minimum-Path-Sum.py) (!!M) (滚动数组做空间优化)
+- [0120. Triangle](Solutions/0120.Triangle.py) (M) (滚动数组做空间优化)
+- [0674. Longest Continuous Increasing Subsequence](Solutions/0674.Longest-Continuous-Increasing-Subsequence.py) (E) 
 
+### [序列型DP](/Dynamic-Programming.py)
+- [0256. Paint House](Solutions/0256.Paint-House.py) (E) 
+
+
+### [划分型DP](/Dynamic-Programming.py)
+- [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M) 
+
+### [位操作型DP](/Dynamic-Programming.py)
+338. Counting Bits
 
 
 ### [Longest Subsequece Problems](/Longest-Subsequece-Problem.py)
@@ -25,7 +29,7 @@
 - [0673. Number of Longest Increasing Subsequence.py](Solutions/0673.NumberofLongestIncreasingSubsequence.py) (M)
 - [1027. Longest Arithmetic Sequence.py](Solutions/1027.LongestArithmeticSequence.py) (M)
 - [0873. Length of Longest Fibonacci Subsequence](Solutions/0873.LengthofLongestFibonacciSubsequence.py) (M)  
-### [Classic DP Problems](https://juejin.im/post/5d556b7ef265da03aa2568d5)
+### [高频 DP Problems](https://juejin.im/post/5d556b7ef265da03aa2568d5)
 - [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
 - [1143. Longest Common Subsequence](Solutions/1143.Longest-Common-Subsequence.py) (M)
 - [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (M)
