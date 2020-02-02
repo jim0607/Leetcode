@@ -9,7 +9,7 @@ eg: 62. Unique Paths
 2.  求最大最小值！  （扣题目字眼，如find maximum sum, minimum cost, maximum length等）
        - 从左上角走到右下角路径的最大数字和
        - 最长上升子序列长度
-eg: 322. Coin Change
+eg: 322. Coin Change; 120. Triangle; 152. Maximum Product Subarray
        
 3.  求存在性
        - 取石子游戏，先手是否必胜
@@ -91,16 +91,29 @@ eg: 55. Jump Game
 
 
 
+第一讲：坐标型动态规划
+62. Unique Paths； 63. Unique Path II； 64. Minimum Path Sum
+题目特点：
+给定一个序列或网格，需要找到序列中的子序列/网格中的某条路径的
+- 最大值/最小值
+- 计数
+- 存在性
+这类题目的状态通常定义为：                           
+f(i)表示以(i)结尾的子序列的最大值/最小值或者计数或者存在性；初始条件为f(0) 
+f(i,j)表示以(i,j)结尾的路径最大值/最小值或者计数或者存在性；初始条件为f(0,0)或者f(i,0)或者f(0,j)                              
+                              
+
+                              
+                              
+第二讲：序列型动态规划 
+256. Paint House
 
 
 
 
 
-
-
-
-
-
+第三讲：划分型动态规划 
+91. Decode Ways
 
 
 
