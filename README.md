@@ -19,7 +19,7 @@
 - [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M) 
 
 ### [位操作型DP](/Dynamic-Programming.py)
-338. Counting Bits
+- [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) (dp[i] = dp[i >> 1] + i % 2 )
 
 
 ### [Longest Subsequece Problems](/Longest-Subsequece-Problem.py)
