@@ -16,18 +16,15 @@ Explanation: Buy on day 4 (price = 0) and sell on day 6 (price = 3), profit = 3-
 
 
 
-
-
-
 """O(N), O(1) solution using DP"""
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         sell1, sell2 = 0, 0
-        buy1, buy2 = -float("inf"), -float("inf")
+        buy1, buy2 = float("inf"), float("inf")
         for price in prices:
-            buy1 = max(-price, buy1)            # buy1 = the minimum money you can 欠下 after the first purchase
-            sell1 = max(sell1, buy1 + price)    # sell1 = the maximum money you can 挣下 for the first sell
-            buy2 = max(sell1 - price, buy2)     # buy2 = the minimum money you can 欠下 after the second purchase
-            sell2 = max(sell2, buy2 + price)    # sell2 = the maximum money you can 挣下 after the second purchase
+            buy1 = min(price, buy1)             # buy1 = the minimum money you can 欠下 after the first purchase
+            sell1 = max(sell1, price - buy1)    # sell1 = the maximum money you can 挣下 for the first sell
+            buy2 = min(buy2, price - sell1)     # buy2 = the minimum money you can 欠下 after the second purchase
+            sell2 = max(sell2, price - buy2)    # sell2 = the maximum money you can 挣下 after the second purchase
             
         return sell2
