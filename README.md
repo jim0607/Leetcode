@@ -9,10 +9,36 @@
 - [0063. Unique Paths II](Solutions/0063.Unique-Paths-II.py) (M) (状态: f[i][j]=f[i][j]为机器人有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = 0 if it is obstacle else f[i][j-1]+f[i-1][j])
 - [0064. Minimum Path Sum](Solutions/0064.Minimum-Path-Sum.py) (!!M) (滚动数组做空间优化)
 - [0120. Triangle](Solutions/0120.Triangle.py) (M) (滚动数组做空间优化)
-- [0674. Longest Continuous Increasing Subsequence](Solutions/0674.Longest-Continuous-Increasing-Subsequence.py) (E) 
+
 
 ### [序列型DP](/Dynamic-Programming.py)
 - [0256. Paint House](Solutions/0256.Paint-House.py) (E) 
+265 (时间优化：记录最小值和次小值min_1, min_2的position j_1和j_2)
+198 （空间优化：dp[i] 之和 dp[i-2]与dp[i-1]有关，所以可以用prevMax和currMax来代表dp[i-2]与dp[i-1]）
+213 （与House robber I 相比，这个题目的房子形成了一个环，所以第一个房子和第N个房子不能同时偷，我们可以把问题分成两个问题来解决：
+1. 房子1没偷：问题变成了对房子2~N做House robber I的问题
+2. 房子N没偷：问题变成了对房子1~N-1做House robber I的问题）
+#### [Buy and sell stock]()
+121
+122
+123
+188
+309 （状态很多很难理清楚的时候使用状态机很有效）（直播）
+714
+####  [最长序列问题](/Dynamic-Programming.py)
+- [0674. Longest Continuous Increasing Subsequence](Solutions/0674.Longest-Continuous-Increasing-Subsequence.py) (E) 
+300 (!!M)
+673
+354
+334
+
+
+
+
+
+
+
+
 
 
 ### [划分型DP](/Dynamic-Programming.py)
