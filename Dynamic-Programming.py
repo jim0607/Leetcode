@@ -47,6 +47,9 @@ f(i)表示以(i)结尾的子序列的某种性质如最大值/最小值或者计
 
 第三讲：划分型动态规划 
 91. Decode Ways
+状态往往定义为前i个的某种特性，不包括i
+eg 132: f[j]=the minimum number of total palindrom a palindrome partitining till the jth character (not including j meaning the last palindrome should end with the j-1th character)
+f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome
                               
                               
                               
