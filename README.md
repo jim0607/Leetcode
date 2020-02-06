@@ -33,8 +33,9 @@
 334
 
 
-
-
+###  [划分型DP](/Dynamic-Programming.py)
+279  （f[j] = min(f[j-i^2]+1) for i^2<=j）
+132
 
 
 
