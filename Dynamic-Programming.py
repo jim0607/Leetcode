@@ -47,14 +47,19 @@ f(i)表示以(i)结尾的子序列的某种性质如最大值/最小值或者计
 
 第三讲：划分型动态规划 
 91. Decode Ways
-状态往往定义为前i个的某种特性，不包括i
+状态往往定义为前j个的某种特性，不包括j！！！！，这个思想很重要，相当于给前面做了一层buffer layer
 eg 132: f[j]=the minimum number of total palindrom a palindrome partitining before the jth character (meaning the last palindrome should end with the j-1th character)
 f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome
                               
                               
                               
-                              
-                              
+第三讲：博弈型动态规划 
+博弈型动态规划通常从第一部开始分析，而不是最后一步。
+先手出招后，新的先手面对一个新的局面。
+ 
+       
+第三讲：背包型动态规划 
+背包问题一定要把总重量放入状态。f[i][m]=能否用前i个物品拼出重量m。
                               
 
 第四讲：位操作型动态规划 
