@@ -34,16 +34,19 @@
 
 
 ###  [划分型DP](/Dynamic-Programming.py)
+- [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M) 
 279  （f[j] = min(f[j-i^2]+1) for i^2<=j）
 132   （f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome）
+473 (M Lintcode) 
 
 
+### [博弈型DP](/Dynamic-Programming.py)
+394 Lintcode
+
+### [背包型DP](/Dynamic-Programming.py)
+背包问题一定要把总重量放入状态。f[i][m]=能否用前i个物品拼出重量m。
 
 
-
-
-### [划分型DP](/Dynamic-Programming.py)
-- [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M) 
 
 ### [位操作型DP](/Dynamic-Programming.py)
 - [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) (dp[i] = dp[i >> 1] + i % 2 )
