@@ -81,6 +81,7 @@ f[i]=how many ways to combine to number i  背包问题一定要把总承重放�
 f[i]=f[i-A1]+f[i-A2]+f[i-A3]....
 f[0] = 1
 return f[target]
+这个题其实和coin change那题是一样的。
 """
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
