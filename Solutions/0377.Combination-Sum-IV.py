@@ -49,7 +49,7 @@
 # 
 #
 
-# @lc code=start
+
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
         res = []
@@ -73,5 +73,25 @@ class Solution:
             self.dfs(nums, target - nums[i], 0, curr, res)      # 顺序不重要（(1, 3)和(3, 1)都可以），所以让i从0开始
             curr.pop()       
         
-# @lc code=end
 
+"""
+不要求输出所有的combination，所以除了dfs，还有更快的方法：背包问题。
+如果问题要求用i个数加在一起拼出target，那么多半是背包问题。
+f[i]=how many ways to combine to number i  背包问题一定要把总承重放到状态里！！
+f[i]=f[i-A1]+f[i-A2]+f[i-A3]....
+f[0] = 1
+return f[target]
+"""
+class Solution:
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        lens = len(nums)
+        dp = [0] * (target + 1)
+        
+        dp[0] = 1
+        
+        for i in range(1, target + 1):
+            for k in range(lens):
+                if i >= nums[k]:
+                    dp[i] += dp[i - nums[k]]
+                    
+        return dp[target]
