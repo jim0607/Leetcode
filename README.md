@@ -44,7 +44,9 @@
 394 Lintcode
 
 ### [背包型DP](/Dynamic-Programming.py)
-背包问题一定要把总重量放入状态。f[i][m]=能否用前i个物品拼出重量m。
+92 lintcode f[i][m]=能否用前i个物品拼出重量m。f[i][m] = f[i-1][m] or f[i-1][m-A[i-1]]
+563 lintcode f[i][m]=前i个物品能拼出重量m有多少种方式。f[i][m] = f[i-1][m] + f[i-1][m-A[i-1]]
+377 f[i]=how many ways to combine to number i  背包问题一定要把总承重放到状态里！！ f[i]=f[i-A1]+f[i-A2]+f[i-A3]....
 
 
 
