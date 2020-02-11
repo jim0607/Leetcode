@@ -90,8 +90,8 @@ class Solution:
         dp[0] = 1
         
         for i in range(1, target + 1):
-            for k in range(lens):
-                if i >= nums[k]:
-                    dp[i] += dp[i - nums[k]]
+            for num in nums:
+                if i >= num:
+                    dp[i] += dp[i - num]
                     
         return dp[target]
