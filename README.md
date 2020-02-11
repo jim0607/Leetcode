@@ -6,8 +6,8 @@
 
 ### [坐标型DP](/Dynamic-Programming.py)
 - [0062. Unique Paths](Solutions/0062.Unique-Paths.py) (!!M) (状态: f[i][j]=有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = f[i][j-1]+f[i-1][j])
-- [0063. Unique Paths II](Solutions/0063.Unique-Paths-II.py) (M) (状态: f[i][j]=f[i][j]为机器人有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = 0 if it is obstacle else f[i][j-1]+f[i-1][j])
-- [0064. Minimum Path Sum](Solutions/0064.Minimum-Path-Sum.py) (!!M) (滚动数组做空间优化)
+- [0063. Unique Paths II](Solutions/0063.Unique-Paths-II.py) (M) (转移方程：f[i][j] = 0 if it is obstacle else f[i][j-1]+f[i-1][j])
+- [0064. Minimum Path Sum](Solutions/0064.Minimum-Path-Sum.py) (!!M) (dp[i][j]=the minimum path sum to (i, j); dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j])
 - [0120. Triangle](Solutions/0120.Triangle.py) (M) (滚动数组做空间优化)
 
 
