@@ -11,8 +11,8 @@ Example 1:
 
 
 
-"""空间优化
-dp[i][m]至于dp[i-1][...]有关，所以可以采用滚动数组的方法优化空间"""
+"""dp[i][m]表示前i个石头(不包括i)能否承重m
+dp[i][m] = True if dp[i-1][m] for dp[i-1][m-A[i-1]]"""
 class Solution:
     def backPack(self, M, A):
         lens = len(A)
