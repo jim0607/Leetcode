@@ -11,6 +11,26 @@ There may be more than one LIS combination, it is only necessary for you to retu
 Your algorithm should run in O(n2) complexity.
 Follow up: Could you improve it to O(n log n) time complexity?
 
+    
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        
+        lens = len(nums)
+        dp = [1] * lens # dp[i] means the longest increasing subsequence ending with nums[i]
+        
+        res = 1
+        for j in range(1, lens):
+            for i in range(j):
+                if nums[j] > nums[i]:
+                    dp[j] = max(dp[j], dp[i] + 1)
+                    
+            res = max(res, dp[j])
+            
+        return res
+    
+    
 """方法一：暴力法
 时间复杂度：O(2^n)递归树的大小将为 2^n
 算法：
