@@ -5,7 +5,7 @@
 - [0055. Jump Game](Solutions/0055.Jump-Game.py) (M) <br>
 存在性问题。状态: dp[j]=能不能跳到位置j; 转移方程：dp[j]=True if dp[i] and i+nums[i]>=j) (TLE)
 - [0152. Maximum Product Subarray](Solutions/0152.Maximum-Product-Subarray.py) (M) <br>
-最大值问题。用一个数组记录最大的正数，另一个数组记录最小的负数, maxDP[i] = max(nums[i], maxDP[i-1]*nums[i]) if nums[i]>0
+最大值问题。用一个数组记录最大的正数maxDP[i]，另一个数组记录最小的负数minDP[i], maxDP[i] = max(nums[i], maxDP[i-1]*nums[i]) if nums[i]>0
 
 ### [坐标型DP](/Dynamic-Programming.py)
 - [0062. Unique Paths](Solutions/0062.Unique-Paths.py) (!!M) (状态: f[i][j]=有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = f[i][j-1]+f[i-1][j])
