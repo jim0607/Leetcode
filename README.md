@@ -14,7 +14,7 @@
 - [0064. Minimum Path Sum](Solutions/0064.Minimum-Path-Sum.py) (M) <br> 
 dp[i][j]=the minimum path sum to (i, j); dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j])
 - [0120. Triangle](Solutions/0120.Triangle.py) (M) <br>
-dp[i][j] = min(triangle[i][j] + dp[i - 1][j], triangle[i][j] + dp[i - 1][j - 1])
+dp[i][j] = min(triangle[i][j] + dp[i-1][j], triangle[i][j] + dp[i-1][j-1])
 
 ### [序列型DP](/Dynamic-Programming.py)
 - [0256. Paint House](Solutions/0256.Paint-House.py) (E) <br>
@@ -28,10 +28,15 @@ f[i]=the max profit when reaching ith house; f[i] = max(rob ith = f[i-2]+nums[i]
 房子形成了一个环，所以第一个房子和第N个房子不能同时偷，我们可以把问题分成两个问题来解决：1. 房子1没偷：问题变成了对房子2:N做House robber I的问题; 2. 房子N没偷：问题变成了对房子1:N-1做House robber I的问题
 
 ### [Buy and sell stock DP问题](/Dynamic-Programming.py)
-121
-122
-123
-188
+- [0121. Best Time to Buy and Sell Stock](Solutions/0121.Best-Time-to-Buy-and-Sell-Stock.py) (E) <br>
+Only one transaction is allowed.  Maintain a minPrice and a maxProfit; maxProfit = max(maxProfit, price - minPrice)
+- [0122. Best Time to Buy and Sell Stock II](Solutions/0122.Best-Time-to-Buy-and-Sell-Stock-II.py) (E) <br>
+As many transaction as possible.  make a transaction every time price[i]>price[i-1]
+- [0123. Best Time to Buy and Sell Stock III](Solutions/0123.Best-Time-to-Buy-and-Sell-Stock-III.py) (H) <br>
+Only two transactions are allowed.  Maintain buy1=the minimum money you can own after the first buy, sell1=the maximum money you can earn after the first sell, also, buy2, sell2, and update them together in a for loop
+- [0188. Best Time to Buy and Sell Stock IV](Solutions/0188.Best-Time-to-Buy-and-Sell-Stock-IV.py) (H) <br>
+Only k transactions are allowed.   Maintain buy=[]*k, sell=[]*k, and update them together in a for loop
+
 309 （状态很多很难理清楚的时候使用状态机很有效）（直播）
 714
 ####  [最长序列问题](/Dynamic-Programming.py)
