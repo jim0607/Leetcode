@@ -54,24 +54,24 @@ dp[i] = 以i结尾(包括i)的最长连续子序列; dp[i] = dp[i-1] + 1 if nums
 
 
 ###  [划分型DP](/Dynamic-Programming.py)
-- [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M) 
-279  （f[j] = min(f[j-i^2]+1) for i^2<=j）
-132   （f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome）
-473 (M Lintcode) 
+- [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M) <br>
+279  （f[j] = min(f[j-i^2]+1) for i^2<=j）<br>
+132   （f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome）<br>
+473 (M Lintcode) <br>
 
 
 ### [博弈型DP](/Dynamic-Programming.py)
-394 Lintcode
+394 Lintcode <br>
 
 ### [背包型DP](/Dynamic-Programming.py)
-92 lintcode f[i][m]=能否用前i个物品拼出重量m。f[i][m] = f[i-1][m] or f[i-1][m-A[i-1]]
-563 lintcode f[i][m]=前i个物品能拼出重量m有多少种方式。f[i][m] = f[i-1][m] + f[i-1][m-A[i-1]]
-377 f[i]=how many ways to combine to number i  背包问题一定要把总承重放到状态里！！ f[i]=f[i-A1]+f[i-A2]+f[i-A3]....
+92 lintcode f[i][m]=能否用前i个物品拼出重量m。f[i][m] = f[i-1][m] or f[i-1][m-A[i-1]] <br>
+563 lintcode f[i][m]=前i个物品能拼出重量m有多少种方式。f[i][m] = f[i-1][m] + f[i-1][m-A[i-1]] <br>
+377 f[i]=how many ways to combine to number i  背包问题一定要把总承重放到状态里！！ f[i]=f[i-A1]+f[i-A2]+f[i-A3].... <br>
 
 
 
 ### [位操作型DP](/Dynamic-Programming.py)
-- [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) (dp[i] = dp[i >> 1] + i % 2 )
+- [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) (dp[i] = dp[i >> 1] + i % 2 ) <br>
 
 
 ### [Longest Subsequece Problems](/Longest-Subsequece-Problem.py)
