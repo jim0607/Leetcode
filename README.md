@@ -28,7 +28,7 @@
 714
 ####  [最长序列问题](/Dynamic-Programming.py)
 - [0674. Longest Continuous Increasing Subsequence](Solutions/0674.Longest-Continuous-Increasing-Subsequence.py) (E) 
-300 (!!M)
+300 (!!M) <br>
 673
 354
 334
