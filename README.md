@@ -11,19 +11,24 @@
 状态: f[i][j]=有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = f[i][j-1]+f[i-1][j]
 - [0063. Unique Paths II](Solutions/0063.Unique-Paths-II.py) (M) <br> 
 转移方程：f[i][j] = 0 if it is obstacle else f[i][j-1]+f[i-1][j])
-- [0064. Minimum Path Sum](Solutions/0064.Minimum-Path-Sum.py) (!!M) <br> 
+- [0064. Minimum Path Sum](Solutions/0064.Minimum-Path-Sum.py) (M) <br> 
 dp[i][j]=the minimum path sum to (i, j); dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j])
 - [0120. Triangle](Solutions/0120.Triangle.py) (M) <br>
 dp[i][j] = min(triangle[i][j] + dp[i - 1][j], triangle[i][j] + dp[i - 1][j - 1])
 
 ### [序列型DP](/Dynamic-Programming.py)
-- [0256. Paint House](Solutions/0256.Paint-House.py) (E) 
-265 (时间优化：记录最小值和次小值min_1, min_2的position j_1和j_2)
-198 （空间优化：dp[i] 之和 dp[i-2]与dp[i-1]有关，所以可以用prevMax和currMax来代表dp[i-2]与dp[i-1]）
-213 （与House robber I 相比，这个题目的房子形成了一个环，所以第一个房子和第N个房子不能同时偷，我们可以把问题分成两个问题来解决：
-1. 房子1没偷：问题变成了对房子2~N做House robber I的问题
-2. 房子N没偷：问题变成了对房子1~N-1做House robber I的问题）
-#### [Buy and sell stock]()
+- [0256. Paint House](Solutions/0256.Paint-House.py) (E) <br>
+dp[i][j] means the minimum cost to paint house i to be color j; dp[i][0] = costs[i][0] + min(dp[i - 1][1], dp[i - 1][2])
+- [0265. Paint House II](Solutions/0265.Paint-House-II.py) (E) <br> 
+dp[i][j]=minimum cost to paint the ith house the be color j; dp[i][j] = tempMin + costs[i][j])
+- [0198. House Robber](Solutions/0198.House-Robber.py) (E) <br>
+f[i]=the max profit when reaching ith house; f[i] = max(rob ith = f[i-2]+nums[i], not rob ith = f[i-1]) <br>
+空间优化：dp[i] 之和 dp[i-2]与dp[i-1]有关，所以可以用prevMax和currMax来代表dp[i-2]与dp[i-1]
+- [0213. House Robber II](Solutions/0213.House-Robber-II.py) (E) <br>
+房子形成了一个环，所以第一个房子和第N个房子不能同时偷，我们可以把问题分成两个问题来解决： <br>
+1. 房子1没偷：问题变成了对房子2~N做House robber I的问题; 2. 房子N没偷：问题变成了对房子1~N-1做House robber I的问题
+
+### [Buy and sell stock DP问题](/Dynamic-Programming.py)
 121
 122
 123
