@@ -1,6 +1,6 @@
 
 ## [Dynamic Programming](Dynamic-Programming.py)
-- [0322. Coin Change](Solutions/0322.Coin-Change.py) (M) 
+- [0322. Coin Change](Solutions/0322.Coin-Change.py) (M) <br>
 <font size="1">(最小值问题。状态: f[X]=最少用多少枚硬币拼出X; f[X] = min{f[X-2]+1, f[X-5]+1, f[X-7]+1})</font><br/> 
 - [0055. Jump Game](Solutions/0055.Jump-Game.py) (M) (存在性问题。状态: dp[j]=能不能跳到位置j; dp[j]=True if dp[i] and i+nums[i]>=j) (TLE)
 - [0152. Maximum Product Subarray](Solutions/0152.Maximum-Product-Subarray.py) (M) (最大值问题。用一个数组记录最大的正数，另一个数组记录最小的负数, maxDP[i] = max(nums[i], maxDP[i-1]*nums[i]) if nums[i]>0)
@@ -29,9 +29,9 @@
 ####  [最长序列问题](/Dynamic-Programming.py)
 - [0674. Longest Continuous Increasing Subsequence](Solutions/0674.Longest-Continuous-Increasing-Subsequence.py) (E) 
 300 (!!M) <br>
-673
-354
-334
+673 <br>
+354 <br>
+334 <br>
 
 
 ###  [划分型DP](/Dynamic-Programming.py)
