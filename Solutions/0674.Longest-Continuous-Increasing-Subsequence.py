@@ -28,6 +28,31 @@ class Solution:
         return max(dp)
 """    
 
+"""dp[i] 只与 dp[i - 1]有关，所以可以空间优化成O(1)"""
+class Solution:
+    def findLengthOfLCIS(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        
+        lens = len(nums)
+        if lens == 1:
+            return lens
+        
+        prev, curr = 1, 1
+        res = 1
+        
+        for i in range(1, lens):
+            if nums[i] > nums[i - 1]:
+                curr = prev + 1
+                prev = curr
+            else:
+                curr, prev = 1, 1
+            
+            res = max(res, curr)
+                
+        return res
+
+
 """two pointers, one act as an anchor"""
 class Solution:
     def findLengthOfLCIS(self, nums: List[int]) -> int:
