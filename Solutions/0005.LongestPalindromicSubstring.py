@@ -1,3 +1,29 @@
+"""经典的区间型动态规划 
+给定一些序列/字符串，进行一些操作，求满足区间[i, j]的一些性质的题目
+自然而然将状态定义为f[i][j]表示面对子序列[i, j]时的最佳性质。dp[i][j]=from i to j (including j), is it a palindr?
+if s[i] == s[j] and (j - i <= 2 or dp[i + 1][j - 1]): dp[i][j] = True"""
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        if not s or len(s) == 1:
+            return s
+                
+        lens = len(s)       
+        dp = [[False] * lens for _ in range(lens)]      # dp[i][j]=from i to j (including j), is it a palindr?
+        
+        maxLen = 0      
+        res = s[0]      # 初始化为s[0]的原因是如果完全找不到一个回子串的话，至少要输出第一个元素
+        for j in range(1, lens):
+            for i in range(j):                 
+                if s[i] == s[j] and (j - i <= 2 or dp[i + 1][j - 1]):
+                    dp[i][j] = True
+                    
+                    if j - i + 1 > maxLen:
+                        maxLen = j - i + 1
+                        res = s[i:j + 1]
+        
+        return res
+
+
 """解法一：暴力法，枚举所有子串，并逐一判断 O(N**3), O(1)"""
 class Solution:
     def longestPalindrome(self, s: str) -> str:
