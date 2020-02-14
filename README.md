@@ -54,9 +54,9 @@ dp[i] = 以i结尾(包括i)的最长连续子序列; dp[i] = dp[i-1] + 1 if nums
 
 ###  [区间型DP](/Dynamic-Programming.py)
 - [0005. Longest Palindromic Substring](Solutions/0005.Longest-Palindromic-Substring.py) (!!M) <br>
-Problem is to return the longest substr: dp[i][j]=from i to j (including j), is it a palindr? if s[i]==s[j] and (j-i<=2 or dp[i+1][j-1]): dp[i][j]=True；注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)
+Return the longest substr: dp[i][j]=from i to j (including j), is it a palindr? if s[i]==s[j] and (j-i<=2 or dp[i+1][j-1]): dp[i][j]=True; 注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)
 - [0516. Longest Palindromic Subsequence](Solutions/0516.Longest-Palindromic-Subsequence.py) (!!M) <br>
-Problem is to return the longest length: dp[i][j]=longest palindr from i to j; dp[i][j]=dp[i+1][j-1]+2 if s[i]==s[j] else max(dp[i+1][j], dp[i][j-1])；注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)
+Return the longest length: dp[i][j]=longest palindr from i to j; dp[i][j]=dp[i+1][j-1]+2 if s[i]==s[j] else max(dp[i+1][j], dp[i][j-1]);注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)
 
 - [0300. Longest Increasing Subsequence](Solutions/0300.LongestIncreasingSubsequence.py) (M)
 - [0673. Number of Longest Increasing Subsequence.py](Solutions/0673.NumberofLongestIncreasingSubsequence.py) (M)
