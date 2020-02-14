@@ -49,6 +49,8 @@ dp[i] = 以i结尾(包括i)的最长连续子序列; dp[i] = dp[i-1] + 1 if nums
 - [0300. Longest Increasing Subsequence](Solutions/00300.Longest-Increasing-Subsequence.py) (!!M) <br>
 不需要连续，所以不是dp[i] = dp[i-1] + 1，而是所有的j之前的i都有可能, 所以转移方程是 dp[j] = max(dp[i] + 1 for i<j and nums[i]<nums[j]) 
 673 <br>
+- [1027. Longest Arithmetic Sequence.py](Solutions/1027.LongestArithmeticSequence.py) (Need to solve M) <br>
+- [0873. Length of Longest Fibonacci Subsequence](Solutions/0873.LengthofLongestFibonacciSubsequence.py) (Need to solve M) <br>
 354 <br>
 334 <br>
 
@@ -57,8 +59,6 @@ dp[i] = 以i结尾(包括i)的最长连续子序列; dp[i] = dp[i-1] + 1 if nums
 Return the longest substr: dp[i][j]=from i to j (including j), is it a palindr? if s[i]==s[j] and (j-i<=2 or dp[i+1][j-1]): dp[i][j]=True; 注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)
 - [0516. Longest Palindromic Subsequence](Solutions/0516.Longest-Palindromic-Subsequence.py) (!!M) <br>
 Return the longest length: dp[i][j]=longest palindr from i to j; dp[i][j]=dp[i+1][j-1]+2 if s[i]==s[j] else max(dp[i+1][j], dp[i][j-1]);注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)
-- [1027. Longest Arithmetic Sequence.py](Solutions/1027.LongestArithmeticSequence.py) (M) <br>
-- [0873. Length of Longest Fibonacci Subsequence](Solutions/0873.LengthofLongestFibonacciSubsequence.py) (M) <br>
 
 ###  [划分型DP](/Dynamic-Programming.py)
 - [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M) <br>
