@@ -24,6 +24,37 @@ class Solution:
         return res
 
 
+"""
+If the problem is to ask what isthe longest length
+then the state could be dp[i][j]=longest palindr from i to j
+if s[i] == s[j]: dp[i][j] = dp[i+1][j-1] + 2 else: max(dp[i+1][j], dp[i][j-1])
+"""
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        if not s or len(s) == 1:
+            return s
+                
+        lens = len(s)       
+        dp = [[1] * lens for _ in range(lens)]
+        
+        maxLen = 0
+        res = s[0]
+        for j in range(1, lens):
+            for i in range(j):
+                if s[i] == s[j]:
+                    dp[i][j] = dp[i + 1][j - 1] + 2
+                    
+                    if dp[i][j] > maxLen:
+                        maxLen = dp[i][j]
+                        res = s[i:j + 1]
+                
+                else:
+                    dp[i][j] = max(dp[i + 1][j], dp[i][j - 1])
+                
+        return dp[0][lens - 1]
+           
+    
+    
 """解法一：暴力法，枚举所有子串，并逐一判断 O(N**3), O(1)"""
 class Solution:
     def longestPalindrome(self, s: str) -> str:
