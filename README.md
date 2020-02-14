@@ -52,11 +52,7 @@ dp[i] = 以i结尾(包括i)的最长连续子序列; dp[i] = dp[i-1] + 1 if nums
 354 <br>
 334 <br>
 
-### [坐标型DP](/Dynamic-Programming.py)
-- [0062. Unique Paths](Solutions/0062.Unique-Paths.py) (!!M) <br>
-状态: f[i][j]=有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = f[i][j-1]+f[i-1][j]
-- [0063. Unique Paths II](Solutions/0063.Unique-Paths-II.py) (M) <br> 
-存在性问题。状态: dp[j]=能不能跳到位置j; 转移方程：dp[j]=True if dp[i] and i+nums[i]>=j) (TLE)
+### [区间型DP](/Dynamic-Programming.py)
 - [0005. Longest Palindromic Substring](Solutions/0005.Longest-Palindromic-Substring.py) (!!M) <br>
 Return the longest substr: dp[i][j]=from i to j (including j), is it a palindr? if s[i]==s[j] and (j-i<=2 or dp[i+1][j-1]): dp[i][j]=True; 注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)
 - [0516. Longest Palindromic Subsequence](Solutions/0516.Longest-Palindromic-Subsequence.py) (!!M) <br>
