@@ -10,10 +10,14 @@ class Solution:
         lens = len(s)       
         dp = [[False] * lens for _ in range(lens)]      # dp[i][j]=from i to j (including j), is it a palindr?
         
-        maxLen = 0      
-        res = s[0]      # 初始化为s[0]的原因是如果完全找不到一个回子串的话，至少要输出第一个元素
+        dp[0][0] = True
+        
+        maxLen = 0
+        res = s[0]    # 初始化为s[0]的原因是如果完全找不到一个回子串的话，至少要输出第一个元素
         for j in range(1, lens):
-            for i in range(j):                 
+            dp[j][j] = True     # 初始化对角线
+            
+            for i in range(j - 1, -1, -1):         # 注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)        
                 if s[i] == s[j] and (j - i <= 2 or dp[i + 1][j - 1]):
                     dp[i][j] = True
                     
