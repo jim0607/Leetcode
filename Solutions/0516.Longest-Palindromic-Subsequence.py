@@ -10,6 +10,33 @@ Output:
 4
 One possible longest palindromic subsequence is "bbbb".
 
+
+
+"""dp[i][j]=dp[i+1][j-1]+2 if s[i]==s[j] else max(dp[i+1][j], dp[i][j-1])
+注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i"""
+class Solution:
+    def longestPalindromeSubseq(self, s: str) -> int:
+        if not s:
+            return 0
+        
+        lens = len(s)
+        dp = [[0] * lens for _ in range(lens)]
+        
+        dp[0][0] = 1
+        
+        for j in range(1, lens):
+            dp[j][j] = 1        # initialize 对角线
+            
+            for i in range(j - 1, -1, -1):     # 因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i          
+                if s[i] == s[j]:
+                    dp[i][j] = dp[i + 1][j - 1] + 2
+                    
+                else:
+                    dp[i][j] = max(dp[i + 1][j], dp[i][j - 1])
+                    
+        return dp[0][lens - 1]
+
+    
 """解法一：递归, O(?)"""
 class Solution:
     def longestPalindromeSubseq(self, s: str) -> int:
