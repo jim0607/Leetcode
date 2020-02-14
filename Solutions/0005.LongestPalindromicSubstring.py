@@ -43,10 +43,6 @@ class Solution:
             for i in range(j):
                 if s[i] == s[j]:
                     dp[i][j] = dp[i + 1][j - 1] + 2
-                    
-                    if dp[i][j] > maxLen:
-                        maxLen = dp[i][j]
-                        res = s[i:j + 1]
                 
                 else:
                     dp[i][j] = max(dp[i + 1][j], dp[i][j - 1])
