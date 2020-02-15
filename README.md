@@ -90,7 +90,7 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 
 ### [位操作型DP](/Dynamic-Programming.py)
 - [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) <br>
-dp[i] = dp[i >> 1] + i % 2
+状态f[i]=i的二进制中有多少个1; dp[i] = dp[i >> 1] + i % 2
 
 ### [高频 DP Problems](https://juejin.im/post/5d556b7ef265da03aa2568d5)
 - [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
