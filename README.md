@@ -50,7 +50,8 @@ dp[i] = 以i结尾(包括i)的最长连续子序列; dp[i] = dp[i-1] + 1 if nums
 不需要连续，所以不是dp[i] = dp[i-1] + 1，而是所有的j之前的i都有可能, 所以转移方程是 dp[j] = max(dp[i] + 1 for i<j and nums[i]<nums[j]) 
 - [0673. Number of Longest Increasing Subsequence](Solutions/0673.Number-of-Longest-Increasing-Subsequence.py) (M) <br>
  dp = 以i为结尾的最大的长度; cnt = 以i为结尾的最大的长度的个数
-- [1027. Longest Arithmetic Sequence.py](Solutions/1027.LongestArithmeticSequence.py) (Need to solve M) <br>
+- [1027. Longest Arithmetic Sequence.py](Solutions/1027.Longest-Arithmetic-Sequence.py) (M) <br>
+dp[i]=以i结尾的等差数列, dp[i][j]=以i结尾的等差数列且以j为公差的长度; dp = [collections.defaultdict(lambda: 1) for _ in range(lens)]
 - [0873. Length of Longest Fibonacci Subsequence](Solutions/0873.LengthofLongestFibonacciSubsequence.py) (Need to solve M) <br>
 354 <br>
 334 <br>
