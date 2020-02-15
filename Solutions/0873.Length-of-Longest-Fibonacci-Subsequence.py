@@ -6,8 +6,6 @@ Given a strictly increasing array A of positive integers forming a sequence, fin
 
 (Recall that a subsequence is derived from another sequence A by deleting any number of elements (including none) from A, without changing the order of the remaining elements.  For example, [3, 5, 8] is a subsequence of [3, 4, 5, 6, 7, 8].)
 
- 
-
 Example 1:
 
 Input: [1,2,3,4,5,6,7,8]
@@ -16,6 +14,33 @@ Explanation:
 The longest subsequence that is fibonacci-like: [1,2,3,5,8].
 
 
+ """dp[i][j]=以i, j为最后两个数字的fib的长度
+dp[j][index of (A[i]+A[j])]=dp[i][j]+1
+index of (A[i]+A[j])是(A[i]+A[j])在A中的位置，为了快速得到index of (A[i]+A[j])，可以用一个dict存储索引"""
+class Solution:
+    def lenLongestFibSubseq(self, A: List[int]) -> int:
+        if not A:
+            return 0
+        
+        lens = len(A)
+        indexDict = {}
+        for index, num in enumerate(A):
+            indexDict[num] = index
+            
+        dp = [[2] * lens for _ in range(lens)]
+        
+        maxLen = 2
+        for j in range(lens):
+            for i in range(j):
+                if A[i] + A[j] in indexDict.keys():
+                    dp[j][indexDict[A[i]+A[j]]] = dp[i][j] + 1
+                    
+                    maxLen = max(maxLen, dp[j][indexDict[A[i]+A[j]]])
+                    
+        return maxLen if maxLen > 2 else 0
+ 
+ 
+ 
 """想法很简单，就是每次从A中找前两个数，然后查看后续符合斐波那契的数在A中有没有。复杂度O(n^2 * logn) 空间复杂度O(1)"""
 class Solution:
     def lenLongestFibSubseq(self, A: List[int]) -> int:
@@ -45,29 +70,3 @@ class Solution:
             else:
                 left = mid + 1
         return -1
-        
-        
-        
-"""动态规划：dp[i][j]表示***以A[i]和A[j]***为结尾的子序列的长度。
-初始条件：dp[i][i]=1; 递推关系：if j>i, dp[i][dict[A[i]+A[j]]] = dp[i][j]+1
-与1027. Longest Arithmetric Sequence比较像，关键是理解dp[i][j]表示什么"""
-class Solution:
-    def lenLongestFibSubseq(self, A: List[int]) -> int:
-        lens = len(A)
-        dp = [[2]*lens for _ in range(lens)]
-        
-        dictA = collections.defaultdict(int)  # 用defuultdict即使有重复的num也可以分开存放
-        for i, num in enumerate(A):
-            dictA[num] = i
-            
-        res = 2
-        for i in range(lens-1):
-            for j in range(i+1, lens):
-                dp[i][j] = max(dp[i][j], 2)
-                sums = A[i] + A[j]
-                if sums in dictA:
-                    index = dictA[sums]
-                    # 想想为什么dp[i][index] = max(dp[i][j] + 1, dp[i][index])是错的，想想dp[i][j]的定义是表示以***A[i]和A[j]***为结尾的子序列的长度
-                    dp[j][index] = max(dp[j][index], dp[i][j]+1)
-                    res = max(res, dp[j][index])
-        return 0 if res < 3 else res
