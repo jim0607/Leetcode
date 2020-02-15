@@ -47,8 +47,7 @@ hold[i] = max(hold[i-1], unhold[i-1]-prices[i]); unhold[i] = max(unhold[i-1], ho
 - [0674. Longest Continuous Increasing Subsequence](Solutions/0674.Longest-Continuous-Increasing-Subsequence.py) (E) <br>
 dp[i] = 以i结尾(包括i)的最长连续子序列; dp[i] = dp[i-1] + 1 if nums[i]>nums[i-1]
 - [0300. Longest Increasing Subsequence](Solutions/0300.Longest-Increasing-Subsequence.py) (!!M) <br>
-不需要连续，所以不是dp[i] = dp[i-1] + 1，而是所有的j之前的i都有可能, 所以转移方程是 dp[j] = max(dp[i] + 1 for i<j and nums[i]<nums[j]) <br>
-还需要掌握dp + binary search (O(NlogN))
+不需要连续，所以不是dp[i] = dp[i-1] + 1，而是所有的j之前的i都有可能, 所以转移方程是 dp[j] = max(dp[i] + 1 for i<j and nums[i]<nums[j]); 还需要掌握dp + binary search (O(NlogN))
 - [0673. Number of Longest Increasing Subsequence](Solutions/0673.Number-of-Longest-Increasing-Subsequence.py) (M) <br>
  dp=以i为结尾的最大的长度; cnt=以i为结尾的最大的长度的个数; cnt[j]+=cnt[i] if dp[j]=dp[i]+1
 - [1027. Longest Arithmetic Sequence.py](Solutions/1027.Longest-Arithmetic-Sequence.py) (M) <br>
@@ -68,26 +67,30 @@ Return the longest length: dp[i][j]=longest palindr from i to j; dp[i][j]=dp[i+1
 
 ###  [划分型DP](/Dynamic-Programming.py)
 - [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M) <br>
-279  （f[j] = min(f[j-i^2]+1) for i^2<=j）<br>
-132   （f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome）<br>
-473 (M Lintcode) <br>
-
+f[i]=number of decode ways until i; f[i]=f[i-1]+f[i-2] if int(s[i-1:i+1])<=26 else f[i-1]
+- [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (M) <br>
+f[i]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i^2]+1) for i^2<=j; Time complexity: j is from 0 to n, i is from 0 to j^0.5, so O(N^1.5)
+- [0132. Palindrome Partitioning II](Solutions/0132.Palindrome-Partitioning-II.py) (!!M) <br>
+f[j]=the minimum number of total palindrome till the jth character (not including j); f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome： 划分型的dp的状态一般都not include j, 这样就有一个buffer layer可以用。
 
 ### [博弈型DP](/Dynamic-Programming.py)
-394 Lintcode <br>
+- [0394. Coins in a Line](Solutions/0394.Coins-in-a-Line.py) (M) <br>
+f[i]=面对i个石子，先手是必胜吗; f[i]=True if f[i-1] or f[i-2]都是False
 
 ### [背包型DP](/Dynamic-Programming.py)
-92 lintcode f[i][m]=能否用前i个物品拼出重量m。f[i][m] = f[i-1][m] or f[i-1][m-A[i-1]] <br>
-563 lintcode f[i][m]=前i个物品能拼出重量m有多少种方式。f[i][m] = f[i-1][m] + f[i-1][m-A[i-1]] <br>
-377 f[i]=how many ways to combine to number i  背包问题一定要把总承重放到状态里！！ f[i]=f[i-A1]+f[i-A2]+f[i-A3].... <br>
-125 (Lintcode !!!!!!!) <br>
-
-
+- [0092. Backpack](Solutions/0092.Backpack.py) (!!M Lintcode) <br>
+f[i][m]=能否用前i个物品拼出重量m; f[i][m] = f[i-1][m] (表示前i-1个物品就可以拼出m) or f[i-1][m-A[i-1]] (表示前i-1个物品可以拼出m-A[i-1])
+- [0563. Backpack-V](Solutions/0563.Backpack-V.py) (!!M Lintcode) <br>
+f[i][m]=前i个物品能拼出重量m有多少种方式。f[i][m] = f[i-1][m] + f[i-1][m-A[i-1]]
+- [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (!!M Lintcode) <br>
+f[i]=how many ways to combine to number i; 背包问题一定要把总承重放到状态里！！ f[i]=f[i-A1]+f[i-A2]+f[i-A3].... <br>
+- [0125. Backpack II](Solutions/0125.Backpack-II.py) (!!M Lintcode) <br>
+这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。用子问题定义状态：即f[i][j]表示前i件物品拼出重量j可以获得的最大价值。
+f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1][M]
 
 ### [位操作型DP](/Dynamic-Programming.py)
-- [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) (dp[i] = dp[i >> 1] + i % 2 ) <br>
-
-
+- [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) <br>
+dp[i] = dp[i >> 1] + i % 2
 
 ### [高频 DP Problems](https://juejin.im/post/5d556b7ef265da03aa2568d5)
 - [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
