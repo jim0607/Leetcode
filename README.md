@@ -96,12 +96,8 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 - [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
 - [1143. Longest Common Subsequence](Solutions/1143.Longest-Common-Subsequence.py) (M)
 - [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (M)
-- [0064. Minimum Path Sum](Solutions/0064.Minimum-Path-Sum.py) (M)
 - [1049. Last Stone Weight II](Solutions/1049.Last-Stone-Weight-II.py) (M)
-
-- [0714. Best Time to Buy and Sell Stock with Transaction Fee](Solutions/0714.Best-Time-to-Buy-and-Sell-Stock-with-Transaction-Fee.py) (M)
 - [1024. Video Stitching](Solutions/1024.Video-Stitching.py) (M)
-- [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M)
 - [1155. Number of Dice Rolls With Target Sum](Solutions/1155.Number-of-Dice-Rolls-With-Target-Sum.py) (M)
 - [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (M)
 - [0221. Maximal Square](Solutions/0221.Maximal-Square.py) (M)
@@ -116,7 +112,6 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 - [0343. Integer Break](Solutions/0343.Integer-Break.py) (M)
 - [1223. Dice Roll Simulation](Solutions/1223.Dice-Roll-Simulation.py) (M)
 - [1105. Filling Bookcase Shelves](Solutions/1105.Filling-Bookcase-Shelves.py) (M)
-
 
 
 
