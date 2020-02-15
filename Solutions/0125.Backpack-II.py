@@ -20,7 +20,7 @@ Explanation: Put A[1] and A[3] into backpack, getting the maximum value V[1] + V
 https://www.kancloud.cn/kancloud/pack/70125
 这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。
 用子问题定义状态：即f[i][v]表示前i件物品恰放入一个容量为v的背包可以获得的最大价值。
-f[i][a]=max{f[i-1][j],f[i-1][j-A[i]]+V[i]}
+f[i][j]=max{f[i-1][j],f[i-1][j-A[i]]+V[i]}
 将前i件物品（包括i）放入容量为j的背包中”这个子问题，若只考虑第i件物品的策略（放或不放），那么就可以转化为一个只牵扯前i-1件物品的问题。如果不放第i件物品，那么问题就转化为“前i-1件物品放入容量为a的背包中”，价值为f[i-1][v]；如果放第i件物品，那么问题就转化为“前i-1件物品放入剩下的容量为j-A[i]的背包中”，此时能获得的最大价值就是f[i-1][j-A[i]]再加上通过放入第i件物品获得的价值V[i]"""
 class Solution:
     def backPackII(self, m, A, V):
