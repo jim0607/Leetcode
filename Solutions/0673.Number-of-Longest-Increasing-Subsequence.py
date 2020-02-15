@@ -8,23 +8,29 @@ Explanation: The two longest increasing subsequence are [1, 3, 4, 7] and [1, 3, 
 
 class Solution:
     def findNumberOfLIS(self, nums: List[int]) -> int:
-        lens = len(nums)
-        if lens==0:
+        if not nums:
             return 0
-        dp = [1]*lens   # longest length ending in nums[i]
-        cnt = [1]*lens  # number of longest ending in nums[i]
-        for i in range(lens-1):
-            for j in range(i+1, lens):
-                if nums[j] > nums[i]:
-                    if dp[j] <= dp[i]:
-                        dp[j] = 1 + dp[i]
+        
+        lens = len(nums)
+        dp = [1] * lens     # 以i为结尾的最大的长度
+        cnt = [1] * lens    # 以i为结尾的最大的长度的个数
+        
+        for j in range(1, lens):
+            for i in range(j):
+                if nums[j] > nums[i]:   # 如果包括等于的话，那么[2,2,2]的输出就是错的
+                    if dp[j] <= dp[i]:  # meaning this is the first time renewing dp[j], or the first time dp[j]遇到了一个非常大的dp[i]
+                        dp[j] = dp[i] + 1
                         cnt[j] = cnt[i]
-                    else:
-                        if dp[i]+1 == dp[j]:   # 说明dp[j]是dp[i]的下一个递增的元素
-                            cnt[j] += cnt[i]
-        maxLens = max(dp)
+                        
+                    elif dp[j] == dp[i] + 1:    # meaning dp[j]是dp[i]的下一个递增元素
+                        cnt[j] += cnt[i]
+                        
+        print(dp)
+        print(cnt)
+        maxLen = max(dp)
         res = 0
-        for i, num in enumerate(dp):
-            if num == maxLens:
+        for i, length in enumerate(dp):
+            if length == maxLen:
                 res += cnt[i]
+        
         return res
