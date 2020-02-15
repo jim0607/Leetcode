@@ -52,7 +52,8 @@ class Solution:
         else:
             return True if 0 < int(s) <= 26 and int(s[0]) != 0 else False
             
-"""经典的dp题，很容易想到。"""
+"""经典的dp题，很容易想到。
+不考虑繁琐的edge case的话，下面的code就是对的"""
 class Solution:
     def numDecodings(self, s: str) -> int:
         lens = len(s)
@@ -62,7 +63,7 @@ class Solution:
         dp[0] = 1
         dp[1] = 1 if int(s[:1]) > 26 else 2
         for i in range(2, lens):
-            if int(s[i-1:i]) <= 26:
+            if int(s[i-1:i+1]) <= 26:
                 dp[i] = dp[i-1] + dp[i-2]
             else:
                 dp[i] = dp[i-1]
