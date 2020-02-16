@@ -76,6 +76,8 @@ f[j]=the minimum number of total palindrome till the jth character (not includin
 ### [博弈型DP](/Dynamic-Programming.py)
 - [0394. Coins in a Line](Solutions/0394.Coins-in-a-Line.py) (M) <br>
 f[i]=面对i个石子，先手是必胜吗; f[i]=True if f[i-1] or f[i-2]都是False
+- [0486. Predict the Winner](Solutions/0486.Predict-the-Winner.py) (M) <br>
+f[i][j]=当石子还剩i到j时，先手最多能赢多少; f[i][j] = max(取左边A[i]-f[i+1][j], 取右边A[j]-f[i][j-1])
 
 ### [背包型DP](/Dynamic-Programming.py)
 - [0092. Backpack](Solutions/0092.Backpack.py) (!!M Lintcode) <br>
@@ -101,7 +103,6 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 - [1155. Number of Dice Rolls With Target Sum](Solutions/1155.Number-of-Dice-Rolls-With-Target-Sum.py) (M)
 - [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (M)
 - [0221. Maximal Square](Solutions/0221.Maximal-Square.py) (M)
-- [0486. Predict the Winner](Solutions/0486.Predict-the-Winner.py) (M)
 - [0983. Minimum Cost For Tickets](Solutions/0983.Minimum-Cost-For-Tickets.py) (M)
 - [0688. Knight Probability in Chessboard](Solutions/0688.Knight-Probability-in-Chessboard.py) (M)
 - [1155. Number of Dice Rolls With Target Sum](Solutions/1155.Number-of-Dice-Rolls-With-Target-Sum.py) (M)
