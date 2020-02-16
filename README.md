@@ -1,7 +1,7 @@
 # [Dynamic Programming](Dynamic-Programming.py)
-- [0322. Coin Change](Solutions/0322.Coin-Change.py) (M) <br>
+- [0322. Coin Change](Solutions/0322.Coin-Change.py) (!!M) <br>
 最小值问题。状态: f[X]=最少用多少枚硬币拼出X; 转移方程：f[X] = min(f[X-2]+1, f[X-5]+1, f[X-7]+1)
-- [0055. Jump Game](Solutions/0055.Jump-Game.py) (M) <br>
+- [0055. Jump Game](Solutions/0055.Jump-Game.py) (!!M) <br>
 存在性问题。状态: dp[j]=能不能跳到位置j; 转移方程：dp[j]=True if dp[i] and i+nums[i]>=j) (TLE)
 - [0152. Maximum Product Subarray](Solutions/0152.Maximum-Product-Subarray.py) (M) <br>
 最大值问题。用一个数组记录最大的正数maxDP[i]，另一个数组记录最小的负数minDP[i], maxDP[i] = max(nums[i], maxDP[i-1]*nums[i]) if nums[i]>0
