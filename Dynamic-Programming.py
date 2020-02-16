@@ -6,7 +6,7 @@
        - 有多少种方法选出k个数使得和是Sum
 eg: 62. Unique Paths
        
-2.  求最大最小值！  （扣题目字眼，如find maximum sum, minimum cost, maximum length等）
+2.  求最大最小值！  （扣题目字眼，如find maximum sum, minimum cost, maximum length等）, 求极值的题目，不是Greedy就是DP啊，一般难题偏DP的比较多。
        - 从左上角走到右下角路径的最大数字和
        - 最长上升子序列长度
 eg: 322. Coin Change; 120. Triangle; 152. Maximum Product Subarray
