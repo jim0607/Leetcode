@@ -98,6 +98,11 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 - [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) <br>
 状态f[i]=i的二进制中有多少个1; dp[i] = dp[i >> 1] + i % 2
 
+### [双序列型DP](/Dynamic-Programming.py)
+1143 <br>
+801 <br>
+
+
 ### [Other DP Problems](https://juejin.im/post/5d556b7ef265da03aa2568d5)
 - [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
 - [1143. Longest Common Subsequence](Solutions/1143.Longest-Common-Subsequence.py) (M)
