@@ -160,16 +160,16 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 
 
 # [Two Pointers](/Two-pointers.py)
-## [反向双指针](/Two-pointers.py)
+### [反向双指针](/Two-pointers.py)
 - [0977. Squares of a Sorted Array](Solutions/0977.Squares-of-a-Sorted-Array.py) (E) 
-### Partition
+### Partition(/Two-pointers.py)
 - [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode)
 - [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E)
 - [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
 - [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) (三根指针partition成三个部分)
 - [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) (E) 
 
-## [同向双指针](/Two-pointers.py)
+### [同向双指针](/Two-pointers.py)
 - [0283. Move Zeroes](Solutions/0283.Move-Zeroes.py) (E) 
 - [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (E) 
 - [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) 
