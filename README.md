@@ -114,8 +114,7 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 - [0464. Can I Win](Solutions/0464.Can-I-Win.py) (M)
 
 
-
-## [Data Structure](/Data-Structure.py)
+# [Data Structure](/Data-Structure.py)
 ### [Stack and Queue](/Data-Structure.py)
 - [0232. Implement Queue using Stacks](Solutions/0232.Implement-Queue-using-Stacks.py) (E) 
 - [0225. Implement Stack using Queues](Solutions/0225.Implement-Stack-using-Queues.py) (E) 
@@ -145,7 +144,7 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 - [0264. Ugly Number II](Solutions/0264.Ugly-Number-II.py) (M)
 
 
-## [Two Sum]()
+# [Two Sum]()
 - [0001. Two Sum](Solutions/0001.Two-Sum.py) (E) 
 - [0167. Two Sum II - Input array is sorted](Solutions/0167.Two-Sum-II-Input-array-is-sorted.py) (E)
 - [0170. Two Sum III - Data structure design](Solutions/0170.Two-Sum-III-Data-structure-design.py) (E)
@@ -160,34 +159,27 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 - [0454. 4Sum II](Solutions/0454.4Sum-II.py) (M) 
 
 
-## [Two Pointers](/Two-pointers.py)
-### 反向双指针
+# [Two Pointers](/Two-pointers.py)
+## [反向双指针](/Two-pointers.py)
 - [0977. Squares of a Sorted Array](Solutions/0977.Squares-of-a-Sorted-Array.py) (E) 
-#### Partition
+### Partition
 - [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode)
 - [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E)
 - [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
 - [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) (三根指针partition成三个部分)
 - [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) (E) 
 
-
-
-### 同向双指针
+## [同向双指针](/Two-pointers.py)
 - [0283. Move Zeroes](Solutions/0283.Move-Zeroes.py) (E) 
 - [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (E) 
 - [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) 
 
-
-
-## [Sorted Array]() 
+# [Sorted Array]() 
 - [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py) (E) 
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M) (quick select) 
 - [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) (Binary search) 
 
-
-
-
-## [SubArray](/SubArray.py)
+# [SubArray](/SubArray.py)
 - [0053. Maximum Subarray](Solutions/0053.Maximum-Subarray.py) (！！E) (前缀和prefixSum)
 - [0724. Find Pivot Index](Solutions/0724.Find-Pivot-Index.py) (E) (prefixSum)
 - [0560. Subarray Sum Equals K](Solutions/0560.Subarray-Sum-Equals-K.py) (!!M) (prefixSum+hashmap)
@@ -195,9 +187,7 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 - [0974. Subarray Sums Divisible by K](Solutions/0974.Subarray-Sums-Divisible-by-K.py) (M) (prefixSum+hashmap)
 - [0139. Subarray Sum Closest](Solutions/0139.Subarray-Sum-Closest.py) (Lintcode) (prefixSum+hashmap)
 
-
-
-## [Linked List](/Linked-List)
+# [Linked List](/Linked-List)
 - [0148. Sort List](Solutions/0148.Sort-List.py) (！！M)
 - [0206. Reverse Linked List](Solutions/0206.Reverse-Linked-List.py) (！！E) (需要熟背理解)
 - [0092. Reverse Linked List II](Solutions/0092.Reverse-Linked-List-II.py) (M)
@@ -210,10 +200,8 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 - [0021. Merge Two Sorted Lists](Solutions/0021.Merge-Two-Sorted-Lists.py) (E)
 - [0002. Add Two Numbers](Solutions/0002.Add-Two-Numbers.py) (E)
 
-
-
-## [Depth First Search](/Depth-First-Search.py)
-### Combination
+# [Depth First Search](/Depth-First-Search.py)
+### [Combination](/Depth-First-Search.py)
 - [0078. Subsets](Solutions/0078.Subsets.py) (！！M)(DFS + Back tracking)
 - [0090. Subsets II](Solutions/0090.Subsets-II.py) (！！M)(如果之前的那个2没被放进去，那么就不要放后面那个2，这样来去重)
 - [0039. Combination Sum](Solutions/0039.Combination-Sum.py) (！M) (start是从i开始的，而不是subsets里面的i+1, 这是因为Subsets 一个数只能选一次，Combination Sum 一个数可以选很多次)
@@ -222,19 +210,17 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 - [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (！M) (这个题更确切应该叫Permutatino Sum，TLE)
 - [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (！M) (递归的定义很重要)
 
-### Permutation
+### [Permutation](/Depth-First-Search.py)
 - [0046. Permutations](Solutions/0046.Permutations.py) (！！M)
 - [0047. Permutations II](Solutions/0047.Permutations-II.py) (！！M) (去重方法与Subsets是类似的)
 - [0051. N-Queens](Solutions/0051.N-Queens.py) (！H) (核心是nums=[0,1,2,3]的去重排列问题，去重需要做三个visited的判断)
 - [0052. NQueens II](Solutions/0052.N-Queens-II.py) (H) 
 
-### 图上的搜索（打印/输出所有满足条件的路径必用DFS）
+### [图上的搜索](/Depth-First-Search.py)（打印/输出所有满足条件的路径必用DFS）
 - [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (！！H)（好神奇）
 
-
-
-## [Breadth First Search](/Breadth-First-Search.py)
-### BFS in Trees
+# [Breadth First Search](/Breadth-First-Search.py)
+### [BFS in Trees](/Breadth-First-Search.py)
 - [0102. Binary Tree Level Order Traversal](Solutions/0102.Binary-Tree-Level-Order-Traversal.py) (！！M)
 - [0103. Binary Tree Zigzag Level Order Traversal](Solutions/0103.Binary-Tree-Zigzag-Level-Order-Traversal.py) (！M)
 - [0107. Binary Tree Level Order Traversal II](Solutions/0107.Binary-Tree-Level-Order-Traversal-II.py) (！E)
@@ -242,7 +228,7 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 - [0111. Minimum Depth of Binary Tree](Solutions/0111.Minimum-Depth-of-Binary-Tree.py) (E)
 - [0297. Serialize and Deserialize Binary Tree](Solutions/0297.Serialize-and-Deserialize-Binary-Tree.py) (H)
 
-### BFS in Graphs
+### [BFS in Graphs](/Breadth-First-Search.py)
 - [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (M)
 - [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (M)
 - [0127. Topological Sorting](Solutions/0127.Topological-Sorting.py) (！！LintCode M) (Topological Sorting)
@@ -250,29 +236,26 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 - [0210. Course Schedule II](Solutions/0210.Course-Schedule-II.py) (！！M) (Naked Topological Sort)
 - [0444. Sequence Reconstruction](Solutions/0444.Sequence-Reconstruction.py) (M)
 
-### BFS in Matrix !!(隐式图搜索问题)
+### [BFS in Matrix](/Breadth-First-Search.py)(隐式图搜索问题!!!)
 - [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (M)
 - [0994. Rotting Oranges](Solutions/0994.Rotting-Oranges.py) (M) (需要层序遍历)
 - [1197. Minimum Knight Moves](Solutions/1197.Minimum-Knight-Moves.py) (！！M) (需要层序遍历，利用对称解决LTE问题，也可以从两端同时开始BFS)
 - [0127. Word Ladder](Solutions/0127.Word-Ladder.py) (！！M) (层序遍历BFS，双端BFS看不太懂)
 - [0317 Shortest Distance from All Buildings](Solutions/0317.Shortest-Distance-from-All-Buildings.py) (！！H) (选择1为起点做层序遍历的BFS)
 
-
-
-## [Sort](/Sort.py) 
+# [Sort](/Sort.py) 
 - [0912. Sort an Array](Solutions/0912.Sort-an-Array.py) (M) (quick sort vs. merge sort) 
 - [0969. Pancake Sorting](Solutions/0969.Pancake-Sorting.py) (M) (two flips to move the max_num to the end of arr) 
-
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (M) (quick select)
-#### Partition
+
+### Partition(/Sort.py) 
 - [0031. Partition Array](Solutions/0031.Partition-Array.py) (Lintcode)
 - [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E)
 - [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
 - [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) (三根指针partition成三个部分)
 
 
-
-## [Binary Tree, Divide and Conquer](/Binary-Tree-Divide-and-Conquer.py) 
+# [Binary Tree, Divide and Conquer](/Binary-Tree-Divide-and-Conquer.py) 
 - [0144. Binary Tree Preorder Traversal](Solutions/0144.Binary-Tree-Preorder-Traversal.py) (M) (memorize the iterative version using stack)
 - [0094. Binary Tree Inorder Traversal](Solutions/0094.Binary-Tree-Inorder-Traversal.py) (M) (memorize the iterative version using stack)
 - [0104. Maximum Depth of Binary Tree](Solutions/0104.Maximum-Depth-of-Binary-Tree.py) (E) (Divide and Conquer vs Traverse)
@@ -292,10 +275,7 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 - [0701. Insert into a Binary Search Tree](Solutions/0701.Insert-into-a-Binary-Search-Tree.py) (M)
 - [0450. Delete Node in a BST](Solutions/0450.Delete-Node-in-a-BST.py) (M)
 
-
-
-
-## [Binary Search](/Binary-Search.py)
+# [Binary Search](/Binary-Search.py)
 - [0704. Binary Search](Solutions/0704.Binary-Search.py) (E)
 - [0702. Search in a Sorted Array of Unknown Size](Solutions/0702.Search-in-a-Sorted-Array-of-Unknown-Size.py) (M) (Find end point using "double method", same as dynamic array)
 - [0069. Sqrt(x)](Solutions/0069.Sqrt(x).py) (E)
@@ -315,4 +295,3 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 
 ## Rabin Karp Algorithm
 - [0028. Implement strStr()](Solutions/0028.Implement-strStr().py) (E) (Rabin Karp Algorithm O(M+N), use Hashcode, ord(ch)-ord("a"))
-
