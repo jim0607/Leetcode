@@ -1,4 +1,4 @@
-## [Dynamic Programming](Dynamic-Programming.py)
+# [Dynamic Programming](Dynamic-Programming.py)
 - [0322. Coin Change](Solutions/0322.Coin-Change.py) (M) <br>
 最小值问题。状态: f[X]=最少用多少枚硬币拼出X; 转移方程：f[X] = min(f[X-2]+1, f[X-5]+1, f[X-7]+1)
 - [0055. Jump Game](Solutions/0055.Jump-Game.py) (M) <br>
