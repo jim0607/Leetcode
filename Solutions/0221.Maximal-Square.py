@@ -19,15 +19,20 @@ class Solution:
     def maximalSquare(self, matrix: List[List[str]]) -> int:
         if not matrix:
             return 0
-        len_row, len_col = len(matrix), len(matrix[0])
-        res = 0
-        dp = [[0]*len_col for _ in range(len_row)]
-        for i in range(len_row):
-            for j in range(len_col):
-                if i==0 or j==0:
+        
+        m, n = len(matrix), len(matrix[0])
+        dp = [[0] * n for _ in range(m)]
+        
+        maxLen = 0
+        for i in range(m):
+            for j in range(n):
+                if i == 0 or j == 0:
                     dp[i][j] = int(matrix[i][j])
-                else:
-                    if matrix[i][j] == "1":
-                        dp[i][j] = 1 + min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1])
-                res = max(res, dp[i][j])
-        return res**2
+                    continue
+                    
+                if matrix[i][j] == "1":
+                    dp[i][j] = min(dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]) + 1
+             
+                maxLen = max(maxLen, dp[i][j])
+                    
+        return maxLen**2
