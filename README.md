@@ -236,7 +236,7 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 - [0210. Course Schedule II](Solutions/0210.Course-Schedule-II.py) (！！M) (Naked Topological Sort)
 - [0444. Sequence Reconstruction](Solutions/0444.Sequence-Reconstruction.py) (M)
 
-### [BFS in Matrix](/Breadth-First-Search.py)(隐式图搜索问题!!!)
+### [BFS in Matrix](/Breadth-First-Search.py) (隐式图搜索问题!!!)
 - [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (M)
 - [0994. Rotting Oranges](Solutions/0994.Rotting-Oranges.py) (M) (需要层序遍历)
 - [1197. Minimum Knight Moves](Solutions/1197.Minimum-Knight-Moves.py) (！！M) (需要层序遍历，利用对称解决LTE问题，也可以从两端同时开始BFS)
@@ -248,7 +248,7 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 - [0969. Pancake Sorting](Solutions/0969.Pancake-Sorting.py) (M) (two flips to move the max_num to the end of arr) 
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (M) (quick select)
 
-### Partition(/Sort.py) 
+### [Partition](/Sort.py) 
 - [0031. Partition Array](Solutions/0031.Partition-Array.py) (Lintcode)
 - [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E)
 - [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
