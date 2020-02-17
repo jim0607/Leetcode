@@ -93,6 +93,7 @@ f[i]=how many ways to combine to number i; 背包问题一定要把总承重放�
 - [0125. Backpack II](Solutions/0125.Backpack-II.py) (!!M Lintcode) <br>
 这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。用子问题定义状态：即f[i][j]表示前i件物品拼出重量j可以获得的最大价值。
 f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1][M]
+80 lintcode <br>
 
 ### [位操作型DP](/Dynamic-Programming.py)
 - [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) <br>
