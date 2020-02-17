@@ -107,6 +107,10 @@ f[i][j]=s3的前[0..i+j)个字符能否由s1前i个字符[0..i)和s2前j个字�
 f[i][j]=A前i个字符[0..i)和B前j个字符[0..j)的最小编辑距离; f[i][j]=min{1. f[i-1][j]+1 (f[i-1][j]表示A[0..i-1)就可以拼成B[0..j)了，所以A[0..i)要拼成B[0..j)需要删掉A[0..i)的最后一个字母); 2. f[i][j-1]+1 (B[0..j)需要删掉最后一个字母，即A[0..i)的后面需要增加一个字母); 3. f[i-1][j-1]+1 (A[0..i)的后面需要replace一个字母); 4. f[i-1][j-1] (if A[i-1]=B[j-1] 就不需要任何操作直接就是了)}
 - [0115. Distinct Subsequences](Solutions/0115.Distinct-Subsequences.py) (H) <br>
 f[i][j]=B前i个字符B[0..i)在A前j个字符A[0..j)中出现多少次; f[i][j] += f[i][j-1] if B[i-1]!=A[j-1] else += f[i-1][j-1] + f[i][j-1] 
+- [0044. Wildcard Matching](Solutions/0044.Wildcard-Matching.py) (H) <br>
+f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配； 画个图会很明了，详见九章算法动态规划双序列型DP。
+情况一：B[j-1]不是"*": f[i][j] = f[i-1][j-1] if (B[j-1]="?" or A[i-1]=B[j-1])
+情况二：B[j-1]是"*"：可以让"*"表示0个字符，那就让A[0..i)去和B[0..j-1)匹配： f[i][j] = f[i][j-1]；也可以让"*"表示字符，A[i-1]肯定是多个ch中的最后一个，能否匹配取决于A[0..i-1)和B[0..j)是否匹配：f[i][j] = f[i-1][j]
 - [0010. Regular Expression Matching](Solutions/0010.Regular-Expression-Matching.py) (!!H) <br>
 f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B[j-1]不是"*": f[i][j] = f[i-1][j-1] if (B[j-1]="." or A[i-1]=B[j-1]); 情况二：B[j-1]是"*"：可以让"*"表示0个前面的字符，那就让A[0..i)去和B[0..j-2)匹配： f[i][j] = f[i][j-2]；也可以让"*"表示几个前面的字符，A[i-1]是多个ch中的最后一个，能否匹配取决于A[0..i-1)和B[0..j)是否匹配：f[i][j] = f[i-1][j] if (B[j-2]="." or B[j-2]=A[i-1])
 
