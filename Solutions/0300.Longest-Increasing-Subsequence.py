@@ -11,7 +11,7 @@ There may be more than one LIS combination, it is only necessary for you to retu
 Your algorithm should run in O(n2) complexity.
 Follow up: Could you improve it to O(n log n) time complexity?
 
-    
+"""经典dp LIS 问题 O(N^2)"""
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
         if not nums:
@@ -36,7 +36,7 @@ class Solution:
 import bisect
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        dp = [0] * len(nums)
+        dp = [0] * len(nums)    # dp[i]中的i是指最长上升子序列长度，好难讲dp[i]代表什么，看视频吧！
         maxLen = 0
         
         for num in nums:
