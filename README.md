@@ -96,7 +96,7 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 - [0089. k Sum](Solutions/0089.k-Sum.py) (M Lintcode) <br>
 f[i][j][s]表示有多少种方法可以在前i个数中选出j个，使得它们的和是s; 情况一:（A[n-1]不选入）：需要在前n-1个数中选K个数，使得它们的和是Target: f[i][j][s] += f[i-1][j][s]; 情况二（A[n-1]选入）：需要在前n-1个数中选K-1个数，使得它们的和是Target-A[n-1]: f[i][j][s] += f[i-1][j-1][s-A[i-1]]
 - [0416. Partition Equal Subset Sum](Solutions/0416.Partition-Equal-Subset-Sum.py) (M) <br>
-背包问题：将A中的物品放入容量为target的背包中，问是否存在？ f[i]=将前i个物品放入背包中，能否拼出t (背包问题重量一定要入状态); f[i][t]=True if 不放最后一个进背包: f[i-1][t]=True or 放最后一个进背包: f[i-1][t-A[i-1]]=True
+背包问题：将A中的物品放入容量为target的背包中，问是否存在？ f[i][t]=将前i个物品放入背包中，能否拼出t (背包问题重量一定要入状态); f[i][t]=True if 不放最后一个进背包: f[i-1][t]=True or 放最后一个进背包: f[i-1][t-A[i-1]]=True
 
 ### [位操作型DP](/Dynamic-Programming.py)
 - [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) <br>
