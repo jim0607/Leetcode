@@ -17,6 +17,8 @@ dp[i][j]=the minimum path sum to (i, j); dp[i][j] = min(dp[i-1][j], dp[i][j-1]) 
 dp[i][j] = min(triangle[i][j] + dp[i-1][j], triangle[i][j] + dp[i-1][j-1])
 - [0221. Maximal Square](Solutions/0221.Maximal-Square.py) (M) <br>
 dp[i][j]=以(i, j)为右下角的最大正方形的边长; dp[i][j]=min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]) + 1 if matrix[i][j]=1 
+- [0403. Frog Jump](Solutions/0403.Frog-Jump.py) (M) <br>
+dp[stone]为set，记录青蛙可以通过哪些步跳到stone。用bottom up方法。状态转移方程为：跳k-1到stone+k-1: dp[stone+k-1].add(k-1); 跳k到stone+k: dp[stone+k].add(k); 跳k+1到stone+k+1: dp[stone+k+1].add(k+1)
 
 ### [序列型DP](/Dynamic-Programming.py)
 - [0256. Paint House](Solutions/0256.Paint-House.py) (E) <br>
