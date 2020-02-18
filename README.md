@@ -58,7 +58,7 @@ dp[i][j]=以i结尾的等差数列且以j为公差的长度; dp = [collections.d
 - [0873. Length of Longest Fibonacci Subsequence](Solutions/0873.Length-of-Longest-Fibonacci-Subsequence.py) (M) <br>
 dp[i][j]=以i, j为最后两个数字的fib的长度; dp[j][index of (A[i]+A[j])]=dp[i][j]+1; index of (A[i]+A[j])是(A[i]+A[j])在A中的位置，为了快速找到index of (A[i]+A[j])，用一个dict存储索引即可
 - [0354. Russian Doll Envelopes](Solutions/0354.Russian-Doll-Envelopes) (M) <br>
-Similiar with 300. LIS; here we not only compare nums[j]>nums[i], but instead both the width and height; TLE, should learn how to do 300. LIS using DP+binary search (O(NlogN))
+Similiar with 300. LIS; here we not only compare nums[j]>nums[i], but instead both the width and height; TLE, should 300. LIS using DP+binary search (O(NlogN))
 - [0334. Increasing Triplet Subsequence](Solutions/0334.Increasing-Triplet-Subsequence.py) (M) <br>
 Similiar with 300. LIS; dp[j] = max(dp[i] + 1 for i<j and nums[i]<nums[j]); if dp[j]>=3 return True
 
