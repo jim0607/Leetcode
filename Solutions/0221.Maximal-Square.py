@@ -23,16 +23,18 @@ class Solution:
         m, n = len(matrix), len(matrix[0])
         dp = [[0] * n for _ in range(m)]
         
-        maxLen = 0
         for i in range(m):
             for j in range(n):
                 if i == 0 or j == 0:
-                    dp[i][j] = int(matrix[i][j])
+                    dp[i][j] = 1 if matrix[i][j] == "1" else 0
                     continue
                     
                 if matrix[i][j] == "1":
-                    dp[i][j] = min(dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]) + 1
-             
-                maxLen = max(maxLen, dp[i][j])
+                    dp[i][j] = min(dp[i][j - 1], dp[i - 1][j], dp[i - 1][j - 1]) + 1
+                 
+        maxArea = 0
+        for i in range(m):
+            for j in range(n):
+                maxArea = max(maxArea, dp[i][j]**2)
                     
-        return maxLen**2
+        return maxArea
