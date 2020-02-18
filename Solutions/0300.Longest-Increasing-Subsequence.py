@@ -31,6 +31,24 @@ class Solution:
         return res
     
     
+"""NlogN的算法，还是网上的高人讲得好。https://www.youtube.com/watch?v=YoeWZ3ELMEk"""
+
+import bisect
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        dp = [0] * len(nums)
+        maxLen = 0
+        
+        for num in nums:
+            insertIndex = bisect.bisect_left(dp, num, 0, maxLen)    # 用binary search找到num应该放入的位置，以保证dp这个数组是递增的
+            dp[insertIndex] = num       # 将该位置的值改为num
+            
+            if insertIndex == maxLen:     # 如果num比dp中的数都大，则说明num放入的位置是整个递增数组的最右端，所以maxLen需要加1
+                maxLen += 1
+                
+        return maxLen
+    
+    
 """方法一：暴力法
 时间复杂度：O(2^n)递归树的大小将为 2^n
 算法：
