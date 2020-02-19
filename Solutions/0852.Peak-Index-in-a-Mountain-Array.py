@@ -25,7 +25,5 @@ class Solution:
                 end = mid
             else:
                 start = mid
-        if A[end] > A[end+1]:
-            return end
-        if A[start] > A[start+1]:
-            return start
+
+    return start if A[start] > A[end] else end
