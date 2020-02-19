@@ -25,12 +25,6 @@ Would allow duplicates affect the run-time complexity? How and why?
 class Solution:
     def findMin(self, nums: List[int]) -> int:
         lens = len(nums)
-        if lens == 0:
-            return 
-        if lens == 1:
-            return nums[0]
-        if lens == 2:
-            return nums[0] if nums[0] <= nums[1] else 1
 
         start, end = 0, lens - 1
         while start + 1 < end:
