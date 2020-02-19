@@ -1,3 +1,5 @@
+# 二刷：先把做过的做一遍，再把每个tag的高频前8题都做掉！
+
 # [Binary Search](/Binary-Search.py)
 - [0704. Binary Search](Solutions/0704.Binary-Search.py) (!!E) <br>
 九章模板: 1. while start + 1 < end; 2. mid = start + (end - start) // 2; 3. 循环内只写两个分支； 4. 往左逼find the first X; 5. 往右逼find the last X
@@ -16,12 +18,21 @@ This is to implement bisect.bisect_left(nums, target), which returns the positio
 与153类似，只是array里可能有duplicates，采用153的解法三，唯一不同的是：nums[mid] == nums[end]: end -= 1, 注意不能drop掉一半，因为eg: nums=[2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2........], 由于不知道mid是1前面的2还是1后面的2，所以无法确定是drop前面还是drop后面，只能保险地把end往前挪一位，所以154这题in extreme case, 时间复杂度是O(N)
 - [0039. Recover Rotated Sorted Array](Solutions/0039.Recover-Rotated-Sorted-Array.py) (M LintCode) <br>
 154 相同方法binary search找到minPos, 然后三步反转法recover
-- [0033. Search in Rotated Sorted Array](Solutions/0033.Search-in-Rotated-Sorted-Array.py) (M)
-- [0852. Peak Index in a Mountain Array](Solutions/0852.Peak-Index-in-a-Mountain-Array.py) (E)
-- [0162. Find Peak Element](Solutions/0162.Find-Peak-Element.py) (M)
-- [0875. Koko Eating Bananas](Solutions/0875.Koko-Eating-Bananas.py) (M) (Construct a OOOXXX problem to find the first X)
-- [0074. Search a 2D Matrix](Solutions/0074.Search-a-2D-Matrix.py) (M) (Think the 2D array as a long 1D array cuz the rows and cols are sorted)
-- [0240. Search a 2D Matrix II](Solutions/0240.Search-a-2D-Matrix-II.py) (M) (Start from bottom left, head to top right, each comparism rule out a colomn or a row)
+- [0033. Search in Rotated Sorted Array](Solutions/0033.Search-in-Rotated-Sorted-Array.py) (M) 画个图分几个区间讨论就可以了！
+- [0852. Peak Index in a Mountain Array](Solutions/0852.Peak-Index-in-a-Mountain-Array.py) (E)<br>
+- [0162. Find Peak Element](Solutions/0162.Find-Peak-Element.py) (M) <br>
+OOXX问题，找到第一个出现的X，X是the first position of 递减的序列
+- [0875. Koko Eating Bananas](Solutions/0875.Koko-Eating-Bananas.py) (M) <br>
+If Koko can finish eating all the bananas (within H hours) with an eating speed of K, she can finish with a larger speed too. So it is a OOOXXX problem trying to find the first X. end is set to be max(piles). Every time find if it posible to eat all the bananas with speed mid. if yes, then drop the right part, if no, then drop the left."""
+- [0074. Search a 2D Matrix](Solutions/0074.Search-a-2D-Matrix.py) (M) <br>
+Think it as a long 1D array with MxN element, then we can use binary search; row = mid // n, col = mid % n; O(log(MN)), O(1)
+- [0240. Search a 2D Matrix II](Solutions/0240.Search-a-2D-Matrix-II.py) (M) <br>
+start from left bottom, head up to right top, each comparism rule out a row (i-1=1) or rule out a col (j+=1)
+- [0050. Pow(x, n)](Solutions/0050.Pow(x,n).py) (M) <br>
+if mod == 0: res *= x^div; else: res *= x^div * x
+- [0029. Divide Two Integers](Solutions/0029.Divide-Two-Integers.py) (M) <br>
+eg: 10//3, 每次通过右移3 << 1的方法将3乘以2,这种算法是O(N), 每次都右移几次3 << x, 相当于3x2x2x2...,直到3x2x2x2...>10, 然后取余数继续这个算法
+
 
 
 # [Binary Tree, Divide and Conquer](/Binary-Tree-Divide-and-Conquer.py) 
@@ -111,7 +122,8 @@ This is to implement bisect.bisect_left(nums, target), which returns the positio
 - [0025. Reverse Nodes in k-Group](Solutions/0025.Reverse-Nodes-in-k-Group.py) (H)
 - [0138. Copy List with Random Pointer](Solutions/0138.Copy-List-with-Random-Pointer.py) (M)
 - [0141. Linked List Cycle](Solutions/0141.Linked-List-Cycle.py) (E)
-- [0142. Linked List Cycle II](Solutions/0142.Linked-List-Cycle-II.py) (E)
+- [0142. Linked List Cycle II](Solutions/0142.Linked-List-Cycle-II.py) (E) <br>
+287 <br>
 - [0160. Intersection of Two Linked Lists](Solutions/0160.Intersection-of-Two-Linked-Lists.py) (E)
 - [0021. Merge Two Sorted Lists](Solutions/0021.Merge-Two-Sorted-Lists.py) (E)
 - [0002. Add Two Numbers](Solutions/0002.Add-Two-Numbers.py) (E)
