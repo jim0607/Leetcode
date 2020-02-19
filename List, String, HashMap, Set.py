@@ -46,7 +46,7 @@ String
 2. string支持相加, eg: "ab" + "cd" = "abcd"
       
 3. 判断一个字符ch是不是数字字符比如"8": ch.isdigit(); 如果return true, 则说明ch是数字字符, 提取数字: int(ch) = 8 或者 ord(ch)-ord("0")=8
-   判断一个字符ch是不是字母字符比如"8": ch.isalpha(); 如果return true, 则说明ch是字母字符, int(ch) = 8
+   判断一个字符ch是不是字母字符比如"8": ch.isalpha(); 如果return true, 则说明ch是字母字符.
       
       
       
