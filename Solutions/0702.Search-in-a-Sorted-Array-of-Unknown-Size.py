@@ -34,6 +34,6 @@ class Solution:
                 start = mid
         if reader.get(end) == target:
             return end
-        if reader.get(start) == target:   # 由于是往左逼，所以把start的判断放在end的后面，这样可以更新成第一个，当然这个题目没必要care。
+        if reader.get(start) == target: 
             return start
         return -1
