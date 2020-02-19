@@ -3,8 +3,8 @@
 九章模板: 1. while start + 1 < end; 2. mid = start + (end - start) // 2; 3. 循环内只写两个分支； 4. 往左逼find the first X; 5. 往右逼find the last X
 - [0702. Search in a Sorted Array of Unknown Size](Solutions/0702.Search-in-a-Sorted-Array-of-Unknown-Size.py) (M) <br>
 Find end point using "double method", same as dynamic array
-- [0069. Sqrt(x)](Solutions/0069.Sqrt(x).py) (E)
-1. Binary Search; 2. Newton's Method. x<sub>k+1</sub> = (x<sub>k</sub> + x/x<sub>k</sub>) / 2; O(logN) since the set converges quadratically
+- [0069. Sqrt(x)](Solutions/0069.Sqrt(x).py) (E) <br>
+两种方法：1. Binary Search; 2. Newton's Method. x<sub>k+1</sub> = (x<sub>k</sub> + x/x<sub>k</sub>) / 2; O(logN) since the set converges quadratically
 - [0034. Find First and Last Position of Element in Sorted Array](Solutions/0034.Find-First-and-Last-Position-of-Element-in-Sorted-Array.py) (M)
 - [0035. Search Insert Position](Solutions/0035.Search-Insert-Position.py) (E)
 - [0278. First Bad Version](Solutions/0278.First-Bad-Version.py) (E)
