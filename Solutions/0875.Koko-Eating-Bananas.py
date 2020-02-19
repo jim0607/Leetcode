@@ -30,25 +30,34 @@ piles.length <= H <= 10^9
 
 
 """If Koko can finish eating all the bananas (within H hours) with an eating speed of K, she can finish with a larger speed too. So it is a OOOXXX problem trying to find the first X. end is set to be max(piles). Every time find if it posible to eat all the bananas with speed mid. if yes, then drop the right part, if no, then drop the left."""
+"""If Koko can finish eating all the bananas (within H hours) with an eating speed of K, she can finish with a larger speed too. So it is a OOOXXX problem trying to find the first X. end is set to be max(piles). Every time find if it posible to eat all the bananas with speed mid. if yes, then drop the right part, if no, then drop the left."""
 class Solution:
     def minEatingSpeed(self, piles: List[int], H: int) -> int:
         lens = len(piles)
+        if H < lens:
+            return 
+        if lens == 1:
+            if piles[0] <= H:
+                return 1
+
         start, end = 0, max(piles)
         while start + 1 < end:
             mid = start + (end - start) // 2
-            if self.isPossible(piles, H, mid):
+            if self.canFinish(piles, mid, H):
                 end = mid
             else:
                 start = mid
-        if self.isPossible(piles, H, end):
-            return end
-        if self.isPossible(piles, H, start):
+                
+        if self.canFinish(piles, start, H):
             return start
-            
-    def isPossible(self, piles: List[int], H: int, K: int) -> bool:
-        cntTime = 0
+        if self.canFinish(piles, end, H):
+            return end
+        
+    def canFinish(self, piles, k, H):
+        cnt = 0
         for pile in piles:
-            cntTime += (pile-1) // K + 1
-        return cntTime <= H
+            cnt += (pile - 1) // k + 1
+            
+        return cnt <= H
 
 """Time complexity is O(N*log(W)), N is the length of piles, W is the max(piles)"""
