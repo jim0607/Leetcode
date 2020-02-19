@@ -49,9 +49,32 @@ String
    判断一个字符ch是不是字母字符比如"8": ch.isalpha(); 如果return true, 则说明ch是字母字符.
       
       
+Hash Map
       
+In python, hash map is dictionary
+1. ways to iterate over hash map:
+      1. for key in dict.keys():
+      2. for val in dict.values():
+      3. for key, val in dict.items():
       
+2. defaultdict means that if a key doesn't exsit in a dictionary, then instead of error being thrown, a new entry is created.
+   dictNums = collections.defaultdict()
+   edges = collections.defaultdict(list) means that value of the dictionary is a list
       
+
+Set
+      
+1. Set的特点是集合中的元素是唯一的，不能有重复元素
+      
+2. A set is a hash table, so "if item in set" has O(1) complexity
+      
+3. Add item to set: set.add(item), 如果item already in set, 就加不进去，但不会报错。
+      
+4. create a set: 
+      1. numSet = set(), numSet.add(1), numSet.add(2)
+      2. letterSet = {"a", "e", "i", "o", "u"} 
+      3. nums = [1, 2, 3, 4, 5], numsSet = set(nums)
+      4. 不能numsSet = {}来create a set, 因为这是在create a dictionary
       
       
       
