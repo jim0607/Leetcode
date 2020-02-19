@@ -15,7 +15,7 @@ Output: true
 
 
 """think it as a long 1D array with m*n element, they are sorted, then we can use binary search
-O(log(M*N))"""
+O(log(M*N)), O(1)"""
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         if not matrix:
