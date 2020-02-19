@@ -87,23 +87,29 @@ class Solution:
         lens = len(nums)
         if lens == 0:
             return -1
-        start, end = 0, lens - 1
+        
         if target == nums[0]:
             return 0
+        
+        start, end = 0, lens - 1
         while start + 1 < end:
             mid = start + (end - start) // 2
-            if target < nums[0]:
-                if target <= nums[mid] <= nums[0]:   # 这里nums[mid] <= nums[0]表明选择往左边夹
-                    end = mid
-                else:
-                    start = mid
-            elif target > nums[0]:
-                if nums[0] <= nums[mid] < target:  # 这里nums[mid] < nums[0]与上面保持一致选择往左边夹
+            
+            if target >= nums[0]:
+                if nums[0] <= nums[mid] < target:   # 往左逼近
                     start = mid
                 else:
                     end = mid
+            
+            else:
+                if target <= nums[mid] < nums[0]:  # 保持一致，往左逼近
+                    end = mid
+                else:
+                    start = mid
+                    
+        if nums[start] == target:
+            return start
         if nums[end] == target:
             return end
-        if nums[start] == target:   # 这里后判断start是因为上面选择了往左边夹
-            return start
+        
         return -1
