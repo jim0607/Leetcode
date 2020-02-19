@@ -325,5 +325,6 @@ f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B
 - [0464. Can I Win](Solutions/0464.Can-I-Win.py) (M)
 
 
-## Rabin Karp Algorithm
+# Other Algorithms
+### [Rabin Karp]()
 - [0028. Implement strStr()](Solutions/0028.Implement-strStr().py) (E) (Rabin Karp Algorithm O(M+N), use Hashcode, ord(ch)-ord("a"))
