@@ -1,4 +1,4 @@
-# 二刷：先把做过的做一遍，再把每个tag的高频前8题都做掉！
+## 二刷：先把做过的做一遍，再把每个tag的高频前8题都做掉！
 
 # [Binary Search](/Binary-Search.py)
 - [0704. Binary Search](Solutions/0704.Binary-Search.py) (!!E) <br>
