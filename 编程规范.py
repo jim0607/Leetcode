@@ -1,6 +1,6 @@
 1. 每次用arr[i]之前都要保证0 <= i < lens
 
-2. 第一行往往用来判断特殊情况(coner/edge case). eg: lens = len(arr)之前保证arr is not None
+2. 第一行往往用来判断特殊情况(coner/edge case). eg: lens = len(arr)
 
 3. Google要求运算符两边都要有空格
 
