@@ -41,11 +41,8 @@ class Solution:
                 start = mid
             elif nums[mid] == nums[end]:  # 注意这里是不能drop掉一半的地方，所以如果nums里面有很多相等的数，eg: nums=[2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2..........],那每次都是讲end往后挪一位，而不是二分法希望的drop half,所以in extreme case, 时间复杂度是O(N)
                 end -= 1
-        print(start, end)
-        if nums[end] >= nums[start]:
-            return nums[start]
-        else:
-            return nums[end]        
+        
+        return min(nums[start], nums[end])
         
 """Time complexity: on average (logN) where N is the length of the array, since in general it is a binary search algorithm. However, in the worst case where the array contains identical elements (i.e. case #3 nums[mid]==nums[end]), the algorithm would deteriorate to iterating each element, as a result, the time complexity becomes O(N)."""
 
