@@ -57,8 +57,8 @@ class Solution:
         # 3. 递归的拆解：conquer （找到拆成左子树之后左右的性质对root这个根节点是什么关系即可）
         if isLeftBST and isRightBST and maxLeft < root.val < minRight:
             return True, max(maxLeft, maxRight, root.val), min(minLeft, minRight, root.val)  # 最开始写找半天错误，最后发现是忘了把root.val加入比较了，本质是忘了递归的定义：返回root为根的树(是不是BST，max and min value in the tree)，想想bottom up的时候这一层算出来的max是要被上面的一层拿出来用的。
-        
-        return False, -1, -1
+        else:
+            return False, max(maxLeft, maxRight, root.val), min(minLeft, minRight, root.val)
 
 Time complexity : O(N) since we visit each node exactly once.
 Space complexity : O(N) since we keep up to the entire tree.
