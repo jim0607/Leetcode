@@ -22,35 +22,26 @@ All of the nodes' values will be unique.
 p and q are different and both values will exist in the binary tree.
 
 
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-# 方法一：simply divide and conquer (bottom up recursion)
 class Solution:
-    # 1. 递归的定义：return root为根,p, q的最近公共parent
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        # 3. 递归的出口：
+        """return the LCA of a tree with root as its root for two nodes p and q"""
         if not root:
-            return 
-        if root is p or root is q:
+            return
+        
+        if root == p or root == q:
             return root
         
-        # 2. 递归的的拆解divide
+        # divide
         left = self.lowestCommonAncestor(root.left, p, q)
         right = self.lowestCommonAncestor(root.right, p, q)
         
-        # 2. 递归的拆解conquer，用bottom up的思想去理解会好理解很多
-        if left and right:
+        # conquer
+        if left and right:  # meaning find p in the left and q in the right
             return root
-        if left:
+        elif left:
             return left
-        if right:
+        elif right:
             return right
-        return None
         
         
 # Definition for a binary tree node.
