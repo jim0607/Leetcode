@@ -33,7 +33,7 @@ Return false.
 
 class Solution:
     def isBalanced(self, root: TreeNode) -> bool:
-        self.is_balanced = True
+        self.is_balanced = True    # 定义一个全局变量
         
         self.helper(root)
         
