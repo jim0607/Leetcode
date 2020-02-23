@@ -8,109 +8,75 @@ The figure below shows the circular doubly linked list for the BST above. The "h
 Specifically, we want to do the transformation in place. After the transformation, the left pointer of the tree node should point to its predecessor, and the right pointer should point to its successor. We should return the pointer to the first element of the linked list.
 The figure below shows the transformed BST. The solid line indicates the successor relationship, while the dashed line means the predecessor relationship.
 
-
-https://www.cnblogs.com/grandyang/p/9615871.html
-这道题给了一个二叉搜索树，让我们将其转化为双向链表。并且题目中给了一个带图的例子，帮助理解。题目本身并不难理解，仔细观察下给的示例图。
-首先，转化成双向链表的每个结点都有 left 和 right 指针指向左右两个结点，不管其原来是否是叶结点还是根结点，转换后统统没有区别。
-其次，这是个循环双向链表，即首尾结点是相连的，原先的二叉搜索树中的最左结点和最右结点，现在也互相连接起来了。
-最后，返回的结点不再是原二叉搜索树的根结点 root 了，而是最左结点，即最小值结点。
-好，发现了上述规律后，来考虑如何破题。根据博主多年经验，跟二叉搜索树有关的题，肯定要利用其性质，即左<根<右，即左子结点值小于根结点值小于右子结点值。
-而且十有八九都得用中序遍历来解，因为中序遍历的顺序就是左根右啊，跟性质吻合。观察到原二叉搜索树中结点4连接着结点2和结点5，而在双向链表中，连接的是结点3和结点5，这就是为啥要用中序遍历了，因为只有中序遍历，结点3之后才会遍历到结点4，这时候可以将结点3和结点4串起来。
-决定了用中序遍历之后，就要考虑是迭代还是递归的写法，博主建议写递归的，一般写起来都比较简洁，而且递归是解树类问题的神器啊，十有八九都是用递归，一定要熟练掌握。
-再写中序遍历之前，其实还有难点，因为需要把相邻的结点连接起来，所以需要知道上一个遍历到的结点是什么，所以用一个变量 pre，来记录上一个遍历到的结点。
-还需要一个变量 head，来记录最左结点，这样的话，在递归函数中，先判空，之后对左子结点调用递归，这样会先一直递归到最左结点，此时如果 head 为空的话，说明当前就是最左结点，赋值给 head 和 pre，对于之后的遍历到的结点，那么可以和 pre 相互连接上，然后 pre 赋值为当前结点 node，再对右子结点调用递归即可，参见代码如下：
-
-"""https://www.cnblogs.com/grandyang/p/9615871.html
-这道题给了一个二叉搜索树，让我们将其转化为双向链表。并且题目中给了一个带图的例子，帮助理解。题目本身并不难理解，仔细观察下给的示例图。
-首先，转化成双向链表的每个结点都有 left 和 right 指针指向左右两个结点，不管其原来是否是叶结点还是根结点，转换后统统没有区别。
-其次，这是个循环双向链表，即首尾结点是相连的，原先的二叉搜索树中的最左结点和最右结点，现在也互相连接起来了。
-最后，返回的结点不再是原二叉搜索树的根结点 root 了，而是最左结点，即最小值结点。
-好，发现了上述规律后，来考虑如何破题。根据博主多年经验，跟二叉搜索树有关的题，肯定要利用其性质，即左<根<右，即左子结点值小于根结点值小于右子结点值。
-而且十有八九都得用中序遍历来解，因为中序遍历的顺序就是左根右啊，跟性质吻合。观察到原二叉搜索树中结点4连接着结点2和结点5，而在双向链表中，连接的是结点3和结点5，这就是为啥要用中序遍历了，因为只有中序遍历，结点3之后才会遍历到结点4，这时候可以将结点3和结点4串起来。
-决定了用中序遍历之后，就要考虑是迭代还是递归的写法，博主建议写递归的，一般写起来都比较简洁，而且递归是解树类问题的神器啊，十有八九都是用递归，一定要熟练掌握。
-再写中序遍历之前，其实还有难点，因为需要把相邻的结点连接起来，所以需要知道上一个遍历到的结点是什么，所以用一个变量 last，来记录上一个遍历到的结点。
-还需要一个变量 first，来记录最左结点，这样的话，在递归函数中，先判空，之后对左子结点调用递归，这样会先一直递归到最左结点，此时如果 first 为空的话，说明当前就是最左结点，赋值给 first，对于之后的遍历到的结点，那么可以和 last 相互连接上，然后 last 赋值为当前结点 node，再对右子结点调用递归即可，参见代码如下：
-"""
+"""solution 1: recursion"""
 class Solution:
     def treeToDoublyList(self, root: 'Node') -> 'Node':
         if not root:
-            return None
-        # the smallest (first) and the largest (last) nodes
-        global first, last
-        first, last = None, None
-        self.inOrder(root)
-        # close DLL
-        last.right = first
-        first.left = last
-        return first
-        
-    def inOrder(self, node):
-        """
-        Performs standard inorder traversal: left -> node -> right
-        and links all nodes into DLL
-        """
-        global last, first
-        if not node:
             return
-        # 1. left
-        self.inOrder(node.left)  # 对左子结点调用递归，这样会先一直递归到最左结点
-        # 2. node 
-        if not first:
+        
+        self.head, self.curr = None, None   # 定义两个全局变量head和curr，head记录最小的节点，curr一直往后遍历到最大的节点
+        self.inOrder(root)
+        
+        # 将最小节点和最大节点hook up起来，完成闭环
+        self.head.left = self.curr
+        self.curr.right = self.head
+        
+        return self.head
+    
+    def inOrder(self, root):
+        """in order traversal the tree without return, update the DLL"""
+        if not root:
+            return
+        
+        # 中序遍历，先遍历左边
+        self.inOrder(root.left)
+        
+        # 中序遍历，遍历中间，在这里update DLL
+        if not self.head:
             # 此时如果 first 为空的话，说明当前就是最左结点，赋值给 first
-            first = node
-            last = node
+            self.head = root
+            self.curr = root
+            
         else:
-            # keep the smallest node to close DLL later on
-            last.right = node        
-            node.left = last
-        last = node  # 可能意思是连接上之后往前遍历吧
-        # 3. right
-        self.inOrder(node.right)
+            # curr 代表相邻两个节点中靠前的节点，root代表靠后的节点，将两个节点hook up起来即可
+            self.curr.right = root
+            root.left = self.curr
+            self.curr = root    # curr 往前遍历
+        
+        # 中序遍历，遍历右边
+        self.inOrder(root.right)
         
         
 """解法二：divide and conquer, somehow don't know how to make it work..........."""
 class Solution:
     def treeToDoublyList(self, root: 'Node') -> 'Node':
-        if not root:
-            return None
-        return self.helper(root)
-       
-    # 1. 递归的定义：return 以root为根节点的BST的DLL(的head)    
-    def helper(self, root):
-        """
-        return DLL of a BST
-        """
-        # 2. 递归的出口
+        """return the head of DLL of a BST"""
+        
         if not root:
             return
         
-        # 3. 递归的拆解：divide
-        leftDLL_head = self.helper(root.left)
-        rightDLL_head = self.helper(root.right)
+        # divide and conque: 想想merge sort, 先局部有序，再整体有序
+        # divide: 局部有序
+        leftDLL = self.treeToDoublyList(root.left)      # 这一步左边已经排好了，有序了
+        rightDLL = self.treeToDoublyList(root.right)    # 这一步右边已经排好了，有序了
         
-        # 递归的拆解：conquer
-        if leftDLL_head:
-            # the last node on the left is the leftDLL_head.left
-            last_left = leftDLL_head.left
-            # 左边是3-4-5，右边是7-8-9，先把3-4-5-root连起来
-            last_left.right = root
-            root.left = last_left.right
+        # conquer: 整体有序
+        # STEP 1: hook up left and root if left is not None
+        if leftDLL:
+            rightMostOnLeft = leftDLL.left
+            if rightMostOnLeft:
+                rightMostOnLeft.right = root   # hook up the root with the rightMost node on the left which is leftDLL.left
+                root.left = rightMostOnLeft
+        
+        # STEP 2: hook up root and right if right is not None
+        if rightDLL:         
+            rightMost = rightDLL.left   # should keep track of rightMost node before it's changed, so that we can form a loop in STEP 3
+            rightDLL.left = root
+            root.right = rightDLL
+        
+        # STEP 3: hook up leftMost and rightMost to form a loop
+        if leftDLL and rightMost:
+            leftDLL.left = rightMost
+            rightMost.right = leftDLL
             
-        if rightDLL_head:
-            last_right = rightDLL_head.left
-            # 再把root-7-8-9连起来
-            rightDLL_head.left = root
-            root.right = rightDLL_head
-
-        # 再把3-9连起来形成环
-        if leftDLL_head and last_right:
-            leftDLL_head.right = last_right
-            last_right.left = leftDLL_head
-        
-        return leftDLL_head
-
-
-
-
-
-
+        return leftDLL if leftDLL else root     # return the smallest node as head
