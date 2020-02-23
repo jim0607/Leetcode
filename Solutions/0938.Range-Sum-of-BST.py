@@ -48,39 +48,40 @@
 # 
 #
 
-# @lc code=start
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-# solution 1: store all the nodes in a sortedArr by in-order traverse
-# class Solution:
-#     sortedArr = []
-#     def rangeSumBST(self, root: TreeNode, L: int, R: int) -> int:
-#         if not root:
-#             return 0
-#         self._inOrder_(root)
-#         # print(self.sortedArr)
-#         sumNodes = 0
-#         if self.sortedArr[-1] < L or self.sortedArr[0] > R:
-#             return 0
-#         for node in self.sortedArr:
-#             if L <= node <= R:
-#                 sumNodes += node
-#         return sumNodes 
+class Solution:
+    def rangeSumBST(self, root: TreeNode, L: int, R: int) -> int:
+        if not root:
+            return 
+        
+        nums = []
+        nums = self.inOrder(root)
+        
+        res = 0
+        for num in nums:
+            if L <= num <= R:
+                res += num
+                
+        return res
     
-#     def _inOrder_(self, root: TreeNode):
-#         """
-#         in-order traverse the tree and put the nodes in sortedArr, no return
-#         """
-#         if not root:
-#             return
-#         self._inOrder_(root.left)
-#         self.sortedArr.append(root.val)
-#         self._inOrder_(root.right)
+    def inOrder(self, root):
+        """return the list of inOrder traversal of BST with root as its root"""
+        if not root:
+            return []
+        
+        if not root.left and not root.right:
+            return [root.val]
+        
+        res = []
+        
+        left = self.inOrder(root.left)
+        right = self.inOrder(root.right)
+        
+        res += left
+        res += [root.val]
+        res += right
+        
+        return res
+    
 
 # solution 2: divide and conquer
 class Solution:
