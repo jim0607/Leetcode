@@ -1,44 +1,54 @@
-"""
-Definition of TreeNode:
-class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left, self.right = None, None
-"""
+Given a binary tree, find the subtree with maximum average. Return the root of the subtree.
+
+LintCode will print the subtree which root is your return node.
+It's guaranteed that there is only one subtree with maximum average.
+
+Have you met this question in a real interview?  
+Example
+Example 1
+
+Input：
+{1,-5,11,1,2,4,-2}
+Output：11
+Explanation:
+The tree is look like this:
+     1
+   /   \
+ -5     11
+ / \   /  \
+1   2 4    -2 
+The average of subtree of 11 is 4.3333, is the maximun.
+
 
 class Solution:
-    """
-    @param root: the root of binary tree
-    @return: the root of the maximum average of subtree
-    """
     def findSubtree2(self, root):
-        # write your code here
-        global maxAverage
-        maxAverage = -float("inf")
-        global maxNode
-        self.helper(root)
-        return maxAverage
-
-    # 1. 递归的定义：返回以root为根节点subSum和nodeCnt，然后利用这个sum来打擂台比较出maxAverage
-    def helper(self, root):
+        if not root:
+            return
+        
+        self.maxAvg = -float("inf")
+        self.maxAvgNode = None
+        
+        self.helper(root, 0)
+        
+        return self.maxAvgNode
+        
+    def helper(self, root, nodeNum):
+        # return the subSum of the tree root as its root, and also return the nodeNum
         if not root:
             return 0, 0
-        if not root.left and not root.right:
-            return root.val, 1
-        
-        # 2. 递归的拆解之divide：无脑left and right
-        leftSubSum, leftNodeCnt = self.helper(root.left)
-        rightSubSum, rightNodeCnt = self.helper(root.right)
-        
-        # 2. 递归的拆解之conquer/merge：
-        subSum = leftSubSum + rightSubSum + root.val
-        nodeCnt = leftNodeCnt + rightNodeCnt + 1
-
-        # 如果有必要，需要traverse, 也就是打擂台，比较出maxAverage
-        global maxAverage
-        global maxNode
-        if subSum > maxAverage * nodeCnt:       # subSum / nodeCnt > maxAverage 
-            maxAverage = subSum / nodeCnt
-            maxNode = root
             
-        return subSum, nodeCnt
+        # divide
+        leftSum, leftNum = self.helper(root.left, nodeNum)
+        rightSum, rightNum = self.helper(root.right, nodeNum)
+        
+        # conquer
+        subSum = leftSum + rightSum + root.val
+        subNodeNum = leftNum + rightNum + 1
+        
+        # traverse to conpare, 打擂台
+        subAvg = subSum / subNodeNum
+        if subAvg > self.maxAvg:
+            self.maxAvg = subAvg
+            self.maxAvgNode = root
+            
+        return subSum, subNodeNum
