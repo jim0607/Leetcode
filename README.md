@@ -50,15 +50,20 @@ Divide and Conquer的方法输出以root为根的subTree的subSum，然后每次
 定义一个全局变量self.is_balanced; 养成好习惯，把叶子节点单独做判断if not root.left and not root.right: return 1; if abs(leftDepth - rightDepth) > 1: self.is_balanced = False
 - [0235. Lowest Common Ancestor of a Binary Search Tree](Solutions/0235.Lowest-Common-Ancestor-of-a-Binary-Search-Tree.py) (E)
 - [0236. Lowest Common Ancestor of a Binary Tree](Solutions/0236.Lowest-Common-Ancestor-of-a-Binary-Tree.py) (M)
-
 - [0700. Search in a Binary Search Tree](Solutions/0700.Search-in-a-Binary-Search-Tree.py) (E)
 - [0938. Range Sum of BST](Solutions/0938.Range-Sum-of-BST.py) (E)
 - [0098. Validate Binary Search Tree](Solutions/0098.Validate-Binary-Search-Tree.py) (M)
-- [0426. Convert Binary Search Tree to Sorted Doubly Linked List](Solutions/0426.Convert-Binary-Search-Tree-to-Sorted-Doubly-Linked-List.py) (M) (这种改变成linked list的题真是一头雾水呀)
+注意判断条件不是leftValid and rightValid and left.val<root.val<right.val而是max of left < root < min of right; helper函数返回以root为根的树(是不是BST，max and min value in the tree); if isLeftBST and isRightBST and maxLeft < root.val < minRight: return True, max(maxLeft, maxRight, root.val), min(minLeft, minRight, root.val) 
+- [0426. Convert Binary Search Tree to Sorted Doubly Linked List](Solutions/0426.Convert-Binary-Search-Tree-to-Sorted-Doubly-Linked-List.py) (M) 
+solution 1: 定义两个全局变量self.head, self.curr，进行in order traversal的过程中不断更新curr的位置并hook up nodes
 - [0114. Flatten Binary Tree to Linked List](Solutions/0114.Flatten-Binary-Tree-to-Linked-List.py) (M)
+helper函数每次都输出最后的一个node
 - [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (M)
+use a stack with controlled recursion, some part of the algorithm is similar with the in order traversal of a tree using a stack; this algorithm has space complexity of O(h)
 - [0285. Inorder Successor in BST](Solutions/0285.Inorder-Successor-in-BST.py) (M)
+Divide and conquer: if p.val < root.val: return left if left else root; else: return right
 - [0701. Insert into a Binary Search Tree](Solutions/0701.Insert-into-a-Binary-Search-Tree.py) (M)
+if val > root.val则更新root.right: root.right = self.insertIntoBST(root.right, val); else: root.left = self.insertIntoBST(root.left, val); return root
 - [0450. Delete Node in a BST](Solutions/0450.Delete-Node-in-a-BST.py) (M)
 
 
