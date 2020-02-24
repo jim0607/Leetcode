@@ -53,7 +53,7 @@ Divide and Conquer的方法输出以root为根的subTree的subSum，然后每次
 - [0700. Search in a Binary Search Tree](Solutions/0700.Search-in-a-Binary-Search-Tree.py) (E) <br>
 - [0938. Range Sum of BST](Solutions/0938.Range-Sum-of-BST.py) (E) <br>
 - [0226. Invert Binary Tree](Solutions/0226.Invert-Binary-Tree.py) (E) <br>
-1. divide 先局部有序; 2. conquer 再整体有序
+STEP 1. divide 先局部有序; STEP 2. conquer 再整体有序
 - [0617. Merge Two Binary Trees](Solutions/0617.Merge-Two-Binary-Trees.py) (E) <br>
 - [0108. Convert Sorted Array to Binary Search Tree](Solutions/0108.Convert-Sorted-Array-to-Binary-Search-Tree.py) (!!E) <br>
 we can always choose the left middle number as root, or always choose right middle number as root, or sometimes left sometimes right as root. That is why the answer is not unique
