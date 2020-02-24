@@ -101,6 +101,6 @@ class Solution:
 
         # conquer (or to find how left and right relates to the results)
         if p.val < root.val:
-            return left or root
+            return left if left else root
         else:         
             return right
