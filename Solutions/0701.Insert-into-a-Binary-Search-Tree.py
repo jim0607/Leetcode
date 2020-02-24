@@ -68,13 +68,14 @@
 # One of the huge BST advantages is a search for arbitrary element in O(logN) time. Here we'll see that the insert time is O(logN), too, in the average case.
 class Solution:
     def insertIntoBST(self, root: TreeNode, val: int) -> TreeNode:
-        """
-        return a new tree with val in the tree
-        """
+        """insert a node into a tree rooted as root, return the root"""
+        
         if not root:
             return TreeNode(val)
+        
         if val > root.val:
-            root.right = self.insertIntoBST(root.right, val)
+            root.right = self.insertIntoBST(root.right, val)    # 更新root.right
+        
         else:
             root.left = self.insertIntoBST(root.left, val)
         
