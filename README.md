@@ -35,36 +35,46 @@ eg: 10//3, 每次通过右移3 << 1的方法将3乘以2,这种算法是O(N), 每
 
 
 
-# [Binary Tree, Divide and Conquer](/Binary-Tree-Divide-and-Conquer.py) 
+# [Binary Tree, Divide and Conquer](/Binary-Tree-Divide-and-Conquer.py) <br>
 - [0144. Binary Tree Preorder Traversal](Solutions/0144.Binary-Tree-Preorder-Traversal.py) (M) memorize the iterative version using stack
 - [0094. Binary Tree Inorder Traversal](Solutions/0094.Binary-Tree-Inorder-Traversal.py) (M) memorize the iterative version using stack
 - [0104. Maximum Depth of Binary Tree](Solutions/0104.Maximum-Depth-of-Binary-Tree.py) (!!E) Divide and Conquer vs Traverse
-- [0257. Binary Tree Paths](Solutions/0257.Binary-Tree-Paths.py) (!!E)
-- [0112. Path Sum](Solutions/0112.Path-Sum.py) (E)
+- [0257. Binary Tree Paths](Solutions/0257.Binary-Tree-Paths.py) (!!E) <br>
+- [0112. Path Sum](Solutions/0112.Path-Sum.py) (E) <br>
 - [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
 - [0437. Path Sum III](Solutions/0437.Path-Sum-III.py) (E) 递归需要恶补呀！
-- [0596. Minimum Subtree](Solutions/0596.Minimum-Subtree.py) (LintCode) 
+- [0596. Minimum Subtree](Solutions/0596.Minimum-Subtree.py) (LintCode) <br>
 Divide and Conquer的方法输出以root为根的subTree的subSum，然后每次与minSum打擂台进行比较，注意python中定义全局变量可以用self.minSum = float("inf"), self.minNode = None，在主函数中定义这两个变量就可以了
 - [0597. Subtree with Maximum Average](Solutions/0597.Subtree-with-Maximum-Average.py) (LintCode) 同上 Divide and Conquer
-- [0110. Balanced Binary Tree](Solutions/0110.Balanced-Binary-Tree.py) (E)
+- [0110. Balanced Binary Tree](Solutions/0110.Balanced-Binary-Tree.py) (E) <br>
 定义一个全局变量self.is_balanced; 养成好习惯，把叶子节点单独做判断if not root.left and not root.right: return 1; if abs(leftDepth - rightDepth) > 1: self.is_balanced = False
-- [0235. Lowest Common Ancestor of a Binary Search Tree](Solutions/0235.Lowest-Common-Ancestor-of-a-Binary-Search-Tree.py) (E)
-- [0236. Lowest Common Ancestor of a Binary Tree](Solutions/0236.Lowest-Common-Ancestor-of-a-Binary-Tree.py) (M)
-- [0700. Search in a Binary Search Tree](Solutions/0700.Search-in-a-Binary-Search-Tree.py) (E)
-- [0938. Range Sum of BST](Solutions/0938.Range-Sum-of-BST.py) (E)
-- [0098. Validate Binary Search Tree](Solutions/0098.Validate-Binary-Search-Tree.py) (M)
+- [0235. Lowest Common Ancestor of a Binary Search Tree](Solutions/0235.Lowest-Common-Ancestor-of-a-Binary-Search-Tree.py) (E) <br>
+- [0236. Lowest Common Ancestor of a Binary Tree](Solutions/0236.Lowest-Common-Ancestor-of-a-Binary-Tree.py) (M) <br>
+- [0700. Search in a Binary Search Tree](Solutions/0700.Search-in-a-Binary-Search-Tree.py) (E) <br>
+- [0938. Range Sum of BST](Solutions/0938.Range-Sum-of-BST.py) (E) <br>
+- [0226. Invert Binary Tree](Solutions/0226.Invert-Binary-Tree.py) (E) <br>
+1. divide 先局部有序; 2. conquer 再整体有序
+- [0617. Merge Two Binary Trees](Solutions/0617.Merge-Two-Binary-Trees.py) (E) <br>
+- [0108. Convert Sorted Array to Binary Search Tree](Solutions/0108.Convert-Sorted-Array-to-Binary-Search-Tree.py) (!!E) <br>
+we can always choose the left middle number as root, or always choose right middle number as root, or sometimes left sometimes right as root. That is why the answer is not unique
+- [0098. Validate Binary Search Tree](Solutions/0098.Validate-Binary-Search-Tree.py) (M) <br>
 注意判断条件不是leftValid and rightValid and left.val<root.val<right.val而是max of left < root < min of right; helper函数返回以root为根的树(是不是BST，max and min value in the tree); if isLeftBST and isRightBST and maxLeft < root.val < minRight: return True, max(maxLeft, maxRight, root.val), min(minLeft, minRight, root.val) 
-- [0426. Convert Binary Search Tree to Sorted Doubly Linked List](Solutions/0426.Convert-Binary-Search-Tree-to-Sorted-Doubly-Linked-List.py) (M) 
+- [0426. Convert Binary Search Tree to Sorted Doubly Linked List](Solutions/0426.Convert-Binary-Search-Tree-to-Sorted-Doubly-Linked-List.py) (M)  <br>
 solution 1: 定义两个全局变量self.head, self.curr，进行in order traversal的过程中不断更新curr的位置并hook up nodes
-- [0114. Flatten Binary Tree to Linked List](Solutions/0114.Flatten-Binary-Tree-to-Linked-List.py) (M)
+- [0114. Flatten Binary Tree to Linked List](Solutions/0114.Flatten-Binary-Tree-to-Linked-List.py) (M) <br>
 helper函数每次都输出最后的一个node
-- [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (M)
+- [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (M) <br>
 use a stack with controlled recursion, some part of the algorithm is similar with the in order traversal of a tree using a stack; this algorithm has space complexity of O(h)
-- [0285. Inorder Successor in BST](Solutions/0285.Inorder-Successor-in-BST.py) (M)
+- [0285. Inorder Successor in BST](Solutions/0285.Inorder-Successor-in-BST.py) (M) <br>
 Divide and conquer: if p.val < root.val: return left if left else root; else: return right
-- [0701. Insert into a Binary Search Tree](Solutions/0701.Insert-into-a-Binary-Search-Tree.py) (M)
+- [0701. Insert into a Binary Search Tree](Solutions/0701.Insert-into-a-Binary-Search-Tree.py) (M) <br>
 if val > root.val则更新root.right: root.right = self.insertIntoBST(root.right, val); else: root.left = self.insertIntoBST(root.left, val); return root
-- [0450. Delete Node in a BST](Solutions/0450.Delete-Node-in-a-BST.py) (M)
+- [0450. Delete Node in a BST](Solutions/0450.Delete-Node-in-a-BST.py) (M) <br>
+- [1214. Two Sum BSTs](Solutions/1214.Two-Sum-BSTs.py) (M) <br>
+binary tree traversal using iterative way and store the val in a hash map; time complexity: O(M + N)
+- [1038. Binary Search Tree to Greater Sum Tree](Solutions/1038.Binary-Search-Tree-to-Greater-Sum-Tree.py) (M) <br>
+do a in order traversal (reversed version) to keep track the sums
+- [0096. Unique Binary Search Trees](Solutions/0096.Unique-Binary-Search-Trees.py) (M) Catalan Number
 
 
 # [Sort](/Sort.py) 
