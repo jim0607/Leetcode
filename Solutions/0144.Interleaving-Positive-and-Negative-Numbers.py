@@ -8,7 +8,7 @@ Outout : [-1, 5, -2, 4, -3, 6]
 Explanation :  any other reasonable answer.
 Challenge: Do it in-place and without extra memory.
 
-"""STEP 1: 反向双指针对[-1,-2,4,,5,-3,6]进行partition，负数在左边，正数在右边[-1, -2, -3, 4, 5, 6]
+"""STEP 1: 反向双指针（也可以同向双指针）对[-1,-2,4,,5,-3,6]进行partition，负数在左边，正数在右边[-1, -2, -3, 4, 5, 6]
 STEP 2: 再来进行正负正负正负安插"""
 class Solution:
     """
