@@ -39,7 +39,7 @@ class Solution:
         if lens % 2 == 0:
             self.swap(A)
 
-        else:     # somehow 这种情况提交不成功
+        else:     # somehow 这种情况提交不成功，因为self.swap(A[:lens - 1])并不能改变A的。可见969. pancake sorting
             if A[lens // 2] > 0:
                 self.swap(A[:lens - 1])
             else:
