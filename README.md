@@ -148,14 +148,17 @@ do a in order traversal (reversed version) to keep track the sums
 
 
 # [Sort](/Sort.py) 
-- [0912. Sort an Array](Solutions/0912.Sort-an-Array.py) (!!M) (quick sort vs. merge sort) 
+- [0912. Sort an Array](Solutions/0912.Sort-an-Array.py) (!!M) 
+quick sort: 用partition function先整体有序，返回pivotPos，然后再pivotPos两边分边局部有序
+merge sort: 用mid分成左右两部分，leftArr和righArr分别记录局部的有序数组，然后merge到arr数组
 - [0179. Largest Number](Solutions/0179.Largest-Number.py) (M)
 quick sort, self-define comparing two strings by: if s1 + s2 <= s2 + s1: return True else False
-- [0969. Pancake Sorting](Solutions/0969.Pancake-Sorting.py) (M) (two flips to move the max_num to the end of arr) 
+- [0969. Pancake Sorting](Solutions/0969.Pancake-Sorting.py) (M) <br>
+for i in range(lens-1, -1, -1 ): Find maxIndex -> flip max to top -> flip max to bottom of the whole arr -> repeat
 <br> 147. Insertion sort a linked list <br>
 
 ### [Partition and quick select](/Sort.py) 
-- [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode) 好多陷阱
+- [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode) 好多细节
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M)  <br>
 solution 1: quick select O(N) in average; solution 2: heap O(NlogK): heapq.heappush(numsHeap, num); heapq.heappop(numsHeap)
 - [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E) <br>
