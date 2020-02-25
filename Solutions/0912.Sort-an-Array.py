@@ -34,8 +34,8 @@ class Solution:
         """
         if start >= end:
             return
-        pivotPos = self._partition_(arr, start, end)
-        self._quickSort_(arr, start, pivotPos - 1)
+        pivotPos = self._partition_(arr, start, end)    # in average logN partitioning operations and each partitioning takes O(N) operations. That is why the time complexity is O(NlogN)
+        self._quickSort_(arr, start, pivotPos)
         self._quickSort_(arr, pivotPos + 1, end)
         
         
