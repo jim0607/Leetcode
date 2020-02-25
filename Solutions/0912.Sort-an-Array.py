@@ -45,20 +45,16 @@ class Solution:
         return self._mergeSort_(nums)
 
     def _mergeSort_(self, arr):
-        """
-        use divide and conquer to sort an arr, no the arr
-        """
         lens = len(arr)
         if lens <= 1:
             return arr  # if return None, then leftArr = self._mergeSort_(arr[:mid]) could be a typeErrot: object of type "NoneType has no len()"
-        # divide
+        
+        # 1. divide 先局部有序
         mid = lens // 2
-        # this leftArr, rightArr is neccessary for the merge part, and that is why
-        # merge sort takes O(N) space
         leftArr = self._mergeSort_(arr[:mid])
         rightArr = self._mergeSort_(arr[mid:])
 
-        # conquer/merge, 很多解法喜欢在这里定义一个meger函数，其实没有必要。
+        # 2. merge 再整体有序
         i, j, k = 0, 0, 0
         while i < len(leftArr) and j < len(rightArr):
             if leftArr[i] < rightArr[j]:
