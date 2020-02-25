@@ -173,7 +173,7 @@ STEP 1: 反向双指针（或同向双指针）对[-1,-2,4,,5,-3,6]进行partiti
 - [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py) (E) 
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M) (quick select) 
 - [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) (Binary search) 
-- [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (M) 
+- [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (M) <br>
 sort the intervals first, res = []; for interval in intervals: if the interval start time is larger than the largest end time in res, then the interval cannot be merged, then res.append(interval), else then res[-1][1] = max(res[-1][1], interval[1])
 
 
