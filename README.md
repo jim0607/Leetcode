@@ -77,18 +77,6 @@ do a in order traversal (reversed version) to keep track the sums
 - [0096. Unique Binary Search Trees](Solutions/0096.Unique-Binary-Search-Trees.py) (M) Catalan Number
 
 
-# [Sort](/Sort.py) 
-- [0912. Sort an Array](Solutions/0912.Sort-an-Array.py) (M) (quick sort vs. merge sort) 
-- [0969. Pancake Sorting](Solutions/0969.Pancake-Sorting.py) (M) (two flips to move the max_num to the end of arr) 
-- [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (M) (quick select)
-
-### [Partition](/Sort.py) 
-- [0031. Partition Array](Solutions/0031.Partition-Array.py) (Lintcode)
-- [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E)
-- [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
-- [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) (三根指针partition成三个部分)
-
-
 # [Breadth First Search](/Breadth-First-Search.py)
 ### [BFS in Trees](/Breadth-First-Search.py)
 - [0102. Binary Tree Level Order Traversal](Solutions/0102.Binary-Tree-Level-Order-Traversal.py) (！！M)
@@ -159,10 +147,32 @@ do a in order traversal (reversed version) to keep track the sums
 - [0139. Subarray Sum Closest](Solutions/0139.Subarray-Sum-Closest.py) (Lintcode) (prefixSum+hashmap)
 
 
+# [Sort](/Sort.py) 
+- [0912. Sort an Array](Solutions/0912.Sort-an-Array.py) (!!M) (quick sort vs. merge sort) 
+- [0179. Largest Number](Solutions/0179.Largest-Number.py) (M)
+quick sort, self-define comparing two strings by: if s1 + s2 <= s2 + s1: return True else False
+- [0969. Pancake Sorting](Solutions/0969.Pancake-Sorting.py) (M) (two flips to move the max_num to the end of arr) 
+<br> 147. Insertion sort a linked list <br>
+
+### [Partition and quick select](/Sort.py) 
+- [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode) 好多陷阱
+- [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M)  <br>
+solution 1: quick select O(N) in average; solution 2: heap O(NlogK): heapq.heappush(numsHeap, num); heapq.heappop(numsHeap)
+- [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E) <br>
+solution 1: 同向双指针； solution 2: 反向双指针同上题
+- [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
+STEP 1: 反向双指针（或同向双指针）对[-1,-2,4,,5,-3,6]进行partition，负数在左边，正数在右边[-1, -2, -3, 4, 5, 6]; STEP 2: 再正负正负安插
+- [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) <br>
+同向双指针: move '2's to the right first, then move '1's to the middle
+
+
 # [Sorted Array]() 
 - [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py) (E) 
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M) (quick select) 
 - [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) (Binary search) 
+- [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (M) 
+sort the intervals first, res = []; for interval in intervals: if the interval start time is larger than the largest end time in res, then the interval cannot be merged, then res.append(interval), else then res[-1][1] = max(res[-1][1], interval[1])
+
 
 
 # [Two Pointers](/Two-pointers.py)
@@ -172,13 +182,14 @@ do a in order traversal (reversed version) to keep track the sums
 - [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode)
 - [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E)
 - [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
-- [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) (三根指针partition成三个部分)
+
 - [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) (E) 
 
 ### [同向双指针](/Two-pointers.py)
 - [0283. Move Zeroes](Solutions/0283.Move-Zeroes.py) (E) 
 - [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (E) 
 - [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) 
+- [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M)
 
 
 # [Two Sum]()
