@@ -11,6 +11,35 @@ Example:
 Input: [2,0,2,1,1,0]
 Output: [0,0,1,1,2,2]
 
+    
+    
+"""同向双指针: move '2's to the right first, then move '1's to the right
+这种分区的题目都可以用同向双指针"""
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        lens = len(nums)
+        anchor, curr = 0, 0
+        while curr < lens:
+            if nums[curr] == 2:
+                curr += 1
+            else:
+                nums[anchor], nums[curr] = nums[curr], nums[anchor]
+                anchor += 1
+                curr += 1
+                
+        # after the while loop, anchor is at the first '2' position
+        
+        anchor1, curr = 0, 0
+        while curr < anchor:
+            if nums[curr] == 1:
+                curr += 1
+            else:
+                nums[anchor1], nums[curr] = nums[curr], nums[anchor1]
+                anchor1 += 1
+                curr += 1    
+    
+    
+    
 """使用一次扫描的办法。
 设立三根指针，left, index, right。定义如下规则：
 left 的左侧都是 0（不含 left）
