@@ -148,10 +148,10 @@ do a in order traversal (reversed version) to keep track the sums
 
 
 # [Sort](/Sort.py) 
-- [0912. Sort an Array](Solutions/0912.Sort-an-Array.py) (!!M) 
+- [0912. Sort an Array](Solutions/0912.Sort-an-Array.py) (!!M) <br>
 quick sort: 用partition function先整体有序，返回pivotPos，然后再pivotPos两边分边局部有序
 merge sort: 用mid分成左右两部分，leftArr和righArr分别记录局部的有序数组，然后merge到arr数组
-- [0179. Largest Number](Solutions/0179.Largest-Number.py) (M)
+- [0179. Largest Number](Solutions/0179.Largest-Number.py) (M) <br>
 quick sort, self-define comparing two strings by: if s1 + s2 <= s2 + s1: return True else False
 - [0969. Pancake Sorting](Solutions/0969.Pancake-Sorting.py) (M) <br>
 for i in range(lens-1, -1, -1 ): Find maxIndex -> flip max to top -> flip max to bottom of the whole arr -> repeat
