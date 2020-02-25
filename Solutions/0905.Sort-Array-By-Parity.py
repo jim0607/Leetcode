@@ -40,6 +40,25 @@
 # 
 # 
 #
+
+
+"""同向双指针 two pointers: anchor, curr"""
+class Solution:
+    def sortArrayByParity(self, A: List[int]) -> List[int]:
+        anchor, curr = 0, 0
+        lens = len(A)
+        
+        while curr < lens:
+            if A[curr] % 2 == 0:
+                A[anchor], A[curr] = A[curr], A[anchor]
+                curr += 1
+                anchor += 1
+            else:
+                curr += 1
+                
+        return A
+
+
 """用双指针的方法做partition，与lintcode 31的方法一模一样"""
 # @lc code=start
 class Solution:
