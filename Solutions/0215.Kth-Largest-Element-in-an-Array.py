@@ -50,7 +50,7 @@ class Solution:
         
         pivot_pos = self._partition_(nums, start, end)      # If that would be a quicksort algorithm, one would proceed recursively to use quicksort for the both parts that would result in \mathcal{O}(N \log N)O(NlogN) time complexity. Here there is no need to deal with both parts since now one knows in which part to search for N - kth smallest element, and that reduces average time complexity to \mathcal{O}(N)O(N).
         if k - 1 < pivot_pos:
-            return self._quickSelect_(nums, start, pivot_pos - 1, k)
+            return self._quickSelect_(nums, start, pivot_pos - 1, k)    # O(N)+O(N/2)+...+O(2)+O(1)=O(X); O(X)+O(1)=O(2N), so O(X)=O(N) and that is why quick_select is O(N) algorithm
         elif k - 1 > pivot_pos: 
             return self._quickSelect_(nums, pivot_pos + 1, end, k)
         else:
@@ -77,14 +77,15 @@ class Solution:
 
 
 """solution 2: heap
-time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的push 和pop都是logK"""
+time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的push 和pop都是logK
+heapq适合做第K大，第K小，前K大，前K小问题"""
 import heapq
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        heap = []
+        numsHeap = []
         for num in nums:
-            heapq.heappush(heap, num)
-            if len(heap) > k:
-                heapq.heappop(heap)
-                
-        return heapq.heappop(heap)
+            heapq.heappush(numsHeap, num)
+            if len(numsHeap) > k:
+                heapq.heappop(numsHeap)
+        
+        return heapq.heappop(numsHeap)
