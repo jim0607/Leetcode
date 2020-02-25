@@ -148,7 +148,7 @@ do a in order traversal (reversed version) to keep track the sums
 
 
 # [Sort](/Sort.py) 
-- [0912. Sort an Array](Solutions/0912.Sort-an-Array.py) (!!M) <br>
+- [0912. Sort an Array](Solutions/0912.Sort-an-Array.py) (!!M, Youtubed) <br>
 quick sort: 用partition function先整体有序，返回pivotPos，然后再pivotPos两边分边局部有序
 merge sort: 用mid分成左右两部分，leftArr和righArr分别记录局部的有序数组，然后merge到arr数组
 - [0179. Largest Number](Solutions/0179.Largest-Number.py) (M) <br>
