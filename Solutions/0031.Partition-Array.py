@@ -28,7 +28,7 @@ class Solution:
         i, j = 0, len(nums) - 1
         temp = nums[i]  # nums[i]在后面会改变，所以需要存储起来
         while i < j:
-            while i < j and nums[j] >= k:
+            while i < j and nums[j] >= k:   # 都是先判断j
                 j -= 1
             nums[i] = nums[j]
             while i < j and nums[i] < k:
@@ -36,10 +36,5 @@ class Solution:
             nums[j] = nums[i]
             
         nums[i] = temp  # nums[i]的值需要回归
-            
-        print(nums)
         
-        if nums[i] < k:
-            return i + 1
-        else:
-            return i
+        return i if nums[i] >= k else i + 1
