@@ -57,10 +57,10 @@ class Solution:
             lens = len(q)  # important
             # 用一个for循环来处理每一层
             for _ in range(lens):
-                # 在这一层要做两件事情：1. 将该层的所有的node.val依次放入level中
+                # 在这一层要做两件事情：1. 处理这一层：将该层的所有的node.val依次放入level中
                 node = q.popleft()
                 level.append(node.val)
-                # 2. 将该层所有的node的左右子节点依次入队列
+                # 2. 处理下一层：将该层所有的node的左右子节点依次入队列
                 if node.left:  # 注意这里判断是为了不把None放到队列里去，这样res出来的结果就没有None了。
                     q.append(node.left)
                 if node.right:
