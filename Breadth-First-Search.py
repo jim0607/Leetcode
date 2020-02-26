@@ -25,17 +25,24 @@ BFS都是用queue，注意python实现的时候用list （可以用linked list�
 二叉树上的BFS：
   * Binary Tree Level order traversal (层级遍历)
   BFS解二叉树问题的模板：
-  q = deque(）
-  q.append(root)
-  result = []
-  while q:
-    node = q.popleft()
-    if node.left:
-      q.append(node.left)
-     if node.right:
-      q.append(node.right)
-    result.append(....)
-  return result
+res = []
+q = deque()
+q.append(root)
+while q:
+    level = []
+    lens = len(q)  # important
+    # 用一个for循环来处理每一层
+    for _ in range(lens):
+        # 在这一层要做两件事情：1. 将该层的所有的node.val依次放入level中
+        node = q.popleft()
+        level.append(node.val)
+        # 2. 将该层所有的node的左右子节点依次入队列
+        if node.left:  # 注意这里判断是为了不把None放到队列里去，这样res出来的结果就没有None了。
+            q.append(node.left)
+        if node.right:
+            q.append(node.right)
+    res.append(level)
+return res
   
   * Binary Tree Serialization (M+Y)
   序列化：将“内存”中结构化的数据变成“字符串”的过程
