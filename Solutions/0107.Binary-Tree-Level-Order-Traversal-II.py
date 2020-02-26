@@ -70,13 +70,7 @@ class Solution:
                     q.append(node.right)
             res.append(level)
         
-        i, j = 0, len(res) - 1
-        while i < j:
-            res[i], res[j] = res[j], res[i]
-            i += 1
-            j -= 1
-
-        return res
+        return res[::-1]
         
 # @lc code=end
 
