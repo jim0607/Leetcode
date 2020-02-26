@@ -102,7 +102,7 @@ class Codec:
             if vals[index] != "None":
                 node.left = TreeNode(int(vals[index]))
                 q.append(node.left)
-            index += 1
+            index += 1      # 注意index不要写到if里面，因为vals[index]==None的情况下，我们也需要将index往前进一步
 
             if vals[index] != "None":
                 node.right = TreeNode(int(vals[index]))
