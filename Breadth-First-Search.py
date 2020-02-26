@@ -5,6 +5,14 @@ BFS: 不需要递归，使用queue
 
 BFS都是用queue，注意python实现的时候用list （可以用linked list实现，或者用circular list，环形数组实现）
 
+****！！！！
+bfs只需谨记一条铁律，那就是在while q: 里面只做两件事：
+1. 处理这一层。那就需要把这一层的node逐个pop出，然后append到res里，有时候需要用for循环for _ in range(len(q))来遍历这一层所有的node
+2. append下一层。那就需要遍历下一层所有的node，有时候需要用for循环for neighbor in neighbors[currNode]。
+   这里的neighbors是一个存储边的对应关系的hashmap，有的题目需要提前找出来。
+   另外为了处理带环的图，有时需要在append下一层的某个节点时候判断是不是已经visited，这就需要提前定义好一个set来存储已经visited的节点，visited.add和q.append永远是一对孪生兄弟。
+****！！！！
+
 主要分成三个部分的内容：
 1. 二叉树上的BFS
 2. 图上的BFS 
