@@ -32,8 +32,8 @@ class DirectedGraphNode:
         self.neighbors = []
 """
 
-"""分两步：1. collect indgree of each node
-2. topological sorting - bfs"""
+"""分两步：1. collect indgree information of each node and store in a dict
+2. topological sorting - bfs to store the nodes layer by layer in res"""
 
 class Solution:
     """
@@ -45,28 +45,29 @@ class Solution:
         if not graph:
             return
         
-        # 1. collect indgree of each node
-        indgree = self.getIndgree(graph)
+        # 1. collect indgree information of each node an store in a dict
+        inDegrees = collections.defaultdict(int)
+        inDegrees = self.getInDegrees(graph)
         
         # 2. topological sorting - bfs
-        order = []
+        res = []
         q = collections.deque()
         # 初始化q，一般是q.append(根)，这里是把indegree==0的node 入队列
-        for n in graph:
-            if indgree[n] == 0:
-                q.append(n)
+        for node, inDegree in inDegrees.items():
+            if inDegree == 0:
+                q.append(node)
         
-        # 接下来又进入模板时间
+        # 模板时间
         while q:
             currNode = q.popleft()
-            order.append(currNode)
-            # bfs
+            res.append(currNode)
+            # 一层一层来
             for neighbor in currNode.neighbors:
-                indgree[neighbor] -= 1
-                if indgree[neighbor] == 0:   # 这个判断相当于模板里visited的判断，因为没有一个节点的indgree能两次成为0，所以这个判断可以保证每个节点被访问一次。
+                inDegrees[neighbor] -= 1
+                if inDegrees[neighbor] == 0:   # 这个判断相当于模板里visited的判断，因为没有一个节点的indgree能两次成为0，所以这个判断可以保证每个节点被访问一次。
                     q.append(neighbor)
         
-        return order
+        return res
     
         """follow up question: what if topological order 在这个图中不存在，怎么办？也就是说如果出现了环状依赖的节点怎么办？
         if len(order) == len(graph):
@@ -76,17 +77,17 @@ class Solution:
         """
         
     # 写完主程序之后再来写子程序
-    def getIndgree(self, graph):
-        indegree = collections.defaultdict()
+    def getInDegrees(self, graph):
+        inDegrees = collections.defaultdict(int)
         # 初始化indgree
         for n in graph:
-            indegree[n] = 0
+            inDegrees[n] = 0
             
-        for n in graph:
-            for neighbor in n.neighbors:
-                indegree[neighbor] += 1
+        for node in graph:
+            for neighbor in node.neighbors:
+                inDegrees[neighbor] += 1
         
-        return indegree
+        return inDegrees
         
                 
                 
