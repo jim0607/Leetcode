@@ -53,13 +53,13 @@ class Solution:
             for _ in range(lens):
                 # 做两件事情：1. 找到每一层所有Node中最右边的那一个
                 node = q.popleft()
-                temp = node.val
+                rightMostVal = node.val
                 # 2. 将这一层中所有的node的左右节点分别入队列
                 if node.left:
                     q.append(node.left)
                 if node.right:
                     q.append(node.right)
-            res.append(temp)
+            res.append(rightMostVal)
             
         return res
         
