@@ -61,52 +61,46 @@
 2. 然后 BFS“”“
 
 
-# @lc code=start
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         if numCourses == 0:
             return []
         if not prerequisites:
             return [i for i in range(numCourses)]
-
-        # 用一个hashmap存储边/邻居
-        edges = {x: [] for x in range(numCourses)}
-        for u, v in prerequisites:
-            edges[v].append(u)
-            
+        
         # 找到所有节点的inDegree值
-        inDegree = {}
-        inDegree = self.get_inDegree(numCourses, prerequisites)
-
-        # Topological sort - BFS
-        q = collections.deque()
-        for n, val in inDegree.items():
-            if val == 0:
-                q.append(n)
-        order = []
-        while q:
-           currNode = q.popleft()
-           order.append(currNode)
-           for neighbor in edges[currNode]:
-               inDegree[neighbor] -= 1
-               if inDegree[neighbor] == 0:
-                   q.append(neighbor)
-
-        if len(order) == numCourses:
-            return order
-        else:
-            return []
-
-    def get_inDegree(self, numCourses, prerequisites):
-        inDegree = collections.defaultdict()
-        # initialize the dict
-        for i in range(numCourses):
-            inDegree[i] = 0
+        inDegrees = collections.defaultdict(int)
+        inDegrees = self.getInDegrees(numCourses, prerequisites)
         
+        # 用一个hashmap存储边/邻居
+        neighbors = collections.defaultdict(list)
         for u, v in prerequisites:
-            inDegree[u] += 1
-        
-        return inDegree
-
-# @lc code=end
-
+            neighbors[v].append(u)
+            
+        # BFS
+        res = []
+        q = collections.deque()
+        for node, inDegree in inDegrees.items():
+            if inDegree == 0:
+                q.append(node)
+                res.append(node)
+                
+        while q:
+            currNode = q.popleft()
+            for neighbor in neighbors[currNode]:
+                inDegrees[neighbor] -= 1
+                if inDegrees[neighbor] == 0:
+                    q.append(neighbor)
+                    res.append(neighbor)
+                    
+        return res if len(res) == numCourses else []
+    
+    def getInDegrees(self, numCourses, prerequisites):
+        inDegrees = collections.defaultdict(int)
+        for n in range(numCourses):
+            inDegrees[n] = 0
+            
+        for u, v in prerequisites:
+            inDegrees[u] += 1
+            
+        return inDegrees
