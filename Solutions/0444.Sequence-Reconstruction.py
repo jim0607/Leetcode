@@ -85,63 +85,55 @@ Reconstruction means building a shortest common supersequence of the sequences i
 所以存在后面的元素对前面的元素有依赖关系。可以用topological sort
 所有的topological sort 都是两步：
 1. 从数字关系求出 indegrees 和 neighbors
-2. 然后 BFS
+2. 然后 BFS"""
 
-这个题目要做三个判断：
-1. 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素即可
-2. 判断seqs的拓扑排序是否存在，只需判断len(order) 是否等于len(hashmap used for store neighbors)
-3. 最后判断这个唯一的拓扑排序order是否等于org
-"""
-# @lc code=start
+
+"""这个题目要做三个判断：
+1. 判断seqs的拓扑排序是否存在，只需判断len(res) 是否等于len(neighbors), 如果小于说明有孤立节点，如果大于说明有环，亮着都不存在拓扑排序
+2. 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素即可
+3. 最后判断这个唯一的拓扑排序res是否等于org"""
+
 class Solution:
     def sequenceReconstruction(self, org: List[int], seqs: List[List[int]]) -> bool:
-        if not org and not seqs:
-            return True
-        if not org or not seqs:
-            return False
         
-        # 求出inDegrees
-        inDegrees = {}
-        inDegrees = self.get_inDegree(seqs)
-
-        # 构建hashmap求出neighbors
-        edges = collections.defaultdict(list)
+        # 求出inDegree的值
+        inDegrees = collections.defaultdict(int)
+        inDegrees = self.getInDegrees(seqs)
+        
+        # 求出neighbors
+        neighbors = collections.defaultdict(list)
         for seq in seqs:
             for i in range(len(seq) - 1):
-                edges[seq[i]].append(seq[i+1])
-
-        # BFS
+                neighbors[seq[i]].append(seq[i + 1])
+        
+        res = []
         q = collections.deque()
-        for n, val in inDegrees.items():
-            if val == 0:
-                q.append(n)
-        order = []
+        for node, inDegree in inDegrees.items():
+            if inDegree == 0:
+                q.append(node)
+                res.append(node)
+                
         while q:
-            # 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素即可
-            if len(q) > 1:
+            if len(q) > 1:   # 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素，即每一层只有一个选择
                 return False
+            
             currNode = q.popleft()
-            order.append(currNode)
-            for neighbor in edges[currNode]:
+            for neighbor in neighbors[currNode]:
                 inDegrees[neighbor] -= 1
                 if inDegrees[neighbor] == 0:
                     q.append(neighbor)
-        # 首先判断seqs的拓扑排序是否存在，然后判断这个唯一的拓扑排序是否等于org
-        return len(order) == len(edges) and order == org
-
-    def get_inDegree(self, seqs):
-        inDegrees = collections.defaultdict()
-        # initialize
+                    res.append(neighbor)
+                    
+        return len(res) == len(neighbors) and res == org       # 首先判断seqs的拓扑排序是否存在，然后判断这个唯一的拓扑排序是否等于org
+    
+    def getInDegrees(self, seqs):
+        inDegrees = collections.defaultdict(int)
         for seq in seqs:
-            for item in seq:
-                inDegrees[item] = 0
-        
+            for node in seq:
+                inDegrees[node] = 0
+                
         for seq in seqs:
-            for i in range(1, len(seq)):
-                inDegrees[seq[i]] += 1
-
+            for node in seq[1:]:
+                inDegrees[node] += 1
+                
         return inDegrees
-
-        
-# @lc code=end
-
