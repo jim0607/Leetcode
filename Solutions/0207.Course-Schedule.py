@@ -51,48 +51,43 @@
 #
 """分两步：1. collect the inDegree of each node
 2. topological sort - BFS"""
-# @lc code=start
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        if numCourses == 0:
+        if numCourses == 0 or not prerequisites:
             return True
-        if not prerequisites:
-            return True
+        
+        inDegrees = collections.defaultdict(int)
+        inDegrees = self.getInDegrees(numCourses, prerequisites)
+        print(inDegrees)
         
         # 用一个hashmap来存储相邻节点
-        edges = {i: [] for i in range(numCourses)}
-        for edge in prerequisites:
-            edges[edge[1]].append(edge[0])
+        neighbors = collections.defaultdict(list)
+        for u, v in prerequisites:
+            neighbors[v].append(u)
             
-        inDegree = {}
-        inDegree = self.get_inDegree(numCourses, prerequisites)
-
-        # BFS 模板
         q = collections.deque()
-        for n, cnt in inDegree.items():
-            if cnt == 0:
-                q.append(n)
-        cntCourses = 0
+        visited = set()
+        for node, inDegree in inDegrees.items():
+            if inDegree == 0:
+                q.append(node)
+                visited.add(node)
+                
         while q:
             currNode = q.popleft()
-            cntCourses += 1
-            for neighbor in edges[currNode]:
-                inDegree[neighbor] -= 1
-                if inDegree[neighbor] == 0:
+            for neighbor in neighbors[currNode]:
+                inDegrees[neighbor] -= 1
+                if inDegrees[neighbor] == 0:
                     q.append(neighbor)
-
-        return cntCourses == numCourses
-
-    def get_inDegree(self, numCourses, prerequisites):
-        inDegree = collections.defaultdict()
-        # initialize
-        for i in range(numCourses):
-            inDegree[i] = 0
-
-        for u, v in prerequisites:
-            inDegree[u] += 1
+                    visited.add(neighbor)
+                    
+        return len(visited) == numCourses
+    
+    def getInDegrees(self, numCourses, prerequisites):
+        inDegrees = collections.defaultdict(int)
+        for node in range(numCourses):      # initialize
+            inDegrees[node] = 0
         
-        return inDegree
-
-# @lc code=end
-
+        for u, v in prerequisites:
+            inDegrees[u] += 1
+            
+        return inDegrees
