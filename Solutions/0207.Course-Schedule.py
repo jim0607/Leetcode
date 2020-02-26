@@ -49,8 +49,9 @@
 # 
 # 
 #
-"""分两步：1. collect the inDegree of each node
-2. topological sort - BFS"""
+"""分三步：1. collect the inDegree of each node
+2. collect the neighbors information
+3. topological sort - BFS"""
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         if numCourses == 0 or not prerequisites:
