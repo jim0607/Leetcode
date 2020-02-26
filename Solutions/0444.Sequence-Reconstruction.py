@@ -89,8 +89,8 @@ Reconstruction means building a shortest common supersequence of the sequences i
 
 
 """这个题目要做三个判断：
-1. 判断seqs的拓扑排序是否存在，只需判断len(res) 是否等于len(neighbors), 如果小于说明有孤立节点，如果大于说明有环，亮着都不存在拓扑排序
-2. 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素即可
+1. 判断seqs的拓扑排序是否存在，只需判断len(res) 是否等于len(neighbors), 如果小于说明有孤立节点，如果大于说明有环，两者都不存在拓扑排序
+2. 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素, 即每一层只有一个选择
 3. 最后判断这个唯一的拓扑排序res是否等于org"""
 
 class Solution:
