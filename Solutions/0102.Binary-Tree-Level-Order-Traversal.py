@@ -39,13 +39,8 @@
 # 
 #
 
-# @lc code=start
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+"""Time complexity : O(N) since each node is processed exactly once.
+Space complexity : O(N) to keep the output structure which contains N node values."""
 
 from collections import deque
 
