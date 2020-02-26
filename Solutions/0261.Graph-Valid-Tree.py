@@ -63,7 +63,7 @@ class Solution:
             # 每一次将一个node pop出队列，都需要同时改变visited的值，就像是一对好基友
             currNode = q.popleft()
             visited[currNode] = True
-            for node in neighbors[currNode]:  # 这里体现BFS，首先访问currNode节点的左右邻居节点
+            for node in neighbors[currNode]:  # 这里体现BFS，首先访问currNode节点的所有邻居节点
                 # 如果已经访问过就不再访问了，这样可以保证每个节点都被访问过一次
                 if node not in visited:  # 没访问过就加入队列
                     q.append(node)
