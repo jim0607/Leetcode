@@ -24,17 +24,6 @@ Notice
 You can assume that there is at least one topological order in the graph.
 
 
-"""
-Definition for a Directed graph node
-class DirectedGraphNode:
-    def __init__(self, x):
-        self.label = x
-        self.neighbors = []
-"""
-
-"""分两步：1. collect indgree information of each node and store in a dict
-2. topological sorting - bfs to store the nodes layer by layer in res"""
-
 class Solution:
     """
     @param: graph: A list of Directed graph node
@@ -56,16 +45,17 @@ class Solution:
         for node, inDegree in inDegrees.items():
             if inDegree == 0:
                 q.append(node)
+                res.append(node)        # 孪生兄弟
         
         # 模板时间
         while q:
             currNode = q.popleft()
-            res.append(currNode)
             # 一层一层来
             for neighbor in currNode.neighbors:
                 inDegrees[neighbor] -= 1
                 if inDegrees[neighbor] == 0:   # 这个判断相当于模板里visited的判断，因为没有一个节点的indgree能两次成为0，所以这个判断可以保证每个节点被访问一次。
                     q.append(neighbor)
+                    res.append(neighbor)        # 孪生兄弟
         
         return res
     
@@ -88,6 +78,3 @@ class Solution:
                 inDegrees[neighbor] += 1
         
         return inDegrees
-        
-                
-                
