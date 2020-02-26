@@ -38,13 +38,12 @@
 1. 首先点的数目一定比边的数目多一个
 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，
 也就是visited的数目要等于节点数目"""
-# @lc code=start
 class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
         if n == 0:
             return Ture
-        # 首先点的数目一定比边的数目多一个
-        if len(edges) != n - 1:
+
+        if len(edges) != n - 1:  # 首先点的数目一定比边的数目多一个
             return False
 
         # 图的实现方法是使用hashmap，key是int表示节点, value是set(int)表示该节点所连接的相邻节点。
@@ -55,20 +54,16 @@ class Solution:
         
         from collections import deque
         q = deque()
-        # 与二叉树的BFS相比多加了一行visited
+        visited = set()      # 与二叉树的BFS相比多加了一行visited
         q.append(0)
-        visited = {}
+        visited.add(0)  # visited and q are twin brothers, whenever q append something, visited add something
+        
         while q:
-            # 每次pop出一个node，都要标记这个node被访问过了，这是与二叉树BFS的区别，因为图是有环的
-            # 每一次将一个node pop出队列，都需要同时改变visited的值，就像是一对好基友
             currNode = q.popleft()
-            visited[currNode] = True
             for node in neighbors[currNode]:  # 这里体现BFS，首先访问currNode节点的所有邻居节点
                 # 如果已经访问过就不再访问了，这样可以保证每个节点都被访问过一次
-                if node not in visited:  # 没访问过就加入队列
+                if node not in visited:     # 没访问过就加入队列
                     q.append(node)
+                    visited.add(node)       # twin brothers
         
-        return len(visited) == n  # 每个节点都被访问过且都被访问过一次
-
-# @lc code=end
-
+        return len(visited) == n    # 每个节点都被访问过且都被访问过一次
