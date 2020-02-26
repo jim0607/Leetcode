@@ -79,11 +79,13 @@ do a in order traversal (reversed version) to keep track the sums
 
 # [Breadth First Search](/Breadth-First-Search.py)
 ### [BFS in Trees](/Breadth-First-Search.py)
-- [0102. Binary Tree Level Order Traversal](Solutions/0102.Binary-Tree-Level-Order-Traversal.py) (！！M)
-- [0103. Binary Tree Zigzag Level Order Traversal](Solutions/0103.Binary-Tree-Zigzag-Level-Order-Traversal.py) (！M)
-- [0107. Binary Tree Level Order Traversal II](Solutions/0107.Binary-Tree-Level-Order-Traversal-II.py) (！E)
-- [0199. Binary Tree Right Side View](Solutions/0199.Binary-Tree-Right-Side-View.py) (！M)
+- [0102. Binary Tree Level Order Traversal](Solutions/0102.Binary-Tree-Level-Order-Traversal.py) (!!M)
+O(N) since each node is processed exactly once
+- [0103. Binary Tree Zigzag Level Order Traversal](Solutions/0103.Binary-Tree-Zigzag-Level-Order-Traversal.py) (M)
+- [0107. Binary Tree Level Order Traversal II](Solutions/0107.Binary-Tree-Level-Order-Traversal-II.py) (E)
+- [0199. Binary Tree Right Side View](Solutions/0199.Binary-Tree-Right-Side-View.py) (M)
 - [0111. Minimum Depth of Binary Tree](Solutions/0111.Minimum-Depth-of-Binary-Tree.py) (E)
+solution 1: recursion; soluiton 2: BFS; for _ in range(lens): if not node.left and not node.right: return depth
 - [0297. Serialize and Deserialize Binary Tree](Solutions/0297.Serialize-and-Deserialize-Binary-Tree.py) (H)
 
 ### [BFS in Graphs](/Breadth-First-Search.py)
