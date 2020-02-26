@@ -84,15 +84,16 @@ O(N) since each node is processed exactly once
 - [0103. Binary Tree Zigzag Level Order Traversal](Solutions/0103.Binary-Tree-Zigzag-Level-Order-Traversal.py) (M)
 - [0107. Binary Tree Level Order Traversal II](Solutions/0107.Binary-Tree-Level-Order-Traversal-II.py) (E)
 - [0199. Binary Tree Right Side View](Solutions/0199.Binary-Tree-Right-Side-View.py) (M)
-- [0111. Minimum Depth of Binary Tree](Solutions/0111.Minimum-Depth-of-Binary-Tree.py) (E)
+- [0111. Minimum Depth of Binary Tree](Solutions/0111.Minimum-Depth-of-Binary-Tree.py) (E) <br>
 solution 1: recursion; soluiton 2: BFS; for _ in range(lens): if not node.left and not node.right: return depth
-- [0297. Serialize and Deserialize Binary Tree](Solutions/0297.Serialize-and-Deserialize-Binary-Tree.py) (H)
+- [0297. Serialize and Deserialize Binary Tree](Solutions/0297.Serialize-and-Deserialize-Binary-Tree.py) (!!H)
 
 ### [BFS in Graphs](/Breadth-First-Search.py)
 - [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (M)
 - [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (M)
-- [0127. Topological Sorting](Solutions/0127.Topological-Sorting.py) (！！LintCode M) (Topological Sorting)
-- [0207. Course Schedule](Solutions/0207.Course-Schedule.py) (！！M) (opological Sort)
+第一步：找到所有的点，用BFS实现; 第二步：复制所有的node，存到mapping中，边可以先设为空; 第三步：复制所有节点对应的边/邻居
+- [0127. Topological Sorting](Solutions/0127.Topological-Sorting.py) (!!LintCode M) (Topological Sorting)
+- [0207. Course Schedule](Solutions/0207.Course-Schedule.py) (！！M) (Topological Sort)
 - [0210. Course Schedule II](Solutions/0210.Course-Schedule-II.py) (！！M) (Naked Topological Sort)
 - [0444. Sequence Reconstruction](Solutions/0444.Sequence-Reconstruction.py) (M)
 
