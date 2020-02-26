@@ -67,5 +67,24 @@ class Solution:
 
         return depth
         
-# @lc code=end
 
+"""solution 2: recursion"""
+class Solution:
+    def minDepth(self, root: TreeNode) -> int:
+        """return the min depth of Binary Tree rooted as root"""
+        if not root:
+            return 0
+        
+        if not root.left and not root.right:
+            return 1
+        
+        if not root.left:
+            return self.minDepth(root.right) + 1
+        
+        if not root.right:
+            return self.minDepth(root.left) + 1
+        
+        else:
+            leftMin = self.minDepth(root.left)
+            rightMin = self.minDepth(root.right)
+            return min(leftMin, rightMin) + 1
