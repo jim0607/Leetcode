@@ -71,7 +71,7 @@ class Solution:
         for node, inDegree in inDegrees.items():
             if inDegree == 0:
                 q.append(node)
-                visited.add(node)
+                visited.add(node)       # 孪生兄弟
                 
         while q:
             currNode = q.popleft()
@@ -79,7 +79,7 @@ class Solution:
                 inDegrees[neighbor] -= 1
                 if inDegrees[neighbor] == 0:
                     q.append(neighbor)
-                    visited.add(neighbor)
+                    visited.add(neighbor)       # 孪生兄弟
                     
         return len(visited) == numCourses
     
