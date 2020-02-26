@@ -79,20 +79,26 @@ do a in order traversal (reversed version) to keep track the sums
 
 # [Breadth First Search](/Breadth-First-Search.py)
 ### [BFS in Trees](/Breadth-First-Search.py)
-- [0102. Binary Tree Level Order Traversal](Solutions/0102.Binary-Tree-Level-Order-Traversal.py) (!!M)
-O(N) since each node is processed exactly once
-- [0103. Binary Tree Zigzag Level Order Traversal](Solutions/0103.Binary-Tree-Zigzag-Level-Order-Traversal.py) (M)
-- [0107. Binary Tree Level Order Traversal II](Solutions/0107.Binary-Tree-Level-Order-Traversal-II.py) (E)
-- [0199. Binary Tree Right Side View](Solutions/0199.Binary-Tree-Right-Side-View.py) (M)
+- [0102. Binary Tree Level Order Traversal](Solutions/0102.Binary-Tree-Level-Order-Traversal.py) (!!M) <br>
+BFS的铁律就是用queue, 在while q: 循环里做两件事 1. 处理这一层。那就需要把这一层的node逐个pop出，然后append到res里，有时候需要用for循环for _ in range(len(q))来遍历这一层所有的node; 2. append下一层。BFS is O(N) since each node is processed exactly once
+- [0103. Binary Tree Zigzag Level Order Traversal](Solutions/0103.Binary-Tree-Zigzag-Level-Order-Traversal.py) (M) <br>
+same as 102, 在res.append(level)的时候间隔性选择res.append(level) or res.append(level[::-1])
+- [0107. Binary Tree Level Order Traversal II](Solutions/0107.Binary-Tree-Level-Order-Traversal-II.py) (E) <br>
+same as 102，只是题目要求从下至上输出，只需要return res[::-1]即可
+- [0199. Binary Tree Right Side View](Solutions/0199.Binary-Tree-Right-Side-View.py) (M) <br>
+same as 102，只需要res.append(level[-1])即可
 - [0111. Minimum Depth of Binary Tree](Solutions/0111.Minimum-Depth-of-Binary-Tree.py) (E) <br>
 solution 1: recursion; soluiton 2: BFS; for _ in range(lens): if not node.left and not node.right: return depth
-- [0297. Serialize and Deserialize Binary Tree](Solutions/0297.Serialize-and-Deserialize-Binary-Tree.py) (!!H)
+- [0297. Serialize and Deserialize Binary Tree](Solutions/0297.Serialize-and-Deserialize-Binary-Tree.py) (!!H) <br>
+should practice more times!
 
 ### [BFS in Graphs](/Breadth-First-Search.py)
-- [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (M)
-- [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (M)
+- [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
+判断图是不是一棵树（不一定非要是二叉树）需要满足两点：1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目
+- [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (M) <br>
 第一步：找到所有的点，用BFS实现; 第二步：复制所有的node，存到mapping中，边可以先设为空; 第三步：复制所有节点对应的边/邻居
-- [0127. Topological Sorting](Solutions/0127.Topological-Sorting.py) (!!LintCode M) (Topological Sorting)
+- [0127. Topological Sorting](Solutions/0127.Topological-Sorting.py) (!!LintCode) <br>
+必考，其实也非常模板化，一定要记住。Three steps: 1. 从数字关系求出每个节点的inDegrees（就是找节点与相邻节点的依赖关系） (inDegrees = collections.defaultdict())，key是node, val是这个node的indegree; 2. 和每个节点的neighbors （neighbors = collections.defaultdict(list)), key是node, val是装有这个node的neighbor的list; 3. 然后 BFS，背诵模板就可以了。
 - [0207. Course Schedule](Solutions/0207.Course-Schedule.py) (！！M) (Topological Sort)
 - [0210. Course Schedule II](Solutions/0210.Course-Schedule-II.py) (！！M) (Naked Topological Sort)
 - [0444. Sequence Reconstruction](Solutions/0444.Sequence-Reconstruction.py) (M)
