@@ -53,44 +53,6 @@
 
 """简单图的最短路径问题，一看就是层序遍历的BFS"""
 
-# @lc code=start
-class Solution:
-    MOVES = [(1, 2), (-1, 2), (1, -2), (-1, -2), (2, 1), (2, -1), (-2, 1), (-2, -1)]
-
-    def minKnightMoves(self, x: int, y: int) -> int:
-        if (x, y) == (0, 0):
-            return 0
-
-        visited = set()
-        steps = self.bfs(x, y, visited)
-
-        return steps
-
-    # bsf 层序遍历，输出层数
-    def bfs(self, x, y, visited):
-        steps = 0
-        q = collections.deque()
-        q.append((0, 0))
-        visited.add((0, 0))     # 一对孪生兄弟
-        # 第76-83行是固定必须背诵的
-        while q:
-            lens = len(q)   # 层序遍历必备句式1
-            steps += 1      # 层序遍历必备句式2
-            for _ in range(lens):   # 层序遍历必备句式之最重要
-                (curr_x, curr_y) = q.popleft()    # 层序遍历必备句式4
-                for delta_x, delta_y in self.MOVES:   # 层序遍历必备句式3
-                    new_x = curr_x + delta_x          # 层序遍历必备句式5
-                    new_y = curr_y + delta_y          # 层序遍历必备句式6
-                    if (new_x, new_y) == (x, y):
-                        return steps
-                    if (new_x, new_y) not in visited:
-                        q.append((new_x, new_y))
-                        visited.add((new_x, new_y))     # 孪生兄弟
-
-        
-# @lc code=end
-
-
 # 为了解决TLE问题，尝试利用对称性质: x, y = abs(x), abs(y); append neighbor to q only if (neighbor_x >= -2 and neighbor_y >= -2)
 class Solution:
     MOVES = [(1, 2), (-1, -2), (2, 1), (-2, -1), (-1, 2), (1, -2), (2, -1), (-2, 1)]
@@ -124,3 +86,21 @@ class Solution:
                     if (neighbor_x, neighbor_y) not in visited and (neighbor_x >= -2 and neighbor_y >= -2):
                         q.append((neighbor_x, neighbor_y))
                         visited.add((neighbor_x, neighbor_y))
+                        
+                        
+"""DP solution: so brilliant
+The basic idea is that doesn't mater where the destination is, we can always "rotate" the board in such a way that the knight only needs to make (1,2) or (2,1) move to approach the destination. In other words, the destination is always in the first quadrant. Except (0, 0), all other initial values in cache are the points that we have to temporarily "step out" of the first quadrant and then come back in order to reach them. Therefore, they have to be manually added at the beginning."""
+
+class Solution:
+    def minKnightMoves(self, x: int, y: int) -> int:
+        cache = {(0, 0): 0, (1, 1): 2, (1, 0): 3, (0, 1): 3}
+        
+        def dp(x, y):
+            if (x, y) in cache: 
+                return cache[(x, y)]
+            
+            cache[(x, y)] = min(dp(abs(x-1), abs(y-2)), dp(abs(x-2), abs(y-1))) + 1
+            
+            return cache[(x, y)]
+        
+        return dp(abs(x), abs(y))
