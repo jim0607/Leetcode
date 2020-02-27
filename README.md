@@ -109,7 +109,7 @@ should practice more times!
 只需要比较word[i]与word[i+1]即可得到inDegree的关系以及neighbors的关系
 
 ### [BFS in Matrix](/Breadth-First-Search.py) (隐式图搜索问题!!!)
-- [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (!!M) <br>
+- [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (!!M, youtubed) <br>
 Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a Breadth First Search.
 - [0994. Rotting Oranges](Solutions/0994.Rotting-Oranges.py) (M) <br>
 在class solution(): 后面定义全局变量 EMPTY = 0; FRESH = 1; MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
