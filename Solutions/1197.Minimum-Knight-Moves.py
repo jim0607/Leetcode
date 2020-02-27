@@ -125,7 +125,7 @@ class Solution:
             (x, y) = q.popleft()
             for delta_x, delta_y in self.MOVES:
                 neighbor_x, neighbor_y = x + delta_x, y + delta_y
-                if (neighbor_x, neighbor_y) not in visited and -4 <= neighbor_x <= self.des_x + 4 and -4 <= neighbor_y <= self.des_y + 4:
+                if (neighbor_x, neighbor_y) not in visited and -2 <= neighbor_x <= self.des_x + 2 and -2 <= neighbor_y <= self.des_y + 2:
                     q.append((neighbor_x, neighbor_y))
                     visited.add((neighbor_x, neighbor_y))
        
