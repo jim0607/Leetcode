@@ -91,37 +91,36 @@ class Solution:
 # @lc code=end
 
 
-# 为了解决TLE问题，尝试利用对称性质
+# 为了解决TLE问题，尝试利用对称性质: x, y = abs(x), abs(y); append neighbor to q only if (neighbor_x >= -2 and neighbor_y >= -2)
 class Solution:
-    MOVES = [(1, 2), (-1, 2), (1, -2), (-1, -2), (2, 1), (2, -1), (-2, 1), (-2, -1)]
-
+    MOVES = [(1, 2), (-1, -2), (2, 1), (-2, -1), (-1, 2), (1, -2), (2, -1), (-2, 1)]
+    
     def minKnightMoves(self, x: int, y: int) -> int:
         if (x, y) == (0, 0):
             return 0
+        
         x, y = abs(x), abs(y)
-
-        visited = set()
-        steps = self.bfs(x, y, visited)
-
+        steps = self.bfs(x, y)
+        
         return steps
-
-    # bsf 层序遍历，输出层数
-    def bfs(self, x, y, visited):
-        steps = 0
+    
+    def bfs(self, destination_x, destination_y):
+        """bfs the board layer by layer to find the layer number of (x, y), return the layer number"""
         q = collections.deque()
+        visited = set()
         q.append((0, 0))
-        visited.add((0, 0))     # 一对孪生兄弟
-        # 第76-83行是固定必须背诵的
+        visited.add((0, 0))
+        
+        steps = 0
         while q:
-            lens = len(q)   # 层序遍历必备句式1
-            steps += 1      # 层序遍历必备句式2
-            for _ in range(lens):   # 层序遍历必备句式之最重要
-                (curr_x, curr_y) = q.popleft()    # 层序遍历必备句式4
-                for delta_x, delta_y in self.MOVES:   # 层序遍历必备句式3
-                    new_x = curr_x + delta_x          # 层序遍历必备句式5
-                    new_y = curr_y + delta_y          # 层序遍历必备句式6
-                    if (new_x, new_y) == (x, y):
+            steps += 1
+            lens = len(q)
+            for _ in range(lens):
+                (x, y) = q.popleft()
+                for delta_x, delta_y in self.MOVES:
+                    neighbor_x, neighbor_y = x + delta_x, y + delta_y
+                    if (neighbor_x, neighbor_y) == (destination_x, destination_y):
                         return steps
-                    if (new_x, new_y) not in visited and new_x >= -1 and new_y >= -1:
-                        q.append((new_x, new_y))
-                        visited.add((new_x, new_y))     # 孪生兄弟
+                    if (neighbor_x, neighbor_y) not in visited and (neighbor_x >= -2 and neighbor_y >= -2):
+                        q.append((neighbor_x, neighbor_y))
+                        visited.add((neighbor_x, neighbor_y))
