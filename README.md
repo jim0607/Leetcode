@@ -115,7 +115,7 @@ Linear scan the 2d grid map, if a node contains a '1', then it is a root node th
 在class solution(): 后面定义全局变量 EMPTY = 0; FRESH = 1; MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 - [286. Walls and Gates](Solutions/0286.Walls-and-Gates.py) (M) <br>
 - [1197. Minimum Knight Moves](Solutions/1197.Minimum-Knight-Moves.py) (!!M) <br>
-solution 1: 利用对称性质: x,y=abs(x),abs(y); q.append(neighbor) only if (neighbor_x >= -2 and neighbor_y >= -2); 1816 ms<br>
+solution 1: 利用对称性质: x,y=abs(x),abs(y); q.append(neighbor) only if (neighbor_x>=-2 and neighbor_y>=-2); 1816 ms<br>
 solution 2!!!: 从source和destination两端同时进行bfs!!!! if visited_src & visited_des: return cnt_src + cnt_des; 452 ms<br>
 solution 3: dp: cache[(x, y)] = min(dp(abs(x-1), abs(y-2)), dp(abs(x-2), abs(y-1))) + 1; 60 ms<br>
 - [0127. Word Ladder](Solutions/0127.Word-Ladder.py) (！！M) (层序遍历BFS，双端BFS看不太懂)
