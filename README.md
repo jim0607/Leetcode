@@ -94,7 +94,7 @@ should practice more times!
 
 ### [BFS in Graphs](/Breadth-First-Search.py)
 - [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
-判断图是不是一棵树（不一定非要是二叉树）需要满足两点：1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目
+判断图是不是一棵树（不一定非要是二叉树）需要满足两点:1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树
 - [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (M) <br>
 第一步：找到所有的点，用BFS实现; 第二步：复制所有的node，存到mapping中，边可以先设为空; 第三步：复制所有节点对应的边/邻居
 - [0127. Topological Sorting](Solutions/0127.Topological-Sorting.py) (!!LintCode) <br>
@@ -107,7 +107,6 @@ should practice more times!
 这个题目要做三个判断：1. 判断seqs的拓扑排序是否存在，只需判断len(res) 是否等于len(neighbors) or len(inDegrees), 如果小于说明有孤立节点，如果大于说明有环，两者都不存在拓扑排序; 2. 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素, 即每一层只有一个选择: if len(q)>1: return False; 3. 最后判断这个唯一的拓扑排序res是否等于org
 - [0269. Alien Dictionary](Solutions/0269.Alien-Dictionary.py) (!!H) <br>
 只需要比较word[i]与word[i+1]即可得到inDegree的关系以及neighbors的关系
-
 
 ### [BFS in Matrix](/Breadth-First-Search.py) (隐式图搜索问题!!!)
 - [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (M)
