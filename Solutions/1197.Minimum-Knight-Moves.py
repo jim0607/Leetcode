@@ -88,6 +88,50 @@ class Solution:
                         visited.add((neighbor_x, neighbor_y))
                         
                         
+"""从source和destination两端同时进行bfs!!!!
+a = {(1, 2), (3, 5)}
+b = {(2, 4), (1, 2)}
+print(a & b) ---> {(1, 2)}, don't know how bitwise work here, but this is how the common part was found in two sets"""
+class Solution:
+    MOVES = [(1, 2), (-1, -2), (2, 1), (-2, -1), (-1, 2), (1, -2), (2, -1), (-2, 1)]
+    
+    def minKnightMoves(self, x: int, y: int) -> int:
+        self.des_x, self.des_y = abs(x), abs(y)     # 定义两个全局变量
+        
+        q_src, q_des = collections.deque(), collections.deque()
+        visited_src, visited_des = set(), set()
+        q_src.append((0, 0))
+        visited_src.add((0, 0))
+        q_des.append((self.des_x, self.des_y))
+        visited_des.add((self.des_x, self.des_y))
+        
+        cnt_src, cnt_des = 0, 0
+        while True:
+            if visited_src & visited_des:
+                return cnt_src + cnt_des
+            
+            q_src, visited_src = self.bfs(q_src, visited_src)
+            cnt_src += 1
+            
+            if visited_src & visited_des:
+                return cnt_src + cnt_des
+            
+            q_des, visited_des = self.bfs(q_des, visited_des)
+            cnt_des += 1
+            
+    def bfs(self, q, visited):
+        lens = len(q)
+        for _ in range(lens):      # 层序遍历是bfs的精髓
+            (x, y) = q.popleft()
+            for delta_x, delta_y in self.MOVES:
+                neighbor_x, neighbor_y = x + delta_x, y + delta_y
+                if (neighbor_x, neighbor_y) not in visited and -4 <= neighbor_x <= self.des_x + 4 and -4 <= neighbor_y <= self.des_y + 4:
+                    q.append((neighbor_x, neighbor_y))
+                    visited.add((neighbor_x, neighbor_y))
+       
+        return q, visited
+                        
+                        
 """DP solution: so brilliant
 The basic idea is that doesn't mater where the destination is, we can always "rotate" the board in such a way that the knight only needs to make (1,2) or (2,1) move to approach the destination. In other words, the destination is always in the first quadrant. Except (0, 0), all other initial values in cache are the points that we have to temporarily "step out" of the first quadrant and then come back in order to reach them. Therefore, they have to be manually added at the beginning."""
 
