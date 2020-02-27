@@ -99,9 +99,15 @@ should practice more times!
 第一步：找到所有的点，用BFS实现; 第二步：复制所有的node，存到mapping中，边可以先设为空; 第三步：复制所有节点对应的边/邻居
 - [0127. Topological Sorting](Solutions/0127.Topological-Sorting.py) (!!LintCode) <br>
 必考，其实也非常模板化，一定要记住。Three steps: 1. 从数字关系求出每个节点的inDegrees（就是找节点与相邻节点的依赖关系） (inDegrees = collections.defaultdict())，key是node, val是这个node的indegree; 2. 和每个节点的neighbors （neighbors = collections.defaultdict(list)), key是node, val是装有这个node的neighbor的list; 3. 然后 BFS，背诵模板就可以了。
-- [0207. Course Schedule](Solutions/0207.Course-Schedule.py) (！！M) (Topological Sort)
-- [0210. Course Schedule II](Solutions/0210.Course-Schedule-II.py) (！！M) (Naked Topological Sort)
-- [0444. Sequence Reconstruction](Solutions/0444.Sequence-Reconstruction.py) (M)
+- [0207. Course Schedule](Solutions/0207.Course-Schedule.py) (!!M)
+套用模板分三步：1. collect the inDegree of each node; 2. collect the neighbors information; 3. topological sort - BFS
+- [0210. Course Schedule II](Solutions/0210.Course-Schedule-II.py) (!!M)
+套用模板 return res if len(res) == numCourses else []
+- [0444. Sequence Reconstruction](Solutions/0444.Sequence-Reconstruction.py) (!!M)
+这个题目要做三个判断：1. 判断seqs的拓扑排序是否存在，只需判断len(res) 是否等于len(neighbors) or len(inDegrees), 如果小于说明有孤立节点，如果大于说明有环，两者都不存在拓扑排序; 2. 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素, 即每一层只有一个选择: if len(q)>1: return False; 3. 最后判断这个唯一的拓扑排序res是否等于org
+- [0269. Alien Dictionary](Solutions/0269.Alien-Dictionary.py) (!!H)
+只需要比较word[i]与word[i+1]即可得到inDegree的关系以及neighbors的关系
+
 
 ### [BFS in Matrix](/Breadth-First-Search.py) (隐式图搜索问题!!!)
 - [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (M)
