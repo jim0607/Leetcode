@@ -10,3 +10,5 @@
 
 5. 一个好习惯是定义全局变量. eg: EMPTY = 0, FULL = 1, OCCUPPIED = 1.
    这样在后面的程序中就不用再用0, 1, 2了，直接用EMPTY, FULL, 这样可以增加程序的可读性。
+   也可以在主函数中定义全局变量self.EMPTY = 0
+   在调用的时候都是用self.EMPTY
