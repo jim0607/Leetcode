@@ -123,7 +123,7 @@ solution 3: dp: cache[(x, y)] = min(dp(abs(x-1), abs(y-2)), dp(abs(x-2), abs(y-1
 - [1162. As Far from Land as Possible](Solutions/1162.As-Far-from-Land-as-Possible.py) (M) <br>
 bfs: the maximum distance is steps needed to change all "0" to be "1"; solution 2: DP same as 542. 01 matrix
 - [0317. Shortest Distance from All Buildings](Solutions/0317.Shortest-Distance-from-All-Buildings.py) (!!H) <br>
-Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and use distSum[][] to record the sum of distance from all 1 grids to this 0 grid. Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a BFS. Prune: if not all 1s can be reached, return -1; A powerful pruning is that during the BFS we use reachableBuildings to count how many 1s we reached. If reachableBuldings != totalBuildings - 1 then we know not all 1s are connected are we can return -1 immediately, which greatly improved speed.
+Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and use distSum[][] to record the sum of distance from all 1 grids to this 0 grid. Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a BFS. Prune: if not all 1s can be reached, return -1, during the BFS we use reachableBuildings to count how many 1s we reached. If reachableBuldings != totalBuildings - 1 then we know not all 1s are connected are we can return -1 immediately, which greatly improved speed.
 
 
 
