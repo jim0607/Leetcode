@@ -116,7 +116,77 @@ class Solution:
             return True
         return False
 
-
+"""
+prune: if not all 1s can be reached, return -1
+Use reachable_cnt to record how many times a 0 grid has been reached and use distSum to record the sum of distance from all 1 grids to this 0 grid. 
+A powerful pruning is that during the BFS we use reachableBuildings to count how many 1 grids we reached. 
+If reachableBuldings != buildings - 1 then we know not all 1 grids are connected are we can return -1 immediately, which greatly improved speed.
+"""
+class Solution:
+    EMPTY = 0
+    BUILDING = 1
+    WALL = 2
+    MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+    
+    def shortestDistance(self, grid: List[List[int]]) -> int:
+        if not grid:
+            return 0
         
-# @lc code=end
+        m, n = len(grid), len(grid[0])
+        self.totalBuildings = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == self.BUILDING:
+                    self.totalBuildings += 1
+                
+        self.reachable_cnt = [[0] * n for _ in range(m)]     # Use reachable_cnt to record how many times a 0 grid has been reached
+        self.distSum = [[0] * n for _ in range(m)]       # the sum of distance from all 1 grids to this 0 grid
+        
+        for i in range(m):      # Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a BFS
+            for j in range(n):
+                if grid[i][j] == self.BUILDING:
+                    allBuildingsReachable = self.bfs(grid, i, j)
+                    if not allBuildingsReachable:   # if not all building could be reached from (i, j), it means some buildings are isolated.
+                        return -1
+        
+        minDist = float("inf")
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == self.EMPTY and self.reachable_cnt[i][j] == self.totalBuildings:
+                    minDist = min(minDist, self.distSum[i][j])
+        
+        return -1 if minDist == float("inf") else minDist                  
+            
+    def bfs(self, grid, i, j):
+        q = collections.deque()
+        visited = set()
+        q.append((i, j))
+        visited.add((i, j))
+        
+        steps, reachableBuildings = 0, 0
+        while q:
+            steps += 1
+            lens = len(q)
+            for _ in range(lens):
+                (x, y) = q.popleft()
+                for delta_x, delta_y in self.MOVES:
+                    neighbor_x, neighbor_y = x + delta_x, y + delta_y
+                    
+                    if self.inBound(grid, neighbor_x, neighbor_y) and (neighbor_x, neighbor_y) not in visited:
+                        if grid[neighbor_x][neighbor_y] == self.EMPTY:
+                            q.append((neighbor_x, neighbor_y))
+                            visited.add((neighbor_x, neighbor_y))
+                            self.reachable_cnt[neighbor_x][neighbor_y] += 1
+                            self.distSum[neighbor_x][neighbor_y] += steps
+                            
+                        if grid[neighbor_x][neighbor_y] == self.BUILDING:
+                            visited.add((neighbor_x, neighbor_y))   # 不用q.append((neighbor_x, neighbor_y))是因为Each 1 marks a building which you cannot pass through.
+                            reachableBuildings += 1
 
+        return reachableBuildings == self.totalBuildings - 1      # if starting from one building, can reach all other building? if not, that means at least one building is isolated and can not be reached.
+    
+    def inBound(self, grid, x, y):
+        if 0 <= x < len(grid) and 0 <= y < len(grid[0]):
+            return True
+        
+        return False
