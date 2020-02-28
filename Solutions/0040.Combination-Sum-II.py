@@ -52,12 +52,9 @@
 # 
 #
 
-# @lc code=start
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
-        if not candidates or target <= 0:
-            return res
         
         nums = sorted(candidates)
 
@@ -65,20 +62,21 @@ class Solution:
 
         return res
 
-    def dfs(self, nums, target, start, curr, res):
+    def dfs(self, nums, target, startIndex, curr, res):
         if target < 0:
             return
         if target == 0:
             res.append(curr.copy())
             return
         
-        for i in range(start, len(nums)):
+        for i in range(startIndex, len(nums)):
             # 去掉重复的输出,eg: [1,7,7], target=8, 保证只输出一个[1,7]，去重的方法与Subsets II中是一样的。 
-            if i != 0 and nums[i] == nums[i-1] and i != start:
+            if i != 0 and nums[i] == nums[i-1] and i != startIndex:
                 continue
+                
+            if nums[i] > target:
+                continue
+                
             curr.append(nums[i])
             self.dfs(nums, target - nums[i], i + 1, curr, res)
             curr.pop()
-
-# @lc code=end
-
