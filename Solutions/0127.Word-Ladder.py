@@ -66,42 +66,52 @@
 # 
 # 
 #
-"""带层序遍历的BFS"""
-# @lc code=start
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         if not wordList:
-            return 0
-        if endWord not in wordList:
-            return 0
-
+            return 
+        
         visited = set()
         steps = self.bfs(beginWord, endWord, wordList, visited)
-
+        
         return steps
-
-    # 直接套用带层序遍历的bfs的模板，都是一样的
+    
     def bfs(self, beginWord, endWord, wordList, visited):
         q = collections.deque()
         q.append(beginWord)
         visited.add(beginWord)
+        
         steps = 1
         while q:
-            lens = len(q)
             steps += 1
+            lens = len(q)
             for _ in range(lens):
                 currWord = q.popleft()
-                # self.get_next_word 返回 a list of words that could be transformed from currWord in one step and also exist in wordList
-                for nextWord in self.get_next_word(currWord, wordList):
-                    if nextWord == endWord:
+                neighborWords = self.getNeighborWords(currWord, wordList)
+                
+                for neighborWord in neighborWords:
+                    if neighborWord == endWord:
                         return steps
-                    if nextWord not in visited:
-                        q.append(nextWord)
-                        visited.add(nextWord)
+                    if neighborWord not in visited:
+                        q.append(neighborWord)
+                        visited.add(neighborWord)
         
         return 0
-
-# """    
+    
+    def getNeighborWords(self, currWord, wordList):
+        wordSet = set(wordList)
+        neighborWords = set()
+        
+        for i in range(len(currWord)):
+            for ch in "abcdefghijklmnopqrstuvwxyz":
+                if ch != currWord[i]:
+                    neighborWord = currWord[:i] + ch + currWord[i + 1:]     # 用ch替换currWord中的第i个元素
+                    if neighborWord in wordSet:             # 变成set之后，这个语句就成了O(1)了，所以这个函数的整体为O(26*L) where L=len(currWord)
+                        neighborWords.add(neighborWord)
+                        
+        return neighborWords
+    
+    # """    
 #     # O(N*L), 本题中N很大，L比较小不会超过6，所以主要的时间复杂度花在了N身上
 #     def get_next_word(self, currWord, wordList):
 #         res = []
@@ -115,21 +125,3 @@ class Solution:
 
 #         return res
 # """
-    # 因为N很大， 想一个办法避免掉O(N)，可以将其做成一个hashmap
-    # O(26*L+N) << O(L*N)
-    def get_next_word(self, currWord, wordList):
-        # convert List into set
-        wordSet = set(wordList)                                 # O(N)
-
-        possible_words = []
-        for i in range(len(currWord)):                          # O(L)
-            for ch in "poiuytrewqasdfghjklmnbvcxz":             # O(26)
-                if ch != currWord[i]:
-                    possible_word = currWord[:i] + ch + currWord[i + 1:]
-                    if possible_word in wordSet:                # O(1)
-                        possible_words.append(possible_word)
-        
-        return possible_words
-    
-# @lc code=end
-
