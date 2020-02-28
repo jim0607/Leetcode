@@ -68,8 +68,8 @@
 #
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
-        if not wordList:
-            return 
+        if endWord not in wordList:
+            return 0
         
         visited = set()
         steps = self.bfs(beginWord, endWord, wordList, visited)
@@ -125,3 +125,73 @@ class Solution:
 
 #         return res
 # """
+
+
+
+"""solution 2: double ended BFS"""
+"""
+"The idea behind bidirectional search is to run two simultaneous searches—one forward from
+the initial state and the other backward from the goal—hoping that the two searches meet in
+the middle. The motivation is that b^(d/2) + b^(d/2) is much less than b^d. b is branch factor, d is depth."
+
+----- section 3.4.6 in Artificial Intelligence - A modern approach by Stuart Russel and Peter Norvig
+"""
+
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        if endWord not in wordList:
+            return 0
+        
+        q_src, q_des = collections.deque(), collections.deque()
+        visited_src, visited_des = set(), set()
+        
+        q_src.append(beginWord)
+        visited_src.add(beginWord)
+        q_des.append(endWord)
+        visited_des.add(endWord)
+        
+        cnt_src, cnt_des = 1, 0
+        while True:
+            if visited_src & visited_des:
+                return cnt_src + cnt_des
+            
+            q_src, visited_src = self.bfs(wordList, q_src, visited_src)
+            cnt_src += 1
+            if not q_src:       # 这里是为了判断如果q_src为空了，说明所有的q_src里面的possible beighbor都不在wordList里面，也就是说not possible to trasform from beginWord to endWord
+                return 0
+            
+            if visited_src & visited_des:
+                return cnt_src + cnt_des
+            
+            q_des, visited_des = self.bfs(wordList, q_des, visited_des)
+            cnt_des += 1
+            if not q_des:
+                return 0
+        
+        return steps
+    
+    def bfs(self, wordList, q, visited):
+        lens = len(q)
+        for _ in range(lens):
+            currWord = q.popleft()
+            neighborWords = self.getNeighborWords(currWord, wordList)
+
+            for neighborWord in neighborWords:
+                if neighborWord not in visited:
+                    q.append(neighborWord)
+                    visited.add(neighborWord)
+                    
+        return q, visited
+    
+    def getNeighborWords(self, currWord, wordList):
+        wordSet = set(wordList)
+        neighborWords = set()
+        
+        for i in range(len(currWord)):
+            for ch in "abcdefghijklmnopqrstuvwxyz":
+                if ch != currWord[i]:
+                    neighborWord = currWord[:i] + ch + currWord[i + 1:]     # 用ch替换currWord中的第i个元素
+                    if neighborWord in wordSet:             # 变成set之后，这个语句就成了O(1)了，所以这个函数的整体为O(26*L) where L=len(currWord)
+                        neighborWords.add(neighborWord)
+                        
+        return neighborWords
