@@ -358,7 +358,7 @@ f[i][j]=当石子还剩i到j时，先手最多能赢多少; f[i][j] = max(取左
 f[i][m]=能否用前i个物品拼出重量m; f[i][m] = f[i-1][m] (表示前i-1个物品就可以拼出m) or f[i-1][m-A[i-1]] (表示前i-1个物品可以拼出m-A[i-1])
 - [0563. Backpack-V](Solutions/0563.Backpack-V.py) (!!M Lintcode) <br>
 f[i][m]=前i个物品能拼出重量m有多少种方式。f[i][m] = f[i-1][m] + f[i-1][m-A[i-1]]
-- [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (!!M Lintcode) <br>
+- [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (!!M) <br>
 f[i]=how many ways to combine to number i; 背包问题一定要把总承重放到状态里！！ f[i]=f[i-A1]+f[i-A2]+f[i-A3].... <br>
 - [0125. Backpack II](Solutions/0125.Backpack-II.py) (!!M Lintcode) <br>
 这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。用子问题定义状态：即f[i][j]表示前i件物品拼出重量j可以获得的最大价值。
