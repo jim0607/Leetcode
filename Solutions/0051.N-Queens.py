@@ -69,10 +69,11 @@ class Solution:
             return
         
         for i in range(n):
-            if self.isVisited(curr, i, visited_col, visited_sum, visited_diff):
+            row, col = len(curr), i
+            if visited_col[col] or visited_sum[row + col] or visited_diff[row - col]:
                 continue
                 
-            curr.append(i)
+            curr.append(col)
             row, col = len(curr) - 1, i     # 比如curr = [1,3,0,2]，数字对应的下标位置是放那个Queen的行，数字的值是放那个Queen的列
             visited_col[col] = True
             visited_sum[row + col] = True
@@ -84,13 +85,6 @@ class Solution:
             visited_col[col] = False
             visited_sum[row + col] = False
             visited_diff[row - col] = False
-            
-    def isVisited(self, curr, i, visited_col, visited_sum, visited_diff):
-        row, col = len(curr), i
-        if visited_col[col] or visited_sum[row + col] or visited_diff[row - col]:
-            return True
-        
-        return False
     
     def draw(self, grid):
         results = []
