@@ -60,7 +60,7 @@ class Solution:
         visited_diff = {i: False for i in range(1 - n, n)}
         
         self.dfs(n, [], res, visited_col, visited_sum, visited_diff)
-        print(res)
+        
         return self.draw(res)
     
     def dfs(self, n, curr, res, visited_col, visited_sum, visited_diff):
