@@ -18,27 +18,18 @@ Output:  [[1,3,4]]
 class Solution:
     def kSumII(self, A, k, target):
         res = []
-        if not A:
-            return res
-            
-        A.sort()
-        
-        self.dfs(A, 0, [], target, k, res)
-        
+        self.dfs(A, k, target, 0, [], res)
         return res
         
-    def dfs(self, A, start, curr, target, k, res):
-        if target < 0 or k < 0:
-            return
+    def dfs(self, A, k, target, startIndex, curr, res):
+        if k < 0 or target < 0:
+            return 
         
-        if target == 0 and k == 0:
+        if k == 0 and target == 0:
             res.append(curr.copy())
             return
         
-        for i in range(start, len(A)):
-            if i >= 1 and A[i] == A[i - 1] and i != start:      # 去重
-                continue
-            
+        for i in range(startIndex, len(A)):
             curr.append(A[i])
-            self.dfs(A, i + 1, curr, target - A[i], k - 1, res)
+            self.dfs(A, k - 1, target - A[i], i + 1, curr, res)
             curr.pop()
