@@ -129,22 +129,34 @@ Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and u
 
 # [Depth First Search](/Depth-First-Search.py)
 ### [Combination](/Depth-First-Search.py)
-- [0078. Subsets](Solutions/0078.Subsets.py) (！！M)(DFS + Back tracking)
-- [0090. Subsets II](Solutions/0090.Subsets-II.py) (！！M)(如果之前的那个2没被放进去，那么就不要放后面那个2，这样来去重)
-- [0039. Combination Sum](Solutions/0039.Combination-Sum.py) (！M) (start是从i开始的，而不是subsets里面的i+1, 这是因为Subsets 一个数只能选一次，Combination Sum 一个数可以选很多次)
-- [0518. Coin Change 2](Solutions/0518.Coin-Change-2.py) (！M) (与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解，用DFS+Backtracking超时)
-- [0040. Combination Sum II](Solutions/0040.Combination-Sum-II.py) (！M) (避免重复输出的方法与Subsets II一样)
-- [0216. Combination Sum III](Solutions/0216.Combination-Sum-III.py) (！M)
-- [0090. k Sum II](Solutions/0090.k-Sum-II.py) (！M Lintcode) (如果不要求输出所有组合那就用DP： 89. k Sum)
-- [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (！M) (这个题更确切应该叫Permutatino Sum，TLE)
-- [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (！M) (递归的定义很重要)
+- [0078. Subsets](Solutions/0078.Subsets.py) (!!M) <br>
+C(m, n)：m个里面找出n个的组合问题; 模板的DFS + back tracking求combination问题 O(NS), S是solution的个数，这里S=2^N; 注意两点：1.res.append(curr.copy()); has to be a deep copy; 2. self.dfs(nums, i + 1, curr, res) 要从i+1开始cuz不能回头找会重复
+- [0090. Subsets II](Solutions/0090.Subsets-II.py) (!!M)<br>
+如果输入存在重复元素，[1, 2, 2]的遍历中，我们只取前面的那个2，对于后面的那个2，如果不是挨着前面那个2选的，也就是说i != startIndex，那么就不要放后面那个2，这样会造成重复出现[1,第一个2],[1,第二个2], 注意可以挨着第一个2来选第二个2是可以的，因为允许出现[1,2,2]作为答案。if i != 0 and nums[i] == nums[i-1] and i != startIndex: continue
+- [0039. Combination Sum](Solutions/0039.Combination-Sum.py) (M) <br>
+start是从i开始的，而不是subsets里面的i+1, 这是因为Subsets 一个数只能选一次，Combination Sum 一个数可以选很多次
+- [0040. Combination Sum II](Solutions/0040.Combination-Sum-II.py) (M) <br>
+输入中存在重复元素，避免重复输出的方法与Subsets II一样
+- [0518. Coin Change 2](Solutions/0518.Coin-Change-2.py) (M) <br>
+与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解。不理解DP解的for循环顺序。
+- [0216. Combination Sum III](Solutions/0216.Combination-Sum-III.py) (M)<br>
+self.dfs(nums, k - 1, n - nums[i], i + 1, curr, res)   # 不能出现重复数字，所以从i+1开始
+- [0090. k Sum II](Solutions/0090.k-Sum-II.py) (M Lintcode)<br>
+- [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (M)<br>
+self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3, 1)都可以），所以让i从0开始
+- [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (!!M) <br>
+递归的定义：从s中的start位置开始，挑一些位置切割，判断从start到i的部分是否为回文，如果是就放入curr中，如果i到了string末尾了则说明此事curr是一种组合方式，放入res中
 
 ### [Permutation](/Depth-First-Search.py)
-- [0046. Permutations](Solutions/0046.Permutations.py) (！！M)
-- [0047. Permutations II](Solutions/0047.Permutations-II.py) (！！M) (去重方法与Subsets是类似的)
-- [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (！！M)  
-- [0051. N-Queens](Solutions/0051.N-Queens.py) (！H) (核心是nums=[0,1,2,3]的去重排列问题，去重需要做三个visited的判断)
-- [0052. NQueens II](Solutions/0052.N-Queens-II.py) (H) 
+- [0046. Permutations](Solutions/0046.Permutations.py) (!!M)
+与combination相比少了一个startIndex参数，加入visited用于防止重复出现; append之后需要将visited[i]变为True; pop出来之后将visited[i]再变回False
+- [0047. Permutations II](Solutions/0047.Permutations-II.py) (M) 
+输入里面有重复，都需要先把数组排序一下; 去重方法与Subsets是类似的: if visited[i] or (i != 0 and nums[i] == nums[i-1] and not visited[i-1]): continue
+- [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (M)  
+- [0052. NQueens II](Solutions/0052.N-Queens-II.py) (!!H) 
+排列问题：先打印出数组[0, 1, 2, 3....n]中所有的可能排列：[[0,1,2,3], [1,3,0,2].....]，其中的每一个子数组表示一种可能的方法，子数组中的数字表示在哪个数字的地方放一个Queen，数字对应的下标位置是放那个Queen的行，数字的值是放那个Queen的列。由于Queen可以很冲直撞，所以列是不能相同的，所以需要去重，用visited标记就可以。又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。用三个字典visited_col, visited_sum, visited_diff分别存储列号，横纵坐标之和，横纵坐标之差有没有被用过
+- [0051. N-Queens](Solutions/0051.N-Queens.py) (H)
+
 
 ### [图上的搜索](/Depth-First-Search.py)（打印/输出所有满足条件的路径必用DFS）
 - [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (！！H)（好神奇）
