@@ -36,17 +36,15 @@
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
         res = []
-        if not nums:
-            return res
         
-        nums.sort()     # 输入里面有重复，都需要先把数组排序一下
+        nums.sort()     # !!!!!输入里面有重复，都需要先把数组排序一下
 
         visited = {i: False for i in range(len(nums))}
         self.dfs(nums, [], res, visited)
 
         return res
 
-    def dfs(self, nums: List[int], curr: List[int], res: List[List[int]], visited):
+    def dfs(self, nums, curr, res, visited):
         if len(curr) == len(nums):
             res.append(curr.copy())
             return
@@ -57,8 +55,8 @@ class Solution:
             if visited[i] or (i != 0 and nums[i] == nums[i-1] and not visited[i-1]):
                 continue
 
-            visited[i] = True
             curr.append(nums[i])
+            visited[i] = True
             self.dfs(nums, curr, res, visited)
             curr.pop()
             visited[i] = False
