@@ -98,5 +98,50 @@ class Solution:
             self.dfs(amount - coins[i], coins, i, curr, res)    # 同一种硬币可以出现多次，所以从i开始，而不是i+1开始
             curr.pop()
         
-# @lc code=end
 
+"""another dfs version"""     
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        self.cnt = 0        # 为什么这里如果不定义全局变量就不行呢？
+        self.dfs(coins, amount, 0, [])
+        return self.cnt
+    
+    def dfs(self, coins, amount, startIndex, curr):
+        if amount < 0:
+            return
+        
+        if amount == 0:
+            self.cnt += 1
+            return
+        
+        for i in range(startIndex, len(coins)):
+            curr.append(coins[i])
+            self.dfs(coins, amount - coins[i], i, curr)
+            curr.pop()
+
+            
+"""DP: not working, don't know why..."""
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        dp = [0] * (amount + 1)         # dp[i] = how many ways get i
+        dp[0] = 1
+        
+        for num in range(1, amount + 1):
+            for coin in coins:
+                if num - coin >= 0:
+                    dp[num] += dp[num - coin]
+
+        return dp[amount]   
+    
+"""DP: working, why...""" 
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        dp = [0] * (amount + 1)         # dp[i] = how many ways get i
+        dp[0] = 1
+        
+        for coin in coins:
+            for num in range(1, amount + 1):
+                if num - coin >= 0:
+                    dp[num] += dp[num - coin]
+
+        return dp[amount]    
