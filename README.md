@@ -143,19 +143,19 @@ start是从i开始的，而不是subsets里面的i+1, 这是因为Subsets 一个
 self.dfs(nums, k - 1, n - nums[i], i + 1, curr, res)   # 不能出现重复数字，所以从i+1开始
 - [0090. k Sum II](Solutions/0090.k-Sum-II.py) (M Lintcode)<br>
 - [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (M)<br>
-self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3, 1)都可以），所以让i从0开始
+self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3, 1)都可以，所以让i从0开始
 - [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (!!M) <br>
 递归的定义：从s中的start位置开始，挑一些位置切割，判断从start到i的部分是否为回文，如果是就放入curr中，如果i到了string末尾了则说明此事curr是一种组合方式，放入res中
 
 ### [Permutation](/Depth-First-Search.py)
-- [0046. Permutations](Solutions/0046.Permutations.py) (!!M)
+- [0046. Permutations](Solutions/0046.Permutations.py) (!!M)<br>
 与combination相比少了一个startIndex参数，加入visited用于防止重复出现; append之后需要将visited[i]变为True; pop出来之后将visited[i]再变回False
-- [0047. Permutations II](Solutions/0047.Permutations-II.py) (M) 
+- [0047. Permutations II](Solutions/0047.Permutations-II.py) (M) <br>
 输入里面有重复，都需要先把数组排序一下; 去重方法与Subsets是类似的: if visited[i] or (i != 0 and nums[i] == nums[i-1] and not visited[i-1]): continue
-- [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (M)  
-- [0052. NQueens II](Solutions/0052.N-Queens-II.py) (!!H) 
+- [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (M)  <br>
+- [0052. NQueens II](Solutions/0052.N-Queens-II.py) (!!H) <br>
 排列问题：先打印出数组[0, 1, 2, 3....n]中所有的可能排列：[[0,1,2,3], [1,3,0,2].....]，其中的每一个子数组表示一种可能的方法，子数组中的数字表示在哪个数字的地方放一个Queen，数字对应的下标位置是放那个Queen的行，数字的值是放那个Queen的列。由于Queen可以很冲直撞，所以列是不能相同的，所以需要去重，用visited标记就可以。又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。用三个字典visited_col, visited_sum, visited_diff分别存储列号，横纵坐标之和，横纵坐标之差有没有被用过
-- [0051. N-Queens](Solutions/0051.N-Queens.py) (H)
+- [0051. N-Queens](Solutions/0051.N-Queens.py) (H)<br>
 
 
 ### [图上的搜索](/Depth-First-Search.py)（打印/输出所有满足条件的路径必用DFS）
