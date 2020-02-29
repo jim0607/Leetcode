@@ -142,6 +142,7 @@ Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and u
 ### [Permutation](/Depth-First-Search.py)
 - [0046. Permutations](Solutions/0046.Permutations.py) (！！M)
 - [0047. Permutations II](Solutions/0047.Permutations-II.py) (！！M) (去重方法与Subsets是类似的)
+- [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (！！M)  
 - [0051. N-Queens](Solutions/0051.N-Queens.py) (！H) (核心是nums=[0,1,2,3]的去重排列问题，去重需要做三个visited的判断)
 - [0052. NQueens II](Solutions/0052.N-Queens-II.py) (H) 
 
