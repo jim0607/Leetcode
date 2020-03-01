@@ -42,66 +42,70 @@
 O(NlogN), O(1)"""
 class Solution:
     def sortList(self, head: ListNode) -> ListNode:
+        """return the head of the the sorted list"""
         if not head or not head.next:
             return head
-
-        # STEP 1: divide
-        # first find the middle of the list
-        mid = self._findMid(head)
-
-        # then cut the mid so that we have two seperate list
-        rightHead = mid.next
-        mid.next = None
+        
+        # step 1: divide
+        midNode = self.findMid(head)
+        
+        # cut into left and right halfs
         leftHead = head
-
+        
+        rightHead = midNode.next
+        midNode.next = None
+        
         # then we sort the left and right list - divide
         leftHead = self.sortList(leftHead)
         rightHead = self.sortList(rightHead)
-
-        # STEP 2: conquer/merge
-        newHead = self._merge(leftHead, rightHead)
-
+        
+        # conquer/merge
+        newHead = self.merge(leftHead, rightHead)
+        
         return newHead
-
-    # return the middle node of the list, head and head.next must not be None
-    def _findMid(self, head: ListNode) -> ListNode:
+    
+    def findMid(self, head):
+        """return the midNode of the list"""
+        if not head or not head.next:
+            return head
+        
         slow, fast = head, head.next
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-        
+            
         return slow
-
-    def _merge(self, leftHead: ListNode, rightHead: ListNode) -> ListNode:
+    
+    def merge(self, leftHead, rightHead):
+        """return the new head after the merge"""
         if not leftHead:
             return rightHead
         if not rightHead:
             return leftHead
-
+        
         dummy = ListNode(0)
-        curr = dummy        
+        curr = dummy
         leftCurr, rightCurr = leftHead, rightHead
         while leftCurr and rightCurr:
             if leftCurr.val < rightCurr.val:
                 curr.next = leftCurr
-                curr = curr.next
                 leftCurr = leftCurr.next
+                curr = curr.next
             else:
                 curr.next = rightCurr
-                curr = curr.next
                 rightCurr = rightCurr.next
+                curr = curr.next
+                
         while leftCurr:
             curr.next = leftCurr
-            curr = curr.next
             leftCurr = leftCurr.next
+            curr = curr.next
         while rightCurr:
             curr.next = rightCurr
-            curr = curr.next
             rightCurr = rightCurr.next
-
+            curr = curr.next
+        
         return dummy.next
-
-# @lc code=end
 
 
 """解法二 is trivial：把ListNode都放到arr中，然后sort arr, 然后再把值放到ListNode中
