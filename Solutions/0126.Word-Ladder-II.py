@@ -141,3 +141,65 @@ class Solution:
 
 # @lc code=end
 
+"""二刷: made a slight change to help it faster: break in bfs if neighbor == beginWord"""
+class Solution:
+    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
+        wordList.append(beginWord)
+        
+        distance = collections.defaultdict()
+        self.bfs(endWord, beginWord, wordList, distance)
+        
+        print(distance)
+        
+        res = []
+        self.dfs(endWord, wordList, beginWord, [beginWord], distance, res)
+        
+        return res
+    
+    def bfs(self, endWord, beginWord, wordList, distance):
+        q = collections.deque()
+        q.append(endWord)
+        distance[endWord] = 0
+        
+        dist = 0
+        while q:
+            dist += 1
+            lens = len(q)
+            for _ in range(lens):
+                currWord = q.popleft()
+                neighbors = self.getNeighbors(wordList, currWord)
+                for neighbor in neighbors:
+                    if neighbor not in distance:
+                        q.append(neighbor)
+                        distance[neighbor] = dist + 1
+                        
+                        if neighbor == beginWord:       # I thought I made it a little faster here, but somehow didn't, but good thinking man.
+                            break
+    
+    def dfs(self, endWord, wordList, currWord, currWords, distance, res):
+        if currWord == endWord:
+            res.append(currWords.copy())        # !!! has to be a deep copy
+            return
+        
+        neighbors = self.getNeighbors(wordList, currWord)
+        for neighbor in neighbors:
+            if currWord in distance and neighbor in distance:
+                if distance[neighbor] >= distance[currWord]:
+                    continue
+
+                currWords.append(neighbor)
+                self.dfs(endWord, wordList, neighbor, currWords, distance, res)
+                currWords.pop()
+            
+    def getNeighbors(self, wordList, currWord):
+        wordSet = set(wordList)
+        res = []
+        
+        for i in range(len(currWord)):
+            for ch in "abcdefghijklmnopqrstuvwxyz":
+                if ch != currWord[i]:
+                    possibleWord = currWord[:i] + ch + currWord[i + 1:]
+                    if possibleWord in wordSet:
+                        res.append(possibleWord)
+                    
+        return res
