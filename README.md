@@ -46,6 +46,8 @@ eg: 10//3, 每次通过右移3 << 1的方法将3乘以2,这种算法是O(N), 每
 - [0596. Minimum Subtree](Solutions/0596.Minimum-Subtree.py) (LintCode) <br>
 Divide and Conquer的方法输出以root为根的subTree的subSum，然后每次与minSum打擂台进行比较，注意python中定义全局变量可以用self.minSum = float("inf"), self.minNode = None，在主函数中定义这两个变量就可以了
 - [0597. Subtree with Maximum Average](Solutions/0597.Subtree-with-Maximum-Average.py) (LintCode) 同上 Divide and Conquer
+- [0124. Binary Tree Maximum Path Sum](Solutions/0124.Binary-Tree-Maximum-Path-Sum.py) (H) <br>
+题意应该是任何path都可以，只要点和点连接在一起就算一个path，起点和终点doesn't matter. 方法是定义一个self.maxSum在helper函数中去打擂台。
 - [0110. Balanced Binary Tree](Solutions/0110.Balanced-Binary-Tree.py) (E) <br>
 定义一个全局变量self.is_balanced; 养成好习惯，把叶子节点单独做判断if not root.left and not root.right: return 1; if abs(leftDepth - rightDepth) > 1: self.is_balanced = False
 - [0235. Lowest Common Ancestor of a Binary Search Tree](Solutions/0235.Lowest-Common-Ancestor-of-a-Binary-Search-Tree.py) (E) <br>
