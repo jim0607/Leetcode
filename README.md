@@ -57,6 +57,8 @@ Divide and Conquer的方法输出以root为根的subTree的subSum，然后每次
 - [0226. Invert Binary Tree](Solutions/0226.Invert-Binary-Tree.py) (E) <br>
 STEP 1. divide 先局部有序; STEP 2. conquer 再整体有序
 - [0617. Merge Two Binary Trees](Solutions/0617.Merge-Two-Binary-Trees.py) (E) <br>
+- [0124. Binary Tree Maximum Path Sum](Solutions/0124.Binary-Tree-Maximum-Path-Sum.py)（H） 
+题意应该是任何path都可以，只要点和点连接在一起就算一个path，起点和终点doesn't matter
 - [0108. Convert Sorted Array to Binary Search Tree](Solutions/0108.Convert-Sorted-Array-to-Binary-Search-Tree.py) (!!E) <br>
 we can always choose the left middle number as root, or always choose right middle number as root, or sometimes left sometimes right as root. That is why the answer is not unique
 - [0098. Validate Binary Search Tree](Solutions/0098.Validate-Binary-Search-Tree.py) (M) <br>
@@ -160,8 +162,11 @@ self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3,
 - [0051. N-Queens](Solutions/0051.N-Queens.py) (H)<br>
 
 
-### [图上的搜索](/Depth-First-Search.py)（打印/输出所有满足条件的路径必用DFS）
-- [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (！！H)（好神奇）
+### [图上的搜索](/Depth-First-Search.py)
+- [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (!!H) 打印/输出所有满足条件的路径必用DFS
+1. 从end到start做BFS，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2
+2. 从start到end做DFS，每走一步都必须确保end的distance越来越近。最后将路径都存入到res里
+
 
 
 # [Linked List](/Linked-List)
