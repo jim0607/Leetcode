@@ -74,7 +74,7 @@
 所以每一步都要往离end更近的节点走，那么问题来了，start位置开始有好几个节点可以走，怎样判断选哪一个节点走会往end更进一步呢？那就需要直到这些节点离end的距离，
 求每个节点离某个end位置的距离问题，就需要用到带层序遍历的BFS，用一个hashmap记录每一个节点离end的距离
 所以总结起来程序的顺序是：
-1. 从end到start做BFS，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["abs"] = 10
+1. 从end到start做BFS，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2
 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近。最后将路径都存入到res里
 """
 # @lc code=start
