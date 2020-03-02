@@ -11,12 +11,9 @@ Output: 7 -> 0 -> 8
 Explanation: 342 + 465 = 807.
 
 
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
 
+"""本题的考点是关于如何新建一个linked list, 要用someNode.next = ListNode(someVal), 而不是简单的修改value
+还考察了是否细心"""
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         dummy = ListNode(0)
@@ -32,7 +29,7 @@ class Solution:
             curr1 = curr1.next
             curr2 = curr2.next
             
-        while curr1:
+        while curr1:                            # 要细心，很容易漏掉
             sumVal = curr1.val + carryBit
             curr.next = ListNode(sumVal % 10)
             carryBit = sumVal // 10
@@ -48,10 +45,7 @@ class Solution:
             curr = curr.next
             curr2 = curr2.next
         
-        if carryBit > 0:
+        if carryBit > 0:                        # 这个更容易漏掉
             curr.next = ListNode(carryBit)
             
-        return dummy.next          
-            
-            
-            
+        return dummy.next 
