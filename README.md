@@ -193,6 +193,7 @@ step 1: 快慢指针找到相遇的点; step 2: 重新定义两根指针p1, p2�
 两个指针currA, currB; if not currA: currA = headB; if not currB: currB = headA
 - [0002. Add Two Numbers](Solutions/0002.Add-Two-Numbers.py) (!!M) <br>
 本题的考点是关于如何新建一个linked list, 要用someNode.next = ListNode(someVal), 而不是简单的修改value; 还考察了是否细心, 最后很容易漏掉carryBit != 0的判断"
+<br> 23. Merge k Sorted Lists: heapq to find the minimum of the k lists. O(NlogK) <br>
 
 
 # [SubArray](/SubArray.py)
