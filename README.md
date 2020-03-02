@@ -162,25 +162,31 @@ self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3,
 - [0051. N-Queens](Solutions/0051.N-Queens.py) (H)<br>
 
 
-### [图上的搜索](/Depth-First-Search.py)
+### [图上的搜索](/Depth-First-Search.py) <br>
 - [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (!!H) 打印/输出所有满足条件的路径必用DFS
-1. 从end到start做BFS，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2
-2. 从start到end做DFS，每走一步都必须确保end的distance越来越近。最后将路径都存入到res里
+Step 1. 从end到start做BFS，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
+Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近。最后将路径都存入到res里
 
 
 
 # [Linked List](/Linked-List)
-- [0148. Sort List](Solutions/0148.Sort-List.py) (！！M)
-- [0206. Reverse Linked List](Solutions/0206.Reverse-Linked-List.py) (！！E) (需要熟背理解)
+- [0021. Merge Two Sorted Lists](Solutions/0021.Merge-Two-Sorted-Lists.py) (E)
+如果需要return一个新的headNode，一般定义一个dummyNode = ListNode(0), curr = dummyNode; 最后return dymmyNode.next
+- [0148. Sort List](Solutions/0148.Sort-List.py) (!!M)
+step1: divide: 先找到mid, 然后在mid处cut成左右half, 再分别sort left and right; step 2: merge, 同21
+- [0206. Reverse Linked List](Solutions/0206.Reverse-Linked-List.py) (!!E) 需要熟背理解
 - [0092. Reverse Linked List II](Solutions/0092.Reverse-Linked-List-II.py) (M)
+reverse node from m to n: step 1: find node_m and node_m_minus; find node_n and node_n_plus; 2. reverse the nodes from m to n; 3. hook up node_m_minus with node_n, node_m with node_n_plus
 - [0024. Swap Nodes in Pairs](Solutions/0024.Swap-Nodes-in-Pairs.py) (M)
+想要reverse n1->n2->n3->n4->n5->n6 in pairs: step 1: 在n1前面添加一个dummy n0, 然后在while curr循环里每次都调用reverse函数，reverse函数做的事情是reverse操作四个节点n0->n1->n2->n3, 将其变成n0->n2->n1->n3, 然后return n1，注意每次都是return想要swap的两个节点的前一个节点！step 2: curr = return的n1，然后继续循环
+
 - [0025. Reverse Nodes in k-Group](Solutions/0025.Reverse-Nodes-in-k-Group.py) (H)
 - [0138. Copy List with Random Pointer](Solutions/0138.Copy-List-with-Random-Pointer.py) (M)
 - [0141. Linked List Cycle](Solutions/0141.Linked-List-Cycle.py) (E)
 - [0142. Linked List Cycle II](Solutions/0142.Linked-List-Cycle-II.py) (E) <br>
 287 <br>
 - [0160. Intersection of Two Linked Lists](Solutions/0160.Intersection-of-Two-Linked-Lists.py) (E)
-- [0021. Merge Two Sorted Lists](Solutions/0021.Merge-Two-Sorted-Lists.py) (E)
+
 - [0002. Add Two Numbers](Solutions/0002.Add-Two-Numbers.py) (E)
 
 
