@@ -36,39 +36,47 @@
 #         self.next = None
 
 class Solution:
-    def swapPairs(self, head: ListNode) -> ListNode:
-        if not head:
+    def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+        if not head or k == 1:
             return head
         
         dummy = ListNode(0)
         dummy.next = head
-
+        
         curr = dummy
         while curr:
-            curr = self.reverse(curr)
-        
+            curr = self.reverseK(curr, k)
+            
         return dummy.next
-
-    # The input is n0 (not None)
-    # swap the n0 -> n1 -> n2 -> n3
-    # to be n0 -> n2 -> n1 -> n3
-    # return n0 for hte next pair, which is n1 for this pair
-    def reverse(self, curr: ListNode) -> ListNode:
-        if not curr.next or not curr.next.next:
-            return None
+    
+    def reverseK(self, curr, k):
+        """reverse n0->n1->n2------>nk->n_k+1 to be n0->nk------>n2->n1->n_k+1 and return n1"""
         
-        n0, n1, n2, n3 = curr, curr.next, curr.next.next, curr.next.next.next
-
-        # reverse n1 and n2
-        n2.next = n1
-
-        # connect
-        n0.next = n2
-        n1.next = n3
-
-        # return the n0 for the next pair, which is n1 for this pair
+        # find n0 and n1
+        n0 = curr
+        n1 = curr.next
+        
+        # find n_k and n_k_plus
+        while k > 0:
+            curr = curr.next
+            k -= 1
+            if not curr:        # if the lens of curr->n1->n2--->None is less than k, then return None
+                return None 
+            
+        n_k = curr
+        n_k_plus = curr.next
+            
+        # reverse n1->n2------>nk to be nk------>n2->n1
+        prevNode, currNode = n1, n1.next
+        while currNode != n_k_plus:
+            temp = currNode.next
+            currNode.next = prevNode
+            
+            prevNode = currNode
+            currNode = temp
+        
+        # hook up n0 with n_k, n1 with n_k+1
+        n0.next = n_k
+        n1.next = n_k_plus
+        
         return n1
-
-        
-# @lc code=end
-
