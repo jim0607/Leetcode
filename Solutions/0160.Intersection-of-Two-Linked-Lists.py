@@ -87,16 +87,15 @@ class Solution:
             return None
         
         currA, currB = headA, headB
-        while currA and currB:
-            currA = currA.next
-            currB = currB.next
-            
+        while currA != currB:
             if not currA:
                 currA = headB
+            else:
+                currA = currA.next
+                
             if not currB:
                 currB = headA
-            
-            if currA == currB:
-                return currA
+            else:
+                currB = currB.next
         
-        return None
+        return currA
