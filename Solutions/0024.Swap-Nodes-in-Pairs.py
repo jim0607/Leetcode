@@ -35,6 +35,8 @@
 #         self.val = x
 #         self.next = None
 
+
+"""dummy node is so important in this case"""
 class Solution:
     def swapPairs(self, head: ListNode) -> ListNode:
         if not head:
@@ -68,7 +70,3 @@ class Solution:
 
         # return the n0 for the next pair, which is n1 for this pair
         return n1
-
-        
-# @lc code=end
-
