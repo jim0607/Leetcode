@@ -70,7 +70,8 @@
 # 
 #
 
-# @lc code=start
+"""LaiOffer的video很好: https://www.youtube.com/watch?v=kGfsMookkzw"""
+O(N), O(N)
 """
 # Definition for a Node.
 class Node:
@@ -83,29 +84,68 @@ class Solution:
     def copyRandomList(self, head: 'Node') -> 'Node':
         if not head:
             return None
-        myMap = {}
-        newHead = Node(head.val)
-        myMap[head] = newHead
+        
+        dummy = Node(0)
+        
         curr = head
-        newCurr = newHead
-
+        newCurr = dummy     # curr与newCurr.next的位置是对应的
+        
+        nodeDict = {}       # maintian a mapping between the orignal nodes and the new nodes
+        
         while curr:
-            newCurr.random = curr.random
-            if curr.next:
-                newCurr.next = Node(curr.next.val)
-                myMap[curr.next] = newCurr.next
-            else:
-                newCurr.next = None
+            # step 1: copy the next node
+            if curr not in nodeDict:          # 检查当前的node有没有被copy过，如果没有，就copy一份当前的node，存放到dict中去
+                nodeDict[curr] = Node(curr.val)
+                
+            newCurr.next = nodeDict[curr]       # connect the newly created node with newCurr
+            
+            # copy the random node
+            if curr.random:
+                if curr.random not in nodeDict:
+                    nodeDict[curr.random] = Node(curr.random.val)
+                newCurr.next.random = nodeDict[curr.random]
+                
             curr = curr.next
             newCurr = newCurr.next
-
-        curr = newHead
+                
+        return dummy.next
+    
+    
+"""O(N), O(1)"""
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+"""
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        if not head:
+            return None
+        # step 1: create new node and interleave new node into original node
+        curr = head
+        while curr:
+            newCurr = Node(curr.val)
+            newCurr.next = curr.next
+            curr.next = newCurr
+            curr = curr.next.next
+            
+        # step 2: link the random pointer for the new nodes
+        curr = head
         while curr:
             if curr.random:
-                curr.random = myMap[curr.random]
+                curr.next.random = curr.random.next
+            curr = curr.next.next
+            
+        # step 3: seperate the interleaved old nodes and new nodes
+        dummy = Node(0)
+        curr, newCurr = head, dummy
+        while curr:
+            newCurr.next = curr.next
+            curr.next = curr.next.next
+            newCurr = newCurr.next
             curr = curr.next
         
-        return newHead
-
-# @lc code=end
-
+        return dummy.next
