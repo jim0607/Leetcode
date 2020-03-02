@@ -81,30 +81,22 @@
 # 
 #
 
-# @lc code=start
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
         if not headA or not headB:
             return None
         
         currA, currB = headA, headB
-        while currA != currB:
+        while currA and currB:
+            currA = currA.next
+            currB = currB.next
+            
             if not currA:
-                currA = headB   # tricky part, just remenber
-            else:
-                currA = currA.next
+                currA = headB
             if not currB:
                 currB = headA
-            else:
-                currB = currB.next
-
-        return currA
+            
+            if currA == currB:
+                return currA
         
-# @lc code=end
-
+        return None
