@@ -74,7 +74,7 @@ class Solution:
         if not head or not head.next:
             return False
 
-        slow, fast = head, head.next
+        slow, fast = head.next, head.next.next
         while slow != fast:
             if not fast or not fast.next:
                 return False
