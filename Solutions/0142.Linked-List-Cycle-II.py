@@ -78,18 +78,18 @@ class Solution:
         # 快慢指针找到相遇的点
         slow, fast = head.next, head.next.next
         while slow != fast:
-            if not fast or not fast.next:
+            if not fast or not fast.next:   # if no cycel, return None
                 return None
             slow = slow.next
             fast = fast.next.next
 
-        # 定义第三根指针从head出发，然后与slow相遇的话相遇的那个点就是环出现的那个点
-        new_slow = head  
-        while slow != new_slow:
-            slow = slow.next
-            new_slow = new_slow.next
+        # 定义两根指针分别从head和上面相遇的点出发，然后p1,p2相遇的地方就是环的入口
+        p1, p2 = head, slow
+        while p1 != p2:
+            p1 = p1.next
+            p2 = p2.next
         
-        return slow
+        return p1
         
 # @lc code=end
 
