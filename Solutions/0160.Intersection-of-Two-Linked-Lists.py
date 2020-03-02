@@ -99,3 +99,36 @@ class Solution:
                 currB = currB.next
         
         return currA
+
+    
+    
+"""solution 2: 把headB的头部和尾部连接起来，然后看看headA开始的大链表有没有环就可以了
+this solution cannot be accepted because of ERROR: linked structure was modified."""
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        if not headA or not headB:
+            return None
+        
+        if not headA.next or not headB.next:
+            return None
+        
+        # step 1: hook up head and tail of list B
+        currB = headB
+        while currB.next:
+            currB = currB.next
+        currB.next = headB
+        
+        # step 2: use the same method as 142 ot find the position of cycle
+        slow, fast = headA.next, headA.next.next
+        while slow != fast:
+            if not fast or not fast.next:
+                return None
+            slow = slow.next
+            fast = fast.next.next
+        
+        p1, p2 = headA, slow
+        while p1 != p2:
+            p1 = p1.next
+            p2 = p2.next
+        
+        return p1
