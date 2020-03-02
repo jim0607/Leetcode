@@ -45,7 +45,7 @@ class Solution:
             curr = curr.next
             curr2 = curr2.next
         
-        if carryBit > 0:                        # 这个更容易漏掉
+        if carryBit != 0:                        # 这个更容易漏掉
             curr.next = ListNode(carryBit)
             
         return dummy.next 
