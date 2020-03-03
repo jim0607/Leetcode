@@ -61,22 +61,17 @@
 # 
 #
 
-# @lc code=start
 class Solution:
     def pivotIndex(self, nums: List[int]) -> int:
-        if not nums:
-            return -1
-        
-        prefixSum = [0]
-        for num in nums:
-            prefixSum.append(prefixSum[-1] + num)
-
-        for i in range(len(nums)):
-            leftSum = prefixSum[i]
-            rightSum = prefixSum[-1] - nums[i] - prefixSum[i]
+        lens = len(nums)
+        prefixSum = [0] * (lens + 1)
+        for i in range(lens):
+            prefixSum[i + 1] = prefixSum[i] + nums[i]
+            
+        for i in range(lens):
+            leftSum = prefixSum[i]      # prefixSum[i]是不包括nums[i]的
+            rightSum = prefixSum[-1] - prefixSum[i] - nums[i]      
             if leftSum == rightSum:
                 return i
-        
+            
         return -1
-# @lc code=end
-
