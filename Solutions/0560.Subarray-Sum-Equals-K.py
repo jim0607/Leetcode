@@ -40,20 +40,20 @@ Solution 3: prefixSum+hashmap
 # @lc code=start
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        prefixSumMap = {0: 1}   # 注意prefixSumMap需要初始化，就像solution 2中的prefixSum = [0]那样
+        prefixSumDict = {0: 1}   # key是prefixSum, val是how many times the prefixSum appears. 注意prefixSumDict需要初始化，所有prefixSum相关的参数都要初始化！！
         prefixSum, cnt = 0, 0
 
         # Our problem is: find how many pairs of <i,j> satisfies i < j and prefixSum[j]-prefixSum[i] == k?
         for num in nums:
             prefixSum += num     # 这里的prefixSum 相当于 prefixSum[j]，一般的prefixSum[j]都是这样写的，而不是单独开一个数组出来寸prefixSum
-            if prefixSum - k in prefixSumMap:     # 等价于 if prefixSum[j+1]-prefixSum[i] == k
-                cnt += prefixSumMap[prefixSum - k]        
+            if prefixSum - k in prefixSumDict:     # 等价于 if prefixSum[j+1]-prefixSum[i] == k
+                cnt += prefixSumDict[prefixSum - k]        
             
             # 将prefixSum 存入prefixSumMap中
-            if prefixSum in prefixSumMap:
-                prefixSumMap[prefixSum] += 1
+            if prefixSum not in prefixSumDict:
+                prefixSumDict[prefixSum] = 1
             else:
-                prefixSumMap[prefixSum] = 1
+                prefixSumDict[prefixSum] += 1
             
         return cnt
 
