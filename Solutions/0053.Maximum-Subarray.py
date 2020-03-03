@@ -30,20 +30,16 @@
 # the divide and conquer approach, which is more subtle.
 # 
 #
+
 """使用前缀和的方法，计算每个位置为结尾的subarray的最大值是多少"""
-# @lc code=start
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        # prefixSum记录前i个数的和，maxSum记录全局最大的值，minSum记录前i个数中的最小prefixSum
-        prefixSum = 0
-        minSum = 0      # 只能定义为0，因为初始的prefixSum是0
-        maxSum = -float("inf")
+        maxSubSum = nums[0]
+        prefixSum = 0       # 一般都是初始化为0
+        minPrefixSum = 0    # # 只能定义为0，因为初始的prefixSum是0
         for num in nums:
             prefixSum += num
-            maxSum = max(maxSum, prefixSum - minSum)
-            minSum = min(minSum, prefixSum)
+            maxSubSum = max(maxSubSum, prefixSum - minPrefixSum)
+            minPrefixSum = min(minPrefixSum, prefixSum)
 
-        return maxSum
-        
-# @lc code=end
-
+        return maxSubSum
