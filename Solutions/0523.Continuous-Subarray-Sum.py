@@ -55,24 +55,31 @@
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
         lens = len(nums)
-        if lens < 2:
-            return False
-        
         prefixSumMap = {0: -1} # key: prefixSum[j], val: j/position, initial position should be -1
-        prefixSum_j = 0
-        for j in range(lens):
-            prefixSum_j += nums[j]
-            
-            if k == 0:
-                if prefixSum_j in prefixSumMap and j > prefixSumMap[prefixSum_j] + 1:
-                    return True
-            else:
-                prefixSum_j = prefixSum_j % k       # (a+(n*x))%x is same as (a%x)
-                if prefixSum_j in prefixSumMap and j > prefixSumMap[prefixSum_j] + 1:
+        prefixSum = 0
+        if k == 0:      # k = 0 和 k!= 0 分开讨论
+            for j, num in enumerate(nums):
+                prefixSum += num
+                
+                # if prefixSum in prefixSumMap is same as prefixSum_j - prefixSum_i = 0
+                # if j > prefixSumMap[prefixSum] + 1 is to make sure the subarray size is at least 2
+                if prefixSum in prefixSumMap and j > prefixSumMap[prefixSum] + 1:
                     return True
 
-            if prefixSum_j not in prefixSumMap:
-                prefixSumMap[prefixSum_j] = j
+                if prefixSum not in prefixSumMap:
+                    prefixSumMap[prefixSum] = j
+                
+        else:
+            for j, num in enumerate(nums):
+                prefixSum += num
+                prefixSum = prefixSum % k       # (a-b)%x = a%x - b%x
+                
+                # if prefixSum in prefixSumMap is same as prefixSum_j % k - prefixSum_i % k = 0
+                if prefixSum in prefixSumMap and j > prefixSumMap[prefixSum] + 1:
+                    return True
+
+                if prefixSum not in prefixSumMap:
+                    prefixSumMap[prefixSum] = j
         
         return False
 
