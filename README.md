@@ -197,9 +197,12 @@ step 1: 快慢指针找到相遇的点; step 2: 重新定义两根指针p1, p2�
 
 
 # [SubArray](/SubArray.py)
-- [0053. Maximum Subarray](Solutions/0053.Maximum-Subarray.py) (！！E) (前缀和prefixSum)
-- [0724. Find Pivot Index](Solutions/0724.Find-Pivot-Index.py) (E) (prefixSum)
-- [0560. Subarray Sum Equals K](Solutions/0560.Subarray-Sum-Equals-K.py) (!!M) (prefixSum+hashmap)
+- [0053. Maximum Subarray](Solutions/0053.Maximum-Subarray.py) (!!E) <br>
+Maintian a prefixSum and minPrefixSum, so that maxSubSum = max(maxSubSum, prefixSum - minPrefixSum)
+- [0724. Find Pivot Index](Solutions/0724.Find-Pivot-Index.py) (E) <br>
+leftSum = prefixSum[i] # prefixSum[i]是不包括nums[i]的; ightSum = prefixSum[-1] - prefixSum[i] - nums[i] 
+- [0560. Subarray Sum Equals K](Solutions/0560.Subarray-Sum-Equals-K.py) (!!M) <br>
+新建一个prefixSumDict = {0: 1}, key是prefixSum, val是how many times the prefixSum appears; if prefixSum - k in prefixSumDict: 等价于if prefixSum[j+1]-prefixSum[i] == k
 - [0523. Continuous Subarray Sum](Solutions/0523.Continuous-Subarray-Sum.py) (M) (prefixSum+hashmap)
 - [0974. Subarray Sums Divisible by K](Solutions/0974.Subarray-Sums-Divisible-by-K.py) (M) (prefixSum+hashmap)
 - [0139. Subarray Sum Closest](Solutions/0139.Subarray-Sum-Closest.py) (Lintcode) (prefixSum+hashmap)
