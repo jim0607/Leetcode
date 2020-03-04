@@ -208,7 +208,7 @@ prefixSumMap = {0: -1} # key: prefixSum[j], val: j/position, initial position sh
 - [0974. Subarray Sums Divisible by K](Solutions/0974.Subarray-Sums-Divisible-by-K.py) (M) <br>
 prefixSumDict = {0: 1} # key is the prefixSum, val is how many times the prefixSum appears; prefixSum += num; prefixSum %= K
 - [0139. Subarray Sum Closest](Solutions/0139.Subarray-Sum-Closest.py) (Lintcode) <br>
-prefixSumList = [(0, -1)] # (0, 1) are prefixSum and index; 对prefixSum来进行sort，这样最小的subArrSum (或者prefixSums[j+1][0] - prefixSums[i][0])就一定来自于相邻的两个prefisxSums了
+题目要求NlogN, 那就是疯狂暗示要sort, prefixSumList = [(0, -1)] # (0, 1) are prefixSum and index; 对prefixSum来进行sort，这样最小的subArrSum (或者prefixSums[j+1][0] - prefixSums[i][0])就一定来自于相邻的两个prefisxSums了
 
 
 # [Sort](/Sort.py) 
