@@ -48,26 +48,19 @@ O(N), O(N)
 """
 class Solution:
     def subarraysDivByK(self, A: List[int], K: int) -> int:
-        if not A or K == 0:
-            return 0
-
-        # key: prefixSum%K, val: frequency
-        prefixSum_f = {0: 1}
+        prefixSumDict = {0: 1} # key is the prefixSum, val is how many times the prefixSum appears
         prefixSum = 0
         cnt = 0
-        for j in range(len(A)):
-            prefixSum += A[j]
+        for num in A:
+            prefixSum += num
             prefixSum %= K
-            if prefixSum < 0:       
-                prefixSum += K   # Because -1 % 5 = -1, but we need the positive mod 4
-            if prefixSum in prefixSum_f:
-                cnt += prefixSum_f[prefixSum]
-            
-            if prefixSum not in prefixSum_f:
-                prefixSum_f[prefixSum] = 1
+            if prefixSum in prefixSumDict:
+                cnt += prefixSumDict[prefixSum]
+                prefixSumDict[prefixSum] += 1
+                
             else:
-                prefixSum_f[prefixSum] += 1
-
+                prefixSumDict[prefixSum] = 1
+                
         return cnt
 
 
