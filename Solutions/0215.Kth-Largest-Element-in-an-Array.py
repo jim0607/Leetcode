@@ -85,7 +85,7 @@ class Solution:
         numsHeap = []
         for num in nums:
             heapq.heappush(numsHeap, num)
-            if len(numsHeap) > k:
+            if len(numsHeap) > k:       # python默认是最小堆, 每次都是pop出最小值, 于是留下来的就是最大值了
                 heapq.heappop(numsHeap)
         
         return heapq.heappop(numsHeap)
