@@ -41,9 +41,47 @@
 #
 
 
-#
+
+"""九章算法的解法: find the kth smallest element
+O(log(M+N)), O(log(M+N))"""
+
+class Solution:
+    def findMedianSortedArrays(self, A, B) -> float:
+        def getKthSmallest(i, j, k):
+            """return the Kth smallest in A[i:], and B[j:]"""
+            if i == len(A):
+                return B[j + k]     # eg: A = [], B = [1, 2, 3]
+            if j == len(B):
+                return A[i + k]
+            if k == 0:
+                return min(A[i], B[j])
+            
+            midA_idx = min((k + 1) // 2, len(A) - i)
+            midB_idx = min((k + 1) // 2, len(B) - j)
+            
+            midA = A[i + midA_idx - 1]
+            midB = B[j + midB_idx - 1]
+            
+            if midA < midB:     # should be noted that there are k elements in total before midA and midB, so if midA < midB, then midA is too small for the kth largest
+                return getKthSmallest(i + midA_idx, j, k - midA_idx)
+            else:
+                return getKthSmallest(i, j + midB_idx, k - midB_idx)
+        
+        n = len(A) + len(B)
+        if n % 2 != 0:
+            return getKthSmallest(0, 0, n // 2) / 1.0
+        else:
+            return (getKthSmallest(0, 0, n // 2) + getKthSmallest(0, 0, n // 2 - 1)) / 2.0
+
+
+
+
 """solution 2: binary search, O(log(k)), k = min(m, n)
-解法来自 山景城一姐"""
+看山景城一姐的视频4-7min中，其实只需要找nums1数组中的某个分割线，保证nums1分割线左边的数都是小于nums2分割线右边的数，
+同时nums2分割线左边的数都是小于nums1分割线右边的数。我们假设分割线为nums1的分割线为mid1，也就是要保证nums1[mid1] < target, 
+这里的target不是一个定值，而是运动的值: nums2[mid2 + 1]，因为mid1+mid2是等于(lens1+lens2+1)//2的，所以mid可以用mid1来表示。
+所以这里就是类似的二分查找法来寻找最后一个nums1[mid1] < target, 也就是oooxxx问题了
+somehow it is not easy to implement it with binary search的模板"""
 # @lc code=start
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
