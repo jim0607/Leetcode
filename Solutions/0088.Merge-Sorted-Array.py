@@ -30,7 +30,7 @@ class Solution:
                 j -= 1
             k -= 1
             
-        while i >= 0:
+        while i >= 0:       # this while loop could be deleted, cuz we are editing on nums1
             nums1[k] = nums1[i]
             i -= 1
             k -= 1
