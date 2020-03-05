@@ -32,6 +32,8 @@ start from left bottom, head up to right top, each comparism rule out a row (i-1
 if mod == 0: res *= x^div; else: res *= x^div * x
 - [0029. Divide Two Integers](Solutions/0029.Divide-Two-Integers.py) (M) <br>
 eg: 10//3, 每次通过右移3 << 1的方法将3乘以2,这种算法是O(N), 每次都右移几次3 << x, 相当于3x2x2x2...,直到3x2x2x2...>10, 然后取余数继续这个算法
+- [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
+target是随着i的移动而变化的binary search
 
 
 
@@ -232,27 +234,28 @@ STEP 1: 反向双指针（或同向双指针）对[-1,-2,4,,5,-3,6]进行partiti
 - [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) <br>
 同向双指针: move '2's to the right first, then move '1's to the middle
 
-
-# [Sorted Array]() 
-- [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py) (E) 
-- [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M) (quick select) 
-- [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) (Binary search) 
+### [Sorted Array](/Sort.py) 
 - [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (M) <br>
 sort the intervals first, res = []; for interval in intervals: if the interval start time is larger than the largest end time in res, then the interval cannot be merged, then res.append(interval), else then res[-1][1] = max(res[-1][1], interval[1])
+- [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
+target是随着i的移动而变化的binary search
 
 
 
 # [Two Pointers](/Two-pointers.py)
 ### [反向双指针](/Two-pointers.py)
-- [0977. Squares of a Sorted Array](Solutions/0977.Squares-of-a-Sorted-Array.py) (E) 
-### Partition(/Two-pointers.py)
+- [0977. Squares of a Sorted Array](Solutions/0977.Squares-of-a-Sorted-Array.py) (E) <br>
+three pointers: i starts from beginning of A; j starts from the end of A; k starts from end of res 
 - [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode)
+note 1: temp = nums[i], 出循环后需要nums[i] = temp回来; note 2: 先判断j, j-=1出来后nums[i]=nums[j] 
 - [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E)
 - [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
 
 - [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) (E) 
 
 ### [同向双指针](/Two-pointers.py)
+- [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py)
+Two pointers, starting from end
 - [0283. Move Zeroes](Solutions/0283.Move-Zeroes.py) (E) 
 - [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (E) 
 - [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) 
