@@ -246,20 +246,29 @@ target是随着i的移动而变化的binary search
 ### [反向双指针](/Two-pointers.py)
 - [0977. Squares of a Sorted Array](Solutions/0977.Squares-of-a-Sorted-Array.py) (E) <br>
 three pointers: i starts from beginning of A; j starts from the end of A; k starts from end of res 
-- [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode)
+- [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode) <br>
 note 1: temp = nums[i], 出循环后需要nums[i] = temp回来; note 2: 先判断j, j-=1出来后nums[i]=nums[j] 
-- [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E)
+- [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) <br>
+solution 1: 同上31的方法做partition; solution 2: 同向双指针: anchor and curr, swap A[anchor] and A[curr] when A[curr] is even
 - [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
+STEP 1: 反向双指针进行partition，负数在左边，正数在右边[-1, -2, -3, 4, 5, 6]; STEP 2: 再来进行正负正负正负安插
+- [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) <br>
+sort the arr first, then the maximum sum of pairs is the sum of every other num
+- [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) <br>
+solution 1: typical partition problem, step 1: 先把0放到最前面; step 2: 再把2放到最后
+solution 2: 同向双指针的方法也应该理解掌握！
+- [0011. Container With Most Water](Solutions/0011.Container-With-Most-Water.py) (!!M) <br>
+Start with the maximum width container and go to a shorter width container; This way we are compromising on the width but we are looking forward to a longer length container.
 
-- [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) (E) 
 
 ### [同向双指针](/Two-pointers.py)
-- [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py)
-Two pointers, starting from end
-- [0283. Move Zeroes](Solutions/0283.Move-Zeroes.py) (E) 
-- [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (E) 
-- [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) 
-- [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M)
+- [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py) <br>
+modify nums1 in-place, use i, j, k = m - 1, n - 1, m + n -1; 把最大的数放到nums1的后面
+- [0283. Move Zeroes](Solutions/0283.Move-Zeroes.py) <br>
+anchor keeps all the non-zero numbers, while curr runs forward; whenever curr equals a non-zero number, switch it to anchor.  Solution 2: partition using the method in 31, but not accepted cuz partition changes the original order of non-zero numbers
+- [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (!!E) 典型的同向双指针
+- [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) <br>
+同向双指针法，如果碰到符合条件的，把j往前挪到不重复的元素去。dfs解subset问题里的去重是怎么做的：前面的3用到了，后面的3就跳过就可以了。
 
 
 # [Two Sum]()
@@ -452,3 +461,7 @@ f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B
 # Other Algorithms
 ### [Rabin Karp]()
 - [0028. Implement strStr()](Solutions/0028.Implement-strStr().py) (E) (Rabin Karp Algorithm O(M+N), use Hashcode, ord(ch)-ord("a"))
+
+
+
+# Sliding window
