@@ -248,17 +248,17 @@ target是随着i的移动而变化的binary search
 three pointers: i starts from beginning of A; j starts from the end of A; k starts from end of res 
 - [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode) <br>
 note 1: temp = nums[i], 出循环后需要nums[i] = temp回来; note 2: 先判断j, j-=1出来后nums[i]=nums[j] 
-- [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) <br>
+- [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E) <br>
 solution 1: 同上31的方法做partition; solution 2: 同向双指针: anchor and curr, swap A[anchor] and A[curr] when A[curr] is even
 - [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
 STEP 1: 反向双指针进行partition，负数在左边，正数在右边[-1, -2, -3, 4, 5, 6]; STEP 2: 再来进行正负正负正负安插
-- [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) <br>
+- [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) (E) <br>
 sort the arr first, then the maximum sum of pairs is the sum of every other num
 - [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) <br>
 solution 1: typical partition problem, step 1: 先把0放到最前面; step 2: 再把2放到最后
 solution 2: 同向双指针的方法也应该理解掌握！
 - [0011. Container With Most Water](Solutions/0011.Container-With-Most-Water.py) (!!M) <br>
-Start with the maximum width container and go to a shorter width container; This way we are compromising on the width but we are looking forward to a longer length container.
+if height[i] > height[j]: j -= 1  # meaning that 右边的栅栏更低，所以把右边指针移动一下，希望能用长度去compromise宽度，即寄希望于min(height[i], height[j])会变大，来compromise掉(j - i)的变小. 为什么不移左边指针呢？因为移动左边的话，min(height[i], height[j])不会变大，但是(j - i)一定变小，所以面积一定变小.
 
 
 ### [同向双指针](/Two-pointers.py)
@@ -269,7 +269,7 @@ anchor keeps all the non-zero numbers, while curr runs forward; whenever curr eq
 - [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (!!E) 典型的同向双指针
 - [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) <br>
 同向双指针法，如果碰到符合条件的，把j往前挪到不重复的元素去。dfs解subset问题里的去重是怎么做的：前面的3用到了，后面的3就跳过就可以了。
-- [0042. Trapping Rain Water](Solutions/0042.Trapping-Rain-Water.py (!!H) <br>
+- [0042. Trapping Rain Water](Solutions/0042.Trapping-Rain-Water.py) (!!H) <br>
 首先找到最高highestBar的位置。然后从左边往最高的位置扫，同时maintain一个指针记录leftHighest的高度，如果扫到的地方i小于这个leftHighest的高度，
 则说明i这个地方可以蓄水，可蓄水量为leftHighest的高度减去i的高度；如果扫到的地方i大于这个leftHighest的高度，则说明i这个地方不可以蓄水，所以这时候要更新leftHighest为i的高度。同理对右边做同样的操作
 
