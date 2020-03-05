@@ -35,6 +35,6 @@ class Solution:
                 i += 1
             nums[j] = nums[i]
             
-        nums[i] = temp  # nums[i]的值需要回归
+        nums[i] = temp  # nums[i]的值需要回归，这一步是必须的！
         
-        return i if nums[i] >= k else i + 1
+        return i if nums[i] >= k else i + 1     # 不懂为什么要这样
