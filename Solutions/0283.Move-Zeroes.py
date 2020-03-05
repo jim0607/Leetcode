@@ -30,7 +30,7 @@
 # 
 #
 
-# @lc code=start
+
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
         """
@@ -46,6 +46,22 @@ class Solution:
                 pos += 1
         
         return nums
-        
-# @lc code=end
 
+"""solution 2: use partition, however not accepted cuz partition changes the original order of non-zero numbers"""
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        i, j = 0, len(nums) - 1
+        temp = nums[i]
+        while i < j:
+            while i < j and nums[j] == 0:
+                j -= 1
+            nums[i] = nums[j]
+            
+            while i < j and nums[i] != 0:
+                i += 1
+            nums[j] = nums[i]
+            
+        nums[i] = temp
