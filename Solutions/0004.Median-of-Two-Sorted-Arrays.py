@@ -76,7 +76,7 @@ class Solution:
 
 
 
-"""solution 2: binary search, O(log(k)), k = min(m, n)
+"""solution 2: binary search, O(log(min(M, N)), O(1)
 看山景城一姐的视频4-7min中，其实只需要找nums1数组中的某个分割线，保证nums1分割线左边的数都是小于nums2分割线右边的数，
 同时nums2分割线左边的数都是小于nums1分割线右边的数。我们假设分割线为nums1的分割线为mid1，也就是要保证nums1[mid1] < target, 
 这里的target不是一个定值，而是运动的值: nums2[mid2 + 1]，因为mid1+mid2是等于(lens1+lens2+1)//2的，所以mid可以用mid1来表示。
