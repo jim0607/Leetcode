@@ -269,6 +269,9 @@ anchor keeps all the non-zero numbers, while curr runs forward; whenever curr eq
 - [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (!!E) 典型的同向双指针
 - [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) <br>
 同向双指针法，如果碰到符合条件的，把j往前挪到不重复的元素去。dfs解subset问题里的去重是怎么做的：前面的3用到了，后面的3就跳过就可以了。
+- [0042. Trapping Rain Water](Solutions/0042.Trapping-Rain-Water.py (!!H) <br>
+首先找到最高highestBar的位置。然后从左边往最高的位置扫，同时maintain一个指针记录leftHighest的高度，如果扫到的地方i小于这个leftHighest的高度，
+则说明i这个地方可以蓄水，可蓄水量为leftHighest的高度减去i的高度；如果扫到的地方i大于这个leftHighest的高度，则说明i这个地方不可以蓄水，所以这时候要更新leftHighest为i的高度。同理对右边做同样的操作
 
 
 # [Two Sum]()
