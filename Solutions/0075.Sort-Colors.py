@@ -11,6 +11,47 @@ Example:
 Input: [2,0,2,1,1,0]
 Output: [0,0,1,1,2,2]
 
+
+"""typical partition problem"""
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        lens = len(nums)
+        
+        # step 1: 先把0放到最前面
+        i, j = 0, lens - 1
+        temp = nums[i]
+        while i < j:
+            while i < j and nums[j] > 0:
+                j -= 1
+            nums[i] = nums[j]
+            
+            while i < j and nums[i] == 0:
+                i += 1
+            nums[j] = nums[i]
+            
+        nums[i] = temp
+
+        # step 2: 再把2放到最后
+        m = i + 1 if nums[i] == 0 else i
+        n = lens - 1
+        if m >= n:
+            return nums
+        
+        temp = nums[m]
+        while m < n:
+            while m < n and nums[n] == 2:
+                n -= 1
+            nums[m] = nums[n]
+            
+            while m < n and nums[m] < 2:
+                m += 1
+            nums[n] = nums[m]
+            
+        nums[m] = temp
+    
     
     
 """同向双指针: move '2's to the right first, then move '1's to the right
