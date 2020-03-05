@@ -30,6 +30,8 @@ class Solution:
                 j += 1
                 while j < len(nums) and nums[j] == nums[j - 1]:   # 想想dfs解subset问题里的去重是怎么做的：前面的3用到了，后面的3就跳过就可以了。
                     j += 1
+                while i >= 1 and i < len(nums) and nums[i] == nums[i - 1]:
+                    i += 1
                 
         return cnt
         
