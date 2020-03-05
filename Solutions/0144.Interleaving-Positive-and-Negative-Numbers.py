@@ -11,44 +11,47 @@ Challenge: Do it in-place and without extra memory.
 """STEP 1: 反向双指针（也可以同向双指针）对[-1,-2,4,,5,-3,6]进行partition，负数在左边，正数在右边[-1, -2, -3, 4, 5, 6]
 STEP 2: 再来进行正负正负正负安插"""
 class Solution:
-    """
-    @param: A: An integer array.
-    @return: nothing
-    """
     def rerange(self, A):
-        if not A:
-            return A
-            
-        # STEP 1
-        lens = len(A)
-        i, j = 0, lens - 1
-        temp = A[0]
+        i, j = 0, len(A) - 1
+        temp = A[i]
         while i < j:
-            while i < j and A[j] > 0 :
+            while i < j and A[j] > 0:
                 j -= 1
             A[i] = A[j]
+            
             while i < j and A[i] < 0:
                 i += 1
             A[j] = A[i]
             
         A[i] = temp
         
-        print(A)
-        
-        # STEP 2
-        if lens % 2 == 0:
-            self.swap(A)
-
-        else:     # somehow 这种情况提交不成功，因为self.swap(A[:lens - 1])并不能改变A的。可见969. pancake sorting
-            if A[lens // 2] > 0:
-                self.swap(A[:lens - 1])
+        if len(A) % 2 == 0:
+            self.swapEven(A)
+        else:
+            if A[len(A) // 2] < 0:
+                self.swapOdd1(A)
             else:
-                self.swap(A[1:])
-                
-        return A
+                self.swapOdd2(A)
             
-    def swap(self, A):
+    def swapEven(self, A):      # 不需要return, 因为题目要求edit in place
+        """swap, no return"""
         i, j = 0, len(A) - 1
+        while i < j:
+            A[i], A[j] = A[j], A[i]
+            i += 2
+            j -= 2
+            
+    def swapOdd1(self, A):
+        """swap, no return"""
+        i, j = 1, len(A) - 1
+        while i < j:
+            A[i], A[j] = A[j], A[i]
+            i += 2
+            j -= 2
+            
+    def swapOdd2(self, A):
+        """swap, no return"""
+        i, j = 0, len(A) - 2
         while i < j:
             A[i], A[j] = A[j], A[i]
             i += 2
