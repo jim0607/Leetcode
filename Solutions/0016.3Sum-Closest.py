@@ -10,22 +10,28 @@ The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
 """套用3sum的模板：for循环nums[i], 双指针解决twoSum问题"""
 class Solution:
     def threeSumClosest(self, nums: List[int], target: int) -> int:
-        if not nums:
-            return None
+        nums.sort()
         
-        nums.sort()     # 易忘
-        
-        closest_sum, min_diff = float("inf"), float("inf")
         lens = len(nums)
+        closestVal = float("inf")
+        diff = float("inf")
         for i in range(lens - 2):
             left, right = i + 1, lens - 1
             while left < right:
                 threeSum = nums[i] + nums[left] + nums[right]
-                if abs(threeSum - target) < min_diff:
-                    min_diff = abs(threeSum - target)
-                    closest_sum = threeSum
                 if threeSum > target:
                     right -= 1
-                else:
+                    if abs(threeSum - target) < diff:
+                        diff = abs(threeSum - target)
+                        closestVal = threeSum
+                
+                elif threeSum < target:
                     left += 1
-        return closest_sum
+                    if abs(threeSum - target) < diff:
+                        diff = abs(threeSum - target)
+                        closestVal = threeSum
+                        
+                else:
+                    return target
+                
+        return closestVal
