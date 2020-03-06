@@ -275,18 +275,24 @@ anchor keeps all the non-zero numbers, while curr runs forward; whenever curr eq
 
 
 # [Two Sum]()
-- [0001. Two Sum](Solutions/0001.Two-Sum.py) (E) 
-- [0167. Two Sum II - Input array is sorted](Solutions/0167.Two-Sum-II-Input-array-is-sorted.py) (E)
-- [0170. Two Sum III - Data structure design](Solutions/0170.Two-Sum-III-Data-structure-design.py) (E)
-- [0653. Two Sum IV - Input is a BST](Solutions/0653.Two-Sum-IV-Input-is-a-BST.py) (E)
+- [0001. Two Sum](Solutions/0001.Two-Sum.py) (E) hashMap
+- [0167. Two Sum II - Input array is sorted](Solutions/0167.Two-Sum-II-Input-array-is-sorted.py) (E) 反向双指针
+- [0170. Two Sum III - Data structure design](Solutions/0170.Two-Sum-III-Data-structure-design.py) (E) hashMap
+- [0653. Two Sum IV - Input is a BST](Solutions/0653.Two-Sum-IV-Input-is-a-BST.py) (E) <br>
+In order traversal into an array and then use two pointer method
 - [1099. Two Sum Less Than K](Solutions/1099.Two-Sum-Less-Than-K.py) (E) 
 - [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) (求和用反向双指针，求差用同向双指针)
-- [0609. Two Sum - Less than or equal to target](Solutions/0609.Two-Sum-Less-than-or-equal-to-target.py) (E) 
-- [0015. 3Sum](Solutions/0015.3Sum.py) (!!M) 
-- [0016. 3Sum Closest](Solutions/0016.3Sum-Closest.py) (M) 
-- [0259. 3Sum Smaller](Solutions/0259.3Sum-Smaller.py) (M) 
-- [0018. 4Sum](Solutions/0018.4Sum.py) (M) 
-- [0454. 4Sum II](Solutions/0454.4Sum-II.py) (M) 
+- [0609. Two Sum - Less than or equal to target](Solutions/0609.Two-Sum-Less-than-or-equal-to-target.py) (E) <br>
+if nums[i] + nums[j] <= target: cnt += j - i		# 注意这里是 cnt += j - i 表示nums[i] 加上 i 到 j之间的任何数，一定也是小于等于target的
+- [0015. 3Sum](Solutions/0015.3Sum.py) (!!M) <br>
+背模板，注意点一：对i去重；left, right=i+1, lens-1 # 注意点二：left和right的初始值；注意点三：对left和right去重
+- [0016. 3Sum Closest](Solutions/0016.3Sum-Closest.py) (M) <br>
+- [0259. 3Sum Smaller](Solutions/0259.3Sum-Smaller.py) (M) <br>
+优化：if nums[i] * 3 >= target: break；其解法类似609
+- [0018. 4Sum](Solutions/0018.4Sum.py) (M) <br>
+solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1开始，因为要至少让j先取上第一个值i+1之后才能与前一个数比较！不然[0,0,0,0], 0就通不过了；solution 2: O(N^2): hashmap. for循环a, b,保存a+b的值进hashmap, 再for循环c, d, 判断c+d是否在hashmap中
+- [0454. 4Sum II](Solutions/0454.4Sum-II.py) (M) <br>
+有四个数组，不好用双指针，所以就使用hashmap，用一个hashmap 保存a + b
 
 
 # [Data Structure](/Data-Structure.py)
