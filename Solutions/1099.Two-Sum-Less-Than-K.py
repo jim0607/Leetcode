@@ -14,7 +14,7 @@ class Solution:
         if not A:
             return -1
         
-        A.sort()
+        A.sort()        # 容易漏掉
         
         lens = len(A)
         i, j = 0, lens - 1
