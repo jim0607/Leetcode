@@ -13,6 +13,37 @@ Follow up: Could you solve it in O(n2) runtime?
 
 """这里输出的是index，所以不存在去重的问题，相比leetcode 15, 还是比较简单的
 参考lintcode 609"""
+"""模板写法，要牢记理解
+O(N^2), O(1)"""
+class Solution:
+    def threeSumSmaller(self, nums: List[int], target: int) -> int:
+        if not nums or len(nums) < 3:
+            return 0
+        
+        nums.sort()     # 老是忘了sort
+        
+        lens = len(nums)
+        cnt = 0
+        for i in range(lens - 2):
+            # 属于本题的独特优化
+            if nums[i] * 3 >= target:
+                break
+                
+            left, right = i + 1, lens - 1
+            while left < right:
+                threeSum = nums[i] + nums[left] + nums[right]
+                if threeSum >= target:
+                    right -= 1
+                else:
+                    cnt += right - left
+                    left += 1
+        
+        return cnt
+
+
+
+
+
 class Solution:
     def threeSumSmaller(self, nums: List[int], target: int) -> int:
         cnt = 0
@@ -40,32 +71,4 @@ class Solution:
                 cnt += right - left     # 注意这里是 cnt += j - i 表示nums[i] 加上 i 到 j之间的任何数，一定也是小于等于target的
                 left += 1
                 
-        return cnt
-
-      
-"""模板写法，要牢记理解
-O(N^2), O(1)"""
-class Solution:
-    def threeSumSmaller(self, nums: List[int], target: int) -> int:
-        if not nums or len(nums) < 3:
-            return 0
-        
-        nums.sort()     # 老是忘了sort
-        
-        lens = len(nums)
-        cnt = 0
-        for i in range(lens - 2):
-            # 属于本题的独特优化
-            if nums[i] * 3 >= target:
-                break
-                
-            left, right = i + 1, lens - 1
-            while left < right:
-                threeSum = nums[i] + nums[left] + nums[right]
-                if threeSum >= target:
-                    right -= 1
-                else:
-                    cnt += right - left
-                    left += 1
-        
         return cnt
