@@ -32,7 +32,7 @@ class Solution:
                 break
                 
             for j in range(i + 1, lens - 2):
-                if j > i + 1 and nums[j] == nums[j - 1]:        # 去重
+                if j > i + 1 and nums[j] == nums[j - 1]:  # 注意这里给j去重不能从j>=1开始，因为要至少让j先取上第一个值i+1之后才能与前一个数比较！不然[0,0,0,], 0就通不过了。
                     continue
                     
                 left, right = j + 1, lens - 1
