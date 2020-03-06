@@ -14,6 +14,46 @@ A solution set is:
 ]
 
 
+                    
+                    
+"""
+以下是3Sum问题的模板！！！要熟记背诵！！！
+"""
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        if not nums or len(nums) < 3:
+            return []
+        
+        nums.sort()   # STEP 1: sort the arr
+        
+        res = []
+        lens = len(nums) 
+        
+        # STEP 2: for循环nums[i]，然后双指针解twoSum问题
+        for i in range(lens - 2):
+            if i > 0 and nums[i] == nums[i - 1]:        # 注意点一：对i去重
+                continue
+            
+            left, right = i + 1, lens - 1               # 注意点二：left 和 right 的初始值
+            while left < right:
+                threeSum = nums[left] + nums[right] + nums[i]
+                if threeSum < 0:
+                    left += 1
+                elif threeSum > 0:
+                    right -= 1
+                else:
+                    res.append([nums[i], nums[left], nums[right]])
+                    left += 1
+                    right -= 1
+                    while left < right and nums[left] == nums[left - 1]:    # 注意点三：对 left 和 right 去重
+                        left += 1
+                    while left < right and nums[right] == nums[right + 1]:
+                        right -= 1
+                        
+        return res
+
+
+
 """
 Solution 1: hash map: O(N^2), O(N), 循环a, b，然后每次判断if -a-b in dict_nums
 O(N^2), O(N)
@@ -59,42 +99,3 @@ class Solution:
                     left += 1
                 while left < right and nums[right] == nums[right + 1]:
                     right -= 1
-
-                    
-                    
-"""
-以下是3Sum问题的模板！！！要熟记背诵！！！
-"""
-class Solution:
-    def threeSum(self, nums: List[int]) -> List[List[int]]:
-        if not nums or len(nums) < 3:
-            return []
-        
-        # 接下来是3Sum问题的模板
-        # STEP 1: sort the arr
-        nums.sort()
-        
-        res = []
-        lens = len(nums)       
-        # STEP 2: for循环nums[i]，然后双指针解twoSum问题
-        for i in range(lens - 2):
-            if i > 0 and nums[i] == nums[i - 1]:
-                continue
-            
-            left, right = i + 1, lens - 1
-            while left < right:
-                threeSum = nums[left] + nums[right] + nums[i]
-                if threeSum < 0:
-                    left += 1
-                elif threeSum > 0:
-                    right -= 1
-                else:
-                    res.append([nums[i], nums[left], nums[right]])
-                    left += 1
-                    right -= 1
-                    while left < right and nums[left] == nums[left - 1]:
-                        left += 1
-                    while left < right and nums[right] == nums[right + 1]:
-                        right -= 1
-                        
-        return res
