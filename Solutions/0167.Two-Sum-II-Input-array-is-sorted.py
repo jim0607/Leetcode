@@ -16,9 +16,6 @@ Explanation: The sum of 2 and 7 is 9. Therefore index1 = 1, index2 = 2.
 O(N), O(1)"""
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        if not numbers:
-            return None
-        
         lens = len(numbers)
         i, j = 0, lens - 1
         while i < j:
@@ -28,5 +25,3 @@ class Solution:
                 i += 1
             else:
                 return [i + 1, j + 1]
-        
-        return [-1, -1]
