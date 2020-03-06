@@ -35,6 +35,9 @@ class Solution:
                 if j > i + 1 and nums[j] == nums[j - 1]:  # 注意这里给j去重不能从j>=1开始，因为要至少让j先取上第一个值i+1之后才能与前一个数比较！不然[0,0,0,], 0就通不过了。
                     continue
                     
+                if nums[i] + nums[j] * 3 > target:    # 优化
+                    break
+                    
                 left, right = j + 1, lens - 1
                 while left < right:
                     fourSum = nums[i] + nums[j] + nums[left] + nums[right]
