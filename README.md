@@ -297,11 +297,13 @@ solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1
 
 # [Data Structure](/Data-Structure.py)
 ### [Stack and Queue](/Data-Structure.py)
-- [0232. Implement Queue using Stacks](Solutions/0232.Implement-Queue-using-Stacks.py) (E) 
-- [0225. Implement Stack using Queues](Solutions/0225.Implement-Stack-using-Queues.py) (E) 
-- [0155. Min Stack](Solutions/0155.Min-Stack.py) (!!E) 
-- [0716 (没搞懂！)] (E) 
-- [0394. Decode String](Solutions/0394.Decode-String.py) (M) 
+- [0232. Implement Queue using Stacks](Solutions/0232.Implement-Queue-using-Stacks.py) (E) use two stacks
+- [0225. Implement Stack using Queues](Solutions/0225.Implement-Stack-using-Queues.py) (E) use two deques
+- [0155. Min Stack](Solutions/0155.Min-Stack.py) (!!E) use two stacks
+- [0716. Max Stack](Solutions/0716.Max-Stack.py) (E) <be>
+should be labeled hard if using double linked list and tree map
+- [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
+
 ### [Iterator](/Data-Structure.py)
 - [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (M) 
 - [0251. Flatten 2D Vector](Solutions/0251.Flatten-2D-Vector.py) (M)
