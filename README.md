@@ -300,18 +300,19 @@ solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1
 - [0232. Implement Queue using Stacks](Solutions/0232.Implement-Queue-using-Stacks.py) (E) use two stacks
 - [0225. Implement Stack using Queues](Solutions/0225.Implement-Stack-using-Queues.py) (E) use two deques
 - [0155. Min Stack](Solutions/0155.Min-Stack.py) (!!E) use two stacks
-- [0716. Max Stack](Solutions/0716.Max-Stack.py) (E) <be>
-should be labeled hard if using double linked list and tree map
+- [0716. Max Stack](Solutions/0716.Max-Stack.py) (E) should be labeled hard if using double linked list and tree map
 - [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
 
 ### [Iterator](/Data-Structure.py)
-- [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (M) 
+- [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (!!M) 
 - [0251. Flatten 2D Vector](Solutions/0251.Flatten-2D-Vector.py) (M)
 - [0281. Zigzag Iterator](Solutions/0281.Zigzag-Iterator.py) (M)
-- [0284. Peeking Iterator](Solutions/0284.Peeking-Iterator.py) (M)
-- [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (M)
-#### [单调栈](/Data-Structure.py)
-84. Largest Rectangle in Histogram  (H) (should understand later)
+- [0284. Peeking Iterator](Solutions/0284.Peeking-Iterator.py) (!M) saving peeked value
+- [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (!!M) <br>
+用stack实现binary search tree的in order traversal的方法类似
+#### [Monotonic stack](/Data-Structure.py) （递增栈，就是栈中只存放递增序列）
+84. Largest Rectangle in Histogram  (!!H) <br>
+save index in the monoStack, as height may have the same value; based on the heights, maintain an increasing stack,每当遇到大于栈顶的值时，直接入栈保持递增，如果遇到小于栈顶的值，回头且慢莫慌，栈内各个元素依次出栈并回头计算一下面积。
 
 ### [Hashmap/Dictionary](/Data-Structure.py)
 - [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!M)
