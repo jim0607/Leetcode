@@ -313,6 +313,9 @@ solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1
 #### [Monotonic stack](/Data-Structure.py) （递增栈，就是栈中只存放递增序列）
 - [0084. Largest Rectangle in Histogram](Solutions/0084.Largest-Rectangle-in-Histogram.py) (!!H) <br>
 save index in the monoStack, as height may have the same value; based on the heights, maintain an increasing stack,每当遇到大于栈顶的值时，直接入栈保持递增，如果遇到小于栈顶的值，回头且慢莫慌，栈内各个元素依次出栈并回头计算一下面积。
+- [0085. Maximal Rectangle](Solutions/0085.Maximal-Rectangle.py) (!!H) <br>
+step 1: construct a heights list for each row; step 2: calculate the largestRectangularHistogram of each height using the same method in 84
+
 
 ### [Hashmap/Dictionary](/Data-Structure.py)
 - [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!M)
