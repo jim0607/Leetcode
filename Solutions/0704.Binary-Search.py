@@ -25,3 +25,26 @@ class Solution:
         if nums[end] == target:
             return end
         return -1
+
+// C# version
+public class Solution {
+    public int Search(int[] nums, int target) {
+        int start = 0;
+        int end = nums.Length - 1;
+        while (start + 1 < end) { 
+            int mid = start + (end - start) / 2;
+            if (nums[mid] >= target) { 
+                end = mid;
+            } else {
+                start = mid;
+            }
+        }
+        if (nums[start] == target) {
+            return start;
+        }
+        if (nums[end] == target) {
+            return end;
+        }
+        return -1;
+    }
+}
