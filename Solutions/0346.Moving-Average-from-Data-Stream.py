@@ -1,3 +1,14 @@
+Given a stream of integers and a window size, calculate the moving average of all integers in the sliding window.
+
+Example:
+
+MovingAverage m = new MovingAverage(3);
+m.next(1) = 1
+m.next(10) = (1 + 10) / 2
+m.next(3) = (1 + 10 + 3) / 3
+m.next(5) = (10 + 3 + 5) / 3
+
+
 // use deque, or double-ended queue
 // in C#, Queue class is by default a deque, with two methods:
 // 1. enqueue, meaning push to the back of the queue; 2. dequeue, meaning pop from the front of the queue
