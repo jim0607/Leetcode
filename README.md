@@ -321,6 +321,7 @@ step 1: construct a heights list for each row; step 2: calculate the largestRect
 - [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!M)
 
 ### [Heap/Heapq](/Data-Structure.py)
+621. Task Scheduler; for some reason C# doesn't have PriorityQueue class...
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M)
 - [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (M)
 - [0253. Meeting Rooms II](Solutions/00253.Meeting-Rooms-II.py) (!!M) (以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间)
