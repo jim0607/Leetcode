@@ -303,6 +303,8 @@ solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1
 - [0716. Max Stack](Solutions/0716.Max-Stack.py) (E) should be labeled hard if using double linked list and tree map
 - [0346. Moving Average from Data Stream](Solutions/0346.Moving-Average-from-Data-Stream.cs) (E) <br>
 In C#, Queue class is by default a deque, with two methods: 1. enqueue, meaning push to the back of the queue; 2. dequeue, meaning pop from the front of the queue. They are all O(1).
+- [0933. Number of Recent Calls](Solutions/0933.Number-of-Recent-Calls.cs) (E) <br>
+In C#, Count is a method that gets the number of elements contained in the Queue.
 - [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
 
 ### [Iterator](/Data-Structure.py)
