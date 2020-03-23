@@ -29,13 +29,12 @@ cache.get(4);       // returns 4
 """solution 1: use a queue to store the time-linear data and a dictionary to store the cache number, very straight forward.
 a cache实际上就是一个hashmap/dictionary"""
 class LRUCache:
-
+    
     def __init__(self, capacity: int):
         self.cache = {}
         self.q = collections.deque()    # 保存key，最recently used放在最后面，最least used放在最前面。
         self.capacity = capacity
         
-
     def get(self, key: int) -> int:
         if key not in self.cache:
             return -1
@@ -44,20 +43,17 @@ class LRUCache:
             self.q.append(key)
             return self.cache[key]
         
-
     def put(self, key: int, value: int) -> None:
-        if key not in self.cache:
+        if key not in self.cache:       # if key not in cache, put it in cache and q, and also check the size of q
             self.cache[key] = value
             self.q.append(key)
             if len(self.q) > self.capacity:
                 leastUsedKey = self.q.popleft()
                 del self.cache[leastUsedKey]
-        else:
+        else:                           # if key is in cache, then renew it's corresponding value
             self.cache[key] = value
             self.q.remove(key)      # O(N)
             self.q.append(key)
-
-
 
 
 
@@ -96,65 +92,146 @@ class LRUCache:
 """solution 3: use a double linked list and a dictionary to implment the ordereddict in solution 2
 Double linkedlist: newest node append to tail, eldest node remove from head, so that the operation is O(1)
 Hashmap: key is key, value is 以key为key的一个double linkedlist node"""
-class DLinkedList:
-
-    def __init__(self, key: int, val: int):
+class DLLNode:
+    # define a double-linked-list node, with four properties
+    def __init__(self, key, val):
         self.key = key
         self.val = val
-        self.next = None
         self.prev = None
+        self.next = None
 
 class LRUCache:
 
     def __init__(self, capacity: int):
-        self.dummyHead = DLinkedList(0, 0)    # 定义一个dummy tail 和一个 dummy head
-        self.dummyTail = DLinkedList(0, 0)
+        self.cache = {}     # key is key, val is the corresponding node
+        self.capacity = capacity
+        
+        self.dummyHead = DLLNode(0, 0)      # 定义一个dummy tail 和一个 dummy head
+        self.dummyTail = DLLNode(0, 0)
         self.dummyHead.next = self.dummyTail
         self.dummyTail.prev = self.dummyHead
-
-        self.cache = {}
-        self.capacity = capacity
-
-    # remove a node
-    def remove_node(self, node: DLinkedList):
+        
+    def removeNode(self, node: DLLNode):
         node.prev.next = node.next
         node.next.prev = node.prev
-
-    # insert a node to tail
-    def insert_to_tail(self, node: DLinkedList):
+        
+    def insertToTail(self, node: DLLNode):
         self.dummyTail.prev.next = node
         node.prev = self.dummyTail.prev
-
-        node.next = self.dummyTail
+        
         self.dummyTail.prev = node
-
-
-    # move a node to tail
-    def move_to_tail(self, node: DLinkedList): 
-        self.remove_node(node)
-        self.insert_to_tail(node)
-    
+        node.next = self.dummyTail
+        
+    def moveToTail(self, node: DLLNode):
+        self.removeNode(node)
+        self.insertToTail(node)
 
     def get(self, key: int) -> int:
-        if key not in self.cache:
-            return -1
-        else:
-            node = self.cache[key]
-            self.move_to_tail(node)
+        if key in self.cache:
+            self.moveToTail(self.cache[key])
             return self.cache[key].val
-
+        else:
+            return -1
 
     def put(self, key: int, value: int) -> None:
-        if key not in self.cache:
-            newNode = DLinkedList(key, value)
+        if key in self.cache:
+            self.cache[key].val = value
+            self.moveToTail(self.cache[key])
+        else:
+            newNode = DLLNode(key, value)
             self.cache[key] = newNode
-            self.insert_to_tail(newNode)
+            self.insertToTail(newNode)
             if len(self.cache) > self.capacity:
                 eldestNode = self.dummyHead.next
-                self.remove_node(eldestNode)
+                self.removeNode(eldestNode)
                 del self.cache[eldestNode.key]
-        else:
-            existedNode = self.cache[key]       # 注意newNode 不能直接定义一个newNode为DListNode(key, value)，因为会丢失原来那个node在链表中的位置。
-            existedNode.val = value   # 更新existed node
-            self.cache[key] = existedNode
-            self.move_to_tail(existedNode)
+                
+                
+/*
+ * @lc app=leetcode id=146 lang=csharp
+ *
+ * [146] LRU Cache
+ */
+
+// @lc code=start
+
+public class DLLNode {
+    public int key;
+    public int val;
+    public DLLNode prev;
+    public DLLNode next;
+    
+    public DLLNode(int key, int value) {
+        this.key = key;
+        this.val = value;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+public class LRUCache {
+    public int capac;
+    public Dictionary<int, DLLNode> cache;
+    public DLLNode dummyHead;
+    public DLLNode dummyTail;
+        
+    public LRUCache(int capacity) {
+        this.cache = new Dictionary<int, DLLNode>();
+        this.capac = capacity;
+
+        this.dummyHead = new DLLNode(0, 0);
+        this.dummyTail = new DLLNode(0, 0);
+        this.dummyHead.next = this.dummyTail;
+        this.dummyTail.prev = this.dummyHead;
+    }
+
+    public void removeNode(DLLNode node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+
+    public void insertToTail(DLLNode node) {
+        this.dummyTail.prev.next = node;
+        node.prev = this.dummyTail.prev;
+        this.dummyTail.prev = node;
+        node.next = this.dummyTail;
+    }
+
+    public void moveToTail(DLLNode node) {
+        removeNode(node);
+        insertToTail(node);
+    }
+    
+    public int Get(int key) {
+        if (this.cache.ContainsKey(key)) {
+            moveToTail(this.cache[key]);
+            return this.cache[key].val;
+        } else {
+            return -1;
+        }
+    }
+    
+    public void Put(int key, int value) {
+        if (this.cache.ContainsKey(key)) {
+            this.cache[key].val = value;
+            moveToTail(this.cache[key]);
+        } else {
+            DLLNode newNode = new DLLNode(key, value);
+            this.cache[key] = newNode;
+            insertToTail(newNode);
+            if (this.cache.Count() > this.capac) {
+                DLLNode eldestNode = this.dummyHead.next;
+                removeNode(eldestNode);
+                this.cache.Remove(eldestNode.key);
+            }
+        }
+    }
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.Get(key);
+ * obj.Put(key,value);
+ */
+// @lc code=end
