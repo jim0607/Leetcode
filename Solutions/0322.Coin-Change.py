@@ -17,5 +17,27 @@ class Solution:
                     dp[num] = min(dp[num - coin] + 1, dp[num])
                 
         return dp[-1] if dp[-1] != float("inf") else -1
+    
+    
+    
+public class Solution {
+    public int CoinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];    // dp[x] = the minimum amount of coin in order to sum up to x
+        for (int i = 1; i < dp.Length; i++) {
+            dp[i] = int.MaxValue;
+        }
+        
+        for (int num = 1; num < dp.Length; num++) {
+            foreach (int coin in coins) {
+                // must check dp[num - coin] != int.MaxValue otherwise int.MaxValue + 1 in the next line will become int.MinValue, something different for C#
+                if (num >= coin && dp[num - coin] != int.MaxValue) {  
+                    dp[num] = Math.Min(dp[num - coin] + 1, dp[num]);
+                }
+            }
+        }
+        
+        return dp[dp.Length - 1] == int.MaxValue ? -1 : dp[dp.Length - 1];
+    }
+}
 
 """还有BFS,DFS的算法，后面可以多思考一下"""
