@@ -25,3 +25,28 @@ class Solution:
                 minDP[i] = min(nums[i], maxDP[i - 1] * nums[i])
                 
         return max(maxDP)
+
+    
+    
+public class Solution {
+    public int MaxProduct(int[] nums) {
+        int lens = nums.Length;
+        int[] maxDP = new int[lens];  // maxDP[i]表示以i为结尾的subarray的最product
+        int[] minDP = new int[lens];
+        maxDP[0] = nums[0];
+        minDP[0] = nums[0];
+            
+        for (int i = 1; i < lens; i++) {
+            if (nums[i] >= 0) {
+                maxDP[i] = Math.Max(nums[i], nums[i] * maxDP[i - 1]);
+                minDP[i] = Math.Min(nums[i], nums[i] * minDP[i - 1]);
+            }
+            else {
+                maxDP[i] = Math.Max(nums[i], nums[i] * minDP[i - 1]);
+                minDP[i] = Math.Min(nums[i], nums[i] * maxDP[i - 1]);
+            }
+        }
+        
+        return maxDP.Max();
+    }
+}
