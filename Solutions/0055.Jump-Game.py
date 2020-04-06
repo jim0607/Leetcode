@@ -27,3 +27,25 @@ class Solution:
         return dp[-1]
     
 """TLE, should try Greedy solution with O(N), O(1)"""
+
+// C# solution does not TLE
+public class Solution {
+    public bool CanJump(int[] nums) {
+        int lens = nums.Length;
+        bool[] dp = new bool[lens];  // dp[i]表示能否调到第i个位置
+        dp[0] = true;
+        for (int i = 1; i < lens; i++) {
+            dp[i] = false;
+        }
+        
+        for (int j = 1; j < lens; j++) {
+            for (int i = 0; i < j; i++) {
+                if (dp[i] && nums[i] >= j - i) {
+                    dp[j] = true;
+                }
+            }
+        }
+        
+        return dp[lens - 1];
+    }
+}
