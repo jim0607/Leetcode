@@ -325,7 +325,7 @@ step 1: construct a heights list for each row; step 2: calculate the largestRect
 - [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!M youtubed)
 use a double linked list and a dictionary; Double linkedlist: newest node append to tail, eldest node remove from head, so that the operation is O(1); Hashmap: key is key, value is the corresponding double linkedlist node
 
-### [Heap/Heapq](/Data-Structure.py)
+### [Heap/Heapq](/Data-Structure.py) (didn't do twice cuz of C# has not PriorityQueue)
 621. Task Scheduler; for some reason C# doesn't have PriorityQueue class...
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M)
 - [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (M)
@@ -337,11 +337,11 @@ use a double linked list and a dictionary; Double linkedlist: newest node append
 
 # [Dynamic Programming](Dynamic-Programming.py)
 - [0322. Coin Change](Solutions/0322.Coin-Change.py) (!!M) <br>
-最小值问题。状态: f[X]=最少用多少枚硬币拼出X; 转移方程：f[X] = min(f[X-2]+1, f[X-5]+1, f[X-7]+1)
+最小值问题。状态: f[X]=最少用多少枚硬币拼出X; 转移方程：f[X] = min(f[X-1]+1, f[X-2]+1, f[X-5]+1, f[X])
 - [0055. Jump Game](Solutions/0055.Jump-Game.py) (!!M) <br>
 存在性问题。状态: dp[j]=能不能跳到位置j; 转移方程：dp[j]=True if dp[i] and i+nums[i]>=j) (TLE)
 - [0152. Maximum Product Subarray](Solutions/0152.Maximum-Product-Subarray.py) (M) <br>
-最大值问题。用一个数组记录最大的正数maxDP[i]，另一个数组记录最小的负数minDP[i], maxDP[i] = max(nums[i], maxDP[i-1]*nums[i]) if nums[i]>0
+最大值问题。用一个数组记录最大的正数maxDP[i]，另一个数组记录最小的负数minDP[i], maxDP[i]表示以i为结尾的subarray的最product. 分nums[i]的正负,更新maxDP[i]和minDP[i]。maxDP[i] = max(nums[i], maxDP[i-1]*nums[i]) if nums[i]>0
 
 <br> 542, <br> 1162
 
