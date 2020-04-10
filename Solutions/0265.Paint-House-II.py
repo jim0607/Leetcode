@@ -68,3 +68,48 @@ class Solution:
                     dp[i][j] = dp[i - 1][j_2] + costs[i][j]
         
         return min(dp[-1])
+      
+      
+      
+      
+// Time: O(n*k), space: O(n*k)
+class Solution {
+    public int minCostII(int[][] costs) {
+        if (costs.length == 0) return 0;
+        
+        int lens = costs.length, k = costs[0].length;
+        int[][] dp = new int[lens][k];
+        for (int i = 0; i < lens; i++) {
+            if (i == 0) {
+                dp[i] = costs[i];
+            } else {
+                // find the position for the 1st and 2nd minCost in the i-1 th row
+                int firstMinCostPos = -1; int secondMinCostPos = -1;
+                int firstMinCost = Integer.MAX_VALUE, secondMinCost = Integer.MAX_VALUE;
+                for (int j = 0; j < k; j++) {
+                    if (dp[i - 1][j] <= firstMinCost) {
+                        secondMinCost = firstMinCost; firstMinCost = dp[i - 1][j];
+                        secondMinCostPos = firstMinCostPos; firstMinCostPos = j;        
+                    } else if (dp[i - 1][j] < secondMinCost) {
+                        secondMinCost = dp[i - 1][j];
+                        secondMinCostPos = j;
+                    }
+                }
+                // apply dp algorithms to the i th row
+                for (int j = 0; j < k; j++) {
+                    if (j == firstMinCostPos) {
+                        dp[i][j] = costs[i][j] + secondMinCost;
+                    } else {
+                        dp[i][j] = costs[i][j] + firstMinCost;
+                    }
+                }
+            }
+        }
+        int minCost = Integer.MAX_VALUE;
+        for (int cost : dp[lens - 1]) {
+            minCost = Math.min(cost, minCost);
+        }
+        
+        return minCost;
+    }
+}
