@@ -38,7 +38,7 @@ Dictionary:
 
 
 Queue:
- - 新建一个Queue: Queue <int> q = new Queue <int> ();
+ - 新建一个Queue: Queue<int> q = new Queue<int>();
  - q.Equeue(val) (相当于q.append(val));  q.Dequeu() (相当于q.pop());   q.Count() (相当于len(q))
      
      
