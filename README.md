@@ -1,4 +1,6 @@
 ## 二刷：先把做过的做一遍，再把每个tag的高频前8题都做掉！
+## 用java刷题吧，因为面试需要用java写code，再结合C#里学到的OOP的知识就可以应付面试了。
+## 跟着laiOffer学吧
 
 # [Binary Search](/Binary-Search.py)
 - [0704. Binary Search](Solutions/0704.Binary-Search.py) (!!E) <br>
@@ -354,20 +356,20 @@ use a double linked list and a dictionary; Double linkedlist: newest node append
 dp[i][j]=the minimum path sum to (i, j); dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j])
 - [0120. Triangle](Solutions/0120.Triangle.py) (M) <br>
 dp[i][j] = min(triangle[i][j] + dp[i-1][j], triangle[i][j] + dp[i-1][j-1])
-
-
-
-
 - [0221. Maximal Square](Solutions/0221.Maximal-Square.py) (M) <br>
 dp[i][j]=以(i, j)为右下角的最大正方形的边长; dp[i][j]=min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]) + 1 if matrix[i][j]=1 
 - [0403. Frog Jump](Solutions/0403.Frog-Jump.py) (M) <br>
-dp[stone]为set，记录青蛙可以通过哪些步跳到stone。用bottom up方法。状态转移方程为：跳k-1到stone+k-1: dp[stone+k-1].add(k-1); 跳k到stone+k: dp[stone+k].add(k); 跳k+1到stone+k+1: dp[stone+k+1].add(k+1)
+dp[stone]为set，记录青蛙可以通过哪些步跳到stone。用bottom up方法。状态转移方程为：跳k-1到stone+k-1: dp[stone+k-1].add(k-1); 跳k到stone+k: dp[stone+k].add(k); 跳k+1到stone+k+1: dp[stone+k+1].add(k+1). return dp[last stone] is not empty
 
 ### [序列型DP](/Dynamic-Programming.py)
 - [0256. Paint House](Solutions/0256.Paint-House.py) (E) <br>
 dp[i][j] means the minimum cost to paint house i to be color j; dp[i][0] = costs[i][0] + min(dp[i-1][1], dp[i-1][2])
 - [0265. Paint House II](Solutions/0265.Paint-House-II.py) (E) <br> 
-dp[i][j]=minimum cost to paint the ith house the be color j; dp[i][j] = tempMin + costs[i][j])
+dp[i][j]=minimum cost to paint the ith house the be color j; dp[i][j] = minInThe(i-1)thRow + costs[i][j], need to find the position for the 1st and 2nd minCost in the i-1 th row
+
+
+
+
 - [0198. House Robber](Solutions/0198.House-Robber.py) (E) <br>
 f[i]=the max profit when reaching ith house; f[i] = max(rob ith = f[i-2]+nums[i], not rob ith = f[i-1]) <br>
 空间优化：dp[i] 之和 dp[i-2]与dp[i-1]有关，所以可以用prevMax和currMax来代表dp[i-2]与dp[i-1]
