@@ -28,7 +28,7 @@ From the top-left corner, there are a total of 3 ways to reach the bottom-right 
 • 状态：设f[i][j]为机器人有多少种方式从左上角走到(i, j)"""
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
-        dp = [[0]*n for _ in range(m)]      # 确定状态：f[i][j]为机器人有多少种方式从左上角走到(i, j)
+        dp = [[0] * n for _ in range(m)]      # 确定状态：f[i][j]为机器人有多少种方式从左上角走到(i, j)
         for i in range(m):                  # 初始条件：只有一种方法走到行为0或者列为0的地方，因为不能往左走也不能往上走
             dp[i][0] = 1
         for j in range(n):
