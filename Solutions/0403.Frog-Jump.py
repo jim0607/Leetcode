@@ -52,6 +52,30 @@ class Solution:
         return False if len(dpSet[stones[-1]]) == 0 else True
 
 
+class Solution {
+    public boolean canCross(int[] stones) {
+        HashMap<Integer, Set<Integer>> dpMap = new HashMap<>();  // dp[stone]为set，记录青蛙可以通过哪些步跳到stone
+        for (int stone : stones) {
+            dpMap.put(stone, new HashSet<Integer>());
+        }
+        
+        dpMap.get(0).add(0);
+        
+        for (int stone : stones) {
+            for (int k : dpMap.get(stone)) {
+                if (k - 1 > 0 && dpMap.containsKey(stone + k - 1)) {
+                    dpMap.get(stone + k - 1).add(k - 1);
+                } if (dpMap.containsKey(stone + k)) {
+                    dpMap.get(stone + k).add(k);
+                } if (dpMap.containsKey(stone + k + 1)) {
+                    dpMap.get(stone + k + 1).add(k + 1);
+                }
+            }
+        }
+        return dpMap.get(stones[stones.length - 1]).size() != 0;
+    }
+}
+
 
 
 """f[k][i]=能否用k步跳到位置i; the last jump is from j to i using k steps then j = dictStones[stones[i] - k]; f[k][i]=True if case 1: last jump was k-1步: f[k-1][i-dict[A[i-(k-1)]]] = True or case 2: last jump was k步: f[k][i-dict[A[i-k]]] = True or case 3: last jump was k+1步: f[k+1][i-dict[A[i-(k+1)]]] = True
