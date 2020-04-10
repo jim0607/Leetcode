@@ -38,3 +38,30 @@ class Solution:
                 maxArea = max(maxArea, dp[i][j]**2)
                     
         return maxArea
+
+    
+class Solution {
+    public int maximalSquare(char[][] matrix) {
+        int m = matrix.length, n = m > 0 ? matrix[0].length : 0;
+        int[][] dp = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == 0 || j == 0) {
+                    dp[i][j] = matrix[i][j] == '1' ? 1 : 0;
+                } else if (matrix[i][j] == '1') {
+                    dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + 1;
+                    dp[i][j] = Math.min(dp[i - 1][j - 1] + 1, dp[i][j]);
+                }
+            }
+        }
+        
+        int maxLen = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                maxLen = Math.max(maxLen, dp[i][j]);
+            }
+        }
+        
+        return maxLen * maxLen;
+    }
+}
