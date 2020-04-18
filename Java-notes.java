@@ -19,6 +19,8 @@ List basics:
 7. for each loop in Java:
    for (int coin : coins) {          // 相当于python中的for coin in coins
    }
+8. Java中写dp[-1]会报错"Index -1 out of bound",
+9. listA.add(item); listA.add(pos, item)
 
 
 Set:
@@ -53,7 +55,7 @@ String:
 运算符：
 && : Conditional And, Same as &, but if the operand on the left returns false, it returns false without evaluating the operand on the right.
 || : Conditional Or, Same as |, but if the operand on the left returns true, it returns true without evaluating the operand on theright.
-
+int 6 / 4 returns 1; double 6 / 4 returns 1.5; 
     
     
 
@@ -73,12 +75,6 @@ public class DLLNode {
     }
 }
 
-
-Dictionary:
- - 新建一个Dictionary, key是int, value是一个DLLNode: Dictionary<int, DLLNode> dict = new Dictionary<int, DLLNode>();
- - check if key is in a dicitonary: dict.ContainsKey(key)
- - size of dictionary: dict.Count() (相当于len(dict))
- - remove a (key, value) pair in dictionary: dict.Remove(key);
 
 
 Queue:
