@@ -28,3 +28,20 @@ class Solution {
         return dp[lens - 1];
     }
 }
+
+
+class Solution {
+    public int rob(int[] nums) {
+        int lens = nums.length;
+        if (lens == 0) return 0;
+        
+        int prevMax = 0, currMax = 0;
+        
+        for (int num : nums) {
+            int tempMax = currMax;
+            currMax = Math.max(currMax, prevMax + num);
+            prevMax = tempMax;
+        }
+        return currMax;
+    }
+}
