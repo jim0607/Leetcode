@@ -366,10 +366,6 @@ dp[stone]为set，记录青蛙可以通过哪些步跳到stone。用bottom up方
 dp[i][j] means the minimum cost to paint house i to be color j; dp[i][0] = costs[i][0] + min(dp[i-1][1], dp[i-1][2])
 - [0265. Paint House II](Solutions/0265.Paint-House-II.py) (E) <br> 
 dp[i][j]=minimum cost to paint the ith house the be color j; dp[i][j] = minInThe(i-1)thRow + costs[i][j], need to find the position for the 1st and 2nd minCost in the i-1 th row
-
-
-
-
 - [0198. House Robber](Solutions/0198.House-Robber.py) (E) <br>
 f[i]=the max profit when reaching ith house; f[i] = max(rob ith = f[i-2]+nums[i], not rob ith = f[i-1]) <br>
 空间优化：dp[i] 之和 dp[i-2]与dp[i-1]有关，所以可以用prevMax和currMax来代表dp[i-2]与dp[i-1]
@@ -382,9 +378,12 @@ Only one transaction is allowed.  Maintain a minPrice and a maxProfit; maxProfit
 - [0122. Best Time to Buy and Sell Stock II](Solutions/0122.Best-Time-to-Buy-and-Sell-Stock-II.py) (E) <br>
 As many transaction as possible.  make a transaction every time price[i]>price[i-1]
 - [0123. Best Time to Buy and Sell Stock III](Solutions/0123.Best-Time-to-Buy-and-Sell-Stock-III.py) (H) <br>
-Only two transactions are allowed.  Maintain buy1=the minimum money you can own after the first buy, sell1=the maximum money you can earn after the first sell, also, buy2, sell2, and update them together in a for loop
+Only two transactions are allowed.  Maintain buy1=the minimum money you can own after the first buy, sell1=the maximum money you can earn after the first sell, also, buy2, sell2, and update them together in a for loop, 算法只是把121中的算法重复两次而已,java版本更清楚。
 - [0188. Best Time to Buy and Sell Stock IV](Solutions/0188.Best-Time-to-Buy-and-Sell-Stock-IV.py) (H) <br>
-Only k transactions are allowed.   Maintain buy=[]*k, sell=[]*k, and update them together in a for loop
+Only k transactions are allowed.   Maintain buy=[]*k, sell=[]*k, and update them together in a for loop.  Solve the memory overflow problem: if k>prices.length/2, then it is the same as 122.
+
+
+
 - [0309. Best Time to Buy and Sell Stock with Cooldown](Solutions/0309.Best-Time-to-Buy-and-Sell-Stock-with-Cooldown.py) (M) <br>
 Has to rest for one day before buy another stock.  **分两个状态: hold and unhold**: hold[i]=第i天有股票在手状态下的最大收益； unhold[i]=第i天没有股票在手状态下的最大收益 <br>
 hold[i] = max(hold[i-1], unhold[**i-2**]-prices[i]); unhold[i] = max(unhold[i-1], hold[i-1] + prices[i])
