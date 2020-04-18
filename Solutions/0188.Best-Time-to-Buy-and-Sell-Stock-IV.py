@@ -30,3 +30,40 @@ class Solution:
                 sell[i] = max(sell[i], price - buy[i])      # sell[i] = the maximum money you can earn after the ith purchase
                 
         return sell[-1]
+
+    
+# solve the memory overflow problem below.
+    
+class Solution {
+    public int maxProfit(int k, int[] prices) {
+        int lens = prices.length;
+        if (k == 0 || lens <= 1) return 0;
+        
+        // if k >= lens / 2, then the problem becomes 122, where you can make as much transactions as possible
+        if (k >= lens / 2) {
+            int maxPr = 0;
+            for (int i = 1; i < lens; i++) {
+                if (prices[i] > prices[i - 1]) {
+                    maxPr += prices[i] - prices[i - 1];
+                }
+            }
+            return maxPr;
+        }
+
+        // if k < lens / 2, then we don't need to worry about the memory overflow problem anymore
+        int[] minPrice = new int[k];
+        int[] maxProf = new int[k];
+        for (int i = 0; i < k; i++) {
+            minPrice[i] = Integer.MAX_VALUE;    // # note that this leads to memory reaches maximum error when k is large; that is why we do the above checking k > lens / 2
+        }
+        for (int price : prices) {
+            minPrice[0] = Math.min(minPrice[0], price);
+            maxProf[0] = Math.max(maxProf[0], price - minPrice[0]);
+            for (int j = 1; j < k; j++) {
+                minPrice[j] = Math.min(minPrice[j], price - maxProf[j - 1]);
+                maxProf[j] = Math.max(maxProf[j], price - minPrice[j]);
+            }
+        }
+        return maxProf[k - 1];
+    }
+}
