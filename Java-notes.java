@@ -56,28 +56,3 @@ String:
 && : Conditional And, Same as &, but if the operand on the left returns false, it returns false without evaluating the operand on the right.
 || : Conditional Or, Same as |, but if the operand on the left returns true, it returns true without evaluating the operand on theright.
 int 6 / 4 returns 1; double 6 / 4 returns 1.5; 
-    
-    
-
-定义一个新的class的方法：
-// eg: 定义一个class DLLNode, 带有四个properties
-public class DLLNode {
-    public int key;       // 四个 property 要提前列出来
-    public int val;
-    public DLLNode prev;
-    public DLLNode next;
-
-    public DLLNode(int key, int value) {    // 相当于 def __init__(key, value)
-        this.key = key;                     // 相当于self.key = key
-        this.val = value;
-        this.prev = null;
-        this.next = null;
-    }
-}
-
-
-
-Queue:
- - 新建一个Queue: Queue<int> q = new Queue<int>();
- - q.Equeue(val) (相当于q.append(val));  q.Dequeu() (相当于q.pop());   q.Count() (相当于len(q))
-     
