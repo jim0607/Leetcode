@@ -1,5 +1,5 @@
 ## 二刷：先把做过的做一遍，再把每个tag的高频前8题都做掉！
-## 用java刷题吧，因为面试需要用java写code，再结合C#里学到的OOP的知识就可以应付面试了。
+## 用Python刷题，Python快多了，重点是掌握算法，OOP project可以是Java做的那个HARDM。
 
 # [Binary Search](/Binary-Search.py)
 - [0704. Binary Search](Solutions/0704.Binary-Search.py) (!!E) <br>
