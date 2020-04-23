@@ -1,6 +1,5 @@
 ## 二刷：先把做过的做一遍，再把每个tag的高频前8题都做掉！
 ## 用java刷题吧，因为面试需要用java写code，再结合C#里学到的OOP的知识就可以应付面试了。
-## 跟着laiOffer学吧
 
 # [Binary Search](/Binary-Search.py)
 - [0704. Binary Search](Solutions/0704.Binary-Search.py) (!!E) <br>
@@ -381,9 +380,6 @@ As many transaction as possible.  make a transaction every time price[i]>price[i
 Only two transactions are allowed.  Maintain buy1=the minimum money you can own after the first buy, sell1=the maximum money you can earn after the first sell, also, buy2, sell2, and update them together in a for loop, 算法只是把121中的算法重复两次而已,java版本更清楚。
 - [0188. Best Time to Buy and Sell Stock IV](Solutions/0188.Best-Time-to-Buy-and-Sell-Stock-IV.py) (H) <br>
 Only k transactions are allowed.   Maintain buy=[]*k, sell=[]*k, and update them together in a for loop.  Solve the memory overflow problem: if k>prices.length/2, then it is the same as 122.
-
-
-
 - [0309. Best Time to Buy and Sell Stock with Cooldown](Solutions/0309.Best-Time-to-Buy-and-Sell-Stock-with-Cooldown.py) (M) <br>
 Has to rest for one day before buy another stock.  **分两个状态: hold and unhold**: hold[i]=第i天有股票在手状态下的最大收益； unhold[i]=第i天没有股票在手状态下的最大收益 <br>
 hold[i] = max(hold[i-1], unhold[**i-2**]-prices[i]); unhold[i] = max(unhold[i-1], hold[i-1] + prices[i])
