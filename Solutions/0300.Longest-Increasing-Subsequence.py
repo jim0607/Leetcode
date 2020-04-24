@@ -47,7 +47,9 @@ class Solution:
                 maxLen += 1
                 
         return maxLen
-    
+ 
+
+# 不用python自带的包
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
         # dp[i] = the length of LIS ended with ith num
