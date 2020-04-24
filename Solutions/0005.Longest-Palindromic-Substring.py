@@ -1,31 +1,35 @@
 """经典的区间型动态规划 
 给定一些序列/字符串，进行一些操作，求满足区间[i, j]的一些性质的题目
 自然而然将状态定义为f[i][j]表示面对子序列[i, j]时的最佳性质。dp[i][j]=from i to j (including j), is it a palindr?
-if s[i] == s[j] and (j - i <= 2 or dp[i + 1][j - 1]): dp[i][j] = True"""
+if s[i] == s[j]: dp[i][j] = True"""
+
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        if not s or len(s) == 1:
+        lens = len(s)
+        if lens <= 1:
             return s
-                
-        lens = len(s)       
-        dp = [[False] * lens for _ in range(lens)]      # dp[i][j]=from i to j (including j), is it a palindr?
         
-        dp[0][0] = True
+        dp = [[False] * lens for _ in range(lens)]  # dp[i][j]=from i to j (including j), is it a palindr?
+        for i in range(lens):
+            dp[i][i] = True
+            if i + 1 < lens:
+                dp[i][i + 1] = (s[i] == s[i + 1])   # 初始化对角线和相邻的
         
-        maxLen = 0
-        res = s[0]    # 初始化为s[0]的原因是如果完全找不到一个回子串的话，至少要输出第一个元素
-        for j in range(1, lens):
-            dp[j][j] = True     # 初始化对角线
-            
-            for i in range(j - 1, -1, -1):         # 注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)        
-                if s[i] == s[j] and (j - i <= 2 or dp[i + 1][j - 1]):
-                    dp[i][j] = True
+        for i in range(lens - 3, -1, -1):       # 注意初始化的是对角线，因为计算dp[i][j需要用到dp[i+1][j-1]，所以要先算i+1, 再算i，所以i 是倒序遍历
+            for j in range(i + 2, lens):
+                if s[i] == s[j]:
+                    dp[i][j] = dp[i + 1][j - 1]
                     
+        maxLen = 1
+        maxLenSubStr = s[0]
+        for i in range(lens):
+            for j in range(lens - 1, -1, -1):
+                if dp[i][j]:
                     if j - i + 1 > maxLen:
+                        maxLenSubStr = s[i: j + 1]
                         maxLen = j - i + 1
-                        res = s[i:j + 1]
-        
-        return res
+                        
+        return maxLenSubStr
 
 
 """
