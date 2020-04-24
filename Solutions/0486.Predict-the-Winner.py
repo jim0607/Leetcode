@@ -15,15 +15,19 @@ Hence, player 1 will never be the winner and you need to return False.
 f[i][j] = max(取左边A[i]-f[i+1][j], 取右边A[j]-f[i][j-1])"""
 class Solution:
     def PredictTheWinner(self, nums: List[int]) -> bool:
-        if not nums:
-            return False
+        # dp[i][j]=the first taker can win by how much if the left stones are [i to j]
+        # dp[i][j]=max(nums[i]-dp[i+1][j], nums[j]-dp[i][j-1])
         
         lens = len(nums)
-        dp = [[False] * lens for _ in range(lens)]
+        if lens <= 2:
+            return True
         
-        for i in range(lens - 1, -1, -1):
+        dp = [[0] * lens for _ in range(lens)]
+        for i in range(lens):
             dp[i][i] = nums[i]
-            for j in range(i + 1, lens):
+            
+        for j in range(1, lens):
+            for i in range(j - 1, -1, -1):
                 dp[i][j] = max(nums[i] - dp[i + 1][j], nums[j] - dp[i][j - 1])
                 
         return dp[0][lens - 1] >= 0
