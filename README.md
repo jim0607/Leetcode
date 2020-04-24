@@ -1,5 +1,5 @@
 ## 二刷：先把做过的做一遍，再把每个tag的高频前8题都做掉！
-## 用Python刷题，Python快多了，重点是掌握算法，OOP project可以是Java做的那个HARDM。
+## 用Python刷题，公司也都是用Python，Python快多了，重点是掌握算法，OOP project可以说是Java做的那个HARDM。
 
 # [Binary Search](/Binary-Search.py)
 - [0704. Binary Search](Solutions/0704.Binary-Search.py) (!!E) <br>
