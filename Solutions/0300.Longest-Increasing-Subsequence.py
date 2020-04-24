@@ -73,25 +73,24 @@ class Solution:
         lens = len(nums)
         if lens <= 1:
             return lens
-            
-        dp = [-float("inf")] * lens
-        dp[0] = nums[0]
         
-        res = 1
-        for i, num in enumerate(nums):
+        dp = [nums[0]]
+        for num in nums:
             if num <= dp[0]:
                 dp[0] = num
-                
-            elif num > dp[res - 1]:
-                dp[res] = num
-                res += 1
-                
+            elif num > dp[-1]:
+                dp.append(num)
             else:
-                dp[: res] = self.replaceItem(num, dp[: res])
-            
-        return res
+                self.replace(dp, num)
+                
+        return len(dp)
     
-    def replaceItem(self, num, arr):
+    def replace(self, arr, num):
+        """
+        replace an item in arr
+        the arr is sorted acsendingly, and the arr is not none
+        return void
+        """
         start, end = 0, len(arr) - 1
         while start + 1 < end:
             mid = start + (end - start) // 2
@@ -101,5 +100,3 @@ class Solution:
                 end = mid
                 
         arr[end] = num
-            
-        return arr
