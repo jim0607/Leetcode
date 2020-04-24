@@ -19,23 +19,24 @@ dp[j][index of (A[i]+A[j])]=dp[i][j]+1
 index of (A[i]+A[j])是(A[i]+A[j])在A中的位置，为了快速得到index of (A[i]+A[j])，可以用一个dict存储索引"""
 class Solution:
     def lenLongestFibSubseq(self, A: List[int]) -> int:
-        if not A:
+        lens = len(A)
+        if lens <= 2:
             return 0
         
-        lens = len(A)
-        indexDict = {}
-        for index, num in enumerate(A):
-            indexDict[num] = index
-            
-        dp = [[2] * lens for _ in range(lens)]
+        dp = [[2] * lens for _ in range(lens)]  # dp[i][j]=the length of Fib ended with i -> j
         
+        idxDict = collections.defaultdict(int)
+        for idx, num in enumerate(A):
+            idxDict[num] = idx
+            
         maxLen = 2
-        for j in range(lens):
-            for i in range(j):
-                if A[i] + A[j] in indexDict.keys():
-                    dp[j][indexDict[A[i]+A[j]]] = dp[i][j] + 1
-                    
-                    maxLen = max(maxLen, dp[j][indexDict[A[i]+A[j]]])
+        for i in range(lens - 1):
+            for j in range(i + 1, lens):
+                if A[i] + A[j] in idxDict.keys():
+                    idx = idxDict[A[i] + A[j]]
+                    dp[j][idx] = max(dp[j][idx], dp[i][j] + 1)
+
+                    maxLen = max(maxLen, dp[j][idx])
                     
         return maxLen if maxLen > 2 else 0
  
