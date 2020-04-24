@@ -16,21 +16,21 @@ One possible longest palindromic subsequence is "bbbb".
 注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i"""
 class Solution:
     def longestPalindromeSubseq(self, s: str) -> int:
-        if not s:
-            return 0
-        
         lens = len(s)
-        dp = [[0] * lens for _ in range(lens)]
+        if lens <= 1:
+            return lens
         
-        dp[0][0] = 1
-        
+        dp = [[1] * lens for _ in range(lens)]     # longest palindr subsequence from i to j, including i and j
+        for i in range(lens):
+            dp[i][i] = 1
+            if i + 1 < lens:
+                dp[i][i + 1] = 2 if s[i] == s[i + 1] else 1
+                
         for j in range(1, lens):
-            dp[j][j] = 1        # initialize 对角线
-            
-            for i in range(j - 1, -1, -1):     # 因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i          
+            for i in range(j - 2, -1, -1):      ## 注意 i 要倒序遍历
                 if s[i] == s[j]:
                     dp[i][j] = dp[i + 1][j - 1] + 2
-                    
+                
                 else:
                     dp[i][j] = max(dp[i + 1][j], dp[i][j - 1])
                     
