@@ -34,7 +34,7 @@ class Solution:
             for j in range(i + 1, lens):
                 if A[i] + A[j] in idxDict.keys():
                     idx = idxDict[A[i] + A[j]]
-                    dp[j][idx] = max(dp[j][idx], dp[i][j] + 1)
+                    dp[j][idx] = dp[i][j] + 1
 
                     maxLen = max(maxLen, dp[j][idx])
                     
