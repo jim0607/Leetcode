@@ -30,7 +30,23 @@ class Solution:
         return res
 """O(N^2), O(N^2)"""
 
-
+class Solution:
+    def longestArithSeqLength(self, A: List[int]) -> int:        
+        lens = len(A)
+        if lens <= 2:
+            return lens
+        
+        dp = [collections.defaultdict(lambda: 1) for _ in range(lens)]
+        
+        maxLen = 1
+        for j in range(1, lens):
+            for i in range(j):
+                diff = A[j] - A[i]
+                dp[j][diff] = max(dp[j][diff], dp[i][diff] + 1)   # 为什么这里不报错呢？如果dp[i][diff]不存在怎么办
+                    
+                maxLen = max(dp[j][diff], maxLen)
+                    
+        return maxLen
 
 """暴力法：O(N^3), O(N)
 思路：
