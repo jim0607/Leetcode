@@ -14,7 +14,26 @@ Input: "12"
 Output: 2
 Explanation: It could be decoded as "AB" (1 2) or "L" (12).
 
+    
+"""经典的dp题，很容易想到。
+不考虑繁琐的edge case和可能的0的存在的话，下面的code就是对的"""
+class Solution:
+    def numDecodings(self, s: str) -> int:
+        lens = len(s)
+        dp = [1] * (lens + 1)
+        
+        for j in range(2, lens + 1):
+            if int(s[j - 2: j]) > 26:
+                dp[j] = dp[j - 1]
+                
+            else:
+                dp[j] = dp[j - 2] + dp[j -1]
+                
+        return dp[lens]
+    
+  
 
+"""下面是考虑edge case和0d的存在的情况，注意40输出的是0, 20输出的是1"""
 """
 1423
 if we want to know the decode ways to 3 (include 3), 我们可以从3那里划分，求出142的decode ways M个，也可以从2那里划分，求出14的decode ways N个. 那么decode ways to 3就有M+N个
@@ -51,20 +70,3 @@ class Solution:
             return True if 0 < int(s) <= 26 else False
         else:
             return True if 0 < int(s) <= 26 and int(s[0]) != 0 else False
-            
-"""经典的dp题，很容易想到。
-不考虑繁琐的edge case的话，下面的code就是对的"""
-class Solution:
-    def numDecodings(self, s: str) -> int:
-        lens = len(s)
-        if lens <= 1:
-            return lens
-        dp = [0]*lens
-        dp[0] = 1
-        dp[1] = 1 if int(s[:1]) > 26 else 2
-        for i in range(2, lens):
-            if int(s[i-1:i+1]) <= 26:
-                dp[i] = dp[i-1] + dp[i-2]
-            else:
-                dp[i] = dp[i-1]
-        return dp[lens-1]
