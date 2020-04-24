@@ -85,19 +85,24 @@ return f[target]
 """
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
+        # dp[m]=how many ways to add to m
+        # dp[m] += dp[m-num] for num in numsand m>=num
+        # dp[0] = 0
+        # return dp[target]
+        
         lens = len(nums)
         dp = [0] * (target + 1)
-        
         dp[0] = 1
         
-        for i in range(1, target + 1):
+        for m in range(target + 1):
             for num in nums:
-                if i >= num:
-                    dp[i] += dp[i - num]
+                if m >= num:
+                    dp[m] += dp[m - num]
                     
         return dp[target]
 
-"""为什么这样就是错的呢"""
+"""为什么这样就是错的呢
+### 因为思路不对，我们每次更新的是dp[i]，所以每一个循环更新一次。总共更新n次就对了。"""
 """
 不要求输出所有的combination，所以除了dfs，还有更快的方法：背包问题。
 如果问题要求用i个数加在一起拼出target，那么多半是背包问题。
