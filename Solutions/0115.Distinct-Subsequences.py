@@ -19,29 +19,29 @@ rabbbit
 ^^^ ^^^
 
 
-"""f[i][j]=B前i个字符B[0..i)在A前j个字符A[0..j)中出现多少次
-f[i][j] += f[i][j-1]; if B[i-1]=A[j-1] += f[i-1][j-1] + f[i][j-1]"""
+# dp[i][j] = the number of discinct subeseq until ith char in s and jth char in t
+# if s[i]!=t[j], dp[i][j] = dp[i - 1][j]  eg: rab, ra
+# else: rabb, rab, dp[i][j] = dp[i-1][j] + dp[i-1][j-1], 品，细品！
 class Solution:
     def numDistinct(self, s: str, t: str) -> int:
-        m, n = len(s), len(t)
-        if m < n:
+        # dp[i][j] = the number of discinct subeseq until ith char in s and jth char in t
+        # if s[i]!=t[j], dp[i][j] = dp[i - 1][j]  eg: rab, ra
+        # else: rabb, rab, dp[i][j] = dp[i-1][j] + dp[i-1][j-1], 品，细品！
+        # dp[0][0]=1 , dp[0][i] = 0, dp[i][0] = 1, dp[i][j>i] = 0
+        
+        lens1, lens2 = len(s), len(t)
+        if lens1 == 0 or lens2 == 0:
             return 0
         
-        dp = [[0] * (m + 1) for _ in range(n + 1)]
-        
-        for i in range(n + 1):
-            if i == 0:
-                dp[i] = [1] * (m + 1)
-                continue
+        dp = [[0] * (lens2 + 1) for _ in range(lens1 + 1)]
+        for i in range(lens1):
+            dp[i][0] = 1
                 
-            for j in range(m + 1):
-                if j == 0:
-                    dp[i][j] = 0
-                    continue
+        for i in range(1, lens1 + 1):
+            for j in range(1, lens2 + 1):
+                if s[i - 1] != t[j - 1]:
+                    dp[i][j] = dp[i - 1][j]
+                else:
+                    dp[i][j] = dp[i - 1][j] + dp[i - 1][j - 1]  # eg: rabb, rab
                     
-                if t[i - 1] == s[j - 1]:
-                    dp[i][j] += dp[i - 1][j - 1]
-
-                dp[i][j] += dp[i][j - 1]    # 注意这一句不要写到else里面去了
-                    
-        return dp[n][m]
+        return dp[lens1][lens2]
