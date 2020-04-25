@@ -39,3 +39,48 @@ class Solution:
                     dp[i][t] = dp[i][t] or dp[i - 1][t- nums[i -1]]
                     
         return dp[lens][target]
+       
+       
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        # select some nums to sum up to sum/2, if sum/2 is not int, then not possible
+        # dp[i][s] = can selecet from 0th to ith number to ad to s?
+        # dp[i][s] = true if dp[i-1][s] is true
+        # if dp[i-1][s] is false: dfp[i][s]=dp[i][s-num]
+        # dp[0][s]=false, dp[i][0]=false, dp[0][0] = true
+        # return dp[lens][sum/2]
+        
+#         # 1  2  5
+#           0 1 2 3 4     s
+# #      0  T F F F F 
+# #      1  T T F F F
+# #      2  T T T T F
+# #      3  T T T T F
+# #      i
+        
+        lens = len(nums)
+        if lens <= 1:
+            return False
+        
+        totalSum = sum(nums)
+        if totalSum % 2 != 0:
+            return False
+        
+        target = totalSum // 2
+        
+        dp = [[False] * (target + 1) for _ in range(lens + 1)]
+        dp[0][0] = True
+        
+        for i in range(1, lens + 1):
+            for s in range(target + 1):
+                if s == 0:
+                    dp[i][s] = True
+                    continue
+                    
+                if dp[i - 1][s]:
+                    dp[i][s] = True
+                else:
+                    if s >= nums[i - 1] and dp[i - 1][s - nums[i - 1]]:
+                        dp[i][s] = True
+                        
+        return dp[lens][target]
