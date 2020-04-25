@@ -21,27 +21,22 @@ heapq, heapq中放入的是(freq, key)对
 需要一个cntDict来记录cnt先"""
 
 import heapq
+
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        if not nums:
-            return nums
-        
-        cntDict = {}
-        for num in nums:                            # O(N)
-            if num in cntDict.keys():
-                cntDict[num] += 1
-            else:
-                cntDict[num] = 1
-                
-        heap = []
+        freqDict = collections.defaultdict(int)
+        for num in nums:        # O(N)
+            freqDict[num] += 1
+            
         # algorithm is the same as 215: Kth largest element in array
-        for num, freq in cntDict.items():           # O(C), C is the size of cntDict
-            heapq.heappush(heap, (freq, num))       # O(K), K is the size of heap
-            if len(heap) > k:
-                heapq.heappop(heap)
-                
+        freqHeapq = []
+        for num, freq in freqDict.items():          # # O(C), C is the size of cntDict
+            heapq.heappush(freqHeapq, (freq, num))  #把freq放在num前面是为了用freq作为标准来做heap的排序, O(K), K is the size of heap
+            if len(freqHeapq) > k:
+                heapq.heappop(freqHeapq)
+        
         res = []
-        for freq, num in heap:
+        for (freq, num) in freqHeapq:
             res.append(num)
             
-        return res[::-1]                        # O(K)
+        return res[::-1]        # O(K)
