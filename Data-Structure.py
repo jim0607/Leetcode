@@ -68,6 +68,7 @@ import heapq
 
 list = [1,5,3,2,8,5]
 heapq.heapify(list)           # heapq.heapify(list) 往往用于创建堆, 将list 转换成堆，原地，线性时间O(N)。
+or define a listHeapq = [], and push in one by one
 heapq[0]                      # O(1) 只访问最小的元素而不弹出它。
 heapq.heappop(list)           # O(logN) 弹出并返回 heap 的最小的元素，保持堆的不变性。如果堆为空，抛出 IndexError 。
 heapq.heappush(list, item)    # O(logN) 将 item 的值加入 heap 中。
