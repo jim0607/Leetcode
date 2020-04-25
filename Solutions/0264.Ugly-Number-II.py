@@ -38,24 +38,22 @@ import heapq
 
 class Solution:
     def nthUglyNumber(self, n: int) -> int:
-        if n < 0:
-            return None
-
-        res = []
-        seen = set()
         heap = []
         heapq.heappush(heap, 1)
-
-        for _ in range(1690):
-            minNum = heapq.heappop(heap)
-            n -= 1
-            if n == 0:
-                return minNum
-
+        seen = set()
+        seen.add(1)
+        
+        for _ in range(n):
+            currMin = heapq.heappop(heap)
+            
             for num in [2, 3, 5]:
-                newNum = minNum * num
+                newNum = currMin * num
+                
                 if newNum not in seen:
-                    seen.add(newNum)
                     heapq.heappush(heap, newNum)
+                    seen.add(newNum)
+                    
+        return currMin
+        
         
 # @lc code=end
