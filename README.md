@@ -322,18 +322,25 @@ save index in the monoStack, as height may have the same value; based on the hei
 step 1: construct a heights list for each row; step 2: calculate the largestRectangularHistogram of each height using the same method in 84
 
 
-### [Hashmap/Dictionary](/Data-Structure.py)
-- [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!M youtubed)
+### [Hashmap/Dictionary](/Data-Structure.py) 
+- [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!M youtubed) <br>
 use a double linked list and a dictionary; Double linkedlist: newest node append to tail, eldest node remove from head, so that the operation is O(1); Hashmap: key is key, value is the corresponding double linkedlist node
 
-### [Heap/Heapq](/Data-Structure.py) (didn't do twice cuz of C# has not PriorityQueue)
-621. Task Scheduler; for some reason C# doesn't have PriorityQueue class...
-- [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M)
-- [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (M)
-- [0253. Meeting Rooms II](Solutions/00253.Meeting-Rooms-II.py) (!!M) (以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间)
-- [0973. K Closest Points to Origin](Solutions/0973.K-Closest-Points-to-Origin.py) (M) （以squre来构建heap就可以了，heap中的元素是(square, point)）
-- [0378. Kth Smallest Element in a Sorted Matrix](Solutions/0378.Kth-Smallest-Element-in-a-Sorted-Matrix.py) (M)
-- [0264. Ugly Number II](Solutions/0264.Ugly-Number-II.py) (M)
+### [Heap/Heapq](/Data-Structure.py) 
+- [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M) <br>
+time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的push 和pop都是logK; heapq适合做第K大，第K小，前K大，前K小问题
+- [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (M) <br>
+需要一个freqDict来记录每个数出现的freq， heapq, heapq中放入的是(freq, key)对; 按照freq来做heapq，这样就保证了可以筛选出most freqent k item
+- [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
+以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
+- [0973. K Closest Points to Origin](Solutions/0973.K-Closest-Points-to-Origin.py) (M) <br>
+（以squre来构建heap就可以了，heap中的元素是(square, point)）
+- [0378. Kth Smallest Element in a Sorted Matrix](Solutions/0378.Kth-Smallest-Element-in-a-Sorted-Matrix.py) (!!M) <br>
+利用sorted matrix的性质，从左上角第一个元素开始，添加进heap，然后heap当然自动排序了，然后pop出最小的，然后把最小的那个数的右边和下边的元素分别入heap，这样可以保证每次pop出来的都是最小的。1. use a heap to store (num, row, col); 2. use a set to check if row + 1, col + 1 visited already before push into the heap
+- [0621. Task Scheduler](Solutions/0621.Task-Scheduler.py) (!!M) <br>
+I have to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
+- [0264. Ugly Number II](Solutions/0264.Ugly-Number-II.py) (M) <br>
+维护一个heapq，让它记录从小到大的ugly number, 每次pop出一个currMin，然后生成三个数2*currMin, 3*currMin, 5*currMin, 如果not in seen, 就push进heapq
 
 
 # [Dynamic Programming](Dynamic-Programming.py)
