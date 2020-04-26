@@ -1,6 +1,151 @@
 ## 二刷：先把做过的做一遍，再把每个tag的高频前8题都做掉！
 ## 用Python刷题，公司也都是用Python，Python快多了，重点是掌握算法，OOP project可以说是Java做的那个HARDM。
 
+
+
+# [Dynamic Programming](Dynamic-Programming.py)
+- [0322. Coin Change](Solutions/0322.Coin-Change.py) (!!M) <br>
+最小值问题。状态: f[X]=最少用多少枚硬币拼出X; 转移方程：f[X] = min(f[X-1]+1, f[X-2]+1, f[X-5]+1, f[X])
+- [0055. Jump Game](Solutions/0055.Jump-Game.py) (!!M) <br>
+存在性问题。状态: dp[j]=能不能跳到位置j; 转移方程：dp[j]=True if dp[i] and i+nums[i]>=j) (TLE)
+- [0152. Maximum Product Subarray](Solutions/0152.Maximum-Product-Subarray.py) (M) <br>
+最大值问题。用一个数组记录最大的正数maxDP[i]，另一个数组记录最小的负数minDP[i], maxDP[i]表示以i为结尾的subarray的最product. 分nums[i]的正负,更新maxDP[i]和minDP[i]。maxDP[i] = max(nums[i], maxDP[i-1]*nums[i]) if nums[i]>0
+
+<br> 542, <br> 1162
+
+### [坐标型DP](/Dynamic-Programming.py)
+- [0062. Unique Paths](Solutions/0062.Unique-Paths.py) (!!M) <br>
+状态: f[i][j]=有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = f[i][j-1]+f[i-1][j]
+- [0063. Unique Paths II](Solutions/0063.Unique-Paths-II.py) (M) <br> 
+转移方程：f[i][j] = 0 if it is obstacle else f[i][j-1]+f[i-1][j])
+- [0064. Minimum Path Sum](Solutions/0064.Minimum-Path-Sum.py) (M) <br> 
+dp[i][j]=the minimum path sum to (i, j); dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j])
+- [0120. Triangle](Solutions/0120.Triangle.py) (M) <br>
+dp[i][j] = min(triangle[i][j] + dp[i-1][j], triangle[i][j] + dp[i-1][j-1])
+- [0221. Maximal Square](Solutions/0221.Maximal-Square.py) (M) <br>
+dp[i][j]=以(i, j)为右下角的最大正方形的边长; dp[i][j]=min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]) + 1 if matrix[i][j]=1 
+- [0403. Frog Jump](Solutions/0403.Frog-Jump.py) (M) <br>
+dp[stone]为set，记录青蛙可以通过哪些步跳到stone。用bottom up方法。状态转移方程为：跳k-1到stone+k-1: dp[stone+k-1].add(k-1); 跳k到stone+k: dp[stone+k].add(k); 跳k+1到stone+k+1: dp[stone+k+1].add(k+1). return dp[last stone] is not empty
+
+### [序列型DP](/Dynamic-Programming.py)
+- [0256. Paint House](Solutions/0256.Paint-House.py) (E) <br>
+dp[i][j] means the minimum cost to paint house i to be color j; dp[i][0] = costs[i][0] + min(dp[i-1][1], dp[i-1][2])
+- [0265. Paint House II](Solutions/0265.Paint-House-II.py) (E) <br> 
+dp[i][j]=minimum cost to paint the ith house the be color j; dp[i][j] = minInThe(i-1)thRow + costs[i][j], need to find the position for the 1st and 2nd minCost in the i-1 th row
+- [0198. House Robber](Solutions/0198.House-Robber.py) (E) <br>
+f[i]=the max profit when reaching ith house; f[i] = max(rob ith = f[i-2]+nums[i], not rob ith = f[i-1]) <br>
+空间优化：dp[i] 之和 dp[i-2]与dp[i-1]有关，所以可以用prevMax和currMax来代表dp[i-2]与dp[i-1]
+- [0213. House Robber II](Solutions/0213.House-Robber-II.py) (E) <br>
+房子形成了一个环，所以第一个房子和第N个房子不能同时偷，我们可以把问题分成两个问题来解决：1. 房子1没偷：问题变成了对房子2:N做House robber I的问题; 2. 房子N没偷：问题变成了对房子1:N-1做House robber I的问题
+
+### [Buy and sell stock DP问题](/Dynamic-Programming.py)
+- [0121. Best Time to Buy and Sell Stock](Solutions/0121.Best-Time-to-Buy-and-Sell-Stock.py) (E) <br>
+Only one transaction is allowed.  Maintain a minPrice and a maxProfit; maxProfit = max(maxProfit, price - minPrice)
+- [0122. Best Time to Buy and Sell Stock II](Solutions/0122.Best-Time-to-Buy-and-Sell-Stock-II.py) (E) <br>
+As many transaction as possible.  make a transaction every time price[i]>price[i-1]
+- [0123. Best Time to Buy and Sell Stock III](Solutions/0123.Best-Time-to-Buy-and-Sell-Stock-III.py) (H) <br>
+Only two transactions are allowed.  Maintain buy1=the minimum money you can own after the first buy, sell1=the maximum money you can earn after the first sell, also, buy2, sell2, and update them together in a for loop, 算法只是把121中的算法重复两次而已,java版本更清楚。
+- [0188. Best Time to Buy and Sell Stock IV](Solutions/0188.Best-Time-to-Buy-and-Sell-Stock-IV.py) (H) <br>
+Only k transactions are allowed.   Maintain buy=[]*k, sell=[]*k, and update them together in a for loop.  Solve the memory overflow problem: if k>prices.length/2, then it is the same as 122.
+- [0309. Best Time to Buy and Sell Stock with Cooldown](Solutions/0309.Best-Time-to-Buy-and-Sell-Stock-with-Cooldown.py) (M) <br>
+Has to rest for one day before buy another stock.  **分两个状态: hold and unhold**: hold[i]=第i天有股票在手状态下的最大收益； unhold[i]=第i天没有股票在手状态下的最大收益 <br>
+hold[i] = max(hold[i-1], unhold[**i-2**]-prices[i]); unhold[i] = max(unhold[i-1], hold[i-1] + prices[i])
+- [0714. Best Time to Buy and Sell Stock with Transaction Fee](Solutions/0714.Best-Time-to-Buy-and-Sell-Stock-with-Transaction-Fee.py) (M) <br>
+There is transaction fee when you sell. **分两个状态: hold and unhold**: hold[i]=第i天有股票在手状态下的最大收益； unhold[i]=第i天没有股票在手状态下的最大收益 <br>
+hold[i] = max(hold[i-1], unhold[i-1]-prices[i]); unhold[i] = max(unhold[i-1], hold[i-1] + prices[i] **- fee**)
+
+###  [最长子序列问题](/Dynamic-Programming.py) (dp[i]都是定义为以i结尾的最长....)
+- [0674. Longest Continuous Increasing Subsequence](Solutions/0674.Longest-Continuous-Increasing-Subsequence.py) (E) <br>
+dp[i] = 以i结尾(包括i)的最长连续子序列; dp[i] = dp[i-1] + 1 if nums[i]>nums[i-1]
+- [0300. Longest Increasing Subsequence](Solutions/0300.Longest-Increasing-Subsequence.py) (!!M) <br>
+不需要连续，所以不是dp[i] = dp[i-1] + 1，而是所有的j之前的i都有可能, 所以转移方程是 dp[j] = max(dp[i] + 1 for i<j and nums[i]<nums[j]) <br>
+dp + binary search (O(NlogN))的算法也很重要！与354. 俄罗斯套娃问题一样！
+- [0673. Number of Longest Increasing Subsequence](Solutions/0673.Number-of-Longest-Increasing-Subsequence.py) (M) <br>
+ dp=以i为结尾的最大的长度; cnt=以i为结尾的最大的长度的个数; 在nums[j]>nums[i]的情况下：cnt[j]+=cnt[i] if dp[j]=dp[i]+1
+- [1027. Longest Arithmetic Sequence.py](Solutions/1027.Longest-Arithmetic-Sequence.py) (M) <br>
+dp[i][j]=以i结尾的等差数列且以j为公差的长度; dp = [collections.defaultdict(lambda: 1) for _ in range(lens)]
+- [0873. Length of Longest Fibonacci Subsequence](Solutions/0873.Length-of-Longest-Fibonacci-Subsequence.py) (M) <br>
+dp[i][j]=以i, j为最后两个数字的fib的长度; dp[j][index of (A[i]+A[j])]=dp[i][j]+1; index of (A[i]+A[j])是(A[i]+A[j])在A中的位置，为了快速找到index of (A[i]+A[j])，用一个dict存储索引即可
+- [0354. Russian Doll Envelopes](Solutions/0354.Russian-Doll-Envelopes) (M) <br>
+Similiar with 300. LIS; sort the list first envelopes.sort(key = lambda x: (x[0], x[1])), here we not only compare nums[j]>nums[i], but instead both the width and height; TLE, should 300. LIS using DP+binary search (O(NlogN))??
+- [0334. Increasing Triplet Subsequence](Solutions/0334.Increasing-Triplet-Subsequence.py) (M) <br>
+Similiar with 300. LIS; dp[j] = max(dp[i] + 1 for i<j and nums[i]<nums[j]); if dp[j]>=3 return True；  how to solve it in O(N), O(1); min_1, mnin_2 and are the most min and the second min in the arr, if min_1 and min_2 are renewed twice already and there is a num>min_2 later, then return True.
+
+### [区间型DP](/Dynamic-Programming.py) 自然而然将状态定义为f[i][j]表示面对子区间[i, j]时的最佳性质
+- [0005. Longest Palindromic Substring](Solutions/0005.Longest-Palindromic-Substring.py) (!!M) <br>
+Return the longest substr: dp[i][j]=from i to j (including j), is it a palindr? if s[i]==s[j]: dp[i][j] = dp[i+1][j-1]; 注意初始化对角线和相邻的，因为计算dp[i][j]需要用到dp[i+1][j-1]，所以要先算i+1, 再算i，所以i 是倒序遍历
+- [0516. Longest Palindromic Subsequence](Solutions/0516.Longest-Palindromic-Subsequence.py) (!!M) <br>
+Return the longest length: dp[i][j]=longest palindr from i to j; dp[i][j]=dp[i+1][j-1]+2 if s[i]==s[j] else max(dp[i+1][j], dp[i][j-1]);注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)
+- [0312. Burst Balloons](Solutions/0312.Burst-Balloons.py) (!!H) <br>
+带memo的recursion比DP更好懂; left = self.memoSearch(nums, i, k, memo); right=self.memoSearch(nums, k, j, memo); maxCoins = max(maxCoins, left + right + nums[i]*nums[k]*nums[j])
+
+###  [划分型DP](/Dynamic-Programming.py) (状态往往定义为前j个的某种特性，不包括j！！！！，这个思想很重要，相当于给前面做了一层buffer layer)
+- [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M) <br>
+f[i]=number of decode ways until i (not including i); f[i]=f[i-1]+f[i-2] if int(s[i-2:i])<=26 else f[i-1]
+- [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (M) <br>
+f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i^2]+1) for i^2<=j; Time complexity: j is from 0 to n, i is from 0 to j^0.5, so O(N^1.5)
+- [0132. Palindrome Partitioning II](Solutions/0132.Palindrome-Partitioning-II.py) (!!M) <br>
+f[j]=the minimum number of total palindrome till the jth character (not including j); f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome： 划分型的dp的状态一般都not include j, 这样就有一个buffer layer可以用。
+
+### [博弈型DP](/Dynamic-Programming.py)
+- [0394. Coins in a Line](Solutions/0394.Coins-in-a-Line.py) (M) <br>
+f[i]=面对i个石子，先手是必胜吗; f[i]=True if f[i-1] or f[i-2]都是False
+- [0486. Predict the Winner](Solutions/0486.Predict-the-Winner.py) (M) <br>
+f[i][j]=当石子还剩i到j时，先手最多能赢多少; f[i][j] = max(取左边A[i]-f[i+1][j], 取右边A[j]-f[i][j-1])
+
+### [背包型DP](/Dynamic-Programming.py)
+- [0092. Backpack](Solutions/0092.Backpack.py) (!!M Lintcode) <br>
+f[i][m]=能否用前i个物品拼出重量m; f[i][m] = f[i-1][m] (表示前i-1个物品就可以拼出m) or f[i-1][m-A[i-1]] (表示前i-1个物品可以拼出m-A[i-1])
+- [0563. Backpack-V](Solutions/0563.Backpack-V.py) (!!M Lintcode) <br>
+f[i][m]=前i个物品能拼出重量m有多少种方式。f[i][m] = f[i-1][m] + f[i-1][m-A[i-1]]
+- [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (!!M) <br>
+f[i]=how many ways to combine to number i; 背包问题一定要把总承重放到状态里！！ f[i]=f[i-A1]+f[i-A2]+f[i-A3].... <br>
+- [0125. Backpack II](Solutions/0125.Backpack-II.py) (!!M Lintcode) <br>
+这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。用子问题定义状态：即f[i][j]表示前i件物品拼出重量j可以获得的最大价值。
+f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1][M]
+- [0089. k Sum](Solutions/0089.k-Sum.py) (M Lintcode) <br>
+f[i][j][s]表示有多少种方法可以在前i个数中选出j个，使得它们的和是s; 情况一:（A[n-1]不选入）：需要在前n-1个数中选K个数，使得它们的和是Target: f[i][j][s] += f[i-1][j][s]; 情况二（A[n-1]选入）：需要在前n-1个数中选K-1个数，使得它们的和是Target-A[n-1]: f[i][j][s] += f[i-1][j-1][s-A[i-1]]
+- [0416. Partition Equal Subset Sum](Solutions/0416.Partition-Equal-Subset-Sum.py) (M) <br>
+背包问题：将A中的物品放入容量为target的背包中，问是否存在？ f[i][t]=将前i个物品放入背包中，能否拼出t (背包问题重量一定要入状态); f[i][t]=True if 不放最后一个进背包: f[i-1][t]=True or 放最后一个进背包: f[i-1][t-A[i-1]]=True
+
+### [位操作型DP](/Dynamic-Programming.py)
+- [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) <br>
+状态dp[i]=i的二进制中有多少个1; dp[i] = dp[i >> 1] + i % 2
+
+### [双序列型DP!!](/Dynamic-Programming.py) 
+- [1143. Longest Common Subsequence](Solutions/1143.Longest-Common-Subsequence.py) (!!M) <br>
+f[i][j]为A前i个字符A[0..i)和B前j个字符[0..j)的最长公共子串的长度，注意不包括i和j，前面有一层buffer layer非常重要，就像sputtering那样重要！ f[i][j]=f[i-1][j-1] + 1 when A[i-1]=B[j-1], else f[i][j]=max(f[i-1][j], f[i][j-1])) # 注意有了buffer layer之后，dp中的i对应的是text中的i-1,所以判断条件是when A[i-1]=B[j-1]
+- [583. Delete Operation for Two Strings](Solutions/0583.Delete-Operation-for-Two-Strings.py) (M) <br>
+f[i][j] = the min number of steps needed to make word1[:i] and word[:j] the same; f[i][j]=f[i-1][j-1] when A[i-1]=B[j-1], else f[i][j]=min(f[i-1][j], f[i][j-1])) + 1
+- [0072. Edit Distance](Solutions/0072.Edit-Distance.py) (!!H) <br>
+f[i][j]=A前i个字符[0..i)和B前j个字符[0..j)的最小编辑距离; f[i][j]=min{1. f[i-1][j]+1 (f[i-1][j]表示A[0..i-1)就可以拼成B[0..j)了，所以A[0..i)要拼成B[0..j)需要删掉A[0..i)的最后一个字母); 2. f[i][j-1]+1 (B[0..j)需要删掉最后一个字母，即A[0..i)的后面需要增加一个字母); 3. f[i-1][j-1]+1 (A[0..i)的后面需要replace一个字母); 4. f[i-1][j-1] (if A[i-1]=B[j-1] 就不需要任何操作直接就是了)}
+
+
+- [0097. Interleaving String](Solutions/0097.Interleaving-String.py) (!!H) <br>
+f[i][j]=s3的前[0..i+j)个字符能否由s1前i个字符[0..i)和s2前j个字符[0..j)交错形成; f[i][j]=True when (s3[i+j-1]=s1[i-1] 且 f[i-1][j]=True 即s3的前[0..i+j-1)个字符能否由s1前i-1个字符[0..i-1)和s2前j个字符[0..j)交错形成) or (s3[i+j-1]=s2[j-1] and f[i][j-1]=True)
+- [0115. Distinct Subsequences](Solutions/0115.Distinct-Subsequences.py) (H) <br>
+dp[i][j] = the number of discinct subeseq until ith char in s and jth char in t; if s[i]!=t[j], dp[i][j] = dp[i - 1][j]  eg: rab, ra; else: rabb, rab, dp[i][j] = dp[i-1][j] + dp[i-1][j-1], 品，细品！ 
+- [0044. Wildcard Matching](Solutions/0044.Wildcard-Matching.py) (H) <br>
+f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配； 画个图会很明了，详见九章算法动态规划双序列型DP。
+情况一：B[j-1]不是"星": if (B[j-1]="?" or A[i-1]=B[j-1]): f[i][j] = f[i-1][j-1]  <br>
+情况二：B[j-1]是"星"：可以让"星"表示0个字符，那就让A[0..i)去和B[0..j-1)匹配： f[i][j] = f[i][j-1]；也可以让"星"表示字符，A[i-1]肯定是多个ch中的最后一个，能否匹配取决于A[0..i-1)和B[0..j)是否匹配：f[i][j] = f[i-1][j]
+- [0010. Regular Expression Matching](Solutions/0010.Regular-Expression-Matching.py) (!!H) <br>
+f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B[j-1]不是"星": f[i][j] = f[i-1][j-1] if (B[j-1]="." or A[i-1]=B[j-1]); 情况二：B[j-1]是"星"：可以让"星"表示0个前面的字符，那就让A[0..i)去和B[0..j-2)匹配： f[i][j] = f[i][j-2]；也可以让"星"表示几个前面的字符，A[i-1]是多个ch中的最后一个，能否匹配取决于A[0..i-1)和B[0..j)是否匹配：f[i][j] = f[i-1][j] if (B[j-2]="." or B[j-2]=A[i-1])
+
+
+# [Sliding Window (同向双指针)](Dynamic-Programming.py)
+- [0209. Minimum Size Subarray Sum](Solutions/0209.Minimum-Size-Subarray-Sum.py) (!!M) <br>
+维护一个sums, 用来记录i->j中数的和，套模板时满足的条件是sums < target; 更新j: sums += nums[j]; 更新i: sums -= nums[j]
+- [0003. Longest Substring Without Repeating Characters](Solutions/0003.Longest-Substring-Without-Repeating-Characters.py) (!!M) <br>
+维护一个included=set(), 用来记录i->j中include的char，套模板时满足的条件是s[j] not in included; 更新j: included.add(s[j]); 更新i: included.remove(s[i])
+- [0076. Minimum Window Substring](Solutions/0076.Minimum-Window-Substring.py) (H) <br>
+维护一个sourceFreqDict, 用来记录i->j中的char的频率，套用模板时满足的条件是sourceFreqDict all included in targetFreqDict; 更新j: sourceDict[s[j]] += 1, 更新i: sourceDict[s[i]] -= 1
+- [0340. Longest Substring with At Most K Distinct Characters](Solutions/0340.Longest-Substringwith-At-Most-K-Distinct-Characters.py) (H) <br>
+维护一个charDict, 用来记录i->j中的char的频率，套模板时满足的条件是len(charDict) <= k; 更新j: charDict[s[j]+=1; 更新i: charDict[s[i]] -= 1, if charDict[s[i]] == 0: del charDict[s[i]]
+
+
+
+
 # [Binary Search](/Binary-Search.py)
 - [0704. Binary Search](Solutions/0704.Binary-Search.py) (!!E) <br>
 九章模板: 1. while start + 1 < end; 2. mid = start + (end - start) // 2; 3. 循环内只写两个分支； 4. 往左逼find the first X; 5. 往右逼find the last X
@@ -263,6 +408,8 @@ if height[i] > height[j]: j -= 1  # meaning that 右边的栅栏更低，所以�
 
 
 ### [同向双指针](/Two-pointers.py)
+- [0019. Remove Nth Node From End of List](Solutions/0019.Remove-Nth-Node-From-End-of-List.py) <br>
+fast 比 slow 先出发 n 步即可
 - [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py) <br>
 modify nums1 in-place, use i, j, k = m - 1, n - 1, m + n -1; 把最大的数放到nums1的后面
 - [0283. Move Zeroes](Solutions/0283.Move-Zeroes.py) <br>
@@ -343,139 +490,17 @@ I have to be concerned about tasks with higher frequencies. This makes it a perf
 维护一个heapq，让它记录从小到大的ugly number, 每次pop出一个currMin，然后生成三个数2*currMin, 3*currMin, 5*currMin, 如果not in seen, 就push进heapq
 
 
-# [Dynamic Programming](Dynamic-Programming.py)
-- [0322. Coin Change](Solutions/0322.Coin-Change.py) (!!M) <br>
-最小值问题。状态: f[X]=最少用多少枚硬币拼出X; 转移方程：f[X] = min(f[X-1]+1, f[X-2]+1, f[X-5]+1, f[X])
-- [0055. Jump Game](Solutions/0055.Jump-Game.py) (!!M) <br>
-存在性问题。状态: dp[j]=能不能跳到位置j; 转移方程：dp[j]=True if dp[i] and i+nums[i]>=j) (TLE)
-- [0152. Maximum Product Subarray](Solutions/0152.Maximum-Product-Subarray.py) (M) <br>
-最大值问题。用一个数组记录最大的正数maxDP[i]，另一个数组记录最小的负数minDP[i], maxDP[i]表示以i为结尾的subarray的最product. 分nums[i]的正负,更新maxDP[i]和minDP[i]。maxDP[i] = max(nums[i], maxDP[i-1]*nums[i]) if nums[i]>0
-
-<br> 542, <br> 1162
-
-### [坐标型DP](/Dynamic-Programming.py)
-- [0062. Unique Paths](Solutions/0062.Unique-Paths.py) (!!M) <br>
-状态: f[i][j]=有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = f[i][j-1]+f[i-1][j]
-- [0063. Unique Paths II](Solutions/0063.Unique-Paths-II.py) (M) <br> 
-转移方程：f[i][j] = 0 if it is obstacle else f[i][j-1]+f[i-1][j])
-- [0064. Minimum Path Sum](Solutions/0064.Minimum-Path-Sum.py) (M) <br> 
-dp[i][j]=the minimum path sum to (i, j); dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j])
-- [0120. Triangle](Solutions/0120.Triangle.py) (M) <br>
-dp[i][j] = min(triangle[i][j] + dp[i-1][j], triangle[i][j] + dp[i-1][j-1])
-- [0221. Maximal Square](Solutions/0221.Maximal-Square.py) (M) <br>
-dp[i][j]=以(i, j)为右下角的最大正方形的边长; dp[i][j]=min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]) + 1 if matrix[i][j]=1 
-- [0403. Frog Jump](Solutions/0403.Frog-Jump.py) (M) <br>
-dp[stone]为set，记录青蛙可以通过哪些步跳到stone。用bottom up方法。状态转移方程为：跳k-1到stone+k-1: dp[stone+k-1].add(k-1); 跳k到stone+k: dp[stone+k].add(k); 跳k+1到stone+k+1: dp[stone+k+1].add(k+1). return dp[last stone] is not empty
-
-### [序列型DP](/Dynamic-Programming.py)
-- [0256. Paint House](Solutions/0256.Paint-House.py) (E) <br>
-dp[i][j] means the minimum cost to paint house i to be color j; dp[i][0] = costs[i][0] + min(dp[i-1][1], dp[i-1][2])
-- [0265. Paint House II](Solutions/0265.Paint-House-II.py) (E) <br> 
-dp[i][j]=minimum cost to paint the ith house the be color j; dp[i][j] = minInThe(i-1)thRow + costs[i][j], need to find the position for the 1st and 2nd minCost in the i-1 th row
-- [0198. House Robber](Solutions/0198.House-Robber.py) (E) <br>
-f[i]=the max profit when reaching ith house; f[i] = max(rob ith = f[i-2]+nums[i], not rob ith = f[i-1]) <br>
-空间优化：dp[i] 之和 dp[i-2]与dp[i-1]有关，所以可以用prevMax和currMax来代表dp[i-2]与dp[i-1]
-- [0213. House Robber II](Solutions/0213.House-Robber-II.py) (E) <br>
-房子形成了一个环，所以第一个房子和第N个房子不能同时偷，我们可以把问题分成两个问题来解决：1. 房子1没偷：问题变成了对房子2:N做House robber I的问题; 2. 房子N没偷：问题变成了对房子1:N-1做House robber I的问题
-
-### [Buy and sell stock DP问题](/Dynamic-Programming.py)
-- [0121. Best Time to Buy and Sell Stock](Solutions/0121.Best-Time-to-Buy-and-Sell-Stock.py) (E) <br>
-Only one transaction is allowed.  Maintain a minPrice and a maxProfit; maxProfit = max(maxProfit, price - minPrice)
-- [0122. Best Time to Buy and Sell Stock II](Solutions/0122.Best-Time-to-Buy-and-Sell-Stock-II.py) (E) <br>
-As many transaction as possible.  make a transaction every time price[i]>price[i-1]
-- [0123. Best Time to Buy and Sell Stock III](Solutions/0123.Best-Time-to-Buy-and-Sell-Stock-III.py) (H) <br>
-Only two transactions are allowed.  Maintain buy1=the minimum money you can own after the first buy, sell1=the maximum money you can earn after the first sell, also, buy2, sell2, and update them together in a for loop, 算法只是把121中的算法重复两次而已,java版本更清楚。
-- [0188. Best Time to Buy and Sell Stock IV](Solutions/0188.Best-Time-to-Buy-and-Sell-Stock-IV.py) (H) <br>
-Only k transactions are allowed.   Maintain buy=[]*k, sell=[]*k, and update them together in a for loop.  Solve the memory overflow problem: if k>prices.length/2, then it is the same as 122.
-- [0309. Best Time to Buy and Sell Stock with Cooldown](Solutions/0309.Best-Time-to-Buy-and-Sell-Stock-with-Cooldown.py) (M) <br>
-Has to rest for one day before buy another stock.  **分两个状态: hold and unhold**: hold[i]=第i天有股票在手状态下的最大收益； unhold[i]=第i天没有股票在手状态下的最大收益 <br>
-hold[i] = max(hold[i-1], unhold[**i-2**]-prices[i]); unhold[i] = max(unhold[i-1], hold[i-1] + prices[i])
-- [0714. Best Time to Buy and Sell Stock with Transaction Fee](Solutions/0714.Best-Time-to-Buy-and-Sell-Stock-with-Transaction-Fee.py) (M) <br>
-There is transaction fee when you sell. **分两个状态: hold and unhold**: hold[i]=第i天有股票在手状态下的最大收益； unhold[i]=第i天没有股票在手状态下的最大收益 <br>
-hold[i] = max(hold[i-1], unhold[i-1]-prices[i]); unhold[i] = max(unhold[i-1], hold[i-1] + prices[i] **- fee**)
-
-###  [最长子序列问题](/Dynamic-Programming.py) (dp[i]都是定义为以i结尾的最长....)
-- [0674. Longest Continuous Increasing Subsequence](Solutions/0674.Longest-Continuous-Increasing-Subsequence.py) (E) <br>
-dp[i] = 以i结尾(包括i)的最长连续子序列; dp[i] = dp[i-1] + 1 if nums[i]>nums[i-1]
-- [0300. Longest Increasing Subsequence](Solutions/0300.Longest-Increasing-Subsequence.py) (!!M) <br>
-不需要连续，所以不是dp[i] = dp[i-1] + 1，而是所有的j之前的i都有可能, 所以转移方程是 dp[j] = max(dp[i] + 1 for i<j and nums[i]<nums[j]) <br>
-dp + binary search (O(NlogN))的算法也很重要！与354. 俄罗斯套娃问题一样！
-- [0673. Number of Longest Increasing Subsequence](Solutions/0673.Number-of-Longest-Increasing-Subsequence.py) (M) <br>
- dp=以i为结尾的最大的长度; cnt=以i为结尾的最大的长度的个数; 在nums[j]>nums[i]的情况下：cnt[j]+=cnt[i] if dp[j]=dp[i]+1
-- [1027. Longest Arithmetic Sequence.py](Solutions/1027.Longest-Arithmetic-Sequence.py) (M) <br>
-dp[i][j]=以i结尾的等差数列且以j为公差的长度; dp = [collections.defaultdict(lambda: 1) for _ in range(lens)]
-- [0873. Length of Longest Fibonacci Subsequence](Solutions/0873.Length-of-Longest-Fibonacci-Subsequence.py) (M) <br>
-dp[i][j]=以i, j为最后两个数字的fib的长度; dp[j][index of (A[i]+A[j])]=dp[i][j]+1; index of (A[i]+A[j])是(A[i]+A[j])在A中的位置，为了快速找到index of (A[i]+A[j])，用一个dict存储索引即可
-- [0354. Russian Doll Envelopes](Solutions/0354.Russian-Doll-Envelopes) (M) <br>
-Similiar with 300. LIS; sort the list first envelopes.sort(key = lambda x: (x[0], x[1])), here we not only compare nums[j]>nums[i], but instead both the width and height; TLE, should 300. LIS using DP+binary search (O(NlogN))??
-- [0334. Increasing Triplet Subsequence](Solutions/0334.Increasing-Triplet-Subsequence.py) (M) <br>
-Similiar with 300. LIS; dp[j] = max(dp[i] + 1 for i<j and nums[i]<nums[j]); if dp[j]>=3 return True；  how to solve it in O(N), O(1); min_1, mnin_2 and are the most min and the second min in the arr, if min_1 and min_2 are renewed twice already and there is a num>min_2 later, then return True.
-
-### [区间型DP](/Dynamic-Programming.py) 自然而然将状态定义为f[i][j]表示面对子区间[i, j]时的最佳性质
-- [0005. Longest Palindromic Substring](Solutions/0005.Longest-Palindromic-Substring.py) (!!M) <br>
-Return the longest substr: dp[i][j]=from i to j (including j), is it a palindr? if s[i]==s[j]: dp[i][j] = dp[i+1][j-1]; 注意初始化对角线和相邻的，因为计算dp[i][j]需要用到dp[i+1][j-1]，所以要先算i+1, 再算i，所以i 是倒序遍历
-- [0516. Longest Palindromic Subsequence](Solutions/0516.Longest-Palindromic-Subsequence.py) (!!M) <br>
-Return the longest length: dp[i][j]=longest palindr from i to j; dp[i][j]=dp[i+1][j-1]+2 if s[i]==s[j] else max(dp[i+1][j], dp[i][j-1]);注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)
-- [0312. Burst Balloons](Solutions/0312.Burst-Balloons.py) (!!H) <br>
-带memo的recursion比DP更好懂; left = self.memoSearch(nums, i, k, memo); right=self.memoSearch(nums, k, j, memo); maxCoins = max(maxCoins, left + right + nums[i]*nums[k]*nums[j])
-
-###  [划分型DP](/Dynamic-Programming.py) (状态往往定义为前j个的某种特性，不包括j！！！！，这个思想很重要，相当于给前面做了一层buffer layer)
-- [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M) <br>
-f[i]=number of decode ways until i (not including i); f[i]=f[i-1]+f[i-2] if int(s[i-2:i])<=26 else f[i-1]
-- [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (M) <br>
-f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i^2]+1) for i^2<=j; Time complexity: j is from 0 to n, i is from 0 to j^0.5, so O(N^1.5)
-- [0132. Palindrome Partitioning II](Solutions/0132.Palindrome-Partitioning-II.py) (!!M) <br>
-f[j]=the minimum number of total palindrome till the jth character (not including j); f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome： 划分型的dp的状态一般都not include j, 这样就有一个buffer layer可以用。
-
-### [博弈型DP](/Dynamic-Programming.py)
-- [0394. Coins in a Line](Solutions/0394.Coins-in-a-Line.py) (M) <br>
-f[i]=面对i个石子，先手是必胜吗; f[i]=True if f[i-1] or f[i-2]都是False
-- [0486. Predict the Winner](Solutions/0486.Predict-the-Winner.py) (M) <br>
-f[i][j]=当石子还剩i到j时，先手最多能赢多少; f[i][j] = max(取左边A[i]-f[i+1][j], 取右边A[j]-f[i][j-1])
-
-### [背包型DP](/Dynamic-Programming.py)
-- [0092. Backpack](Solutions/0092.Backpack.py) (!!M Lintcode) <br>
-f[i][m]=能否用前i个物品拼出重量m; f[i][m] = f[i-1][m] (表示前i-1个物品就可以拼出m) or f[i-1][m-A[i-1]] (表示前i-1个物品可以拼出m-A[i-1])
-- [0563. Backpack-V](Solutions/0563.Backpack-V.py) (!!M Lintcode) <br>
-f[i][m]=前i个物品能拼出重量m有多少种方式。f[i][m] = f[i-1][m] + f[i-1][m-A[i-1]]
-- [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (!!M) <br>
-f[i]=how many ways to combine to number i; 背包问题一定要把总承重放到状态里！！ f[i]=f[i-A1]+f[i-A2]+f[i-A3].... <br>
-- [0125. Backpack II](Solutions/0125.Backpack-II.py) (!!M Lintcode) <br>
-这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。用子问题定义状态：即f[i][j]表示前i件物品拼出重量j可以获得的最大价值。
-f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1][M]
-- [0089. k Sum](Solutions/0089.k-Sum.py) (M Lintcode) <br>
-f[i][j][s]表示有多少种方法可以在前i个数中选出j个，使得它们的和是s; 情况一:（A[n-1]不选入）：需要在前n-1个数中选K个数，使得它们的和是Target: f[i][j][s] += f[i-1][j][s]; 情况二（A[n-1]选入）：需要在前n-1个数中选K-1个数，使得它们的和是Target-A[n-1]: f[i][j][s] += f[i-1][j-1][s-A[i-1]]
-- [0416. Partition Equal Subset Sum](Solutions/0416.Partition-Equal-Subset-Sum.py) (M) <br>
-背包问题：将A中的物品放入容量为target的背包中，问是否存在？ f[i][t]=将前i个物品放入背包中，能否拼出t (背包问题重量一定要入状态); f[i][t]=True if 不放最后一个进背包: f[i-1][t]=True or 放最后一个进背包: f[i-1][t-A[i-1]]=True
-
-### [位操作型DP](/Dynamic-Programming.py)
-- [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) <br>
-状态dp[i]=i的二进制中有多少个1; dp[i] = dp[i >> 1] + i % 2
-
-### [双序列型DP!!](/Dynamic-Programming.py) 
-- [1143. Longest Common Subsequence](Solutions/1143.Longest-Common-Subsequence.py) (!!M) <br>
-f[i][j]为A前i个字符A[0..i)和B前j个字符[0..j)的最长公共子串的长度，注意不包括i和j，前面有一层buffer layer非常重要，就像sputtering那样重要！ f[i][j]=f[i-1][j-1] + 1 when A[i-1]=B[j-1], else f[i][j]=max(f[i-1][j], f[i][j-1])) # 注意有了buffer layer之后，dp中的i对应的是text中的i-1,所以判断条件是when A[i-1]=B[j-1]
-- [583. Delete Operation for Two Strings](Solutions/0583.Delete-Operation-for-Two-Strings.py) (M) <br>
-f[i][j] = the min number of steps needed to make word1[:i] and word[:j] the same; f[i][j]=f[i-1][j-1] when A[i-1]=B[j-1], else f[i][j]=min(f[i-1][j], f[i][j-1])) + 1
-- [0072. Edit Distance](Solutions/0072.Edit-Distance.py) (!!H) <br>
-f[i][j]=A前i个字符[0..i)和B前j个字符[0..j)的最小编辑距离; f[i][j]=min{1. f[i-1][j]+1 (f[i-1][j]表示A[0..i-1)就可以拼成B[0..j)了，所以A[0..i)要拼成B[0..j)需要删掉A[0..i)的最后一个字母); 2. f[i][j-1]+1 (B[0..j)需要删掉最后一个字母，即A[0..i)的后面需要增加一个字母); 3. f[i-1][j-1]+1 (A[0..i)的后面需要replace一个字母); 4. f[i-1][j-1] (if A[i-1]=B[j-1] 就不需要任何操作直接就是了)}
 
 
-- [0097. Interleaving String](Solutions/0097.Interleaving-String.py) (!!H) <br>
-f[i][j]=s3的前[0..i+j)个字符能否由s1前i个字符[0..i)和s2前j个字符[0..j)交错形成; f[i][j]=True when (s3[i+j-1]=s1[i-1] 且 f[i-1][j]=True 即s3的前[0..i+j-1)个字符能否由s1前i-1个字符[0..i-1)和s2前j个字符[0..j)交错形成) or (s3[i+j-1]=s2[j-1] and f[i][j-1]=True)
-- [0115. Distinct Subsequences](Solutions/0115.Distinct-Subsequences.py) (H) <br>
-dp[i][j] = the number of discinct subeseq until ith char in s and jth char in t; if s[i]!=t[j], dp[i][j] = dp[i - 1][j]  eg: rab, ra; else: rabb, rab, dp[i][j] = dp[i-1][j] + dp[i-1][j-1], 品，细品！ 
-- [0044. Wildcard Matching](Solutions/0044.Wildcard-Matching.py) (H) <br>
-f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配； 画个图会很明了，详见九章算法动态规划双序列型DP。
-情况一：B[j-1]不是"星": if (B[j-1]="?" or A[i-1]=B[j-1]): f[i][j] = f[i-1][j-1]  <br>
-情况二：B[j-1]是"星"：可以让"星"表示0个字符，那就让A[0..i)去和B[0..j-1)匹配： f[i][j] = f[i][j-1]；也可以让"星"表示字符，A[i-1]肯定是多个ch中的最后一个，能否匹配取决于A[0..i-1)和B[0..j)是否匹配：f[i][j] = f[i-1][j]
-- [0010. Regular Expression Matching](Solutions/0010.Regular-Expression-Matching.py) (!!H) <br>
-f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B[j-1]不是"星": f[i][j] = f[i-1][j-1] if (B[j-1]="." or A[i-1]=B[j-1]); 情况二：B[j-1]是"星"：可以让"星"表示0个前面的字符，那就让A[0..i)去和B[0..j-2)匹配： f[i][j] = f[i][j-2]；也可以让"星"表示几个前面的字符，A[i-1]是多个ch中的最后一个，能否匹配取决于A[0..i-1)和B[0..j)是否匹配：f[i][j] = f[i-1][j] if (B[j-2]="." or B[j-2]=A[i-1])
+
+
+
+
+
 
 
 ### [Other DP Problems](https://juejin.im/post/5d556b7ef265da03aa2568d5)
 - [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
-- [1143. Longest Common Subsequence](Solutions/1143.Longest-Common-Subsequence.py) (M)
 - [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (M)
 - [1049. Last Stone Weight II](Solutions/1049.Last-Stone-Weight-II.py) (M)
 - [1024. Video Stitching](Solutions/1024.Video-Stitching.py) (M)
