@@ -24,17 +24,17 @@ O(NlogN)"""
 import heapq
 
 class Solution:
-    def kClosest(self, points: List[List[int]], K: int) -> List[List[int]]:
-        heap = []
+    def kClosest(self, points: List[List[int]], K: int) -> List[List[int]]:          
+        hq = []
         for point in points:
-            sqr = point[0] * point[0] + point[1] * point[1]
-            heapq.heappush(heap, (sqr, point))
+            square = point[0] * point[0] + point[1] * point[1]
+            heapq.heappush(hq, (square, point))
         
         res = []
         for _ in range(K):
-            res.append(heapq.heappop(heap)[1])
+            res.append(heapq.heappop(hq)[1])
             
-        return res
+        return res       
 
 # the following solution is just to sort, easy to think.
 # O(NlogN)
