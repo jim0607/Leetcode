@@ -71,6 +71,7 @@ Set
 2. A set is a hash table, so "if item in set" has O(1) complexity
       
 3. Add item to set: set.add(item), 如果item already in set, 就加不进去，但不会报错。
+   Remove from set: set.remove(item)
       
 4. create a set: 
       1. numSet = set(), numSet.add(1), numSet.add(2)
