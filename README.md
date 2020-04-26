@@ -195,7 +195,7 @@ target是随着i的移动而变化的binary search
 Divide and Conquer的方法输出以root为根的subTree的subSum，然后每次与minSum打擂台进行比较，注意python中定义全局变量可以用self.minSum = float("inf"), self.minNode = None，在主函数中定义这两个变量就可以了
 - [0597. Subtree with Maximum Average](Solutions/0597.Subtree-with-Maximum-Average.py) (LintCode) 同上 Divide and Conquer
 - [0124. Binary Tree Maximum Path Sum](Solutions/0124.Binary-Tree-Maximum-Path-Sum.py) (H) <br>
-题意应该是任何path都可以，只要点和点连接在一起就算一个path，起点和终点doesn't matter. 方法是定义一个self.maxSum在helper函数中去打擂台。
+题意应该是任何path都可以，只要点和点连接在一起就算一个path，起点和终点doesn't matter. 方法是定义一个self.maxSum在helper函数中去打擂台。helper 函数 return max(left of root, right of root) + root.val; self.maxSum = max(self.maxSum, leftmax + rightMax + root.val)
 - [0110. Balanced Binary Tree](Solutions/0110.Balanced-Binary-Tree.py) (E) <br>
 定义一个全局变量self.is_balanced; 养成好习惯，把叶子节点单独做判断if not root.left and not root.right: return 1; if abs(leftDepth - rightDepth) > 1: self.is_balanced = False
 - [0235. Lowest Common Ancestor of a Binary Search Tree](Solutions/0235.Lowest-Common-Ancestor-of-a-Binary-Search-Tree.py) (E) <br>
@@ -205,8 +205,6 @@ Divide and Conquer的方法输出以root为根的subTree的subSum，然后每次
 - [0226. Invert Binary Tree](Solutions/0226.Invert-Binary-Tree.py) (E) <br>
 STEP 1. divide 先局部有序; STEP 2. conquer 再整体有序
 - [0617. Merge Two Binary Trees](Solutions/0617.Merge-Two-Binary-Trees.py) (E) <br>
-- [0124. Binary Tree Maximum Path Sum](Solutions/0124.Binary-Tree-Maximum-Path-Sum.py)（H） 
-题意应该是任何path都可以，只要点和点连接在一起就算一个path，起点和终点doesn't matter
 - [0108. Convert Sorted Array to Binary Search Tree](Solutions/0108.Convert-Sorted-Array-to-Binary-Search-Tree.py) (!!E) <br>
 we can always choose the left middle number as root, or always choose right middle number as root, or sometimes left sometimes right as root. That is why the answer is not unique
 - [0098. Validate Binary Search Tree](Solutions/0098.Validate-Binary-Search-Tree.py) (M) <br>
@@ -403,6 +401,11 @@ sort the arr first, then the maximum sum of pairs is the sum of every other num
 - [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) <br>
 solution 1: typical partition problem, step 1: 先把0放到最前面; step 2: 再把2放到最后
 solution 2: 同向双指针的方法也应该理解掌握！
+- [0238. Product of Array Except Self](Solutions/0238.Product-of-Array-Except-Self.py) (M) <br>
+定义两个数组分别记录product before ith num: fwd[i]=fwd[i-1] * nums[i-1] and product after ith num: bwd[i]=bwd[i+1] * nums[i+1], then res[i]=fwd[i] * bwd[i]
+
+
+
 - [0011. Container With Most Water](Solutions/0011.Container-With-Most-Water.py) (!!M) <br>
 if height[i] > height[j]: j -= 1  # meaning that 右边的栅栏更低，所以把右边指针移动一下，希望能用长度去compromise宽度，即寄希望于min(height[i], height[j])会变大，来compromise掉(j - i)的变小. 为什么不移左边指针呢？因为移动左边的话，min(height[i], height[j])不会变大，但是(j - i)一定变小，所以面积一定变小.
 
@@ -487,12 +490,15 @@ time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的
 [LintCode] 465 Kth Smallest Sum in Two Sorted Arrays  与378同样的方法求解
 - [0621. Task Scheduler](Solutions/0621.Task-Scheduler.py) (!!M) <br>
 I have to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
+- [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!M) <br>
+maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq
 - [0264. Ugly Number II](Solutions/0264.Ugly-Number-II.py) (M) <br>
 维护一个heapq，让它记录从小到大的ugly number, 每次pop出一个currMin，然后生成三个数2*currMin, 3*currMin, 5*currMin, 如果not in seen, 就push进heapq
 
 
-
-
+# [Other High Freq](/)
+- [0415. Add Strings](Solutions/0415.Add-Strings.py) (!!E) <br>
+similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check while i >= 0: ;  while i >= 0: ; 最后还要check if carryBit > 0:
 
 
 
@@ -520,7 +526,3 @@ I have to be concerned about tasks with higher frequencies. This makes it a perf
 # Other Algorithms
 ### [Rabin Karp]()
 - [0028. Implement strStr()](Solutions/0028.Implement-strStr().py) (E) (Rabin Karp Algorithm O(M+N), use Hashcode, ord(ch)-ord("a"))
-
-
-
-# Sliding window
