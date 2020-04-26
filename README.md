@@ -484,6 +484,7 @@ time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的
 （以squre来构建heap就可以了，heap中的元素是(square, point)）
 - [0378. Kth Smallest Element in a Sorted Matrix](Solutions/0378.Kth-Smallest-Element-in-a-Sorted-Matrix.py) (!!M) <br>
 利用sorted matrix的性质，从左上角第一个元素开始，添加进heap，然后heap当然自动排序了，然后pop出最小的，然后把最小的那个数的右边和下边的元素分别入heap，这样可以保证每次pop出来的都是最小的。1. use a heap to store (num, row, col); 2. use a set to check if row + 1, col + 1 visited already before push into the heap
+[LintCode] 465 Kth Smallest Sum in Two Sorted Arrays  与378同样的方法求解
 - [0621. Task Scheduler](Solutions/0621.Task-Scheduler.py) (!!M) <br>
 I have to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
 - [0264. Ugly Number II](Solutions/0264.Ugly-Number-II.py) (M) <br>
