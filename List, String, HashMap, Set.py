@@ -63,6 +63,8 @@ In python, hash map is dictionary
    如果想将默认的int值设置为1,可以使用lambda表达式: dictNums = collections.defaultdict(lambda: 1)
    edges = collections.defaultdict(list) means that value of the dictionary is a list
       
+3. delete a key, val pair in a dict: del dictNums[key]
+      
 
 Set
       
