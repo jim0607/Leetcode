@@ -1,6 +1,25 @@
 ## 二刷：先把做过的做一遍，再把每个tag的高频前8题都做掉！
 ## 用Python刷题，公司也都是用Python，Python快多了，重点是掌握算法，OOP project可以说是Java做的那个HARDM。
 
+# [Union-Find](Union-Find-and-Trie.py)
+- [0589. Connecting Graph](Solutions/0589.connecting-graph.java) (!!M Lintcode) <br>
+将a和b connect: 只需要将a和b的father connect就好；query a和b有没有连接:其实就是判断a和b在不在同一个集合里面，只需要判断find(a) == find(b)
+- [0590 Connecting Graph II](Solutions/0590.Connecting-Graph-II.java) (!!M Lintcode) <br>
+需要query 点a所在集合的元素个数，所以需要一个list size, 用来记录每个点所在集合的点的个数，在union i 和 j 的时候: father[i] = j, sz[j] += sz[i];
+- [0591. Connecting Graph II](Solutions/0591.Connecting-Graph-II.java) (!!M Lintcode) <br>
+需要query 整个图中有多少个集合，所以需要一个counter, 用来记录图中集合的个数，初始化为n, 在union i 和 j 的时候: father[i] = j, counter--;
+- [0305. Number of Islands II](Solutions/0305.Number-of-Islands-II.py) (!!H) <br>
+Union-Find 算法是解决动态连通性（Dynamic Conectivity）问题的一种算法. 这里的island可以看做是一个图. 每放置一个1, 就将其与其上下左右四个点的1连接起来。
+
+Graph Valid Tree
+Longest Consecutive Sequence
+Regions Cut By Slashes
+
+
+
+
+
+
 
 
 # [Dynamic Programming](Dynamic-Programming.py)
