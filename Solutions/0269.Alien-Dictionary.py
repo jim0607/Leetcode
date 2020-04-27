@@ -80,3 +80,64 @@ class Solution:
                     res.append(neighbor)
                     
         return "".join(res) if len(res) == len(neighbors) else ""  # 注意len(res) 的比较对象是inDegrees，因为前面初始化了inDegrees[所有的 ch] = 0
+
+ 
+# leetcode变坏了，现在成功提交需要加一个self.abc_ab_Check(prevWord, currWord):
+class Solution:
+    def alienOrder(self, words: List[str]) -> str:
+        
+        lens = len(words)
+        if lens == 0:
+            return ""
+        
+        inDegree = collections.defaultdict()
+        for word in words:
+            for char in word:
+                inDegree[char] = 0
+                
+        edges = collections.defaultdict(list)
+        
+        # find Indegree and edges
+        for i in range(1, lens):
+            prevWord, currWord = words[i - 1], words[i]
+            if self.abc_ab_Check(prevWord, currWord):
+                return ""
+            for j in range(min(len(prevWord), len(currWord))):
+                if prevWord[j] != currWord[j]:              
+                    inDegree[currWord[j]] += 1
+                    edges[prevWord[j]].append(currWord[j])
+                    break
+                    
+        print(edges)
+        print(inDegree)
+        
+        q = collections.deque()
+        # put all the indegree=0 into the q
+        flag = False
+        for char in inDegree.keys():
+            if inDegree[char] == 0:
+                q.append(char)            
+           
+        res = []
+        while q:
+            node = q.popleft()  # pop the node out
+            res.append(node)
+
+            for char in edges[node]:
+                inDegree[char] -= 1
+                if inDegree[char] == 0:
+                    q.append(char)
+        
+        return "".join(res) if len(res) == len(edges) else ""
+    
+    def abc_ab_Check(self, prevWord, currWord):
+        """
+        return bool for abc, ab case
+        """
+        if len(prevWord) > len(currWord):
+            for i in range(len(currWord)):
+                if currWord[i] != prevWord[i]:
+                    return False
+            return True
+        
+        return False
