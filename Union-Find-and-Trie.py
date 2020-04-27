@@ -27,11 +27,11 @@ int find(int x) {
   
 实现union(A, B): 
 找到A和B的root, 然后root_a指向root_b即可
-public void union(int a, int b) {     // 注意int a 写在前面，那就让father[root_a] = root_b
+public void union(int a, int b) {     
     root_a = find(a);
     root_b = find(b);
     if (root_a != root_b) {
-        father[root_a] = root_b;
+        father[root_a] = root_b;    // 注意这里谁是谁的father都没关系，目的只是连起来。
     }
 }
 并查集的原生操作：
@@ -43,30 +43,12 @@ public void union(int a, int b) {     // 注意int a 写在前面，那就让fat
   - 查询图中集合的个数 591
   
 union-find 模板: 遇到题目直接套用这个模板就可以了
-public class UnionFind {
-    private int[] father = null;
-  
-    public int find(int x) {
-        if (father[x] == x) {
-            return x;
-        }
-        father[x] = find(father[x]);
-        return father[x];
-
-    public void union(int a, int b) {
-        root_a = find(a);
-        root_b = find(b);
-        if (root_a != root_b) {
-            father[root_a] = root_b;
-        }
-    }
-}
 
 Python version:
 
 class UnionFind:
     def __init__(self):
-        self.father = {}
+        self.father = {}  # 用dictionary来实现可以更快查询
         self.cnt = 0      # cnt is the total number of all 集合in the graph
         
     def add(self, x):
@@ -94,3 +76,23 @@ class UnionFind:
         if root_a != root_b:
             self.father[root_a] = root_b
             self.cnt -= 1
+
+  
+public class UnionFind {
+    private int[] father = null;
+  
+    public int find(int x) {
+        if (father[x] == x) {
+            return x;
+        }
+        father[x] = find(father[x]);
+        return father[x];
+
+    public void union(int a, int b) {
+        root_a = find(a);
+        root_b = find(b);
+        if (root_a != root_b) {
+            father[root_a] = root_b;
+        }
+    }
+}
