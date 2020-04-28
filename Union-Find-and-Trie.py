@@ -96,3 +96,42 @@ public class UnionFind {
         }
     }
 }
+
+  
+  
+  
+  
+Trie (Prefix Tree)
+考点：
+1. 实现Trie (一定要会默写)
+2. 利用Trie的前缀特性直接解题
+3. 矩阵类里面，字符串里面一个一个字符，深度优先dfs遍历的问题，优势在于可以快速找到满足前缀的字符串
+  
+Trie实现的功能：leetcode 208 is a good tutorial for Trie
+  - insert (word): insert a word into the trie
+  - search (word): return whether a word is in the trie
+  - startWith (prefix): Returns if there is any word in the trie that starts with the given prefix
+  
+什么问题想到需要用Trie:
+  - 非常适合查找处理前缀相关的问题
+  - 一个字母一个字母遍历的问题
+  - 需要节约空间，比hashmap更节约空间
+  
+  
+工业界的Trie的应用：在search的时候有一个术语叫 Type head. 就是当输入一半内容的时候，后面直接自动联想填充进去 auto completion，
+  这里就用到了Trie的startWith的功能
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
