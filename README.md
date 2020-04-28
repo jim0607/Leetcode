@@ -16,9 +16,15 @@ Longest Consecutive Sequence
 Regions Cut By Slashes
 
 
+# [Trie](Union-Find-and-Trie.py)
+- [0208. Implement Trie (Prefix Tree)](Solutions/0208.Implement-Trie-(Prefix-Tree).py) (!!M) <br>
+Firstly we need to define a TrieNode class, a TrieNode class hs two properties: 1. self.child = collections.defaultdict(TrieNode)  # use a defaultdict, key is char, value is trieNode.  2. self.isEnd = False   # return True if it is the end of the Trie.  Then implement 3 methods: insert(word), search(word), startWith(prefix)
+- [0211. Add and Search Word - Data structure design](Solutions/0211.Add-and-Search-Word-Data-structure-design.py) (!!M) <br>
+addWord mehtod is the same as 208 insert method. But search mehtod is a little different than search method in 208, cuz "." is a wildcard that can represent any char. So we use a queue to store (currNode, idx), then append layer by layer.
 
-
-
+Word search
+Word search II
+Boggle game (lintcode)
 
 
 
