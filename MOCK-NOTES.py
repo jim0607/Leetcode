@@ -26,3 +26,7 @@ Audience in LiBai's Mock
 用dfs解的，用到了global variable: max, cnt
 2. 678. Valid Parenthesis String
 这题没有看明白
+
+04/27
+1. 22. Generate parenthesis
+2. peak in rotated array
