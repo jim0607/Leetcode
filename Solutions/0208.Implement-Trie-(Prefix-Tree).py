@@ -46,33 +46,33 @@ class Trie:
         """
         Inserts a word into the trie.
         """
-        curr = self.root
+        currNode = self.root
         for char in word:           # O(m), where m is the word length
-            curr = curr.child[char]   # 把char 放入 curr.child dictionary 中作为 key, 然后 curr 往下遍历
+            currNode = currNode.child[char]   # 把char 放入 curr.child dictionary 中作为 key, 然后 curr 往下遍历
             
-        curr.isEnd = True        
+        currNode.isEnd = True        
 
     def search(self, word: str) -> bool:
         """
         Returns if the word is in the trie.
         """
-        curr = self.root
+        currNode = self.root
         for char in word:             # O(m), where m is the word length
-            if char not in curr.child:
+            if char not in currNode.child:
                 return False
-            curr = curr.child[char]
+            currNode = currNode.child[char]
             
-        return curr.isEnd
+        return currNode.isEnd
 
     def startsWith(self, prefix: str) -> bool:
         """
         Returns if there is any word in the trie that starts with the given prefix.
         """
-        curr = self.root
+        currNode = self.root
         for char in prefix:     # O(m), where m is the prefix length
-            if char not in curr.child:
+            if char not in currNode.child:
                 return False
-            curr = curr.child[char]
+            currNode = currNode.child[char]
             
         return True
 
