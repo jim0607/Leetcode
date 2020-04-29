@@ -21,8 +21,20 @@ pop: stack.pop()
 Iterator/Generator的问题大部分都是用stack来做。
 
 
+2. Deque ⁄dek⁄ double-ended queue is a combination of stack and queue
+deque mehtods: all O(1)
+append: append from right end of the deque
+appendleft: append from left end of the deque
+pop: pop from the right end
+popleft: pop from the left end
+当做普通queue来用: append + popleft
+当做普通stack来用: append + pop
 
-2. Hash/Dictionary
+
+
+
+
+3. Hash/Dictionary
 常见面试问题：what is hash map?
 Hash table or a Hashmap is a type of data structure that maps keys to its value pairs
 how to implement a hash map?
@@ -43,7 +55,7 @@ hashing的冲突解决方法：
 
 
 
-3. heap and heapq
+4. heap and heapq
 heap是通过二叉树实现的，该二叉树的特性：
 1. 结构特性：优先从上至下排列，同一层优先从左至右排列。
 2. 数值特性：min heap：父节点总是小于等于儿子的。max heap: father >= child
@@ -70,7 +82,11 @@ import heapq
 
 list = [1,5,3,2,8,5]
 heapq.heapify(list)           # heapq.heapify(list) 往往用于创建堆, 将list 转换成堆，原地，线性时间O(N)。
-or define a listHeapq = [], and push in one by one
+or define a hq = [], and push in one by one
 heapq[0]                      # O(1) 只访问最小的元素而不弹出它。
-heapq.heappop(list)           # O(logN) 弹出并返回 heap 的最小的元素，保持堆的不变性。如果堆为空，抛出 IndexError 。
-heapq.heappush(list, item)    # O(logN) 将 item 的值加入 heap 中。
+heapq.heappush(hq, item)    # O(logN) 将 item 的值加入 heap 中。
+heapq.heappop(hq)           # O(logN) 弹出并返回 heap 的最小的元素，保持堆的不变性。如果堆为空，抛出 IndexError 。
+
+
+Python中的 heapq 是一个 list [], 所以删除一个元素只能当做list来删除 hq.remove(item), 时间复杂度是O(N)
+如果想要实现O(logN)的删除时间复杂度需要用 dictionary/set 来实现heapq, 这时候的数据结构叫做Ordereddict
