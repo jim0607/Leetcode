@@ -1,6 +1,73 @@
 ## 二刷：先把做过的做一遍，再把每个tag的高频前8题都做掉！
 ## 用Python刷题，公司也都是用Python，Python快多了，重点是掌握算法，OOP project可以说是Java做的那个HARDM。
 
+
+# [Data Structure](/Data-Structure.py)
+### [Stack and Queue](/Data-Structure.py)
+- [0232. Implement Queue using Stacks](Solutions/0232.Implement-Queue-using-Stacks.py) (E) <br>
+use two stacks
+- [0225. Implement Stack using Queues](Solutions/0225.Implement-Stack-using-Queues.py) (E) <br>
+use two deques
+- [0155. Min Stack](Solutions/0155.Min-Stack.py) (!!E) <br>
+use two stacks, a stack is to store all items, a minStack to store min items. If a num is less than minStack[-1] then we should append to minStack.
+- [0716. Max Stack](Solutions/0716.Max-Stack.py) (E) <br>
+should be labeled hard if using double linked list and tree map
+- [0346. Moving Average from Data Stream](Solutions/0346.Moving-Average-from-Data-Stream.cs) (E) <br>
+In C#, Queue class is by default a deque, with two methods: 1. enqueue, meaning push to the back of the queue; 2. dequeue, meaning pop from the front of the queue. They are all O(1).
+- [0933. Number of Recent Calls](Solutions/0933.Number-of-Recent-Calls.cs) (E) <br>
+In C#, Count is a method that gets the number of elements contained in the Queue.
+- [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
+
+### [Iterator](/Data-Structure.py)
+- [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (!!M) 
+- [0251. Flatten 2D Vector](Solutions/0251.Flatten-2D-Vector.py) (M)
+- [0281. Zigzag Iterator](Solutions/0281.Zigzag-Iterator.py) (M)
+- [0284. Peeking Iterator](Solutions/0284.Peeking-Iterator.py) (!M) saving peeked value
+- [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (!!M) <br>
+用stack实现binary search tree的in order traversal的方法类似
+#### [Monotonic stack](/Data-Structure.py) （递增栈，就是栈中只存放递增序列）
+- [0084. Largest Rectangle in Histogram](Solutions/0084.Largest-Rectangle-in-Histogram.py) (!!H) <br>
+save index in the monoStack, as height may have the same value; based on the heights, maintain an increasing stack,每当遇到大于栈顶的值时，直接入栈保持递增，如果遇到小于栈顶的值，回头且慢莫慌，栈内各个元素依次出栈并回头计算一下面积。
+- [0085. Maximal Rectangle](Solutions/0085.Maximal-Rectangle.py) (!!H) <br>
+step 1: construct a heights list for each row; step 2: calculate the largestRectangularHistogram of each height using the same method in 84
+
+MaxTree
+
+
+### [Hashmap/Dictionary](/Data-Structure.py) 
+- [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!M youtubed) <br>
+use a double linked list and a dictionary; Double linkedlist: newest node append to tail, eldest node remove from head, so that the operation is O(1); Hashmap: key is key, value is the corresponding double linkedlist node
+
+### [Heap/Heapq](/Data-Structure.py) 
+- [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M) <br>
+time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的push 和pop都是logK; heapq适合做第K大，第K小，前K大，前K小问题
+- [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (M) <br>
+需要一个freqDict来记录每个数出现的freq， heapq, heapq中放入的是(freq, key)对; 按照freq来做heapq，这样就保证了可以筛选出most freqent k item
+- [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
+以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
+- [0973. K Closest Points to Origin](Solutions/0973.K-Closest-Points-to-Origin.py) (M) <br>
+（以squre来构建heap就可以了，heap中的元素是(square, point)）
+- [0378. Kth Smallest Element in a Sorted Matrix](Solutions/0378.Kth-Smallest-Element-in-a-Sorted-Matrix.py) (!!M) <br>
+利用sorted matrix的性质，从左上角第一个元素开始，添加进heap，然后heap当然自动排序了，然后pop出最小的，然后把最小的那个数的右边和下边的元素分别入heap，这样可以保证每次pop出来的都是最小的。1. use a heap to store (num, row, col); 2. use a set to check if row + 1, col + 1 visited already before push into the heap
+[LintCode] 465 Kth Smallest Sum in Two Sorted Arrays  与378同样的方法求解
+- [0621. Task Scheduler](Solutions/0621.Task-Scheduler.py) (!!M) <br>
+I have to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
+- [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!M) <br>
+maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq
+- [0264. Ugly Number II](Solutions/0264.Ugly-Number-II.py) (M) <br>
+维护一个heapq，让它记录从小到大的ugly number, 每次pop出一个currMin，然后生成三个数2* currMin, 3*currMin, 5*currMin, 如果not in seen, 就push进heapq
+- [0407. Trapping Rain Water II](Solutions/0407.Trapping-Rain-Water-II.py) (!!H) <br>
+Similar with 1D trapping rain water. Step 1: store all the outliners of the matrix in heapq.  Maintain a visited set to mark all the visited locations. Step 2: starting from the min height position, do BFS the 4 possible moves. If found a height < the min Height, then we can store water, else we cannot store water and we should update this leaking point by putting the new height into the heapq
+- [0295. Find Median from Data Stream](Solutions/0295.Find-Median-from-Data-Stream.py) (!!H) <br>
+定义两个heap: self.leftHq as a maxheap to store the nums that are smaller than median; and self.rightHq as a minheap store the nums that are larger then median.  每次新增一个数num的时候，先根据比 maxheap 中最后一个数大还是小丢到对应的 heap 里。丢完以后，再处理左右两边的平衡性:如果左边太少了，就从右边拿出一个最小的丢到左边。如果右边太少了，从左边拿出一个最大的丢到右边。
+- [0480. Sliding Window Median](Solutions/0480.Sliding-Window-Median.py) (H) <br>
+similar with 295, we need to maintain two heaps, leftHq and rightHq. To slide one step is actually to do two things:
+1. add a number, which is exactly the same as that in 295.
+2. remove a number
+
+
+
+
 # [Union-Find](Union-Find-and-Trie.py)
 - [0589. Connecting Graph](Solutions/0589.connecting-graph.java) (!!M Lintcode) <br>
 将a和b connect: 只需要将a和b的father connect就好；query a和b有没有连接:其实就是判断a和b在不在同一个集合里面，只需要判断find(a) == find(b)
@@ -21,10 +88,15 @@ Regions Cut By Slashes
 Firstly we need to define a TrieNode class, a TrieNode class hs two properties: 1. self.child = collections.defaultdict(TrieNode)  # use a defaultdict, key is char, value is trieNode.  2. self.isEnd = False   # return True if it is the end of the Trie.  Then implement 3 methods: insert(word), search(word), startWith(prefix)
 - [0211. Add and Search Word - Data structure design](Solutions/0211.Add-and-Search-Word-Data-structure-design.py) (!!M) <br>
 addWord mehtod is the same as 208 insert method. But search mehtod is a little different than search method in 208, cuz "." is a wildcard that can represent any char. So we use a queue to store (currNode, idx), then append layer by layer.
+- [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!M) <br>
+The capability of finding matching prefix is where the data structure called Trie would shine, comparing the hashset data structure. Not only can Trie tell the membership of a word, but also it can instantly find the words that share a given prefix.
+The official solution is great.
 
-Word search
-Word search II
 Boggle game (lintcode)
+
+
+# [Backgracking](Backtracking-templete.py)
+- [0079. Word Search](Solutions/0079.Word-Search.py) (!!M) <br>
 
 
 
@@ -471,54 +543,7 @@ solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1
 有四个数组，不好用双指针，所以就使用hashmap，用一个hashmap 保存a + b
 
 
-# [Data Structure](/Data-Structure.py)
-### [Stack and Queue](/Data-Structure.py)
-- [0232. Implement Queue using Stacks](Solutions/0232.Implement-Queue-using-Stacks.py) (E) use two stacks
-- [0225. Implement Stack using Queues](Solutions/0225.Implement-Stack-using-Queues.py) (E) use two deques
-- [0155. Min Stack](Solutions/0155.Min-Stack.py) (!!E) use two stacks
-- [0716. Max Stack](Solutions/0716.Max-Stack.py) (E) should be labeled hard if using double linked list and tree map
-- [0346. Moving Average from Data Stream](Solutions/0346.Moving-Average-from-Data-Stream.cs) (E) <br>
-In C#, Queue class is by default a deque, with two methods: 1. enqueue, meaning push to the back of the queue; 2. dequeue, meaning pop from the front of the queue. They are all O(1).
-- [0933. Number of Recent Calls](Solutions/0933.Number-of-Recent-Calls.cs) (E) <br>
-In C#, Count is a method that gets the number of elements contained in the Queue.
-- [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
 
-### [Iterator](/Data-Structure.py)
-- [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (!!M) 
-- [0251. Flatten 2D Vector](Solutions/0251.Flatten-2D-Vector.py) (M)
-- [0281. Zigzag Iterator](Solutions/0281.Zigzag-Iterator.py) (M)
-- [0284. Peeking Iterator](Solutions/0284.Peeking-Iterator.py) (!M) saving peeked value
-- [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (!!M) <br>
-用stack实现binary search tree的in order traversal的方法类似
-#### [Monotonic stack](/Data-Structure.py) （递增栈，就是栈中只存放递增序列）
-- [0084. Largest Rectangle in Histogram](Solutions/0084.Largest-Rectangle-in-Histogram.py) (!!H) <br>
-save index in the monoStack, as height may have the same value; based on the heights, maintain an increasing stack,每当遇到大于栈顶的值时，直接入栈保持递增，如果遇到小于栈顶的值，回头且慢莫慌，栈内各个元素依次出栈并回头计算一下面积。
-- [0085. Maximal Rectangle](Solutions/0085.Maximal-Rectangle.py) (!!H) <br>
-step 1: construct a heights list for each row; step 2: calculate the largestRectangularHistogram of each height using the same method in 84
-
-
-### [Hashmap/Dictionary](/Data-Structure.py) 
-- [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!M youtubed) <br>
-use a double linked list and a dictionary; Double linkedlist: newest node append to tail, eldest node remove from head, so that the operation is O(1); Hashmap: key is key, value is the corresponding double linkedlist node
-
-### [Heap/Heapq](/Data-Structure.py) 
-- [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M) <br>
-time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的push 和pop都是logK; heapq适合做第K大，第K小，前K大，前K小问题
-- [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (M) <br>
-需要一个freqDict来记录每个数出现的freq， heapq, heapq中放入的是(freq, key)对; 按照freq来做heapq，这样就保证了可以筛选出most freqent k item
-- [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
-以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
-- [0973. K Closest Points to Origin](Solutions/0973.K-Closest-Points-to-Origin.py) (M) <br>
-（以squre来构建heap就可以了，heap中的元素是(square, point)）
-- [0378. Kth Smallest Element in a Sorted Matrix](Solutions/0378.Kth-Smallest-Element-in-a-Sorted-Matrix.py) (!!M) <br>
-利用sorted matrix的性质，从左上角第一个元素开始，添加进heap，然后heap当然自动排序了，然后pop出最小的，然后把最小的那个数的右边和下边的元素分别入heap，这样可以保证每次pop出来的都是最小的。1. use a heap to store (num, row, col); 2. use a set to check if row + 1, col + 1 visited already before push into the heap
-[LintCode] 465 Kth Smallest Sum in Two Sorted Arrays  与378同样的方法求解
-- [0621. Task Scheduler](Solutions/0621.Task-Scheduler.py) (!!M) <br>
-I have to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
-- [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!M) <br>
-maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq
-- [0264. Ugly Number II](Solutions/0264.Ugly-Number-II.py) (M) <br>
-维护一个heapq，让它记录从小到大的ugly number, 每次pop出一个currMin，然后生成三个数2*currMin, 3*currMin, 5*currMin, 如果not in seen, 就push进heapq
 
 
 # [Other High Freq](/)
