@@ -25,13 +25,21 @@ In C#, Count is a method that gets the number of elements contained in the Queue
 - [0284. Peeking Iterator](Solutions/0284.Peeking-Iterator.py) (!M) saving peeked value
 - [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (!!M) <br>
 用stack实现binary search tree的in order traversal的方法类似
-#### [Monotonic stack](/Data-Structure.py) （递增栈，就是栈中只存放递增序列）
+
+### [Monotonic stack](/Data-Structure.py) （递增栈，就是栈中只存放递增序列）
 - [0084. Largest Rectangle in Histogram](Solutions/0084.Largest-Rectangle-in-Histogram.py) (!!H) <br>
-save index in the monoStack, as height may have the same value; based on the heights, maintain an increasing stack,每当遇到大于栈顶的值时，直接入栈保持递增，如果遇到小于栈顶的值，回头且慢莫慌，栈内各个元素依次出栈并回头计算一下面积。
+非单调栈算法：从左向右遍历数组，然后每遍历到一个高度h，向左边找第一个比自己小的的高度在位置i，向右边找第一个比自己小的的高度在位置j，
+那此时的面积就是h*(j-i). 这个算法需要向左向右找第一个比自己小的元素，这类问题就要想到用monostack. 通过maintain a monostack,可以很快找到第一个比i小的元素，就是栈中排在i前面的元素，我们需要做的只是向右找了，所以我们向右遍历，每当遇到大于栈顶的值时，直接入栈保持递增stack，如果遇到小于栈顶的值，这时候说明找到了第一个比i（栈顶）小的元素，这时候我们回头且慢莫慌，栈内各个元素依次出栈并回头计算一下面积。
 - [0085. Maximal Rectangle](Solutions/0085.Maximal-Rectangle.py) (!!H) <br>
 step 1: construct a heights list for each row; step 2: calculate the largestRectangularHistogram of each height using the same method in 84
+- [0654. Maximum Binary Tree](Solutions/0654.Maximum-Binary-Tree.py) (M) <br>
+solution 1: simple recursionsolution 2: monostack 通过观察发现规律，对于每个node的父亲节点 = min(左边第一个比它大的，右边第一个比它大的), 维护一个降序数组，可以实现对这个min的快速查找, # O(N), O(N)
 
-MaxTree
+
+
+### [Deque](/Data-Structure.py) 
+- [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (H) <br>
+
 
 
 ### [Hashmap/Dictionary](/Data-Structure.py) 
