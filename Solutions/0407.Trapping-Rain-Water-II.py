@@ -31,6 +31,8 @@ So here is the algorithm:
 Step 1: store all the outliners of the matrix in heapq (the four corners doesn't matter).  Maintain a visited set to mark all the visited locations.
 Step 2: starting from the min height position, do BFS the 4 possible moves. If found a height < the min Height, then we can store water, else we cannot store water and we should update this leaking point by putting the new height into the heapq
 Step3: in this way, we start from out liners to inside. do step 2 until heapq is empty
+
+O(MNlogMN)
 """
 
 import heapq
