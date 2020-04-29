@@ -29,7 +29,6 @@ If 99% of all integer numbers from the stream are between 0 and 100, how would y
 
 
 """
-把比 median 小的放在 maxheap 里，把比 median 大的放在 minheap 里。median 单独放在一个变量里。
 每次新增一个数的时候，先根据比 maxheap 中最后一个数 大还是小丢到对应的 heap 里。
 丢完以后，再处理左右两边的平衡性:
 如果左边太少了，就从右边拿出一个最小的丢到左边。
