@@ -39,7 +39,7 @@ solution 1: simple recursionsolution 2: monostack 通过观察发现规律，对
 
 ### [Deque](/Data-Structure.py) 
 - [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (H) <br>
-
+没看懂
 
 
 ### [Hashmap/Dictionary](/Data-Structure.py) 
@@ -52,7 +52,7 @@ time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的
 - [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (M) <br>
 需要一个freqDict来记录每个数出现的freq， heapq, heapq中放入的是(freq, key)对; 按照freq来做heapq，这样就保证了可以筛选出most freqent k item
 - [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
-以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
+solution 1: 扫描线；solution 2: 以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
 - [0973. K Closest Points to Origin](Solutions/0973.K-Closest-Points-to-Origin.py) (M) <br>
 （以squre来构建heap就可以了，heap中的元素是(square, point)）
 - [0378. Kth Smallest Element in a Sorted Matrix](Solutions/0378.Kth-Smallest-Element-in-a-Sorted-Matrix.py) (!!M) <br>
@@ -273,18 +273,35 @@ This is to implement bisect.bisect_left(nums, target), which returns the positio
 - [0852. Peak Index in a Mountain Array](Solutions/0852.Peak-Index-in-a-Mountain-Array.py) (E)<br>
 - [0162. Find Peak Element](Solutions/0162.Find-Peak-Element.py) (M) <br>
 OOXX问题，找到第一个出现的X，X是the first position of 递减的序列
+- [0390. Find Peak Element II](Solutions/0390.Find-Peak-Element-II.java) (H Lintocde) <br>
+先二分找到中间某一行的最大值位置(i, j)，然后这个最大值的地方向上(i, j-1)和向下(i, j+1)分别比一下，如果(i, j)最大，那恭喜找到了peak, 如果向上更大，那就往上爬到(i,j-1), 此时i行及其以下的行都可以丢掉了，然后在j-1那一列查找最大值的位置(ii, j-1), 这时候在(ii, j-1)这个位置向左(ii-1, j-1)向右(ii+1, j-1)分别比一下，如果发现(ii, j-1)最大，那么恭喜找到peak了，如果发现(ii-1, j-1)更大，那就继续往(ii-1, j-1)爬一步，可以直接丢掉j-1列及其右边的部分了。这样的时间复杂度是T(N)=O(N 在第i行查找最大值)+T(N/2), 所以时间复杂度T(N) = O(N)+O(N/2)+O(N/4)+....+O(2)+O(1) = O(N)+O(N/2)+O(N/4)+....+O(2)+O(1)+O(1)-O(1) = O(2N)-O(1) = O(N).
 - [0875. Koko Eating Bananas](Solutions/0875.Koko-Eating-Bananas.py) (M) <br>
 If Koko can finish eating all the bananas (within H hours) with an eating speed of K, she can finish with a larger speed too. So it is a OOOXXX problem trying to find the first X. end is set to be max(piles). Every time find if it posible to eat all the bananas with speed mid. if yes, then drop the right part, if no, then drop the left."""
+- [0183. Wood Cut](Solutions/0183.Wood-Cut.py) (!!H Lintcode) <br>
+If we can cut into pieces with lens, then we can also cut into prices with len - 1, So this is a OOOXXX problem, to find the last O.
+<br>
+lintcode 437 copy books!!
 - [0074. Search a 2D Matrix](Solutions/0074.Search-a-2D-Matrix.py) (M) <br>
 Think it as a long 1D array with MxN element, then we can use binary search; row = mid // n, col = mid % n; O(log(MN)), O(1)
 - [0240. Search a 2D Matrix II](Solutions/0240.Search-a-2D-Matrix-II.py) (M) <br>
 start from left bottom, head up to right top, each comparism rule out a row (i-1=1) or rule out a col (j+=1)
 - [0050. Pow(x, n)](Solutions/0050.Pow(x,n).py) (M) <br>
-if mod == 0: res *= x^div; else: res *= x^div * x
+if mod == 0: res * = x^div; else: res * = x^div * x
 - [0029. Divide Two Integers](Solutions/0029.Divide-Two-Integers.py) (M) <br>
 eg: 10//3, 每次通过右移3 << 1的方法将3乘以2,这种算法是O(N), 每次都右移几次3 << x, 相当于3x2x2x2...,直到3x2x2x2...>10, 然后取余数继续这个算法
 - [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
 target是随着i的移动而变化的binary search
+
+
+# [Sweep-Line](/Sweep-Line.py) <br>
+- [0391. Number of Airplanes in the Sky](Solutions/0391.Number-of-Airplanes-in-the-Sky.py) (M Lintcode) <br>
+扫描线做法：碰到interval的start，也就是起飞一架飞机，当前天上的飞机数++。碰到interval的end，也就是降落一架飞机，当前天上的飞机数--。
+Step 1: 我们分别把所有的start和所有的end放进两个数组，并排序。Step 2: 然后从第一个start开始统计，碰到start较小就加一，碰到end较小就减一。并且同时维护一个最大飞机数的max。
+- [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
+solution 1: 扫描线；minimum meeting rooms required could be understood us maximum meeting rooms in use
+Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky <br> solution 2: 以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
+<br>
+218. The Skyline Problem
 
 
 
@@ -330,6 +347,8 @@ binary tree traversal using iterative way and store the val in a hash map; time 
 - [1038. Binary Search Tree to Greater Sum Tree](Solutions/1038.Binary-Search-Tree-to-Greater-Sum-Tree.py) (M) <br>
 do a in order traversal (reversed version) to keep track the sums
 - [0096. Unique Binary Search Trees](Solutions/0096.Unique-Binary-Search-Trees.py) (M) Catalan Number
+<br>
+218. The Skyline Problem
 
 
 # [Breadth First Search](/Breadth-First-Search.py)
