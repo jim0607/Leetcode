@@ -6,6 +6,41 @@ Input: [[0, 30],[5, 10],[15, 20]]
 Output: 2
 
 
+    
+"""
+minimum meeting rooms required could be understood us maximum meeting rooms in use
+Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky
+Sweep line: 
+扫描线做法：碰到interval的start，也就是起飞一架飞机，当前天上的飞机数++。碰到interval的end，也就是降落一架飞机，当前天上的飞机数--。
+Step 1: 我们分别把所有的start和所有的end放进两个数组，并排序。Step 2: 然后从第一个start开始统计，碰到start较小就加一，碰到end较小就减一。并且同时维护一个最大飞机数的max。
+"""
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        start, end = [], []
+        for interval in intervals:
+            start.append(interval[0])
+            end.append(interval[1])
+            
+        start.sort()
+        end.sort()
+            
+        curr_in_use, max_in_use = 0, 0
+        i, j = 0, 0
+        while i < len(start) and j < len(end):
+            if start[i] < end[j]:
+                curr_in_use += 1
+                i += 1
+            else:
+                curr_in_use -= 1
+                j += 1
+                
+            max_in_use = max(max_in_use, curr_in_use)
+            
+        return max_in_use
+                  
+    
+ 
+Solutoin 2: heapq
 """
 put an interval into heap, if the end of the interval is less then the min-end of the heap, then cnt += 1, else just push in and pop the min end
 O(NlogN), O(N)"""
