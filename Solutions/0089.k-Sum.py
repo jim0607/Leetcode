@@ -29,25 +29,27 @@ Explanation: 1 + 4 = 2 + 3 = 5
 • 情况二（An-1选入）：需要在前n-1个数中选K-1个数，使得它们的和是
 Target - An-1
 • 要知道还有几个数可选，以及它们的和需要是多少：序列加状态
-• 状态：f[i][j][s]表示有多少种方法可以在前i个数中选出j个，使得它们
-的和是s
+• 状态：f[i][j][s]表示有多少种方法可以在前i个数中选出j个，使得它们的和是s
 f[i][j][s] = f[i-1][j][s]; if s>=A[i-1]: f[i][j][s] += f[i-1][k-1][s-A[i-1]] """
+
+dp[i][j][t] = 选A[i-1]: dp[i-1][j-1][t-A[i-1]] + 不选 A[i-1]: dp[i-1][j][t]
+initialize: dp[i][0][0] = 1
+return dp[lens][k][target]
+"""
+    
 class Solution:
     def kSum(self, A, k, target):
         lens = len(A)
-        dp = [[[0] * (target + 1) for _ in range(k + 1)] for _ in range(lens + 1)]
-
+        dp = [[[0 for _ in range(target + 1)] for _ in range(k +  1)] for _ in range(lens + 1)]
         for i in range(lens + 1):
-            for j in range(k + 1):
-                for s in range(target + 1):
-                    if j == 0 and s == 0:
-                        dp[i][j][s] = 1
-                        continue
+            dp[i][0][0] = 1
+        
+        for i in range(1, lens + 1):
+            for j in range(1, min(i + 1, k + 1)):   # 注意j的range
+                for t in range(1, target + 1):
+                    if t >= A[i - 1]:
+                        dp[i][j][t] = dp[i - 1][j - 1][t - A[i - 1]] + dp[i - 1][j][t]
+                    else:
+                        dp[i][j][t] = dp[i - 1][j][t]
                     
-                    if i >= 1:
-                        dp[i][j][s] += dp[i - 1][j][s]
-                        
-                        if s >= A[i - 1] and j >= 1:
-                            dp[i][j][s] += dp[i - 1][j - 1][s - A[i - 1]]
-
         return dp[lens][k][target]
