@@ -570,6 +570,8 @@ if nums[i] + nums[j] <= target: cnt += j - i		# 注意这里是 cnt += j - i 表
 solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1开始，因为要至少让j先取上第一个值i+1之后才能与前一个数比较！不然[0,0,0,0], 0就通不过了；solution 2: O(N^2): hashmap. for循环a, b,保存a+b的值进hashmap, 再for循环c, d, 判断c+d是否在hashmap中
 - [0454. 4Sum II](Solutions/0454.4Sum-II.py) (M) <br>
 有四个数组，不好用双指针，所以就使用hashmap，用一个hashmap 保存a + b
+- [0089. k Sum](Solutions/0089.k-Sum.py) (H Lintcode) <br>
+采用动态规划，用dp[i][j][t]表示前i个数里选j个和为t的方案数。dp[i][j][t] = 选A[i-1]: dp[i-1][j-1][t-A[i-1]] + 不选 A[i-1]: dp[i-1][j][t]; initialize: dp[i][0][0] = 1; return dp[lens][k][target]
 
 
 
