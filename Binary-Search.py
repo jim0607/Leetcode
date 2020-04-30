@@ -29,7 +29,7 @@
 				
 
 		
-二分法——二分答案
+二分法——二分答案   eg: sqrt(x), Koko Eating Bananas, Wood Cut
 Binary Search on Result
 往往没有给你一个数组让你二分
 同样是找到满足某个条件的最大或者最小值
