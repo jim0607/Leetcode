@@ -27,3 +27,17 @@
     2. OOXX的思考方法解决找数组当中first X或者last O的问题，注意要画图可以帮助理解好问题，有时候空想是想不出来的。
     3. Half half是二分法本质，每次去掉没有答案的那一半，保留有答案的那一半。
 				
+
+		
+二分法——二分答案
+Binary Search on Result
+往往没有给你一个数组让你二分
+同样是找到满足某个条件的最大或者最小值
+模板：
+start, end = 0, max	# 1. 找到可行解范围
+while start + 1 < end:   
+    mid = start + (end - start) // 2 
+    if check(mid): 
+	start = mid
+    else:
+	end = mid
