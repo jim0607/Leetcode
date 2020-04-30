@@ -12,6 +12,7 @@ case 2: 如果arr中的element是int, eg: [1, 2, 3], 则用 "".join(map(str, arr
       
 4. 初始化创建2D array: dp = [[None] * len_col for _ in range(len_row)]
    length of 2D array: len_row = len(dp), len_col = len(dp[0])
+   初始化创建3D array: dp = [[[0 for _ in range(target + 1)] for _ in range(k +  1)] for _ in range(lens + 1)]
       
 5. array支持相加: eg: [1, 2] + [3, 4] = [1, 2, 3, 4]
                      [1, 2].append([3, 4]) = [[1, 2], [3, 4]]
