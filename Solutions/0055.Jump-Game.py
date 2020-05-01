@@ -28,6 +28,26 @@ class Solution:
     
 """TLE, should try Greedy solution with O(N), O(1)"""
 
+"""Iterating right-to-left, for each position we check if there is a potential jump that reaches a GOOD index (currPosition + nums[currPosition] >= leftmostGoodIndex). 
+If we can reach a GOOD index, then our position is itself GOOD. Iteration continues until the beginning of the array. 
+If first position is a GOOD index then we can reach the last index from the first position."""
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        lens = len(nums)
+        lastPos = lens - 1
+        for i in range(lens - 1, -1, -1):
+            if i + nums[i] >= lastPos:
+                lastPos = i
+                
+        return lastPos == 0
+
+
+
+
+
+
+
+
 // C# solution does not TLE
 public class Solution {
     public bool CanJump(int[] nums) {
