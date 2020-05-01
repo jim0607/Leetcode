@@ -48,7 +48,9 @@ class Solution:
         if start >= end:
             return nums[start]
         
-        pivot_pos = self._partition_(nums, start, end)      # If that would be a quicksort algorithm, one would proceed recursively to use quicksort for the both parts that would result in \mathcal{O}(N \log N)O(NlogN) time complexity. Here there is no need to deal with both parts since now one knows in which part to search for N - kth smallest element, and that reduces average time complexity to \mathcal{O}(N)O(N).
+        pivot_pos = self._partition_(nums, start, end)      # If that would be a quicksort algorithm, one would proceed recursively to use quicksort for the both parts that would result in O(NlogN) time complexity. 
+                                                            # Here there is no need to deal with both parts since now one knows in which part to search for N - kth smallest element, 
+                                                            # and that reduces average time complexity to O(N).
         if k - 1 < pivot_pos:
             return self._quickSelect_(nums, start, pivot_pos - 1, k)    # O(N)+O(N/2)+...+O(2)+O(1)=O(X); O(X)+O(1)=O(2N), so O(X)=O(N) and that is why quick_select is O(N) algorithm
         elif k - 1 > pivot_pos: 
