@@ -18,6 +18,26 @@ Bonus point if you are able to do this using only O(n) extra space, where n is t
 
 
 class Solution:
+    def minimumTotal(self, A: List[List[int]]) -> int:
+        dp = []
+        for row in A:
+            dp.append(row)
+            
+        for i in range(1, len(A)):
+            for j in range(len(A[i])):
+                if j == 0:
+                    dp[i][j] += dp[i - 1][j]
+                elif j == len(A[i]) - 1:
+                    dp[i][j] += dp[i - 1][j - 1]
+                else:
+                    dp[i][j] += min(dp[i - 1][j], dp[i - 1][j - 1])
+                    
+        return min(dp[len(A) - 1])
+
+
+
+另一种写法：
+class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -> int:
         dp = [[0] * len(triangle[i]) for i in range(len(triangle))]
                 
