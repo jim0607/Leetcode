@@ -57,7 +57,7 @@ class Solution:
                 i += 1
             arr[j] = arr[i]
 
-        arr[i] = pivot
+        arr[i] = pivot		# 返回pivot点到数组里面！
         
         return i
 
