@@ -497,11 +497,16 @@ quick sort, self-define comparing two strings by: if s1 + s2 <= s2 + s1: return 
 - [0969. Pancake Sorting](Solutions/0969.Pancake-Sorting.py) (M) <br>
 for i in range(lens-1, -1, -1 ): Find maxIndex -> flip max to top -> flip max to bottom of the whole arr -> repeat
 <br> 147. Insertion sort a linked list <br>
+- [0280. Wiggle Sort](Solutions/0280.Wiggle-Sort.py) (M) <br>
+O(N): 从左到右扫一遍，不满足条件的交换就好了。定义一个变量prevShouldLessThanCurr, in the for loop, prevShouldLessThanCurr = not prevShouldLessThanCurr every step, and based on prevShouldLessThanCurr is true or not, we swap nums[i-1] with nums[i] or not.
+
 
 ### [Partition and quick select](/Sort.py) 
-- [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode) 好多细节
+- [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode) 
+好多细节!!要背熟理解partition这个函数. partition这个函数的作用是O(N)找到某个数k在一个无序数组中所在的位置，并按照这个数k将该数组分为左右两部分。
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M Youtubed)  <br>
-solution 1: quick select O(N) in average; solution 2: heap O(NlogK): heapq.heappush(numsHeap, num); heapq.heappop(numsHeap)
+solution 1: quick select O(N) in average!!!!; solution 2: heap O(NlogK): heapq.heappush(numsHeap, num); heapq.heappop(numsHeap)
+<br> 一个follow up: find the median in a un-sorted array.  solution: this is to find the Kth largest in an array, where K=len(arr)//2
 - [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E) <br>
 solution 1: 同向双指针； solution 2: 反向双指针同上题
 - [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
