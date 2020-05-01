@@ -1,5 +1,4 @@
-## 二刷：先把做过的做一遍，再把每个tag的高频前8题都做掉！
-## 用Python刷题，公司也都是用Python，Python快多了，重点是掌握算法，OOP project可以说是Java做的那个HARDM。
+## 三刷：基本不做新题了，把高频题目融会贯通全部搞懂！模板总结出来天天背诵拿出来看！
 
 
 # [Data Structure](/Data-Structure.py)
