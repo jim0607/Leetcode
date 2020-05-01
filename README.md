@@ -2,120 +2,13 @@
 ## 每日10题：05/01 - 05/25
 
 
-# [Data Structure](/Data-Structure.py)
-### [Stack and Queue](/Data-Structure.py)
-- [0232. Implement Queue using Stacks](Solutions/0232.Implement-Queue-using-Stacks.py) (E) <br>
-use two stacks
-- [0225. Implement Stack using Queues](Solutions/0225.Implement-Stack-using-Queues.py) (E) <br>
-use two deques
-- [0155. Min Stack](Solutions/0155.Min-Stack.py) (!!E) <br>
-use two stacks, a stack is to store all items, a minStack to store min items. If a num is less than minStack[-1] then we should append to minStack.
-- [0716. Max Stack](Solutions/0716.Max-Stack.py) (E) <br>
-should be labeled hard if using double linked list and tree map
-- [0346. Moving Average from Data Stream](Solutions/0346.Moving-Average-from-Data-Stream.cs) (E) <br>
-In C#, Queue class is by default a deque, with two methods: 1. enqueue, meaning push to the back of the queue; 2. dequeue, meaning pop from the front of the queue. They are all O(1).
-- [0933. Number of Recent Calls](Solutions/0933.Number-of-Recent-Calls.cs) (E) <br>
-In C#, Count is a method that gets the number of elements contained in the Queue.
-- [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
-
-### [Iterator](/Data-Structure.py)
-- [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (!!M) <br>
-注意这类问题的主程序一般都写在hasNext里面！if topItem.isInteger(): return True; else: if it is a nestedList, 就展开: self.stack = self.stack[:-1] + topItem.getList()[::-1]
-- [0251. Flatten 2D Vector](Solutions/0251.Flatten-2D-Vector.py) (M) <br>
-- [0281. Zigzag Iterator](Solutions/0281.Zigzag-Iterator.py) (M)
-- [0284. Peeking Iterator](Solutions/0284.Peeking-Iterator.py) (!M) saving peeked value
-- [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (!!M) <br>
-用stack实现binary search tree的in order traversal的方法类似
-
-### [Monotonic stack](/Data-Structure.py) （递增栈，就是栈中只存放递增序列）
-- [0084. Largest Rectangle in Histogram](Solutions/0084.Largest-Rectangle-in-Histogram.py) (!!H) <br>
-非单调栈算法：从左向右遍历数组，然后每遍历到一个高度h，向左边找第一个比自己小的的高度在位置i，向右边找第一个比自己小的的高度在位置j，
-那此时的面积就是h*(j-i). 这个算法需要向左向右找第一个比自己小的元素，这类问题就要想到用monostack. 通过maintain a monostack,可以很快找到第一个比i小的元素，就是栈中排在i前面的元素，我们需要做的只是向右找了，所以我们向右遍历，每当遇到大于栈顶的值时，直接入栈保持递增stack，如果遇到小于栈顶的值，这时候说明找到了第一个比i（栈顶）小的元素，这时候我们回头且慢莫慌，栈内各个元素依次出栈并回头计算一下面积。
-- [0085. Maximal Rectangle](Solutions/0085.Maximal-Rectangle.py) (!!H) <br>
-step 1: construct a heights list for each row; step 2: calculate the largestRectangularHistogram of each height using the same method in 84
-- [0654. Maximum Binary Tree](Solutions/0654.Maximum-Binary-Tree.py) (M) <br>
-solution 1: simple recursionsolution 2: monostack 通过观察发现规律，对于每个node的父亲节点 = min(左边第一个比它大的，右边第一个比它大的), 维护一个降序数组，可以实现对这个min的快速查找, # O(N), O(N)
-
-
-
-### [Deque](/Data-Structure.py) 
-- [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (H) <br>
-没看懂
-
-
-### [Hashmap/Dictionary](/Data-Structure.py) 
-- [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!M youtubed) <br>
-use a double linked list and a dictionary; Double linkedlist: newest node append to tail, eldest node remove from head, so that the operation is O(1); Hashmap: key is key, value is the corresponding double linkedlist node
-
-### [Heap/Heapq](/Data-Structure.py) 
-- [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M) <br>
-time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的push 和pop都是logK; heapq适合做第K大，第K小，前K大，前K小问题
-- [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (M) <br>
-需要一个freqDict来记录每个数出现的freq， heapq, heapq中放入的是(freq, key)对; 按照freq来做heapq，这样就保证了可以筛选出most freqent k item
-- [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
-solution 1: 扫描线；solution 2: 以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
-- [0973. K Closest Points to Origin](Solutions/0973.K-Closest-Points-to-Origin.py) (M) <br>
-（以squre来构建heap就可以了，heap中的元素是(square, point)）
-- [0378. Kth Smallest Element in a Sorted Matrix](Solutions/0378.Kth-Smallest-Element-in-a-Sorted-Matrix.py) (!!M) <br>
-利用sorted matrix的性质，从左上角第一个元素开始，添加进heap，然后heap当然自动排序了，然后pop出最小的，然后把最小的那个数的右边和下边的元素分别入heap，这样可以保证每次pop出来的都是最小的。1. use a heap to store (num, row, col); 2. use a set to check if row + 1, col + 1 visited already before push into the heap
-[LintCode] 465 Kth Smallest Sum in Two Sorted Arrays  与378同样的方法求解
-- [0621. Task Scheduler](Solutions/0621.Task-Scheduler.py) (!!M) <br>
-I have to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
-- [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!M) <br>
-maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq
-- [0264. Ugly Number II](Solutions/0264.Ugly-Number-II.py) (M) <br>
-维护一个heapq，让它记录从小到大的ugly number, 每次pop出一个currMin，然后生成三个数2* currMin, 3*currMin, 5*currMin, 如果not in seen, 就push进heapq
-- [0407. Trapping Rain Water II](Solutions/0407.Trapping-Rain-Water-II.py) (!!H) <br>
-Similar with 1D trapping rain water. Step 1: store all the outliners of the matrix in heapq.  Maintain a visited set to mark all the visited locations. Step 2: starting from the min height position, do BFS the 4 possible moves. If found a height < the min Height, then we can store water, else we cannot store water and we should update this leaking point by putting the new height into the heapq
-- [0295. Find Median from Data Stream](Solutions/0295.Find-Median-from-Data-Stream.py) (!!H) <br>
-定义两个heap: self.leftHq as a maxheap to store the nums that are smaller than median; and self.rightHq as a minheap store the nums that are larger then median.  每次新增一个数num的时候，先根据比 maxheap 中最后一个数大还是小丢到对应的 heap 里。丢完以后，再处理左右两边的平衡性:如果左边太少了，就从右边拿出一个最小的丢到左边。如果右边太少了，从左边拿出一个最大的丢到右边。
-- [0480. Sliding Window Median](Solutions/0480.Sliding-Window-Median.py) (H) <br>
-similar with 295, we need to maintain two heaps, leftHq and rightHq. To slide one step is actually to do two things:
-1. add a number, which is exactly the same as that in 295.
-2. remove a number
-
-
-
-
-# [Union-Find](Union-Find-and-Trie.py)
-- [0589. Connecting Graph](Solutions/0589.connecting-graph.java) (!!M Lintcode) <br>
-将a和b connect: 只需要将a和b的father connect就好；query a和b有没有连接:其实就是判断a和b在不在同一个集合里面，只需要判断find(a) == find(b)
-- [0590 Connecting Graph II](Solutions/0590.Connecting-Graph-II.java) (!!M Lintcode) <br>
-需要query 点a所在集合的元素个数，所以需要一个list size, 用来记录每个点所在集合的点的个数，在union i 和 j 的时候: father[i] = j, sz[j] += sz[i];
-- [0591. Connecting Graph II](Solutions/0591.Connecting-Graph-II.java) (!!M Lintcode) <br>
-需要query 整个图中有多少个集合，所以需要一个counter, 用来记录图中集合的个数，初始化为n, 在union i 和 j 的时候: father[i] = j, counter--;
-- [0305. Number of Islands II](Solutions/0305.Number-of-Islands-II.py) (!!H) <br>
-Union-Find 算法是解决动态连通性（Dynamic Conectivity）问题的一种算法. 这里的island可以看做是一个图. 每放置一个1, 就将其与其上下左右四个点的1连接起来。
-
-Graph Valid Tree
-Longest Consecutive Sequence
-Regions Cut By Slashes
-
-
-# [Trie](Union-Find-and-Trie.py)
-- [0208. Implement Trie (Prefix Tree)](Solutions/0208.Implement-Trie-(Prefix-Tree).py) (!!M) <br>
-Firstly we need to define a TrieNode class, a TrieNode class hs two properties: 1. self.child = collections.defaultdict(TrieNode)  # use a defaultdict, key is char, value is trieNode.  2. self.isEnd = False   # return True if it is the end of the Trie.  Then implement 3 methods: insert(word), search(word), startWith(prefix)
-- [0211. Add and Search Word - Data structure design](Solutions/0211.Add-and-Search-Word-Data-structure-design.py) (!!M) <br>
-addWord mehtod is the same as 208 insert method. But search mehtod is a little different than search method in 208, cuz "." is a wildcard that can represent any char. So we use a queue to store (currNode, idx), then append layer by layer.
-- [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!M) <br>
-The capability of finding matching prefix is where the data structure called Trie would shine, comparing the hashset data structure. Not only can Trie tell the membership of a word, but also it can instantly find the words that share a given prefix.
-The official solution is great.
-
-Boggle game (lintcode)
-
-
-# [Backgracking](Backtracking-templete.py)
-- [0079. Word Search](Solutions/0079.Word-Search.py) (!!M) <br>
-
-
-
 # [Dynamic Programming](Dynamic-Programming.py)
 - [0322. Coin Change](Solutions/0322.Coin-Change.py) (!!M) <br>
 最小值问题。状态: f[X]=最少用多少枚硬币拼出X; 转移方程：f[X] = min(f[X-1]+1, f[X-2]+1, f[X-5]+1, f[X])
 - [0055. Jump Game](Solutions/0055.Jump-Game.py) (!!M) <br>
 存在性问题。状态: dp[j]=能不能跳到位置j; 转移方程：dp[j]=True if dp[i] and i+nums[i]>=j) (TLE)
 - [0152. Maximum Product Subarray](Solutions/0152.Maximum-Product-Subarray.py) (M) <br>
-最大值问题。用一个数组记录最大的正数maxDP[i]，另一个数组记录最小的负数minDP[i], maxDP[i]表示以i为结尾的subarray的最product. 分nums[i]的正负,更新maxDP[i]和minDP[i]。maxDP[i] = max(nums[i], maxDP[i-1]*nums[i]) if nums[i]>0
+最大值问题。用一个数组记录最大的正数maxDP[i]，另一个数组记录最小的负数minDP[i], maxDP[i]表示以i为结尾的subarray的最product. 分nums[i]的正负,更新maxDP[i]和minDP[i]。maxDP[i] = max(nums[i], maxDP[i-1]* nums[i]) if nums[i]>0
 
 <br> 542, <br> 1162
 
@@ -251,108 +144,103 @@ Note that the numbers are positive, so the prefixProd will be an increasing arr.
 
 
 
-# [Binary Search](/Binary-Search.py)
-- [0704. Binary Search](Solutions/0704.Binary-Search.py) (!!E) <br>
-九章模板: 1. while start + 1 < end; 2. mid = start + (end - start) // 2; 3. 循环内只写两个分支； 4. 往左逼find the first X; 5. 往右逼find the last X
-- [0702. Search in a Sorted Array of Unknown Size](Solutions/0702.Search-in-a-Sorted-Array-of-Unknown-Size.py) (M) <br>
-Find end point using "double method", same as dynamic array
-- [0069. Sqrt(x)](Solutions/0069.Sqrt(x).py) (E) <br>
-两种方法：1. Binary Search; 2. Newton's Method. x<sub>k+1</sub> = (x<sub>k</sub> + x/x<sub>k</sub>) / 2; O(logN) since the set converges quadratically
-- [0034. Find First and Last Position of Element in Sorted Array](Solutions/0034.Find-First-and-Last-Position-of-Element-in-Sorted-Array.py) (!!M) <br>
-用两次二分分别找first pos of target and last pos of target. 想找first position of target，要保证两点：1. while循环里的判断要往左逼，也就是if nums[mid] **>=** target: end = mid； 2. 就把start放在后面更新，这样如果出现nums[end]和nums[start]都等于target的情况的话，first可以被后面较小的start替换掉，因为start肯定是小于end的。<br>
-Follow up: In a sorted array [1,3,4.......], search the elements that are in a certain range eg:[10, 100]. solution: 用两次二分分别找first position of 10 and last position of 100.  Then the elements between the two positions should be in range [10, 100].
+# [Data Structure](/Data-Structure.py)
+### [Stack and Queue](/Data-Structure.py)
+- [0232. Implement Queue using Stacks](Solutions/0232.Implement-Queue-using-Stacks.py) (E) <br>
+use two stacks
+- [0225. Implement Stack using Queues](Solutions/0225.Implement-Stack-using-Queues.py) (E) <br>
+use two deques
+- [0155. Min Stack](Solutions/0155.Min-Stack.py) (!!E) <br>
+use two stacks, a stack is to store all items, a minStack to store min items. If a num is less than minStack[-1] then we should append to minStack.
+- [0716. Max Stack](Solutions/0716.Max-Stack.py) (E) <br>
+should be labeled hard if using double linked list and tree map
+- [0346. Moving Average from Data Stream](Solutions/0346.Moving-Average-from-Data-Stream.cs) (E) <br>
+In C#, Queue class is by default a deque, with two methods: 1. enqueue, meaning push to the back of the queue; 2. dequeue, meaning pop from the front of the queue. They are all O(1).
+- [0933. Number of Recent Calls](Solutions/0933.Number-of-Recent-Calls.cs) (E) <br>
+In C#, Count is a method that gets the number of elements contained in the Queue.
+- [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
 
-- [0035. Search Insert Position](Solutions/0035.Search-Insert-Position.py) (E) <br>
-This is to implement bisect.bisect_left(nums, target), which returns the position of inserting target in order to keep nums sorted
-- [0278. First Bad Version](Solutions/0278.First-Bad-Version.py) (E)
-- [0153. Find Minimum in Rotated Sorted Array](Solutions/0153.Find-Minimum-in-Rotated-Sorted-Array.py) (!!M) <br>
-解法一：nums[mid]可以与nums[0]比较；解法二：也可以与nums[-1]比较；解法三：也可以与nums[end]比较
-- [0154. Find Minimum in Rotated Sorted Array II](Solutions/0154.Find-Minimum-in-Rotated-Sorted-Array-II.py) (H) <br>
-与153类似，只是array里可能有duplicates，采用153的解法三，唯一不同的是：nums[mid] == nums[end]: end -= 1, 注意不能drop掉一半，因为eg: nums=[2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2........], 由于不知道mid是1前面的2还是1后面的2，所以无法确定是drop前面还是drop后面，只能保险地把end往前挪一位，所以154这题in extreme case, 时间复杂度是O(N)
-- [0039. Recover Rotated Sorted Array](Solutions/0039.Recover-Rotated-Sorted-Array.py) (M LintCode) <br>
-154 相同方法binary search找到minPos, 然后三步反转法recover
-- [0033. Search in Rotated Sorted Array](Solutions/0033.Search-in-Rotated-Sorted-Array.py) (M) 画个图分几个区间讨论就可以了！
-- [0852. Peak Index in a Mountain Array](Solutions/0852.Peak-Index-in-a-Mountain-Array.py) (E)<br>
-- [0162. Find Peak Element](Solutions/0162.Find-Peak-Element.py) (M) <br>
-OOXX问题，找到第一个出现的X，X是the first position of 递减的序列
-- [0390. Find Peak Element II](Solutions/0390.Find-Peak-Element-II.java) (H Lintocde) <br>
-先二分找到中间某一行的最大值位置(i, j)，然后这个最大值的地方向上(i, j-1)和向下(i, j+1)分别比一下，如果(i, j)最大，那恭喜找到了peak, 如果向上更大，那就往上爬到(i,j-1), 此时i行及其以下的行都可以丢掉了，然后在j-1那一列查找最大值的位置(ii, j-1), 这时候在(ii, j-1)这个位置向左(ii-1, j-1)向右(ii+1, j-1)分别比一下，如果发现(ii, j-1)最大，那么恭喜找到peak了，如果发现(ii-1, j-1)更大，那就继续往(ii-1, j-1)爬一步，可以直接丢掉j-1列及其右边的部分了。这样的时间复杂度是T(N)=O(N 在第i行查找最大值)+T(N/2), 所以时间复杂度T(N) = O(N)+O(N/2)+O(N/4)+....+O(2)+O(1) = O(N)+O(N/2)+O(N/4)+....+O(2)+O(1)+O(1)-O(1) = O(2N)-O(1) = O(N).
-- [0875. Koko Eating Bananas](Solutions/0875.Koko-Eating-Bananas.py) (M) <br>
-If Koko can finish eating all the bananas (within H hours) with an eating speed of K, she can finish with a larger speed too. So it is a OOOXXX problem trying to find the first X. end is set to be max(piles). Every time find if it posible to eat all the bananas with speed mid. if yes, then drop the right part, if no, then drop the left."""
-- [0183. Wood Cut](Solutions/0183.Wood-Cut.py) (!!H Lintcode) <br>
-If we can cut into pieces with lens, then we can also cut into prices with len - 1, So this is a OOOXXX problem, to find the last O.
-<br>
-lintcode 437 copy books!!
-- [0074. Search a 2D Matrix](Solutions/0074.Search-a-2D-Matrix.py) (M) <br>
-Think it as a long 1D array with MxN element, then we can use binary search; row = mid // n, col = mid % n; O(log(MN)), O(1)
-- [0240. Search a 2D Matrix II](Solutions/0240.Search-a-2D-Matrix-II.py) (M) <br>
-start from left bottom, head up to right top, each comparism rule out a row (i-1=1) or rule out a col (j+=1)
-- [0050. Pow(x, n)](Solutions/0050.Pow(x,n).py) (M) <br>
-if mod == 0: res * = x^div; else: res * = x^div * x
-- [0029. Divide Two Integers](Solutions/0029.Divide-Two-Integers.py) (M) <br>
-eg: 10//3, 每次通过右移3 << 1的方法将3乘以2,这种算法是O(N), 每次都右移几次3 << x, 相当于3x2x2x2...,直到3x2x2x2...>10, 然后取余数继续这个算法
-- [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
-target是随着i的移动而变化的binary search
+### [Iterator](/Data-Structure.py)
+- [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (!!M) <br>
+注意这类问题的主程序一般都写在hasNext里面！if topItem.isInteger(): return True; else: if it is a nestedList, 就展开: self.stack = self.stack[:-1] + topItem.getList()[::-1]
+- [0251. Flatten 2D Vector](Solutions/0251.Flatten-2D-Vector.py) (M) <br>
+- [0281. Zigzag Iterator](Solutions/0281.Zigzag-Iterator.py) (M)
+- [0284. Peeking Iterator](Solutions/0284.Peeking-Iterator.py) (!M) saving peeked value
+- [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (!!M) <br>
+用stack实现binary search tree的in order traversal的方法类似
+
+### [Monotonic stack](/Data-Structure.py) （递增栈，就是栈中只存放递增序列）
+- [0084. Largest Rectangle in Histogram](Solutions/0084.Largest-Rectangle-in-Histogram.py) (!!H) <br>
+非单调栈算法：从左向右遍历数组，然后每遍历到一个高度h，向左边找第一个比自己小的的高度在位置i，向右边找第一个比自己小的的高度在位置j，
+那此时的面积就是h*(j-i). 这个算法需要向左向右找第一个比自己小的元素，这类问题就要想到用monostack. 通过maintain a monostack,可以很快找到第一个比i小的元素，就是栈中排在i前面的元素，我们需要做的只是向右找了，所以我们向右遍历，每当遇到大于栈顶的值时，直接入栈保持递增stack，如果遇到小于栈顶的值，这时候说明找到了第一个比i（栈顶）小的元素，这时候我们回头且慢莫慌，栈内各个元素依次出栈并回头计算一下面积。
+- [0085. Maximal Rectangle](Solutions/0085.Maximal-Rectangle.py) (!!H) <br>
+step 1: construct a heights list for each row; step 2: calculate the largestRectangularHistogram of each height using the same method in 84
+- [0654. Maximum Binary Tree](Solutions/0654.Maximum-Binary-Tree.py) (M) <br>
+solution 1: simple recursionsolution 2: monostack 通过观察发现规律，对于每个node的父亲节点 = min(左边第一个比它大的，右边第一个比它大的), 维护一个降序数组，可以实现对这个min的快速查找, # O(N), O(N)
 
 
-# [Sweep-Line](/Sweep-Line.py) <br>
-- [0391. Number of Airplanes in the Sky](Solutions/0391.Number-of-Airplanes-in-the-Sky.py) (M Lintcode) <br>
-扫描线做法：碰到interval的start，也就是起飞一架飞机，当前天上的飞机数++。碰到interval的end，也就是降落一架飞机，当前天上的飞机数--。
-Step 1: 我们分别把所有的start和所有的end放进两个数组，并排序。Step 2: 然后从第一个start开始统计，碰到start较小就加一，碰到end较小就减一。并且同时维护一个最大飞机数的max。
+### [Deque](/Data-Structure.py) 
+- [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (H) <br>
+没看懂
+
+
+### [Hashmap/Dictionary](/Data-Structure.py) 
+- [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!M youtubed) <br>
+use a double linked list and a dictionary; Double linkedlist: newest node append to tail, eldest node remove from head, so that the operation is O(1); Hashmap: key is key, value is the corresponding double linkedlist node
+
+### [Heap/Heapq](/Data-Structure.py) 
+- [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M) <br>
+time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的push 和pop都是logK; heapq适合做第K大，第K小，前K大，前K小问题
+- [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (M) <br>
+需要一个freqDict来记录每个数出现的freq， heapq, heapq中放入的是(freq, key)对; 按照freq来做heapq，这样就保证了可以筛选出most freqent k item
 - [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
-solution 1: 扫描线；minimum meeting rooms required could be understood us maximum meeting rooms in use
-Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky <br> solution 2: 以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
-<br>
-218. The Skyline Problem
+solution 1: 扫描线；solution 2: 以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
+- [0973. K Closest Points to Origin](Solutions/0973.K-Closest-Points-to-Origin.py) (M) <br>
+（以squre来构建heap就可以了，heap中的元素是(square, point)）
+- [0378. Kth Smallest Element in a Sorted Matrix](Solutions/0378.Kth-Smallest-Element-in-a-Sorted-Matrix.py) (!!M) <br>
+利用sorted matrix的性质，从左上角第一个元素开始，添加进heap，然后heap当然自动排序了，然后pop出最小的，然后把最小的那个数的右边和下边的元素分别入heap，这样可以保证每次pop出来的都是最小的。1. use a heap to store (num, row, col); 2. use a set to check if row + 1, col + 1 visited already before push into the heap
+[LintCode] 465 Kth Smallest Sum in Two Sorted Arrays  与378同样的方法求解
+- [0621. Task Scheduler](Solutions/0621.Task-Scheduler.py) (!!M) <br>
+I have to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
+- [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!M) <br>
+maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq
+- [0264. Ugly Number II](Solutions/0264.Ugly-Number-II.py) (M) <br>
+维护一个heapq，让它记录从小到大的ugly number, 每次pop出一个currMin，然后生成三个数2* currMin, 3*currMin, 5*currMin, 如果not in seen, 就push进heapq
+- [0407. Trapping Rain Water II](Solutions/0407.Trapping-Rain-Water-II.py) (!!H) <br>
+Similar with 1D trapping rain water. Step 1: store all the outliners of the matrix in heapq.  Maintain a visited set to mark all the visited locations. Step 2: starting from the min height position, do BFS the 4 possible moves. If found a height < the min Height, then we can store water, else we cannot store water and we should update this leaking point by putting the new height into the heapq
+- [0295. Find Median from Data Stream](Solutions/0295.Find-Median-from-Data-Stream.py) (!!H) <br>
+定义两个heap: self.leftHq as a maxheap to store the nums that are smaller than median; and self.rightHq as a minheap store the nums that are larger then median.  每次新增一个数num的时候，先根据比 maxheap 中最后一个数大还是小丢到对应的 heap 里。丢完以后，再处理左右两边的平衡性:如果左边太少了，就从右边拿出一个最小的丢到左边。如果右边太少了，从左边拿出一个最大的丢到右边。
+- [0480. Sliding Window Median](Solutions/0480.Sliding-Window-Median.py) (H) <br>
+similar with 295, we need to maintain two heaps, leftHq and rightHq. To slide one step is actually to do two things:
+1. add a number, which is exactly the same as that in 295.
+2. remove a number
 
 
+### [Union-Find](Union-Find-and-Trie.py)
+- [0589. Connecting Graph](Solutions/0589.connecting-graph.java) (!!M Lintcode) <br>
+将a和b connect: 只需要将a和b的father connect就好；query a和b有没有连接:其实就是判断a和b在不在同一个集合里面，只需要判断find(a) == find(b)
+- [0590 Connecting Graph II](Solutions/0590.Connecting-Graph-II.java) (!!M Lintcode) <br>
+需要query 点a所在集合的元素个数，所以需要一个list size, 用来记录每个点所在集合的点的个数，在union i 和 j 的时候: father[i] = j, sz[j] += sz[i];
+- [0591. Connecting Graph II](Solutions/0591.Connecting-Graph-II.java) (!!M Lintcode) <br>
+需要query 整个图中有多少个集合，所以需要一个counter, 用来记录图中集合的个数，初始化为n, 在union i 和 j 的时候: father[i] = j, counter--;
+- [0305. Number of Islands II](Solutions/0305.Number-of-Islands-II.py) (!!H) <br>
+Union-Find 算法是解决动态连通性（Dynamic Conectivity）问题的一种算法. 这里的island可以看做是一个图. 每放置一个1, 就将其与其上下左右四个点的1连接起来。
 
-# [Binary Tree, Divide and Conquer](/Binary-Tree-Divide-and-Conquer.py) <br>
-- [0144. Binary Tree Preorder Traversal](Solutions/0144.Binary-Tree-Preorder-Traversal.py) (M) memorize the iterative version using stack
-- [0094. Binary Tree Inorder Traversal](Solutions/0094.Binary-Tree-Inorder-Traversal.py) (M) memorize the iterative version using stack
-- [0104. Maximum Depth of Binary Tree](Solutions/0104.Maximum-Depth-of-Binary-Tree.py) (!!E) Divide and Conquer vs Traverse
-- [0257. Binary Tree Paths](Solutions/0257.Binary-Tree-Paths.py) (!!E) <br>
-- [0112. Path Sum](Solutions/0112.Path-Sum.py) (E) <br>
-- [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
-- [0437. Path Sum III](Solutions/0437.Path-Sum-III.py) (E) 递归需要恶补呀！
-- [0596. Minimum Subtree](Solutions/0596.Minimum-Subtree.py) (LintCode) <br>
-Divide and Conquer的方法输出以root为根的subTree的subSum，然后每次与minSum打擂台进行比较，注意python中定义全局变量可以用self.minSum = float("inf"), self.minNode = None，在主函数中定义这两个变量就可以了
-- [0597. Subtree with Maximum Average](Solutions/0597.Subtree-with-Maximum-Average.py) (LintCode) 同上 Divide and Conquer
-- [0124. Binary Tree Maximum Path Sum](Solutions/0124.Binary-Tree-Maximum-Path-Sum.py) (H) <br>
-题意应该是任何path都可以，只要点和点连接在一起就算一个path，起点和终点doesn't matter. 方法是定义一个self.maxSum在helper函数中去打擂台。helper 函数 return max(left of root, right of root) + root.val; self.maxSum = max(self.maxSum, leftmax + rightMax + root.val)
-- [0110. Balanced Binary Tree](Solutions/0110.Balanced-Binary-Tree.py) (E) <br>
-定义一个全局变量self.is_balanced; 养成好习惯，把叶子节点单独做判断if not root.left and not root.right: return 1; if abs(leftDepth - rightDepth) > 1: self.is_balanced = False
-- [0543. Diameter of Binary Tree](Solutions/0543.Diameter-of-Binary-Tree.py) (E) <br>
-Can someone tell me why my solution doesn't work?
-- [0235. Lowest Common Ancestor of a Binary Search Tree](Solutions/0235.Lowest-Common-Ancestor-of-a-Binary-Search-Tree.py) (E) <br>
-- [0236. Lowest Common Ancestor of a Binary Tree](Solutions/0236.Lowest-Common-Ancestor-of-a-Binary-Tree.py) (M) <br>
-- [0700. Search in a Binary Search Tree](Solutions/0700.Search-in-a-Binary-Search-Tree.py) (E) <br>
-- [0938. Range Sum of BST](Solutions/0938.Range-Sum-of-BST.py) (E) <br>
-- [0226. Invert Binary Tree](Solutions/0226.Invert-Binary-Tree.py) (E) <br>
-STEP 1. divide 先局部有序; STEP 2. conquer 再整体有序
-- [0617. Merge Two Binary Trees](Solutions/0617.Merge-Two-Binary-Trees.py) (E) <br>
-- [0108. Convert Sorted Array to Binary Search Tree](Solutions/0108.Convert-Sorted-Array-to-Binary-Search-Tree.py) (!!E) <br>
-we can always choose the left middle number as root, or always choose right middle number as root, or sometimes left sometimes right as root. That is why the answer is not unique
-- [0098. Validate Binary Search Tree](Solutions/0098.Validate-Binary-Search-Tree.py) (M) <br>
-注意判断条件不是leftValid and rightValid and left.val<root.val<right.val而是max of left < root < min of right; helper函数返回以root为根的树(是不是BST，max and min value in the tree); if isLeftBST and isRightBST and maxLeft < root.val < minRight: return True, max(maxLeft, maxRight, root.val), min(minLeft, minRight, root.val) 
-- [0426. Convert Binary Search Tree to Sorted Doubly Linked List](Solutions/0426.Convert-Binary-Search-Tree-to-Sorted-Doubly-Linked-List.py) (M)  <br>
-solution 1: 定义两个全局变量self.head, self.curr，进行in order traversal的过程中不断更新curr的位置并hook up nodes
-- [0114. Flatten Binary Tree to Linked List](Solutions/0114.Flatten-Binary-Tree-to-Linked-List.py) (M) <br>
-helper函数每次都输出最后的一个node
-- [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (M) <br>
-use a stack with controlled recursion, some part of the algorithm is similar with the in order traversal of a tree using a stack; this algorithm has space complexity of O(h)
-- [0285. Inorder Successor in BST](Solutions/0285.Inorder-Successor-in-BST.py) (M) <br>
-Divide and conquer: if p.val < root.val: return left if left else root; else: return right
-- [0701. Insert into a Binary Search Tree](Solutions/0701.Insert-into-a-Binary-Search-Tree.py) (M) <br>
-if val > root.val则更新root.right: root.right = self.insertIntoBST(root.right, val); else: root.left = self.insertIntoBST(root.left, val); return root
-- [0450. Delete Node in a BST](Solutions/0450.Delete-Node-in-a-BST.py) (M) <br>
-- [1214. Two Sum BSTs](Solutions/1214.Two-Sum-BSTs.py) (M) <br>
-binary tree traversal using iterative way and store the val in a hash map; time complexity: O(M + N)
-- [1038. Binary Search Tree to Greater Sum Tree](Solutions/1038.Binary-Search-Tree-to-Greater-Sum-Tree.py) (M) <br>
-do a in order traversal (reversed version) to keep track the sums
-- [0096. Unique Binary Search Trees](Solutions/0096.Unique-Binary-Search-Trees.py) (M) Catalan Number
-<br>
-218. The Skyline Problem
+Graph Valid Tree
+Longest Consecutive Sequence
+Regions Cut By Slashes
+
+
+### [Trie](Union-Find-and-Trie.py)
+- [0208. Implement Trie (Prefix Tree)](Solutions/0208.Implement-Trie-(Prefix-Tree).py) (!!M) <br>
+Firstly we need to define a TrieNode class, a TrieNode class hs two properties: 1. self.child = collections.defaultdict(TrieNode)  # use a defaultdict, key is char, value is trieNode.  2. self.isEnd = False   # return True if it is the end of the Trie.  Then implement 3 methods: insert(word), search(word), startWith(prefix)
+- [0211. Add and Search Word - Data structure design](Solutions/0211.Add-and-Search-Word-Data-structure-design.py) (!!M) <br>
+addWord mehtod is the same as 208 insert method. But search mehtod is a little different than search method in 208, cuz "." is a wildcard that can represent any char. So we use a queue to store (currNode, idx), then append layer by layer.
+- [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!M) <br>
+The capability of finding matching prefix is where the data structure called Trie would shine, comparing the hashset data structure. Not only can Trie tell the membership of a word, but also it can instantly find the words that share a given prefix.
+The official solution is great.
+
+Boggle game (lintcode)
 
 
 # [Breadth First Search](/Breadth-First-Search.py)
@@ -440,6 +328,101 @@ self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3,
 - [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (!!H) 打印/输出所有满足条件的路径必用DFS
 Step 1. 从end到start做BFS，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
 Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近。最后将路径都存入到res里
+
+
+
+# [Binary Search](/Binary-Search.py)
+- [0704. Binary Search](Solutions/0704.Binary-Search.py) (!!E) <br>
+九章模板: 1. while start + 1 < end; 2. mid = start + (end - start) // 2; 3. 循环内只写两个分支； 4. 往左逼find the first X; 5. 往右逼find the last X
+- [0702. Search in a Sorted Array of Unknown Size](Solutions/0702.Search-in-a-Sorted-Array-of-Unknown-Size.py) (M) <br>
+Find end point using "double method", same as dynamic array
+- [0069. Sqrt(x)](Solutions/0069.Sqrt(x).py) (E) <br>
+两种方法：1. Binary Search; 2. Newton's Method. x<sub>k+1</sub> = (x<sub>k</sub> + x/x<sub>k</sub>) / 2; O(logN) since the set converges quadratically
+- [0034. Find First and Last Position of Element in Sorted Array](Solutions/0034.Find-First-and-Last-Position-of-Element-in-Sorted-Array.py) (!!M) <br>
+用两次二分分别找first pos of target and last pos of target. 想找first position of target，要保证两点：1. while循环里的判断要往左逼，也就是if nums[mid] **>=** target: end = mid； 2. 就把start放在后面更新，这样如果出现nums[end]和nums[start]都等于target的情况的话，first可以被后面较小的start替换掉，因为start肯定是小于end的。<br>
+Follow up: In a sorted array [1,3,4.......], search the elements that are in a certain range eg:[10, 100]. solution: 用两次二分分别找first position of 10 and last position of 100.  Then the elements between the two positions should be in range [10, 100].
+
+- [0035. Search Insert Position](Solutions/0035.Search-Insert-Position.py) (E) <br>
+This is to implement bisect.bisect_left(nums, target), which returns the position of inserting target in order to keep nums sorted
+- [0278. First Bad Version](Solutions/0278.First-Bad-Version.py) (E)
+- [0153. Find Minimum in Rotated Sorted Array](Solutions/0153.Find-Minimum-in-Rotated-Sorted-Array.py) (!!M) <br>
+解法一：nums[mid]可以与nums[0]比较；解法二：也可以与nums[-1]比较；解法三：也可以与nums[end]比较
+- [0154. Find Minimum in Rotated Sorted Array II](Solutions/0154.Find-Minimum-in-Rotated-Sorted-Array-II.py) (H) <br>
+与153类似，只是array里可能有duplicates，采用153的解法三，唯一不同的是：nums[mid] == nums[end]: end -= 1, 注意不能drop掉一半，因为eg: nums=[2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2........], 由于不知道mid是1前面的2还是1后面的2，所以无法确定是drop前面还是drop后面，只能保险地把end往前挪一位，所以154这题in extreme case, 时间复杂度是O(N)
+- [0039. Recover Rotated Sorted Array](Solutions/0039.Recover-Rotated-Sorted-Array.py) (M LintCode) <br>
+154 相同方法binary search找到minPos, 然后三步反转法recover
+- [0033. Search in Rotated Sorted Array](Solutions/0033.Search-in-Rotated-Sorted-Array.py) (M) 画个图分几个区间讨论就可以了！
+- [0852. Peak Index in a Mountain Array](Solutions/0852.Peak-Index-in-a-Mountain-Array.py) (E)<br>
+- [0162. Find Peak Element](Solutions/0162.Find-Peak-Element.py) (M) <br>
+OOXX问题，找到第一个出现的X，X是the first position of 递减的序列
+- [0390. Find Peak Element II](Solutions/0390.Find-Peak-Element-II.java) (H Lintocde) <br>
+先二分找到中间某一行的最大值位置(i, j)，然后这个最大值的地方向上(i, j-1)和向下(i, j+1)分别比一下，如果(i, j)最大，那恭喜找到了peak, 如果向上更大，那就往上爬到(i,j-1), 此时i行及其以下的行都可以丢掉了，然后在j-1那一列查找最大值的位置(ii, j-1), 这时候在(ii, j-1)这个位置向左(ii-1, j-1)向右(ii+1, j-1)分别比一下，如果发现(ii, j-1)最大，那么恭喜找到peak了，如果发现(ii-1, j-1)更大，那就继续往(ii-1, j-1)爬一步，可以直接丢掉j-1列及其右边的部分了。这样的时间复杂度是T(N)=O(N 在第i行查找最大值)+T(N/2), 所以时间复杂度T(N) = O(N)+O(N/2)+O(N/4)+....+O(2)+O(1) = O(N)+O(N/2)+O(N/4)+....+O(2)+O(1)+O(1)-O(1) = O(2N)-O(1) = O(N).
+- [0875. Koko Eating Bananas](Solutions/0875.Koko-Eating-Bananas.py) (M) <br>
+If Koko can finish eating all the bananas (within H hours) with an eating speed of K, she can finish with a larger speed too. So it is a OOOXXX problem trying to find the first X. end is set to be max(piles). Every time find if it posible to eat all the bananas with speed mid. if yes, then drop the right part, if no, then drop the left."""
+- [0183. Wood Cut](Solutions/0183.Wood-Cut.py) (!!H Lintcode) <br>
+If we can cut into pieces with lens, then we can also cut into prices with len - 1, So this is a OOOXXX problem, to find the last O.
+<br>
+lintcode 437 copy books!!
+- [0074. Search a 2D Matrix](Solutions/0074.Search-a-2D-Matrix.py) (M) <br>
+Think it as a long 1D array with MxN element, then we can use binary search; row = mid // n, col = mid % n; O(log(MN)), O(1)
+- [0240. Search a 2D Matrix II](Solutions/0240.Search-a-2D-Matrix-II.py) (M) <br>
+start from left bottom, head up to right top, each comparism rule out a row (i-1=1) or rule out a col (j+=1)
+- [0050. Pow(x, n)](Solutions/0050.Pow(x,n).py) (M) <br>
+if mod == 0: res * = x^div; else: res * = x^div * x
+- [0029. Divide Two Integers](Solutions/0029.Divide-Two-Integers.py) (M) <br>
+eg: 10//3, 每次通过右移3 << 1的方法将3乘以2,这种算法是O(N), 每次都右移几次3 << x, 相当于3x2x2x2...,直到3x2x2x2...>10, 然后取余数继续这个算法
+- [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
+target是随着i的移动而变化的binary search
+
+
+
+# [Binary Tree, Divide and Conquer](/Binary-Tree-Divide-and-Conquer.py) <br>
+- [0144. Binary Tree Preorder Traversal](Solutions/0144.Binary-Tree-Preorder-Traversal.py) (M) memorize the iterative version using stack
+- [0094. Binary Tree Inorder Traversal](Solutions/0094.Binary-Tree-Inorder-Traversal.py) (M) memorize the iterative version using stack
+- [0104. Maximum Depth of Binary Tree](Solutions/0104.Maximum-Depth-of-Binary-Tree.py) (!!E) Divide and Conquer vs Traverse
+- [0257. Binary Tree Paths](Solutions/0257.Binary-Tree-Paths.py) (!!E) <br>
+- [0112. Path Sum](Solutions/0112.Path-Sum.py) (E) <br>
+- [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
+- [0437. Path Sum III](Solutions/0437.Path-Sum-III.py) (E) 递归需要恶补呀！
+- [0596. Minimum Subtree](Solutions/0596.Minimum-Subtree.py) (LintCode) <br>
+Divide and Conquer的方法输出以root为根的subTree的subSum，然后每次与minSum打擂台进行比较，注意python中定义全局变量可以用self.minSum = float("inf"), self.minNode = None，在主函数中定义这两个变量就可以了
+- [0597. Subtree with Maximum Average](Solutions/0597.Subtree-with-Maximum-Average.py) (LintCode) 同上 Divide and Conquer
+- [0124. Binary Tree Maximum Path Sum](Solutions/0124.Binary-Tree-Maximum-Path-Sum.py) (H) <br>
+题意应该是任何path都可以，只要点和点连接在一起就算一个path，起点和终点doesn't matter. 方法是定义一个self.maxSum在helper函数中去打擂台。helper 函数 return max(left of root, right of root) + root.val; self.maxSum = max(self.maxSum, leftmax + rightMax + root.val)
+- [0110. Balanced Binary Tree](Solutions/0110.Balanced-Binary-Tree.py) (E) <br>
+定义一个全局变量self.is_balanced; 养成好习惯，把叶子节点单独做判断if not root.left and not root.right: return 1; if abs(leftDepth - rightDepth) > 1: self.is_balanced = False
+- [0543. Diameter of Binary Tree](Solutions/0543.Diameter-of-Binary-Tree.py) (E) <br>
+Can someone tell me why my solution doesn't work?
+- [0235. Lowest Common Ancestor of a Binary Search Tree](Solutions/0235.Lowest-Common-Ancestor-of-a-Binary-Search-Tree.py) (E) <br>
+- [0236. Lowest Common Ancestor of a Binary Tree](Solutions/0236.Lowest-Common-Ancestor-of-a-Binary-Tree.py) (M) <br>
+- [0700. Search in a Binary Search Tree](Solutions/0700.Search-in-a-Binary-Search-Tree.py) (E) <br>
+- [0938. Range Sum of BST](Solutions/0938.Range-Sum-of-BST.py) (E) <br>
+- [0226. Invert Binary Tree](Solutions/0226.Invert-Binary-Tree.py) (E) <br>
+STEP 1. divide 先局部有序; STEP 2. conquer 再整体有序
+- [0617. Merge Two Binary Trees](Solutions/0617.Merge-Two-Binary-Trees.py) (E) <br>
+- [0108. Convert Sorted Array to Binary Search Tree](Solutions/0108.Convert-Sorted-Array-to-Binary-Search-Tree.py) (!!E) <br>
+we can always choose the left middle number as root, or always choose right middle number as root, or sometimes left sometimes right as root. That is why the answer is not unique
+- [0098. Validate Binary Search Tree](Solutions/0098.Validate-Binary-Search-Tree.py) (M) <br>
+注意判断条件不是leftValid and rightValid and left.val<root.val<right.val而是max of left < root < min of right; helper函数返回以root为根的树(是不是BST，max and min value in the tree); if isLeftBST and isRightBST and maxLeft < root.val < minRight: return True, max(maxLeft, maxRight, root.val), min(minLeft, minRight, root.val) 
+- [0426. Convert Binary Search Tree to Sorted Doubly Linked List](Solutions/0426.Convert-Binary-Search-Tree-to-Sorted-Doubly-Linked-List.py) (M)  <br>
+solution 1: 定义两个全局变量self.head, self.curr，进行in order traversal的过程中不断更新curr的位置并hook up nodes
+- [0114. Flatten Binary Tree to Linked List](Solutions/0114.Flatten-Binary-Tree-to-Linked-List.py) (M) <br>
+helper函数每次都输出最后的一个node
+- [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (M) <br>
+use a stack with controlled recursion, some part of the algorithm is similar with the in order traversal of a tree using a stack; this algorithm has space complexity of O(h)
+- [0285. Inorder Successor in BST](Solutions/0285.Inorder-Successor-in-BST.py) (M) <br>
+Divide and conquer: if p.val < root.val: return left if left else root; else: return right
+- [0701. Insert into a Binary Search Tree](Solutions/0701.Insert-into-a-Binary-Search-Tree.py) (M) <br>
+if val > root.val则更新root.right: root.right = self.insertIntoBST(root.right, val); else: root.left = self.insertIntoBST(root.left, val); return root
+- [0450. Delete Node in a BST](Solutions/0450.Delete-Node-in-a-BST.py) (M) <br>
+- [1214. Two Sum BSTs](Solutions/1214.Two-Sum-BSTs.py) (M) <br>
+binary tree traversal using iterative way and store the val in a hash map; time complexity: O(M + N)
+- [1038. Binary Search Tree to Greater Sum Tree](Solutions/1038.Binary-Search-Tree-to-Greater-Sum-Tree.py) (M) <br>
+do a in order traversal (reversed version) to keep track the sums
+- [0096. Unique Binary Search Trees](Solutions/0096.Unique-Binary-Search-Trees.py) (M) Catalan Number
+<br>
+218. The Skyline Problem
+
 
 
 
@@ -542,9 +525,6 @@ solution 1: typical partition problem, step 1: 先把0放到最前面; step 2: �
 solution 2: 同向双指针的方法也应该理解掌握！
 - [0238. Product of Array Except Self](Solutions/0238.Product-of-Array-Except-Self.py) (M) <br>
 定义两个数组分别记录product before ith num: fwd[i]=fwd[i-1] * nums[i-1] and product after ith num: bwd[i]=bwd[i+1] * nums[i+1], then res[i]=fwd[i] * bwd[i]
-
-
-
 - [0011. Container With Most Water](Solutions/0011.Container-With-Most-Water.py) (!!M) <br>
 if height[i] > height[j]: j -= 1  # meaning that 右边的栅栏更低，所以把右边指针移动一下，希望能用长度去compromise宽度，即寄希望于min(height[i], height[j])会变大，来compromise掉(j - i)的变小. 为什么不移左边指针呢？因为移动左边的话，min(height[i], height[j])不会变大，但是(j - i)一定变小，所以面积一定变小.
 
@@ -562,6 +542,7 @@ anchor keeps all the non-zero numbers, while curr runs forward; whenever curr eq
 - [0042. Trapping Rain Water](Solutions/0042.Trapping-Rain-Water.py) (!!H) <br>
 首先找到最高highestBar的位置。然后从左边往最高的位置扫，同时maintain一个指针记录leftHighest的高度，如果扫到的地方i小于这个leftHighest的高度，
 则说明i这个地方可以蓄水，可蓄水量为leftHighest的高度减去i的高度；如果扫到的地方i大于这个leftHighest的高度，则说明i这个地方不可以蓄水，所以这时候要更新leftHighest为i的高度。同理对右边做同样的操作
+
 
 
 # [Two Sum]()
@@ -588,6 +569,18 @@ solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1
 
 
 
+# [Backgracking](Backtracking-templete.py)
+- [0079. Word Search](Solutions/0079.Word-Search.py) (!!M) <br>
+
+# [Sweep-Line](/Sweep-Line.py) <br>
+- [0391. Number of Airplanes in the Sky](Solutions/0391.Number-of-Airplanes-in-the-Sky.py) (M Lintcode) <br>
+扫描线做法：碰到interval的start，也就是起飞一架飞机，当前天上的飞机数++。碰到interval的end，也就是降落一架飞机，当前天上的飞机数--。
+Step 1: 我们分别把所有的start和所有的end放进两个数组，并排序。Step 2: 然后从第一个start开始统计，碰到start较小就加一，碰到end较小就减一。并且同时维护一个最大飞机数的max。
+- [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
+solution 1: 扫描线；minimum meeting rooms required could be understood us maximum meeting rooms in use
+Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky <br> solution 2: 以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
+<br>
+218. The Skyline Problem
 
 
 # [Other High Freq](/)
