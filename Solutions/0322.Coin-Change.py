@@ -6,7 +6,8 @@ Input: coins = [1, 2, 5], amount = 11
 Output: 3 
 Explanation: 11 = 5 + 5 + 1
 
-"""方法一：自下而上，时间复杂度：O(S*n)。空间复杂度：O(S)，dp 使用的空间。"""
+"""方法一：自下而上，时间复杂度：O(S*n)。空间复杂度：O(S)，dp 使用的空间。
+背包问题，重量一定要入状态"""
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         dp = [float("inf")] * (amount + 1)      # # dp[i]表示amount = i时最少的组合方法数
