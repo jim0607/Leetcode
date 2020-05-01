@@ -19,8 +19,9 @@ In C#, Count is a method that gets the number of elements contained in the Queue
 - [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
 
 ### [Iterator](/Data-Structure.py)
-- [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (!!M) 
-- [0251. Flatten 2D Vector](Solutions/0251.Flatten-2D-Vector.py) (M)
+- [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (!!M) <br>
+注意这类问题的主程序一般都写在hasNext里面！if topItem.isInteger(): return True; else: if it is a nestedList, 就展开: self.stack = self.stack[:-1] + topItem.getList()[::-1]
+- [0251. Flatten 2D Vector](Solutions/0251.Flatten-2D-Vector.py) (M) <br>
 - [0281. Zigzag Iterator](Solutions/0281.Zigzag-Iterator.py) (M)
 - [0284. Peeking Iterator](Solutions/0284.Peeking-Iterator.py) (!M) saving peeked value
 - [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (!!M) <br>
@@ -504,6 +505,8 @@ O(N): 从左到右扫一遍，不满足条件的交换就好了。定义一个�
 ### [Partition and quick select](/Sort.py) 
 - [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode) 
 好多细节!!要背熟理解partition这个函数. partition这个函数的作用是O(N)找到某个数k在一个无序数组中所在的位置，并按照这个数k将该数组分为左右两部分。
+399. Nuts & Bolts Problem (Lintcode)
+用bolt作为nuts的pivot进行partition, 用nut作为bolts的pivot进行partition
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M Youtubed)  <br>
 solution 1: quick select O(N) in average!!!!; solution 2: heap O(NlogK): heapq.heappush(numsHeap, num); heapq.heappop(numsHeap)
 <br> 一个follow up: find the median in a un-sorted array.  solution: this is to find the Kth largest in an array, where K=len(arr)//2
