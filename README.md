@@ -1,4 +1,4 @@
-## 三刷：新题只做前20！目标是刷熟练！模板总结出来天天拿出来背诵！
+## 三刷：不做新题了，就这250题！目标是刷熟练！模板总结出来天天拿出来背诵！
 ## 每日10题：05/01 - 05/25
 
 
@@ -319,15 +319,16 @@ self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3,
 - [0047. Permutations II](Solutions/0047.Permutations-II.py) (M) <br>
 输入里面有重复，都需要先把数组排序一下; 去重方法与Subsets是类似的: if visited[i] or (i != 0 and nums[i] == nums[i-1] and not visited[i-1]): continue
 - [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (M)  <br>
-- [0052. NQueens II](Solutions/0052.N-Queens-II.py) (!!H) <br>
-排列问题：先打印出数组[0, 1, 2, 3....n]中所有的可能排列：[[0,1,2,3], [1,3,0,2].....]，其中的每一个子数组表示一种可能的方法，子数组中的数字表示在哪个数字的地方放一个Queen，数字对应的下标位置是放那个Queen的行，数字的值是放那个Queen的列。由于Queen可以很冲直撞，所以列是不能相同的，所以需要去重，用visited标记就可以。又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。用三个字典visited_col, visited_sum, visited_diff分别存储列号，横纵坐标之和，横纵坐标之差有没有被用过
-- [0051. N-Queens](Solutions/0051.N-Queens.py) (H)<br>
 
 
 ### [图上的搜索](/Depth-First-Search.py) <br>
+- [0051. N-Queens](Solutions/0051.N-Queens.py) (H)<br>
+- [0052. NQueens II](Solutions/0052.N-Queens-II.py) (!!H) <br>
+排列问题：先打印出数组[0, 1, 2, 3....n]中所有的可能排列：[[0,1,2,3], [1,3,0,2].....]，其中的每一个子数组表示一种可能的方法，子数组中的数字表示在哪个数字的地方放一个Queen，数字对应的下标位置是放那个Queen的行，数字的值是放那个Queen的列。由于Queen可以很冲直撞，所以列是不能相同的，所以需要去重，用visited标记就可以。又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。用三个字典visited_col, visited_sum, visited_diff分别存储列号，横纵坐标之和，横纵坐标之差有没有被用过
 - [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (!!H) 打印/输出所有满足条件的路径必用DFS
 Step 1. 从end到start做BFS，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
 Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近。最后将路径都存入到res里
+1192. Critical Connections in a Network
 
 
 
