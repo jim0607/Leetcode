@@ -341,7 +341,6 @@ Find end point using "double method", same as dynamic array
 - [0034. Find First and Last Position of Element in Sorted Array](Solutions/0034.Find-First-and-Last-Position-of-Element-in-Sorted-Array.py) (!!M) <br>
 用两次二分分别找first pos of target and last pos of target. 想找first position of target，要保证两点：1. while循环里的判断要往左逼，也就是if nums[mid] **>=** target: end = mid； 2. 就把start放在后面更新，这样如果出现nums[end]和nums[start]都等于target的情况的话，first可以被后面较小的start替换掉，因为start肯定是小于end的。<br>
 Follow up: In a sorted array [1,3,4.......], search the elements that are in a certain range eg:[10, 100]. solution: 用两次二分分别找first position of 10 and last position of 100.  Then the elements between the two positions should be in range [10, 100].
-
 - [0035. Search Insert Position](Solutions/0035.Search-Insert-Position.py) (E) <br>
 This is to implement bisect.bisect_left(nums, target), which returns the position of inserting target in order to keep nums sorted
 - [0278. First Bad Version](Solutions/0278.First-Bad-Version.py) (E)
