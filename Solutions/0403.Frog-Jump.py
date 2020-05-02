@@ -25,31 +25,33 @@ Return true. The frog can jump to the last stone by jumping
 
 
 
-"""dp[stone]为set，记录青蛙可以通过哪些步跳到stone。状态转移方程为：跳k - 1到stone + k - 1: dp[stone + k - 1].add(k - 1); 跳k到stone + k:dp[stone + k].add(k); 跳k + 1到stone + k + 1:dp[stone + k + 1].add(k + 1)
-this is bottom up method"""
+"""维护一个stonesDict的key is the stone in stones. value is the possible steps to reach the stone.
+There could be multiple possible steps to reach the stone, so stonesDict[stone] = set(). 
+状态转移方程为：1. 跳k-1到stone+k-1: stonesDict[stone + k - 1].add(k - 1); 2. 跳k到stone + k: stonesDict[stone + k].add(k); 
+3. 跳k + 1到stone + k + 1:stonesDict[stone + k + 1].add(k + 1); Return the len(stonesDict[last stone])>0?
+this is bottom up method O(N^2), O(N^2)"""
 class Solution:
     def canCross(self, stones: List[int]) -> bool:
-        
-        lens = len(stones)
-        dpSet = {}
-        
-        for stone in stones:
-            dpSet[stone] = set()
-        
-        dpSet[0].add(0)
+
+        stonesDict = collections.defaultdict(set)  # key is stone in stones, val is the corresponding steps to reach the stone
         
         for stone in stones:
-            for k in dpSet[stone]:      # 注意这个k不是任意取的
-                if k - 1 > 0 and stone + k - 1 in dpSet:
-                    dpSet[stone + k - 1].add(k - 1)
-                
-                if stone + k in dpSet:
-                    dpSet[stone + k].add(k)
+            stonesDict[stone] = set()
+            
+        stonesDict[stones[0]].add(0)
+            
+        for stone in stones:
+            for k in stonesDict[stone]:     # 注意这个k不是任意取的
+                if stone + (k + 1) in stonesDict.keys():
+                    stonesDict[stone + k + 1].add(k + 1)
+                if stone + k in stonesDict.keys():
+                    stonesDict[stone + k].add(k)
+                if stone + (k - 1) in stonesDict.keys() and k > 1:     # 如果这里用k>=1的话会报错: set changed size during interation, 因为change了自己的size
+                    stonesDict[stone + k - 1].add(k - 1)
                     
-                if stone + k + 1 in dpSet:
-                    dpSet[stone + k + 1].add(k + 1)
-                    
-        return False if len(dpSet[stones[-1]]) == 0 else True
+        return len(stonesDict[stones[-1]]) > 0
+    
+    
 
 
 class Solution {
