@@ -3,15 +3,6 @@
 
 
 # [Dynamic Programming](Dynamic-Programming.py)
-- [0322. Coin Change](Solutions/0322.Coin-Change.py) (!!M) <br>
-最小值问题。状态: f[X]=最少用多少枚硬币拼出X; 转移方程：f[X] = min(f[X-1]+1, f[X-2]+1, f[X-5]+1, f[X])
-- [0055. Jump Game](Solutions/0055.Jump-Game.py) (!!M) <br>
-存在性问题。状态: dp[j]=能不能跳到位置j; 转移方程：dp[j]=True if dp[i] and i+nums[i]>=j) (TLE)
-- [0152. Maximum Product Subarray](Solutions/0152.Maximum-Product-Subarray.py) (M) <br>
-最大值问题。用一个数组记录最大的正数maxDP[i]，另一个数组记录最小的负数minDP[i], maxDP[i]表示以i为结尾的subarray的最product. 分nums[i]的正负,更新maxDP[i]和minDP[i]。maxDP[i] = max(nums[i], maxDP[i-1]* nums[i]) if nums[i]>0
-
-<br> 542, <br> 1162
-
 ### [坐标型DP](/Dynamic-Programming.py)
 - [0062. Unique Paths](Solutions/0062.Unique-Paths.py) (!!M) <br>
 状态: f[i][j]=有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = f[i][j-1]+f[i-1][j]
@@ -20,21 +11,26 @@
 - [0064. Minimum Path Sum](Solutions/0064.Minimum-Path-Sum.py) (M) <br> 
 dp[i][j]=the minimum path sum to (i, j); dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j])
 - [0120. Triangle](Solutions/0120.Triangle.py) (M) <br>
-dp[i][j] = min(triangle[i][j] + dp[i-1][j], triangle[i][j] + dp[i-1][j-1])
+dp[i][j] = min(triangle[i][j] + dp[i-1][j], triangle[i][j] + dp[i-1][j-1]), rolling array to reduce space to O(N)
 - [0221. Maximal Square](Solutions/0221.Maximal-Square.py) (M) <br>
 dp[i][j]=以(i, j)为右下角的最大正方形的边长; dp[i][j]=min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]) + 1 if matrix[i][j]=1 
 - [0403. Frog Jump](Solutions/0403.Frog-Jump.py) (M) <br>
-dp[stone]为set，记录青蛙可以通过哪些步跳到stone。用bottom up方法。状态转移方程为：跳k-1到stone+k-1: dp[stone+k-1].add(k-1); 跳k到stone+k: dp[stone+k].add(k); 跳k+1到stone+k+1: dp[stone+k+1].add(k+1). return dp[last stone] is not empty
+维护一个stonesDict的key is the stone in stones. value is the possible steps to reach the stone.
+There could be multiple possible steps to reach the stone, so stonesDict[stone] = set(). 
+状态转移方程为：1. 跳k-1到stone+k-1: stonesDict[stone + k - 1].add(k - 1); 2. 跳k到stone + k: stonesDict[stone + k].add(k); 
+3. 跳k + 1到stone + k + 1:stonesDict[stone + k + 1].add(k + 1); Return stonesDict[last stone] is not empty; this is bottom up method O(N^2), O(N^2)
+- [0055. Jump Game](Solutions/0055.Jump-Game.py) (!!H) <br>
+存在性问题。状态: dp[j]=能不能跳到位置j; 转移方程：dp[j]=True if dp[i] and nums[i]>=j-i) (TLE 注意只要有一个dp[i]是的dp[j]=True了就可以break了). DP解法: O(N^2).  Greedy 解法: O(N) Iterating right-to-left, for each position we check if there is a potential jump that reaches a GOOD index (currPosition + nums[currPosition] >= GoodIndex). If we can reach a GOOD index, then our position is itself GOOD. Iteration continues until the beginning of the array.  Return if the first position is a GOOD index.
 
 ### [序列型DP](/Dynamic-Programming.py)
 - [0256. Paint House](Solutions/0256.Paint-House.py) (E) <br>
 dp[i][j] means the minimum cost to paint house i to be color j; dp[i][0] = costs[i][0] + min(dp[i-1][1], dp[i-1][2])
-- [0265. Paint House II](Solutions/0265.Paint-House-II.py) (E) <br> 
-dp[i][j]=minimum cost to paint the ith house the be color j; dp[i][j] = minInThe(i-1)thRow + costs[i][j], need to find the position for the 1st and 2nd minCost in the i-1 th row
+- [0265. Paint House II](Solutions/0265.Paint-House-II.py) (H) <br> 
+dp[i][j]=minimum cost to paint the ith house the be color j; dp[i][j] = dp(minIThe(i-1)thRow) + costs[i][j]. In order to find dp(minIThe(i-1)thRow fast), we can find the position for the 1st and 2nd min in the i-1 th row first, then in the ith row calcuation, if j=1stMinposition, then dp[i][j]=2nd_min + costs[i][j], else dp[i][j]=1st_min + costs[i][j]
 - [0198. House Robber](Solutions/0198.House-Robber.py) (E) <br>
 f[i]=the max profit when reaching ith house; f[i] = max(rob ith = f[i-2]+nums[i], not rob ith = f[i-1]) <br>
 空间优化：dp[i] 之和 dp[i-2]与dp[i-1]有关，所以可以用prevMax和currMax来代表dp[i-2]与dp[i-1]
-- [0213. House Robber II](Solutions/0213.House-Robber-II.py) (E) <br>
+- [0213. House Robber II](Solutions/0213.House-Robber-II.py) (M) <br>
 房子形成了一个环，所以第一个房子和第N个房子不能同时偷，我们可以把问题分成两个问题来解决：1. 房子1没偷：问题变成了对房子2:N做House robber I的问题; 2. 房子N没偷：问题变成了对房子1:N-1做House robber I的问题
 
 ### [Buy and sell stock DP问题](/Dynamic-Programming.py)
@@ -93,6 +89,8 @@ f[i]=面对i个石子，先手是必胜吗; f[i]=True if f[i-1] or f[i-2]都是F
 f[i][j]=当石子还剩i到j时，先手最多能赢多少; f[i][j] = max(取左边A[i]-f[i+1][j], 取右边A[j]-f[i][j-1])
 
 ### [背包型DP](/Dynamic-Programming.py)
+- [0322. Coin Change](Solutions/0322.Coin-Change.py) (!!M) <br>
+背包问题，重量一定要入状态。状态: f[X]=最少用多少枚硬币拼出X; 转移方程：f[X] = min(f[X-1]+1, f[X-2]+1, f[X-5]+1, f[X])
 - [0092. Backpack](Solutions/0092.Backpack.py) (!!M Lintcode) <br>
 f[i][m]=能否用前i个物品拼出重量m; f[i][m] = f[i-1][m] (表示前i-1个物品就可以拼出m) or f[i-1][m-A[i-1]] (表示前i-1个物品可以拼出m-A[i-1])
 - [0563. Backpack-V](Solutions/0563.Backpack-V.py) (!!M Lintcode) <br>
@@ -288,6 +286,7 @@ solution 3: dp: cache[(x, y)] = min(dp(abs(x-1), abs(y-2)), dp(abs(x-2), abs(y-1
 定义一个wordSet = set(wordList)来降低时间寻找下一个neighborWord的复杂度到O(26L); 利用双端BFS大大提高速度，在双端BFS的过程中判断if not q_src or not q_des: 则说明q_src或q_des里面的所有possible neighbor都不在wordList里面，也就是没有必要继续进行了
 - [1162. As Far from Land as Possible](Solutions/1162.As-Far-from-Land-as-Possible.py) (M) <br>
 bfs: the maximum distance is steps needed to change all "0" to be "1"; solution 2: DP same as 542. 01 matrix
+<br> 542, <br> 1162
 - [0317. Shortest Distance from All Buildings](Solutions/0317.Shortest-Distance-from-All-Buildings.py) (!!H) <br>
 Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and use distSum[][] to record the sum of distance from all 1 grids to this 0 grid. Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a BFS. Prune: if not all 1s can be reached, return -1, during the BFS we use reachableBuildings to count how many 1s we reached. If reachableBuldings != totalBuildings - 1 then we know not all 1s are connected are we can return -1 immediately, which greatly improved speed.
 
@@ -469,6 +468,8 @@ prefixSumMap = {0: -1} # key: prefixSum[j], val: j/position, initial position sh
 prefixSumDict = {0: 1} # key is the prefixSum, val is how many times the prefixSum appears; prefixSum += num; prefixSum %= K
 - [0139. Subarray Sum Closest](Solutions/0139.Subarray-Sum-Closest.py) (Lintcode) <br>
 题目要求NlogN, 那就是疯狂暗示要sort, prefixSumList = [(0, -1)] # (0, 1) are prefixSum and index; 对prefixSum来进行sort，这样最小的subArrSum (或者prefixSums[j+1][0] - prefixSums[i][0])就一定来自于相邻的两个prefisxSums了
+- [0152. Maximum Product Subarray](Solutions/0152.Maximum-Product-Subarray.py) (M) <br>
+最大值问题。用一个数组记录最大的正数maxDP[i]，另一个数组记录最小的负数minDP[i], maxDP[i]表示以i为结尾的subarray的最product. 分nums[i]的正负,更新maxDP[i]和minDP[i]。maxDP[i] = max(nums[i], maxDP[i-1]* nums[i]) if nums[i]>0
 
 
 # [Sort](/Sort.py) 
@@ -580,6 +581,18 @@ solution 1: 扫描线；minimum meeting rooms required could be understood us ma
 Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky <br> solution 2: 以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
 <br>
 218. The Skyline Problem
+
+
+# [Greedy](/) <br>
+- [0055. Jump Game](Solutions/0055.Jump-Game.py) (!!M) <br>
+存在性问题。状态: dp[j]=能不能跳到位置j; 转移方程：dp[j]=True if dp[i] and nums[i]>=j-i) (TLE 注意只要有一个dp[i]是的dp[j]=True了就可以break了). DP解法: O(N^2).  Greedy 解法: O(N) Iterating right-to-left, for each position we check if there is a potential jump that reaches a GOOD index (currPosition + nums[currPosition] >= leftmostGoodIndex). 
+If we can reach a GOOD index, then our position is itself GOOD. Iteration continues until the beginning of the array. 
+If first position is a GOOD index then we can reach the last index from the first position.
+
+
+
+
+
 
 
 # [Other High Freq](/)
