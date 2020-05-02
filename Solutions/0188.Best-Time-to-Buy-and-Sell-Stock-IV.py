@@ -14,14 +14,23 @@ Output: 2
 Explanation: Buy on day 1 (price = 2) and sell on day 2 (price = 4), profit = 4-2 = 2.
 
 
-"""O(N*K), O(K) memory error"""
+"""O(N*K), O(K)"""
 class Solution:
     def maxProfit(self, k: int, prices: List[int]) -> int:
         if k == 0 or not prices:
             return 0
         
-        buy = [float("inf")] * k        # note that this leads to memory reaches maximum error when k is large
-        sell = [0] * k
+        # if k >= lens / 2, then the problem becomes 122, where you can make as much transactions as possible
+        if k >= lens // 2:
+            maxProf = 0
+            for i in range(1, lens):
+                if prices[i] > prices[i - 1]:
+                    maxProf += prices[i] - prices[i - 1]
+
+        return maxProf
+        
+        buy = [float("inf")] * k    # 第i次buy欠下的最小值
+        sell = [0] * k              # 第i次sell赚下的最大值
         for price in prices:
             buy[0] = min(buy[0], price)                     # buy[0] = the minimum money you can own after the first purchase
             sell[0] = max(sell[0], price - buy[0])          # sell[0] = the maximum money you can earn after the first sell
