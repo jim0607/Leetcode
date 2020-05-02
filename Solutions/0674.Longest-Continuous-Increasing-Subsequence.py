@@ -38,15 +38,14 @@ class Solution:
         if lens == 1:
             return lens
         
-        prev, curr = 1, 1
+        curr = 1
         res = 1
         
         for i in range(1, lens):
             if nums[i] > nums[i - 1]:
-                curr = prev + 1
-                prev = curr
+                curr += 1
             else:
-                curr, prev = 1, 1
+                curr = 1
             
             res = max(res, curr)
                 
