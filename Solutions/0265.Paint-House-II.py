@@ -50,7 +50,8 @@ class Solution:
         dp[0] = costs[0]
         
         for i in range(1, n):
-            # find the position for the first and second minimum in dp[i - 1]
+          
+            # Step 1: find the position for the first and second minimum in dp[i - 1]
             min_1, min_2 = float("inf"), float("inf")
             j_1, j_2 = -1, -1
             for j in range(k):
@@ -61,11 +62,12 @@ class Solution:
                     min_2 = dp[i - 1][j]
                     j_2 = j
                     
+            # step 2: update dp[i] based on the minimums found in dp[i-1]
             for j in range(k):         
                 if j != j_1:
-                    dp[i][j] = dp[i - 1][j_1] + costs[i][j]
+                    dp[i][j] = min_1 + costs[i][j]
                 else:
-                    dp[i][j] = dp[i - 1][j_2] + costs[i][j]
+                    dp[i][j] = min_2 + costs[i][j]
         
         return min(dp[-1])
       
