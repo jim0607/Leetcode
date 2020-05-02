@@ -76,7 +76,7 @@ class Solution:
         
         dp = [nums[0]]
         for num in nums:
-            if num <= dp[0]:
+            if num <= dp[0]:        # 由于第102行的写法，所以这里的<=不能改为<
                 dp[0] = num
             elif num > dp[-1]:
                 dp.append(num)
@@ -94,9 +94,31 @@ class Solution:
         start, end = 0, len(arr) - 1
         while start + 1 < end:
             mid = start + (end - start) // 2
-            if num > arr[mid]:
+            if num > arr[mid]:      
                 start = mid
-            else:
+            else:           # 由于第102行的写法，所以这里必须往左边逼近
                 end = mid
                 
-        arr[end] = num
+        arr[end] = num      # 这种写法容易出错，请看下面的写法
+        
+        
+        
+     def replace(self, arr, num):
+        """
+        replace an item in arr
+        the arr is sorted acsendingly, and the arr is not none
+        return void
+        """
+        start, end = 0, len(arr) - 1
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            if num > arr[mid]:      
+                start = mid
+            else:           
+                end = mid
+                
+        # 这里加一句dp[start] == num的判断，由于我们是要将最接近num的数用num取代，所以左边相等的话那就取代左边，其余情况取代右边。
+        # 这里的这一句就把上面的79行和97,99行解放出来了，怎么写都不会出错
+        if dp[start] == num:
+            dp[start ] = num
+        arr[end] = num      
