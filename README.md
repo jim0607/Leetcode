@@ -31,6 +31,8 @@ f[i]=the max profit when reaching ith house; f[i] = max(rob ith = f[i-2]+nums[i]
 空间优化：dp[i] 之和 dp[i-2]与dp[i-1]有关，所以可以用prevMax和currMax来代表dp[i-2]与dp[i-1]
 - [0213. House Robber II](Solutions/0213.House-Robber-II.py) (M) <br>
 房子形成了一个环，所以第一个房子和第N个房子不能同时偷，我们可以把问题分成两个问题来解决：1. 房子1没偷：问题变成了对房子2:N做House robber I的问题; 2. 房子N没偷：问题变成了对房子1:N-1做House robber I的问题
+- [0337. House Robber III](Solutions/0337.House-Robber-III.py) (M) <br>
+树状的house.递归： def with_without_rob(self, root): return a tuple, the 1st element in the tuple is the max profift with_rob_root， the 2nd element in the tuple is the max profit without_rob_root. 递归公式：with_rob_root = root.val + without_rob_left + without_rob_right; without_rob_root = max(with_rob_left, without_rob_left) + max(with_rob_right, without_rob_right)
 
 ### [Buy and sell stock DP问题](/Dynamic-Programming.py)
 - [0121. Best Time to Buy and Sell Stock](Solutions/0121.Best-Time-to-Buy-and-Sell-Stock.py) (E) <br>
