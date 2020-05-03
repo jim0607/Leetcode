@@ -27,6 +27,9 @@ class Solution:
         return self.memoSearch(nums, 0, lens - 1, {})
     
     def memoSearch(self, nums, i, j, memo):
+        """
+        return the maxCoins we can get bursting (i, j) not including i and j
+        """
         if i == j:
             return 0
         
@@ -37,8 +40,10 @@ class Solution:
         for k in range(i + 1, j):
             left = self.memoSearch(nums, i, k, memo)
             right = self.memoSearch(nums, k, j, memo)
-            maxCoins = max(maxCoins, left + right + nums[i] * nums[k] * nums[j])
             
+            # 因为是先burst left and right, 最后conquer, 所以conquer的时候只剩下nums[i] and nums[j], 所以是 nums[i] * nums[k] * nums[j]
+            maxCoins = max(maxCoins, left + right + nums[i] * nums[k] * nums[j])
+        
         memo[(i, j)] = maxCoins
         
         return maxCoins
