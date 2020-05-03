@@ -38,15 +38,16 @@ class Solution:
         
         dp = [collections.defaultdict(lambda: 1) for _ in range(lens)]  # why this is incorrect: dp = [collections.defaultdict(lambda: 1)] * lens
         
-        maxLen = 1
+        maxLens = 1
         for j in range(1, lens):
             for i in range(j):
                 diff = A[j] - A[i]
                 dp[j][diff] = max(dp[j][diff], dp[i][diff] + 1)   # 为什么这里不报错呢？如果dp[i][diff]不存在怎么办, 用defaultdict就不用担心了！
                     
-                maxLen = max(dp[j][diff], maxLen)
+            for val in dp[j].values():
+                maxLens = max(maxLens, val)
                     
-        return maxLen
+        return maxLens
 
 """暴力法：O(N^3), O(N)
 思路：
