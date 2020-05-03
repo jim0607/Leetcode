@@ -14,32 +14,24 @@ Example 1:
 """dp[i][m]表示前i个石头(不包括i)能否承重m
 dp[i][m] = True if dp[i-1][m] for dp[i-1][m-A[i-1]]"""
 class Solution:
-    def backPack(self, M, A):
-        lens = len(A)
-        dp = [[False] * (M + 1) for _ in range(lens + 1)]
-        
-        for i in range(lens + 1):
+    def backPack(self, size, nums):
+        lens = len(nums)
+        if lens == 0:
+            return 0
             
+        dp = [[False for _ in range(size + 1)] for _ in range(lens)]
+        for i in range(lens):
             dp[i][0] = True
             
-            if i == 0:
-                for m in range(1, M + 1):
-                    dp[i][m] = False
+        for i in range(lens):
+            for m in range(size + 1):
+                dp[i][m] = dp[i - 1][m]
+                if m >= nums[i]:
+                    dp[i][m] = dp[i][m] or dp[i - 1][m - nums[i]]
                     
-                continue
-            
-            for m in range(1, M + 1):
-                if m >= A[i - 1]:
-                    dp[i][m] = dp[i - 1][m] or dp[i - 1][m - A[i-1]]
-                else:
-                    dp[i][m] = dp[i - 1][m]
-                    
-        for m in range(M, -1, -1):
-            if dp[lens][m]:
-                return m
-                
-        return 0
-        
+        for m in range(size, -1, -1):
+            if dp[lens - 1][m]:
+                return m        
         
         
         
