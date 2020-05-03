@@ -10,7 +10,9 @@ case 2: 如果arr中的element是int, eg: [1, 2, 3], 则用 "".join(map(str, arr
       
 3. 将string变成arr: arr = list(string), 时间复杂度是O(N)
       
-4. 初始化创建2D array: dp = [[None] * len_col for _ in range(len_row)]
+4. Somehow these two are different: [collections.defaultdict(lambda: 1) for _ in range(lens)] and [collections.defaultdict(lambda: 1)] * lens
+   don't know why....., I guess it is safe to always define any array in this way: [someDataStructure for _ in range(lens)]
+   初始化创建2D array: dp = [[None] * len_col for _ in range(len_row)]
    length of 2D array: len_row = len(dp), len_col = len(dp[0])
    初始化创建3D array: dp = [[[0 for _ in range(target + 1)] for _ in range(k +  1)] for _ in range(lens + 1)]
       
