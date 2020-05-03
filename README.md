@@ -3,6 +3,11 @@
 
 
 # [Dynamic Programming](Dynamic-Programming.py)
+### [Recursion with memoization](/Dynamic-Programming.py)
+139. word break; 312. Burst Balloons
+使用记忆数组 memo 的递归写法，和使用 dp 数组的迭代写法，乃解题的两大神器，凡事能用 dp 解的题，一般也有用记忆数组的递归解法，好似一对形影不离的好基友～何时用带memo的recursion? 如果用dp的转移方程很复杂，那就用带memo的recursion, 一定要会默写！
+
+
 ### [坐标型DP](/Dynamic-Programming.py)
 - [0062. Unique Paths](Solutions/0062.Unique-Paths.py) (!!M) <br>
 状态: f[i][j]=有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = f[i][j-1]+f[i-1][j]
@@ -73,22 +78,26 @@ Similiar with 300. LIS; dp[j] = max(dp[i] + 1 for i<j and nums[i]<nums[j]); if d
 - [0516. Longest Palindromic Subsequence](Solutions/0516.Longest-Palindromic-Subsequence.py) (!!M) <br>
 题目问subsequence, subsequence不需要连续，题目要求Return the longest length: dp[i][j]=longest palindr from i to j; dp[i][j]=dp[i+1][j-1]+2 if s[i]==s[j] else max(dp[i+1][j], dp[i][j-1]);注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)
 - [0312. Burst Balloons](Solutions/0312.Burst-Balloons.py) (!!H) <br>
-带memo的recursion比DP更好懂; left = self.memoSearch(nums, i, k, memo); right=self.memoSearch(nums, k, j, memo); maxCoins = max(maxCoins, left + right + nums[i] * nums[k] * nums[j]). 何时用带memo的recursion? 如果用dp的转移方程很复杂，那就用带memo的recursion, 一定要会默写！
+带memo的recursion比DP更好懂; left = self.memoSearch(nums, i, k, memo); right=self.memoSearch(nums, k, j, memo); maxCoins = max(maxCoins, left + right + nums[i] * nums[k] * nums[j]). 
 也可以用dp: https://qoogle.top/leetcode-312-burst-balloons/
 
 ###  [划分型DP](/Dynamic-Programming.py) (状态往往定义为前j个的某种特性，不包括j！！！！，这个思想很重要，相当于给前面做了一层buffer layer)
+- [0132. Palindrome Partitioning II](Solutions/0139.Word-Break.py) (!!M) <br>
+dp[i]=can partition until ith char?, not including i; dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in wordDict)
 - [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M) <br>
 f[i]=number of decode ways until i (not including i); f[i]=f[i-1]+f[i-2] if int(s[i-2:i])<=26 else f[i-1]
 - [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (M) <br>
 f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i^2]+1) for i^2<=j; Time complexity: j is from 0 to n, i is from 0 to j^0.5, so O(N^1.5); solution 2 mathematics: Four-square theorem states that every natural number can be represented as the sum of at most four integer squares.
 - [0132. Palindrome Partitioning II](Solutions/0132.Palindrome-Partitioning-II.py) (!!H) <br>
-f[j]=the minimum number of total palindrome till the jth character (not including j); f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome. O(N^3), 划分型的dp的状态一般都not include j, 这样就有一个buffer layer可以用。Solution 2: 优化为O(N^2), 用一个isPalin[i][j]记录s[i:j]是否是palindrome, 更新isPalin[i][j]的方法与leetcode 5 相同，这样就不用每次都用双指针去判断s[i:j]是不是palindrome
+子数组或者子字符串且求极值的题，基本就是 DP 没差了. f[j]=the minimum number of total palindrome till the jth character (not including j); f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome. O(N^3), 划分型的dp的状态一般都not include j, 这样就有一个buffer layer可以用。Solution 2: 优化为O(N^2), 用一个isPalin[i][j]记录s[i:j]是否是palindrome, 更新isPalin[i][j]的方法与leetcode 5 相同，这样就不用每次都用双指针去判断s[i:j]是不是palindrome
+
 
 ### [博弈型DP](/Dynamic-Programming.py)
-- [0394. Coins in a Line](Solutions/0394.Coins-in-a-Line.py) (M) <br>
-f[i]=面对i个石子，先手是必胜吗; f[i]=True if f[i-1] or f[i-2]都是False
+- [0394. Coins in a Line](Solutions/0394.Coins-in-a-Line.py) (M Lintcode) <br>
+Solution1 dp: f[i]=面对i个石子，先手是必胜吗; f[i]=True if f[i-1] or f[i-2] 有一个是False <br>
+Solution 2: 至于prev, curr有关，所以可以空间优化成O(1)了; Solution 3 数学: 只要是3的倍数就一定输 return n % 3 != 0
 - [0486. Predict the Winner](Solutions/0486.Predict-the-Winner.py) (M) <br>
-f[i][j]=当石子还剩i到j时，先手最多能赢多少; f[i][j] = max(取左边A[i]-f[i+1][j], 取右边A[j]-f[i][j-1])
+f[i][j]=当石子还剩i到j时，先手最多能赢多少; f[i][j] = max(取左边A[i]-f[i+1][j], 取右边A[j]-f[i][j-1]), 注意f[i][j]与f[i+1][j]相关，所以i要从后往前遍历.
 
 ### [背包型DP](/Dynamic-Programming.py)
 - [0322. Coin Change](Solutions/0322.Coin-Change.py) (!!M) <br>
