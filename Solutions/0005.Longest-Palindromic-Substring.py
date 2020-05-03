@@ -3,33 +3,40 @@
 自然而然将状态定义为f[i][j]表示面对子序列[i, j]时的最佳性质。dp[i][j]=from i to j (including j), is it a palindr?
 if s[i] == s[j]: dp[i][j] = True"""
 
+"""
+dp[i][j]=is s[from i to j including i and j] a palindromic substring?
+dp[i][i]=True
+if (s[i]=s[j] for j > i): dp[i][j]=True if dp[i+1][j-1] is true or j-i==1
+return the longest substring for all dp[i][j]=True
+"""
 class Solution:
     def longestPalindrome(self, s: str) -> str:
         lens = len(s)
         if lens <= 1:
             return s
         
-        dp = [[False] * lens for _ in range(lens)]  # dp[i][j]=from i to j (including j), is it a palindr?
+        dp = [[False for _ in range(lens)] for _ in range(lens)]
         for i in range(lens):
-            dp[i][i] = True
-            if i + 1 < lens:
-                dp[i][i + 1] = (s[i] == s[i + 1])   # 初始化对角线和相邻的
-        
-        for i in range(lens - 3, -1, -1):       # 注意初始化的是对角线，因为计算dp[i][j需要用到dp[i+1][j-1]，所以要先算i+1, 再算i，所以i 是倒序遍历
-            for j in range(i + 2, lens):
-                if s[i] == s[j]:
-                    dp[i][j] = dp[i + 1][j - 1]
-                    
-        maxLen = 1
-        maxLenSubStr = s[0]
+            dp[i][i] = True     # 初始化对角线
+            
+        for i in range(lens - 2, -1, -1):   # 注意初始化的是对角线，因为计算dp[i][j需要用到dp[i+1][j-1]，所以要先算i+1, 再算i，所以i 是倒序遍历
+            for j in range(i + 1, lens):
+                if s[j] == s[i]:
+                    if j - i == 1:
+                        dp[i][j] = True
+                    else:
+                        dp[i][j] = dp[i + 1][j - 1]
+
+        maxLens = 1
+        res = s[0]
         for i in range(lens):
-            for j in range(lens - 1, -1, -1):
+            for j in range(lens):
                 if dp[i][j]:
-                    if j - i + 1 > maxLen:
-                        maxLenSubStr = s[i: j + 1]
-                        maxLen = j - i + 1
+                    if j - i + 1 > maxLens:
+                        maxLens = j - i + 1
+                        res = s[i: j + 1]
                         
-        return maxLenSubStr
+        return res
 
 
 """
