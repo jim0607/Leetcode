@@ -71,3 +71,27 @@ class Solution:
                 return m
                 
         return 0
+
+
+
+"""
+以下算法不对因为我们不能一个物品取两次
+"""
+class Solution:
+    def backPack(self, m, nums):
+        lens = len(nums)
+        if lens == 0:
+            return 0
+            
+        dp = [False for _ in range(m + 1)]
+        dp[0] = True
+        
+        for k in range(m + 1):
+            for num in nums:
+                if k >= num and dp[k - num]:
+                    dp[k] = True
+                    break
+                
+        for k in range(m, -1, -1):
+            if dp[k]:
+                return k
