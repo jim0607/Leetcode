@@ -61,7 +61,7 @@ In python, hash map is dictionary
 2. defaultdict means that if a key doesn't exsit in a dictionary, then instead of error being thrown, a new entry is created.
    dictNums = collections.defaultdict()
    如果想声明dict里面的val是int：dictNums = collections.defaultdict(int)
-   如果想将默认的int值设置为1,可以使用lambda表达式: dictNums = collections.defaultdict(lambda: 1)
+   如果想将默认的int值设置为1,可以使用lambda表达式: dictNums = collections.defaultdict(lambda: 1), eg: 1027. Longest Arithmetic Sequence
    edges = collections.defaultdict(list) means that value of the dictionary is a list
       
 3. delete a key, val pair in a dict: del dictNums[key]
