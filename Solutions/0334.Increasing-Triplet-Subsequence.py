@@ -7,14 +7,14 @@ class Solution:
         if lens < 3:
             return False
         
-        dp = [1] * lens     # dp[i]=max lens of increasing sub end with i
+        dp = [1 for _ in range(lens]   # dp[i]=max lens of increasing sub end with i
         for j in range(1, lens):
             for i in range(j):
                 if nums[j] > nums[i]:
                     dp[j] = max(dp[j], dp[i] + 1)
                     
-                    if dp[j] >= 3:
-                        return True
+                if dp[j] >= 3:
+                    return True
                     
         return False
         
@@ -33,7 +33,7 @@ class Solution:
         min_1, min_2 = float("inf"), float("inf")
         for num in nums:
             if num < min_1:             # first renew
-                min_1 = num             # 很容易错写成 min1, min2 = num, min1
+                min_1 = num             # 很容易错写成 min1, min2 = num, min1, 为什么这么写会出错呢？
             elif min_1 < num < min_2:   # second renew
                 min_2 = num
             elif min_2 < num:           # third renew
