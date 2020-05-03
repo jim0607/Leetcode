@@ -33,8 +33,29 @@ class Solution:
                 dp[i] = False
                 
         return dp[n]
+    
+Solution 2: 空间优化
+class Solution:
+    def firstWillWin(self, n):
+        if n == 0:
+            return False
+        if n == 1 or n == 2:
+            return True
+            
+        prev, curr = True, True
+        
+        for i in range(3, n + 1):
+            tempCurr = curr
+            if not prev or not curr:
+                curr = True
+                prev = tempCurr
+            else:
+                curr = False
+                prev = tempCurr
+                
+        return curr
 
-Solution 2: 数学规律法
+Solution 3: 数学规律法
 class Solution:
     def firstWillWin(self, n):
         return n % 3 != 0
