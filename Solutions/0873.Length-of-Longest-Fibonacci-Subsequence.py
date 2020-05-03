@@ -14,31 +14,27 @@ Explanation:
 The longest subsequence that is fibonacci-like: [1,2,3,5,8].
 
 
- """dp[i][j]=以i, j为最后两个数字的fib的长度
-dp[j][index of (A[i]+A[j])]=dp[i][j]+1
-index of (A[i]+A[j])是(A[i]+A[j])在A中的位置，为了快速得到index of (A[i]+A[j])，可以用一个dict存储索引"""
+"""
+dp[i]=dictionary{key: last num of the fib; val: the lens of the fib ended with ith}
+dp[j][nums[i]]=d[i][nums[j]-nums[i]]+1
+"""
 class Solution:
-    def lenLongestFibSubseq(self, A: List[int]) -> int:
-        lens = len(A)
+    def lenLongestFibSubseq(self, nums: List[int]) -> int:
+        lens = len(nums)
         if lens <= 2:
-            return 0
-        
-        dp = [[2] * lens for _ in range(lens)]  # dp[i][j]=the length of Fib ended with i -> j
-        
-        idxDict = collections.defaultdict(int)
-        for idx, num in enumerate(A):
-            idxDict[num] = idx
+            return lens
             
-        maxLen = 2
-        for i in range(lens - 1):
-            for j in range(i + 1, lens):
-                if A[i] + A[j] in idxDict.keys():
-                    idx = idxDict[A[i] + A[j]]
-                    dp[j][idx] = dp[i][j] + 1
-
-                    maxLen = max(maxLen, dp[j][idx])
-                    
-        return maxLen if maxLen > 2 else 0
+        dp = [collections.defaultdict(lambda: 1) for _ in range(lens)]
+            
+        maxLens = 2
+        for j in range(1, lens):
+            for i in range(j):
+                dp[j][nums[i]] = dp[i][nums[j] - nums[i]] + 1
+                
+            for val in dp[j].values():
+                maxLens = max(maxLens, val)
+                
+        return maxLens if maxLens > 2 else 0
  
  
  
