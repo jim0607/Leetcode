@@ -81,6 +81,7 @@ python维护了一个堆，使用的存储结构是列表，通过heapq模块来
 import heapq
 
 list = [1,5,3,2,8,5]
+# heapify实际上是从后向前 从第一个非叶子结点开始做percolateup/percolatedown
 heapq.heapify(list)           # heapq.heapify(list) 往往用于创建堆, 将list 转换成堆，原地，线性时间O(N)。
 or define a hq = [], and push in one by one
 heapq[0]                      # O(1) 只访问最小的元素而不弹出它。
