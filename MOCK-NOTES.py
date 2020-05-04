@@ -30,3 +30,21 @@ Audience in LiBai's Mock
 04/27
 1. 22. Generate parenthesis
 2. peak in rotated array
+
+
+
+05/03/2020
+Mock with Celia
+1. 415. Add strings
+就是要注意carryBit和出了循环之后的判断
+2. 215. Kth Largest Element in an Array
+Solutions 1: Heapq: O(NlogK)
+Solution 2: quick select
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
