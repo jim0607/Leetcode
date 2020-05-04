@@ -38,11 +38,12 @@ Mock with Celia
 1. 415. Add strings
 就是要注意carryBit和出了循环之后的判断
 2. 215. Kth Largest Element in an Array
-Solutions 1: Heapq: O(NlogK)
+Solutions 1: Heapq: O(NlogK),  It should be noted that Heapify is O(N) time!!!
 Solution 2: quick select
                         
-                        
-                        
+05/03/2020
+Audience
+283. Move Zeroes
                         
                         
                         
