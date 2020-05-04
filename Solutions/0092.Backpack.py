@@ -13,26 +13,31 @@ Example 1:
 
 """dp[i][m]表示前i个石头(不包括i)能否承重m
 dp[i][m] = True if dp[i-1][m] for dp[i-1][m-A[i-1]]"""
+"""
+dp[i][m]=can make up m with the 1st i num?
+dp[i][m]=d[i-1][m] or dp[i-1][m-A[i]]
+dp[i][0]=True
+"""
 class Solution:
     def backPack(self, size, nums):
         lens = len(nums)
         if lens == 0:
             return 0
             
-        dp = [[False for _ in range(size + 1)] for _ in range(lens)]
-        for i in range(lens):
+        dp = [[False for _ in range(size + 1)] for _ in range(lens + 1)]    # 注意点1：这里要定义lens+1，这样就可以做一个buffer layer出来了
+        for i in range(lens + 1):
             dp[i][0] = True
             
-        for i in range(lens):
-            for m in range(size + 1):
+        for i in range(1, lens + 1):    # 注意点2；这里循环i在外面，m在里面，千万别搞反了！！！！！！！！！！
+            for m in range(1, size + 1):
                 dp[i][m] = dp[i - 1][m]
-                if m >= nums[i]:
-                    dp[i][m] = dp[i][m] or dp[i - 1][m - nums[i]]
+                
+                if m >= nums[i - 1]:    # 注意点3：由于buffer layer的存在，这里用nums[i-1]
+                    dp[i][m] = dp[i][m] or dp[i - 1][m - nums[i - 1]]
                     
         for m in range(size, -1, -1):
-            if dp[lens - 1][m]:
-                return m        
-        
+            if dp[lens][m]:
+                return m
         
         
 """空间优化
