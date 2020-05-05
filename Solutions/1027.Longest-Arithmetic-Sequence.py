@@ -25,7 +25,7 @@ class Solution:
             for j in range(i+1, lens):
                 diff = A[j]-A[i]
                 # 这里的二维字典dp[j][diff]表示以j作为键值1，键值1对应的value是一个嵌套的dict，这个嵌套的dict里面可能有很多key-val pair，这个嵌套的dict的key是diff，value是该j下标对应该差值diff的数列长度
-                dp[j][diff] = max(dp[i][diff]+1, dp[j][diff])   ###### 要明白这里为什么不直接写dp[j][diff] = dp[i][diff]+1
+                dp[j][diff] = dp[i][diff]+1
                 res = max(dp[j][diff], res)
         return res
 """O(N^2), O(N^2)"""
