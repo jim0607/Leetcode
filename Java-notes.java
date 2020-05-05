@@ -6,7 +6,7 @@ List basics:
 0. 要声明data type, 要声明data type, 要声明data type: int firstMinCostPos = -1; int secondMinCostPos = -1;
 1. 新建一个list: int[] dp = new int[n];  /* n为size */   或者   int arr[] = {12,23,44,56,78};
 2. 最大值：a = Integer.MAX_VALUE;  Note that in Java, Integer.MAX_VALUE + 1 == Integer.MIN_VALUE; Integer.MIN_VALUE - 1 = Integer.MAX_VALUE;
-3. 取两数最小值: minVal = Math.min(a, b); java 中Math.min 方法只能比较两个值，超过两个会报错。
+3. 取两数最小值: minVal = Math.min(a, b); java 中Math.min 方法只能比较两个值，超过两个会报错。可以用Math.min(a, Math.min(b, c))比较三个数。
 4. 取list中的最大值: maxVal = someList.max(); ??
 5. 取list的长度: someList.length, 相当于python中的len(someList)
 6. a good exmaple
