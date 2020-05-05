@@ -21,6 +21,8 @@ List basics:
    }
 8. Java中写dp[-1]会报错"Index -1 out of bound",
 9. listA.add(item); listA.add(pos, item)
+10. return minLens == Integer.MAX_VALUE ? 0 : minLens;
+        
 
 
 Set:
