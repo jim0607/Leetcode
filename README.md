@@ -2,7 +2,7 @@
 ## 每日10题：05/01 - 05/25
 #### Review: 
 05/04 - 0337; 05/05 - 0334
-#### Coding   JAVA 坚持一个星期，一个星期之后如果实在不想用那就撤吧。
+#### Coding
 05/04 - 0010
 
 # [Dynamic Programming](Dynamic-Programming.py)
