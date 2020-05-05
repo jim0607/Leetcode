@@ -45,7 +45,20 @@ Solution 2: quick select
 Audience
 283. Move Zeroes
                         
-                        
-                        
-                        
-                        
+05/04/2020
+Audience
+Kth closest to zero
+how priority queue poll work? 
+siftUp, siftDown, heapify
+Solution 2: Quick select average O(N), worst case O(N^2)
+Q: how to avoid O(N^2) time complexity
+1. randomly choose a pivot, 可以把数分成每五个一组，然后在里面去取。
+2. shuffle the list everytime choosing a pivot
+技巧：
+1. 问引导性问题, can we assume...., can we .....
+2. 主动去run case, show you know debug
+3. 先写一个seudo code, 然后问do you have any questions for me so far?
+
+ - 面试的时候更关心bug free, 然后是time complexity. Space complexity不是很重要
+ - 一定要保证bug free
+ - 一定要快速的写很多的注释，把思路解释清楚，自己follow起来也很快一些。
