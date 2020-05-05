@@ -43,3 +43,24 @@ class Solution:
             included.remove(s[i])
             
         return res
+      
+      
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int lens = s.length();
+        int maxLens = 0;
+        int j = 0;
+        Set included = new HashSet();
+        
+        for (int i = 0; i < lens; i++) {
+            while (j < lens && !included.contains(s.charAt(j))) {
+                included.add(s.charAt(j));
+                 j ++;
+            }
+            maxLens = Math.max(maxLens, j - i);
+            included.remove(s.charAt(i));
+        }
+        
+        return maxLens;
+    }
+}
