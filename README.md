@@ -1,7 +1,9 @@
 ## 三刷：不做新题了，就这250题！目标是刷熟练！模板总结出来天天拿出来背诵！
 ## 每日10题：05/01 - 05/25
-### 05/04 Review: 0337 
-### 05/04 Coding: 0010
+#### Review: 
+05/04 - 0337; 05/05 - 0334
+#### Coding
+05/04 - 0010
 
 # [Dynamic Programming](Dynamic-Programming.py)
 ### [Recursion with memoization](/Dynamic-Programming.py)
