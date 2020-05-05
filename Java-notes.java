@@ -1,5 +1,4 @@
-用java刷题吧，因为面试需要用java写code，再结合C#里学到的OOP的知识就可以应付面试了。
-而且java真的比python快好多呀！
+**** 不要用java刷算法，可以用java刷OOD, 需要知道java的特性做OOP ****
 
 
 List basics:
