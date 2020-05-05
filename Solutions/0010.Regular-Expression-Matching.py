@@ -46,7 +46,7 @@ class Solution:
                         dp[i][j] = dp[i - 1][j - 1]
                 else:
                     if j >= 2:
-                        dp[i][j] = dp[i][j] or dp[i][j - 2]
+                        dp[i][j] = dp[i][j] or dp[i][j - 2]     # 为什么减2呢？因为"ac*" 如果*代表0个c的话，就变成了"a"
                         
                     if j >= 2 and i >= 1:
                         if p[j - 2] == "." or s[i - 1] == p[j - 2]:
