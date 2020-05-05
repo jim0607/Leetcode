@@ -52,6 +52,7 @@ String:
 1. In java, '' and "" are different. 'a' is a char, "b" is a string. 
    if ('a' == "b") 会报错, Should always take care of that.
 2. lens = s.length()   // 注意与 list 不同
+3. char ch1 = s.charAt(idx)
     
     
     
