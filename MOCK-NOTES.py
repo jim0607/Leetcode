@@ -58,6 +58,7 @@ Q: how to avoid O(N^2) time complexity
 1. 问引导性问题, can we assume...., can we .....
 2. 主动去run case, show you know debug
 3. 先写一个seudo code, 然后问do you have any questions for me so far?
+4. I think this is an interesting probelm. I like it.
 
  - 面试的时候更关心bug free, 然后是time complexity. Space complexity不是很重要
  - 一定要保证bug free
