@@ -57,3 +57,33 @@ Follow up:
 What if you are given k 1d vectors? How well can your code be extended to such cases?
 
 Maybe we can use a list = [True] * k to represent whether or not the kth list has been chosen?
+
+
+"""
+To answer follow up question:
+We append all the list into one deque. Every time we call next(), we pop a list first, then pop the first num from the list, 
+and then re-add it to the end to deque so that we can call it again after k next calls.
+"""
+class ZigzagIterator:
+    def __init__(self, v1: List[int], v2: List[int]):
+        self.dq = collections.deque()
+        if v1:
+            self.dq.append(v1)
+        if v2:
+            self.dq.append(v2)
+
+    def next(self) -> int:
+        if self.hasNext:
+            topLst = self.dq.popleft()
+            topNum = topLst.pop(0)
+            if topLst:
+                self.dq.append(topLst)
+                
+            return topNum
+
+    def hasNext(self) -> bool:
+        return len(self.dq) != 0
+
+# Your ZigzagIterator object will be instantiated and called as such:
+# i, v = ZigzagIterator(v1, v2), []
+# while i.hasNext(): v.append(i.next())
