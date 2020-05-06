@@ -2,7 +2,7 @@
 ## 每日10题：05/01 - 05/25
 #### Review: 
 05/04 - 0337; 05/05 - 0334
-#### Coding
+#### Coding:
 05/04 - 0010; 05/05 - 0281
 
 # [Dynamic Programming](Dynamic-Programming.py)
