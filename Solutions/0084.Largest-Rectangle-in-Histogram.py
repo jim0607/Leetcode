@@ -23,3 +23,27 @@ class Solution:
             monoStack.append(idx)
         
         return res
+    
+    
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        if (heights == null || heights.length == 0) return 0;
+            
+        Stack<Integer> monoStack = new Stack<Integer>();    // 维护单调递增
+        int maxArea = 0;
+        
+        """注意heights.add(-1) 是不行的，在java中arr的size是不能改变的。"""
+        for (int i = 0; i <= heights.length; i++) {
+            int height = (i == heights.length) ? -1 : heights[i];
+            while (!monoStack.isEmpty() && heights[monoStack.peek()] >= height) { //如果栈顶高度大于当前高度
+                int h = heights[monoStack.pop()];       //保存栈顶元素信息
+                int w = monoStack.isEmpty() ? i : i - monoStack.peek() - 1;   //如果栈已经为空，宽度为i，否则i-s.top()-1
+                maxArea = Math.max(maxArea, h * w);
+            }
+            
+            monoStack.push(i);  //如果栈顶高度小于当前高度, then push into stack
+        }
+        
+        return maxArea;
+    }
+}
