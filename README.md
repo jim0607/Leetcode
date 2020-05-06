@@ -179,7 +179,8 @@ In C#, Count is a method that gets the number of elements contained in the Queue
 - [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (!!M) <br>
 注意这类问题的主程序一般都写在hasNext里面！if topItem.isInteger(): return True; else: if it is a nestedList, 就展开: self.stack = self.stack[:-1] + topItem.getList()[::-1]
 - [0251. Flatten 2D Vector](Solutions/0251.Flatten-2D-Vector.py) (M) <br>
-- [0281. Zigzag Iterator](Solutions/0281.Zigzag-Iterator.py) (M)
+- [0281. Zigzag Iterator](Solutions/0281.Zigzag-Iterator.py) (M) <br>
+use two pointers and a flag. What if you are given k 1d vectors? How well can your code be extended to such cases? Solution: We append all the list into one deque. Every time we call next(), we pop a list first, then pop the first num from the list, and then re-add it to the end to deque so that we can call it again after k next calls.
 - [0284. Peeking Iterator](Solutions/0284.Peeking-Iterator.py) (!M) saving peeked value
 - [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (!!M) <br>
 用stack实现binary search tree的in order traversal的方法类似
