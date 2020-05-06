@@ -19,18 +19,25 @@ Output: [null,1,2,3,3]
 class RecentCounter:
 
     def __init__(self):
+        self.cnt = 0
         self.q = collections.deque()
 
     def ping(self, t: int) -> int:
         self.q.append(t)
-        while self.q[0] < t - 3000:
-            self.q.popleft()
         
+        # 题目的意思是我们只认为3s以前的访问记录为recent，返回有多少个recent的访问记录
+        while self.q and self.q[0] < t - 3000:
+            self.q.popleft()
+            
         return len(self.q)
+
 
 # Your RecentCounter object will be instantiated and called as such:
 # obj = RecentCounter()
 # param_1 = obj.ping(t)
+
+
+
 
 public class RecentCounter {
     Queue <int> q = new Queue <int> ();
