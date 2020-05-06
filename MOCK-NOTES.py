@@ -1,3 +1,6 @@
+面试知识盲点：
+1. 怎样写一个抛出异常的程序， try  and ctatch
+
 04/26/2020
 Mock with Celia
 1. 560. Subarray Sum Equals K
