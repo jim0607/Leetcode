@@ -56,6 +56,34 @@ class NestedIterator:
                 
         return False
             
+
+""" Implement using q """
+
+class NestedIterator:
+    def __init__(self, nestedList: [NestedInteger]):
+        self.q = collections.deque()
+        for lst in nestedList:
+            self.q.append(lst)
+    
+    def next(self) -> int:
+        if self.hasNext:
+            return self.q.popleft()
+    
+    def hasNext(self) -> bool:
+        if len(self.q) == 0:
+            return False
+        
+        while self.q:
+            if self.q[0].isInteger():
+                return True
+            
+            topItem = self.q.popleft()
+            for lst in topItem.getList()[::-1]:
+                self.q.appendleft(lst)
+
 # Your NestedIterator object will be instantiated and called as such:
 # i, v = NestedIterator(nestedList), []
 # while i.hasNext(): v.append(i.next())
+
+
+
