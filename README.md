@@ -85,7 +85,7 @@ Similiar with 300. LIS; dp[j] = max(dp[i] + 1 for i<j and nums[i]<nums[j]); if d
 也可以用dp: https://qoogle.top/leetcode-312-burst-balloons/
 
 ###  [划分型DP](/Dynamic-Programming.py) (状态往往定义为前j个的某种特性，不包括j！！！！，这个思想很重要，相当于给前面做了一层buffer layer)
-- [0132. Palindrome Partitioning II](Solutions/0139.Word-Break.py) (!!M) <br>
+- [0132. Palindrome Partitioning II](Solutions/0132.Palindrome-Partitioning-II.py) (!!M) <br>
 dp[i]=can partition until ith char?, not including i; dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in wordDict)
 - [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M) <br>
 f[i]=number of decode ways until i (not including i); f[i]=f[i-1]+f[i-2] if int(s[i-2:i])<=26 else f[i-1]
