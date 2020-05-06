@@ -149,7 +149,8 @@ Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search
 - [0003. Longest Substring Without Repeating Characters](Solutions/0003.Longest-Substring-Without-Repeating-Characters.py) (!!M) <br>
 维护一个included=set(), 用来记录i->j中include的char，套模板时满足的条件是s[j] not in included; 更新j: included.add(s[j]); 更新i: included.remove(s[i])
 - [0076. Minimum Window Substring](Solutions/0076.Minimum-Window-Substring.py) (H) <br>
-维护一个sourceFreqDict, 用来记录i->j中的char的频率，套用模板时满足的条件是sourceFreqDict all included in targetFreqDict; 更新j: sourceDict[s[j]] += 1, 更新i: sourceDict[s[i]] -= 1
+维护一个sourceFreqDict, 用来记录i->j中的char的频率，套用模板时满足的条件是sourceFreqDict all included in targetFreqDict; 更新j: sourceDict[s[j]] += 1, 更新i: sourceDict[s[i]] -= 1.  time complexity is O(MN).
+It seems there is an O(M+N) solution, same idea of using slideing window, I should understand it later.
 - [0340. Longest Substring with At Most K Distinct Characters](Solutions/0340.Longest-Substringwith-At-Most-K-Distinct-Characters.py) (H) <br>
 维护一个charDict, 用来记录i->j中的char的频率，套模板时满足的条件是len(charDict) <= k; 更新j: charDict[s[j]+=1; 更新i: charDict[s[i]] -= 1, if charDict[s[i]] == 0: del charDict[s[i]]
 - [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
@@ -160,16 +161,17 @@ Note that the numbers are positive, so the prefixProd will be an increasing arr.
 # [Data Structure](/Data-Structure.py)
 ### [Stack and Queue](/Data-Structure.py)
 - [0232. Implement Queue using Stacks](Solutions/0232.Implement-Queue-using-Stacks.py) (E) <br>
-use two stacks
+use two stack, 要学会写raise IndexError("queue is empty") 的语句
 - [0225. Implement Stack using Queues](Solutions/0225.Implement-Stack-using-Queues.py) (E) <br>
-use two deques
+use two deques; 要学会抛出error: in pop function, if the stack is empty then raise IndexError("stack is empty");
+也可以用一个list实现，每次push进去的时候，把元素插入到最前面即可，与两个queue相比，时间复杂度也还是O(N)
 - [0155. Min Stack](Solutions/0155.Min-Stack.py) (!!E) <br>
 use two stacks, a stack is to store all items, a minStack to store min items. If a num is less than minStack[-1] then we should append to minStack.
 - [0716. Max Stack](Solutions/0716.Max-Stack.py) (E) <br>
-should be labeled hard if using double linked list and tree map
+Solutino 1: just use one list. Since we have to implement popMax method, we have to find the maxItem pos in the stack, it takes O(N).  Solution 2: by using double linked list and tree map, we can realize O(logN) for push, pop and popMax
 - [0346. Moving Average from Data Stream](Solutions/0346.Moving-Average-from-Data-Stream.cs) (E) <br>
 In C#, Queue class is by default a deque, with two methods: 1. enqueue, meaning push to the back of the queue; 2. dequeue, meaning pop from the front of the queue. They are all O(1).
-- [0933. Number of Recent Calls](Solutions/0933.Number-of-Recent-Calls.cs) (E) <br>
+- [0933. Number of Recent Calls](Solutions/0933.Number-of-Recent-Calls.py) (E) <br>
 In C#, Count is a method that gets the number of elements contained in the Queue.
 - [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
 
