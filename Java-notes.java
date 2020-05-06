@@ -19,7 +19,7 @@ List basics:
    for (int coin : coins) {          // 相当于python中的for coin in coins
    }
 8. Java中写dp[-1]会报错"Index -1 out of bound",
-9. listA.add(item); listA.add(pos, item)
+9. listA.add(item); listA.add(pos, item) 不行，// 注意heights.add(-1) 是不行的，在java中arr的size是不能改变的。 
 10. return minLens == Integer.MAX_VALUE ? 0 : minLens;
         
 
@@ -54,18 +54,31 @@ String:
 3. char ch1 = s.charAt(idx)
     
     
-    
+   
+Stack:
+private Stack<TreeNode> st = new Stack<TreeNode>();  // create a new stack as a golbal variable in the class, elements in the stack are TreeNode  
+st.push(item); st.pop(); st.getSize(); st.isEmpty(); st.peek();        
+           
+           
+
+           
 运算符：
 && : Conditional And, Same as &, but if the operand on the left returns false, it returns false without evaluating the operand on the right.
 || : Conditional Or, Same as |, but if the operand on the left returns true, it returns true without evaluating the operand on theright.
-int 6 / 4 returns 1; double 6 / 4 returns 1.5; 
+divide: int 6 / 4 returns 1; double 6 / 4 returns 1.5; 
+
+
 
 
 
 条件判断：
-        if () {
-        } else if () {
-        } else {
-        }
-        
+if () {
+} else if () {
+} else {
+}
+
+Another easy format: if (lens == 0) return 0;
+
+
+print:
 System.out.println(Arrays.toString(dp));
