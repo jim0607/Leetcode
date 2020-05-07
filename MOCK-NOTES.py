@@ -1,5 +1,11 @@
-面试知识盲点：
-1. 怎样写一个抛出异常的程序， try  and ctatch
+1.	五轮面试，四轮算法，一轮聊一下自己的Ph.D. thesis. New graduate 不需要考OOD or System Design
+2.	面试是在白板上写，remote的话是线上，google不需要run, Facebook 需要run bug free.
+3.	Google 四轮算法考了三个DP.
+4.	算法和数据结构要会, 刷题的目的是要全面掌握算法比如Union Find，要多做总结，cover 所有的知识点。
+5.	面试的时候一定要不断问问题，才能说明你在思考问题。面试官可能故意留了一些问题来考验你有没有考虑到这个情况，如果不问的话，面试官可能觉得你没有考虑到这个情况，就觉得你不行了。
+
+
+
 
 04/26/2020
 Mock with Celia
