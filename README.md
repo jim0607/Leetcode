@@ -643,3 +643,6 @@ similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check w
 # Other Algorithms
 ### [Rabin Karp]()
 - [0028. Implement strStr()](Solutions/0028.Implement-strStr().py) (E) (Rabin Karp Algorithm O(M+N), use Hashcode, ord(ch)-ord("a"))
+
+
+### At last, let's take a look at the famous Algorithm book.
