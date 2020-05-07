@@ -22,7 +22,7 @@ Output: return the tree root node representing the following tree:
 
 
 
-# solution 1: simple recursion, O(NlogN) in average case cuz it's using divide and conquer, O(N^2) in worst case: [1,2,3,4,5,6]
+# solution 1: simple recursion, O(N^2), O(N^2) in worst case: [1,2,3,4,5,6]
 class Solution:
     def constructMaximumBinaryTree(self, nums: List[int]) -> TreeNode:
         if not nums:
