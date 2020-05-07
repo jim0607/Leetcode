@@ -72,3 +72,8 @@ Q: how to avoid O(N^2) time complexity
  - 面试的时候更关心bug free, 然后是time complexity. Space complexity不是很重要
  - 一定要保证bug free
  - 一定要快速的写很多的注释，把思路解释清楚，自己follow起来也很快一些。
+            
+            
+05/06 Pramp interview
+BST Successor Search (simple traversal)
+Array Index & Element Equality (binary search)
