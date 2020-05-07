@@ -41,8 +41,9 @@ HashMap:
         dpMap.put(stone, new HashSet<Integer>());
     }
 3. 从HashMap中提取出某个key对应的val: dpMap.get(key);   在python中可以直接用dpMap[key]
-4. dpMap.containsKey(someKey)
-5. dpMap.size();
+4. 判断一个someKey是否在map里面：dpMap.containsKey(someKey)
+5. Get val from a key: map.get(someKey)
+6. dpMap.size();
 
 
 
