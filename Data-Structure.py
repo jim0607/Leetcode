@@ -56,6 +56,8 @@ hashing的冲突解决方法：
 
 
 4. heap and heapq
+https://docs.python.org/2/library/heapq.html
+  
 heap是通过二叉树实现的，该二叉树的特性：
 1. 结构特性：优先从上至下排列，同一层优先从左至右排列。
 2. 数值特性：min heap：父节点总是小于等于儿子的。max heap: father >= child
