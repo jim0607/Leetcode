@@ -70,12 +70,6 @@ Return the output array.
 
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-        lens = len(nums)
-        if lens <= k:
-            return [max(nums)]
-        
-        res = []
-        
         # Process the first k elements separately to initiate the deque
         deq = collections.deque()
         maxVal, maxIdx = nums[0], 0
@@ -96,9 +90,16 @@ class Solution:
     
     def clean_deq(self, deq, i, k, nums):
         
-        # remov indexes of elements not from sliding window
+        # 1. remov indexes of elements not from sliding window, Keep only the indexes of elements from the current sliding window.
         if deq and deq[0] == i - k:
             deq.popleft()
             
+        # 2. Remove indexes of all elements smaller than the current one, since they will not be the maximum ones. 
+        # eg: [1,2,7,3,5,4], k = 3, because of 7, 1 and 2 will never be in res
         while deq and nums[i] > nums[deq[-1]]:
             deq.pop()
+          
+        """ 为什么从前面开始pop就不行呢？
+        while deq and nums[deq[0]] <= nums[i]:
+            deq.popleft()
+        """
