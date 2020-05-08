@@ -38,8 +38,8 @@ class Solution:
         dp[0] = True
         
         for j in range(1, lens + 1):
-            for i in range(j):
-                if dp[i] and s[i:j] in wordSet:
+            for i in range(j):   # 这句话应该改成for i in range(j-1,-1,-1), 因为从 s[i:j] in wordSet 就更容易判断更快了！
+                if dp[i] and s[i:j] in wordSet:     # 这句话应该把dp[i]==True放到前面，因为dp[i]==True is low cost comparison.
                     dp[j] = True
                     break
                     
