@@ -93,3 +93,15 @@ class Solution:
                 heapq.heappop(numsHeapq)    # python默认是最小堆, 每次都是pop出最小值, 于是留下来的就是最大值了
                 
         return numsHeapq[0]
+
+    
+    
+"""下面的算法是O(N)"""
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        import heapq
+        heapq.heapify(nums)     # O(N)
+        while len(nums) > k:
+            heapq.heappop(nums)
+            
+        return heapq.heappop(nums)
