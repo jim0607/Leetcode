@@ -197,7 +197,7 @@ solution 1: simple recursionsolution 2: monostack 通过观察发现规律，对
 
 ### [Deque](/Data-Structure.py) 
 - [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (H) <br>
-没看懂
+heapq的方法是O(NK); deque O(N): Iterate over the array. At each step: I. Clean the deque: 1. Keep only the indexes of elements from the current sliding window; 2. Remove indexes of all elements smaller than the current one, since they will not be the maximum ones. eg: [1,2,7,3,5,4], k = 3, because of 7, 1 and 2 will never be in res; II. Append the current element to the deque. Append deque[0] to the output.
 
 
 ### [Hashmap/Dictionary](/Data-Structure.py) 
