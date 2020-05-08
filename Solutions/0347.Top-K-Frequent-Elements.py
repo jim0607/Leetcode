@@ -40,3 +40,26 @@ class Solution:
             res.append(num)
             
         return res[::-1]        # O(K)
+    
+    
+""""use heapify to realize O(N) solution"""
+
+import heapq
+
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        numsFreq = collections.defaultdict(int)
+        for num in nums:
+            numsFreq[num] += 1
+            
+        hq = []
+        for num, freq in numsFreq.items():
+            hq.append((-freq, num))
+            
+        heapq.heapify(hq)
+        
+        res = []
+        for _ in range(k):
+            res.append(heapq.heappop(hq)[1])
+            
+        return res
