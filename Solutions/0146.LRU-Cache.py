@@ -61,31 +61,31 @@ class LRUCache:
 python中的orderedDict其实就是solution 3中类似的linkedlist实现的，相当于直接使用封装好的函数了.
 orderedDict直接就存在一个orderedDict.move_to_end(key)操作，和orderedDict.popitem(last = False)操作"""
 # @lc code=start
+
 class LRUCache:
 
     def __init__(self, capacity: int):
-        self.orderedDict = collections.OrderedDict()
         self.capacity = capacity
-        
+        self.cache = collections.OrderedDict()
 
     def get(self, key: int) -> int:
-        if key not in self.orderedDict:
+        if key not in self.cache.keys():
             return -1
-        else:
-            self.orderedDict.move_to_end(key)
-            return self.orderedDict[key]
         
+        self.cache.move_to_end(key) # save the most recent used item at the end
+        
+        return self.cache[key]
 
     def put(self, key: int, value: int) -> None:
-        if key not in self.orderedDict:
-            self.orderedDict[key] = value
-            if len(self.orderedDict) > self.capacity:
-                self.orderedDict.popitem(last = False)
-            self.orderedDict.move_to_end(key)
+        if key in self.cache.keys():
+            self.cache[key] = value
+            self.cache.move_to_end(key)
+            
         else:
-            self.orderedDict[key] = value
-            self.orderedDict.move_to_end(key)
-
+            self.cache[key] = value
+            self.cache.move_to_end(key)
+            if len(self.cache) > self.capacity:
+                self.cache.popitem(last = False)
 
 
 
