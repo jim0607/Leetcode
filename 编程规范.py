@@ -12,3 +12,5 @@
    这样在后面的程序中就不用再用0, 1, 2了，直接用EMPTY, FULL, 这样可以增加程序的可读性。
    也可以在主函数中定义全局变量self.EMPTY = 0
    在调用的时候都是用self.EMPTY
+   
+6. 养成命名有意义的好习惯，不要用dp, dic, q, deq, hq 之类的名字了，用minCnts, freqDict, minEndTimes 等等名字。
