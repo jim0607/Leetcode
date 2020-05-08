@@ -77,3 +77,13 @@ Q: how to avoid O(N^2) time complexity
 05/06 Pramp interview
 BST Successor Search (simple traversal)
 Array Index & Element Equality (binary search)
+
+
+05/06/2020
+I interviewed Yi Zhang from UCSD
+257. Binary Tree path - recursion
+139. Word Break
+- if s[i:j] in wordSet and dp[i]==True 这句话应该把dp[i]==True放到前面，因为dp[i]==True is low cost comparison.
+- for i in range(j): 这句话应该改成for i in range(j-1,-1,-1), 因为从 s[i:j] in wordSet 就更容易判断更快了！
+253. Meeting Rooms II
+sweep line problem, talk out loud!!
