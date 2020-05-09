@@ -11,36 +11,7 @@ union(A, D), 合并点A和点D所在的集合
   2 2 2 4 4
 表示有5个点1,2,3,4,5; 1,2,3分别指向2; 4,5分别指向4
   
-实现find(A): 路径压缩方法：
-step 1: 遍历找到老大哥
-step 2: 把沿路的每个点直接指向老大哥
-这样以后每个点找老大哥都可以用O(1)
-int find(int x) {
-    if (father[x] == x) {
-        return x;
-    }
-    father[x] = find(father[x]);    # 这里采用了路径压缩，把沿路每个点都指向老大哥。注意正因如此这个递归是不会stack over flow的，因为不会形成长链。
-    return father[x];
-
-知识点：递归算法的stack overflow是指在递归的时候会分配1M的栈空间，用来存储递归过程中的数，知道达到递归结束条件就FILO依次输出各个数，
-        如果存储的数很多了还没找到递归结束条件的话，就会stack overflow
   
-实现union(A, B): 
-找到A和B的root, 然后root_a指向root_b即可
-public void union(int a, int b) {     
-    root_a = find(a);
-    root_b = find(b);
-    if (root_a != root_b) {
-        father[root_a] = root_b;    // 注意这里谁是谁的father都没关系，目的只是连起来。
-    }
-}
-并查集的原生操作：
-  - 查询两个元素是否在同一个集合内 589
-  - 合并两个元素所在的集合
-  
-并查集的派生操作：
-  - 查询某个元素所在集合的元素个数 590
-  - 查询图中集合的个数 591
   
 union-find 模板: 遇到题目直接套用这个模板就可以了
 
@@ -77,6 +48,44 @@ class UnionFind:
 
   
   
+  
+  
+  
+  
+实现find(A): 路径压缩方法：
+step 1: 遍历找到老大哥
+step 2: 把沿路的每个点直接指向老大哥
+这样以后每个点找老大哥都可以用O(1)
+int find(int x) {
+    if (father[x] == x) {
+        return x;
+    }
+    father[x] = find(father[x]);    # 这里采用了路径压缩，把沿路每个点都指向老大哥。注意正因如此这个递归是不会stack over flow的，因为不会形成长链。
+    return father[x];
+
+知识点：递归算法的stack overflow是指在递归的时候会分配1M的栈空间，用来存储递归过程中的数，知道达到递归结束条件就FILO依次输出各个数，
+        如果存储的数很多了还没找到递归结束条件的话，就会stack overflow
+  
+实现union(A, B): 
+找到A和B的root, 然后root_a指向root_b即可
+public void union(int a, int b) {     
+    root_a = find(a);
+    root_b = find(b);
+    if (root_a != root_b) {
+        father[root_a] = root_b;    // 注意这里谁是谁的father都没关系，目的只是连起来。
+    }
+}
+并查集的原生操作：
+  - 查询两个元素是否在同一个集合内 589
+  - 合并两个元素所在的集合
+  
+并查集的派生操作：
+  - 查询某个元素所在集合的元素个数 590
+  - 查询图中集合的个数 591
+  
+
+  
+Java template:
   
 public class UnionFind {
     private int[] father = null;
