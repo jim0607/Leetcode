@@ -18,7 +18,6 @@ O(NlogK), O(K)
 
 # overwrite the compare function 
 # so that we can directly put ListNode into heapq
-
 ListNode.__lt__ = lambda x, y: (x.val < y.val)
 
 class Solution:
