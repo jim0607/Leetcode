@@ -38,48 +38,29 @@ Output:
 
 
 
-public class ConnectingGraph3 {
-    /**
-     * @param a: An integer
-     * @param b: An integer
-     * @return: nothing
-     */
-     
-    private int[] father = null;
-    private int cnt;
+class ConnectingGraph3:
     
-    private int find(int x) {
-        if (father[x] == x) {
-            return x;
-        }
-        father[x] = find(father[x]);
-        return father[x];
-    }
+    def __init__(self, n):
+        self.father = collections.defaultdict()
+        self.cnt = n
+        
+        for i in range(1, n + 1):
+            self.father[i] = i
+        
+    def find(self, x):
+        if self.father[x] == x:
+            return x
+            
+        self.father[x] = self.find(self.father[x])
+        
+        return self.father[x]
     
-    public ConnectingGraph3(int n) {
-        // initialize your data structure here.
-        father = new int[n + 1];
-        cnt = n;
-        for (int i = 1; i < n + 1; i++) {
-            father[i] = i;
-        }
-    }
-    
-    public void connect(int a, int b) {
-        // write your code here
-        int root_a = find(a);
-        int root_b = find(b);
-        if (root_a != root_b) {
-            father[root_a] = root_b;
-            cnt--;
-        }
-    }
+    def connect(self, a, b):
+        father_a, father_b = self.find(a), self.find(b)
+        
+        if father_a != father_b:
+            self.father[father_b] = father_a
+            self.cnt -= 1
 
-    /**
-     * @return: An integer
-     */
-    public int query() {
-        // write your code here
-        return cnt;
-    }
-}
+    def query(self):
+        return self.cnt
