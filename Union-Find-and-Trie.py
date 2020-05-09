@@ -1,4 +1,4 @@
-Union find是一种用来解决集合查询合并的数据结构
+Union find是一种用来解决集合查询合并的数据结构, 又叫 Disjoint Se
 Union-Find 算法（中文称并查集算法）是解决动态连通性（Dynamic Conectivity）问题的一种算法
 支持O(1) find and O(1) union
 本质上是一个hash map表示数据之间的对应关系。
@@ -20,20 +20,21 @@ Python version:
 class UnionFind:
     def __init__(self):
         self.father = {}  # 用dictionary来实现可以更快查询
-        self.cnt = 0      # cnt is the total number of all 集合in the graph
         
-    def add(self, x):
+    def add(self, x):     # 有时候需要add 一个数组到graph里面，这时候就在__init__里面完成就可以了。
         """
         add x into the graph
         """
         self.father[x] = x
-        self.cnt += 1
         
     def find(self, x):    # 用递归实现
+        """
+        find the root of x, by using path compression, which flattened the path
+        """
         if self.father[x] == x:
             return x
             
-        self.father[x] = self.find(self.father[x])
+        self.father[x] = self.find(self.father[x])    # Path compression, speeding up future operations for not only this element, but also all the father elements.
         
         return self.father[x]
   
@@ -43,14 +44,10 @@ class UnionFind:
         """
         root_a, root_b = self.find(a), self.find(b)
         if root_a != root_b:
-            self.father[root_a] = root_b
-            self.cnt -= 1
+            self.father[root_a] = root_b      # 注意这里顺序没关系，但是千万不要写成了root_b = self.father[root_a], 这样赋值顺序完全不对。
 
-  
-  
-  
-  
-  
+
+
   
 实现find(A): 路径压缩方法：
 step 1: 遍历找到老大哥
@@ -65,6 +62,11 @@ int find(int x) {
 
 知识点：递归算法的stack overflow是指在递归的时候会分配1M的栈空间，用来存储递归过程中的数，知道达到递归结束条件就FILO依次输出各个数，
         如果存储的数很多了还没找到递归结束条件的话，就会stack overflow
+  
+Path compression:
+Path compression is a way of flattening the structure of the tree whenever Find is used on it. 
+Since each element visited on the way to a root is part of the same set, all of these visited elements can be reattached directly to the root. 
+The resulting tree is much flatter, speeding up future operations not only on these elements, but also on those referencing them.
   
 实现union(A, B): 
 找到A和B的root, 然后root_a指向root_b即可
