@@ -67,3 +67,71 @@ class Solution:
                     visited.add(node)       # twin brothers
         
         return len(visited) == n    # 每个节点都被访问过且都被访问过一次
+    
+    
+    
+class UnionFind:
+    def __init__(self):
+        self.father = collections.defaultdict()
+        self.cnt = 0    # the total number of isolated components in the graph
+        
+    def add(self, x):
+        """
+        add node x in the graph
+        """
+        self.father[x] = x
+        self.cnt += 1
+        
+    def find(self, x):
+        """
+        find the root of x in the graph using path compression
+        """
+        if self.father[x] == x:
+            return x
+        
+        self.father[x] = self.find(self.father[x])
+        
+        return self.father[x]
+    
+    def connect(self, a, b):
+        """
+        connect node a and node b
+        """
+        root_a, root_b = self.find(a), self.find(b)
+        if root_a != root_b:
+            self.father[root_a] = root_b
+            self.cnt -= 1
+    
+"""
+Solution 2: Dynamic connection problem: Union Find
+"""
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        
+        if len(edges) != n - 1:     # 边数必须比点数少1
+            return False
+        if n == 1:
+            return True
+        
+        graph = UnionFind()
+        
+        for edge in edges:
+            if edge[0] not in graph.father and edge[1] not in graph.father:
+                graph.add(edge[0])
+                graph.add(edge[1])
+                graph.connect(edge[0], edge[1])
+            
+            elif edge[0] in graph.father and edge[1] not in graph.father:
+                graph.add(edge[1])
+                graph.connect(edge[0], edge[1])
+            
+            elif edge[1] in graph.father and edge[0] not in graph.father:
+                graph.add(edge[0])
+                graph.connect(edge[0], edge[1])
+                
+            elif edge[0] in graph.father and edge[1] in graph.father:
+                if graph.cnt == 1:      # 本来edge[0]和edge[1]都已经连好了，还要再连一下，那就不对了
+                    return False
+                graph.connect(edge[0], edge[1])
+            
+        return graph.cnt == 1
