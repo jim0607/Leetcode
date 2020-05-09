@@ -218,7 +218,7 @@ solution 1: 扫描线；solution 2: 以end时间来构造最小堆，每次进�
 - [0465 Kth Smallest Sum in Two Sorted Arrays](Solutions/0465.Kth-Smallest-Sum-in-Two-Sorted-Arrays.py) (M Lintcode) <br>
 将两个list各挑一个数出来的加和做成一个2D Array, 由于两个list都是sorted, 那么这个2D array就是与378同样sorted array了。
 - [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!M) <br>
-maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq
+maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); Solution 2: divide and conquer, O(NlogK).
 - [0621. Task Scheduler](Solutions/0621.Task-Scheduler.py) (!!M) <br>
 I have to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
 - [0264. Ugly Number II](Solutions/0264.Ugly-Number-II.py) (M) <br>
