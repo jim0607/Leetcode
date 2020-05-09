@@ -82,7 +82,8 @@ Similiar with 300. LIS; dp[j] = max(dp[i] + 1 for i<j and nums[i]<nums[j]); if d
 题目问subsequence, subsequence不需要连续，题目要求Return the longest length: dp[i][j]=longest palindr from i to j; dp[i][j]=dp[i+1][j-1]+2 if s[i]==s[j] else max(dp[i+1][j], dp[i][j-1]);注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)
 - [0312. Burst Balloons](Solutions/0312.Burst-Balloons.py) (!!H) <br>
 带memo的recursion比DP更好懂; left = self.memoSearch(nums, i, k, memo); right=self.memoSearch(nums, k, j, memo); maxCoins = max(maxCoins, left + right + nums[i] * nums[k] * nums[j]). 
-也可以用dp: https://qoogle.top/leetcode-312-burst-balloons/
+也可以用dp: https://qoogle.top/leetcode-312-burst-balloons/ <br>
+Lintcode 476. Stone Game
 
 ###  [划分型DP](/Dynamic-Programming.py) (状态往往定义为前j个的某种特性，不包括j！！！！，这个思想很重要，相当于给前面做了一层buffer layer)
 - [0139. Word Break](Solutions/0139.Word-Break.py) (!!M) <br>
