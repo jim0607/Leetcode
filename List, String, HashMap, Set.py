@@ -68,6 +68,11 @@ In python, hash map is dictionary
       
 3. delete a key, val pair in a dict: del dictNums[key]
       
+将list作为key放入dict会报错: unhashable type 'list'   
+Reason: Dictionary keys must be immutable types and list is a mutable type. 
+Solution: Cast list to a tuple. eg: 305. Number of Islands II
+      
+      
 
 Set
       
