@@ -45,60 +45,53 @@ Can you do it in time complexity O(k log mn), where k is the length of the posit
 
 class UnionFind:
     def __init__(self):
-        self.father = {}
+        self.father = collections.defaultdict()
         self.cnt = 0
         
     def add(self, x):
-        """
-        add x into the graph
-        """
         self.father[x] = x
         self.cnt += 1
         
     def find(self, x):
-        """
-        find the root of x
-        """
-        while x != self.father[x]:
-            self.father[x] = self.father[self.father[x]]
-            x = self.father[x]
-            
-        return x
+        if self.father[x] == x:
+            return x
+        
+        self.father[x] = self.find(self.father[x])
+        
+        return self.father[x]
     
-    def union(self, a, b):
-        """
-        union a and b
-        """
+    def connect(self, a, b):
         root_a, root_b = self.find(a), self.find(b)
         if root_a != root_b:
             self.father[root_a] = root_b
-            self.cnt -= 1
-
+            self.cnt -= 1        
+            
+        
 class Solution:
     
-    MOVES = [(1, 0), (-1, 0), (0, -1), (0, 1)]
+    MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
     
     def numIslands2(self, m: int, n: int, positions: List[List[int]]) -> List[int]:
-        graph = UnionFind()
+        
+        graph = UnionFind()        # instantiate the UnionFind class to get a graph
+        
         res = []
         for pos in positions:
-            idx = pos[0] * n + pos[1]
-            
-            if idx in graph.father:     # if idx is already in the graph, then don't need to proceed, just append the cnt
+            pos = (pos[0], pos[1])   # change it to tuple because Dictionary keys must be immutable types. 
+            if (pos[0], pos[1]) in graph.father:     # pos already in father, meaning it's been connected, append the cnt ot res
                 res.append(graph.cnt)
                 continue
-                
-            graph.add(idx)       # add idx into the union find graph, and cnt += 1
-            
-            for move in self.MOVES:
-                row, col = pos[0] + move[0], pos[1] + move[1]
-                new_idx = row * n + col
-                
+
+            graph.add(pos)      # if pos not in father, then we should add it to father first, note that cnt++ at his time
+
+            for move in self.MOVES:    
+                new_pos = (pos[0] + move[0], pos[1] + move[1])
+
                 # if new_idx in graph.father, meaning the new_idx place already has a 1, 
                 # then we should connect idx and new_idx on the graph and cnt -= 1, because there is one less isolated islands after connection
-                if 0 <= row < m and 0 <= col < n and new_idx in graph.father:
-                    graph.union(idx, new_idx)
-                    
+                if 0 <= new_pos[0] < m and 0 <= new_pos[1] < n and new_pos in graph.father:
+                    graph.connect(pos, new_pos)
+
             res.append(graph.cnt)
-                
+                            
         return res
