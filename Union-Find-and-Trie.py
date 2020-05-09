@@ -58,17 +58,15 @@ class UnionFind:
         self.father[x] = x
         self.cnt += 1
         
-    def find(self, x):    # 用非递归实现
-        """
-        find the root of x
-        """
-        while x != self.father[x]:
-            self.father[x] = self.father[self.father[x]]
-            x = self.father[x]
+    def find(self, x):    # 用递归实现
+        if self.father[x] == x:
+            return x
             
-        return x
+        self.father[x] = self.find(self.father[x])
+        
+        return self.father[x]
   
-      def union(self, a, b):
+    def union(self, a, b):
         """
         union a and b
         """
@@ -77,6 +75,8 @@ class UnionFind:
             self.father[root_a] = root_b
             self.cnt -= 1
 
+  
+  
   
 public class UnionFind {
     private int[] father = null;
