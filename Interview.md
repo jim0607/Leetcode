@@ -11,8 +11,8 @@ Situation, Task, Action, Result
 Good questions:
 1. the most changlling project
 2. how you handle conflict
-3. a time you counldn’t finish before ddl
+3. a time you counldn’t finish before ddl.  What will you do to prevent it from happening again.
 
 
 
-一般不要提加班解决问题，给人印象是能力不行。
+Never say that you work hard overnight, 因为这说明能力不行。
