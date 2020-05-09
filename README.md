@@ -227,26 +227,28 @@ I have to be concerned about tasks with higher frequencies. This makes it a perf
 - [0407. Trapping Rain Water II](Solutions/0407.Trapping-Rain-Water-II.py) (!!H) <br>
 Similar with 1D trapping rain water. Step 1: store all the outliners of the matrix in heapq.  Maintain a visited set to mark all the visited locations. Step 2: starting from the min height position, do BFS the 4 possible moves. If found a height < the min Height, then we can store water, else we cannot store water and we should update this leaking point by putting the new height into the heapq
 - [0295. Find Median from Data Stream](Solutions/0295.Find-Median-from-Data-Stream.py) (!!H) <br>
-定义两个heap: self.leftHq as a maxheap to store the nums that are smaller than median; and self.rightHq as a minheap store the nums that are larger then median.  每次新增一个数num的时候，先根据比 maxheap 中最后一个数大还是小丢到对应的 heap 里。丢完以后，再处理左右两边的平衡性:如果左边太少了，就从右边拿出一个最小的丢到左边。如果右边太少了，从左边拿出一个最大的丢到右边。
+定义两个heap: self.leftHq as a maxheap to store the nums that are smaller than median; and self.rightHq as a minheap store the nums that are larger then median.  每次新增一个数num的时候，先根据比 maxheap 中最后一个数大还是小丢到对应的 heap 里。丢完以后，再处理左右两边的平衡性:如果左边太少了，就从右边拿出一个最小的丢到左边。如果右边太少了，从左边拿出一个最大的丢到右边。How to answer following questions.
 - [0480. Sliding Window Median](Solutions/0480.Sliding-Window-Median.py) (H) <br>
-similar with 295, we need to maintain two heaps, leftHq and rightHq. To slide one step is actually to do two things:
-1. add a number, which is exactly the same as that in 295.
-2. remove a number
+similar with 295, we need to maintain two heaps, leftHq and rightHq. To slide one step is actually to do two things: 1. add a number, which is exactly the same as that in 295. 2. remove a number; 全是难题，看不进去https://leetcode.com/problems/sliding-window-median/discuss/412047/Two-heaps-%2B-sliding-window-approach-O(-n-*-k-)-runtime-O(k)-space
 
 
 ### [Union-Find](Union-Find-and-Trie.py)
 - [0589. Connecting Graph](Solutions/0589.connecting-graph.java) (!!M Lintcode) <br>
 将a和b connect: 只需要将a和b的father connect就好；query a和b有没有连接:其实就是判断a和b在不在同一个集合里面，只需要判断find(a) == find(b)
 - [0590 Connecting Graph II](Solutions/0590.Connecting-Graph-II.java) (!!M Lintcode) <br>
-需要query 点a所在集合的元素个数，所以需要一个list size, 用来记录每个点所在集合的点的个数，在union i 和 j 的时候: father[i] = j, sz[j] += sz[i];
-- [0591. Connecting Graph II](Solutions/0591.Connecting-Graph-II.java) (!!M Lintcode) <br>
+需要query 点a所在集合的元素个数，所以需要一个list size, 用来记录每个father节点所在集合的点的个数，在union i 和 j 的时候: father[i] = j, sz[j] += sz[i];
+- [0591. Connecting Graph II](Solutions/0591.Connecting-Graph-II.py) (!!M Lintcode) <br>
 需要query 整个图中有多少个集合，所以需要一个counter, 用来记录图中集合的个数，初始化为n, 在union i 和 j 的时候: father[i] = j, counter--;
+- [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (!!M, youtubed) <br>
+Soluiton 1: Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a Breadth First Search. <br>
+SOlution 2: Union Find: think the grid as a graph, find how may isolated components in the graph, we traversal the whole gird, whenever find a 1, we connect all the 4 adjacent 1s. 方法同lintcode 591.
 - [0305. Number of Islands II](Solutions/0305.Number-of-Islands-II.py) (!!H) <br>
-Union-Find 算法是解决动态连通性（Dynamic Conectivity）问题的一种算法. 这里的island可以看做是一个图. 每放置一个1, 就将其与其上下左右四个点的1连接起来。
-
-Graph Valid Tree
-Longest Consecutive Sequence
-Regions Cut By Slashes
+Union-Find 算法是解决动态连通性（Dynamic Conectivity）问题的一种算法. 这里的island可以看做是一个图. 每放置一个1, 就将其与其上下左右四个点的1连接起来。O(m×n+L), follow up question?
+- [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
+Solution 2: Union find: O(N); Solution 1: BFS O(N)判断图是不是一棵树（不一定非要是二叉树）需要满足两点:1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树
+- [0128. Longest Consecutive Sequence](Solutions/0128.Longest-Consecutive-Sequence.py) (!!M) <br>
+Solution 1: Greedy O(N) 使用一个集合HashSet存入所有的数字，然后遍历数组中的每个数字，如果其在集合中存在，那么将其移除，然后分别用两个变量pre和next算出其前一个数跟后一个数，然后在集合中循环查找，如果pre在集合中，那么将pre移除集合，然后pre再自减1，直至pre不在集合之中，对next采用同样的方法，
+那么next-pre-1就是当前数字的最长连续序列，更新res即可; Solution 2: Union find: O(N), didn't implement
 
 
 ### [Trie](Union-Find-and-Trie.py)
