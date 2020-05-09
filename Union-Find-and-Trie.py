@@ -22,7 +22,7 @@ int find(int x) {
     father[x] = find(father[x]);    # 这里采用了路径压缩，把沿路每个点都指向老大哥。注意正因如此这个递归是不会stack over flow的，因为不会形成长链。
     return father[x];
 
-知识点：递归算法的stack overflow是指在递归的时候会分配32M的栈空间，用来存储递归过程中的数，知道达到递归结束条件就FILO依次输出各个数，
+知识点：递归算法的stack overflow是指在递归的时候会分配1M的栈空间，用来存储递归过程中的数，知道达到递归结束条件就FILO依次输出各个数，
         如果存储的数很多了还没找到递归结束条件的话，就会stack overflow
   
 实现union(A, B): 
