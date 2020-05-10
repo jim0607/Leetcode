@@ -50,55 +50,53 @@
 # 
 #
 """deep copy意味着所有的节点都一样，但是与原图存放的地址不一样，所以原图发生任何改变都不会影响到copy的那个图
-分三步：1. 找到所有的node
-2. 复制所有的node
-3. 找到和复制所有节点对应的边/邻居"""
-# @lc code=start
+分三步：Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现
+Step 2: 复制所有原有的node，存到mapping中，这样就建立了一个new_node和original_node的一一映射
+Step 3: 复制所有original_node对应的neighbors 到 new_node里面"""
 """
 # Definition for a Node.
 class Node:
-    def __init__(self, val, neighbors):
+    def __init__(self, val = 0, neighbors = None):
         self.val = val
-        self.neighbors = neighbors
+        self.neighbors = neighbors if neighbors is not None else []
 """
+
 class Solution:
     def cloneGraph(self, node: 'Node') -> 'Node':
         if not node:
             return None
-
+        
         root = node
-
-        # 第一步：找到所有的点，用BFS实现
-        nodes = self.getNodes(node)
-
-        # 第二步：复制所有的node，存到mapping中，边可以先设为空
-        mapping = {}
-        for node in nodes:
-            mapping[node] = Node(node.val, [])       
-
-        # 第三步：复制所有节点对应的边/邻居
-        for node in nodes:
-            new_node = mapping[node]
-            for neighbor in node.neighbors:
-                new_neighbor = mapping[neighbor]
+        
+        # Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现
+        original_nodes = self.getAllNodes(node)
+        
+        # Step 2: 复制所有原有的node，存到mapping中，这样就建立了一个new_node和original_node的一一映射
+        mapping = collections.defaultdict(Node)
+        for original_node in original_nodes:
+            mapping[original_node] = Node(original_node.val, [])    # 先copy original_node.val
+            
+        # Step 3: 复制所有original_node对应的neighbors 到 new_node里面
+        for original_node in original_nodes:
+            new_node = mapping[original_node]
+            for original_neighbor in original_node.neighbors:   # 再copy original_node.neighbors
+                new_neighbor = mapping[original_neighbor]       # 注意这一句很容易漏掉，漏掉就不是clone了
                 new_node.neighbors.append(new_neighbor)
-
+            
         return mapping[root]
-
-    # BFS get all the nodes
-    def getNodes(self, node):
-        q = collections.deque()
-        q.append(node)
-        res = set()
-        res.add(node)
-        while q:
-            currNode = q.popleft()
+    
+    def getAllNodes(self, node):
+        dq = collections.deque()
+        dq.append(node)
+        nodesSet = set()
+        nodesSet.add(node)
+        
+        while dq:
+            currNode = dq.popleft()
+            
             for neighbor in currNode.neighbors:
-                if neighbor not in res:
-                    res.add(neighbor)
-                    q.append(neighbor)
-
-        return res 
-
-# @lc code=end
-
+                if neighbor not in nodesSet:
+                    dq.append(neighbor)
+                    nodesSet.add(neighbor)
+                    
+        return nodesSet
