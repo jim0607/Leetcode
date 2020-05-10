@@ -1,9 +1,7 @@
 ## 三刷：不做新题了，就这250题！目标是刷熟练！模板总结出来天天拿出来背诵！
 ## 每日10题：05/01 - 05/25
 #### Review: 
-05/04 - 0337; 05/05 - 0334; 05/06 - 0416; 05/08 - 0010
-#### Coding:
-05/04 - 0010; 05/05 - 0281; 05/07 - 0347
+05/04 - 0337; 05/05 - 0334; 05/06 - 0416; 05/08 - 0010; 05/10 - 0713
 
 # [Dynamic Programming](Dynamic-Programming.py)
 ### [Recursion with memoization](/Dynamic-Programming.py)
@@ -279,9 +277,9 @@ should practice more times!
 - [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
 判断图是不是一棵树（不一定非要是二叉树）需要满足两点:1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树
 - [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (M) <br>
-第一步：找到所有的点，用BFS实现; 第二步：复制所有的node，存到mapping中，边可以先设为空; 第三步：复制所有节点对应的边/邻居
+Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现; Step 2: 复制所有原有的node，存到mapping中，这样就建立了一个new_node和original_node的一一映射; Step 3: 复制所有original_node对应的neighbors 到 new_node里面
 - [0127. Topological Sorting](Solutions/0127.Topological-Sorting.py) (!!LintCode) <br>
-必考，其实也非常模板化，一定要记住。Three steps: 1. 从数字关系求出每个节点的inDegrees（就是找节点与相邻节点的依赖关系） (inDegrees = collections.defaultdict())，key是node, val是这个node的indegree; 2. 和每个节点的neighbors （neighbors = collections.defaultdict(list)), key是node, val是装有这个node的neighbor的list; 3. 然后 BFS，背诵模板就可以了。
+必考，其实也非常模板化，一定要记住。Three steps: 1. 从数字关系求出每个节点的inDegrees（就是找节点与相邻节点的依赖关系） (inDegrees = collections.defaultdict(int))，key是node, val是这个node的indegree值; 2. 和每个节点的neighbors （neighbors = collections.defaultdict(list)), key是node, val是装有这个node的neighbor的list; 3. 然后 BFS，背诵模板就可以了。
 - [0207. Course Schedule](Solutions/0207.Course-Schedule.py) (!!M) <br>
 套用模板分三步：1. collect the inDegree of each node; 2. collect the neighbors information; 3. topological sort - BFS
 - [0210. Course Schedule II](Solutions/0210.Course-Schedule-II.py) (!!M) <br>
@@ -289,13 +287,14 @@ should practice more times!
 - [0444. Sequence Reconstruction](Solutions/0444.Sequence-Reconstruction.py) (!!M) <br>
 这个题目要做三个判断：1. 判断seqs的拓扑排序是否存在，只需判断len(res) 是否等于len(neighbors) or len(inDegrees), 如果小于说明有孤立节点，如果大于说明有环，两者都不存在拓扑排序; 2. 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素, 即每一层只有一个选择: if len(q)>1: return False; 3. 最后判断这个唯一的拓扑排序res是否等于org
 - [0269. Alien Dictionary](Solutions/0269.Alien-Dictionary.py) (!!H) <br>
-只需要比较word[i]与word[i+1]即可得到inDegree的关系以及neighbors的关系
+只需要比较word[i]与word[i+1]中每个char，即可得到inDegree的关系以及neighbors的关系
 
 ### [BFS in Matrix](/Breadth-First-Search.py) (隐式图搜索问题!!!)
 - [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (!!M, youtubed) <br>
 Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a Breadth First Search.
+Solution 2: dynamic connection problem, Union Find
 - [0994. Rotting Oranges](Solutions/0994.Rotting-Oranges.py) (M) <br>
-在class solution(): 后面定义全局变量 EMPTY = 0; FRESH = 1; MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+Step 1. append the rotten ones to the first level, Step 2: bfs to turn the adjacent fresh ones into rotten ones. 在class solution(): 后面定义全局变量 EMPTY = 0; FRESH = 1; MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 - [286. Walls and Gates](Solutions/0286.Walls-and-Gates.py) (M) <br>
 - [1197. Minimum Knight Moves](Solutions/1197.Minimum-Knight-Moves.py) (!!M) <br>
 solution 1: 利用对称性质: x,y=abs(x),abs(y); q.append(neighbor) only if (neighbor_x>=-2 and neighbor_y>=-2); 1816 ms<br>
@@ -647,8 +646,9 @@ similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check w
 
 
 # Other Algorithms
-### [Rabin Karp]()
+### [Rabin Karp / Rolling Hash]()
 - [0028. Implement strStr()](Solutions/0028.Implement-strStr().py) (E) (Rabin Karp Algorithm O(M+N), use Hashcode, ord(ch)-ord("a"))
+1062. Logest repeating substring
 
 
 ### At last, let's take a look at the famous Algorithm book.
