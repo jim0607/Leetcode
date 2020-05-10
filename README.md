@@ -311,7 +311,7 @@ Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and u
 
 
 
-# [Depth First Search](/Depth-First-Search.py)
+# [Depth First Search / Backgrack](/Depth-First-Search.py)
 ### [Combination](/Depth-First-Search.py)
 - [0078. Subsets](Solutions/0078.Subsets.py) (!!M) <br>
 C(m, n)：m个里面找出n个的组合问题; 模板的DFS + back tracking求combination问题 O(NS), S是solution的个数，这里S=2^N; 注意两点：1.res.append(curr.copy()); has to be a deep copy; 2. self.dfs(nums, i + 1, curr, res) 要从i+1开始cuz不能回头找会重复
@@ -340,6 +340,9 @@ self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3,
 
 
 ### [图上的搜索](/Depth-First-Search.py) <br>
+- [0079. Word Search](Solutions/0079.Word-Search.py) (!!M) <br>
+- [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!M) <br>
+打印所有路径所以用Trie + Backtracking DFS
 - [0051. N-Queens](Solutions/0051.N-Queens.py) (H)<br>
 - [0052. NQueens II](Solutions/0052.N-Queens-II.py) (!!H) <br>
 排列问题：先打印出数组[0, 1, 2, 3....n]中所有的可能排列：[[0,1,2,3], [1,3,0,2].....]，其中的每一个子数组表示一种可能的方法，子数组中的数字表示在哪个数字的地方放一个Queen，数字对应的下标位置是放那个Queen的行，数字的值是放那个Queen的列。由于Queen可以很冲直撞，所以列是不能相同的，所以需要去重，用visited标记就可以。又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。用三个字典visited_col, visited_sum, visited_diff分别存储列号，横纵坐标之和，横纵坐标之差有没有被用过
@@ -588,8 +591,6 @@ solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1
 
 
 
-# [Backgracking](Backtracking-templete.py)
-- [0079. Word Search](Solutions/0079.Word-Search.py) (!!M) <br>
 
 # [Sweep-Line](/Sweep-Line.py) <br>
 - [0391. Number of Airplanes in the Sky](Solutions/0391.Number-of-Airplanes-in-the-Sky.py) (M Lintcode) <br>
