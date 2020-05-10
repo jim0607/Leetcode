@@ -311,7 +311,8 @@ Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and u
 
 
 
-# [Depth First Search / Backgrack](/Depth-First-Search.py)
+
+# [Depth First Search / Backgrack 先把recurssion好好学一遍！](/Depth-First-Search.py)
 ### [Combination](/Depth-First-Search.py)
 - [0078. Subsets](Solutions/0078.Subsets.py) (!!M) <br>
 C(m, n)：m个里面找出n个的组合问题; 模板的DFS + back tracking求combination问题 O(NS), S是solution的个数，这里S=2^N; 注意两点：1.res.append(curr.copy()); has to be a deep copy; 2. self.dfs(nums, i + 1, curr, res) 要从i+1开始cuz不能回头找会重复
@@ -351,48 +352,6 @@ Step 1. 从end到start做BFS，记录每一个节点到end节点的距离，存�
 Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近。最后将路径都存入到res里
 1192. Critical Connections in a Network
 
-
-
-# [Binary Search](/Binary-Search.py)
-- [0704. Binary Search](Solutions/0704.Binary-Search.py) (!!E) <br>
-九章模板: 1. while start + 1 < end; 2. mid = start + (end - start) // 2; 3. 循环内只写两个分支； 4. 往左逼find the first X; 5. 往右逼find the last X
-- [0702. Search in a Sorted Array of Unknown Size](Solutions/0702.Search-in-a-Sorted-Array-of-Unknown-Size.py) (M) <br>
-Find end point using "double method", same as dynamic array
-- [0069. Sqrt(x)](Solutions/0069.Sqrt(x).py) (E) <br>
-两种方法：1. Binary Search; 2. Newton's Method. x<sub>k+1</sub> = (x<sub>k</sub> + x/x<sub>k</sub>) / 2; O(logN) since the set converges quadratically
-- [0034. Find First and Last Position of Element in Sorted Array](Solutions/0034.Find-First-and-Last-Position-of-Element-in-Sorted-Array.py) (!!M) <br>
-用两次二分分别找first pos of target and last pos of target. 想找first position of target，要保证两点：1. while循环里的判断要往左逼，也就是if nums[mid] **>=** target: end = mid； 2. 就把start放在后面更新，这样如果出现nums[end]和nums[start]都等于target的情况的话，first可以被后面较小的start替换掉，因为start肯定是小于end的。<br>
-Follow up: In a sorted array [1,3,4.......], search the elements that are in a certain range eg:[10, 100]. solution: 用两次二分分别找first position of 10 and last position of 100.  Then the elements between the two positions should be in range [10, 100].
-- [0035. Search Insert Position](Solutions/0035.Search-Insert-Position.py) (E) <br>
-This is to implement bisect.bisect_left(nums, target), which returns the position of inserting target in order to keep nums sorted
-- [0278. First Bad Version](Solutions/0278.First-Bad-Version.py) (E)
-- [0153. Find Minimum in Rotated Sorted Array](Solutions/0153.Find-Minimum-in-Rotated-Sorted-Array.py) (!!M) <br>
-解法一：nums[mid]可以与nums[0]比较；解法二：也可以与nums[-1]比较；解法三：也可以与nums[end]比较
-- [0154. Find Minimum in Rotated Sorted Array II](Solutions/0154.Find-Minimum-in-Rotated-Sorted-Array-II.py) (H) <br>
-与153类似，只是array里可能有duplicates，采用153的解法三，唯一不同的是：nums[mid] == nums[end]: end -= 1, 注意不能drop掉一半，因为eg: nums=[2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2........], 由于不知道mid是1前面的2还是1后面的2，所以无法确定是drop前面还是drop后面，只能保险地把end往前挪一位，所以154这题in extreme case, 时间复杂度是O(N)
-- [0039. Recover Rotated Sorted Array](Solutions/0039.Recover-Rotated-Sorted-Array.py) (M LintCode) <br>
-154 相同方法binary search找到minPos, 然后三步反转法recover
-- [0033. Search in Rotated Sorted Array](Solutions/0033.Search-in-Rotated-Sorted-Array.py) (M) 画个图分几个区间讨论就可以了！
-- [0852. Peak Index in a Mountain Array](Solutions/0852.Peak-Index-in-a-Mountain-Array.py) (E)<br>
-- [0162. Find Peak Element](Solutions/0162.Find-Peak-Element.py) (M) <br>
-OOXX问题，找到第一个出现的X，X是the first position of 递减的序列
-- [0390. Find Peak Element II](Solutions/0390.Find-Peak-Element-II.java) (H Lintocde) <br>
-先二分找到中间某一行的最大值位置(i, j)，然后这个最大值的地方向上(i, j-1)和向下(i, j+1)分别比一下，如果(i, j)最大，那恭喜找到了peak, 如果向上更大，那就往上爬到(i,j-1), 此时i行及其以下的行都可以丢掉了，然后在j-1那一列查找最大值的位置(ii, j-1), 这时候在(ii, j-1)这个位置向左(ii-1, j-1)向右(ii+1, j-1)分别比一下，如果发现(ii, j-1)最大，那么恭喜找到peak了，如果发现(ii-1, j-1)更大，那就继续往(ii-1, j-1)爬一步，可以直接丢掉j-1列及其右边的部分了。这样的时间复杂度是T(N)=O(N 在第i行查找最大值)+T(N/2), 所以时间复杂度T(N) = O(N)+O(N/2)+O(N/4)+....+O(2)+O(1) = O(N)+O(N/2)+O(N/4)+....+O(2)+O(1)+O(1)-O(1) = O(2N)-O(1) = O(N).
-- [0875. Koko Eating Bananas](Solutions/0875.Koko-Eating-Bananas.py) (M) <br>
-If Koko can finish eating all the bananas (within H hours) with an eating speed of K, she can finish with a larger speed too. So it is a OOOXXX problem trying to find the first X. end is set to be max(piles). Every time find if it posible to eat all the bananas with speed mid. if yes, then drop the right part, if no, then drop the left."""
-- [0183. Wood Cut](Solutions/0183.Wood-Cut.py) (!!H Lintcode) <br>
-If we can cut into pieces with lens, then we can also cut into prices with len - 1, So this is a OOOXXX problem, to find the last O. <br>
-lintcode 437 copy books!!
-- [0074. Search a 2D Matrix](Solutions/0074.Search-a-2D-Matrix.py) (M) <br>
-Think it as a long 1D array with MxN element, then we can use binary search; row = mid // n, col = mid % n; O(log(MN)), O(1)
-- [0240. Search a 2D Matrix II](Solutions/0240.Search-a-2D-Matrix-II.py) (M) <br>
-start from left bottom, head up to right top, each comparism rule out a row (i-1=1) or rule out a col (j+=1)
-- [0050. Pow(x, n)](Solutions/0050.Pow(x,n).py) (M) <br>
-if mod == 0: res * = x^div; else: res * = x^div * x
-- [0029. Divide Two Integers](Solutions/0029.Divide-Two-Integers.py) (M) <br>
-eg: 10//3, 每次通过右移3 << 1的方法将3乘以2,这种算法是O(N), 每次都右移几次3 << x, 相当于3x2x2x2...,直到3x2x2x2...>10, 然后取余数继续这个算法
-- [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
-target是随着i的移动而变化的binary search
 
 
 
@@ -442,6 +401,51 @@ do a in order traversal (reversed version) to keep track the sums
 - [0096. Unique Binary Search Trees](Solutions/0096.Unique-Binary-Search-Trees.py) (M) Catalan Number
 <br>
 218. The Skyline Problem
+
+
+
+
+
+# [Binary Search](/Binary-Search.py)
+- [0704. Binary Search](Solutions/0704.Binary-Search.py) (!!E) <br>
+九章模板: 1. while start + 1 < end; 2. mid = start + (end - start) // 2; 3. 循环内只写两个分支； 4. 往左逼find the first X; 5. 往右逼find the last X
+- [0702. Search in a Sorted Array of Unknown Size](Solutions/0702.Search-in-a-Sorted-Array-of-Unknown-Size.py) (M) <br>
+Find end point using "double method", same as dynamic array
+- [0069. Sqrt(x)](Solutions/0069.Sqrt(x).py) (E) <br>
+两种方法：1. Binary Search; 2. Newton's Method. x<sub>k+1</sub> = (x<sub>k</sub> + x/x<sub>k</sub>) / 2; O(logN) since the set converges quadratically
+- [0034. Find First and Last Position of Element in Sorted Array](Solutions/0034.Find-First-and-Last-Position-of-Element-in-Sorted-Array.py) (!!M) <br>
+用两次二分分别找first pos of target and last pos of target. 想找first position of target，要保证两点：1. while循环里的判断要往左逼，也就是if nums[mid] **>=** target: end = mid； 2. 就把start放在后面更新，这样如果出现nums[end]和nums[start]都等于target的情况的话，first可以被后面较小的start替换掉，因为start肯定是小于end的。<br>
+Follow up: In a sorted array [1,3,4.......], search the elements that are in a certain range eg:[10, 100]. solution: 用两次二分分别找first position of 10 and last position of 100.  Then the elements between the two positions should be in range [10, 100].
+- [0035. Search Insert Position](Solutions/0035.Search-Insert-Position.py) (E) <br>
+This is to implement bisect.bisect_left(nums, target), which returns the position of inserting target in order to keep nums sorted
+- [0278. First Bad Version](Solutions/0278.First-Bad-Version.py) (E)
+- [0153. Find Minimum in Rotated Sorted Array](Solutions/0153.Find-Minimum-in-Rotated-Sorted-Array.py) (!!M) <br>
+解法一：nums[mid]可以与nums[0]比较；解法二：也可以与nums[-1]比较；解法三：也可以与nums[end]比较
+- [0154. Find Minimum in Rotated Sorted Array II](Solutions/0154.Find-Minimum-in-Rotated-Sorted-Array-II.py) (H) <br>
+与153类似，只是array里可能有duplicates，采用153的解法三，唯一不同的是：nums[mid] == nums[end]: end -= 1, 注意不能drop掉一半，因为eg: nums=[2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2........], 由于不知道mid是1前面的2还是1后面的2，所以无法确定是drop前面还是drop后面，只能保险地把end往前挪一位，所以154这题in extreme case, 时间复杂度是O(N)
+- [0039. Recover Rotated Sorted Array](Solutions/0039.Recover-Rotated-Sorted-Array.py) (M LintCode) <br>
+154 相同方法binary search找到minPos, 然后三步反转法recover
+- [0033. Search in Rotated Sorted Array](Solutions/0033.Search-in-Rotated-Sorted-Array.py) (M) 画个图分几个区间讨论就可以了！
+- [0852. Peak Index in a Mountain Array](Solutions/0852.Peak-Index-in-a-Mountain-Array.py) (E)<br>
+- [0162. Find Peak Element](Solutions/0162.Find-Peak-Element.py) (M) <br>
+OOXX问题，找到第一个出现的X，X是the first position of 递减的序列
+- [0390. Find Peak Element II](Solutions/0390.Find-Peak-Element-II.java) (H Lintocde) <br>
+先二分找到中间某一行的最大值位置(i, j)，然后这个最大值的地方向上(i, j-1)和向下(i, j+1)分别比一下，如果(i, j)最大，那恭喜找到了peak, 如果向上更大，那就往上爬到(i,j-1), 此时i行及其以下的行都可以丢掉了，然后在j-1那一列查找最大值的位置(ii, j-1), 这时候在(ii, j-1)这个位置向左(ii-1, j-1)向右(ii+1, j-1)分别比一下，如果发现(ii, j-1)最大，那么恭喜找到peak了，如果发现(ii-1, j-1)更大，那就继续往(ii-1, j-1)爬一步，可以直接丢掉j-1列及其右边的部分了。这样的时间复杂度是T(N)=O(N 在第i行查找最大值)+T(N/2), 所以时间复杂度T(N) = O(N)+O(N/2)+O(N/4)+....+O(2)+O(1) = O(N)+O(N/2)+O(N/4)+....+O(2)+O(1)+O(1)-O(1) = O(2N)-O(1) = O(N).
+- [0875. Koko Eating Bananas](Solutions/0875.Koko-Eating-Bananas.py) (M) <br>
+If Koko can finish eating all the bananas (within H hours) with an eating speed of K, she can finish with a larger speed too. So it is a OOOXXX problem trying to find the first X. end is set to be max(piles). Every time find if it posible to eat all the bananas with speed mid. if yes, then drop the right part, if no, then drop the left."""
+- [0183. Wood Cut](Solutions/0183.Wood-Cut.py) (!!H Lintcode) <br>
+If we can cut into pieces with lens, then we can also cut into prices with len - 1, So this is a OOOXXX problem, to find the last O. <br>
+lintcode 437 copy books!!
+- [0074. Search a 2D Matrix](Solutions/0074.Search-a-2D-Matrix.py) (M) <br>
+Think it as a long 1D array with MxN element, then we can use binary search; row = mid // n, col = mid % n; O(log(MN)), O(1)
+- [0240. Search a 2D Matrix II](Solutions/0240.Search-a-2D-Matrix-II.py) (M) <br>
+start from left bottom, head up to right top, each comparism rule out a row (i-1=1) or rule out a col (j+=1)
+- [0050. Pow(x, n)](Solutions/0050.Pow(x,n).py) (M) <br>
+if mod == 0: res * = x^div; else: res * = x^div * x
+- [0029. Divide Two Integers](Solutions/0029.Divide-Two-Integers.py) (M) <br>
+eg: 10//3, 每次通过右移3 << 1的方法将3乘以2,这种算法是O(N), 每次都右移几次3 << x, 相当于3x2x2x2...,直到3x2x2x2...>10, 然后取余数继续这个算法
+- [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
+target是随着i的移动而变化的binary search
 
 
 
