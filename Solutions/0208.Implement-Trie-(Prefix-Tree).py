@@ -31,8 +31,10 @@ class TrieNode:
         2. isEnd, which represents whether or not the TrieNode is the end of a word
         """
         
-        self.child = collections.defaultdict(TrieNode)    # use a defaultdict, key is char, value is trieNode
-        self.isEnd = False                                # return True if it is the end of the Trie
+        # use a defaultdict to represent a TrieNode, there could be multiple key-value pairs in a TrieNode
+        # key is one of the children' char, value is TrieNode corresponding to the char
+        self.child = collections.defaultdict(TrieNode)    
+        self.isEnd = False        # return True if the self node is the end of the Trie
 
 
 class Trie:
@@ -40,7 +42,7 @@ class Trie:
         """
         Initialize your data structure here.
         """
-        self.root = TrieNode()       # at the beginning, we should create a dummy root as a new trieNode 
+        self.root = TrieNode()       # at the beginning, we should create a dummy root as a new TrieNode 
 
     def insert(self, word: str) -> None:
         """
@@ -48,25 +50,27 @@ class Trie:
         """
         currNode = self.root
         for char in word:           # O(m), where m is the word length
-            currNode = currNode.child[char]   # 把char 放入 curr.child dictionary 中作为 key, 然后 curr 往下遍历
+            currNode = currNode.child[char]   # 把 char 放入 curr.child dictionary 中作为 众多 key 中的一个, 然后 currNode 往下遍历, 
+                                              # 记住往下遍历 node 都是 currNode = currNode.child[char]
             
-        currNode.isEnd = True        
+        currNode.isEnd = True        # 不要忘了标记 最后一个 node 为 isEnd
 
     def search(self, word: str) -> bool:
         """
-        Returns if the word is in the trie.
+        Return whether or not the word is in the trie.
         """
         currNode = self.root
         for char in word:             # O(m), where m is the word length
             if char not in currNode.child:
                 return False
+            
             currNode = currNode.child[char]
             
         return currNode.isEnd
 
-    def startsWith(self, prefix: str) -> bool:
+    def startsWith(self, prefix: str) -> bool:      # exactly the same as search mehotd except for the reaturn
         """
-        Returns if there is any word in the trie that starts with the given prefix.
+        Return whether there is any word in the trie that starts with the given prefix.
         """
         currNode = self.root
         for char in prefix:     # O(m), where m is the prefix length
