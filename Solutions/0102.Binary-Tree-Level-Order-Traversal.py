@@ -54,7 +54,7 @@ class Solution:
         q.append(root)
         while q:
             level = []
-            lens = len(q)  # important
+            lens = len(q)  # important, 注意这里定义一个lens而不是在59行里直接用len(q)是因为每次q.popleft()之后q的长度会变！
             # 用一个for循环来处理每一层
             for _ in range(lens):
                 # 在这一层要做两件事情：1. 处理这一层：将该层的所有的node.val依次放入level中
