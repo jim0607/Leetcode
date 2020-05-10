@@ -57,7 +57,7 @@ class Solution:
             for _ in range(lens):
                 # 做两件事：1. 判断这一层的所有的Node是不是遇到同时没有左右儿子的节点，如果遇到说明这里就是最小深度了
                 node = q.popleft()
-                if not node.left and not node.right:
+                if not node.left and not node.right:    # 此时为叶子节点
                    return depth
                 # 2. 把这一层所有的node的左右节点放进q
                 if node.left:
