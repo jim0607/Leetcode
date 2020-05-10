@@ -48,15 +48,15 @@ Linear scan the 2d grid map, if a node contains a '1', then it is a root node th
 """
 class Solution:
     
-    MOVES = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+    MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
     
     def numIslands(self, grid: List[List[str]]) -> int:
         if not grid:
             return 0
         
-        visited = set()
-        
         m, n = len(grid), len(grid[0])
+        
+        visited = set()
         cnt = 0
         for i in range(m):      # 矩阵的BFS必然先来两个for循环，遍历所有的节点，然后选某些节点作为起点做BFS
             for j in range(n):
