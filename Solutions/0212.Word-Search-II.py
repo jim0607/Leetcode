@@ -18,6 +18,69 @@ words = ["oath","pea","eat","rain"]
 Output: ["eat","oath"]
 
 
+  
+class TrieNode:
+    def __init__(self):
+        self.child = collections.defaultdict(TrieNode)
+        self.isEnd = False
+        
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+        
+    def insert(self, word):
+        currNode = self.root
+        for char in word:
+            currNode = currNode.child[char]
+            
+        currNode.isEnd = True
+
+"""
+这题需要打印所有路径，所以只能用dfs, 不能用bfs
+"""
+class Solution:
+    
+    MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)] 
+    
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        if len(board) == 1 and len(board[0]) == 1 and board[0][0] in words:
+            return [board[0][0]]
+        
+        wordTrie = Trie()     # instantiate a Trie to store all the words and their end information
+        for word in words:
+            wordTrie.insert(word)
+            
+        root = wordTrie.root
+        
+        res = []
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if board[i][j] in root.child:
+                    self.dfs(board, root, i, j, "", res)    # renew res in bfs mehotd
+                    
+        return res
+    
+    def dfs(self, board, currNode, i, j, currPath, res):
+        if currNode.isEnd:
+            res.append(currPath)
+            currNode.isEnd = False
+            
+        if not currNode:
+            return 
+        
+        char = board[i][j]
+        if char in currNode.child:
+            board[i][j] = "#"    # meaning board[i][j] is already visited
+            
+            childNode = currNode.child[char]
+            for move in self.MOVES:
+                row, col = i + move[0], j + move[1]
+                if 0 <= row < len(board) and 0 <= col < len(board[0]):
+                    self.dfs(board, childNode, row, col, currPath + char, res)
+                    
+            board[i][j] = char      # this is backtracking
+  
+  
 
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
