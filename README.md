@@ -660,3 +660,5 @@ similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check w
 
 
 ### At last, let's take a look at the famous Algorithm book.
+### 看Abby google doc的归类，还有liweiwei Github的归类，根据归类再适当刷一些新题。
+### https://blog.csdn.net/fuxuemingzhu/article/details/101900729 很好的分类总结
