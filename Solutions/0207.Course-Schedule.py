@@ -64,7 +64,7 @@ class Solution:
         # 用一个hashmap来存储相邻节点
         neighbors = collections.defaultdict(list)
         for u, v in prerequisites:
-            neighbors[v].append(u)
+            neighbors[v].append(u)    # topological sorting 针对有向图, so do not append v to u!!
             
         q = collections.deque()
         visited = set()
