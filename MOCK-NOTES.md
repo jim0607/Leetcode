@@ -92,9 +92,13 @@ sweep line problem, talk out loud!!
 05/10/2020
 Interview with Celia: Kth largest element - using quick select
 
-MOCK-Interview: 332. Reconstruct Itinerary
+MOCK-Interview: 332. Reconstruct Itinerary - DFS + TOPOLOGICAL SORTING;  SOLUTION 2: 欧拉path
 Tip: Stronly suggested give variable meaningful neams!
             
-            
-            
+Abby Deng 讲课：
+推荐Princton algoritm quick select tempelate 
+Should be noted that the time complexity of quick select is O(N).
+二分法：google 扔鸡蛋问题
+410 二分
+993 1. BFS+EARLY STOPPING; 2. DFS + BRANCH PRUNING
             
