@@ -87,3 +87,14 @@ I interviewed Yi Zhang from UCSD
 - for i in range(j): 这句话应该改成for i in range(j-1,-1,-1), 因为从 s[i:j] in wordSet 就更容易判断更快了！
 253. Meeting Rooms II
 sweep line problem, talk out loud!!
+
+
+05/10/2020
+Interview with Celia: Kth largest element - using quick select
+
+MOCK-Interview: 332. Reconstruct Itinerary
+Tip: Stronly suggested give variable meaningful neams!
+            
+            
+            
+            
