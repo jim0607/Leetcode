@@ -76,6 +76,9 @@ return res
 图上的BFS是由点及面，从一个点开始找到所有的点。
             
 topological sorting 拓扑排序 （针对有向图）
+有向图的问题，用topological sorting, 可以检测有向图是否有环！
+如果是无向图，那就用Union Find!
+拓扑排序其实就是一步一步剥皮的过程！！
 * indegree 入度：表示依赖于几个点
 * 拓扑排序是一个一个按顺序你把节点删掉，按什么样的顺序呢？就是保证先删掉的节点不会影响到后删掉的节点。
 *** 
@@ -107,12 +110,15 @@ Topological sort 必考，其实也非常模板化，一定要记住。
             cntCourses += 1
             for neighbor in edges[currNode]:
                 inDegree[neighbor] -= 1
-                if inDegree[neighbor] == 0:
+                if inDegree[neighbor] == 0:     # 只把入度为0的node放到q里面，这样如果有环的话就不会进q了，所以最后判断如果cntCourses < numCourses, 那就说明有环。
                     q.append(neighbor)
 
         return cntCourses == numCourses
 
 
+如果DFS+topological sorting的话，必须保证图没有环。
+   
+   
 
 图中的BFS假设有N个点，M条边，M < N^2, 图上的BFS的时间复杂度是O(M)
 矩阵有N行M列，N*M个点，N*M*2 条边（每个点上下左右4条边，每条边被2个点共享），因此矩阵中BFS时间复杂度 = O(N * M)
