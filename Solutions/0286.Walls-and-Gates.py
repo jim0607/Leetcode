@@ -28,8 +28,8 @@ class Solution:
     MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
     
     def wallsAndGates(self, rooms: List[List[int]]) -> None:
-        if not rooms:
-            return 
+        if not rooms or not rooms[0]:
+            return rooms
         
         self.bfs(rooms)
         
