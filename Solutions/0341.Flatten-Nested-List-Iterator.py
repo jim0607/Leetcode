@@ -57,29 +57,29 @@ class NestedIterator:
         return False
             
 
-""" Implement using q """
+""" Implement using dq """
 
 class NestedIterator:
     def __init__(self, nestedList: [NestedInteger]):
-        self.q = collections.deque()
+        self.dq = collections.deque()
         for lst in nestedList:
-            self.q.append(lst)
+            self.dq.append(lst)
     
     def next(self) -> int:
         if self.hasNext:
-            return self.q.popleft()
+            return self.dq.popleft()
     
     def hasNext(self) -> bool:
-        if len(self.q) == 0:
+        if len(self.dq) == 0:
             return False
         
-        while self.q:
-            if self.q[0].isInteger():
+        while self.dq:
+            if self.dq[0].isInteger():
                 return True
             
-            topItem = self.q.popleft()
+            topItem = self.dq.popleft()
             for lst in topItem.getList()[::-1]:
-                self.q.appendleft(lst)
+                self.dq.appendleft(lst)
 
 # Your NestedIterator object will be instantiated and called as such:
 # i, v = NestedIterator(nestedList), []
