@@ -81,7 +81,7 @@ class Solution:
                     if (next_x, next_y) == (x, y):
                         return step
                     
-                    if x >= -2 and y >= -2 and (next_x, next_y) not in visited:     # 这里用x >= -2 and y >= -2 pruning
+                    if -2 <= next_x <= x + 2 and -2 <= next_y <= y + 2 and (next_x, next_y) not in visited:     # 这里用x >= -2 and y >= -2 pruning
                         q.append((next_x, next_y))
                         visited.add((next_x, next_y))
                         
