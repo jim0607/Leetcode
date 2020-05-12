@@ -125,7 +125,9 @@ class Solution:
                 (x, y) = q.popleft()
                 for delta_x, delta_y in self.MOVES:
                     neighbor_x, neighbor_y = x + delta_x, y + delta_y
-                    if self.inBound(grid, neighbor_x, neighbor_y) and grid[neighbor_x][neighbor_y] == self.FRESH and (neighbor_x, neighbor_y) not in visited:
+                    if self.inBound(grid, neighbor_x, neighbor_y) and \
+                    grid[neighbor_x][neighbor_y] == self.FRESH and \
+                    (neighbor_x, neighbor_y) not in visited:
                         grid[neighbor_x][neighbor_y] = self.ROTTEN
                         q.append((neighbor_x, neighbor_y))
                         visited.add((neighbor_x, neighbor_y))       # 一对孪生兄弟
