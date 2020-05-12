@@ -300,12 +300,13 @@ Solution 2: dynamic connection problem, Union Find
 - [0994. Rotting Oranges](Solutions/0994.Rotting-Oranges.py) (M) <br>
 Step 1. append the rotten ones to the first level, Step 2: bfs to turn the adjacent fresh ones into rotten ones. 在class solution(): 后面定义全局变量 EMPTY = 0; FRESH = 1; MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 - [286. Walls and Gates](Solutions/0286.Walls-and-Gates.py) (M) <br>
+Step 1: append all the gates into the queue; Step 2: change all the "INF" to a value that equals the layer number
 - [1197. Minimum Knight Moves](Solutions/1197.Minimum-Knight-Moves.py) (!!M) <br>
-solution 1: 利用对称性质: x,y=abs(x),abs(y); q.append(neighbor) only if (neighbor_x>=-2 and neighbor_y>=-2); 1816 ms<br>
+solution 1: 利用对称性质: x,y=abs(x),abs(y); q.append(neighbor) only if (-2 <= next_x <= x + 2 and -2 <= next_y <= y + 2); 1816 ms<br>
 solution 2!!!: 从source和destination两端同时进行bfs!!!! if visited_src & visited_des: return cnt_src + cnt_des; 452 ms<br>
-solution 3: dp: cache[(x, y)] = min(dp(abs(x-1), abs(y-2)), dp(abs(x-2), abs(y-1))) + 1; 60 ms<br>
+solution 3: recurrsion with memorization: cache[(x, y)] = min(dp(abs(x-1), abs(y-2)), dp(abs(x-2), abs(y-1))) + 1; 60 ms<br>
 - [0127. Word Ladder](Solutions/0127.Word-Ladder.py) (!!M) <br>
-定义一个wordSet = set(wordList)来降低时间寻找下一个neighborWord的复杂度到O(26L); 利用双端BFS大大提高速度，在双端BFS的过程中判断if not q_src or not q_des: 则说明q_src或q_des里面的所有possible neighbor都不在wordList里面，也就是没有必要继续进行了
+定义一个wordSet = set(wordList)来降低时间寻找下一个neighborWord的复杂度到O(26L); 利用双端BFS大大提高速度，在双端BFS的过程中判断if not q_src or not q_des: 则说明q_src或q_des里面的所有possible neighbor都不在wordList里面，也就是没有必要继续进行了; The idea behind bidirectional search is to run two simultaneous searches: one forward from the initial state and the other backward from the destination state — hoping that the two searches meet in the middle. The motivation is that b^(d/2) + b^(d/2) is much less than b^d. b is branch number, d is depth.
 - [1162. As Far from Land as Possible](Solutions/1162.As-Far-from-Land-as-Possible.py) (M) <br>
 bfs: the maximum distance is steps needed to change all "0" to be "1"; solution 2: DP same as 542. 01 matrix
 <br> 542, <br> 1162
