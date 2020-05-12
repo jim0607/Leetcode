@@ -144,54 +144,64 @@ class Solution:
         
         q_src, q_des = collections.deque(), collections.deque()
         visited_src, visited_des = set(), set()
-        
         q_src.append(beginWord)
         visited_src.add(beginWord)
         q_des.append(endWord)
         visited_des.add(endWord)
         
-        cnt_src, cnt_des = 1, 0
+        steps = 1
         while True:
             if visited_src & visited_des:
-                return cnt_src + cnt_des
+                return steps
             
             q_src, visited_src = self.bfs(wordList, q_src, visited_src)
-            cnt_src += 1
-            if not q_src:       # 这里是为了判断如果q_src为空了，说明所有的q_src里面的possible beighbor都不在wordList里面，也就是说not possible to trasform from beginWord to endWord
+            steps += 1
+            
+            if len(q_src) == 0:  # 这里是为了判断如果q_src为空了，说明所有的q_src里面的possible beighbor都不在wordList里面，也就是说not possible to trasform from beginWord to endWord
                 return 0
             
             if visited_src & visited_des:
-                return cnt_src + cnt_des
+                return steps
             
             q_des, visited_des = self.bfs(wordList, q_des, visited_des)
-            cnt_des += 1
-            if not q_des:
+            steps += 1
+            
+            if len(q_des) == 0:
                 return 0
+            
         
-        return steps
-    
     def bfs(self, wordList, q, visited):
+        """
+        return the next level of q, also update visited
+        """
         lens = len(q)
+
         for _ in range(lens):
             currWord = q.popleft()
-            neighborWords = self.getNeighborWords(currWord, wordList)
+            for nextWord in self.neighbors(wordList, currWord):
+                if nextWord not in visited:
+                    q.append(nextWord)
+                    visited.add(nextWord)
 
-            for neighborWord in neighborWords:
-                if neighborWord not in visited:
-                    q.append(neighborWord)
-                    visited.add(neighborWord)
-                    
         return q, visited
     
-    def getNeighborWords(self, currWord, wordList):
-        wordSet = set(wordList)
-        neighborWords = set()
+    
+    def neighbors(self, wordList, currWord):
+        """
+        return all the neighbors of currWord that exist in wordList
+        """
+        wordSet = set()
+        for word in wordList:
+            wordSet.add(word)
+            
+        neighborSet = set()
         
+        letters = "abcdefghijklmnopqrstuvwxyz"
         for i in range(len(currWord)):
-            for ch in "abcdefghijklmnopqrstuvwxyz":
+            for ch in letters:
                 if ch != currWord[i]:
-                    neighborWord = currWord[:i] + ch + currWord[i + 1:]     # 用ch替换currWord中的第i个元素
-                    if neighborWord in wordSet:             # 变成set之后，这个语句就成了O(1)了，所以这个函数的整体为O(26*L) where L=len(currWord)
-                        neighborWords.add(neighborWord)
+                    tempWord = currWord[:i] + ch + currWord[i + 1:]
+                    if tempWord in wordSet:
+                        neighborSet.add(tempWord)
                         
-        return neighborWords
+        return neighborSet
