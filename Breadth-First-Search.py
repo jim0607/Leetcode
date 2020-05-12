@@ -146,6 +146,9 @@ Topological sort 必考，其实也非常模板化，一定要记住。
                     if self.inBound(new_x, new_y) and (new_x, new_y) not in visited:
                         q.append((new_x, new_y))
                         visited.add((new_x, new_y))     # 孪生兄弟
+                        
+这个题目从两端bfs的解法非常重要！！
+                        
                       
 棋盘上不需要层序遍历的BFS的模板为(必须背诵) (eg: 200. Number of Islands)：
 与上面的模板相比就是少了一句lens = len(q) 和一个for循环 for _ in range(lens):
