@@ -317,7 +317,7 @@ Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and u
 
 
 
-# [Binary Tree, Divide and Conquer](/Binary-Tree-Divide-and-Conquer.py) <br>
+# [Binary Tree, Divide and Conquer](/Binary-Tree-Divide-and-Conquer.py) <br> Leetcode recursion tutorial make google notes.
 - [0144. Binary Tree Preorder Traversal](Solutions/0144.Binary-Tree-Preorder-Traversal.py) (M) memorize the iterative version using stack
 - [0094. Binary Tree Inorder Traversal](Solutions/0094.Binary-Tree-Inorder-Traversal.py) (M) memorize the iterative version using stack
 - [0104. Maximum Depth of Binary Tree](Solutions/0104.Maximum-Depth-of-Binary-Tree.py) (!!E) Divide and Conquer vs Traverse
