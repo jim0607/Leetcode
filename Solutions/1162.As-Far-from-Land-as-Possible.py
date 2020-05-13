@@ -25,41 +25,47 @@ grid[i][j] is 0 or 1
 
 
 
-"""bfs: the maximum distance is steps needed to change all "0" to be "1" """
+"""bfs: the maximum distance is steps needed to change all water to be land """
 class Solution:
+    
+    WATER = 0
+    LAND = 1
     MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
     
     def maxDistance(self, grid: List[List[int]]) -> int:
-        if not grid:
-            return 0
+        """
+        the max distance is the max steps to change all water to land
+        so we firslty put all land in a q
+        than pop them out one by one and at hte same time change adjacent water into land, append into q
+        """
+        if not grid or not grid[0]:
+            return -1
         
+        m, n = len(grid), len(grid[0])
         q = collections.deque()
         visited = set()
         
-        m, n = len(grid), len(grid[0])
         for i in range(m):
             for j in range(n):
-                if grid[i][j] == 1:
+                if grid[i][j] == self.LAND:
                     q.append((i, j))
                     visited.add((i, j))
-                    
+            
         steps = -1
         while q:
-            steps += 1
             lens = len(q)
+            steps += 1
             
             for _ in range(lens):
-                (x, y) = q.popleft()
-                for delta_x, delta_y in self.MOVES:
-                    neighbor_x, neighbor_y = x + delta_x, y + delta_y
-                    if self.inBound(grid, neighbor_x, neighbor_y) and grid[neighbor_x][neighbor_y] == 0 and (neighbor_x, neighbor_y) not in visited:
-                        q.append((neighbor_x, neighbor_y))
-                        visited.add((neighbor_x, neighbor_y))
-        
-        return -1 if steps == 0 else steps
+                curr_x, curr_y = q.popleft()
+                
+                for move in self.MOVES:
+                    next_x, next_y = curr_x + move[0], curr_y + move[1]
+                    if 0 <= next_x < m and 0 <= next_y < n and \
+                    grid[next_x][next_y] == self.WATER and \
+                    (next_x, next_y) not in visited:
+                        grid[next_x][next_y] = self.LAND
+                        q.append((next_x, next_y))
+                        visited.add((next_x, next_y))
                         
-    def inBound(self, grid, x, y):
-        if 0 <= x < len(grid) and 0 <= y < len(grid[0]):
-            return True
-        
-        return False
+        return steps if steps > 0 else -1
