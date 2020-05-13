@@ -468,7 +468,7 @@ target是随着i的移动而变化的binary search
 
 
 
-# [Sort](/Sort.py) check Celia's template for partition, seems hers is better and easier to remember.
+# [Sort](/Sort.py) check Celia's template for partition, 九章模板。
 - [0912. Sort an Array](Solutions/0912.Sort-an-Array.py) (!!M Youtubed) <br>
 quick sort: 用partition function先整体有序，返回pivotPos，然后再pivotPos两边分边局部有序
 merge sort: 用mid分成左右两部分，leftArr和righArr分别记录局部的有序数组，然后merge到arr数组
