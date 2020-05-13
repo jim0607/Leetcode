@@ -308,10 +308,11 @@ solution 3: recurrsion with memorization: cache[(x, y)] = min(dp(abs(x-1), abs(y
 - [0127. Word Ladder](Solutions/0127.Word-Ladder.py) (!!M) <br>
 定义一个wordSet = set(wordList)来降低时间寻找下一个neighborWord的复杂度到O(26L); 利用双端BFS大大提高速度，在双端BFS的过程中判断if not q_src or not q_des: 则说明q_src或q_des里面的所有possible neighbor都不在wordList里面，也就是没有必要继续进行了; The idea behind bidirectional search is to run two simultaneous searches: one forward from the initial state and the other backward from the destination state — hoping that the two searches meet in the middle. The motivation is that b^(d/2) + b^(d/2) is much less than b^d. b is branch number, d is depth.
 - [1162. As Far from Land as Possible](Solutions/1162.As-Far-from-Land-as-Possible.py) (M) <br>
-bfs: the maximum distance is steps needed to change all "0" to be "1"; solution 2: DP same as 542. 01 matrix
-<br> 542, <br> 1162
+bfs: the maximum distance is steps needed to change all WATER to be LAND; solution 2: DP same as 542. 01 matrix
+- [0542. 01 Matrix](Solutions/0542.01-Matrix.py) (M) <br>
+bfs: the maximum distance is steps needed to change all WATER to be LAND; solution 2: DP same as 542. 01 matrix
 - [0317. Shortest Distance from All Buildings](Solutions/0317.Shortest-Distance-from-All-Buildings.py) (!!H) <br>
-Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and use distSum[][] to record the sum of distance from all 1 grids to this 0 grid. Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a BFS. Prune: if not all 1s can be reached, return -1, during the BFS we use reachableBuildings to count how many 1s we reached. If reachableBuldings != totalBuildings - 1 then we know not all 1s are connected are we can return -1 immediately, which greatly improved speed.
+Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and use dist[][] to record the sum of distance from all 1 grids to this 0 grid. Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a BFS. in the bfs, we do level bfs and update the reachable_cnt matrix and dist matrix. reach bfs, all position are visited, so O(M*N*k) where k is how many building are there or how many bfs are triggered. Finnaly return the min of dist[i][j] if reachable_cnt[i][j] = total number of buildings. Strong Prune: if if starting from building (i, j), can reach all other building? if not, that means at least one building is isolated and can not be reached, then return -1, in each BFS we use reachableBuildings to count how many 1s we reached. If reachableBuldings != totalBuildings - 1 then we know not all 1s are connected are we can return -1 immediately, which greatly improved speed.
 
 
 
