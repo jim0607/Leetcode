@@ -22,26 +22,23 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 
 # 方法一：用递归实现 time complexity is O(N)
 class Solution:
-    # 递归的定义：返回以root为根的二叉树的preorder
     def preorderTraversal(self, root: TreeNode) -> List[int]:
-        result = []
-        
         # 递归的出口（结束条件）
         if not root:
-            return None
+            return []
+        
+        res = []
+        res.append(root.val)
         
         # divide
-        left = self.preorderTraversal(root.left)
-        right = self.preorderTraversal(root.right)
+        leftRes = self.preorderTraversal(root.left)     # # 注意不要用append. [1,2]+[3,4]=[1,2,3,4], [1,2].append([3,4])=[[1,2], [3,4]]
+        rightRes = self.preorderTraversal(root.right)
         
         # conquer
-        result.append(root.val)
-        if left:
-            result += left  # 注意不要用append. [1,2]+[3,4]=[1,2,3,4], [1,2].append([3,4])=[[1,2], [3,4]]
-        if right:
-            result += right
+        res += leftRes
+        res += rightRes
         
-        return result
+        return res
 
       
 # this iteration method has to be memorized firmly
@@ -51,12 +48,12 @@ class Solution:
             return []
         stack, res = [root], []
         while stack:
-            root = stack.pop()
-            res.append(root.val)
+            currNode = stack.pop()
+            res.append(currNode.val)
             if root.right:
-                stack.append(root.right)
+                stack.append(currNode.right)
             if root.left:
-                stack.append(root.left)
+                stack.append(currNode.left)
 
         return res
 
