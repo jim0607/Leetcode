@@ -46,3 +46,42 @@ class Solution:
         self.dfs(root.right, sum- root.val, curr, res)
         
         curr.pop()      # backtracking
+            
+ 
+"""
+Solution 2: similar with 257 and 112, we just find all the possible paths.
+"""
+class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+        if not root:
+            return []
+        
+        def helper(root):
+            """
+            return all the paths for a tree rooted as root, and their sums
+            """
+            if not root:
+                return [([], float("inf"))]
+            
+            if not root.left and not root.right:
+                return [([root.val], root.val)]
+            
+            leftPaths = helper(root.left)
+            rightPaths = helper(root.right)
+            
+            rootPaths = []
+            for leftPath, leftSum in leftPaths:
+                rootPath = [root.val] + leftPath
+                rootPaths.append((rootPath, leftSum + root.val))
+            for rightPath, rightSum in rightPaths:
+                rootPath = [root.val] + rightPath
+                rootPaths.append((rootPath, rightSum + root.val))
+                
+            return rootPaths
+        
+        res = []
+        for path, pathSum in helper(root):
+            if pathSum == sum:
+                res.append(path)
+                
+        return res
