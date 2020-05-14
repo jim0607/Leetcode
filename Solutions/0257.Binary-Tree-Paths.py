@@ -26,26 +26,34 @@ Explanation: All root-to-leaf paths are: 1->2->5, 1->3
 
 # recursion, divide and conquer
 # 1. 递归的定义，返回二叉树根节点的路径
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
-        
-        # divide and conquer不需要helper函数，所以程序的最开始需要定义需要返回的结果
-        paths = []
-        
-        # 3. 递归的出口（结束条件），一般最后写。
+        """
+        return all the binary paths for a tree rooted as root
+        """  
+        # 3. 递归的出口（结束条件）
         if not root:
-            return paths
-        if not root.left and not root.right:  # 注意这里往往需要判断之后根节点没有左右节点的特殊的情况，养成好习惯
+            return []
+        if not root.left and not root.right:   # 注意这里往往需要判断之后根节点没有左右节点的特殊的情况，养成好习惯，尤其是本题，没有这个判断无法输出正确结果
             return [str(root.val)]
         
-        # 2. 递归的拆解之divide：无脑divide 成左右两边
+        # 1. 递归的拆解之divide：无脑divide 成左右两边
         leftPaths = self.binaryTreePaths(root.left)
         rightPaths = self.binaryTreePaths(root.right)
         
         # 2. 递归的拆解之conquer/merge：这时候要想整棵树在该问题上的结果和左右儿子在该问题上的结果之间的联系是什么，是root.val加上左节点的path，然后root.val加上右节点的path
+        rootPaths = []
         for leftPath in leftPaths:
-            paths.append(str(root.val) + "->" + leftPath)
+            rootPaths.append(str(root.val) + "->" + leftPath)
         for rightPath in rightPaths:
-            paths.append(str(root.val) + "->" + rightPath)
+            rootPaths.append(str(root.val) + "->" + rightPath)
         
-        return paths
+        return rootPaths
+    
+思考：问题有多少个解呢？有多少个Leaf就有多少个解，因为对于每一个leaf，有且仅有一条Path可以到这个leaf
