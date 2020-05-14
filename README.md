@@ -317,14 +317,20 @@ Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and u
 
 
 
-# [Binary Tree, Divide and Conquer](/Binary-Tree-Divide-and-Conquer.py) <br> Leetcode recursion tutorial make google notes.
+# [Binary Tree, Divide and Conquer](/Binary-Tree-Divide-and-Conquer.py) <br> 
 - [0144. Binary Tree Preorder Traversal](Solutions/0144.Binary-Tree-Preorder-Traversal.py) (M) memorize the iterative version using stack
 - [0094. Binary Tree Inorder Traversal](Solutions/0094.Binary-Tree-Inorder-Traversal.py) (M) memorize the iterative version using stack
-- [0104. Maximum Depth of Binary Tree](Solutions/0104.Maximum-Depth-of-Binary-Tree.py) (!!E) Divide and Conquer vs Traverse
+- [0104. Maximum Depth of Binary Tree](Solutions/0104.Maximum-Depth-of-Binary-Tree.py) (E) <br>
+rootDepth = max(leftDepth, rightDepth) + 1
 - [0257. Binary Tree Paths](Solutions/0257.Binary-Tree-Paths.py) (!!E) <br>
+for leftPath in leftPaths: rootPaths.append(str(root.val) + "->" + leftPath); 注意递归出口 if not root.left and not root.right: 注意这里往往需要判断之后根节点没有左右节点的特殊的情况，养成好习惯，尤其是本题，没有这个判断无法输出正确结果
 - [0112. Path Sum](Solutions/0112.Path-Sum.py) (E) <br>
-- [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
-- [0437. Path Sum III](Solutions/0437.Path-Sum-III.py) (E) 递归需要恶补呀！
+Similar with 257, find all the paths and put all the pathSums in a set. 
+- [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
+Solution 1: 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
+Solution 2: similar with 257 and 112, we just find all the possible paths.
+- [0437. Path Sum III](Solutions/0437.Path-Sum-III.py) (M) <br>
+不需要从根节点出发，所以 leftCnt_withoutRoot = self.pathSum(root.left, sum); leftCnt_withRoot = self.pathSum(root.left, sum - root.val), why doesnot work?
 - [0596. Minimum Subtree](Solutions/0596.Minimum-Subtree.py) (LintCode) <br>
 Divide and Conquer的方法输出以root为根的subTree的subSum，然后每次与minSum打擂台进行比较，注意python中定义全局变量可以用self.minSum = float("inf"), self.minNode = None，在主函数中定义这两个变量就可以了
 - [0597. Subtree with Maximum Average](Solutions/0597.Subtree-with-Maximum-Average.py) (LintCode) 同上 Divide and Conquer
@@ -373,6 +379,12 @@ Unique Binary Search Trees II
 
 # [Depth First Search / Backgrack 先把recurssion好好学一遍！](/Depth-First-Search.py)
 ### [Combination](/Depth-First-Search.py)
+<br>
+- [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
+Solution 1: 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
+Solution 2: similar with 257 and 112, we just find all the possible paths.
+<br>
+
 - [0078. Subsets](Solutions/0078.Subsets.py) (!!M) <br>
 C(m, n)：m个里面找出n个的组合问题; 模板的DFS + back tracking求combination问题 O(NS), S是solution的个数，这里S=2^N; 注意两点：1.res.append(curr.copy()); has to be a deep copy; 2. self.dfs(nums, i + 1, curr, res) 要从i+1开始cuz不能回头找会重复
 - [0090. Subsets II](Solutions/0090.Subsets-II.py) (!!M)<br>
