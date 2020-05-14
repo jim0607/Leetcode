@@ -43,13 +43,17 @@
 class Solution:
     def inorderTraversal(self, root: TreeNode) -> List[int]:
         if not root:
-            return
+            return []
+        
         res = []
-        if root.left:
-            res += self.inorderTraversal(root.left)
+        
+        leftRes = self.inorderTraversal(root.left)
+        res += leftRes
+        
         res.append(root.val)
-        if root.right:
-            res += self.inorderTraversal(root.right)
+        
+        rightRes = self.inorderTraversal(root.right)
+        res += rightRes
         
         return res
         
