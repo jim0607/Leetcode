@@ -37,7 +37,8 @@ class Solution:
         """return the maxPathSum for tree ended with root"""
         if not root:
             return 0
-        
+        """ if not root.left and not root.right: # 注意不能加这一句，因为如果加这一句的话还没有打擂台得到self.maxSum就已经return了
+            return root.val """  
         # divide
         leftPathSum = max(self.helper(root.left), 0)    # 如果left的最大的possible sum<0那就不加leftPath了，反正起点终点都没限制，任何节点都可加可不加
         rightPathSum = max(self.helper(root.right), 0)
