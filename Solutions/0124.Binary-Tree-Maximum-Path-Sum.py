@@ -28,12 +28,13 @@ Output: 42
 class Solution:
     def maxPathSum(self, root: TreeNode) -> int:
         self.maxSum = root.val
+              
         self.helper(root)
         
         return self.maxSum
     
     def helper(self, root):
-        """return the max(leftPathSum, rightPathSum) + root.val"""
+        """return the maxPathSum for tree ended with root"""
         if not root:
             return 0
         
