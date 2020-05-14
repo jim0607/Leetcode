@@ -50,3 +50,26 @@ class Solution:
         cnt += self.helper(root.right, sum - root.val)     
         
         return cnt
+
+
+
+
+Why this solution does not work?
+
+def pathSum(self, root: TreeNode, sum: int) -> int:
+    if not root:
+        return 0
+    
+    if not root.left and not root.right:
+        if root.val == sum:
+            return 1
+        else:
+            return 0
+    
+    leftCnt_withoutRoot = self.pathSum(root.left, sum)
+    rightCnt_withoutRoot = self.pathSum(root.right, sum)
+    
+    leftCnt_withRoot = self.pathSum(root.left, sum - root.val)
+    rightCnt_withRoot = self.pathSum(root.right, sum - root.val)
+    
+    return leftCnt_withoutRoot + rightCnt_withoutRoot + leftCnt_withRoot + rightCnt_withRoot
