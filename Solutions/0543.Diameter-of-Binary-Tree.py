@@ -22,38 +22,29 @@ Note: The length of path between two nodes is represented by the number of edges
 #         self.left = left
 #         self.right = right
 class Solution:
-    maxDiameter = 0
-    
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
-        """
-        return the diameter of tree rooted as root
-        """
-        if not root:
-            return 0
+        self.maxDmtr = 0
         
-        self.maxDepth(root)
+        def maxDepth(root):
+            """
+            return the maxDepth of tree rooted as root
+            """
+            if not root:
+                return 0
+            
+            leftDepth = maxDepth(root.left)
+            rightDepth = maxDepth(root.right)
+            
+            self.maxDmtr = max(self.maxDmtr, leftDepth + rightDepth)    # 打个擂台吧
+            
+            rootDepth = max(leftDepth, rightDepth) + 1
+            
+            return rootDepth
         
-        return self.maxDiameter
+                
+        maxDepth(root)
         
-    def maxDepth(self, root):
-        """
-        return the max depth of the tree rooted as root
-        """
-        if not root:
-            return 0
-        
-        if not root.left and not root.right:
-            return 1
-        
-        # divide
-        leftDepth = self.maxDepth(root.left)
-        rightDepth = self.maxDepth(root.right)
-        
-        # merge
-        depth = max(leftDepth, rightDepth) + 1
-        self.maxDiameter = max(self.maxDiameter, leftDepth + rightDepth)
-        
-        return depth
+        return self.maxDmtr
 
 
 
