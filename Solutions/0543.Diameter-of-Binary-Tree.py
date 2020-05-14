@@ -58,7 +58,8 @@ class Solution:
 
 
 """
-Can somone tell me why this doesn't work?
+Can somone tell me why this doesn't work?  
+It doesn't work because the path may or may not pass through the root.
 """
 class Solution:
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
