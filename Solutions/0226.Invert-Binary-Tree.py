@@ -28,9 +28,6 @@ class Solution:
         if not root:
             return None
         
-        if not root.left and not root.right:
-            return root
-        
         # 1. divide 先局部有序
         leftRoot = self.invertTree(root.left)
         rightRoot = self.invertTree(root.right)
