@@ -54,3 +54,48 @@ class Solution:
             
                 
         return helper(input)
+
+    
+    
+"""
+optimization: recursion with memorization
+"""
+
+class Solution:
+    def diffWaysToCompute(self, input: str) -> List[int]:         
+    
+        def helper(s, memo):
+            """
+            return all the different results to add parentheses for input
+            """
+            if s.isdigit():
+                return [int(s)]
+            
+            if s in memo:
+                return memo[s]
+
+            allResults = []
+            for i in range(len(s)):
+                if s[i] in "+-*":
+                    leftResults = helper(s[:i], memo)
+                    rightResults = helper(s[i+1:], memo)
+
+                    for leftRes in leftResults:
+                        for rightRes in rightResults:
+                            allRes = operate(leftRes, s[i], rightRes)
+                            allResults.append(allRes)
+                            
+            memo[s] = allResults
+
+            return allResults
+        
+        def operate(num1, op, num2):
+            if op == "+":
+                return num1 + num2
+            if op == "-":
+                return num1 - num2
+            if op == "*":
+                return num1 * num2
+            
+                
+        return helper(input, {})
