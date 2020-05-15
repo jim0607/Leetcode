@@ -3,6 +3,7 @@
 #### Review: 
 05/04 - 0337; 05/05 - 0334; 05/06 - 0416; 05/08 - 0010; 05/10 - 0713; 05/11 - 0394; 05/12 - 654; 05/13 - 621; 05/14 - 200; 05/15 - 212
 
+
 # [Dynamic Programming](Dynamic-Programming.py)
 ### [Recursion with memoization](/Dynamic-Programming.py)
 139. word break; 312. Burst Balloons
@@ -247,16 +248,16 @@ Union-Find 算法是解决动态连通性（Dynamic Conectivity）问题的一�
 Solution 2: Union find: O(N); Solution 1: BFS O(N)判断图是不是一棵树（不一定非要是二叉树）需要满足两点:1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树
 - [0128. Longest Consecutive Sequence](Solutions/0128.Longest-Consecutive-Sequence.py) (!!H) <br>
 Solution 1: Greedy O(N) 使用一个集合HashSet存入所有的数字，然后遍历数组中的每个数字，如果其在集合中存在，那么将其移除，然后分别用两个变量pre和next算出其前一个数跟后一个数，然后在集合中循环查找，如果pre在集合中，那么将pre移除集合，然后pre再自减1，直至pre不在集合之中，对next采用同样的方法，
-那么next-pre-1就是当前数字的最长连续序列，更新res即可; Solution 2: Union find: O(N), 
+那么next-pre-1就是当前数字的最长连续序列，更新res即可; Solution 2: Union find: O(N),
 
 
 ### [Trie](Union-Find-and-Trie.py)
 - [0208. Implement Trie (Prefix Tree)](Solutions/0208.Implement-Trie-(Prefix-Tree).py) (!!M) <br>
-Firstly we need to define a TrieNode class, a TrieNode class hs two properties: 1. self.child = collections.defaultdict(TrieNode)  # use a defaultdict, key is char, value is TrieNode corresponding to the char.  2. self.isEnd = False   # return True if reached the end of the Trie.  Then implement 3 methods: insert(word), search(word), startWith(prefix)
+Firstly we need to define a TrieNode class, a TrieNode class hs two properties: 1. self.child = collections.defaultdict(TrieNode)  # use a defaultdict, key is char, value is TrieNode corresponding to the char.  2. self.isEnd = False   # return True if reached the end of the Trie.  Then implement 3 methods: insert(word), search(word), startWith(prefix); 注意currNode往下遍历时currNode = currNode.child[char]
 - [0211. Add and Search Word - Data structure design](Solutions/0211.Add-and-Search-Word-Data-structure-design.py) (!!M) <br>
-addWord mehtod is the same as 208 insert method. But search mehtod is a little different than search method in 208, cuz "." is a wildcard that can represent any char. So we use a queue to store (currNode, idx), then append layer by layer. if i == len(word) and currNode.isEnd: return True
+addWord mehtod is the same as 208 insert method. But search mehtod is a little different than search method in 208, cuz "." is a wildcard that can represent any char. So we use a queue to store (currNode, idx), then append layer by layer.
 - [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!M) <br>
-The capability of finding matching prefix is where the data structure called Trie would shine, comparing the hashset data structure. Not only can Trie tell the membership of a word, but also it can instantly find the words that share a given prefix. 打印所有路径所以用Trie + Backtracking DFS
+The capability of finding matching prefix is where the data structure called Trie would shine, comparing the hashset data structure. Not only can Trie tell the membership of a word, but also it can instantly find the words that share a given prefix. 打印所有路径所以用Trie + Backtracking DFS. 非常经典的题呀！
 
 
 # [Breadth First Search](/Breadth-First-Search.py)
@@ -287,7 +288,6 @@ Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现; S
 套用模板 return res if len(res) == numCourses else []
 - [0444. Sequence Reconstruction](Solutions/0444.Sequence-Reconstruction.py) (!!M) <br>
 这个题目要做三个判断：1. 判断seqs的拓扑排序是否存在，只需判断len(res) 是否等于len(neighbors) or len(inDegrees), 如果小于说明有孤立节点，如果大于说明有环，两者都不存在拓扑排序; 2. 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素, 即每一层只有一个选择: if len(q)>1: return False; 3. 最后判断这个唯一的拓扑排序res是否等于org
-
 - [0269. Alien Dictionary](Solutions/0269.Alien-Dictionary.py) (!!H) <br>
 只需要比较word[i]与word[i+1]中每个char，即可得到inDegree的关系以及neighbors的关系
 
