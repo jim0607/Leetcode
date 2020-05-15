@@ -58,34 +58,26 @@ class Solution:
             self.dfs(nums, i + 1, curr, res)
             curr.pop()
       
-# @lc code=end
 
-
-写法二：用花花的写法
-# @lc code=start
+    
+"""
+不把res传入dfs参数中，这样可以简化dfs的传入参数
+"""
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
-        nums = sorted(nums)  # 先排序，后面才可以进行比较nums[i] == nums[i-1]去重
-        res = [] 
-        n = len(nums)
-        for length in range(n + 1):
-            self.dfs(nums, length, 0, [], res)
+        nums.sort()
+        self.res = []
+        self.dfs(nums, 0, [])
         
-        return res
-
-    def dfs(self, nums, length, startIndex, curr, res):
-        if len(curr) == length:
-            res.append(curr.copy())
-            return
+        return self.res
+    
+    def dfs(self, nums, startIdx, curr):
+        self.res.append(curr.copy())
         
-        for i in range(startIndex, len(nums)):
-            # [1, 2, 2]的遍历中，如果之前的那个2没被放进去（i != startIndex），那么就不要放后面那个2，这样会造成重复。
-            if i !=0 and nums[i] == nums[i-1] and i != startIndex:
+        for i in range(startIdx, len(nums)):
+            if (i >= 1 and nums[i] == nums[i - 1]) and i != startIdx:
                 continue
+                
             curr.append(nums[i])
-            self.dfs(nums, length, i + 1, curr, res)
+            self.dfs(nums, i + 1, curr)
             curr.pop()
-
-        
-# @lc code=end
-
