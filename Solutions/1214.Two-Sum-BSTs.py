@@ -7,24 +7,6 @@ Example 2:
 Input: root1 = [0,-10,10], root2 = [5,1,7,0,2], target = 18
 Output: false
 
-"""solution 1: recursion (TLE) O(M*N)"""
-class Solution:
-    def twoSumBSTs(self, root1: TreeNode, root2: TreeNode, target: int) -> bool:
-        if not root1 or not root2:
-            return False
-        
-        if not root1.left and not root1.right and not root2.left and not root2.right:
-            return root1.val + root2.val == target
-
-        if target == root1.val + root2.val:
-            return True
-        
-        elif target > root1.val + root2.val:
-            return self.twoSumBSTs(root1.right, root2, target) or self.twoSumBSTs(root1, root2.right, target)
-        
-        else:
-            return self.twoSumBSTs(root1.left, root2, target) or self.twoSumBSTs(root1, root2.left, target)
-            
 """solution 2: binary tree traversal using iterative way and store the val in a hash map; time complexity: O(M + N)"""
 class Solution:
     def twoSumBSTs(self, root1: TreeNode, root2: TreeNode, target: int) -> bool:
@@ -56,3 +38,24 @@ class Solution:
             curr = curr.right
             
         return False
+
+    
+    
+"""solution 1: recursion (TLE) O(M*N)"""
+class Solution:
+    def twoSumBSTs(self, root1: TreeNode, root2: TreeNode, target: int) -> bool:
+        if not root1 or not root2:
+            return False
+        
+        if not root1.left and not root1.right and not root2.left and not root2.right:
+            return root1.val + root2.val == target
+
+        if target == root1.val + root2.val:
+            return True
+        
+        elif target > root1.val + root2.val:
+            return self.twoSumBSTs(root1.right, root2, target) or self.twoSumBSTs(root1, root2.right, target)
+        
+        else:
+            return self.twoSumBSTs(root1.left, root2, target) or self.twoSumBSTs(root1, root2.left, target)
+         
