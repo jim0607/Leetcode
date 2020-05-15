@@ -64,6 +64,34 @@
 # 
 # 
 #
+
+
+
+class Solution:
+    def change(self, target: int, nums: List[int]) -> int:
+        self.res = 0
+        
+        self.dfs(target, nums, 0)       # 这里其实可以不用把res传进去，直接定义一个全局变量self.res, 可以简化dfs的传入参数！
+        
+        return self.res
+    
+    def dfs(self, target, nums, startIdx):
+        if target < 0:
+            return
+        if target == 0:
+            self.res += 1
+            return
+        
+        for i in range(startIdx, len(nums)):
+            if nums[i] > target:
+                continue
+            
+            self.dfs(target - nums[i], nums, i)     # 允许在出现重复的硬币，所以从i开始！
+
+
+
+
+
 """
 与Combination Sum类似
 """
