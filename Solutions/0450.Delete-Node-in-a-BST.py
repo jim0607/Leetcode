@@ -74,22 +74,20 @@ class Solution:
         return the successor of the root by taking one step right and always left, cuz the 
         successor is the node just larger than the root
         """
-        if not root:
-            return None
         root = root.right
         while root.left:
             root = root.left
+            
         return root.val
     
     def predecessor(self, root: TreeNode) -> int:
         """
         return the predecessor of the root by taking one step left and then always right
         """
-        if not root:
-            return None
         root = root.left
         while root.right:
             root = root.right
+            
         return root.val
 
     def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
@@ -108,12 +106,12 @@ class Solution:
             if not root.left and not root.right:
                 root = None
             # If the node is not a leaf and has the right child, then replace the node value by a successor value root.val = successor.v
-            # and then recursively delete the successor in the right subtree root.right = deleteNode(root.right, root.val).
+            # and then delete the successor in the right subtree root.right = deleteNode(root.right, root.val).
             elif root.right:
                 root.val = self.successor(root)
                 root.right = self.deleteNode(root.right, root.val)
             # If the node is not a leaf and has only the left child, then replace the node value by a predecessor value root.val = predecessor.val, 
-            # and then recursively delete the predecessor in the left subtree root.left = deleteNode(root.left, root.val).
+            # and then delete the predecessor in the left subtree root.left = deleteNode(root.left, root.val).
             else:
                 root.val = self.predecessor(root)
                 root.left = self.deleteNode(root.left, root.val)
