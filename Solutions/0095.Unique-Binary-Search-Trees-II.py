@@ -26,9 +26,7 @@ The above output corresponds to the 5 unique BST's shown below:
 
 class Solution:
     def generateTrees(self, n: int) -> List[TreeNode]:
-        if n == 0:
-            return []
-        
+
         def helper(start, end):
             """
             return all the path of trees for numbers from start to end
