@@ -380,7 +380,7 @@ similar with 95, in helper function, return all the different results to add par
 
 
 
-# [Depth First Search / Backgrack 先把recurssion好好学一遍！](/Depth-First-Search.py)
+# [Depth First Search / Backgracking](/Depth-First-Search.py)
 ### [Combination](/Depth-First-Search.py)
 <br>
 - [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
