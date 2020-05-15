@@ -18,18 +18,14 @@ One possible answer is: [0,-3,9,-10,null,5], which represents the following heig
 """we can always choose the left middle number as root, or always choose right middle number as root, or sometimes left sometimes right as root. That is why the answer is not unique"""
 class Solution:
     def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
-        """return the TreeNode converted from nums"""
-        if not nums:
-            return
-        
-        lens = len(nums)
-        if lens == 1:
+        if len(nums) == 0:
+            return None
+        if len(nums) == 1:
             return TreeNode(nums[0])
         
-        mid = lens // 2
-        root = TreeNode(nums[mid])
+        root = TreeNode(nums[len(nums)//2])
         
-        root.left = self.sortedArrayToBST(nums[:mid])
-        root.right = self.sortedArrayToBST(nums[mid + 1:])
+        root.left = self.sortedArrayToBST(nums[:len(nums)//2])
+        root.right = self.sortedArrayToBST(nums[len(nums)//2 + 1:])
         
         return root
