@@ -48,35 +48,41 @@ class Solution:
         
         
 """解法二：divide and conquer, somehow don't know how to make it work..........."""
+
 class Solution:
     def treeToDoublyList(self, root: 'Node') -> 'Node':
-        """return the head of DLL of a BST"""
-        
         if not root:
-            return
+            return None
         
-        # divide and conque: 想想merge sort, 先局部有序，再整体有序
-        # divide: 局部有序
-        leftDLL = self.treeToDoublyList(root.left)      # 这一步左边已经排好了，有序了
-        rightDLL = self.treeToDoublyList(root.right)    # 这一步右边已经排好了，有序了
+        if not root.left and not root.right:
+            root.left = root
+            root.right = root
+            return root
         
-        # conquer: 整体有序
-        # STEP 1: hook up left and root if left is not None
-        if leftDLL:
-            rightMostOnLeft = leftDLL.left
-            if rightMostOnLeft:
-                rightMostOnLeft.right = root   # hook up the root with the rightMost node on the left which is leftDLL.left
-                root.left = rightMostOnLeft
-        
-        # STEP 2: hook up root and right if right is not None
-        if rightDLL:         
-            rightMost = rightDLL.left   # should keep track of rightMost node before it's changed, so that we can form a loop in STEP 3
-            rightDLL.left = root
-            root.right = rightDLL
-        
-        # STEP 3: hook up leftMost and rightMost to form a loop
-        if leftDLL and rightMost:
-            leftDLL.left = rightMost
-            rightMost.right = leftDLL
+        if not root.left:
+            root.right.left = root
+            return root
             
-        return leftDLL if leftDLL else root     # return the smallest node as head
+        if not root.right:
+            root.left.right = root
+            return root.left
+        
+        leftDLLHead = self.treeToDoublyList(root.left)
+        rightDLLHead = self.treeToDoublyList(root.right)
+        
+        if leftDLLHead:
+            leftDLLTail = leftDLLHead.left
+            if leftDLLTail:
+                leftDLLTail.right = root
+                root.left = leftDLLTail
+        
+        if rightDLLHead:
+            rightDLLTail = rightDLLHead.left
+            rightDLLHead.left = root
+            root.right = rightDLLHead
+            
+        if leftDLLHead and rightDLLHead:
+            leftDLLHead.left = rightDLLTail
+            rightDLLTail.right = leftDLLHead
+        
+        return leftDLLHead
