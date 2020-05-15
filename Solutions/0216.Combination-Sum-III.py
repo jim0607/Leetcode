@@ -13,23 +13,25 @@ Example 2:
 Input: k = 3, n = 9
 Output: [[1,2,6], [1,3,5], [2,3,4]]
 
-
 class Solution:
     def combinationSum3(self, k: int, n: int) -> List[List[int]]:
         nums = [i for i in range(1, 10)]
-        res = []
-        self.dfs(nums, k, n, 0, [], res)
-        return res
+        self.res = []
+        self.dfs(nums, k, n, 0, [])
+        return self.res
     
-    def dfs(self, nums, k, n, startIndex, curr, res):
+    def dfs(self, nums, k, n, startIdx, curr):
         if k < 0 or n < 0:
-            return 
-        
-        if k == 0 and n == 0:
-            res.append(curr.copy())
             return
         
-        for i in range(startIndex, len(nums)):
+        if k == 0 and n == 0:
+            self.res.append(curr.copy())
+            return
+        
+        for i in range(startIdx, len(nums)):
+            if nums[i] > n:
+                continue
+                
             curr.append(nums[i])
-            self.dfs(nums, k - 1, n - nums[i], i + 1, curr, res)    # 不能出现重复数字，所以从i+1开始
+            self.dfs(nums, k - 1, n - nums[i], i + 1, curr)   # 不能出现重复数字，所以从i+1开始
             curr.pop()
