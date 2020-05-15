@@ -1,4 +1,4 @@
-591. Connecting Graph II
+591. Connecting Graph III
 
 Given n nodes in a graph labeled from 1 to n. There is no edges in the graph at beginning.
 
