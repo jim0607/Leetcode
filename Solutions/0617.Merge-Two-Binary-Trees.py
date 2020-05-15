@@ -21,20 +21,19 @@ Merged tree:
 
 
 class Solution:
-    def mergeTrees(self, root1: TreeNode, root2: TreeNode) -> TreeNode:
-        """return a new tree"""
-        if not root1 and not root2:
-            return None
+    def mergeTrees(self, t1: TreeNode, t2: TreeNode) -> TreeNode:
+        if not t1:
+            return t2
+        if not t2:
+            return t1
         
-        if not root1:
-            return root2
+        # divide
+        leftRoot = self.mergeTrees(t1.left, t2.left)
+        rightRoot = self.mergeTrees(t1.right, t2.right)
         
-        if not root2:
-            return root1
+        # conquer
+        root = TreeNode(t1.val + t2.val)
+        root.left = leftRoot
+        root.right = rightRoot
         
-        # divide and conquer
-        root = TreeNode(root1.val + root2.val)
-        root.left = self.mergeTrees(root1.left, root2.left)
-        root.right = self.mergeTrees(root1.right, root2.right)
-        
-        return root        
+        return root
