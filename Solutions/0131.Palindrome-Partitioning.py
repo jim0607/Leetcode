@@ -36,34 +36,31 @@
 """
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
-        res = []
-        
-        self.dfs(s, 0, [], res)
-        
-        return res
+        self.res = []
+        self.dfs(s, 0, [])
+        return self.res
     
-    def dfs(self, s, startIndex, curr, res):
-        """# 递归的定义：从s中的start位置开始，挑一些位置切割，判断从start到i的部分是否为回文，如果是就放入curr中，如果i到了string末尾了则说明此事curr是一种组合方式，放入res中"""
-        
-        if startIndex == len(s):
-            res.append(curr.copy())     # always remember this is deep copy
+    def dfs(self, s, startIdx, curr):
+        """递归的定义：从s中的start位置开始，挑一些位置切割，判断从start到i的部分是否为回文，
+        如果是就放入curr中，如果i到了string末尾了则说明此事curr是一种组合方式，放入res中"""
+        if startIdx == len(s):
+            self.res.append(curr.copy())
             return
         
-        for i in range(startIndex, len(s)):
-            if not self.isPalin(s[startIndex:i + 1]):
+        for i in range(startIdx, len(s)):
+            if not self.isPalin(s[startIdx:i + 1]):
                 continue
-            
-            curr.append(s[startIndex:i + 1])
-            self.dfs(s, i + 1, curr, res)
+                
+            curr.append(s[startIdx:i + 1])
+            self.dfs(s, i + 1, curr)
             curr.pop()
-            
+           
     def isPalin(self, s):
-        i, j = 0, len(s) - 1
-        while i < j:
-            if s[i] != s[j]:
+        start, end = 0, len(s) - 1
+        while start < end:
+            if s[start] != s[end]:
                 return False
-            
-            i += 1
-            j -= 1
+            start += 1
+            end -= 1
         
         return True
