@@ -41,11 +41,6 @@ class Solution:
             rightMax, rightMin, rightIsValid = helper(root.right)
             
             rootMax = max(leftMax, rightMax, root.val)  # # 最开始写找半天错误，最后发现是忘了把root.val加入比较了，本质是忘了递归的定义：返回root为根的树(是不是BST，max and min value in the tree)，想想bottom up的时候这一层算出来的max是要被上面的一层拿出来用的。
-        else:
-            return False, max(maxLeft, maxRight, root.val), min(minLeft, minRight, root.val)
-
-Time complexity : O(N) since we visit each node exactly once.
-Space complexity : O(N) since we keep up to the entire tree.
 
             rootMin = min(leftMin, rightMin, root.val)
             rootIsValid = leftIsValid and rightIsValid and (leftMax < root.val < rightMin)
@@ -53,6 +48,7 @@ Space complexity : O(N) since we keep up to the entire tree.
             return (rootMax, rootMin, rootIsValid)
         
         return helper(root)[2]
+       
 
 Time complexity : O(N) since we visit each node exactly once.
 Space complexity : O(N) since we keep up to the entire tree.
