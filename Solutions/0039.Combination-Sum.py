@@ -86,3 +86,29 @@ class Solution:
             curr.append(candidates[i])
             self.dfs(candidates, target - candidates[i], i, curr, res)      # 这里的start是从i开始的，而不是subsets里面的i+1, 这是因为Subsets 一个数只能选一次，Combination Sum 一个数可以选很多次
             curr.pop()
+
+
+"""
+不把res传入dfs参数中，这样可以简化dfs的传入参数
+"""
+class Solution:
+    def combinationSum(self, nums: List[int], target: int) -> List[List[int]]:
+        self.res = []
+        self.dfs(nums, target, 0, [])
+        return self.res
+    
+    def dfs(self, nums, target, startIdx, curr):
+        if target < 0:
+            return
+        
+        if target == 0:
+            self.res.append(curr.copy())
+            return
+            
+        for i in range(startIdx, len(nums)):
+            if nums[i] > target:
+                continue
+                
+            curr.append(nums[i])
+            self.dfs(nums, target - nums[i], i, curr)
+            curr.pop()
