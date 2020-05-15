@@ -53,30 +53,24 @@
 #
 
 class Solution:
-    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
-        res = []
-        
-        nums = sorted(candidates)
-
-        self.dfs(nums, target, 0, [], res)
-
-        return res
-
-    def dfs(self, nums, target, startIndex, curr, res):
+    def combinationSum2(self, nums: List[int], target: int) -> List[List[int]]:
+        nums.sort()
+        self.res = []
+        self.backtrack(nums, target, 0, [])
+        return self.res
+    
+    def backtrack(self, nums, target, startIdx, curr):
         if target < 0:
             return
+        
         if target == 0:
-            res.append(curr.copy())
+            self.res.append(curr.copy())
             return
         
-        for i in range(startIndex, len(nums)):
-            # 去掉重复的输出,eg: [1,7,7], target=8, 保证只输出一个[1,7]，去重的方法与Subsets II中是一样的。 
-            if i != 0 and nums[i] == nums[i-1] and i != startIndex:
-                continue
-                
-            if nums[i] > target:
+        for i in range(startIdx, len(nums)):
+            if nums[i] > target or (i >= 1 and nums[i] == nums[i-1]) and i != startIdx:
                 continue
                 
             curr.append(nums[i])
-            self.dfs(nums, target - nums[i], i + 1, curr, res)
+            self.backtrack(nums, target - nums[i], i + 1, curr)
             curr.pop()
