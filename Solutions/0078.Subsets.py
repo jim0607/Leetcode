@@ -59,8 +59,32 @@ class Solution:
             curr.pop()                          # [1, 2] -> [1]，然后在进入for循环，然后curr再append 2后面的数 3, curr 变成[1, 3]，然后......周而复始，直至for循环结束。
 
             
-            
+"""
+不传入res到dfs的参数里面，用self.res去类似打擂台之类的就可以了。
+"""           
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        self.res = []
+        
+        self.dfs(nums, 0, [])
+        
+        return self.res
+    
+    def dfs(self, nums, startIdx, curr):
+        self.res.append(curr.copy())
+        
+        for i in range(startIdx, len(nums)):
+            curr.append(nums[i])
+            self.dfs(nums, i + 1, curr)
+            curr.pop()
+        
+        
+        
+        
+        
+        
 
+            
 模板二：花花的模板，更加通用化，可以通过比较输出结果的数组排列顺序直到区别。
 上面程序的输出是[[],[1],[1,2],[1,2,3],[1,3],[2],[2,3],[3]]
 下面程序的输出是[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
