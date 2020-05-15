@@ -382,13 +382,6 @@ similar with 95, in helper function, return all the different results to add par
 
 # [Depth First Search / Backgracking](/Depth-First-Search.py)
 ### [Combination](/Depth-First-Search.py)
-<br>
-- [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
-Solution 1: 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
-Solution 2: similar with 257 and 112, we just find all the possible paths.
-<br>
-298. Binary Tree Longest Consecutive Sequence
-
 - [0078. Subsets](Solutions/0078.Subsets.py) (!!M) <br>
 C(m, n)：m个里面找出n个的组合问题; 模板的DFS + back tracking求combination问题 O(NS), S是solution的个数，这里S=2^N; 注意两点：1.res.append(curr.copy()); has to be a deep copy; 2. self.dfs(nums, i + 1, curr, res) 要从i+1开始cuz不能回头找会重复
 - [0090. Subsets II](Solutions/0090.Subsets-II.py) (!!M)<br>
@@ -405,18 +398,26 @@ self.dfs(nums, k - 1, n - nums[i], i + 1, curr, res)   # 不能出现重复数�
 - [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (M)<br>
 self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3, 1)都可以，所以让i从0开始
 - [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (!!M) <br>
-递归的定义：从s中的start位置开始，挑一些位置切割，判断从start到i的部分是否为回文，如果是就放入curr中，如果i到了string末尾了则说明此事curr是一种组合方式，放入res中
-<br>
+递归的定义：从s中的start位置开始，挑一些位置切割，判断从start到i的部分是否为回文，如果是就放入curr中，如果i到了string末尾了则说明此事curr是一种组合方式，放入res中 <br>
+332. Reconstruct Itinerary <br>
 
-332. Reconstruct Itinerary
 
-<br>
 ### [Permutation](/Depth-First-Search.py)
 - [0046. Permutations](Solutions/0046.Permutations.py) (!!M)<br>
 与combination相比少了一个startIndex参数，加入visited用于防止重复出现; append之后需要将visited[i]变为True; pop出来之后将visited[i]再变回False
 - [0047. Permutations II](Solutions/0047.Permutations-II.py) (M) <br>
 输入里面有重复，都需要先把数组排序一下; 去重方法与Subsets是类似的: if visited[i] or (i != 0 and nums[i] == nums[i-1] and not visited[i-1]): continue
 - [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (M)  <br>
+
+
+### [树上的搜索](/Depth-First-Search.py) <br>
+<br>
+- [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
+Solution 1: 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
+Solution 2: similar with 257 and 112, we just find all the possible paths.
+<br>
+298. Binary Tree Longest Consecutive Sequence
+
 
 
 ### [图上的搜索](/Depth-First-Search.py) <br>
@@ -430,9 +431,6 @@ self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3,
 Step 1. 从end到start做BFS，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
 Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近。最后将路径都存入到res里
 1192. Critical Connections in a Network
-
-
-
 
 
 
