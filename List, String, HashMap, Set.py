@@ -89,6 +89,6 @@ Set
       3. nums = [1, 2, 3, 4, 5], numsSet = set(nums)
       4. 不能numsSet = {}来create a set, 因为这是在create a dictionary
       
-      
+5. 'set' does not support indexing, so numSet[0] is wrong sytax.
       
       
