@@ -1,3 +1,40 @@
+266. Palindrome Permutation
+
+Given a string, determine if a permutation of the string could form a palindrome.
+
+Example 1:
+
+Input: "code"
+Output: false
+Example 2:
+
+Input: "aab"
+Output: true
+Example 3:
+
+Input: "carerac"
+Output: true
+
+
+class Solution:
+    def canPermutePalindrome(self, s: str) -> bool:
+        charFreq = collections.defaultdict(int)
+        for char in s:
+            charFreq[char] += 1
+            
+        cnt = 0
+        for char, freq in charFreq.items():
+            if freq % 2 == 1:
+                cnt += 1
+            
+            if cnt > 1:
+                return False
+        
+        return True
+
+
+    
+267. Palindrome Permutation II
 Given a string s, return all the palindromic permutations (without duplicates) of it. Return an empty list if no palindromic permutation could be form.
 
 Example 1:
@@ -9,9 +46,13 @@ Example 2:
 Input: "abc"
 Output: []
 
-
+    
+O(N*N!)
 class Solution:
     def generatePalindromes(self, s: str) -> List[str]:
+        if not self.canPermutePalindrome(s):
+            return False
+        
         s = sorted(s)    # 去重需要先sort, string 不能用s.sorted()来sort
         
         res = []
@@ -44,4 +85,20 @@ class Solution:
             i += 1
             j -= 1
             
+        return True
+    
+    
+    def canPermutePalindrome(self, s: str) -> bool:
+        charFreq = collections.defaultdict(int)
+        for char in s:
+            charFreq[char] += 1
+            
+        cnt = 0
+        for char, freq in charFreq.items():
+            if freq % 2 == 1:
+                cnt += 1
+            
+            if cnt > 1:
+                return False
+        
         return True
