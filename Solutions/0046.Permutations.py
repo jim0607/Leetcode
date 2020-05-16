@@ -56,7 +56,7 @@ class Solution:
             # 与combination相比多了这个if判断，这是因为在combination中有startIndex限制其职能从i+1后面找
             # 这里没有startIndex，每次都是从0开始找，可以找到自己，最后可能会输出[1,1,1]或[1,1,2]，显然不是[1,2,3]的permutation
             # 所以这个if是为了限制一个数只出现一次。
-            if nums[i] in curr:         # O(N^2), so overall O(N^2*S), S=solution=N!
+            if nums[i] in curr:         # O(N), so overall O(N*S), S=solution=N!
                 continue
             curr.append(nums[i])
             self.dfs(nums, curr, res)
@@ -65,33 +65,30 @@ class Solution:
 # @lc code=end
 
 
-写法二：将时间复杂度降为O(N*S)，方法是将if nums[i] in curr这个判断语句降为O(1),用一个hashmap标记已经visited的元素，这样就不会让同一个元素被用到两次了。
+写法二：将时间复杂度降为O(S)，方法是将if nums[i] in curr这个判断语句降为O(1),用一个hashmap标记已经visited的元素，这样就不会让同一个元素被用到两次了。
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        res = []
-        if not nums:
-            return res
-        
-        visited = {i: False for i in range(len(nums))}
-        self.dfs(nums, [], res, visited)     # 与combination相比少了一个startIndex参数，加入visited用于防止重复出现
-
-        return res
-
-    def dfs(self, nums: List[int], curr: List[int], res: List[List[int]], visited):
-        # 2. 递归的出口
+        self.res = []
+        self.visited = set()    # 与combination相比加入visited用于防止重复出现
+        self.dfs(nums, [])      # 与combination相比少了一个startIndex参数
+        return self.res
+    
+    def dfs(self, nums, curr):
         if len(curr) == len(nums):
-            res.append(curr.copy())     # deep copy
+            self.res.append(curr.copy())    # deep copy
             return
-
-        for i in range(len(nums)):      # O(N)
+        
+        for i in range(len(nums)):
             # 与combination相比多了这个if判断，这是因为在combination中有startIndex限制其职能从i+1后面找
             # 这里没有startIndex，每次都是从0开始找，可以找到自己，最后可能会输出[1,1,1]或[1,1,2]，显然不是[1,2,3]的permutation
             # 所以这个if是为了限制一个数只出现一次。
-            if visited[i]:         # O(1), so overall O(N*S), S=solution=N!
+            if i in self.visited:       # O(1), so overall O(S), S=solution=N!
                 continue
-            visited[i] = True       # append之后需要将visited[i]变为True
-            curr.append(nums[i])
-            self.dfs(nums, curr, res, visited)
+                
+            curr.append(nums[i])        # append之后需要将i add到visited中
+            self.visited.add(i)
+            
+            self.dfs(nums, curr)
+            
             curr.pop()
-            visited[i] = False     # pop出来之后将visited[i]再变回False
-
+            self.visited.remove(i)      # pop出来之后将i从visited中remove走
