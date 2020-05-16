@@ -47,7 +47,7 @@ Input: "abc"
 Output: []
 
     
-O(N*N!)
+O(N*N!), N is for checking isPalin, N! is the number of solutions.  This solution TLE
 class Solution:
     def generatePalindromes(self, s: str) -> List[str]:
         if not self.canPermutePalindrome(s):
@@ -102,3 +102,61 @@ class Solution:
                 return False
         
         return True
+
+    
+"""
+After examing 266, we can get the following solution:
+say if we have a string "aabbcc", we only need to find all the permutations for "abc", then return all the permutations + permutation[::-1]
+in this way the time complexity is O((N/2)!)
+"""    
+class Solution:
+    def generatePalindromes(self, s: str) -> List[str]:
+        # step 1: put the characters that have seen two times in the char list
+        charList = []
+        charSet = set()
+        for ch in s:
+            if ch in charSet:
+                charList.append(ch)
+                charSet.remove(ch)
+            else:
+                charSet.add(ch)
+                
+        # now we have a charList that only holds char that appears even times, eg: "aaaabbc" now becomes "aab"
+        # next we only need to do permutation for this charList
+        # so the time complexity is O((n/2)!), which is quite an improve
+                
+        # if there are more than one char that appears odd times, then directly return []
+        if len(charSet) > 1:
+            return []
+        
+        # step 2: do a normal backtracking to find permutation of charList
+        charList = sorted(charList)     # sort the list to avoid duplicates
+        self.res = []
+        self.visited = set()
+        self.backtracking(charList, [])
+
+        # step 3: when return the results, we just use the permuation generated in steps 2 + permuation[::-1]
+        if len(charSet) == 0:
+            return [permutation + permutation[::-1] for permutation in self.res]
+
+        if len(charSet) == 1:
+            midChar = charSet.pop()
+            return [permutation + midChar + permutation[::-1] for permutation in self.res]
+        
+        
+    def backtracking(self, charList, curr):
+        if len(curr) == len(charList):
+            self.res.append("".join(curr.copy()))
+            return
+        
+        for i in range(len(charList)):
+            if i in self.visited:
+                continue
+            if (i >= 1 and charList[i] == charList[i-1]) and (i-1) not in self.visited:    # avoid duplicates
+                continue
+            
+            curr.append(charList[i])
+            self.visited.add(i)
+            self.backtracking(charList, curr)
+            curr.pop()
+            self.visited.remove(i)
