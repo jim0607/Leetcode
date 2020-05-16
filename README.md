@@ -83,12 +83,10 @@ solution 2: 从中间c往两边遍历i--, j++，遍历两次：一次是i=c, j=c
 - [0312. Burst Balloons](Solutions/0312.Burst-Balloons.py) (!!H) <br>
 带memo的recursion比DP更好懂; left = self.memoSearch(nums, i, k, memo); right=self.memoSearch(nums, k, j, memo); maxCoins = max(maxCoins, left + right + nums[i] * nums[k] * nums[j]). 
 也可以用dp: https://qoogle.top/leetcode-312-burst-balloons/ <br>
-Lintcode 476. Stone Game
-<br>
+Lintcode 476. Stone Game <br>
 1011
 410. Split Array Largest Sum
 1444
-<br>
 ###  [划分型DP](/Dynamic-Programming.py) (状态往往定义为前j个的某种特性，不包括j！！！！，这个思想很重要，相当于给前面做了一层buffer layer)
 - [0139. Word Break](Solutions/0139.Word-Break.py) (!!M) <br>
 dp[i]=can partition until ith char?, not including i; dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in wordDict)
@@ -416,11 +414,10 @@ self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3,
 模板: is_not_valid: if i in self.visited: continue; if (i > 0 and nums[i] == nums[i-1]) and (i-1) not in self.visited: continue
 - [0031. Next Permutation](Solutions/0031.Next-Permutation.py) (M) <br>
 step 1: sweeping from right to left, find the first decreasing element; Step 2: sweep from right to left, find the first element larger just than nums[i], then swap nums[i] and nums[j], then swap all the items starting from i+1
-- [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (M)  <br>
-
-
-60. Permutation Sequence
-31. Next Permutation
+- [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (!!M)  <br>
+step 1: put the characters that have seen two times in the char list; now we have a charList that only holds char that appears even times, eg: "aaaabbc" now becomes "aab", Step 2: we only need to do permutation for this charList, so the time complexity is O((n/2)!), which is quite an improve. Step 3: when return the results, we just use the permuation generated in steps 2 + permuation[::-1]
+- [0060. Permutation Sequence](Solutions/0060.Permutation-Sequence.py) (M)  <br>
+It really is all about pattern finding; https://leetcode.com/problems/permutation-sequence/discuss/22507/%22Explain-like-I'm-five%22-Java-Solution-in-O(n)
 
 
 ### [树上的搜索](/Depth-First-Search.py) <br>
