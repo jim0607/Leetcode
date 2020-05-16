@@ -414,10 +414,13 @@ self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3,
 与combination相比少了一个startIndex参数，加入visited用于防止重复出现; append之后需要将visited[i]变为True; pop出来之后将visited[i]再变回False
 - [0047. Permutations II](Solutions/0047.Permutations-II.py) (M) <br>
 模板: is_not_valid: if i in self.visited: continue; if (i > 0 and nums[i] == nums[i-1]) and (i-1) not in self.visited: continue
+- [0031. Next Permutation](Solutions/0031.Next-Permutation.py) (M) <br>
+step 1: sweeping from right to left, find the first decreasing element; Step 2: sweep from right to left, find the first element larger just than nums[i], then swap nums[i] and nums[j], then swap all the items starting from i+1
 - [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (M)  <br>
 
 
 60. Permutation Sequence
+31. Next Permutation
 
 
 ### [树上的搜索](/Depth-First-Search.py) <br>
