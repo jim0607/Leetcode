@@ -93,7 +93,7 @@ f[i]=number of decode ways until i (not including i); f[i]=f[i-1]+f[i-2] if int(
 - [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (M) <br>
 f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i^2]+1) for i^2<=j; Time complexity: j is from 0 to n, i is from 0 to j^0.5, so O(N^1.5); solution 2 mathematics: Four-square theorem states that every natural number can be represented as the sum of at most four integer squares.
 - [0132. Palindrome Partitioning II](Solutions/0132.Palindrome-Partitioning-II.py) (!!H) <br>
-子数组或者子字符串且求极值的题，基本就是 DP 没差了. f[j]=the minimum number of total palindrome till the jth character (not including j); f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome. O(N^3), 划分型的dp的状态一般都not include j, 这样就有一个buffer layer可以用。Solution 2: 优化为O(N^2), 用一个isPalin[i][j]记录s[i:j]是否是palindrome, 更新isPalin[i][j]的方法与leetcode 5 相同，这样就不用每次都用双指针去判断s[i:j]是不是palindrome
+子数组或者子字符串且求极值的题，基本就是 DP 没差了. f[j]=the minimum number of total palindrome till the jth character (not including j); f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome. O(N^3), 划分型的dp的状态一般都not include j, 这样就有一个buffer layer可以用。Solution 2: 优化为O(N^2), 用一个isPalin[i][j]记录s[i:j]是否是palindrome, 更新isPalin[i][j]的方法与leetcode 5 相同，这样就不用每次都用双指针去判断s[i:j]是不是palindrome. 输出所有的可能的partition成palindrome的组合问题只能dfs+backtracking了- 131. Palindrome Partitioning
 
 
 ### [博弈型DP](/Dynamic-Programming.py)
@@ -384,30 +384,36 @@ similar with 95, in helper function, return all the different results to add par
 ### [Combination](/Depth-First-Search.py)
 - [0078. Subsets](Solutions/0078.Subsets.py) (!!M) <br>
 C(m, n)：m个里面找出n个的组合问题; 模板的DFS + back tracking求combination问题 O(NS), S是solution的个数，这里S=2^N; 注意两点：1.res.append(curr.copy()); has to be a deep copy; 2. self.dfs(nums, i + 1, curr, res) 要从i+1开始cuz不能回头找会重复
+其实可以不用把res传进去，定义一个全局变量self.res即可，可以简化dfs传入的参数。
 - [0090. Subsets II](Solutions/0090.Subsets-II.py) (!!M)<br>
-如果输入存在重复元素，[1, 2, 2]的遍历中，我们只取前面的那个2，对于后面的那个2，如果不是挨着前面那个2选的，也就是说i != startIndex，那么就不要放后面那个2，这样会造成重复出现[1,第一个2],[1,第二个2], 注意可以挨着第一个2来选第二个2是可以的，因为允许出现[1,2,2]作为答案。if i != 0 and nums[i] == nums[i-1] and i != startIndex: continue
+如果输入存在重复元素，[1, 2, 2]的遍历中，我们只取前面的那个2，对于后面的那个2，如果不是挨着前面那个2选的，也就是说i != startIndex，那么就不要放后面那个2，这样会造成重复出现[1,第一个2],[1,第二个2], 注意可以挨着第一个2来选第二个2是可以的，因为允许出现[1,2,2]作为答案。所以contraint是: if (i >= 1 and nums[i] == nums[i-1]) and i != startIndex: continue
 - [0039. Combination Sum](Solutions/0039.Combination-Sum.py) (M) <br>
-start是从i开始的，而不是subsets里面的i+1, 这是因为Subsets 一个数只能选一次，Combination Sum 一个数可以选很多次
+模板：find_solution: if target == 0； Is_not_valid：if nums[i] > targetstart是从i开始的，而不是subsets里面的i+1, 这是因为Subsets 一个数只能选一次，Combination Sum 一个数可以选很多次
 - [0040. Combination Sum II](Solutions/0040.Combination-Sum-II.py) (M) <br>
-输入中存在重复元素，避免重复输出的方法与Subsets II一样
+输入中存在重复元素，避免重复输出的方法与Subsets II一样; 模板 find_solution: if target == 0; is_not_valid: if (nums[i] > target) or (i >= 1 and nums[i] == nums[i-1]) and i != startIdx
 - [0518. Coin Change 2](Solutions/0518.Coin-Change-2.py) (M) <br>
-与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解。不理解DP解的for循环顺序。
+与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解。不理解DP解的for循环顺序。有时间请教高人，怎么理解这个DP的顺序。
 - [0216. Combination Sum III](Solutions/0216.Combination-Sum-III.py) (M)<br>
-self.dfs(nums, k - 1, n - nums[i], i + 1, curr, res)   # 不能出现重复数字，所以从i+1开始
-- [0090. k Sum II](Solutions/0090.k-Sum-II.py) (M Lintcode)<br>
+self.dfs(nums, k - 1, n - nums[i], i + 1, curr)   # 不能出现重复数字，所以从i+1开始
+- [0090. k Sum II](Solutions/0090.k-Sum-II.py) (M Lintcode) <br>
+exactly the same as 216.
 - [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (M)<br>
-self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3, 1)都可以，所以让i从0开始
-- [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (!!M) <br>
+self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3, 1)都可以，所以让i从0开始; solution 2: dp. 
+- [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (!!!M) <br>
 递归的定义：从s中的start位置开始，挑一些位置切割，判断从start到i的部分是否为回文，如果是就放入curr中，如果i到了string末尾了则说明此事curr是一种组合方式，放入res中 <br>
-332. Reconstruct Itinerary <br>
+- [0332. Reconstruct Itinerary](Solutions/0332.Reconstruct-Itinerary.py) (!!M) <br>
+有向图的遍历问题，LeetCode关于有向图的题只有两道Course Schedule和Course Schedule II，而那两道是关于有向图的顶点的遍历的，而本题是关于有向图的边的遍历。每张机票都是有向图的一条边，我们需要找出一条经过所有边的路径，那么DFS不是我们的不二选择. 这题选择interative way to do backtracking更简单。
 
 
 ### [Permutation](/Depth-First-Search.py)
 - [0046. Permutations](Solutions/0046.Permutations.py) (!!M)<br>
 与combination相比少了一个startIndex参数，加入visited用于防止重复出现; append之后需要将visited[i]变为True; pop出来之后将visited[i]再变回False
 - [0047. Permutations II](Solutions/0047.Permutations-II.py) (M) <br>
-输入里面有重复，都需要先把数组排序一下; 去重方法与Subsets是类似的: if visited[i] or (i != 0 and nums[i] == nums[i-1] and not visited[i-1]): continue
+模板: is_not_valid: if i in self.visited: continue; if (i > 0 and nums[i] == nums[i-1]) and (i-1) not in self.visited: continue
 - [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (M)  <br>
+
+
+60. Permutation Sequence
 
 
 ### [树上的搜索](/Depth-First-Search.py) <br>
@@ -431,6 +437,9 @@ Solution 2: similar with 257 and 112, we just find all the possible paths.
 Step 1. 从end到start做BFS，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
 Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近。最后将路径都存入到res里
 1192. Critical Connections in a Network
+489. Robot Room Cleaner
+Sudoku Solver
+
 
 
 
