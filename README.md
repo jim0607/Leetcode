@@ -84,7 +84,11 @@ solution 2: 从中间c往两边遍历i--, j++，遍历两次：一次是i=c, j=c
 带memo的recursion比DP更好懂; left = self.memoSearch(nums, i, k, memo); right=self.memoSearch(nums, k, j, memo); maxCoins = max(maxCoins, left + right + nums[i] * nums[k] * nums[j]). 
 也可以用dp: https://qoogle.top/leetcode-312-burst-balloons/ <br>
 Lintcode 476. Stone Game
-
+<br>
+1011
+410. Split Array Largest Sum
+1444
+<br>
 ###  [划分型DP](/Dynamic-Programming.py) (状态往往定义为前j个的某种特性，不包括j！！！！，这个思想很重要，相当于给前面做了一层buffer layer)
 - [0139. Word Break](Solutions/0139.Word-Break.py) (!!M) <br>
 dp[i]=can partition until ith char?, not including i; dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in wordDict)
@@ -151,7 +155,7 @@ Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search
 维护一个included=set(), 用来记录i->j中include的char，套模板时满足的条件是s[j] not in included; 更新j: included.add(s[j]); 更新i: included.remove(s[i])
 - [0076. Minimum Window Substring](Solutions/0076.Minimum-Window-Substring.py) (H) <br>
 维护一个sourceFreqDict, 用来记录i->j中的char的频率，套用模板时满足的条件是sourceFreqDict all included in targetFreqDict; 更新j: sourceDict[s[j]] += 1, 更新i: sourceDict[s[i]] -= 1.  time complexity is O(MN).
-It seems there is an O(M+N) solution, same idea of using slideing window, I should understand it later.
+It seems there is an O(M+N) solution, same idea of using slideing window, I should understand it later. 山景城一姐有video
 - [0340. Longest Substring with At Most K Distinct Characters](Solutions/0340.Longest-Substringwith-At-Most-K-Distinct-Characters.py) (H) <br>
 维护一个charDict, 用来记录i->j中的char的频率，套模板时满足的条件是len(charDict) <= k; 更新j: charDict[s[j]+=1; 更新i: charDict[s[i]] -= 1, if charDict[s[i]] == 0: del charDict[s[i]]
 - [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
