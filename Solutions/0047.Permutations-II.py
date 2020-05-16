@@ -32,34 +32,31 @@
 """
 输入数组中带重复元素的permutation
 """
-# @lc code=start
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
-        res = []
+        nums.sort()         # !!!!!输入里面有重复，都需要先把数组排序一下
         
-        nums.sort()     # !!!!!输入里面有重复，都需要先把数组排序一下
-
-        visited = {i: False for i in range(len(nums))}
-        self.dfs(nums, [], res, visited)
-
-        return res
-
-    def dfs(self, nums, curr, res, visited):
+        self.res = []
+        self.visited = set()
+        self.dfs(nums, [])
+        
+        return self.res
+    
+    def dfs(self, nums, curr):
         if len(curr) == len(nums):
-            res.append(curr.copy())
-            return
-
+            self.res.append(curr.copy())
+            
         for i in range(len(nums)):
-            # 首先这个数visited过了自然要continue
-            # 然后如果这个数与它前一个数是一样的但是前一个数并没有放进去，那就不要把这个数放进去了，因为我们是优先放前面的那个数。
-            if visited[i] or (i != 0 and nums[i] == nums[i-1] and not visited[i-1]):
+            if i in self.visited:
                 continue
-
+            # 如果nums[i]这个数与它前一个数是一样的但是前一个数并没有放进去，那就不要把这个数放进去了，因为我们是优先放前面的那个数。
+            if (i > 0 and nums[i] == nums[i-1]) and (i-1) not in self.visited:
+                continue
+                
             curr.append(nums[i])
-            visited[i] = True
-            self.dfs(nums, curr, res, visited)
+            self.visited.add(i)
+            
+            self.dfs(nums, curr)
+            
             curr.pop()
-            visited[i] = False
-        
-# @lc code=end
-
+            self.visited.remove(i)
