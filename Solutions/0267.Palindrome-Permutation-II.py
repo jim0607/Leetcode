@@ -121,7 +121,7 @@ class Solution:
             else:
                 charSet.add(ch)
                 
-        # now we have a charList that only holds char that appears even times, eg: "aaaabbc" now becomes "aab"
+        # now we have a charList that only holds char that appears two times, eg: "aaaabbc" now becomes "aab"
         # next we only need to do permutation for this charList
         # so the time complexity is O((n/2)!), which is quite an improve
                 
@@ -146,7 +146,7 @@ class Solution:
         
     def backtracking(self, charList, curr):
         if len(curr) == len(charList):
-            self.res.append("".join(curr.copy()))
+            self.res.append("".join(curr.copy()))   # always forgot has to be a deep copy
             return
         
         for i in range(len(charList)):
