@@ -41,6 +41,10 @@ A.sort(key = lambda x: (x[0], x[1])) -> A = [[2, 6], [5, 4], [6, 4], [6, 7]]
 然后把原来的大小为10的数组delete掉......依次这样下去，每次数组的大小都翻倍，这就是Double的思想。
 Double思想的应用: 用二分法search in a big sorted array的时候，确定end的位置就可以这样确定。
       
+10. list del, remove, pop 的区别！
+https://stackoverflow.com/questions/11520492/difference-between-del-remove-and-pop-on-lists
+      
+      
 
 String
       
