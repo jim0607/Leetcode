@@ -25,27 +25,30 @@ Return:
 class Solution:
     def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
         if not root:
+            return []
+        
+        self.res = []
+        self.backtrack(root, sum-root.val, [root.val])    # path必须从root出发所以就初始化为sum-root.val, [root.val]
+        return self.res
+    
+    def backtrack(self, root, sum, curr):   # dfs takes O(N) cuz need to traverse every node
+        """
+        return the path for root that can sum to sum
+        """
+        if not root.left and not root.right and sum == 0:
+            self.res.append(curr.copy())
             return
         
-        res = []
-        self.dfs(root, sum, [], res)
-        
-        return res
-    
-    def dfs(self, root, sum, curr, res):
         if not root:
             return
         
-        curr.append(root.val)
-        
-        if not root.left and not root.right:
-            if root.val == sum:
-                res.append(curr.copy())     # copy takes O(N)
-
-        self.dfs(root.left, sum - root.val, curr, res)  # dfs takes O(N) cuz need to traverse every node
-        self.dfs(root.right, sum- root.val, curr, res)
-        
-        curr.pop()      # backtracking
+        for node in (root.left, root.right):
+            if not node:
+                continue
+                
+            curr.append(node.val)
+            self.backtrack(node, sum - node.val, curr)   
+            curr.pop()
             
  
 """
