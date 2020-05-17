@@ -63,7 +63,7 @@ class Solution:
             currIdx += 1
             self.visited.add((new_x, new_y))
             self.backtrack(new_x, new_y, word, currIdx)
-            if self.res:
+            if self.res:    # 这样就不用再去找其他的n三个ext_x, next_y了，节约了一点时间，这样才通过的，没有这句话就TLE
                 return 
             currIdx -= 1
             self.visited.remove((new_x, new_y))
