@@ -21,120 +21,59 @@ Output: ["eat","oath"]
   
 class TrieNode:
     def __init__(self):
-        self.child = collections.defaultdict(TrieNode)
+        self.child = defaultdict(TrieNode)  # child is another TrieNode
         self.isEnd = False
-        
+    
 class Trie:
     def __init__(self):
         self.root = TrieNode()
         
     def insert(self, word):
         currNode = self.root
-        for char in word:
-            currNode = currNode.child[char]
+        for ch in word:
+            currNode = currNode.child[ch]       # currNode往前遍历
             
         currNode.isEnd = True
 
-"""
-这题需要打印所有路径，所以只能用dfs, 不能用bfs
-"""
 class Solution:
-    
-    MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)] 
-    
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-        if len(board) == 1 and len(board[0]) == 1 and board[0][0] in words:
-            return [board[0][0]]
+        self.board = board
+        self.MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        self.res = set()
         
-        wordTrie = Trie()     # instantiate a Trie to store all the words and their end information
+        wordTrie = Trie()   # instantiate a Trie
         for word in words:
             wordTrie.insert(word)
             
         root = wordTrie.root
         
-        res = []
-        for i in range(len(board)):
-            for j in range(len(board[0])):
-                if board[i][j] in root.child:
-                    self.dfs(board, root, i, j, "", res)    # renew res in bfs mehotd
+        for i in range(len(self.board)):
+            for j in range(len(self.board[0])):
+                if self.board[i][j] in root.child:
+                    self.visited = set()
+                    self.visited.add((i, j))
+                    self.backtrack(i, j, root.child[self.board[i][j]], self.board[i][j])
                     
-        return res
+        return list(self.res)
     
-    def dfs(self, board, currNode, i, j, currPath, res):
+    def backtrack(self, i, j, currNode, currPath):
         if currNode.isEnd:
-            res.append(currPath)
-            currNode.isEnd = False
-            
-        if not currNode:
-            return 
-        
-        char = board[i][j]
-        if char in currNode.child:
-            board[i][j] = "#"    # meaning board[i][j] is already visited
-            
-            childNode = currNode.child[char]
-            for move in self.MOVES:
-                row, col = i + move[0], j + move[1]
-                if 0 <= row < len(board) and 0 <= col < len(board[0]):
-                    self.dfs(board, childNode, row, col, currPath + char, res)
-                    
-            board[i][j] = char      # this is backtracking
-  
-  
+            self.res.add(currPath)
+            currNode.isEnd = False          # 注意千万不要return, 不然单词health找到之后就不再继续找单词healthy了，为了还能找到healty, 只能把currNode.isEnd设置为False
 
-class Solution:
-    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-        WORD_KEY = '$'
-        
-        trie = {}
-        for word in words:
-            node = trie
-            for letter in word:
-                # retrieve the next node; If not found, create a empty node.
-                node = node.setdefault(letter, {})
-            # mark the existence of a word in trie node
-            node[WORD_KEY] = word
-        
-        rowNum = len(board)
-        colNum = len(board[0])
-        
-        matchedWords = []
-        
-        def backtracking(row, col, parent):    
-            
-            letter = board[row][col]
-            currNode = parent[letter]
-            
-            # check if we find a match of word
-            word_match = currNode.pop(WORD_KEY, False)
-            if word_match:
-                # also we removed the matched word to avoid duplicates,
-                #   as well as avoiding using set() for results.
-                matchedWords.append(word_match)
-            
-            # Before the EXPLORATION, mark the cell as visited 
-            board[row][col] = '#'
-            
-            # Explore the neighbors in 4 directions, i.e. up, right, down, left
-            for (rowOffset, colOffset) in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
-                newRow, newCol = row + rowOffset, col + colOffset     
-                if newRow < 0 or newRow >= rowNum or newCol < 0 or newCol >= colNum:
-                    continue
-                if not board[newRow][newCol] in currNode:
-                    continue
-                backtracking(newRow, newCol, currNode)
-        
-            # End of EXPLORATION, we restore the cell
-            board[row][col] = letter
-        
-            # Optimization: incrementally remove the matched leaf node in Trie.
-            if not currNode:
-                parent.pop(letter)
+        for delta_x, delta_y in self.MOVES:
+            next_x, next_y = i + delta_x, j + delta_y
 
-        for row in range(rowNum):
-            for col in range(colNum):
-                # starting from each of the cells
-                if board[row][col] in trie:
-                    backtracking(row, col, trie)
-        
-        return matchedWords    
+            if next_x < 0 or next_x >= len(self.board) or next_y < 0 or next_y >= len(self.board[0]):
+                continue
+            if (next_x, next_y) in self.visited:
+                continue
+            if self.board[next_x][next_y] not in currNode.child:
+                continue
+                
+            temp = currNode     # 记录一下，一会儿好在backtracking的时候回退回来
+            currNode = currNode.child[self.board[next_x][next_y]]     # currNode往前遍历
+            self.visited.add((next_x, next_y))
+            self.backtrack(next_x, next_y, currNode, currPath + self.board[next_x][next_y])
+            currNode = temp
+            self.visited.remove((next_x, next_y))
