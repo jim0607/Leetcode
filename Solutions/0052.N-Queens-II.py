@@ -53,31 +53,33 @@
 """
 class Solution:
     def totalNQueens(self, n: int) -> int:
-        res = []
-        visited_col = {i: False for i in range(n)}
-        visited_sum = {i: False for i in range(2 * n - 1)}
-        visited_diff = {i: False for i in range(1 - n, n)}
-        self.dfs(n, [], res, visited_col, visited_sum, visited_diff)
+        self.res = []
+        self.visited_col = set()
+        self.visited_sum = set()
+        self.visited_diff = set()
         
-        return len(res)
+        self.backtrack(n, [])
+        
+        return len(self.res)
     
-    def dfs(self, n, curr, res, visited_col, visited_sum, visited_diff):
+    def backtrack(self, n, curr):
         if len(curr) == n:
-            res.append(curr.copy)
-            
+            self.res.append(curr.copy())
+            return
+        
         for i in range(n):
-            row, col = len(curr), i     #准备把col放到len(curr)的位置，还没放，所以row=len(curr)而不是len(curr)-1
-            if visited_col[col] or visited_sum[row + col] or visited_diff[row - col]:
+            row, col = len(curr), i
+            if col in self.visited_col or (row+col) in self.visited_sum or (row-col) in self.visited_diff:
                 continue
-            
+                
             curr.append(col)
-            visited_col[col] = True
-            visited_sum[row + col] = True
-            visited_diff[row - col] = True
+            self.visited_col.add(col)
+            self.visited_sum.add(row+col)
+            self.visited_diff.add(row-col)
             
-            self.dfs(n, curr, res, visited_col, visited_sum, visited_diff)
+            self.backtrack(n, curr)
             
             curr.pop()
-            visited_col[col] = False
-            visited_sum[row + col] = False
-            visited_diff[row - col] = False
+            self.visited_col.remove(col)
+            self.visited_sum.remove(row+col)
+            self.visited_diff.remove(row-col)
