@@ -435,17 +435,24 @@ Solution 1: divide and conquer方法：helper function return the increasing and
 
 ### [图上的搜索](/Depth-First-Search.py) <br>
 - [0079. Word Search](Solutions/0079.Word-Search.py) (!!M) <br>
-- [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!M) <br>
-打印所有路径所以用Trie + Backtracking DFS
-- [0051. N-Queens](Solutions/0051.N-Queens.py) (H)<br>
-- [0052. NQueens II](Solutions/0052.N-Queens-II.py) (!!H) <br>
+经典的backtrack题，whenever we find a char == word[0], we trigger a backtracking dfs. in dfs template, find solution:  currIdx == len(word); is_not_valid:  if new_x < 0 or new_x >= len(self.board) or new_y < 0 or new_y >= len(self.board[0]): continue; if (new_x, new_y) in self.visited: continue; if self.board[new_x][new_y] != word[currIdx]: continue; 需要一个visited set来标记已经走过的路径避免走重复的路径。
+- [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!H) <br>
+要求打印所有路径所以：Trie + Backtracking DFS. in dfs template, find_solution:  if currNode.isEnd; is_not_valid: if next_x < 0 or next_x >= len(self.board) or next_y < 0 or next_y >= len(self.board[0]): continue; if (next_x, next_y) in self.visited: continue; if self.board[next_x][next_y] not in currNode.child: continue.
+- [0052. N Queens II](Solutions/0052.N-Queens-II.py) (!!H) <br>
 排列问题：先打印出数组[0, 1, 2, 3....n]中所有的可能排列：[[0,1,2,3], [1,3,0,2].....]，其中的每一个子数组表示一种可能的方法，子数组中的数字表示在哪个数字的地方放一个Queen，数字对应的下标位置是放那个Queen的行，数字的值是放那个Queen的列。由于Queen可以很冲直撞，所以列是不能相同的，所以需要去重，用visited标记就可以。又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。用三个字典visited_col, visited_sum, visited_diff分别存储列号，横纵坐标之和，横纵坐标之差有没有被用过
+- [0051. N Queens](Solutions/0051.N-Queens.py) (H)<br>
 - [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (!!H) 打印/输出所有满足条件的路径必用DFS
 Step 1. 从end到start做BFS，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
 Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近。最后将路径都存入到res里
-1192. Critical Connections in a Network
+
 489. Robot Room Cleaner
 Sudoku Solver
+980. Unique Paths III
+3. 二维数组下的DFS搜索（八皇后、黄金矿工、数独）
+93 复原IP地址
+996 正方形数组的数目
+1239 串联字符串的最大长度
+
 
 
 
@@ -709,6 +716,8 @@ similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check w
 ### [Rabin Karp / Rolling Hash]()
 - [0028. Implement strStr()](Solutions/0028.Implement-strStr().py) (E) (Rabin Karp Algorithm O(M+N), use Hashcode, ord(ch)-ord("a"))
 1062. Logest repeating substring
+
+Tarjan's algorithm: 1192. Critical Connections in a Network
 
 
 ### At last, let's take a look at the famous Algorithm book.
