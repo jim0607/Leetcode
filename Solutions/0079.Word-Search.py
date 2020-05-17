@@ -36,7 +36,7 @@ class Solution:
         
         for i in range(len(self.board)):
             for j in range(len(self.board[0])):
-                if self.board[i][j] == word[0]:
+                if self.board[i][j] == word[0]:   # trigger a dfs whenever we find a char == word[0]
                     self.visited = set()
                     self.visited.add((i, j))
                     self.backtrack(i, j, word, 1)
