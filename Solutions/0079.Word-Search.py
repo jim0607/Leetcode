@@ -19,47 +19,51 @@ Given word = "ABCB", return false.
 
 
 
-class Solution(object):
-    def exist(self, board, word):
-        """
-        :type board: List[List[str]]
-        :type word: str
-        :rtype: bool
-        """
-        self.ROWS = len(board)
-        self.COLS = len(board[0])
-        self.board = board
+"""
+图上的搜索：dfs + backtracking
+这题5min内写出来了才算真正会了图上的dfs + backtracking
+"""
 
-        for row in range(self.ROWS):
-            for col in range(self.COLS):
-                if self.backtrack(row, col, word):
-                    return True
-
-        # no match found after all exploration
-        return False
-
-
-    def backtrack(self, row, col, suffix):
-        # bottom case: we find match for each letter in the word
-        if len(suffix) == 0:
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        if len(board) == 1 and len(word) == 1 and board[0][0] == word[0]:
             return True
+        
+        self.board = board    # 尽量少传一些东西到backtrack function
+        self.MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        self.res = False
+        
+        for i in range(len(self.board)):
+            for j in range(len(self.board[0])):
+                if self.board[i][j] == word[0]:
+                    self.visited = set()
+                    self.visited.add((i, j))
+                    self.backtrack(i, j, word, 1)
+                    
+                if self.res:        # 如果找到直接return True
+                    return True
+                
+        return False
+    
+    def backtrack(self, i, j, word, currIdx):   # 套用doc里的模板，想想递归的定义
+        if currIdx == len(word):
+            self.res = True
+            return
 
-        # Check the current status, before jumping into backtracking
-        if row < 0 or row == self.ROWS or col < 0 or col == self.COLS \
-                or self.board[row][col] != suffix[0]:
-            return False
-
-        ret = False
-        # mark the choice before exploring further.
-        self.board[row][col] = '#'
-        # explore the 4 neighbor directions
-        for rowOffset, colOffset in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
-            ret = self.backtrack(row + rowOffset, col + colOffset, suffix[1:])
-            # break instead of return directly to do some cleanup afterwards
-            if ret: break
-
-        # revert the change, a clean slate and no side-effect
-        self.board[row][col] = suffix[0]
-
-        # Tried all directions, and did not find any match
-        return ret
+        for delta_x, delta_y in self.MOVES:
+            new_x, new_y = i + delta_x, j + delta_y
+            
+            if new_x < 0 or new_x >= len(self.board) or new_y < 0 or new_y >= len(self.board[0]):
+                continue
+            if (new_x, new_y) in self.visited:
+                continue
+            if self.board[new_x][new_y] != word[currIdx]:
+                continue
+                
+            currIdx += 1
+            self.visited.add((new_x, new_y))
+            self.backtrack(new_x, new_y, word, currIdx)
+            if self.res:
+                return 
+            currIdx -= 1
+            self.visited.remove((new_x, new_y))
