@@ -95,6 +95,6 @@ Set
       
 5. 'set' does not support indexing, so numSet[0] is wrong sytax.
       
-6. 我去才发现定义visited = set(3) 是错的，只能一步步按4.1中那样定义！
+6. 我去才发现定义visited = set(3) 是错的，只能一步步按4.1中那样定义！79. Word Search
       
       
