@@ -22,6 +22,7 @@ Given word = "ABCB", return false.
 """
 图上的搜索：dfs + backtracking
 这题5min内写出来了才算真正会了图上的dfs + backtracking
+Time Complexity: O(N*4^L) where N is the number of cells in the board and L is the length of the word to be matched.
 """
 
 class Solution:
