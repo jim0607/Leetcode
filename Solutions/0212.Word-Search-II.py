@@ -49,7 +49,7 @@ class Solution:
         
         for i in range(len(self.board)):
             for j in range(len(self.board[0])):
-                if self.board[i][j] in root.child:
+                if self.board[i][j] in root.child:    # trigger a dfs whenever we find a char in root.child 
                     self.visited = set()
                     self.visited.add((i, j))
                     self.backtrack(i, j, root.child[self.board[i][j]], self.board[i][j])
