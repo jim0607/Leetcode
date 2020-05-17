@@ -56,6 +56,7 @@ class Solution:
                     
         return list(self.res)
     
+    # 其实下面就是dfs的模板
     def backtrack(self, i, j, currNode, currPath):
         if currNode.isEnd:
             self.res.add(currPath)
@@ -74,6 +75,8 @@ class Solution:
             temp = currNode     # 记录一下，一会儿好在backtracking的时候回退回来
             currNode = currNode.child[self.board[next_x][next_y]]     # currNode往前遍历
             self.visited.add((next_x, next_y))
+            
             self.backtrack(next_x, next_y, currNode, currPath + self.board[next_x][next_y])
-            currNode = temp
+            
+            currNode = temp     # backtrack 
             self.visited.remove((next_x, next_y))
