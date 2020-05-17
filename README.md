@@ -159,6 +159,8 @@ It seems there is an O(M+N) solution, same idea of using slideing window, I shou
 - [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
 Note that the numbers are positive, so the prefixProd will be an increasing arr. 维护一个sums, 用来记录i->j中数的produce. 
 
+-------567. Permutation in String----------
+
 
 
 # [Data Structure](/Data-Structure.py)
@@ -410,6 +412,9 @@ self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3,
 ### [Permutation](/Depth-First-Search.py)
 - [0046. Permutations](Solutions/0046.Permutations.py) (!!M)<br>
 与combination相比少了一个startIndex参数，加入visited用于防止重复出现; append之后需要将visited[i]变为True; pop出来之后将visited[i]再变回False
+- [0052. N Queens II](Solutions/0052.N-Queens-II.py) (!!H) <br>
+排列问题：先打印出数组[0, 1, 2, 3....n]中所有的可能排列：[[0,1,2,3], [1,3,0,2].....]，其中的每一个子数组表示一种可能的方法，子数组中的数字表示在哪个数字的地方放一个Queen，数字对应的下标位置是放那个Queen的行，数字的值是放那个Queen的列。由于Queen可以很冲直撞，所以列是不能相同的，所以需要去重，用visited标记就可以。又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。用三个字典visited_col, visited_sum, visited_diff分别存储列号，横纵坐标之和，横纵坐标之差有没有被用过
+- [0051. N Queens](Solutions/0051.N-Queens.py) (H)<br>
 - [0047. Permutations II](Solutions/0047.Permutations-II.py) (M) <br>
 模板: is_not_valid: if i in self.visited: continue; if (i > 0 and nums[i] == nums[i-1]) and (i-1) not in self.visited: continue
 - [0031. Next Permutation](Solutions/0031.Next-Permutation.py) (M) <br>
@@ -438,13 +443,11 @@ Solution 1: divide and conquer方法：helper function return the increasing and
 经典的backtrack题，whenever we find a char == word[0], we trigger a backtracking dfs. in dfs template, find solution:  currIdx == len(word); is_not_valid:  if new_x < 0 or new_x >= len(self.board) or new_y < 0 or new_y >= len(self.board[0]): continue; if (new_x, new_y) in self.visited: continue; if self.board[new_x][new_y] != word[currIdx]: continue; 需要一个visited set来标记已经走过的路径避免走重复的路径。
 - [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!H) <br>
 要求打印所有路径所以：Trie + Backtracking DFS. in dfs template, find_solution:  if currNode.isEnd; is_not_valid: if next_x < 0 or next_x >= len(self.board) or next_y < 0 or next_y >= len(self.board[0]): continue; if (next_x, next_y) in self.visited: continue; if self.board[next_x][next_y] not in currNode.child: continue.
-- [0052. N Queens II](Solutions/0052.N-Queens-II.py) (!!H) <br>
-排列问题：先打印出数组[0, 1, 2, 3....n]中所有的可能排列：[[0,1,2,3], [1,3,0,2].....]，其中的每一个子数组表示一种可能的方法，子数组中的数字表示在哪个数字的地方放一个Queen，数字对应的下标位置是放那个Queen的行，数字的值是放那个Queen的列。由于Queen可以很冲直撞，所以列是不能相同的，所以需要去重，用visited标记就可以。又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。用三个字典visited_col, visited_sum, visited_diff分别存储列号，横纵坐标之和，横纵坐标之差有没有被用过
-- [0051. N Queens](Solutions/0051.N-Queens.py) (H)<br>
 - [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (!!H) 打印/输出所有满足条件的路径必用DFS
 Step 1. 从end到start做BFS，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
-Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近。最后将路径都存入到res里
-
+Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近(if self.distance[nextWord] >= self.distance[currWord]: continue)。最后将路径都存入到res里
+695. Max Area of Island
+301. Remove Invalid Parentheses
 489. Robot Room Cleaner
 Sudoku Solver
 980. Unique Paths III
@@ -452,6 +455,7 @@ Sudoku Solver
 93 复原IP地址
 996 正方形数组的数目
 1239 串联字符串的最大长度
+
 
 
 
