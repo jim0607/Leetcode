@@ -141,65 +141,77 @@ class Solution:
 
 # @lc code=end
 
-"""二刷: made a slight change to help it faster: break in bfs if neighbor == beginWord"""
+"""三刷: made a slight change to help it faster"""
+"""
+step 1: from endWord to startWord, do a bfs and store all the distance to endWord information in bfs
+step 2: start from startWord, we do dfs, each tiem, we only travel to the word with distance closer to endWord
+"""
 class Solution:
     def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
         wordList.append(beginWord)
+        self.wordList = wordList
         
-        distance = collections.defaultdict()
-        self.bfs(endWord, beginWord, wordList, distance)
+        self.distance = collections.defaultdict(int)
+        self.distance[endWord] = 0
         
-        print(distance)
+        self.bfs(beginWord, endWord)
         
-        res = []
-        self.dfs(endWord, wordList, beginWord, [beginWord], distance, res)
+        if beginWord not in self.distance:      # if beginWord not in the dictionary, then we cannot reach beginWord from endWord
+            return []
         
-        return res
-    
-    def bfs(self, endWord, beginWord, wordList, distance):
+        self.res = []
+        self.backtrack(endWord, beginWord, [beginWord])
+        
+        return self.res
+        
+    def bfs(self, beginWord, endWord):
         q = collections.deque()
+        visited = set()
         q.append(endWord)
-        distance[endWord] = 0
+        visited.add(endWord)
         
         dist = 0
         while q:
             dist += 1
             lens = len(q)
+            
             for _ in range(lens):
                 currWord = q.popleft()
-                neighbors = self.getNeighbors(wordList, currWord)
-                for neighbor in neighbors:
-                    if neighbor not in distance:
-                        q.append(neighbor)
-                        distance[neighbor] = dist + 1
-                        
-                        if neighbor == beginWord:       # I thought I made it a little faster here, but somehow didn't, but good thinking man.
-                            break
-    
-    def dfs(self, endWord, wordList, currWord, currWords, distance, res):
-        if currWord == endWord:
-            res.append(currWords.copy())        # !!! has to be a deep copy
-            return
-        
-        neighbors = self.getNeighbors(wordList, currWord)
-        for neighbor in neighbors:
-            if currWord in distance and neighbor in distance:
-                if distance[neighbor] >= distance[currWord]:
-                    continue
-
-                currWords.append(neighbor)
-                self.dfs(endWord, wordList, neighbor, currWords, distance, res)
-                currWords.pop()
-            
-    def getNeighbors(self, wordList, currWord):
-        wordSet = set(wordList)
-        res = []
-        
-        for i in range(len(currWord)):
-            for ch in "abcdefghijklmnopqrstuvwxyz":
-                if ch != currWord[i]:
-                    possibleWord = currWord[:i] + ch + currWord[i + 1:]
-                    if possibleWord in wordSet:
-                        res.append(possibleWord)
+                
+                for nextWord in self.nextWords(currWord):
+                    if nextWord in visited:
+                        continue
                     
-        return res
+                    q.append(nextWord)
+                    visited.add(nextWord)
+                    self.distance[nextWord] = dist
+                    
+                    if nextWord == beginWord:   # pruning: return if nextWord == beginWord
+                        return
+    
+    
+    def backtrack(self, endWord, currWord, currWords):
+        if currWord == endWord:
+            self.res.append(currWords.copy())
+            
+        for nextWord in self.nextWords(currWord):
+            if self.distance[nextWord] >= self.distance[currWord]:
+                continue
+            
+            currWords.append(nextWord)
+            self.backtrack(endWord, nextWord, currWords)
+            currWords.pop()
+            
+    
+    def nextWords(self, word):
+        wordSet = set(self.wordList)
+        
+        possibleWords = set()
+        for i in range(len(word)):
+            for letter in "abcdefghijklmnopqrstuvwxyz":
+                if letter != word[i]:
+                    possibleWord = word[:i] + letter + word[i+1:]
+                    if possibleWord in wordSet:
+                        possibleWords.add(possibleWord)
+                        
+        return possibleWords
