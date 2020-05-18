@@ -22,7 +22,7 @@ class Solution:
     
     def backtrack(self, n, leftCnt, rightCnt, curr):
         if leftCnt == n and rightCnt == n:
-            self.res.append(curr)
+            self.res.append(curr)   # string doesn't need deep copy because it is immutable
             return
         
         if leftCnt < rightCnt:  # 这个判断尤为关键！
