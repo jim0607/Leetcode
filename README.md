@@ -462,11 +462,8 @@ Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来�
 - [0489. Robot Room Cleaner](Solutions/0489. Robot Room Cleaner) (H) 
 遍历机器人的四个方向即可，唯一需要注意的是每次都需要调整机器人的朝向才能move一下，毕竟是机器人嘛
 - [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (H) <br> 
-dfs + backtracking, time complexity is (9!)^9, which is veyr high.
------------ 980. Unique Paths III ----------
-------- 301. Remove Invalid Parentheses ---------
-------- 329. Longest Increasing Path in a Matrix ---------
--------- 1239. Maximum Length of a Concatenated String with Unique Characters ----------
+dfs + backtracking, time complexity is (9!)^9, which is veyr high. <br>
+----------- 980. Unique Paths III ---------- 351. Android Unlock Patterns ---------- 301. Remove Invalid Parentheses ----------- 329. Longest Increasing Path in a Matrix ----------- 1239. Maximum Length of a Concatenated String with Unique Characters ----------
 
 
 
