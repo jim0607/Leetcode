@@ -418,6 +418,8 @@ self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3,
 ### [Permutation](/Depth-First-Search.py)
 - [0046. Permutations](Solutions/0046.Permutations.py) (!!M)<br>
 与combination相比少了一个startIndex参数，加入visited用于防止重复出现; append之后需要将visited[i]变为True; pop出来之后将visited[i]再变回False
+- [0022. Generate Parentheses](Solutions/0022.Generate-Parentheses.py) (!!M)  <br>
+if leftCnt == n and rightCnt == n: self.res.append(curr) return; if leftCnt < rightCnt: return  # 这个判断尤为关键！
 - [0052. N Queens II](Solutions/0052.N-Queens-II.py) (!!H) <br>
 排列问题：先打印出数组[0, 1, 2, 3....n]中所有的可能排列：[[0,1,2,3], [1,3,0,2].....]，其中的每一个子数组表示一种可能的方法，子数组中的数字表示在哪个数字的地方放一个Queen，数字对应的下标位置是放那个Queen的行，数字的值是放那个Queen的列。由于Queen可以很冲直撞，所以列是不能相同的，所以需要去重，用visited标记就可以。又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。用三个字典visited_col, visited_sum, visited_diff分别存储列号，横纵坐标之和，横纵坐标之差有没有被用过
 - [0051. N Queens](Solutions/0051.N-Queens.py) (H)<br>
@@ -427,8 +429,6 @@ self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3,
 step 1: sweeping from right to left, find the first decreasing element; Step 2: sweep from right to left, find the first element larger just than nums[i], then swap nums[i] and nums[j], then swap all the items starting from i+1
 - [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (!!M)  <br>
 step 1: put the characters that have seen two times in the char list; now we have a charList that only holds char that appears even times, eg: "aaaabbc" now becomes "aab", Step 2: we only need to do permutation for this charList, so the time complexity is O((n/2)!), which is quite an improve. Step 3: when return the results, we just use the permuation generated in steps 2 + permuation[::-1]
-- [0022. Generate Parentheses](Solutions/0022.Generate-Parentheses.py) (!!M)  <br>
-if leftCnt == n and rightCnt == n: self.res.append(curr) return; if leftCnt < rightCnt: return  # 这个判断尤为关键！
 - [0060. Permutation Sequence](Solutions/0060.Permutation-Sequence.py) (M)  <br>
 It really is all about pattern finding; https://leetcode.com/problems/permutation-sequence/discuss/22507/%22Explain-like-I'm-five%22-Java-Solution-in-O(n)
 
@@ -447,6 +447,9 @@ Solution 1: divide and conquer方法：helper function return the increasing and
 
 
 ### [图上的搜索](/Depth-First-Search.py) <br>
+- [0093. Restore IP Addresses](Solutions/should solve later) (M)  <br>
+根据目前刷了这么多题，得出了两个经验，一是只要遇到字符串的子序列或配准问题首先考虑动态规划DP，二是只要遇到需要求出所有可能情况首先考虑用递归
+https://www.cnblogs.com/grandyang/p/4305572.html
 - [0017. Letter Combinations of a Phone Number](Solutions/0017.Letter-Combinations-of-a-Phone-Number.py) (!!M) <br>
 经典的backtrack题，in dfs template, find solution: if currIdx == len(digits); for next_candidate in list_of_candidates: for ch in self.phone[digits[currIdx]]; is_not_valid: None
 - [0079. Word Search](Solutions/0079.Word-Search.py) (!!M) <br>
@@ -461,7 +464,6 @@ Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来�
 - [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (H) <br> 
 dfs + backtracking, time complexity is (9!)^9, which is veyr high.
 ----------- 980. Unique Paths III ----------
------------- 93	Restore IP Addresses ------------
 ------- 301. Remove Invalid Parentheses ---------
 ------- 329. Longest Increasing Path in a Matrix ---------
 -------- 1239. Maximum Length of a Concatenated String with Unique Characters ----------
