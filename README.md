@@ -159,7 +159,10 @@ It seems there is an O(M+N) solution, same idea of using slideing window, I shou
 - [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
 Note that the numbers are positive, so the prefixProd will be an increasing arr. 维护一个sums, 用来记录i->j中数的produce. 
 
--------567. Permutation in String----------
+-------567. Permutation in String; 438. Find All Anagrams in a String - Medium
+209. Minimum Size Subarray Sum - Medium
+159. Longest Substring with At Most Two Distinct Characters - Medium
+30. Substring with Concatenation of All Words - Hard----------
 
 
 
@@ -262,6 +265,7 @@ Firstly we need to define a TrieNode class, a TrieNode class hs two properties: 
 addWord mehtod is the same as 208 insert method. But search mehtod is a little different than search method in 208, cuz "." is a wildcard that can represent any char. So we use a queue to store (currNode, idx), then append layer by layer.
 - [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!M) <br>
 The capability of finding matching prefix is where the data structure called Trie would shine, comparing the hashset data structure. Not only can Trie tell the membership of a word, but also it can instantly find the words that share a given prefix. 打印所有路径所以用Trie + Backtracking DFS. 非常经典的题呀！
+------- 472 ------------
 
 
 # [Breadth First Search](/Breadth-First-Search.py)
@@ -301,6 +305,8 @@ Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现; S
 - [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (!!M, youtubed) <br>
 Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a Breadth First Search.
 Solution 2: dynamic connection problem, Union Find
+- [0695. Max Area of Island](Solutions/0695.Max-Area-of-Island.py) (M) <br>
+Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a Breadth First Search.
 - [0994. Rotting Oranges](Solutions/0994.Rotting-Oranges.py) (M) <br>
 Step 1. append the rotten ones to the first level, Step 2: bfs to turn the adjacent fresh ones into rotten ones. 在class solution(): 后面定义全局变量 EMPTY = 0; FRESH = 1; MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 - [286. Walls and Gates](Solutions/0286.Walls-and-Gates.py) (M) <br>
@@ -421,6 +427,8 @@ self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3,
 step 1: sweeping from right to left, find the first decreasing element; Step 2: sweep from right to left, find the first element larger just than nums[i], then swap nums[i] and nums[j], then swap all the items starting from i+1
 - [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (!!M)  <br>
 step 1: put the characters that have seen two times in the char list; now we have a charList that only holds char that appears even times, eg: "aaaabbc" now becomes "aab", Step 2: we only need to do permutation for this charList, so the time complexity is O((n/2)!), which is quite an improve. Step 3: when return the results, we just use the permuation generated in steps 2 + permuation[::-1]
+- [0022. Generate Parentheses](Solutions/0022.Generate-Parentheses.py) (!!M)  <br>
+if leftCnt == n and rightCnt == n: self.res.append(curr) return; if leftCnt < rightCnt: return  # 这个判断尤为关键！
 - [0060. Permutation Sequence](Solutions/0060.Permutation-Sequence.py) (M)  <br>
 It really is all about pattern finding; https://leetcode.com/problems/permutation-sequence/discuss/22507/%22Explain-like-I'm-five%22-Java-Solution-in-O(n)
 
@@ -439,6 +447,8 @@ Solution 1: divide and conquer方法：helper function return the increasing and
 
 
 ### [图上的搜索](/Depth-First-Search.py) <br>
+- [0017. Letter Combinations of a Phone Number](Solutions/0017.Letter-Combinations-of-a-Phone-Number.py) (!!M) <br>
+经典的backtrack题，in dfs template, find solution: if currIdx == len(digits); for next_candidate in list_of_candidates: for ch in self.phone[digits[currIdx]]; is_not_valid: None
 - [0079. Word Search](Solutions/0079.Word-Search.py) (!!M) <br>
 经典的backtrack题，whenever we find a char == word[0], we trigger a backtracking dfs. in dfs template, find solution:  currIdx == len(word); is_not_valid:  if new_x < 0 or new_x >= len(self.board) or new_y < 0 or new_y >= len(self.board[0]): continue; if (new_x, new_y) in self.visited: continue; if self.board[new_x][new_y] != word[currIdx]: continue; 需要一个visited set来标记已经走过的路径避免走重复的路径。
 - [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!H) <br>
@@ -446,15 +456,16 @@ Solution 1: divide and conquer方法：helper function return the increasing and
 - [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (!!H) 打印/输出所有满足条件的路径必用DFS
 Step 1. 从end到start做BFS，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
 Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近(if self.distance[nextWord] >= self.distance[currWord]: continue)。最后将路径都存入到res里
-695. Max Area of Island
-301. Remove Invalid Parentheses
-489. Robot Room Cleaner
-Sudoku Solver
-980. Unique Paths III
-3. 二维数组下的DFS搜索（八皇后、黄金矿工、数独）
-93 复原IP地址
-996 正方形数组的数目
-1239 串联字符串的最大长度
+- [0489. Robot Room Cleaner](Solutions/0489. Robot Room Cleaner) (H) 
+遍历机器人的四个方向即可，唯一需要注意的是每次都需要调整机器人的朝向才能move一下，毕竟是机器人嘛
+- [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (H) <br> 
+dfs + backtracking, time complexity is (9!)^9, which is veyr high.
+----------- 980. Unique Paths III ----------
+------------ 93	Restore IP Addresses ------------
+------- 301. Remove Invalid Parentheses ---------
+------- 329. Longest Increasing Path in a Matrix ---------
+-------- 1239. Maximum Length of a Concatenated String with Unique Characters ----------
+
 
 
 
