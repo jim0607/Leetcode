@@ -12,16 +12,16 @@ Output: [3,4]
 
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
-        lens = len(nums)
-        if lens == 0:
+        if not nums:
             return [-1, -1]
+        
         start, end = 0, lens-1
         first, last = 0, lens-1
         while start + 1 < end:
             mid = start + (end - start) // 2
             if target <= nums[mid]:   # 这种判断条件是只要遇到相等的就把右半部分去掉，也就是尽量往左逼
                 end = mid
-            elif target > nums[mid]:
+            else:
                 start = mid
         # 由于上面的判断条件是尽量往左逼，所以逼出来的结果一定是第一个出现的target，此时便找到了first position of element
         if target == nums[end]:  
@@ -34,9 +34,8 @@ class Solution:
             mid = start + (end - start) // 2
             if target < nums[mid]:   
                 end = mid
-            elif target >= nums[mid]: # 这种判断条件是只要遇到相等的就把左半部分去掉，也就是尽量往右逼
+            else: # 这种判断条件是只要遇到相等的就把左半部分去掉，也就是尽量往右逼
                 start = mid
-        print(start, end)
         # 由于上面的判断条件是尽量往右逼，所以逼出来的结果一定是最后一个出现的target
         if target == nums[start]:
             last = start
