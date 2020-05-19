@@ -29,11 +29,10 @@ class Solution:
 
 
 # Newton's Method. O(logN) since the set converges quadratically.
-class Solution:
+cclass Solution:
     def mySqrt(self, x: int) -> int:
-        if x == 1:
-            return 1
-        y = x
-        while y**2 - x >= 1:
-            y = (y + x / y) / 2
-        return int(y)
+        sqrt = x
+        while sqrt*sqrt - x >= 1:
+            sqrt = (sqrt + x / sqrt) / 2
+            
+        return int(sqrt)
