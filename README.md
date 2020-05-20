@@ -513,14 +513,14 @@ OOOXXX problem, to find the first O. 二分法不难想，难想的是比较mid�
 - [0074. Search a 2D Matrix](Solutions/0074.Search-a-2D-Matrix.py) (M) <br>
 Think it as a long 1D array with MxN element, then we can use binary search; row = mid // n, col = mid % n; O(log(MN)), O(1)
 - [0240. Search a 2D Matrix II](Solutions/0240.Search-a-2D-Matrix-II.py) (M) <br>
-start from left bottom, head up to right top, each comparism rule out a row (i-1=1) or rule out a col (j+=1)
+start from left bottom, head up to right top, each comparism rule out a row (i-1=1) or rule out a col (j+=1). O(M+N)
 - [0050. Pow(x, n)](Solutions/0050.Pow(x,n).py) (M) <br>
-if mod == 0: res * = x^div; else: res * = x^div * x
+recursion solution: half = self.myPow(x, n//2); if n%2 == 0: res = half * half; else: res = half * half * x
 - [0029. Divide Two Integers](Solutions/0029.Divide-Two-Integers.py) (M) <br>
 eg: 10//3, 每次通过右移3 << 1的方法将3乘以2,这种算法是O(N), 每次都右移几次3 << x, 相当于3x2x2x2...,直到3x2x2x2...>10, 然后取余数继续这个算法
 - [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
-target是随着i的移动而变化的binary search
------------- 315. Count of Smaller Numbers After Self --------------
+midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx1], nums2[midIdx2]; when k is relatively large, then we can safely drop the first half that are surely smaller than the kth, the question is where is the first half that are surely smaller than the kth? by comparing midVal1 and midVal2, we can find it out, if midVal1 < midVal2, then all the vals in nums1[:midIdx1] are less than midVal2, also all of those vals are less than kth, we can safely drop all those vals
+
 
 
 
@@ -537,6 +537,7 @@ for i in range(lens-1, -1, -1 ): Find maxIndex -> flip max to top -> flip max to
 <br> 147. Insertion sort a linked list <br>
 - [0280. Wiggle Sort](Solutions/0280.Wiggle-Sort.py) (M) <br>
 O(N): 从左到右扫一遍，不满足条件的交换就好了。定义一个变量prevShouldLessThanCurr, in the for loop, prevShouldLessThanCurr = not prevShouldLessThanCurr every step, and based on prevShouldLessThanCurr is true or not, we swap nums[i-1] with nums[i] or not.
+------------ 315. Count of Smaller Numbers After Self  solution: use merge sort --------------
 
 
 ### [Partition and quick select](/Sort.py) 
@@ -708,6 +709,7 @@ If first position is a GOOD index then we can reach the last index from the firs
 - [0415. Add Strings](Solutions/0415.Add-Strings.py) (!!E) <br>
 similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check while i >= 0: ;  while i >= 0: ; 最后还要check if carryBit > 0:
 277. Find the Celebrity
+161 - One Edit Distance
 
 
 
