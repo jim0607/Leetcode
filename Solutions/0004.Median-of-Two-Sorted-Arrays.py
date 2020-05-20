@@ -42,37 +42,48 @@
 
 
 
-"""九章算法的解法: find the kth smallest element
+"""find the kth smallest element
 O(log(M+N)), O(log(M+N))"""
 
 class Solution:
-    def findMedianSortedArrays(self, A, B) -> float:
-        def getKthSmallest(i, j, k):
-            """return the Kth smallest in A[i:], and B[j:]"""
-            if i == len(A):
-                return B[j + k]     # eg: A = [], B = [1, 2, 3]
-            if j == len(B):
-                return A[i + k]
-            if k == 0:
-                return min(A[i], B[j])
-            
-            midA_idx = min((k + 1) // 2, len(A) - i)
-            midB_idx = min((k + 1) // 2, len(B) - j)
-            
-            midA = A[i + midA_idx - 1]
-            midB = B[j + midB_idx - 1]
-            
-            if midA < midB:     # should be noted that there are k elements in total before midA and midB, so if midA < midB, then midA is too small for the kth largest
-                return getKthSmallest(i + midA_idx, j, k - midA_idx)
-            else:
-                return getKthSmallest(i, j + midB_idx, k - midB_idx)
-        
-        n = len(A) + len(B)
-        if n % 2 != 0:
-            return getKthSmallest(0, 0, n // 2) / 1.0
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        lens = len(nums1) + len(nums2)
+        if lens % 2 == 1:
+            return self.kthSmallest(nums1, nums2, lens//2)
         else:
-            return (getKthSmallest(0, 0, n // 2) + getKthSmallest(0, 0, n // 2 - 1)) / 2.0
-
+            return ( self.kthSmallest(nums1, nums2, lens//2 - 1) + self.kthSmallest(nums1, nums2, lens//2) ) / 2.0
+        
+    def kthSmallest(self, nums1, nums2, k):
+        if not nums1:
+            return nums2[k]
+        if not nums2:
+            return nums1[k]
+        
+        midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2
+        midVal1, midVal2 = nums1[midIdx1], nums2[midIdx2]
+        
+        # when k is relatively large, then we can safely drop the first half that are surely smaller than the kth
+        # the question is where is the first half that are surely smaller than the kth?
+        # by comparing midVal1 and midVal2, we can find it out
+        # if midVal1 < midVal2, then all the vals in nums1[:midIdx1] are less than midVal2 
+        # also all of those vals are less than kth, we can safely drop all those vals
+        if k > midIdx1 + midIdx2:
+            if midVal1 < midVal2:   
+                return self.kthSmallest(nums1[midIdx1 + 1:], nums2, k - midIdx1 - 1)
+            else:
+                return self.kthSmallest(nums1, nums2[midIdx2 + 1:], k - midIdx2 - 1)
+            
+        # when k is relatively small, then we can safely drop the second half that are surely larger than the kth
+        # the question is where is the second half that are surely larger then the kth?
+        # by comparing midVal1 and midVal2, we can find it out
+        # if midVal1 > midVal2, then all the vals in nums1[midIdx1:] are larger than midVal2
+        # also all of those vals are larger than kth, we can safely drop all those vals
+        else:
+            if midVal1 > midVal2:
+                return self.kthSmallest(nums1[:midIdx1], nums2, k)
+            else:
+                return self.kthSmallest(nums1, nums2[:midIdx2], k)
+            
 
 
 
