@@ -38,7 +38,8 @@
 
 """C(m, n)：m个里面找出n个的组合问题
 模板的DFS + back tracking求combination问题
-O(N*S), S是solution的个数，这里S=2^N"""
+O(N*S), S是solution的个数，这里S=2^N
+O(N*S) to generate all subsets and then copy them into output list."""
 # @lc code=start
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
@@ -50,7 +51,7 @@ class Solution:
     
     def dfs(self, nums, startIndex, curr, res):
         """递归的定义：从nums中的startIndex位置开始，挑选一些数，放到curr中，然后存入res里面，看输出的数组就可以理解程序的执行顺序了"""
-        res.append(curr.copy())                 # has to be a deep copy
+        res.append(curr.copy())                 # has to be a deep copy O(N)
         # 这个for循环里curr一直在重复append和pop，[1, 2] -> [1] -> [1, 3] -> [1] -> [1, 4]......
         # 这就是为什么用back tracking了
         for i in range(startIndex, len(nums)):
