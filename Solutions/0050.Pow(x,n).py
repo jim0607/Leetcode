@@ -15,6 +15,35 @@ Output: 0.25000
 Explanation: 2-2 = 1/22 = 1/4 = 0.25
 
 
+    
+"""
+recursion solution: O(logN)
+"""    
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        if n == 0:
+            return 1
+        if n == 1:
+            return x
+        if n == -1:
+            return 1 / x
+        
+        res = 0.0
+        
+        half = self.myPow(x, n//2)     # 用一个half避免重复计算 self.myPow(x, n//2) * self.myPow(x, n//2) 中需要计算self.myPow(x, n//2)两次
+        
+        if n%2 == 0:
+            res = half * half
+        else:
+            res = half * half * x
+        
+        return res 
+    
+
+    
+    
+    
+    
 
 class Solution:
     def myPow(self, x: float, n: int) -> float:
