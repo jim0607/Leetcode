@@ -15,26 +15,24 @@ the real array is[1,2,2,3].So return 1
 Challenge：Can you partition the array in-place and in O(n)?
 
 
+"""
+用quick select的模板
+"""
 class Solution:
-    """
-    @param nums: The integer array you should partition
-    @param k: An integer
-    @return: The index after partition
-    """
     def partitionArray(self, nums, k):
         if not nums:
             return 0
-        
-        i, j = 0, len(nums) - 1
-        temp = nums[i]  # nums[i]在后面会改变，所以需要存储起来
-        while i < j:
-            while i < j and nums[j] >= k:   # 都是先判断j
-                j -= 1
-            nums[i] = nums[j]
-            while i < j and nums[i] < k:
-                i += 1
-            nums[j] = nums[i]
             
-        nums[i] = temp  # nums[i]的值需要回归，这一步是必须的！
-        
-        return i if nums[i] >= k else i + 1     # 不懂为什么要这样
+        left, right = 0, len(nums) - 1
+        while left <= right:
+            while left <= right and nums[left] < k:
+                left += 1
+            while left <= right and nums[right] >= k:   # 题目要求 All elements >= k are moved to the right
+                right -= 1
+            
+            if left <= right:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right -= 1
+                
+        return left
