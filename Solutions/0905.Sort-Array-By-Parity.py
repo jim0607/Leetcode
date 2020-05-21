@@ -60,26 +60,23 @@ class Solution:
 
 
 """用双指针的方法做partition，与lintcode 31的方法一模一样"""
-# @lc code=start
+
 class Solution:
     def sortArrayByParity(self, A: List[int]) -> List[int]:
-        if not A:
-            return A
-        
-        lens = len(A)
-        i, j = 0, lens - 1
-        temp = A[i]
-        while i < j:
-            while i < j and A[j] % 2 == 1:
-                j -= 1
-            A[i] = A[j]
-            while i < j and A[i] % 2 == 0:
-                i += 1
-            A[j] = A[i]
-
-        A[i] = temp
-
+        self.quickSort(A, 0, len(A) - 1)
         return A
         
-# @lc code=end
-
+    def quickSort(self, A, start, end):
+        if start >= end:
+            return
+        
+        left, right = start, end
+        while left <= right:
+            while left <= right and A[left] % 2 == 0:
+                left += 1
+            while left <= right and A[right] % 2 == 1:
+                right -= 1
+            if left <= right:
+                A[left], A[right] = A[right], A[left]
+                left += 1
+                right -= 1
