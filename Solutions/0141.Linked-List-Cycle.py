@@ -73,21 +73,6 @@ class Solution:
     def hasCycle(self, head: ListNode) -> bool:
         if not head or not head.next:
             return False
-
-        slow, fast = head.next, head.next.next
-        while slow != fast:
-            if not fast or not fast.next:
-                return False
-            slow = slow.next
-            fast = fast.next.next
-
-        return True
-
-"""solution 2"""
-class Solution:
-    def hasCycle(self, head: ListNode) -> bool:
-        if not head or not head.next:
-            return False
         
         slow, fast = head, head.next
         while fast and fast.next:
