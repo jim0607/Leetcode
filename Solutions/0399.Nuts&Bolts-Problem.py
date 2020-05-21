@@ -70,7 +70,7 @@ class Solution:
         self.quick_sort(nuts, bolts, index + 1, end, cmp)
         
     def partition(self, arr, start, end, pivot, cmp):
-        #kick the elem matches pivot to front, 这是返回pivotIdx的模板
+        #kick the elem matches pivot to front, 相等的值是为了保证bolts和nuts进行的是同样的partition
         for i in range(start, end + 1):
             if cmp(arr[i], pivot) == 0 or cmp(pivot, arr[i]) == 0:
                 arr[i], arr[start] = arr[start], arr[i]
