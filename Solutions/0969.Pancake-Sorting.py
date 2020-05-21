@@ -27,37 +27,30 @@ class Solution:
         if not A:
             return A
         
-        lens = len(A)        
+        lens = len(A)
+        if lens == 1:
+            return A
+        
         res = []
-        for i in range(lens - 1, 0, -1):            # O(N)
-            # find max
-            max_index = self.findMax(A[:i + 1])     # O(N)
-            # flip max to top
-            A = self.flip(A[:max_index + 1]) + A[max_index + 1:]            # O(N)
-            # flip max to bottom
-            A = self.flip(A[:i + 1]) + A[i + 1:]                  # O(N)
-            print(A)
-            res.append(max_index + 1)
+        for j in range(lens - 1, 0, -1):
+            # find the max from 0-jth idx
+            maxVal, maxIdx = A[0], 0
+            for i in range(j + 1):
+                if A[i] > maxVal:
+                    maxVal = A[i]
+                    maxIdx = i
+                    
+            # do two filps
+            self.flip(A, 0, maxIdx)
+            res.append(maxIdx + 1)
+            self.flip(A, 0, i)
             res.append(i + 1)
             
         return res
-           
-    # return the index of the max_num position
-    def findMax(self, arr):
-        max_num = -float("inf")
-        max_index = 0
-        for j in range(len(arr)):
-            if arr[j] >= max_num:
-                max_num = arr[j]
-                max_index = j
-        return max_index
-        
-    def flip(self, arr):
-        i, j = 0, len(arr) - 1
-        while i < j:
-            arr[i], arr[j] = arr[j], arr[i]
-            i += 1
-            j -= 1
             
-        return arr
-        
+    def flip(self, A, start, end):
+        i, j = start, end
+        while i < j:
+            A[i], A[j] = A[j], A[i]
+            i += 1
+            j -= 1        
