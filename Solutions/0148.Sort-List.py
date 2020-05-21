@@ -40,72 +40,59 @@
 
 """解法一：bottom up merge sort
 O(NlogN), O(1)"""
+
 class Solution:
     def sortList(self, head: ListNode) -> ListNode:
-        """return the head of the the sorted list"""
+        """
+        sort the linked list in accending order
+        return the head of the list
+        """
         if not head or not head.next:
             return head
         
-        # step 1: divide
-        midNode = self.findMid(head)
-        
-        # cut into left and right halfs
-        leftHead = head
-        
-        rightHead = midNode.next
-        midNode.next = None
-        
-        # then we sort the left and right list - divide
-        leftHead = self.sortList(leftHead)
-        rightHead = self.sortList(rightHead)
-        
-        # conquer/merge
-        newHead = self.merge(leftHead, rightHead)
-        
-        return newHead
-    
-    def findMid(self, head):
-        """return the midNode of the list"""
-        if not head or not head.next:
-            return head
-        
+        # step 1: find the mid of the list
         slow, fast = head, head.next
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-            
-        return slow
-    
-    def merge(self, leftHead, rightHead):
-        """return the new head after the merge"""
-        if not leftHead:
-            return rightHead
-        if not rightHead:
-            return leftHead
         
-        dummy = ListNode(0)
-        curr = dummy
-        leftCurr, rightCurr = leftHead, rightHead
-        while leftCurr and rightCurr:
-            if leftCurr.val < rightCurr.val:
-                curr.next = leftCurr
-                leftCurr = leftCurr.next
+        # step 2: cut the list into two equal parts
+        leftTail = slow
+        rightHead = slow.next
+        leftTail.next = None
+
+        # step 3: divide into two parts and recrussviely sort left and right
+        sortedLeftHead = self.sortList(head)
+        sortedRightHead = self.sortList(rightHead)
+        
+        # step 4: merge the left and right part, by comparing
+        # 2 -> 4
+        # 1 -> 3
+        # dummyNode->1; 1 -> 2; 2 -> 3
+        dummyNode = ListNode(0)
+        curr = dummyNode
+        currLeft, currRight = sortedLeftHead, sortedRightHead
+        while currLeft and currRight:
+            if currLeft.val < currRight.val:
+                curr.next = currLeft
                 curr = curr.next
+                currLeft = currLeft.next
             else:
-                curr.next = rightCurr
-                rightCurr = rightCurr.next
+                curr.next = currRight
                 curr = curr.next
-                
-        while leftCurr:
-            curr.next = leftCurr
-            leftCurr = leftCurr.next
-            curr = curr.next
-        while rightCurr:
-            curr.next = rightCurr
-            rightCurr = rightCurr.next
-            curr = curr.next
+                currRight = currRight.next
         
-        return dummy.next
+        while currLeft:
+            curr.next = currLeft
+            curr = curr.next
+            currLeft = currLeft.next
+            
+        while currRight:
+            curr.next = currRight
+            curr = curr.next
+            currRight = currRight.next
+            
+        return dummyNode.next
 
 
 """解法二 is trivial：把ListNode都放到arr中，然后sort arr, 然后再把值放到ListNode中
