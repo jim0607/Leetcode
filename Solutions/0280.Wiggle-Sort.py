@@ -22,14 +22,11 @@ nums[i - 2] 不会和 nums[i] 形成逆序（不满足条件的大小关系）
 """
 class Solution:
     def wiggleSort(self, nums: List[int]) -> None:
-        lens = len(nums)     
-        prevShouldLessCurr = True
-        for i in range(1, lens):
-            if prevShouldLessCurr:
-                if nums[i - 1] > nums[i]:
-                    nums[i], nums[i - 1] = nums[i - 1], nums[i]
-            else:
-                if nums[i - 1] < nums[i]:
-                    nums[i], nums[i - 1] = nums[i - 1], nums[i]
-                    
-            prevShouldLessCurr = not prevShouldLessCurr
+        prevShouldBeLessThanCurr = True
+        for i in range(1, len(nums)):
+            if prevShouldBeLessThanCurr and nums[i-1] > nums[i]:
+                nums[i-1], nums[i] = nums[i], nums[i-1]
+            elif not prevShouldBeLessThanCurr and nums[i-1] < nums[i]:
+                nums[i-1], nums[i] = nums[i], nums[i-1]
+                
+            prevShouldBeLessThanCurr = not prevShouldBeLessThanCurr
