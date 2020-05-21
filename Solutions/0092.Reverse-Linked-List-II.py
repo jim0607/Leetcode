@@ -35,7 +35,7 @@
 
 class Solution:
     def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
-        if not head:
+        if not head or not head.next:
             return head
         if m == n:
             return head
