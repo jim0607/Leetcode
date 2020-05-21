@@ -35,38 +35,54 @@
 #         self.val = x
 #         self.next = None
 
+"""
+solution 1: recursion
+"""
+class Solution:
+    def swapPairs(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return head
+        
+        nextNode = head.next
+        swappedNode = self.swapPairs(nextNode.next)
+
+        head.next = swappedNode
+        nextNode.next = head
+        
+        return nextNode     # return已处理好的头部给上一级
+
+
 
 """dummy node is so important in this case"""
 class Solution:
     def swapPairs(self, head: ListNode) -> ListNode:
-        if not head:
+        """
+        swap nodes and return the new head
+        """
+        if not head or not head.next:
             return head
         
-        dummy = ListNode(0)
-        dummy.next = head
-
-        curr = dummy
-        while curr:
-            curr = self.reverse(curr)
+        dummyNode = ListNode(0)
+        dummyNode.next = head
+        curr = dummyNode
         
-        return dummy.next
-
-    # The input is n0 (not None)
-    # swap the n0 -> n1 -> n2 -> n3
-    # to be n0 -> n2 -> n1 -> n3
-    # return n0 for hte next pair, which is n1 for this pair
-    def reverse(self, curr: ListNode) -> ListNode:
-        if not curr.next or not curr.next.next:
-            return None
+        while curr and curr.next:
+            self.reverse(curr)
+            curr = curr.next.next
+            
+        return dummyNode.next
+    
+    def reverse(self, curr):
+        """
+        reverse 0->1->2->3 to be 0->2->1->3
+        """
+        if not curr or not curr.next or not curr.next.next:
+            return
         
-        n0, n1, n2, n3 = curr, curr.next, curr.next.next, curr.next.next.next
-
-        # reverse n1 and n2
-        n2.next = n1
-
-        # connect
-        n0.next = n2
-        n1.next = n3
-
-        # return the n0 for the next pair, which is n1 for this pair
-        return n1
+        firstNode = curr.next
+        secondNode = firstNode.next
+        thirdNode = secondNode.next
+        
+        curr.next = secondNode
+        secondNode.next = firstNode
+        firstNode.next = thirdNode
