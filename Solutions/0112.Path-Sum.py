@@ -48,7 +48,7 @@ class Solution:
 
 
 """
-Solution 2: I would say this is good ans smart!
+Solution 2: I would say this is good ans smart! This is just normal DFS.
 """
 class Solution:
     # the function returns whether of not starting from root, there is a path sums to target
