@@ -18,7 +18,7 @@ class Solution:
         pivot = nums[(start + end) // 2]     # key point 1: pivot is the value, not the index 
         left, right = start, end
         while left <= right:        # key point 2: it should be left <= right not left < right
-            while left <= right and nums[left] < pivot:   key point 3: it should be nums[left] < pivot
+            while left <= right and nums[left] < pivot:   # key point 3: it should be nums[left] < pivot
                 left += 1
             while left <= right and nums[right] > pivot:
                 right -= 1
