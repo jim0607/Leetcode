@@ -36,6 +36,9 @@
 #         self.val = x
 #         self.next = None
 
+"""
+solution 1: iterative
+"""
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
         if not head:
@@ -46,10 +49,27 @@ class Solution:
         while curr:
             temp = curr.next
             curr.next = prev
+            
             prev = curr
             curr = temp
     
         return prev
         
-# @lc code=end
 
+"""
+solution 2: recursion
+"""
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        """
+        return the new head of the reversed list (the reversed list is headed as head)
+        """
+        if not head or not head.next:
+            return head
+        
+        nextNode = head.next
+        reversedHead = self.reverseList(nextNode)   # 这一部分执行完了之后nextNode已经变成了后面一大坨已经翻                            转好的List的tail了
+        nextNode.next = head
+        head.next = None
+        
+        return reversedHead
