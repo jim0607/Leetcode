@@ -542,8 +542,6 @@ O(N): 从左到右扫一遍，不满足条件的交换就好了。定义一个�
 ### [Partition and quick select](/Sort.py) 
 - [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode) 
 用quick select的模板，partition这个函数的作用是O(N)找到某个数k在一个无序数组中所在的位置，并按照这个数k将该数组分为左右两部分。
-399. Nuts & Bolts Problem (Lintcode)
-用bolt作为nuts的pivot进行partition, 用nut作为bolts的pivot进行partition
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!!M Youtubed)  <br>
 solution 1: quick select O(N) in average!!!!; solution 2: heap O(NlogK): heapq.heappush(numsHeap, num); heapq.heappop(numsHeap)
 <br> 一个follow up: find the median in a un-sorted array.  solution: this is to find the Kth largest in an array, where K=len(arr)//2
@@ -554,6 +552,9 @@ STEP 1: 反向双指针（或同向双指针）对[-1,-2,4,,5,-3,6]进行partiti
 - [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) <br>
 solution 1: 做两次partition就可以了
 solution 2: 同向双指针: move '2's to the right first, then move '1's to the middle
+- [0399. Nuts & Bolts Problem](Solutions/0399.Nuts&Bolts-Problem.py) (!!M Lintcode) 
+写一个带返回pivotIdx的partition function, 先以nuts[(start+end)//2]为pivotVal对bolts进行partition, 然后返回pivotIdx and pivotVal, 在以这个pivotVal对nuts进行partition, 这样就保证了bolts和nuts进行的是同样的partition; 最后pivotIdx左右两边分别递归调用quickSort function 即可
+
 
 ### [Sorted Array](/Sort.py) 
 - [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (M) <br>
