@@ -550,7 +550,7 @@ solution 1: 同向双指针； solution 2: 反向双指针同上题
 - [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
 STEP 1: 反向双指针（或同向双指针）对[-1,-2,4,,5,-3,6]进行partition，负数在左边，正数在右边[-1, -2, -3, 4, 5, 6]; STEP 2: 再正负正负安插
 - [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) <br>
-solution 1: 做两次partition就可以了
+solution 1: 做两次partition就可以了; 
 solution 2: 同向双指针: move '2's to the right first, then move '1's to the middle
 - [0399. Nuts & Bolts Problem](Solutions/0399.Nuts&Bolts-Problem.py) (!!M Lintcode) 
 写一个带返回pivotIdx的partition function, 先以nuts[(start+end)//2]为pivotVal对bolts进行partition, 然后返回pivotIdx and pivotVal, 在以这个pivotVal对nuts进行partition, 这样就保证了bolts和nuts进行的是同样的partition; 最后pivotIdx左右两边分别递归调用quickSort function 即可
