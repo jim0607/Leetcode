@@ -6,37 +6,30 @@
 """
 class Solution:
     def sortArray(self, nums: List[int]) -> List[int]:
-        self._quickSort_(nums, 0, len(nums) - 1)
+        self.quickSort(nums, 0, len(nums) - 1)
         return nums
     
-    def _partition_(self, arr: List[int], i: int, j: int) -> int:
-        """
-        return the pivot position where on the left, the values are less than the pivot, on the right, the values are larger
-        """
-        # we choose arr[i] as the pivot value
-        pivot = arr[i]
-
-        while i < j:
-            while i < j and arr[j] >= pivot:
-                j -= 1
-            arr[i] = arr[j]
-            while i < j and arr[i] <= pivot:
-                i += 1
-            arr[j] = arr[i]
-
-        arr[i] = pivot
-        
-        return i
-
-    def _quickSort_(self, arr: List[int], start, end):
-        """
-        sort the arr based on the partition position, using recursion, no return
-        """
-        if start >= end:
+    def quickSort(self, nums, start, end):
+        if start >= end:    # the outlet of the recursion is start >= end
             return
-        pivotPos = self._partition_(arr, start, end)    # in average logN partitioning operations and each partitioning takes O(N) operations. That is why the time complexity is O(NlogN)
-        self._quickSort_(arr, start, pivotPos)
-        self._quickSort_(arr, pivotPos + 1, end)
+        
+        # 先整体有序
+        # 注意这里选取pivot原因不能保证recursion tree深度稳定在log(N)，最坏的情况是深度为N.
+        pivot = nums[(start + end) // 2]     # key point 1: pivot is the value, not the index 
+        left, right = start, end
+        while left <= right:        # key point 2: it should be left <= right not left < right
+            while left <= right and nums[left] < pivot:   key point 3: it should be nums[left] < pivot
+                left += 1
+            while left <= right and nums[right] > pivot:
+                right -= 1
+            if left <= right:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right -= 1
+                
+        # 再局部有序, 注意出while循环之后right在左边，所以这里是right
+        self.quickSort(nums, start, right)  # no return for the quickSort function!
+        self.quickSort(nums, left, end)
         
         
 # solution 1: merge sort
