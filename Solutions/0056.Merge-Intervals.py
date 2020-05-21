@@ -17,7 +17,7 @@ class Solution:
         if not intervals:
             return intervals
         
-        intervals.sort(key = lambda x: x[0])
+        intervals.sort(key = lambda x: (x[0], x[1]))
         
         merged = [intervals[0]]
         for interval in intervals:
