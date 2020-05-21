@@ -527,7 +527,7 @@ midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx
 
 
 
-# [Sort](/Sort.py) check Celia's template for partition, 九章模板。
+# [Sort](/Sort.py)
 - [0912. Sort an Array](Solutions/0912.Sort-an-Array.py) (!!M Youtubed) <br>
 quick sort: 用partition function先整体有序，返回pivotPos，然后再pivotPos两边分边局部有序
 merge sort: 用mid分成左右两部分，leftArr和righArr分别记录局部的有序数组，然后merge到arr数组
@@ -535,18 +535,16 @@ merge sort: 用mid分成左右两部分，leftArr和righArr分别记录局部的
 quick sort, self-define comparing two strings by: if s1 + s2 <= s2 + s1: return True else False
 - [0969. Pancake Sorting](Solutions/0969.Pancake-Sorting.py) (M) <br>
 for i in range(lens-1, -1, -1 ): Find maxIndex -> flip max to top -> flip max to bottom of the whole arr -> repeat
-<br> 147. Insertion sort a linked list <br>
 - [0280. Wiggle Sort](Solutions/0280.Wiggle-Sort.py) (M) <br>
 O(N): 从左到右扫一遍，不满足条件的交换就好了。定义一个变量prevShouldLessThanCurr, in the for loop, prevShouldLessThanCurr = not prevShouldLessThanCurr every step, and based on prevShouldLessThanCurr is true or not, we swap nums[i-1] with nums[i] or not.
------------- 315. Count of Smaller Numbers After Self  solution: use merge sort --------------
 
 
 ### [Partition and quick select](/Sort.py) 
 - [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode) 
-好多细节!!要背熟理解partition这个函数. partition这个函数的作用是O(N)找到某个数k在一个无序数组中所在的位置，并按照这个数k将该数组分为左右两部分。
+用quick select的模板，partition这个函数的作用是O(N)找到某个数k在一个无序数组中所在的位置，并按照这个数k将该数组分为左右两部分。
 399. Nuts & Bolts Problem (Lintcode)
 用bolt作为nuts的pivot进行partition, 用nut作为bolts的pivot进行partition
-- [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M Youtubed)  <br>
+- [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!!M Youtubed)  <br>
 solution 1: quick select O(N) in average!!!!; solution 2: heap O(NlogK): heapq.heappush(numsHeap, num); heapq.heappop(numsHeap)
 <br> 一个follow up: find the median in a un-sorted array.  solution: this is to find the Kth largest in an array, where K=len(arr)//2
 - [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E) <br>
@@ -554,13 +552,14 @@ solution 1: 同向双指针； solution 2: 反向双指针同上题
 - [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
 STEP 1: 反向双指针（或同向双指针）对[-1,-2,4,,5,-3,6]进行partition，负数在左边，正数在右边[-1, -2, -3, 4, 5, 6]; STEP 2: 再正负正负安插
 - [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) <br>
-同向双指针: move '2's to the right first, then move '1's to the middle
+solution 1: 做两次partition就可以了
+solution 2: 同向双指针: move '2's to the right first, then move '1's to the middle
 
 ### [Sorted Array](/Sort.py) 
 - [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (M) <br>
 sort the intervals first, res = []; for interval in intervals: if the interval start time is larger than the largest end time in res, then the interval cannot be merged, then res.append(interval), else then res[-1][1] = max(res[-1][1], interval[1])
 - [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
-target是随着i的移动而变化的binary search
+midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx1], nums2[midIdx2]; when k is relatively large, then we can safely drop the first half that are surely smaller than the kth, the question is where is the first half that are surely smaller than the kth? by comparing midVal1 and midVal2, we can find it out, if midVal1 < midVal2, then all the vals in nums1[:midIdx1] are less than midVal2, also all of those vals are less than kth, we can safely drop all those vals
 
 
 
@@ -742,7 +741,8 @@ similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check w
 1062. Logest repeating substring
 
 Tarjan's algorithm: 1192. Critical Connections in a Network
-
+--- Morris 线索二叉树 ------
+----- fenwick tree  315. Count of Smaller Numbers After Self ----------
 
 ### At last, let's take a look at the famous Algorithm book.
 ### 看Abby google doc的归类，还有liweiwei Github的归类，根据归类再适当刷一些新题。
