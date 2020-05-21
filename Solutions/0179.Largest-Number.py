@@ -10,44 +10,27 @@ Input: [3,30,34,5,9]
 Output: "9534330"
 
 
-class Solution:    
+cclass Solution:
     def largestNumber(self, nums: List[int]) -> str:
-        if not nums:
-            return ""
-        
-        lens = len(nums)
-        numsStr = []
-        for num in nums:
-            numsStr.append(str(num))
-        
-        self.quickSort(numsStr, 0, len(numsStr) - 1)
-        
-        return "".join(numsStr) if "".join(numsStr)[0] != "0" else "0"
+        self.quickSort(nums, 0, len(nums)-1)
+        return "".join(map(str, nums)) if nums[0] != 0 else "0"
     
-    def compare(self, s1, s2):
-        if s1 + s2 <= s2 + s1:
-            return True     # return True if s1 < s2
-        else:
-            return False
-    
-    def partition(self, arr, i, j):
-        pivotVal = arr[i]
-        while i < j:
-            while i < j and self.compare(arr[j], pivotVal):
-                j -= 1
-            arr[i] = arr[j]
-            while i < j and self.compare(pivotVal, arr[i]):
-                i += 1
-            arr[j] = arr[i]
-            
-        arr[i] = pivotVal
-        
-        return i
-    
-    def quickSort(self, arr, start, end):
+    def quickSort(self, nums, start, end):
         if start >= end:
-            return 
+            return
         
-        pivotPos = self.partition(arr, start, end)
-        self.quickSort(arr, start, pivotPos)
-        self.quickSort(arr, pivotPos + 1, end)
+        left, right = start, end
+        pivot = nums[(start+end)//2]
+        
+        while left <= right:
+            while left <= right and str(nums[left]) + str(pivot) > str(pivot) + str(nums[left]):
+                left += 1
+            while left <= right and str(nums[right]) + str(pivot) < str(pivot) + str(nums[right]):
+                right -= 1
+            if left <= right:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right -= 1
+                
+        self.quickSort(nums, start, right)
+        self.quickSort(nums, left, end)           
