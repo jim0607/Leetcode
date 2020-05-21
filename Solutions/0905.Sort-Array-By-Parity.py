@@ -63,10 +63,10 @@ class Solution:
 
 class Solution:
     def sortArrayByParity(self, A: List[int]) -> List[int]:
-        self.quickSort(A, 0, len(A) - 1)
+        self.partition(A, 0, len(A) - 1)
         return A
         
-    def quickSort(self, A, start, end):
+    def partition(self, A, start, end):
         if start >= end:
             return
         
