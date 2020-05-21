@@ -18,39 +18,38 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        lens = len(nums)
+        self.partition1(nums, 0, len(nums) - 1)
+        self.partition2(nums, 0, len(nums) - 1)
         
-        # step 1: 先把0放到最前面
-        i, j = 0, lens - 1
-        temp = nums[i]
-        while i < j:
-            while i < j and nums[j] > 0:
-                j -= 1
-            nums[i] = nums[j]
-            
-            while i < j and nums[i] == 0:
-                i += 1
-            nums[j] = nums[i]
-            
-        nums[i] = temp
-
-        # step 2: 再把2放到最后
-        m = i + 1 if nums[i] == 0 else i
-        n = lens - 1
-        if m >= n:
-            return nums
+    def partition1(self, nums, start, end):
+        if start >= end:
+            return
         
-        temp = nums[m]
-        while m < n:
-            while m < n and nums[n] == 2:
-                n -= 1
-            nums[m] = nums[n]
-            
-            while m < n and nums[m] < 2:
-                m += 1
-            nums[n] = nums[m]
-            
-        nums[m] = temp
+        left, right = start, end
+        while left <= right:
+            while left <= right and nums[left] == 0:
+                left += 1
+            while left < right and nums[right] != 0:
+                right -= 1
+            if left <= right:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right -= 1
+           
+    def partition2(self, nums, start, end):
+        if start >= end:
+            return
+        
+        left, right = start, end
+        while left <= right:
+            while left <= right and nums[left] != 2:
+                left += 1
+            while left < right and nums[right] == 2:
+                right -= 1
+            if left <= right:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right -= 1                
     
     
     
