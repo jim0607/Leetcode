@@ -90,6 +90,29 @@ class Solution:
             p2 = p2.next
         
         return p1
+      
         
-# @lc code=end
-
+"""
+下面的写法更加intuitive
+"""    
+class Solution:
+    def detectCycle(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return None
+        
+        slow, fast = head, head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                break
+            
+        if slow != fast:
+            return None
+        
+        curr = head
+        while curr != slow:
+            curr = curr.next
+            slow = slow.next
+            
+        return curr
