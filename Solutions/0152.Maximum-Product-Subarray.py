@@ -12,7 +12,7 @@ Explanation: [2,3] has the largest product 6.
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
         lens = len(nums)
-        maxDP = [0] * lens      # 记录最大的正数
+        maxDP = [0] * lens      # maxDP[i]表示以i为结尾的subarray的最product
         minDP = [0] * lens      # 记录最小的负数
         maxDP[0], minDP[0] = nums[0], nums[0]
         for i in range(1, lens):    # 特别注意遍历不要包括初始状态
