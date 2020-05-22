@@ -145,6 +145,26 @@ f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配； 画个图�
 f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B[j-1]不是"星": f[i][j] = f[i-1][j-1] if (B[j-1]="." or A[i-1]=B[j-1]); 情况二：B[j-1]是"星"：可以让"星"表示0个前面的字符，那就让A[0..i)去和B[0..j-2)匹配： f[i][j] = f[i][j-2]；也可以让"星"表示几个前面的字符，A[i-1]是多个ch中的最后一个，能否匹配取决于A[0..i-1)和B[0..j)是否匹配：f[i][j] = f[i-1][j] if (B[j-2]="." or B[j-2]=A[i-1])
 
 
+
+### [Other DP Problems](https://juejin.im/post/5d556b7ef265da03aa2568d5)
+- [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
+- [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (M)
+- [1049. Last Stone Weight II](Solutions/1049.Last-Stone-Weight-II.py) (M)
+- [1024. Video Stitching](Solutions/1024.Video-Stitching.py) (M)
+- [1155. Number of Dice Rolls With Target Sum](Solutions/1155.Number-of-Dice-Rolls-With-Target-Sum.py) (M)
+- [0983. Minimum Cost For Tickets](Solutions/0983.Minimum-Cost-For-Tickets.py) (M)
+- [0688. Knight Probability in Chessboard](Solutions/0688.Knight-Probability-in-Chessboard.py) (M)
+- [0361. Bomb Enemy](Solutions/0361.Bomb-Enemy.py) (M)
+- [0467. Unique Substrings in Wraparound String](Solutions/0467.Unique-Substrings-in-Wraparound-String.py) (M)
+- [0898. Bitwise ORs of Subarrays](Solutions/0898.Bitwise-ORs-of-Subarrays.py) (M)
+- [0343. Integer Break](Solutions/0343.Integer-Break.py) (M)
+- [1223. Dice Roll Simulation](Solutions/1223.Dice-Roll-Simulation.py) (M)
+- [1105. Filling Bookcase Shelves](Solutions/1105.Filling-Bookcase-Shelves.py) (M)
+- [0464. Can I Win](Solutions/0464.Can-I-Win.py) (M)
+
+
+
+
 # [Sliding Window (同向双指针)](/Sliding-window.py)
 - [0209. Minimum Size Subarray Sum](Solutions/0209.Minimum-Size-Subarray-Sum.py) (!!M) <br>
 维护一个sums, 用来记录i->j中数的和，套模板时满足的条件是sums < target; 更新j: sums += nums[j]; 更新i: sums -= nums[j]
@@ -717,22 +737,6 @@ similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check w
 
 
 
-
-### [Other DP Problems](https://juejin.im/post/5d556b7ef265da03aa2568d5)
-- [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
-- [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (M)
-- [1049. Last Stone Weight II](Solutions/1049.Last-Stone-Weight-II.py) (M)
-- [1024. Video Stitching](Solutions/1024.Video-Stitching.py) (M)
-- [1155. Number of Dice Rolls With Target Sum](Solutions/1155.Number-of-Dice-Rolls-With-Target-Sum.py) (M)
-- [0983. Minimum Cost For Tickets](Solutions/0983.Minimum-Cost-For-Tickets.py) (M)
-- [0688. Knight Probability in Chessboard](Solutions/0688.Knight-Probability-in-Chessboard.py) (M)
-- [0361. Bomb Enemy](Solutions/0361.Bomb-Enemy.py) (M)
-- [0467. Unique Substrings in Wraparound String](Solutions/0467.Unique-Substrings-in-Wraparound-String.py) (M)
-- [0898. Bitwise ORs of Subarrays](Solutions/0898.Bitwise-ORs-of-Subarrays.py) (M)
-- [0343. Integer Break](Solutions/0343.Integer-Break.py) (M)
-- [1223. Dice Roll Simulation](Solutions/1223.Dice-Roll-Simulation.py) (M)
-- [1105. Filling Bookcase Shelves](Solutions/1105.Filling-Bookcase-Shelves.py) (M)
-- [0464. Can I Win](Solutions/0464.Can-I-Win.py) (M)
 
 
 # Other Algorithms
