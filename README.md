@@ -405,7 +405,7 @@ do a in order traversal (reversed version: go all the way to the right) to keep 
 helper(start, end): return the trees from start to end.  Finally return helper(1, n). Time complexity: The main computations are to construct all possible trees with a given root, that is actually Catalan number Gn (超纲).
 - [0096. Unique Binary Search Trees](Solutions/0096.Unique-Binary-Search-Trees.py) (M) <br>
 same as 95, return len(helper(1, n)).
-- [0241. Different Ways to Add Parentheses](Solutions/0241.Different-Ways-to-Add-Parentheses.py) (M) <br>
+- [0241. Different Ways to Add Parentheses](Solutions/0241.Different-Ways-to-Add-Parentheses.py) (!!M) <br>
 similar with 95, in helper function, return all the different results to add parentheses for input, for i in range(len(input): divide into leftResults and rightResults. Optimization: use a memo dictionary in the helper function to memorize the input that has already been calculated.
 
 
