@@ -211,7 +211,7 @@ heapq的方法是O(NK); deque O(N): Iterate over the array. At each step: I. Cle
 ### [Hashmap/Dictionary](/Data-Structure.py) 
 - [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!M youtubed) <br>
 use a double linked list and a dictionary; Double linkedlist: newest node append to tail, eldest node remove from head, so that the operation is O(1); Hashmap: key is key, value is the corresponding double linkedlist node
---------LFU---------------变形题snapchat：在一个data stream 中find top K most frequent number用LFU来解，也可以用heapq N*O(k) ---------
+--------LFU!!---------------变形题snapchat：在一个data stream 中find top K most frequent number用LFU来解，也可以用heapq N*O(k) ---------
 
 
 
@@ -229,7 +229,7 @@ solution 1: 扫描线；solution 2: 以end时间来构造最小堆，每次进�
 - [0465 Kth Smallest Sum in Two Sorted Arrays](Solutions/0465.Kth-Smallest-Sum-in-Two-Sorted-Arrays.py) (M Lintcode) <br>
 将两个list各挑一个数出来的加和做成一个2D Array, 由于两个list都是sorted, 那么这个2D array就是与378同样sorted array了。
 - [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!M) <br>
-maintain一个heapq，初始化将每个list的head放入，# overwrite the compare function, so that we can directly put ListNode into heapq: ListNode.__lt__ = lambda x, y: (x.val < y.val)然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); Solution 2: divide and conquer, O(NlogK).
+maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we should overriding ListNode compare function __lt__ to make customized compare happens: compare ListNodeSolution 2: divide and conquer, O(NlogK), should also understand.
 - [0621. Task Scheduler](Solutions/0621.Task-Scheduler.py) (!!M) <br>
 I have to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
 - [0264. Ugly Number II](Solutions/0264.Ugly-Number-II.py) (M) <br>
@@ -581,19 +581,19 @@ Solution 1: recursion, easier to implement. Solution 2: iterative. 想要reverse
 - [0025. Reverse Nodes in k-Group](Solutions/0025.Reverse-Nodes-in-k-Group.py) (!!H) <br>
 similar with 24, 在reverse函数中要做的事情是reverse n0->n1->n2------>nk->n_k+1 to be n0->nk------>n2->n1->n_k+1 and return n1; 也是分两步: 首先翻转n1->n2------>nk, 然后hook up n0 with n_k, n1 with n_k+1.  Solution 2: recursion.
 - [0141. Linked List Cycle](Solutions/0141.Linked-List-Cycle.py) (E) <br>
-在做环形list的题目时, while slow != fast是很常用的句型
+在做环形list的题目时,模板是slow, fast = head, head, while fast and fast.next:
 - [0142. Linked List Cycle II](Solutions/0142.Linked-List-Cycle-II.py) (!!M) <br>
 step 1: 快慢指针找到相遇的点; step 2: 重新定义两根指针p1, p2分别从head和上面相遇的点出发，然后p1,p2相遇的地方就是环的入口
 - [0138. Copy List with Random Pointer](Solutions/0138.Copy-List-with-Random-Pointer.py) (!!M) <br>
-step 1: create new node and interleave new node into original node; step 2: link the random pointer for the new nodes; step 3: seperate the interleaved old nodes and new nodes
+Solution 1 O(N), O(N): Just iterate the linked list and create copies of the nodes on the go. Since a node can be referenced from multiple nodes due to the random pointers, make sure you are not making multiple copies of the same node. we can use extra space to keep old node --> new node mapping to prevent creating multiples copies of same node.   Solution 2 O(N), O(1): use 3 steps, each step requires iterate the loop one time.  step 1: create new node and interleave new node into original node; step 2: link the random pointer for the new nodes; step 3: seperate the interleaved old nodes and new nodes
 - [0287. Find the Duplicate Number](Solutions/0287.Find-the-Duplicate-Number.py) (M) <br>
 把这个数组的每一个数num看成这样一个linked list node: num的下标代表.val, num的值代表.next指向下一个node。那么如果存在重复的num，那就表示有两个不同node都指向了同一个公共，也就是成环的地点。这么想这个题目就和142一样了，具体实现过程中对p取一个nums[p]，就相当于取一个p.next
 - [0160. Intersection of Two Linked Lists](Solutions/0160.Intersection-of-Two-Linked-Lists.py) (E) <br>
 两个指针currA, currB; if not currA: currA = headB; if not currB: currB = headA
 - [0002. Add Two Numbers](Solutions/0002.Add-Two-Numbers.py) (!!M) <br>
 本题的考点是关于如何新建一个linked list, 要用someNode.next = ListNode(someVal), 而不是简单的修改value; 还考察了是否细心, 最后很容易漏掉carryBit != 0的判断"
-<br> 23. Merge k Sorted Lists: heapq to find the minimum of the k lists. O(NlogK) https://www.youtube.com/watch?v=Uz4fTr34270 <br>
------ double linkedlist: LRU, LFU ----------
+- [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!M) <br>
+maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we should overriding ListNode compare function __lt__ to make customized compare happens: compare ListNodeSolution 2: divide and conquer, O(NlogK), should also understand.
 
 
 
