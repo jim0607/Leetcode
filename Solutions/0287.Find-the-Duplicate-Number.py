@@ -20,15 +20,17 @@ There is only one duplicate number in the array, but it could be repeated more t
 class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
         # step 1: 快慢指针找到相遇的点
-        slow, fast = nums[nums[0]], nums[nums[nums[0]]]     # nums[0]相当于head, nums[nums[0]]相当于head.next, nums[nums[nums[0]]]相当于head.next.next; 注意取一个nums[p]，就相当于取一个p.next
-        while slow != fast:
-            slow = nums[slow]
-            fast = nums[nums[fast]]
+        slowNum, fastNum = 0, 0
+        while True:
+            slowNum = nums[slowNum]
+            fastNum = nums[nums[fastNum]]
+            if slowNum == fastNum:
+                break
             
         # step 2: 重新定义两个指针p1, p2分别从head和上面相遇的点出发，p1, p2相遇的点就是环的入口
-        p1, p2 = nums[0], slow
-        while p1 != p2:
-            p1 = nums[p1]
-            p2 = nums[p2]
-            
-        return p1
+        currNum = 0
+        while True:
+            currNum = nums[currNum]
+            slowNum = nums[slowNum]
+            if currNum == slowNum:
+                return currNum
