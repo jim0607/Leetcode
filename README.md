@@ -577,6 +577,8 @@ solution 2: 同向双指针: move '2's to the right first, then move '1's to the
 
 
 ### [Sorted Array](/Sort.py) 
+- [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) (E) <br>
+sort the arr first, then the maximum sum of pairs is the sum of every other num
 - [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (M) <br>
 sort the intervals first, res = []; for interval in intervals: if the interval start time is larger than the largest end time in res, then the interval cannot be merged, then res.append(interval), else then res[-1][1] = max(res[-1][1], interval[1])
 - [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
@@ -644,14 +646,12 @@ prefixSumDict = {0: 1} # key is the prefixSum, val is how many times the prefixS
 ### [反向双指针](/Two-pointers.py)
 - [0977. Squares of a Sorted Array](Solutions/0977.Squares-of-a-Sorted-Array.py) (E) <br>
 three pointers: i starts from beginning of A; j starts from the end of A; k starts from end of res 
-- [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode) <br>
-note 1: temp = nums[i], 出循环后需要nums[i] = temp回来; note 2: 先判断j, j-=1出来后nums[i]=nums[j] 
+- [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode) 
+用quick select的模板，partition这个函数的作用是O(N)找到某个数k在一个无序数组中所在的位置，并按照这个数k将该数组分为左右两部分。
 - [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E) <br>
 solution 1: 同上31的方法做partition; solution 2: 同向双指针: anchor and curr, swap A[anchor] and A[curr] when A[curr] is even
 - [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
 STEP 1: 反向双指针进行partition，负数在左边，正数在右边[-1, -2, -3, 4, 5, 6]; STEP 2: 再来进行正负正负正负安插
-- [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) (E) <br>
-sort the arr first, then the maximum sum of pairs is the sum of every other num
 - [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) <br>
 solution 1: typical partition problem, step 1: 先把0放到最前面; step 2: 再把2放到最后
 solution 2: 同向双指针的方法也应该理解掌握！
