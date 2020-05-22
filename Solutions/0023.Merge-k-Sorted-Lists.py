@@ -16,11 +16,13 @@ Output: 1->1->2->3->4->4->5->6
 
 O(NlogK), O(K)
 
-# overwrite the compare function 
-# so that we can directly put ListNode into heapq
-ListNode.__lt__ = lambda x, y: (x.val < y.val)
-
 class Solution:
+    # first, we should overriding ListNode compare function __lt__ to make customized compare happens: compare ListNode
+    def __lt__(self, other):
+        return self.val < other.val
+    
+    ListNode.__lt__ = __lt__
+  
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
         if lists == [None]:
             return None
