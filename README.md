@@ -599,15 +599,13 @@ maintain一个heapq，初始化将每个list的head放入，然后每次pop出�
 
 # [SubArray](/SubArray.py)
 - [0053. Maximum Subarray](Solutions/0053.Maximum-Subarray.py) (!!E) <br>
-Maintian a prefixSum and minPrefixSum, so that maxSubSum = max(maxSubSum, prefixSum - minPrefixSum)
+Maintian a prefixSum and minPrefixSum, so that maxSubSum = max(maxSubSum, prefixSum - minPrefixSum); minPrefixSum = min(prefixSum, minPrefixSum)
 - [0724. Find Pivot Index](Solutions/0724.Find-Pivot-Index.py) (E) <br>
-leftSum = prefixSum[i] # prefixSum[i]是不包括nums[i]的; ightSum = prefixSum[-1] - prefixSum[i] - nums[i] 
+在nums前面添加一个[0]然后再进入循环。for i, num in enumerate([0] + nums[:-1]): if prefixSum * 2 == sumNums - nums[i]: return i
 - [0560. Subarray Sum Equals K](Solutions/0560.Subarray-Sum-Equals-K.py) (!!M) <br>
 新建一个prefixSumDict = {0: 1}, key是prefixSum, val是how many times the prefixSum appears; if prefixSum - k in prefixSumDict: 等价于if prefixSum[j+1]-prefixSum[i] == k
-- [0053. Maximum Subarray](Solutions/1074.Number-of-Submatrices-That-Sum-to-Target.py) (H) <br>
-用前缀和优化, 令 matrix[i][0] = matrix[i][0] + matrix[i][1] + ... + matrix[i][j], 这样matrix的行里保存的就是上面所有列的和了
-然后枚举左右边界left and right, 确定左右边界left and right 之后，接下来就相当于在一列内(指的是right那一列), 求一个数组连续子串和为0的问题了
-O(M* N* N)
+- [1074. Number of Submatrices That Sum to Target](Solutions/1074.Number-of-Submatrices-That-Sum-to-Target.py) (H) <br>
+也可以先把行处理好，让每一行里面保存上面所有行的和，接下来就是在每一行里面去求560问题了，注意一点不同的是需要遍历upRow和downRow的, 如果不遍历就是solution 3的错误写法举一个反例想明白solution 3为什么行不通，自然就会改成solution 2了O(MMN)
 - [0523. Continuous Subarray Sum](Solutions/0523.Continuous-Subarray-Sum.py) (M) <br>
 prefixSumMap = {0: -1} # key: prefixSum[j], val: j/position, initial position should be -1; prefixSum += num; prefixSum = prefixSum % k 因为题目要求要能被subArray Sum 要能被k整除
 - [0974. Subarray Sums Divisible by K](Solutions/0974.Subarray-Sums-Divisible-by-K.py) (M) <br>
