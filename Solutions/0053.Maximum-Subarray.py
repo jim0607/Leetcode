@@ -39,7 +39,7 @@ class Solution:
         minPrefixSum = 0    # # 只能定义为0，因为初始的prefixSum是0
         for num in nums:
             prefixSum += num
-            maxSubSum = max(maxSubSum, prefixSum - minPrefixSum)
+            maxSubSum = max(maxSubSum, prefixSum - minPrefixSum)  # 注意不能更换maxSubSum和minPrefixSum的更新顺序， 比如输入为[-1]
             minPrefixSum = min(minPrefixSum, prefixSum)
 
         return maxSubSum
