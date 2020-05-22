@@ -37,23 +37,23 @@
 """
 Solution 3: prefixSum+hashmap
 用prefixSum，hashmap来存储prefixSum中出现的数字频率, O(N), O(N)"""
-# @lc code=start
+
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        prefixSumDict = {0: 1}   # key是prefixSum, val是how many times the prefixSum appears. 注意prefixSumDict需要初始化，所有prefixSum相关的参数都要初始化！！
+        prefixSumDict = collections.defaultdict(lambda: 0) # key是prefixSum, val是how many times the prefixSum appears. 
+        prefixSumDict[0] = 1    # 注意prefixSumDict需要初始化
+        
         prefixSum, cnt = 0, 0
-
+        
         # Our problem is: find how many pairs of <i,j> satisfies i < j and prefixSum[j]-prefixSum[i] == k?
         for num in nums:
-            prefixSum += num     # 这里的prefixSum 相当于 prefixSum[j]，一般的prefixSum[j]都是这样写的，而不是单独开一个数组出来寸prefixSum
-            if prefixSum - k in prefixSumDict:     # 等价于 if prefixSum[j+1]-prefixSum[i] == k
-                cnt += prefixSumDict[prefixSum - k]        
+            # 这里的prefixSum相当于prefixSum[j+1], 一般都不会单独开一个数组出来存prefixSum
+            prefixSum += num
             
-            # 将prefixSum 存入prefixSumMap中
-            if prefixSum not in prefixSumDict:
-                prefixSumDict[prefixSum] = 1
-            else:
-                prefixSumDict[prefixSum] += 1
+            if prefixSum - k in prefixSumDict.keys():   # 等价于if prefixSum[j+1]-prefixSum[i]==k
+                cnt += prefixSumDict[prefixSum - k]
+                
+            prefixSumDict[prefixSum] += 1   # 将prefixSum 存入prefixSumMap中
             
         return cnt
 
