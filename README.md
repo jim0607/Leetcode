@@ -1,7 +1,7 @@
 ## 三刷：不做新题了，就这250题！目标是刷熟练！模板总结出来天天拿出来背诵！
 ## 每日10题：05/01 - 05/25
 #### Review: 
-05/04 - 0337; 05/05 - 0334; 05/06 - 0416; 05/08 - 0010; 05/10 - 0713; 05/11 - 0394; 05/12 - 654; 05/13 - 621; 05/14 - 200; 05/15 - 212; 05/18 - 269； 05/19 - 317; 05/20 - 332; 05/21 - 617; 05/22 - 241
+05/04 - 0337; 05/05 - 0334; 05/06 - 0416; 05/08 - 0010; 05/10 - 0713; 05/11 - 0394; 05/12 - 654; 05/13 - 621; 05/14 - 200; 05/15 - 212; 05/18 - 269； 05/19 - 317; 05/20 - 332; 05/21 - 617; 05/22 - 241; 05/23 - 0037
 
 
 # [Dynamic Programming](Dynamic-Programming.py)
@@ -435,7 +435,7 @@ self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3,
 - [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (!!!M) <br>
 递归的定义：从s中的start位置开始，挑一些位置切割，判断从start到i的部分是否为回文，如果是就放入curr中，如果i到了string末尾了则说明此事curr是一种组合方式，放入res中 <br>
 - [0332. Reconstruct Itinerary](Solutions/0332.Reconstruct-Itinerary.py) (!!M) <br>
-有向图的遍历问题，LeetCode关于有向图的题只有两道Course Schedule和Course Schedule II，而那两道是关于有向图的顶点的遍历的，而本题是关于有向图的边的遍历。每张机票都是有向图的一条边，我们需要找出一条经过所有边的路径，那么DFS不是我们的不二选择. 这题选择interative way to do backtracking更简单。
+有向图的遍历问题，LeetCode关于有向图的题只有两道Course Schedule和Course Schedule II，而那两道是关于有向图的顶点的遍历的，而本题是关于有向图的边的遍历。每张机票都是有向图的一条边，我们需要找出一条经过所有边的路径，那么DFS不是我们的不二选择. 这题选择interative way to do backtracking更简单。Solution 2: 还有另一种图的解法。 
 
 
 ### [Permutation](/Depth-First-Search.py)
@@ -449,7 +449,7 @@ if leftCnt == n and rightCnt == n: self.res.append(curr) return; if leftCnt < ri
 - [0047. Permutations II](Solutions/0047.Permutations-II.py) (M) <br>
 模板: is_not_valid: if i in self.visited: continue; if (i > 0 and nums[i] == nums[i-1]) and (i-1) not in self.visited: continue
 - [0031. Next Permutation](Solutions/0031.Next-Permutation.py) (M) <br>
-step 1: sweeping from right to left, find the first decreasing element; Step 2: sweep from right to left, find the first element larger just than nums[i], then swap nums[i] and nums[j], then swap all the items starting from i+1
+step 1: sweeping from right to left, find the first decreasing element nums[i]; Step 2: sweep from right to left, find the first element larger just than nums[i], then swap nums[i] and nums[j], then swap all the items starting from i+1
 - [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (!!M)  <br>
 step 1: put the characters that have seen two times in the char list; now we have a charList that only holds char that appears even times, eg: "aaaabbc" now becomes "aab", Step 2: we only need to do permutation for this charList, so the time complexity is O((n/2)!), which is quite an improve. Step 3: when return the results, we just use the permuation generated in steps 2 + permuation[::-1]
 - [0060. Permutation Sequence](Solutions/0060.Permutation-Sequence.py) (M)  <br>
