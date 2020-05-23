@@ -662,15 +662,16 @@ if height[i] > height[j]: j -= 1  # meaning that 右边的栅栏更低，所以�
 
 
 ### [同向双指针](/Two-pointers.py)
-- [0019. Remove Nth Node From End of List](Solutions/0019.Remove-Nth-Node-From-End-of-List.py) <br>
+- [0019. Remove Nth Node From End of List](Solutions/0019.Remove-Nth-Node-From-End-of-List.py) (M) <br>
 fast 比 slow 先出发 n 步即可
-- [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py) <br>
-modify nums1 in-place, use i, j, k = m - 1, n - 1, m + n -1; 把最大的数放到nums1的后面
+- [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py) (E) <br>
+modify nums1 in-place, 由于nums1有足够空间，我们可以从nums1的尾部开始排，use i, j, k = m - 1, n - 1, m + n -1; 把最大的数放到nums1的后面
 - [0283. Move Zeroes](Solutions/0283.Move-Zeroes.py) <br>
-anchor keeps all the non-zero numbers, while curr runs forward; whenever curr equals a non-zero number, switch it to anchor.  Solution 2: partition using the method in 31, but not accepted cuz partition changes the original order of non-zero numbers
-- [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (!!E) 典型的同向双指针
+anchor is the first zero element, __anchor keeps all the non-zero numbers on it's left, that is the reason the pointer is called anchor__. while curr runs forward, whenever curr equals a non-zero number, switch it to anchor, and move anchor one step forward.  Solution 2: partition using the method in 31, but not accepted cuz partition changes the original order of non-zero numbers
+- [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (!!E) <br>
+典型的同向双指针 on the left of anchor (including anchor) are the maintained array without duplicates
 - [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) <br>
-同向双指针法，如果碰到符合条件的，把j往前挪到不重复的元素去。dfs解subset问题里的去重是怎么做的：前面的3用到了，后面的3就跳过就可以了。
+同向双指针法，注意题目需要去重，如果碰到符合条件的，把i和j往前挪到不重复的元素去。
 - [0042. Trapping Rain Water](Solutions/0042.Trapping-Rain-Water.py) (!!H) <br>
 首先找到最高highestBar的位置。然后从左边往最高的位置扫，同时maintain一个指针记录leftHighest的高度，如果扫到的地方i小于这个leftHighest的高度，
 则说明i这个地方可以蓄水，可蓄水量为leftHighest的高度减去i的高度；如果扫到的地方i大于这个leftHighest的高度，则说明i这个地方不可以蓄水，所以这时候要更新leftHighest为i的高度。同理对右边做同样的操作
