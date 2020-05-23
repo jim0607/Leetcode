@@ -36,32 +36,10 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        if not nums:
-            return nums
-        
-        pos = 0    # pos keeps all the none zero elements
-        for i in range(len(nums)):
-            if nums[i] != 0:
-                nums[pos], nums[i] = nums[i], nums[pos]
-                pos += 1
-        
-        return nums
-
-"""solution 2: use partition, however not accepted cuz partition changes the original order of non-zero numbers"""
-class Solution:
-    def moveZeroes(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        i, j = 0, len(nums) - 1
-        temp = nums[i]
-        while i < j:
-            while i < j and nums[j] == 0:
-                j -= 1
-            nums[i] = nums[j]
-            
-            while i < j and nums[i] != 0:
-                i += 1
-            nums[j] = nums[i]
-            
-        nums[i] = temp
+        lens = len(nums)
+        anchor, curr = 0, 0
+        while curr < lens:
+            if nums[curr] != 0:
+                nums[anchor], nums[curr] = nums[curr], nums[anchor]
+                anchor += 1
+            curr += 1
