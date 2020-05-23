@@ -13,25 +13,19 @@ class Solution:
         nums.sort()
         
         lens = len(nums)
-        closestVal = float("inf")
-        diff = float("inf")
+        closestSum = nums[0] + nums[1] + nums[2]
         for i in range(lens - 2):
             left, right = i + 1, lens - 1
             while left < right:
-                threeSum = nums[i] + nums[left] + nums[right]
+                threeSum = nums[left] + nums[right] + nums[i]
+                if abs(threeSum - target) < abs(closestSum - target):
+                    closestSum = threeSum
+                    
                 if threeSum > target:
                     right -= 1
-                    if abs(threeSum - target) < diff:
-                        diff = abs(threeSum - target)
-                        closestVal = threeSum
-                
                 elif threeSum < target:
                     left += 1
-                    if abs(threeSum - target) < diff:
-                        diff = abs(threeSum - target)
-                        closestVal = threeSum
-                        
                 else:
                     return target
-                
-        return closestVal
+                    
+        return closestSum
