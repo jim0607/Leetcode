@@ -759,3 +759,4 @@ Tarjan's algorithm: 1192. Critical Connections in a Network
 ### At last, let's take a look at the famous Algorithm book.
 ### 看Abby google doc的归类，还有liweiwei Github的归类，根据归类再适当刷一些新题。
 ### https://blog.csdn.net/fuxuemingzhu/article/details/101900729 很好的分类总结
+### top 50 of interview questions and top liked questions and top Google interview questions top green
