@@ -73,7 +73,7 @@ class Solution:
         while left <= right:    # 注意是小于等于
             if height[left] < height[right]:
                 leftMax = max(leftMax, height[left])
-                water += leftMax - height[left]
+                water += leftMax - height[left]     # 正是由于height[left] < height[right]，才能保证water只可能从leftMax处溜走，所以是leftMax - height[left]
                 left += 1
                 
             else:
