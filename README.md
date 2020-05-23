@@ -679,20 +679,27 @@ anchor is the first zero element, __anchor keeps all the non-zero numbers on it'
 
 
 # [Two Sum]()
-- [0001. Two Sum](Solutions/0001.Two-Sum.py) (E) hashMap
-- [0167. Two Sum II - Input array is sorted](Solutions/0167.Two-Sum-II-Input-array-is-sorted.py) (E) 反向双指针
-- [0170. Two Sum III - Data structure design](Solutions/0170.Two-Sum-III-Data-structure-design.py) (E) hashMap
+- [0001. Two Sum](Solutions/0001.Two-Sum.py) (E) <br>
+九章算法：对于求 2 个变量如何组合的问题可以循环其中一个变量，然后研究另外一个变量如何变化, 普世的方法是：for循环一个变量a，然后看另外一个变量target-a是不是在一个hashmap中
+- [0167. Two Sum II - Input array is sorted](Solutions/0167.Two-Sum-II-Input-array-is-sorted.py) (E) <br>
+sorted 就用反向双指针
+- [0170. Two Sum III - Data structure design](Solutions/0170.Two-Sum-III-Data-structure-design.py) (E) <br>
+self.numsDict = collections.defaultdict(lambda: 0) # val is num val, key is how namy times the val was added
 - [0653. Two Sum IV - Input is a BST](Solutions/0653.Two-Sum-IV-Input-is-a-BST.py) (E) <br>
 In order traversal into an array and then use two pointer method
-- [1099. Two Sum Less Than K](Solutions/1099.Two-Sum-Less-Than-K.py) (E) 
-- [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) (求和用反向双指针，求差用同向双指针)
+- [1099. Two Sum Less Than K](Solutions/1099.Two-Sum-Less-Than-K.py) (E) <br>
+最优解是sort之后用反向双指针O(nlogn); solution 2: bucket sort: O(n)? coudl be a good follow up question.
+- [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) <br>
+同向双指针法，注意题目需要去重，如果碰到符合条件的，把i和j往前挪到不重复的元素去。
 - [0609. Two Sum - Less than or equal to target](Solutions/0609.Two-Sum-Less-than-or-equal-to-target.py) (E) <br>
 if nums[i] + nums[j] <= target: cnt += j - i		# 注意这里是 cnt += j - i 表示nums[i] 加上 i 到 j之间的任何数，一定也是小于等于target的
+- [1214. Two Sum BSTs](Solutions/1214.Two-Sum-BSTs.py) (M) <br>
+Iteratively do an inorder traversal for root1, and store the val in a hashSet; then itteratively do an inorder traversal for root2, and at the same time check if a target-val is in the hashSet. time complexity: O(M + N). 算法跟two sum是一样的，如果闭着眼睛能写要会iterative in-order traversal的哈！
 - [0015. 3Sum](Solutions/0015.3Sum.py) (!!M) <br>
-背模板，注意点一：对i去重；left, right=i+1, lens-1 # 注意点二：left和right的初始值；注意点三：对left和right去重
+step 1: sort the list; step 2: 背模板，注意点一：对i去重；注意点二：left, right=i+1, lens-1; 注意点三：left和right的初始值；注意点三：对left和right去重
 - [0016. 3Sum Closest](Solutions/0016.3Sum-Closest.py) (M) <br>
 - [0259. 3Sum Smaller](Solutions/0259.3Sum-Smaller.py) (M) <br>
-优化：if nums[i] * 3 >= target: break；其解法类似609
+优化：if nums[i] * 3 >= target: break；解法类似609
 - [0018. 4Sum](Solutions/0018.4Sum.py) (M) <br>
 solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1开始，因为要至少让j先取上第一个值i+1之后才能与前一个数比较！不然[0,0,0,0], 0就通不过了；solution 2: O(N^2): hashmap. for循环a, b,保存a+b的值进hashmap, 再for循环c, d, 判断c+d是否在hashmap中
 - [0454. 4Sum II](Solutions/0454.4Sum-II.py) (M) <br>
