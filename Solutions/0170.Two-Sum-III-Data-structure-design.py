@@ -22,31 +22,33 @@ class TwoSum:
         """
         Initialize your data structure here.
         """
-        self.nums = []
-        self.cntDict = {}   # key is num, val is how many times the num appears in dict
+        self.numsDict = collections.defaultdict(lambda: 0) # val is num val, key is how namy times the val was added, initilized as 0
 
     def add(self, number: int) -> None:
         """
         Add the number to an internal data structure..
         """
-        self.nums.append(number)
-        if number in self.cntDict:
-            self.cntDict[number] += 1
-        else:
-            self.cntDict[number] = 1
+        self.numsDict[number] += 1
 
     def find(self, value: int) -> bool:
         """
         Find if there exists any pair of numbers which sum is equal to the value.
         """
-        for num in self.nums:
-            if value - num in self.cntDict:
-                if value - num == num and self.cntDict[num] >= 2:
+        for key, val in self.numsDict.items():
+            if value - key in self.numsDict:
+                if value - key != key:
                     return True
-                elif value - num != num:
-                    return True
-            
+                else:
+                    if self.numsDict[key] > 1:
+                        return True
+                    
         return False
+
+
+# Your TwoSum object will be instantiated and called as such:
+# obj = TwoSum()
+# obj.add(number)
+# param_2 = obj.find(value)
 
 
 # Your TwoSum object will be instantiated and called as such:
