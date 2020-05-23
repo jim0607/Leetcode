@@ -70,7 +70,7 @@ class Solution:
         left, right = 0, len(height) - 1
         leftMax, rightMax = height[left], height[right]
         water = 0
-        while left <= right:
+        while left <= right:    # 注意是小于等于
             if height[left] < height[right]:
                 leftMax = max(leftMax, height[left])
                 water += leftMax - height[left]
