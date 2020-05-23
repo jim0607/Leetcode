@@ -26,16 +26,9 @@ class Solution:
 Solution 2: hash map  O(N), O(N)
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        if not nums:
-            return None
-        
-        lens = len(nums)
-        dict_nums = {}
+        numsDict = collections.defaultdict(int)
         for i, num in enumerate(nums):
-            if target - num in dict_nums:
-                return [i, dict_nums[target - num]]
+            if target - num in numsDict:
+                return (numsDict[target - num], i)
             
-            if num not in dict_nums:
-                dict_nums[num] = i
-        
-        return None
+            numsDict[num] = i
