@@ -39,6 +39,22 @@ class Solution:
                 
         return goodPos == 0
 
+    
+"""
+也可以从前往后遍历
+"""
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        lens = len(nums)
+        maxPos = nums[0]    # max position one could reach 
+        for i in range(1, lens):
+            if maxPos < i:  # if couldnot reach this point
+                return False
+            
+            maxPos = max(maxPos, nums[i] + i)
+        
+        return True
+
 
 
 
