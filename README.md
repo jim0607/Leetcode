@@ -720,6 +720,7 @@ Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes 
 - [0218. The Skyline Problem](Solutions/0218.The-Skyline-Problem.py) (!!H) <br>
 sweep lint + heapq；a maxHeap to store all alive buildings, 存高度和终点. res 里面需要保存的其实是每一次高度发生变化时的终点. 在指针currPos做扫描的时候做三件事情: 1. pop buildings that end before curPos, cuz they are no longer "alive"; 2. push [negative_height, end_point] of all buildings that start before curPos; 3. 更新res: if -maxHeap[0][0] != prevHeight: 说明出现了一个拐点要么上升要么下降，这时候就需要append拐点了
 
+<br> more swweep line and intervals
 
 # [Greedy](/) <br>
 - [0055. Jump Game](Solutions/0055.Jump-Game.py) (!!M) <br>
