@@ -534,13 +534,16 @@ OOOXXX problem, to find the first O. 二分法不难想，难想的是比较mid�
 - [0074. Search a 2D Matrix](Solutions/0074.Search-a-2D-Matrix.py) (M) <br>
 Think it as a long 1D array with MxN element, then we can use binary search; row = mid // n, col = mid % n; O(log(MN)), O(1)
 - [0240. Search a 2D Matrix II](Solutions/0240.Search-a-2D-Matrix-II.py) (M) <br>
-start from left bottom, head up to right top, each comparism rule out a row (i-1=1) or rule out a col (j+=1). O(M+N)
+start from left bottom, head up to right top, each comparism rule out a row (i-1=1) or rule out a col (j+=1). O(M+N).
+Comparing with 74, we can see that in 74, the 2D matrix is strongly sorted, so the time is logM + logN <br>
+in 240, the 2D matrix is less strongly sorted, so the time is M + N <br>
+If hte 2D matrix is not sorted at all, then the time is MN.
 - [0050. Pow(x, n)](Solutions/0050.Pow(x,n).py) (M) <br>
 recursion solution: half = self.myPow(x, n//2); if n%2 == 0: res = half * half; else: res = half * half * x
 - [0029. Divide Two Integers](Solutions/0029.Divide-Two-Integers.py) (M) <br>
 eg: 10//3, 每次通过右移3 << 1的方法将3乘以2,这种算法是O(N), 每次都右移几次3 << x, 相当于3x2x2x2...,直到3x2x2x2...>10, 然后取余数继续这个算法
 - [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
-midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx1], nums2[midIdx2]; when k is relatively large, then we can safely drop the first half that are surely smaller than the kth, the question is where is the first half that are surely smaller than the kth? by comparing midVal1 and midVal2, we can find it out, if midVal1 < midVal2, then all the vals in nums1[:midIdx1] are less than midVal2, also all of those vals are less than kth, we can safely drop all those vals
+SOlution 1: find Kth smallest O(log(M+N)). midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx1], nums2[midIdx2]; when k is relatively large, then we can safely drop the first half that are surely smaller than the kth, the question is where is the first half that are surely smaller than the kth? by comparing midVal1 and midVal2, we can find it out, if midVal1 < midVal2, then all the vals in nums1[:midIdx1] are less than midVal2, also all of those vals are less than kth, we can safely drop all those vals
 
 
 
