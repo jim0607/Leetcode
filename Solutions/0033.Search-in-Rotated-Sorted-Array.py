@@ -14,6 +14,51 @@ Input: nums = [4,5,6,7,0,1,2], target = 0
 Output: 4
 
 
+    
+    
+    
+# 九章算法模板真香！画个图分几个区间讨论就可以了！  
+"""Approach 2: one pass approach"""
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        lens = len(nums)
+        if lens == 0:
+            return -1
+        
+        if target == nums[0]:
+            return 0
+        
+        start, end = 0, lens - 1
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            
+            if target >= nums[0]:
+                if nums[0] <= nums[mid] < target:   # 往左逼近
+                    start = mid
+                else:
+                    end = mid
+            
+            else:
+                if target <= nums[mid] < nums[0]:  # 保持一致，往左逼近
+                    end = mid
+                else:
+                    start = mid
+                    
+        if nums[start] == target:
+            return start
+        if nums[end] == target:
+            return end
+        
+        return -1
+
+    
+    
+    
+    
+    
+    
+    
+    
 """Approach 1: Binary search
 The problem is to implement a search in \mathcal{O}(\log(N))O(log(N)) time that gives an idea to use a binary search.
 
@@ -78,38 +123,3 @@ class Solution:
         if nums[start] == target:
             return start
         return -1 
-    
-    
-# 九章算法模板真香！画个图分几个区间讨论就可以了！  
-"""Approach 2: one pass approach"""
-class Solution:
-    def search(self, nums: List[int], target: int) -> int:
-        lens = len(nums)
-        if lens == 0:
-            return -1
-        
-        if target == nums[0]:
-            return 0
-        
-        start, end = 0, lens - 1
-        while start + 1 < end:
-            mid = start + (end - start) // 2
-            
-            if target >= nums[0]:
-                if nums[0] <= nums[mid] < target:   # 往左逼近
-                    start = mid
-                else:
-                    end = mid
-            
-            else:
-                if target <= nums[mid] < nums[0]:  # 保持一致，往左逼近
-                    end = mid
-                else:
-                    start = mid
-                    
-        if nums[start] == target:
-            return start
-        if nums[end] == target:
-            return end
-        
-        return -1
