@@ -34,7 +34,9 @@ class Solution:
             return nums[start]
 
         
-"""为了更好的去解follow up questions: 154. Find Minimum in Rotated Sorted Array II（存在重复的数）,我们采用下面的方法，instead of comapring nums[mid] and nums[0], we compare nums[mid] and nums[end]. It should be noted that end is always on the right of the minimum point, and start is alwyas on the left, that is why the algorithm works."""
+"""为了更好的去解follow up questions: 154. Find Minimum in Rotated Sorted Array II（存在重复的数）,我们采用下面的方法，
+instead of comapring nums[mid] and nums[0], we compare nums[mid] and nums[end]. 
+It should be noted that end is always on the right of the minimum point, and start is alwyas on the left, that is why the algorithm works."""
 class Solution:
     def findMin(self, nums: List[int]) -> int:
         lens = len(nums)
