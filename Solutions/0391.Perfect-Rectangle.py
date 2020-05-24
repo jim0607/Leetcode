@@ -33,4 +33,4 @@ class Solution:
 
         bottom_left = sorted(coordinates)[0]    # here we used sorted for set, but there are only 4 elements in the set, so O(1)
         top_right = sorted(coordinates)[3]
-        return area == (top_right[0] - bottom_left[0]) * (top_right[1] - bottom_left[1])
+        return area == (top_right[0] - bottom_left[0]) * (top_right[1] - bottom_left[1])    # condition 2
