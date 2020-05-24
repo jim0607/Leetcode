@@ -97,4 +97,6 @@ Set
       
 6. 我去才发现定义visited = set(3) 是错的，只能一步步按4.1中那样定义！79. Word Search
       
+7. sort a set 只能用sorted(setA). eg: for pos in sorted(positionSet):  218. The Skyline Problem
+      
       
