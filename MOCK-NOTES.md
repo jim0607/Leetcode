@@ -102,3 +102,9 @@ Should be noted that the time complexity of quick select is O(N).
 410 二分
 993 1. BFS+EARLY STOPPING; 2. DFS + BRANCH PRUNING
             
+05/24/2020
+when we want to check is some data structure is empty, just check if it is empty, don't check if the lens is zero.
+This is because sometimes checking for lens/size is sometimes expensive.  For example, for a linkedlist, it is not easy to keep track of the size of the linkedlist on the run.
+0973. K Closest Points to Origin - quick select is only O(N), I guess all the kth largest problem can use quick select
+
+建议：面试时边写程序边写comment
