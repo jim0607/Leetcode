@@ -107,4 +107,4 @@ when we want to check is some data structure is empty, just check if it is empty
 This is because sometimes checking for lens/size is sometimes expensive.  For example, for a linkedlist, it is not easy to keep track of the size of the linkedlist on the run.
 0973. K Closest Points to Origin - quick select is only O(N), I guess all the kth largest problem can use quick select
 
-建议：面试时边写程序边写comment
+建议：面试时边写程序边写comment, 一定要有一门自己非常熟悉的语言
