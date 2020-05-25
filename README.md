@@ -243,7 +243,7 @@ time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的
 - [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
 solution 1: 扫描线；solution 2: 以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
 - [0973. K Closest Points to Origin](Solutions/0973.K-Closest-Points-to-Origin.py) (M) <br>
-（以squre来构建heap就可以了，heap中的元素是(square, point)）
+（以squre来构建heap就可以了，heap中的元素是(square, point)） quick select is only O(N), I guess all the kth largest problem can use quick select.
 - [0378. Kth Smallest Element in a Sorted Matrix](Solutions/0378.Kth-Smallest-Element-in-a-Sorted-Matrix.py) (!!M) <br>
 利用sorted matrix的性质，从左上角第一个元素开始，添加进heap，然后heap当然自动排序了，然后pop出最小的，然后把最小的那个数的右边和下边的元素分别入heap，这样可以保证每次pop出来的都是最小的。1. use a heap to store (num, row, col); 2. use a set to check if row + 1, col + 1 visited already before push into the heap; Solution 2: binary search 了解一下。<br>
 - [0465 Kth Smallest Sum in Two Sorted Arrays](Solutions/0465.Kth-Smallest-Sum-in-Two-Sorted-Arrays.py) (M Lintcode) <br>
@@ -289,6 +289,12 @@ addWord mehtod is the same as 208 insert method. But search mehtod is a little d
 - [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!M) <br>
 The capability of finding matching prefix is where the data structure called Trie would shine, comparing the hashset data structure. Not only can Trie tell the membership of a word, but also it can instantly find the words that share a given prefix. 打印所有路径所以用Trie + Backtracking DFS. 非常经典的题呀！
 ------- 472 ------------
+
+
+
+### [Trie](Union-Find-and-Trie.py)
+- [0850. Rectangle Area II](Solutions/ (H) <br>
+
 
 
 # [Breadth First Search](/Breadth-First-Search.py)
@@ -723,14 +729,19 @@ Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes 
 - [0218. The Skyline Problem](Solutions/0218.The-Skyline-Problem.py) (!!H) <br>
 sweep lint + heapq；a maxHeap to store all alive buildings, 存高度和终点. res 里面需要保存的其实是每一次高度发生变化时的终点. 在指针currPos做扫描的时候做三件事情: 1. pop buildings that end before curPos, cuz they are no longer "alive"; 2. push [negative_height, end_point] of all buildings that start before curPos; 3. 更新res: if -maxHeap[0][0] != prevHeight: 说明出现了一个拐点要么上升要么下降，这时候就需要append拐点了
 
-<br> more swweep line and intervals
+
+
+
 
 # [Greedy](/) <br>
 - [0055. Jump Game](Solutions/0055.Jump-Game.py) (!!M) <br>
 存在性问题。状态: dp[j]=能不能跳到位置j; 转移方程：dp[j]=True if dp[i] and nums[i]>=j-i) (TLE 注意只要有一个dp[i]是的dp[j]=True了就可以break了). DP解法: O(N^2).  Greedy 解法: O(N) Iterating right-to-left, for each position we check if there is a potential jump that reaches a GOOD index (currPosition + nums[currPosition] >= leftmostGoodIndex). 
 If we can reach a GOOD index, then our position is itself GOOD. Iteration continues until the beginning of the array. 
 If first position is a GOOD index then we can reach the last index from the first position.
-
+- [0045. Jump Game II](Solutions/0045.Jump-Game-II.py) (H) <br>
+Greedy算法：第一步可以跳到比如位置10，也就是说0-10我们都可以一步跳到，那我们就在0-10这些位置中，选一个位置i跳第二步，看看第二步能跳到最远的地方是哪里，比如是最远的是从位置6跳到位置28，那么就说明两步可以跳到位置28，也就是说11-28我们可以通过两步跳到，那我们就继续在11-28这些位置中，选一个位置i跳第三步.........
+- [1306. Jump Game III](Solutions/1306.Jump-Game-III.py) (M) <br>
+BFS, if can find arr[idx]==0, then return True.
 
 
 
@@ -738,14 +749,36 @@ If first position is a GOOD index then we can reach the last index from the firs
 
 
 # [Other High Freq](/)
-- [0415. Add Strings](Solutions/0415.Add-Strings.py) (!!E) <br>
+- [0415. Add Strings](Solutions/0415.Add-Strings.py) (E) <br>
 similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check while i >= 0: ;  while i >= 0: ; 最后还要check if carryBit > 0:
-277. Find the Celebrity
+- [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (E) <br>
+one dict to store the inDegree (beingTrusted), one dict to store the outDegree (trustOthers). there exsit a town judge only if there is a node with inDegree==N-1(beiing trusted by all others), and at the same time the node should have outDegree==0(not trust anyone)
+- [0277. Find the Celebrity](Solutions/0277.Find-the-Celebrity.py) (!!M) <br>
+main algorithm: each comparing kowns(i, j), we are sure either i is definitely not a celebrity (knows(i, j)=True), or j is definitely not a celebrity (knows(i, j)=False). step 1: one pass, find a candidate by making sure other people are not candidates; step 2: one pass, double check the candidate selected in step 1 is indeed a celebrity
+
+
 161 - One Edit Distance
 ------ Dot product of sparse vectors (FB) ---------
+-------- 438. Find All Anagrams in a String  ---------
+- [0836. Rectangle Overlap](Solutions/0836.Rectangle-Overlap.py) (E) <br>
+比较点的坐标即可
+- [0223. Rectangle Area](Solutions/0223.Rectangle-Area.py) (M) <br>
+- [0391. Perfect Rectangle](Solutions/0391.Perfect-Rectangle.py) (H) <br>
+属于观察题目性质的题, In order to form a perfect rectangle, two condictions must be satisfied:
+condition 1. for all the coordinates, there are 4 and only 4 coordinates that appear only once, others appear either twice or 4 times.  So we can use a set to store all the coordinates and cnt their appear times
+condition 2. the sum of area of all the small rectangles should be the same as the whole big one (the area enclosed by the 4 coordinates in condition 1)
 
 
 
+# [Intervals](/)
+- [1229. Meeting Scheduler](Solutions/1229.Meeting-Scheduler.py) (M) <br>
+双指针法, if min(end1, end2) - max(start1, start2) >= duration: return [max(start1, start2), max(start1, start2) + duration]
+- [0391. Number of Airplanes in the Sky](Solutions/0391.Number-of-Airplanes-in-the-Sky.py) (M Lintcode) <br>
+扫描线做法：碰到interval的start，也就是起飞一架飞机，当前天上的飞机数++。碰到interval的end，也就是降落一架飞机，当前天上的飞机数--。
+Step 1: 我们分别把所有的start和所有的end放进两个数组，并排序。Step 2: 然后从第一个start开始统计，碰到start较小就加一，碰到end较小就减一。并且同时维护一个最大飞机数的max。
+- [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
+solution 1: 扫描线；minimum meeting rooms required could be understood us maximum meeting rooms in use
+Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky <br> solution 2: 先把interval进行sort: intervals.sort(key = lambda x: (x[0], x[1])), 然后以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
 
 
 
@@ -764,3 +797,8 @@ Tarjan's algorithm: 1192. Critical Connections in a Network
 ### 看Abby google doc的归类，还有liweiwei Github的归类，根据归类再适当刷一些新题。
 ### https://blog.csdn.net/fuxuemingzhu/article/details/101900729 很好的分类总结
 ### top 50 of interview questions and top liked questions and top Google interview questions top green
+
+# 好的总结
+## CSpiration经典题目分类：https://cspiration.com/leetcodeClassification
+## Joshua的总结 https://zhuanlan.zhihu.com/p/40866467
+## https://www.ctolib.com/huxiaoman7-leetcodebook.html
