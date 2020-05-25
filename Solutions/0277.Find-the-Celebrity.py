@@ -37,7 +37,7 @@ Remember that you won't have direct access to the adjacency matrix.
 # def knows(a: int, b: int) -> bool:
 
 """
-main algorithm: each comparing kowns(i, j), we are sure either i is definitely not a celebrity (knows(i, j)=True), or j is definitely not a celebrity (knows(i, j)=False)
+题眼 main algorithm: each comparing kowns(i, j), we are sure either i is definitely not a celebrity (knows(i, j)=True), or j is definitely not a celebrity (knows(i, j)=False)
 step 1: one pass, find a candidate by making sure other people are not candidates
 step 2: one pass, double check the candidate selected in step 1 is indeed a celebrity
 O(2N) N is the number of nodes
