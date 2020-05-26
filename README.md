@@ -301,6 +301,7 @@ Solution 1: Greedy O(N) 使用一个集合HashSet存入所有的数字，然后�
 
 
 ### [Trie](Union-Find-and-Trie.py)
+--- There is a chapter in Leetcode official website for Trie
 - [0208. Implement Trie (Prefix Tree)](Solutions/0208.Implement-Trie-(Prefix-Tree).py) (!!M) <br>
 Firstly we need to define a TrieNode class, a TrieNode class hs two properties: 1. self.child = collections.defaultdict(TrieNode)  # use a defaultdict, key is char, value is TrieNode corresponding to the char.  2. self.isEnd = False   # return True if reached the end of the Trie.  Then implement 3 methods: insert(word), search(word), startWith(prefix); 注意currNode往下遍历时currNode = currNode.child[char]
 - [0211. Add and Search Word - Data structure design](Solutions/0211.Add-and-Search-Word-Data-structure-design.py) (!!M) <br>
@@ -308,10 +309,6 @@ addWord mehtod is the same as 208 insert method. But search mehtod is a little d
 - [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!M) <br>
 The capability of finding matching prefix is where the data structure called Trie would shine, comparing the hashset data structure. Not only can Trie tell the membership of a word, but also it can instantly find the words that share a given prefix. 打印所有路径所以用Trie + Backtracking DFS. 非常经典的题呀！
 ------- 472 ; 677. Map Sum Pairs; 648. Replace Words; 425. Word Squares------------
-
-
-
-### [Trie](Union-Find-and-Trie.py)
 - [0850. Rectangle Area II](Solutions/ (H) <br>
 
 
