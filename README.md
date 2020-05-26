@@ -179,10 +179,14 @@ It seems there is an O(M+N) solution, same idea of using slideing window, I shou
 - [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
 Note that the numbers are positive, so the prefixProd will be an increasing arr. 维护一个sums, 用来记录i->j中数的produce. 
 
--------567. Permutation in String; 438. Find All Anagrams in a String - Medium
+------- 
 209. Minimum Size Subarray Sum - Medium
 159. Longest Substring with At Most Two Distinct Characters - Medium
-30. Substring with Concatenation of All Words - Hard----------
+30. Substring with Concatenation of All Words - Hard
+239	Sliding Window Maximum	hard
+295	Find Median from Data Stream
+228	Summary Ranges	medium
+163	Missing Ranges	medium	  ----------
 
 
 
@@ -202,6 +206,11 @@ In C#, Queue class is by default a deque, with two methods: 1. enqueue, meaning 
 - [0933. Number of Recent Calls](Solutions/0933.Number-of-Recent-Calls.py) (E) <br>
 In C#, Count is a method that gets the number of elements contained in the Queue.
 - [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
+
+-------- 224	Basic Calculator ------- 227	Basic Calculator II ------- 385	Mini Parser ------ 150	Evaluate Reverse Polish Notation
+71	Simplify Path
+388	Longest Absolute File Path ---------
+
 
 ### [Iterator](/Data-Structure.py)
 - [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (!!M) <br>
@@ -261,6 +270,8 @@ Similar with 1D trapping rain water. Step 1: store all the outliners of the matr
 - [0480. Sliding Window Median](Solutions/0480.Sliding-Window-Median.py) (H) <br>
 similar with 295, we need to maintain two heaps, leftHq and rightHq. To slide one step is actually to do two things: 1. add a number, which is exactly the same as that in 295. 2. remove a number; 全是难题，看不进去https://leetcode.com/problems/sliding-window-median/discuss/412047/Two-heaps-%2B-sliding-window-approach-O(-n-*-k-)-runtime-O(k)-space
 
+----- 313	Super Ugly Number ------- 373	Find K Pairs with Smallest Sums
+
 
 ### [Union-Find](Union-Find-and-Trie.py)
 - [0589. Connecting Graph](Solutions/0589.connecting-graph.java) (!!M Lintcode) <br>
@@ -278,7 +289,15 @@ Union-Find 算法是解决动态连通性（Dynamic Conectivity）问题的一�
 Solution 2: Union find: O(N); Solution 1: BFS O(N)判断图是不是一棵树（不一定非要是二叉树）需要满足两点:1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树
 - [0128. Longest Consecutive Sequence](Solutions/0128.Longest-Consecutive-Sequence.py) (!!H) <br>
 Solution 1: Greedy O(N) 使用一个集合HashSet存入所有的数字，然后遍历数组中的每个数字，如果其在集合中存在，那么将其移除，然后分别用两个变量pre和next算出其前一个数跟后一个数，然后在集合中循环查找，如果pre在集合中，那么将pre移除集合，然后pre再自减1，直至pre不在集合之中，对next采用同样的方法，
-那么next-pre-1就是当前数字的最长连续序列，更新res即可; Solution 2: Union find: O(N),
+那么next-pre-1就是当前数字的最长连续序列，更新res即可; Solution 2: Union find: O(N)
+
+---------
+130 Surrounded Regions 18.6% Medium
+547 Friend Circles 49.1% Medium
+323 Number of Connected Components in an Undirected Graph 
+721 Accounts Merge 
+684. Redundant Connection -----------
+
 
 
 ### [Trie](Union-Find-and-Trie.py)
@@ -288,7 +307,7 @@ Firstly we need to define a TrieNode class, a TrieNode class hs two properties: 
 addWord mehtod is the same as 208 insert method. But search mehtod is a little different than search method in 208, cuz "." is a wildcard that can represent any char. So we use a queue to store (currNode, idx), then append layer by layer.
 - [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!M) <br>
 The capability of finding matching prefix is where the data structure called Trie would shine, comparing the hashset data structure. Not only can Trie tell the membership of a word, but also it can instantly find the words that share a given prefix. 打印所有路径所以用Trie + Backtracking DFS. 非常经典的题呀！
-------- 472 ------------
+------- 472 ; 677. Map Sum Pairs; 648. Replace Words; 425. Word Squares------------
 
 
 
@@ -460,6 +479,8 @@ step 1: sweeping from right to left, find the first decreasing element nums[i]; 
 step 1: put the characters that have seen two times in the char list; now we have a charList that only holds char that appears even times, eg: "aaaabbc" now becomes "aab", Step 2: we only need to do permutation for this charList, so the time complexity is O((n/2)!), which is quite an improve. Step 3: when return the results, we just use the permuation generated in steps 2 + permuation[::-1]
 - [0060. Permutation Sequence](Solutions/0060.Permutation-Sequence.py) (M)  <br>
 It really is all about pattern finding; https://leetcode.com/problems/permutation-sequence/discuss/22507/%22Explain-like-I'm-five%22-Java-Solution-in-O(n)
+----- 254	Factor Combinations ----
+
 
 
 ### [树上的DFS](/Depth-First-Search.py) <br>
@@ -492,7 +513,7 @@ Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来�
 遍历机器人的四个方向即可，唯一需要注意的是每次都需要调整机器人的朝向才能move一下，毕竟是机器人嘛
 - [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (H) <br> 
 dfs + backtracking, time complexity is (9!)^9, which is veyr high. <br>
------------ 980. Unique Paths III ---------- 351. Android Unlock Patterns ---------- 301. Remove Invalid Parentheses ----------- 329. Longest Increasing Path in a Matrix ----------- 1239. Maximum Length of a Concatenated String with Unique Characters ----------
+----------- 980. Unique Paths III ---------- 351. Android Unlock Patterns ---------- 301. Remove Invalid Parentheses ----------- 329. Longest Increasing Path in a Matrix ----------- 1239. Maximum Length of a Concatenated String with Unique Characters ---------- 733. Flood Fill----130. Surrounded Regions------- 417. Pacific Atlantic Water Flow ------ 320. Generalized Abbreviation ----- 753. Cracking the Safe ---- ----- 291	Word Pattern II ---------- 282	Expression Add Operators ------ 140	Word Break II ------ 
 
 
 
@@ -748,9 +769,6 @@ BFS, if can find arr[idx]==0, then return True.
 
 
 
-# [Other High Freq](/)
-- [0415. Add Strings](Solutions/0415.Add-Strings.py) (E) <br>
-similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check while i >= 0: ;  while i >= 0: ; 最后还要check if carryBit > 0:
 
 # [系列题](/)
 ## [Celebrity](/)
@@ -760,6 +778,9 @@ one dict to store the inDegree (beingTrusted), one dict to store the outDegree (
 main algorithm: each comparing kowns(i, j), we are sure either i is definitely not a celebrity (knows(i, j)=True), or j is definitely not a celebrity (knows(i, j)=False). step 1: one pass, find a candidate by making sure other people are not candidates; step 2: one pass, double check the candidate selected in step 1 is indeed a celebrity
 
 ##  [Intervals](/)
+------ 252 meeting room[easy] ------
+------- 56	Merge Intervals; 57	Insert Interval --------
+--------- 352	Data Stream as Disjoint Intervals --------
 - [1229. Meeting Scheduler](Solutions/1229.Meeting-Scheduler.py) (M) <br>
 双指针法, if min(end1, end2) - max(start1, start2) >= duration: return [max(start1, start2), max(start1, start2) + duration]
 - [0391. Number of Airplanes in the Sky](Solutions/0391.Number-of-Airplanes-in-the-Sky.py) (M Lintcode) <br>
@@ -792,10 +813,65 @@ condition 2. the sum of area of all the small rectangles should be the same as t
 161 - One Edit Distance
 ------ Dot product of sparse vectors (FB) ---------
 
+# [图的遍历](/)
+## [图的基础](/)
+133	Clone Graph	视频讲解	
+399	Evaluate Division	视频讲解	
+310	Minimum Height Trees	视频讲解	
+图形学			
+149	Max Points on a Line	视频讲解
+## [Dijkstra](/)
+求有缘路径的最短距离
+算法导论的经典例子: 743. Network Delay Time 使用heap操作，每次添加最短的路径cost
+---- 787. Cheapest Flights Within K Stops ---------
+## [Floyd-Warshall](/)
+## [Bellman-Ford](/)
+
+## [最小生成树](/)
+https://blog.csdn.net/fuxuemingzhu/article/details/101900729
+1135. Connecting Cities With Minimum Cost
+Eddie 讲的课
+Kruskal算法
+Prim算法
+
+
+# [Random](/)
+384	Shuffle an Array	视频讲解	
+398	Random Pick Index	视频讲解	
+382	Linked List Random Node	视频讲解	
+380	Insert Delete GetRandom O(1)	视频讲解	
+381	Insert Delete GetRandom O(1) - Duplicates allowed	视频讲解	
+138	Copy List with Random Pointer	视频讲解
+
+
+
+# [Desgin](/)
+359	Logger Rate Limiter	视频讲解	
+346	Moving Average from Data Stream	视频讲解	Sliding Window
+362	Design Hit Counter	视频讲解	
+281	Zigzag Iterator	视频讲解	
+284	Peeking Iterator	视频讲解	
+251	Flatten 2D Vector	视频讲解	
+288	Unique Word Abbreviation	视频讲解	
+170	Two Sum III - Data structure design	视频讲解	
+348	Design Tic-Tac-Toe	视频讲解	
+379	Design Phone Directory	视频讲解	
+353	Design Snake Game	视频讲解	
+146	LRU Cache	视频讲解	
+355	Design Twitter	视频讲解	
+303	Range Sum Query - Immutable	视频讲解	
+304	Range Sum Query 2D - Immutable	视频讲解	
+307	Range Sum Query - Mutable	视频讲解	BIT & ST
+308	Range Sum Query 2D - Mutable	视频讲解	BIT & ST
 
 
 
 
+
+
+# [Other High Freq](/)
+- [0415. Add Strings](Solutions/0415.Add-Strings.py) (E) <br>
+similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check while i >= 0: ;  while i >= 0: ; 最后还要check if carryBit > 0:
 
 
 # Other Algorithms
