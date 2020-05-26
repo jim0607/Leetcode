@@ -76,6 +76,15 @@ In python, hash map is dictionary
 Reason: Dictionary keys must be immutable types and list is a mutable type. 
 Solution: Cast list to a tuple. eg: 305. Number of Islands II
       
+4. instead of using a cntDict, we can use the defulat Counter in Python
+   from collections import Counter
+   s = "suggest"
+   sCnt = Counter(s)
+   print(sCnt)
+   --> Counter({'s': 3, 'u': 1, 'g': 2, 'e': 1, 't': 1, 'i': 1, 'o': 1, 'n': 1})
+      
+      
+      
       
 
 Set
