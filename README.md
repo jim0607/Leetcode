@@ -689,6 +689,8 @@ if height[i] > height[j]: j -= 1  # meaning that 右边的栅栏更低，所以�
 
 
 ### [同向双指针](/Two-pointers.py)
+- [0415. Add Strings](Solutions/0415.Add-Strings.py) (E) <br>
+similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check while i >= 0: ;  while i >= 0: ; 最后还要check if carryBit > 0:
 - [0019. Remove Nth Node From End of List](Solutions/0019.Remove-Nth-Node-From-End-of-List.py) (M) <br>
 fast 比 slow 先出发 n 步即可
 - [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py) (E) <br>
@@ -866,9 +868,21 @@ Prim算法
 
 
 
-# [Other High Freq](/)
-- [0415. Add Strings](Solutions/0415.Add-Strings.py) (E) <br>
-similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check while i >= 0: ;  while i >= 0: ; 最后还要check if carryBit > 0:
+# [Company High Freq](/)
+## [Google](/)
+Count Complete Tree Nodes; Longest Increasing Path in a Matrix; Evaluate Division; Cracking the Safe; Robot Room Cleaner; Most Stones Removed with Same Row or Column; Flip Equivalent Binary Trees; Word Squares; Count of Smaller Numbers After Self; Peak Index in a Mountain Array; Split Array Largest Sum; Logger Rate Limiter; Insert Delete GetRandom O(1); Design Search Autocomplete System; Reverse Integer; Candy; Isomorphic Strings; Strobogrammatic Number; Bulls and Cows; Range Sum Query 2D - Mutable; My Calendar II; Jewels and Stones; Swap Adjacent in LR String; Guess the Word; Minimum Area Rectangle
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Other Algorithms
