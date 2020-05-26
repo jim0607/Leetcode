@@ -68,7 +68,7 @@ class Solution:
             return head
         
         nextNode = head.next
-        reversedHead = self.reverseList(nextNode)   # 这一部分执行完了之后nextNode已经变成了后面一大坨已经翻                            转好的List的tail了
+        reversedHead = self.reverseList(nextNode)   # 这一部分执行完了之后nextNode已经变成了后面一大坨已经翻转好的List的tail了
         nextNode.next = head
         head.next = None
         
