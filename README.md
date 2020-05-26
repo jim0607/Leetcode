@@ -751,15 +751,34 @@ BFS, if can find arr[idx]==0, then return True.
 # [Other High Freq](/)
 - [0415. Add Strings](Solutions/0415.Add-Strings.py) (E) <br>
 similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check while i >= 0: ;  while i >= 0: ; 最后还要check if carryBit > 0:
+
+# [系列题](/)
+## [Celebrity](/)
 - [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (E) <br>
 one dict to store the inDegree (beingTrusted), one dict to store the outDegree (trustOthers). there exsit a town judge only if there is a node with inDegree==N-1(beiing trusted by all others), and at the same time the node should have outDegree==0(not trust anyone)
 - [0277. Find the Celebrity](Solutions/0277.Find-the-Celebrity.py) (!!M) <br>
 main algorithm: each comparing kowns(i, j), we are sure either i is definitely not a celebrity (knows(i, j)=True), or j is definitely not a celebrity (knows(i, j)=False). step 1: one pass, find a candidate by making sure other people are not candidates; step 2: one pass, double check the candidate selected in step 1 is indeed a celebrity
 
+##  [Intervals](/)
+- [1229. Meeting Scheduler](Solutions/1229.Meeting-Scheduler.py) (M) <br>
+双指针法, if min(end1, end2) - max(start1, start2) >= duration: return [max(start1, start2), max(start1, start2) + duration]
+- [0391. Number of Airplanes in the Sky](Solutions/0391.Number-of-Airplanes-in-the-Sky.py) (M Lintcode) <br>
+扫描线做法：碰到interval的start，也就是起飞一架飞机，当前天上的飞机数++。碰到interval的end，也就是降落一架飞机，当前天上的飞机数--。
+Step 1: 我们分别把所有的start和所有的end放进两个数组，并排序。Step 2: 然后从第一个start开始统计，碰到start较小就加一，碰到end较小就减一。并且同时维护一个最大飞机数的max。
+- [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
+solution 1: 扫描线；minimum meeting rooms required could be understood us maximum meeting rooms in use
+Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky <br> solution 2: 先把interval进行sort: intervals.sort(key = lambda x: (x[0], x[1])), 然后以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
 
-161 - One Edit Distance
------- Dot product of sparse vectors (FB) ---------
--------- 438. Find All Anagrams in a String  ---------
+## [Anagram](/)
+- [0242. Valid Anagram](Solutions/0242.Valid-Anagram.py) (E) <br>
+string s and t are anagram with each other when all the ch in s have the same count as that in t
+- [567. Permutation in String](Solutions/0567.Permutation-in-String.py) (M) <br>
+sliding window solution 1: 九章模板，use one collections.Counters for p and one for s. liding window solution 2: keep the window size len(s1), check the tempCntDict == cntDict ? O(M+M*(N-M)). 
+- [0438. Find All Anagrams in a String](Solutions/0438.Find-All-Anagrams-in-a-String.py) (!!M) <br>
+similar with 567, 套用九章模板就可以了
+
+
+## [Perfect Rectangle](/)
 - [0836. Rectangle Overlap](Solutions/0836.Rectangle-Overlap.py) (E) <br>
 比较点的坐标即可
 - [0223. Rectangle Area](Solutions/0223.Rectangle-Area.py) (M) <br>
@@ -770,15 +789,10 @@ condition 2. the sum of area of all the small rectangles should be the same as t
 
 
 
-# [Intervals](/)
-- [1229. Meeting Scheduler](Solutions/1229.Meeting-Scheduler.py) (M) <br>
-双指针法, if min(end1, end2) - max(start1, start2) >= duration: return [max(start1, start2), max(start1, start2) + duration]
-- [0391. Number of Airplanes in the Sky](Solutions/0391.Number-of-Airplanes-in-the-Sky.py) (M Lintcode) <br>
-扫描线做法：碰到interval的start，也就是起飞一架飞机，当前天上的飞机数++。碰到interval的end，也就是降落一架飞机，当前天上的飞机数--。
-Step 1: 我们分别把所有的start和所有的end放进两个数组，并排序。Step 2: 然后从第一个start开始统计，碰到start较小就加一，碰到end较小就减一。并且同时维护一个最大飞机数的max。
-- [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
-solution 1: 扫描线；minimum meeting rooms required could be understood us maximum meeting rooms in use
-Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky <br> solution 2: 先把interval进行sort: intervals.sort(key = lambda x: (x[0], x[1])), 然后以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
+161 - One Edit Distance
+------ Dot product of sparse vectors (FB) ---------
+
+
 
 
 
