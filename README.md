@@ -230,6 +230,12 @@ use two pointers and a flag. What if you are given k 1d vectors? How well can yo
 step 1: construct a heights list for each row; step 2: calculate the largestRectangularHistogram of each height using the same method in 84; Should think about dynamic programming solution also.
 - [0654. Maximum Binary Tree](Solutions/0654.Maximum-Binary-Tree.py) (M) <br>
 solution 1: simple recursionsolution 2: monostack 通过观察发现规律，对于每个node的父亲节点 = min(左边第一个比它大的，右边第一个比它大的), 维护一个降序数组，可以实现对这个min的快速查找, # O(N), O(N)
+402. Remove K Digits
+496. Next Greater Element I (Easy)
+503. Next Greater Element II
+739. Daily Temperatures
+901. Online Stock Span
+
 
 
 ### [Deque](/Data-Structure.py) 
@@ -862,6 +868,9 @@ Prim算法
 304	Range Sum Query 2D - Immutable	视频讲解	
 307	Range Sum Query - Mutable	视频讲解	BIT & ST
 308	Range Sum Query 2D - Mutable	视频讲解	BIT & ST
+460. LFU Cache
+588. Design In-Memory File System
+604. Design Compressed String Iterator
 
 
 
