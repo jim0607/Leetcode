@@ -39,9 +39,12 @@ When "a" is not a nut or "b" is not a bolt, it will return 2, which is not valid
 
 """
 将nuts和botls用quick sort排序成一一对应关系。
-首先以bolts的左边界元素作为基准，对nuts进行排序。在nuts中寻找该bolt对应的nut，找到之后将该nut交换到其左边界，然后以该nut为pivot进行quick sort，因为compare只能比较nut和bult，所以还是以之前的bolt作为基准，将比该bolt小的nut交换到前部，将比该bolt大的nut交换到后部，最后将pivot填入到相遇的位置，并返回该位置。
+首先以bolts的左边界元素作为基准，对nuts进行排序。在nuts中寻找该bolt对应的nut，找到之后将该nut交换到其左边界，
+然后以该nut为pivot进行quick sort，因为compare只能比较nut和bult，所以还是以之前的bolt作为基准，将比该bolt小的nut交换到前部，
+将比该bolt大的nut交换到后部，最后将pivot填入到相遇的位置，并返回该位置。
 与1类似，以1返回的位置的nut为基准，对bolt进行排序。最后将比该nut小的bolt放到前部，将比该nut大的bolt放到后部，将与该nut对应的bolt放到相遇位置。
-这样就有1对nut和bolt一一对应，并且在数组中该nut之前的部分都是比它小的，之后的部分都是比它大的，bolt也是一样。然后再重复1-2，递归地对前半部和后半部分进行quick sort。
+这样就有1对nut和bolt一一对应，并且在数组中该nut之前的部分都是比它小的，之后的部分都是比它大的，bolt也是一样。
+然后再重复1-2，递归地对前半部和后半部分进行quick sort。
 """
 
 class Solution:
