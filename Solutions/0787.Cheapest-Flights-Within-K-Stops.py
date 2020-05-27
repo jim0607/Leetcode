@@ -34,17 +34,21 @@ k is in the range of [0, n - 1].
 There will not be any duplicated flights or self cycles.
 
 
-
+"""
+有向图，带权值，找从单源出发最佳路径问题：Dijkstra's algorithm O(NlogN + E)
+与743相比少了一个currNode in costs: continue因为次好路径也可能是最后的结果，这是由于最好路径可能不满足stops<K
+所以需要加一个 if currStops >= K: continue
+"""
 from heapq import *
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, K: int) -> int:
         graph = collections.defaultdict(list)
-        for flight in flights:
+        for flight in flights:      # O(E)
             graph[flight[0]].append((flight[1], flight[2]))
             
         hq = [(0, -1, src)]     # store (cost, stops, airports)
         costs = collections.defaultdict(int)    # key is airpot, val is the cost to reach that airport
-        while hq:
+        while hq:       # O(NlogN)
             currCost, currStops, currNode = heappop(hq)
             # if currNode in costs:     # 这一句不能要，因为如果最便宜的路径不满足 <= K stops的话，我们还要回来找次便宜的路径，次便宜的路径可能也需要用到这个node, 所以不能continue掉
             #     continue
