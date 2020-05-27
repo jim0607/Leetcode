@@ -180,6 +180,12 @@ It seems there is an O(M+N) solution, same idea of using slideing window, I shou
 维护一个charDict, 用来记录i->j中的char的频率，套模板时满足的条件是len(charDict) <= k; 更新j: charDict[s[j]+=1; 更新i: charDict[s[i]] -= 1, if charDict[s[i]] == 0: del charDict[s[i]]
 - [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
 Note that the numbers are positive, so the prefixProd will be an increasing arr. 维护一个sums, 用来记录i->j中数的produce. 
+- [0242. Valid Anagram](Solutions/0242.Valid-Anagram.py) (E) <br>
+string s and t are anagram with each other when all the ch in s have the same count as that in t
+- [567. Permutation in String](Solutions/0567.Permutation-in-String.py) (M) <br>
+sliding window solution 1: 九章模板，use one collections.Counters for p and one for s. liding window solution 2: keep the window size len(s1), check the tempCntDict == cntDict ? O(M+M*(N-M)). 
+- [0438. Find All Anagrams in a String](Solutions/0438.Find-All-Anagrams-in-a-String.py) (!!M) <br>
+similar with 567, 套用九章模板就可以了
 
 ------- 
 209. Minimum Size Subarray Sum - Medium
@@ -780,12 +786,6 @@ BFS, if can find arr[idx]==0, then return True.
 
 
 # [系列题](/)
-## [Celebrity](/)
-- [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (E) <br>
-one dict to store the inDegree (beingTrusted), one dict to store the outDegree (trustOthers). there exsit a town judge only if there is a node with inDegree==N-1(beiing trusted by all others), and at the same time the node should have outDegree==0(not trust anyone)
-- [0277. Find the Celebrity](Solutions/0277.Find-the-Celebrity.py) (!!M) <br>
-main algorithm: each comparing kowns(i, j), we are sure either i is definitely not a celebrity (knows(i, j)=True), or j is definitely not a celebrity (knows(i, j)=False). step 1: one pass, find a candidate by making sure other people are not candidates; step 2: one pass, double check the candidate selected in step 1 is indeed a celebrity
-
 ##  [Intervals](/)
 ------ 252 meeting room[easy] ------
 ------- 56	Merge Intervals; 57	Insert Interval --------
@@ -799,19 +799,13 @@ Step 1: 我们分别把所有的start和所有的end放进两个数组，并排�
 solution 1: 扫描线；minimum meeting rooms required could be understood us maximum meeting rooms in use
 Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky <br> solution 2: 先把interval进行sort: intervals.sort(key = lambda x: (x[0], x[1])), 然后以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
 
-## [Anagram](/)
-- [0242. Valid Anagram](Solutions/0242.Valid-Anagram.py) (E) <br>
-string s and t are anagram with each other when all the ch in s have the same count as that in t
-- [567. Permutation in String](Solutions/0567.Permutation-in-String.py) (M) <br>
-sliding window solution 1: 九章模板，use one collections.Counters for p and one for s. liding window solution 2: keep the window size len(s1), check the tempCntDict == cntDict ? O(M+M*(N-M)). 
-- [0438. Find All Anagrams in a String](Solutions/0438.Find-All-Anagrams-in-a-String.py) (!!M) <br>
-similar with 567, 套用九章模板就可以了
 
 
 ## [Perfect Rectangle](/)
 - [0836. Rectangle Overlap](Solutions/0836.Rectangle-Overlap.py) (E) <br>
 比较点的坐标即可
 - [0223. Rectangle Area](Solutions/0223.Rectangle-Area.py) (M) <br>
+分成是否overlap两种情况来计算
 - [0391. Perfect Rectangle](Solutions/0391.Perfect-Rectangle.py) (H) <br>
 属于观察题目性质的题, In order to form a perfect rectangle, two condictions must be satisfied:
 condition 1. for all the coordinates, there are 4 and only 4 coordinates that appear only once, others appear either twice or 4 times.  So we can use a set to store all the coordinates and cnt their appear times
@@ -833,14 +827,29 @@ building the graph takes O(E), each query takes O(N), space for graph takes O(E)
 I think if we start to compress paths, the graph will grow to O(N^2) gradually, and we can optimize each query to O(1), 
 that is why we use global variable for graph, so that we can compress paths and avoid duplicated computing;  Soltution 2: Union Find;  Solution 3: Floyd–Warshall algorithm
 - [0310. Minimum Height Trees](Solutions/0310.Minimum-Height-Trees.py) (M) <br>
-Solution 1: bfs 有点问题		
-149	Max Points on a Line	视频讲解
+想想如果是一个很大的图，那minimum height trees的root就应该是这个图的最中心，所以我们就去找图的最中心就可以了，采用从外围(inDegree=1的node)往中间走的方法，解法类似topological sort, 走到最后留下的顶点就是最中心的顶点，也就是距离所有外围顶点最小的顶点。
+### [Celebrity](/)
+- [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (E) <br>
+one dict to store the inDegree (beingTrusted), one dict to store the outDegree (trustOthers). there exsit a town judge only if there is a node with inDegree==N-1(beiing trusted by all others), and at the same time the node should have outDegree==0(not trust anyone)
+- [0277. Find the Celebrity](Solutions/0277.Find-the-Celebrity.py) (!!M) <br>
+main algorithm: each comparing kowns(i, j), we are sure either i is definitely not a celebrity (knows(i, j)=True), or j is definitely not a celebrity (knows(i, j)=False). step 1: one pass, find a candidate by making sure other people are not candidates; step 2: one pass, double check the candidate selected in step 1 is indeed a celebrity
+
 ## [Dijkstra](/)
-求有缘路径的最短距离
-算法导论的经典例子: 743. Network Delay Time 使用heap操作，每次添加最短的路径cost
----- 787. Cheapest Flights Within K Stops ---------
+- [0743. Network Delay Time](Solutions/0743.Network-Delay-Time.py) (!!M) <br>
+**带权值**的**有向图**求**单源节点**出发的最短路径问题马上就想到Dijkstra, **O(NlogN + E)** N is # nodes, E is # edges <br>
+Dijkstra就是贪心版的bfs, bfs是勤勤恳恳一层一层推进，一层没访问完绝不访问下一层。Dijkstra就很贪心了，才不一层一层地走呢，他每次都想走最low cost的。如何实现每次走最low cost的呢？用一个heapq来store a pair: (currCost to reach the node, node), 这样每次pop出来的就都最low cost的node了，再去访问这个node的neighbors，把这些neighbors都加到hq中即可，带比较短。
+- [0787. Cheapest Flights Within K Stops](Solutions/0787.Cheapest-Flights-Within-K-Stops.py) (!!M) <br>
+有向图，带权值，找从单源出发最佳路径问题：Dijkstra's algorithm O(NlogN + E) <br> 
+hq 需要 store (cost, stops, airports), 与743相比少了一个currNode in costs: continue因为次好路径也可能是最后的结果，这是由于最好路径可能不满足stops < K; 这题需要加一个 if currStops >= K: continue
+
+---- 882. Reachable Nodes In Subdivided Graph ------
+
+
+
 ## [Floyd-Warshall](/)
 ## [Bellman-Ford](/)
+- [0743. Network Delay Time]
+ 花花
 
 ## [最小生成树](/)
 https://blog.csdn.net/fuxuemingzhu/article/details/101900729
