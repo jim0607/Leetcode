@@ -23,15 +23,15 @@ All edges times[i] = (u, v, w) will have 1 <= u, v <= N and 0 <= w <= 100.
 from heapq import *
 class Solution:
     def networkDelayTime(self, times: List[List[int]], N: int, K: int) -> int:
-        graph = collections.defaultdict(list)
+        graph = collections.defaultdict(list)       # 根据边构建图 O(E)
         for u, v, w in times:
             graph[u].append((v, w))
             
         hq = [(0, K)]   # maintain a min heap to keep track of min time
         distance = collections.defaultdict()    # distance store the distance of all the nodes to node K
-        while hq:
+        while hq:       # O(NlogN)
             dist, currNode = heappop(hq)    # instead of popping the closest to source node, we pop the best (lowest cost) node first. Greedy algorithm.
-            if currNode in distance:    # 可以continue的前提是我们每次pop出来的都是最lowest cost的路径，如果已经用最优路径访问过currNode了，接下来的路径肯定不会是最low cost得的了，所以可以continue
+            if currNode in distance:        # 可以continue的前提是我们每次pop出来的都是最lowest cost的路径，如果已经用最优路径访问过currNode了，接下来再次访问该node肯定不会是最low cost的了，所以可以continue
                 continue
             distance[currNode] = dist
             for neighbor, neighbor_dist in graph[currNode]:  # Dijkstra算法里：neighbor这一层只干一件事：那就是把这个nextNode push到hq中
