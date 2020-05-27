@@ -66,7 +66,7 @@ class Solution:
                 currNode = q.popleft()
                 level.append(currNode)
                 for neighbor in neighbors[currNode]:
-                    if inDegrees[neighbor] <= inDegrees[currNode]:
+                    if inDegrees[neighbor] <= inDegrees[currNode]:      # 保证只从外围往中心走，类似word ladder II
                         continue
                     inDegrees[neighbor] -= 1
                     if inDegrees[neighbor] == 1:
