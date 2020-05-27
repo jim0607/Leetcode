@@ -59,7 +59,9 @@ class Solution:
         
         
 """
-solution 3: use a nested sequence to store the index value information. https://www.cs.cmu.edu/~scandal/cacm/node9.html
+solution 3: use a nested sequence to store the index value information. 
+https://www.cs.cmu.edu/~scandal/cacm/node9.html
+http://erthal.co/programming/2019/03/18/dot-products-with-sparse-vectors.html
 somehow the time complexity is better? don't know why.
 """
 
@@ -83,3 +85,6 @@ Binary search如果找到了一个元素index，那就用这次的index作为下
 比如[1, 89，100]，去找90；如果不存在，那么binary search的ending index应该是89，所以下次就从那个index开始。
 如果找不到，会返回要插入的位置index + 1，index是要插入的位置，我写的就是返回要插入的index的。
 但是不管返回89还是100的index都无所谓，反正只差一个，对performance没有明显影响的。
+
+
+
