@@ -55,8 +55,9 @@ class Solution:
                 if nextNode in visited:
                     continue       
 
-                self.graph[startNode][nextNode] = nextVal * currVal
+                self.graph[startNode][nextNode] = nextVal * currVal  # update graph (path compression)
                 self.graph[nextNode][startNode] = 1 / (nextVal * currVal)
+                
                 q.append((nextNode, nextVal * currVal))
                 visited.add(nextNode)
                 
