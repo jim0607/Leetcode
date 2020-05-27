@@ -31,7 +31,7 @@ class Solution:
         distance = collections.defaultdict()    # distance store the distance of all the nodes to node K
         while hq:
             dist, currNode = heappop(hq)    # instead of popping the closest to source node, we pop the best (lowest cost) node first. Greedy algorithm.
-            if currNode in distance:
+            if currNode in distance:    # 可以continue的前提是我们每次pop出来的都是最lowest cost的路径，如果已经用最优路径访问过currNode了，接下来的路径肯定不会是最low cost得的了，所以可以continue
                 continue
             distance[currNode] = dist
             for neighbor, neighbor_dist in graph[currNode]:
