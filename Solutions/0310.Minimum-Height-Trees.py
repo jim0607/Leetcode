@@ -35,55 +35,43 @@ Output: [3, 4]
 
 
 """
-n = 4, edges = [[1,0],[1,2],[1,3]]
+想想如果是一个很大的图，那minimum height trees的root就应该是这个图的最中心，所以我们就去找图的最中心就可以了，
+采用从外围(inDegree=1的node)往中间走的方法，解法类似topological sort, 走到最后留下的顶点就是最中心的顶点，也就是距离所有外围顶点最小的顶点。
 """
 class Solution:
     def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
-        # key is a node1, val is a dictionary connected to node1 (key: node2, val: distance to node1)
-        self.graph = collections.defaultdict(lambda: collections.defaultdict(int))
-        for node1, node2 in edges:
-            self.graph[node1][node2] = 1
-            self.graph[node2][node1] = 1
-            
-        allVisted = True
-        for node in self.graph:
-            allVisited = self.bfs(node)      # do a bfs to update the graph, so that we can know the distance of all nodes
-            if not allVisited:
-                return []
-            
-        print(self.graph)
-        res = []
-        minDist = float("inf")
-        for node, neighbors in self.graph.items():
-            maxDist = max(dist for dist in neighbors.values())
-            if maxDist < minDist:
-                minDist = maxDist
-                while res:
-                    res.pop()
-                res.append(node)
-            elif maxDist == minDist:
-                res.append(node)
-                
-        return res
-        
-    def bfs(self, startNode):
-        q = collections.deque()
-        visited = set()
-        q.append((startNode, 0))
-        visited.add(startNode)
-        
-        while q:
-            currNode, currDist = q.popleft()
-            for nextNode, nextDist in self.graph[currNode].items():
-                if nextNode in visited:
-                    continue
-                newDist = currDist + nextDist
-                q.append((nextNode, newDist))
-                visited.add(nextNode)
-                
-                self.graph[startNode][nextNode] = newDist   # update graph, 这里有重复计算距离，所以不对
+        if n == 1:
+            return [0]
 
-        if len(visited) != len(self.graph):
-            return False
-        
-        return True
+        # step 1: find inDegree information and neighbors information and store them in dict
+        inDegrees = collections.defaultdict(int)
+        neighbors = collections.defaultdict(list)
+        for edge in edges:
+            inDegrees[edge[0]] += 1
+            inDegrees[edge[1]] += 1
+            neighbors[edge[0]].append(edge[1])
+            neighbors[edge[1]].append(edge[0])
+            
+        # step 2: bfs level by level to find the center most level
+        q = collections.deque()
+        for node, inDegree in inDegrees.items():    # putting all the outmost nodes inot th q
+            if inDegree == 1:
+                q.append(node)
+                
+        res = []    # res store the center most nodes
+        while q:
+            lens = len(q)
+            level = []
+            for _ in range(lens):
+                currNode = q.popleft()
+                level.append(currNode)
+                for neighbor in neighbors[currNode]:
+                    if inDegrees[neighbor] <= inDegrees[currNode]:
+                        continue
+                    inDegrees[neighbor] -= 1
+                    if inDegrees[neighbor] == 1:
+                            q.append(neighbor)
+                            
+            res = level
+            
+        return res
