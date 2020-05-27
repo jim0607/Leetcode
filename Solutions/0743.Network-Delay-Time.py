@@ -34,7 +34,7 @@ class Solution:
             if currNode in distance:    # 可以continue的前提是我们每次pop出来的都是最lowest cost的路径，如果已经用最优路径访问过currNode了，接下来的路径肯定不会是最low cost得的了，所以可以continue
                 continue
             distance[currNode] = dist
-            for neighbor, neighbor_dist in graph[currNode]:
+            for neighbor, neighbor_dist in graph[currNode]:  # Dijkstra算法里：neighbor这一层只干一件事：那就是把这个nextNode push到hq中
                 if neighbor not in distance:    # 千万不要在这里更新distance, 因为不能保证哪个neighbor是low cost的选择，只有push进去之后再pop出来的才是最low cost的
                     heappush(hq, (dist + neighbor_dist, neighbor))
                     
