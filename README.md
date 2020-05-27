@@ -248,7 +248,9 @@ heapq的方法是O(NK); deque O(N): Iterate over the array. At each step: I. Cle
 ### [Hashmap/Dictionary](/Data-Structure.py) 
 - [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!M youtubed) <br>
 use a double linked list and a dictionary; Double linkedlist: newest node append to tail, eldest node remove from head, so that the operation is O(1); Hashmap: key is key, value is the corresponding double linkedlist node
---------LFU!!---------------变形题snapchat：在一个data stream 中find top K most frequent number用LFU来解，也可以用heapq N*O(k) ---------
+--------LFU!!-------变形题snapchat：在一个data stream 中find top K most frequent number用LFU来解，也可以用heapq NO(k) --
+- [0311. Sparse Matrix Multiplication](Solutions/0311.Sparse-Matrix-Multiplication.py) (!!M Facebook) <br>
+Sparse matrices, which are common in scientific applications, are matrices in which most elements are zero. To save space and running time it is critical to only store the nonzero elements. Many real world applications of vectors include sparse vectors. An example of it in Machine Learning is the popular one-hot encoding method for categorical computation. We can se a dictinoary to store the index and value of non-zero values, O(M+N + mn), O(M+N), M is the number of elements in matrix A, m is the number of non-zero elements in A.
 
 
 
@@ -817,15 +819,21 @@ condition 2. the sum of area of all the small rectangles should be the same as t
 
 
 
-161 - One Edit Distance
------- Dot product of sparse vectors (FB) ---------
 
 # [图的遍历](/)
 ## [图的基础](/)
-133	Clone Graph	视频讲解	
-399	Evaluate Division	视频讲解	
-310	Minimum Height Trees	视频讲解	
-图形学			
+- [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (M) <br>
+Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现; Step 2: 复制所有原有的node，存到mapping中，这样就建立了一个new_node和original_node的一一映射; Step 3: 复制所有original_node对应的neighbors 到 new_node里面
+- [0399. Evaluate Division](Solutions/0399.Evaluate-Division.py) (!!M) <br>
+Solution 1: bfs
+注意这里构建图的时候是graph = collections.defaultdict(lambda: collections.defaultdict())  
+in graph, key is node1, val is a dict of (key: node2, val: node1/node2)
+Given the number of variables N, and number of equations E,
+building the graph takes O(E), each query takes O(N), space for graph takes O(E)
+I think if we start to compress paths, the graph will grow to O(N^2) gradually, and we can optimize each query to O(1), 
+that is why we use global variable for graph, so that we can compress paths and avoid duplicated computing;  Soltution 2: Union Find;  Solution 3: Floyd–Warshall algorithm
+- [0310. Minimum Height Trees](Solutions/0310.Minimum-Height-Trees.py) (M) <br>
+Solution 1: bfs 有点问题		
 149	Max Points on a Line	视频讲解
 ## [Dijkstra](/)
 求有缘路径的最短距离
