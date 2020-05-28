@@ -819,8 +819,8 @@ condition 2. the sum of area of all the small rectangles should be the same as t
 - [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (M) <br>
 Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现; Step 2: 复制所有原有的node，存到mapping中，这样就建立了一个new_node和original_node的一一映射; Step 3: 复制所有original_node对应的neighbors 到 new_node里面
 - [0399. Evaluate Division](Solutions/0399.Evaluate-Division.py) (!!M) <br>
-Solution 1: bfs
-注意这里构建图的时候是graph = collections.defaultdict(lambda: collections.defaultdict())  
+Solution 1: bfs 去做path compression
+注意这里构建图的时候采用hashmap构建邻接表 graph = collections.defaultdict(dict)  
 in graph, key is node1, val is a dict of (key: node2, val: node1/node2)
 Given the number of variables N, and number of equations E,
 building the graph takes O(E), each query takes O(N), space for graph takes O(E)
