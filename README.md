@@ -146,6 +146,7 @@ f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配； 画个图�
 - [0010. Regular Expression Matching](Solutions/0010.Regular-Expression-Matching.py) (!!H) <br>
 f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B[j-1]不是"星": f[i][j] = f[i-1][j-1] if (B[j-1]="." or A[i-1]=B[j-1]); 情况二：B[j-1]是"星"：可以让"星"表示0个前面的字符，那就让A[0..i)去和B[0..j-2)匹配： f[i][j] = f[i][j-2]；也可以让"星"表示几个前面的字符，A[i-1]是多个ch中的最后一个，能否匹配取决于A[0..i-1)和B[0..j)是否匹配：f[i][j] = f[i-1][j] if (B[j-2]="." or B[j-2]=A[i-1])
 
+--------- 983. Minimum Cost for tickets ---------
 
 
 ### [Other DP Problems](https://juejin.im/post/5d556b7ef265da03aa2568d5)
@@ -845,7 +846,7 @@ hq 需要 store (cost, stops, airports), 与743相比少了一个currNode in cos
 hq store (how many moves left, node); # seen[i] means that we can arrive at node i and have seen[i] moves left; if movesLeft > insertNumber: heappush
 
 ## [A*](/)
-752. Open the Lock; 1263. Minimum Moves to Move a Box to Their Target Location; 864. Shortest Path to Get All Keys; 433. Minimum Genetic Mutation
+752. Open the Lock; 1263. Minimum Moves to Move a Box to Their Target Location; 864. Shortest Path to Get All Keys; 433. Minimum Genetic Mutation; 1091. Shortest Path in Binary Matrix
 
 
 ### [Floyd-Warshall](/)
@@ -858,6 +859,9 @@ hq store (how many moves left, node); # seen[i] means that we can arrive at node
 
 
 # [Advanced Trees](/)
+### [Red/Black tree](/)
+### [Splay tree](/)
+### [AVL tree](/)
 ### [Morris 线索二叉树](/)
 ### [Fenwick tree](/)
 -----   315. Count of Smaller Numbers After Self ----------
