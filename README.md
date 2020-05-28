@@ -843,24 +843,24 @@ Dijkstra就是贪心版的bfs, bfs是勤勤恳恳一层一层推进，一层没�
 hq 需要 store (cost, stops, airports), 与743相比少了一个currNode in costs: continue因为次好路径也可能是最后的结果，这是由于最好路径可能不满足stops < K; 这题需要加一个 if currStops >= K: continue
 - [0882. Reachable Nodes In Subdivided Graph](Solutions/0882.Reachable-Nodes-In-Subdivided-Graph.py) (M) <br>
 hq store (how many moves left, node); # seen[i] means that we can arrive at node i and have seen[i] moves left; if movesLeft > insertNumber: heappush
+
 ## [A*](/)
-752. Open the Lock
-1263. Minimum Moves to Move a Box to Their Target Location
-864. Shortest Path to Get All Keys
-433. Minimum Genetic Mutation
+752. Open the Lock; 1263. Minimum Moves to Move a Box to Their Target Location; 864. Shortest Path to Get All Keys; 433. Minimum Genetic Mutation
 
-
-## [Floyd-Warshall](/)
-## [Bellman-Ford](/)
-- [0743. Network Delay Time]
- 花花
-
-## [最小生成树](/)
-https://blog.csdn.net/fuxuemingzhu/article/details/101900729
+## [](/)
 1135. Connecting Cities With Minimum Cost
 Eddie 讲的课
 Kruskal算法
 Prim算法
+
+
+## [Floyd-Warshall](/)
+## [Bellman-Ford](/)
+- [0743. Network Delay Time] 花花酱
+
+## [最小生成树](/)
+https://blog.csdn.net/fuxuemingzhu/article/details/101900729
+
 
 
 # [Random](/)
@@ -926,9 +926,13 @@ Tarjan's algorithm: 1192. Critical Connections in a Network
 --- Morris 线索二叉树 ------
 ----- fenwick tree  315. Count of Smaller Numbers After Self ----------
 
-### At last, let's take a look at the famous Algorithm book.
-### 看Abby google doc的归类，还有liweiwei Github的归类，根据归类再适当刷一些新题。
-### https://blog.csdn.net/fuxuemingzhu/article/details/101900729 很好的分类总结
+
+
+
+
+## Let's take a look at the famous Algorithm book.
 ### top 50 of interview questions and top liked questions and top Google interview questions top green
 
-# 把laioffer视频里的题都刷一遍！
+## 把laioffer视频里的题都刷一遍！
+## 九章高频
+## 九章Python
