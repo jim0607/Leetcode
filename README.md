@@ -1,7 +1,7 @@
 ## 三刷：不做新题了，就这250题！目标是刷熟练！模板总结出来天天拿出来背诵！
 ## 每日10题：05/01 - 05/25
 #### Review: 
-05/04 - 0337; 05/05 - 0334; 05/06 - 0416; 05/08 - 0010; 05/10 - 0713; 05/11 - 0394; 05/12 - 654; 05/13 - 621; 05/14 - 200; 05/15 - 212; 05/18 - 269； 05/19 - 317; 05/20 - 332; 05/21 - 617; 05/22 - 241; 05/23 - 0037; 05/24 - 0004; 05/26 - 0042
+05/04 - 0337; 05/05 - 0334; 05/06 - 0416; 05/08 - 0010; 05/10 - 0713; 05/11 - 0394; 05/12 - 654; 05/13 - 621; 05/14 - 200; 05/15 - 212; 05/18 - 269； 05/19 - 317; 05/20 - 332; 05/21 - 617; 05/22 - 241; 05/23 - 0037; 05/24 - 0004; 05/26 - 0042; 05/27 = 0391
 
 
 # [Dynamic Programming](Dynamic-Programming.py)
@@ -843,8 +843,11 @@ Dijkstra就是贪心版的bfs, bfs是勤勤恳恳一层一层推进，一层没�
 hq 需要 store (cost, stops, airports), 与743相比少了一个currNode in costs: continue因为次好路径也可能是最后的结果，这是由于最好路径可能不满足stops < K; 这题需要加一个 if currStops >= K: continue
 - [0882. Reachable Nodes In Subdivided Graph](Solutions/0882.Reachable-Nodes-In-Subdivided-Graph.py) (M) <br>
 hq store (how many moves left, node); # seen[i] means that we can arrive at node i and have seen[i] moves left; if movesLeft > insertNumber: heappush
-
-
+## [A*](/)
+752. Open the Lock
+1263. Minimum Moves to Move a Box to Their Target Location
+864. Shortest Path to Get All Keys
+433. Minimum Genetic Mutation
 
 
 ## [Floyd-Warshall](/)
@@ -928,7 +931,4 @@ Tarjan's algorithm: 1192. Critical Connections in a Network
 ### https://blog.csdn.net/fuxuemingzhu/article/details/101900729 很好的分类总结
 ### top 50 of interview questions and top liked questions and top Google interview questions top green
 
-# 好的总结
-## CSpiration经典题目分类：https://cspiration.com/leetcodeClassification
-## Joshua的总结 https://zhuanlan.zhihu.com/p/40866467
-## https://www.ctolib.com/huxiaoman7-leetcodebook.html
+# 把laioffer视频里的题都刷一遍！
