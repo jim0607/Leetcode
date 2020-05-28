@@ -828,7 +828,7 @@ I think if we start to compress paths, the graph will grow to O(N^2) gradually, 
 that is why we use global variable for graph, so that we can compress paths and avoid duplicated computing;  Soltution 2: Union Find;  Solution 3: Floyd–Warshall algorithm
 - [0310. Minimum Height Trees](Solutions/0310.Minimum-Height-Trees.py) (M) <br>
 想想如果是一个很大的图，那minimum height trees的root就应该是这个图的最中心，所以我们就去找图的最中心就可以了，采用从外围(inDegree=1的node)往中间走的方法，解法类似topological sort, 走到最后留下的顶点就是最中心的顶点，也就是距离所有外围顶点最小的顶点。
-### [Celebrity](/)
+## [Celebrity](/)
 - [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (E) <br>
 one dict to store the inDegree (beingTrusted), one dict to store the outDegree (trustOthers). there exsit a town judge only if there is a node with inDegree==N-1(beiing trusted by all others), and at the same time the node should have outDegree==0(not trust anyone)
 - [0277. Find the Celebrity](Solutions/0277.Find-the-Celebrity.py) (!!M) <br>
@@ -847,19 +847,23 @@ hq store (how many moves left, node); # seen[i] means that we can arrive at node
 ## [A*](/)
 752. Open the Lock; 1263. Minimum Moves to Move a Box to Their Target Location; 864. Shortest Path to Get All Keys; 433. Minimum Genetic Mutation
 
-## [](/)
-1135. Connecting Cities With Minimum Cost
-Eddie 讲的课
-Kruskal算法
-Prim算法
 
-
-## [Floyd-Warshall](/)
-## [Bellman-Ford](/)
+### [Floyd-Warshall](/)
+### [Bellman-Ford](/)
 - [0743. Network Delay Time] 花花酱
+### [Kruskal/Prim](/)
+1135. Connecting Cities With Minimum Cost; Eddie 讲的课
+### [Tarjan's](/)
+1192. Critical Connections in a Network
 
-## [最小生成树](/)
-https://blog.csdn.net/fuxuemingzhu/article/details/101900729
+
+# [Advanced Trees](/)
+### [Morris 线索二叉树](/)
+### [Fenwick tree](/)
+-----   315. Count of Smaller Numbers After Self ----------
+
+
+
 
 
 
@@ -922,9 +926,7 @@ Count Complete Tree Nodes; Longest Increasing Path in a Matrix; Evaluate Divisio
 - [0028. Implement strStr()](Solutions/0028.Implement-strStr().py) (E) (Rabin Karp Algorithm O(M+N), use Hashcode, ord(ch)-ord("a"))
 1062. Logest repeating substring
 
-Tarjan's algorithm: 1192. Critical Connections in a Network
---- Morris 线索二叉树 ------
------ fenwick tree  315. Count of Smaller Numbers After Self ----------
+
 
 
 
@@ -932,7 +934,6 @@ Tarjan's algorithm: 1192. Critical Connections in a Network
 
 ## Let's take a look at the famous Algorithm book.
 ### top 50 of interview questions and top liked questions and top Google interview questions top green
-
 ## 把laioffer视频里的题都刷一遍！
 ## 九章高频
 ## 九章Python
