@@ -35,7 +35,6 @@ class Solution:
                 continue
             distance[currNode] = dist
             for neighbor, neighbor_dist in graph[currNode]:  # Dijkstra算法里：neighbor这一层只干一件事：那就是把这个nextNode push到hq中
-                if neighbor not in distance:    # 千万不要在这里更新distance, 因为不能保证哪个neighbor是low cost的选择，只有push进去之后再pop出来的才是最low cost的
-                    heappush(hq, (dist + neighbor_dist, neighbor))
+                heappush(hq, (dist + neighbor_dist, neighbor))  # 千万不要在这里更新distance, 因为不能保证哪个neighbor是low cost的选择，只有push进去之后再pop出来的才是最low cost的
                     
         return max(distance.values()) if len(distance) == N else -1
