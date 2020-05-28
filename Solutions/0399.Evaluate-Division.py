@@ -20,7 +20,7 @@ The input is always valid. You may assume that evaluating the queries will resul
 
 """
 Solution 1: bfs
-注意这里构建图的时候是graph = collections.defaultdict(lambda: collections.defaultdict())  
+注意这里构建图的时候是graph = collections.defaultdict(dict)  
 in graph, key is node1, val is a dict of (key: node2, val: node1/node2)
 Given the number of variables N, and number of equations E,
 building the graph takes O(E), each query takes O(N), space for graph takes O(E)
@@ -30,7 +30,7 @@ that is why we use global variable for graph, so that we can compress paths and 
 
 class Solution:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
-        self.graph = collections.defaultdict(lambda: collections.defaultdict())  # key is node1, val is a dict of (key: node2, val: node1/node2)
+        self.graph = collections.defaultdict(dict)  # key is node1, val is a dict of (key: node2, val: node1/node2)
         for [x, y], val in zip(equations, values):
             self.graph[x][y] = val
             self.graph[y][x] = 1 / val
