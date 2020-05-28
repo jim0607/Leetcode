@@ -65,6 +65,6 @@ class Solution:
                     
         result = len(seen)
         for u, v, insertNumber in edges:
-            # seen[u]=from u there are this much moves left in order to v. Same for seen[v]
+            # seen[u]=from u there are this much moves left in respect to M steps
             result += min(seen[u] + seen[v], insertNumber)
         return result
