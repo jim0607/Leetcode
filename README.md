@@ -854,8 +854,9 @@ hq store (how many moves left, node); # seen[i] means that we can arrive at node
 - [0752. Open the Lock](Solutions/0752.Open-the-Lock.py) (M) <br>
 题目蛮有意思的 solutino 1: 带层序遍历的bfs, 遇到currNode in deadends 就不再去访问其neighbor了, find neighbor 函数比较有意思，这里第一次学到了yield; solution 2: 很少有人用A*
 - [1091. Shortest Path in Binary Matrix](Solutions/1091.Shortest-Path-in-Binary-Matrix.py) (M) <br>
-solution 1: 带层序遍历的bfs, if grid[next_x][next_y] == BLOCK 那就continue掉不放进q; solution 2: bi-directional bfs; solution 3: A*, **A* is better than bfs in finding the shorted path from source node to end node.** 这是一道经典的A* 题，很有启发性，只要可以想到可行的heuristic estimation的方法，都可以尝试将bfs改成更快的A* . bfs 需要visit every node. but A* only greedily choose the best route to go. The best route is estimated by heuristic estimation.
-1091. Shortest Path in Binary Matrix; 1263. Minimum Moves to Move a Box to Their Target Location; 864. Shortest Path to Get All Keys;  
+solution 1: 带层序遍历的bfs, if grid[next_x][next_y] == BLOCK 那就continue掉不放进q; solution 2: bi-directional bfs; solution 3: A*, **A* is better than bfs in finding the shorted path from source node to end node.** 这是一道经典的A* 题，很有启发性，只要可以想到可行的heuristic estimation的方法，都可以尝试将bfs改成更快的A* . bfs 需要visit every node. but A* only greedily choose the best route to go. The best route is estimated by heuristic estimation. 在A* 算法中，heuristic estimation 一定要入队列进行排序，而且当前的steps也要入队列，heapq stores (1. heuristic estimation of min # of steps from source to target if 经过currNode, 2. currNode_pos, 3. steps from source to currNode)
+1263. Minimum Moves to Move a Box to Their Target Location; 864. Shortest Path to Get All Keys;  
+
 
 
 # 抓大放小，下面的算法可以先不去管！
