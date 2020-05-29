@@ -84,3 +84,57 @@ g((i,j)) = shortest path length found so far from start to (i, j)
 h((i,j)) = estimation to reach goal - bottom-right cell. For cell (i, j) it is calculated simply by max(m - i - 1, n - j - 1).
 Important for A* search is that h((i,j)) does not overestimate the actual cost to get to the goal.
 """
+
+
+
+
+
+
+
+
+
+
+""""
+下面这种带层序遍历的A*是行不通的，steps必须进heapq里面。Same for Dijkstra's
+"""
+from heapq import *
+class Solution:
+    MOVES = [(1, 0), (-1, 0), (1, 1), (-1, 1), (0, 1), (0, -1), (1, -1), (-1, -1)]
+    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        source = (0, 0)
+        target = (m-1, n-1)
+        if grid[0][0] == 1 or grid[m-1][n-1] == 1:
+            return -1
+        
+        hq = []
+        visited = set()
+        heappush(hq, (max(m, n), source))  # max(m, n) is a heuristic ⁄hjuˈrɪstɪk⁄ estimate of the distance of current node to target, not accurate, but works
+        visited.add(source)
+        dist = 0
+        while hq:
+            dist += 1   # distance to the source
+            (curr_x, curr_y) = heappop(hq)[1]
+            print((curr_x, curr_y))
+            if (curr_x, curr_y) == target:
+                return dist
+
+            for delta_x, delta_y in self.MOVES:
+                next_x, next_y = curr_x + delta_x, curr_y + delta_y
+                if self.isNotValid(next_x, next_y, grid):
+                    continue
+                if (next_x, next_y) in visited:
+                    continue
+                heapq.heappush(hq, (max(m - next_x, n - next_y), (next_x, next_y)))
+                visited.add((next_x, next_y))
+       
+        return -1
+    
+    def isNotValid(self, x, y, grid):
+        m, n = len(grid), len(grid[0])
+        if x < 0 or x >= m or y < 0 or y >= n:
+            return True
+        if grid[x][y] == 1:
+            return True
+        
+        return False
