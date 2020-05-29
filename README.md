@@ -379,6 +379,7 @@ solution 2!!!: 从source和destination两端同时进行bfs!!!!注意双端bfs�
 solution 3: recurrsion with memorization: cache[(x, y)] = min(dp(abs(x-1), abs(y-2)), dp(abs(x-2), abs(y-1))) + 1; 60 ms<br>
 - [0127. Word Ladder](Solutions/0127.Word-Ladder.py) (!!M) <br>
 利用双端BFS大大提高速度，注意双端bfs传进去的参数包含q and visited, bfs返回值是updated q and visited. 在双端BFS的过程中判断if not q_src or not q_des: 则说明q_src或q_des里面的所有possible neighbor都不在wordList里面，也就是没有必要继续进行了; The idea behind bidirectional search is to run two simultaneous searches: one forward from the initial state and the other backward from the destination state — hoping that the two searches meet in the middle. The motivation is that b^(d/2) + b^(d/2) is much less than b^d. b is branch number, d is depth. 这题最好定义一个wordSet = set(wordList)来降低时间寻找下一个neighborWord的复杂度到O(26L); 
+------ 433. Minimum Genetic Mutation ----------
 - [1162. As Far from Land as Possible](Solutions/1162.As-Far-from-Land-as-Possible.py) (M) <br>
 bfs: the maximum distance is steps needed to change all WATER to be LAND, so we append all land into the first layer of q, and do a level order bfs. the maxumum distance is then the answer we want. solution 2: DP same as 542. 01 matrix
 - [0542. 01 Matrix](Solutions/0542.01-Matrix.py) (M) <br>
@@ -498,6 +499,7 @@ It really is all about pattern finding; https://leetcode.com/problems/permutatio
 
 
 ### [树上的DFS](/Depth-First-Search.py) <br>
+-------- 979. Distribute Coins in Binary Tree ---------
 - [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
 Solution 1: 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
 Solution 2: similar with 257 and 112, we just find all the possible paths.
@@ -779,6 +781,8 @@ If first position is a GOOD index then we can reach the last index from the firs
 Greedy算法：第一步可以跳到比如位置10，也就是说0-10我们都可以一步跳到，那我们就在0-10这些位置中，选一个位置i跳第二步，看看第二步能跳到最远的地方是哪里，比如是最远的是从位置6跳到位置28，那么就说明两步可以跳到位置28，也就是说11-28我们可以通过两步跳到，那我们就继续在11-28这些位置中，选一个位置i跳第三步.........
 - [1306. Jump Game III](Solutions/1306.Jump-Game-III.py) (M) <br>
 BFS, if can find arr[idx]==0, then return True.
+1024. 视频拼接，中等
+1326. 灌溉花园的最少水龙头数目，困难
 
 
 
@@ -817,6 +821,7 @@ condition 2. the sum of area of all the small rectangles should be the same as t
 
 # [图的遍历](/)
 ## [图的基础](/)
+----- 0547.friend-circles --------
 - [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (M) <br>
 Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现; Step 2: 复制所有原有的node，存到mapping中，这样就建立了一个new_node和original_node的一一映射; Step 3: 复制所有original_node对应的neighbors 到 new_node里面
 - [0399. Evaluate Division](Solutions/0399.Evaluate-Division.py) (!!M) <br>
@@ -846,9 +851,14 @@ hq 需要 store (cost, stops, airports), 与743相比少了一个currNode in cos
 hq store (how many moves left, node); # seen[i] means that we can arrive at node i and have seen[i] moves left; if movesLeft > insertNumber: heappush
 
 ## [A*](/)
-752. Open the Lock; 1263. Minimum Moves to Move a Box to Their Target Location; 864. Shortest Path to Get All Keys; 433. Minimum Genetic Mutation; 1091. Shortest Path in Binary Matrix
+- [0752. Open the Lock](Solutions/0752.Open-the-Lock.py) (M) <br>
+题目蛮有意思的 solutino 1: 带层序遍历的bfs, 遇到currNode in deadends 就不再去访问其neighbor了, find neighbor 函数比较有意思，这里第一次学到了yield; solution 2: 很少有人用A*
+- [1091. Shortest Path in Binary Matrix](Solutions/1091.Shortest-Path-in-Binary-Matrix.py) (M) <br>
+solutino 1: 带层序遍历的bfs, if grid[next_x][next_y] == BLOCK 那就continue掉不放进q; solution 2: bi-directional bfs; 
+1091. Shortest Path in Binary Matrix; 1263. Minimum Moves to Move a Box to Their Target Location; 864. Shortest Path to Get All Keys;  
 
 
+# 抓大放小，下面的算法可以先不去管！
 ### [Floyd-Warshall](/)
 ### [Bellman-Ford](/)
 - [0743. Network Delay Time] 花花酱
