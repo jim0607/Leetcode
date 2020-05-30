@@ -109,6 +109,7 @@ class Solution:
         hq = []
         # heapq stores (1. heustic estimation of min # of steps from source to target if 经过currNode, 
         # 2. currNode_pos, 3. steps from source to currNode)
+        # 注意heustic estimation does not overestimate the actual cost to get to the goal 所以不能用Manhatan distance: abs(m-next_x)+abs(n-next_y).
         heappush(hq, (max(m, n), source, 1))  # max(m, n) is a heuristic ⁄hjuˈrɪstɪk⁄ estimate of the distance of source node to target, not accurate, but works
         while hq:
             heuristicEstimate, (curr_x, curr_y), step = heappop(hq)  # 精华，每次都pop出从source到target的最小步数(by heuristic estimation)
@@ -142,8 +143,6 @@ class Solution:
 还真和wiki上的动画执行顺序一模一样
 https://en.wikipedia.org/wiki/A*_search_algorithm
 """
-
-
 
 
 
