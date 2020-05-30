@@ -386,6 +386,8 @@ bfs: the maximum distance is steps needed to change all WATER to be LAND, so we 
 方法是先把所有0放入q的第一层，然后一层层遍历，同时更新遇到的1为当前的层数，层数就是1离0的距离; solution 2: DP same as 542. 01 matrix
 - [0317. Shortest Distance from All Buildings](Solutions/0317.Shortest-Distance-from-All-Buildings.py) (!!H) <br>
 Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and use dist[][] to record the sum of distance from all 1 grids to this 0 grid. Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a BFS. in the bfs, we do level bfs and update the reachable_cnt matrix and dist matrix. 遇到obstacle不放进q就可以了. each bfs, all position are visited, so O(MNk) where k is how many building are there or how many bfs are triggered. Finnaly return the min of dist[i][j] if reachable_cnt[i][j] = total number of buildings. Strong Prune: if if starting from building (i, j), can reach all other building? if not, that means at least one building is isolated and can not be reached, then return -1 directly: in each BFS we use reachableBuildings to count how many 1s we reached. If reachableBuldings != totalBuildings - 1 then we know not all 1s are connected are we can return -1 immediately, which greatly improved speed.
+- [0752. Open the Lock](Solutions/0752.Open-the-Lock.py) (M) <br>
+题目蛮有意思的, 带层序遍历的bfs, 遇到currNode in deadends 就不再去访问其neighbor了, find neighbor 函数比较有意思，这里第一次学到了yield;
 
 
 
@@ -851,30 +853,34 @@ hq 需要 store (cost, stops, airports), 与743相比少了一个currNode in cos
 hq store (how many moves left, node); # seen[i] means that we can arrive at node i and have seen[i] moves left; if movesLeft > insertNumber: heappush
 
 ## [A*](/)
-- [0752. Open the Lock](Solutions/0752.Open-the-Lock.py) (M) <br>
-题目蛮有意思的 solutino 1: 带层序遍历的bfs, 遇到currNode in deadends 就不再去访问其neighbor了, find neighbor 函数比较有意思，这里第一次学到了yield; solution 2: 很少有人用A*
 - [1091. Shortest Path in Binary Matrix](Solutions/1091.Shortest-Path-in-Binary-Matrix.py) (M) <br>
-solution 1: 带层序遍历的bfs, if grid[next_x][next_y] == BLOCK 那就continue掉不放进q; solution 2: bi-directional bfs; solution 3: A*, **A* is better than bfs in finding the shorted path from source node to end node.** 这是一道经典的A* 题，很有启发性，只要可以想到可行的heuristic estimation的方法，都可以尝试将bfs改成更快的A* . bfs 需要visit every node. but A* only greedily choose the best route to go. The best route is estimated by heuristic estimation. 在A* 算法中，heuristic estimation 一定要入队列进行排序，而且当前的steps也要入队列，heapq stores (1. heuristic estimation of min # of steps from source to target if 经过currNode, 2. currNode_pos, 3. steps from source to currNode)
-1263. Minimum Moves to Move a Box to Their Target Location; 864. Shortest Path to Get All Keys;  
+solution 1: 带层序遍历的bfs, if grid[next_x][next_y] == BLOCK 那就continue掉不放进q; solution 2: bi-directional bfs; solution 3: A*, **A* is better than bfs in finding the shorted path from source node to end node.** 这是一道经典的A* 题，很有启发性，以后做完一道bfs求最短路径的题，都可以想想能不能用A-star的方法求解，只要可以想到可行的heuristic estimation的方法，都可以尝试将bfs改成更快的A* . bfs 需要visit every node. but A* only greedily choose the best route to go. The best route is estimated by heuristic estimation. 在A* 算法中，heuristic estimation 一定要入队列进行排序，而且当前的steps也要入队列，heapq stores (1. heuristic estimation of min # of steps from source to target if 经过currNode, 2. currNode_pos, 3. steps from source to currNode)
+- [1263. Minimum Moves to Move a Box to Their Target Location](Solutions/1263.Minimum-Moves-to-Move-a-Box-to-Their-Target-Location.py) (H) <br>
+思路：这个题是从源节点到目标节点的最短路径问题，所以想到用bfs, 源节点是对boxPos, 目标节点是targetPos, 从源节点出发做带层序遍历的bfs_1, return 层数即可。注意在判断nextBoxPos是否可以append到q的时候需要兼顾考虑到player能不能到nextBoxPos的相反方向去推box, 所以需要找到从currPlayerPos到oppositeNextBoxPos的可能路径，这是一个从源节点到目标节点的问题，源节点是对currPlayerPos, 目标节点是oppositeNextBoxPos, 需要做bfs_2, 如果能到就返回true. 总体思路就是上述了，需要注意的是bfs_1中由于box每移动一下boxPos会变playerPos也会变，所以要把boxPos和playerPos都入队列。另外易错点：visited里面只装boxPos. 这是不对的, 因为box从不同的方向被推到同一个地方是允许的，因此visited里面应该装入(boxPos, the pos where the boxPos comes from). <br>
+SOlution 2: 无权图单源节点的最短路径问题，自然想到A-star search algorithm. use manhatan distance as Heuristic esitimation for A-star algorithm: steps + (abs(nextBoxPos[0]-targetPos[0]) + abs(nextBoxPos[1]-targetPos[1])).  put the heuristic estimation in the hq, together with steps, so the hq stores (heristic estimation of hte minimum steps needed from source to target, steps, boxPos, playerPos).  in A* algorithm, do not do level order bfs, do non-level order bfs.  
 
 
 
-# 抓大放小，下面的算法可以先不去管！
-### [Floyd-Warshall](/)
-### [Bellman-Ford](/)
+
+
+
+
+## 抓大放小，下面的算法可以先不去管！
+#### [Floyd-Warshall](/)
+#### [Bellman-Ford](/)
 - [0743. Network Delay Time] 花花酱
-### [Kruskal/Prim](/)
+#### [Kruskal/Prim](/)
 1135. Connecting Cities With Minimum Cost; Eddie 讲的课
-### [Tarjan's](/)
+#### [Tarjan's](/)
 1192. Critical Connections in a Network
 
 
-# [Advanced Trees](/)
-### [Red/Black tree](/)
-### [Splay tree](/)
-### [AVL tree](/)
-### [Morris 线索二叉树](/)
-### [Fenwick tree](/)
+## [Advanced Trees](/)
+#### [Red/Black tree](/)
+#### [Splay tree](/)
+#### [AVL tree](/)
+#### [Morris 线索二叉树](/)
+#### [Fenwick tree](/)
 -----   315. Count of Smaller Numbers After Self ----------
 
 
