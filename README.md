@@ -215,8 +215,11 @@ In C#, Queue class is by default a deque, with two methods: 1. enqueue, meaning 
 - [0933. Number of Recent Calls](Solutions/0933.Number-of-Recent-Calls.py) (E) <br>
 In C#, Count is a method that gets the number of elements contained in the Queue.
 - [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
-
--------- 224	Basic Calculator ------- 227	Basic Calculator II ------- 385	Mini Parser ------ 150	Evaluate Reverse Polish Notation
+- [0224. Basic Calculator](Solutions/0224.Basic-Calculator.py) (!!H) <br>
+if it's a digit, should use a while loop to add the num in case there are multiple digits, eg: 322 - 16; if it's a sign, then convert to 1 or -1; if it's a (, then append the previous res and sign into the resStack and signStack, and initialize the sign and num for calculation inside the (); if it's a ), then pop the resStack and signStack and update res.
+- [0227. Basic Calculator II](Solutions/0227.Basic-Calculator-II.py) (M) <br>
+不用stack, 用四根指针prevNum, prevSign, currNum, currSign
+---------385	Mini Parser ------ 150	Evaluate Reverse Polish Notation
 71	Simplify Path
 388	Longest Absolute File Path ---------
 
