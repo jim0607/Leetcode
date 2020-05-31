@@ -266,9 +266,11 @@ Sparse matrices, which are common in scientific applications, are matrices in wh
 
 ### [Heap/Heapq](/Data-Structure.py) 
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M) <br>
-time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的push 和pop都是logK; heapq适合做第K大，第K小，前K大，前K小问题
+time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的push 和pop都是logK; heapq适合做第K大，第K小，前K大，前K小问题; solution 2: quick select: O(n)
 - [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (M) <br>
-需要一个freqDict来记录每个数出现的freq， heapq, heapq中放入的是(freq, key)对; 按照freq来做heapq，这样就保证了可以筛选出most freqent k item
+需要一个freqDict来记录每个数出现的freq， heapq, heapq中放入的是(freq, key)对; 按照freq来做heapq，这样就保证了可以筛选出most freqent k item; solution 2: quick select
+- [0692. Top K Frequent Words](Solutions/0692.Top-K-Frequent -Words.py) (M) <br>
+heapq solution: O(N + klogN); quick select solution: O(N + klogk)
 - [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
 solution 1: 扫描线；solution 2: 以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
 - [0973. K Closest Points to Origin](Solutions/0973.K-Closest-Points-to-Origin.py) (M) <br>
@@ -330,6 +332,7 @@ addWord mehtod is the same as 208 insert method. But search mehtod is a little d
 The capability of finding matching prefix is where the data structure called Trie would shine, comparing the hashset data structure. Not only can Trie tell the membership of a word, but also it can instantly find the words that share a given prefix. 打印所有路径所以用Trie + Backtracking DFS. 非常经典的题呀！
 ------- 472 ; 677. Map Sum Pairs; 648. Replace Words; 425. Word Squares------------
 - [0850. Rectangle Area II](Solutions/ (H) <br>
+------- 642. Design Search Autocomplete System -------
 
 
 
