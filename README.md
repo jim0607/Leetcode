@@ -349,7 +349,9 @@ same as 102，只需要res.append(level[-1])即可
 - [0111. Minimum Depth of Binary Tree](Solutions/0111.Minimum-Depth-of-Binary-Tree.py) (E) <br>
 solution 1: recursion; soluiton 2: BFS; for _ in range(lens): if not node.left and not node.right: return depth
 - [0297. Serialize and Deserialize Binary Tree](Solutions/0297.Serialize-and-Deserialize-Binary-Tree.py) (!!H) <br>
-should practice more times!
+serialize: just do a bfs to put ch level by level.  deserialize: do a bfs, use an idx to keep track of where have we reached in the input list.
+- [0449. Serialize and Deserialize BST](Solutions/0449.Serialize-and-Deserialize-BST.py) (!!H) <br>
+Same as 297.  Solution says since BST, the answer could be as compact as possible.  Don't know shy?
 
 ### [BFS in Graphs](/Breadth-First-Search.py)
 - [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
