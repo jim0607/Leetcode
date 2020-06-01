@@ -57,45 +57,35 @@ class Solution:
 """
 Solution 1: hash map: O(N^2), O(N), 循环a, b，然后每次判断if -a-b in dict_nums
 O(N^2), O(N)
-Solution 2: sort, 然后循环a, 在循环里用反向双指针解决b+c = -a的two sum问题。
-注意去重的方法。
-O(N^2), O(1)
-
-Solution 2 is slightly better.
 """
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        if not nums or len(nums) < 3:
+        lens = len(nums)
+        if lens <= 2:
             return []
         
-        nums.sort()     # 双指针法针对的是排序好的数组
+        # sort is neccessary, otherwise [-1, 1, 0] and [-1, 0, 1] will appear in the res, 
+        # and unfortunately, remove duplicates algorithm doesn't think these two answers are duplicates
+        nums.sort()     
         
-        lens = len(nums)
         res = []
-        for i in range(lens - 2):
-            # res里的数组都是以nums[i]开头，第一步可以先将nums[i]去重  
-            if i > 0 and nums[i] == nums[i - 1]:
+        for i in range(lens - 1):
+            if i > 0 and nums[i] == nums[i-1]:
                 continue
+                
+            # now let's do two sum problem, the target of the two sum problem is -nums[i]
+            sumSet = set()
+            for j in range(i + 1, lens):
+                if -nums[i] - nums[j] in sumSet:
+                    res.append([nums[i], nums[j], -nums[i]-nums[j]])
+                sumSet.add(nums[j])
+                
+        # next, let's remove duplicates
+        anchor, curr = 0, 0
+        while curr < len(res):
+            if res[curr] != res[anchor]:
+                anchor += 1
+                res[anchor] = res[curr]
+            curr += 1
             
-            target = -nums[i]
-            left, right = i + 1, lens - 1
-            self.twoSum(nums, target, left, right, res)
-            
-        return res
-    
-    # put all the combinations of [-target, nums[left], nums[right]] into res to fit nums[left] + nums[right] = target, in range of i+1 to lens-1
-    def twoSum(self, nums, target, left, right, res):
-        while left < right:
-            if nums[left] + nums[right] > target:
-                right -= 1
-            elif nums[left] + nums[right] < target:
-                left += 1
-            else:
-                res.append([-target, nums[left], nums[right]])
-                left += 1
-                right -= 1
-                # 经典的去重方法，参考leetcode 532：前面的3用到了，后面的3就跳过就可以了。
-                while left < right and nums[left] == nums[left - 1]:
-                    left += 1
-                while left < right and nums[right] == nums[right + 1]:
-                    right -= 1
+        return res[:anchor+1]   # anchor keeps all non-duplicates on it's left
