@@ -119,6 +119,6 @@ class Solution:
                 
         # 这里加一句dp[start] == num的判断，由于我们是要将最接近num的数用num取代，所以左边相等的话那就取代左边，其余情况取代右边。
         # 这里的这一句就把上面的79行和97,99行解放出来了，怎么写都不会出错
-        if dp[start] == num:
-            dp[start ] = num
+        if arr[start] == num:
+            arr[start ] = num
         arr[end] = num      
