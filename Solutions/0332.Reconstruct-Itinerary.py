@@ -36,7 +36,6 @@ class Solution:
         # do a backtrack
         self.lens = len(tickets)
         self.res = []
-        self.visited = set()
         source = "JFK"
         self.backtrack(graph, source, [source])
         
@@ -60,10 +59,41 @@ class Solution:
             graph[source].insert(0, nextSource)     # 注意这里不能用append
             path.pop() 
     
+  
+  
+"""
+Solution 2: 因为只需要输出一种包含所有边的路径，所以可以用另一种图的解法 Eulerian Path - every edge is visited exactly once. 
+Eulerian path 使用的算法叫做 Hierholzer algorithm. Hierholzer algorithm 不做backtrack, 所以每一条边只访问一次，所以时间复杂度是O(E), where E is the # of edges.
+"""  
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        # step 1: build a graph
+        graph = collections.defaultdict(list)
+        for dep, des in tickets:
+            graph[dep].append(des)
+            
+        # step 2: sort the des in the graph reversely
+        for dep in graph.keys():
+            graph[dep].sort(reverse = True)
+            
+        # do a dfs using Hieholzer algorithm, not backtracking algorithm
+        self.res = []
+        source = "JFK"
+        self.dfs(graph, source)
+        
+        return self.res[::-1]
+    
+    def dfs(self, graph, source):
+        while graph[source]:
+            nextSource = graph[source].pop()
+            self.dfs(graph, nextSource)     # 这里不做backtrack, 所以每一条边只访问一次，所以时间复杂度是O(E), where E is the # of edges.
+            
+        self.res.append(source)   # 想想append的顺序，应该是谁先出while循环先append谁，len(graph[v])=0最先出while循环，所以先append v, 也就是最先append终点机场
+    
     
     
 """
-iterative solution
+iterative way for solution 2 
 """
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
@@ -91,3 +121,6 @@ class Solution:
                 res.append(stack.pop())
                 
         return res[::-1]
+
+      
+      
