@@ -18,7 +18,8 @@ Output: ["JFK","ATL","JFK","SFO","ATL","SFO"]
 Explanation: Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","SFO"].
              But it is larger in lexical order.
 
-    
+   
+  
 """
 Recurssive backtracking
 """  
@@ -121,6 +122,3 @@ class Solution:
                 res.append(stack.pop())
                 
         return res[::-1]
-
-      
-      
