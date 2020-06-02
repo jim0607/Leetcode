@@ -18,7 +18,53 @@ Output: ["JFK","ATL","JFK","SFO","ATL","SFO"]
 Explanation: Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","SFO"].
              But it is larger in lexical order.
 
+    
+"""
+Recurssive backtracking
+"""  
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        # step 1: build a graph
+        graph = collections.defaultdict(list)
+        for dep, des in tickets:
+            graph[dep].append(des)
+            
+        # step 2: sort the des in the graph reversely
+        for dep in graph.keys():
+            graph[dep].sort(reverse = True)
+            
+        # do a backtrack
+        self.lens = len(tickets)
+        self.res = []
+        self.visited = set()
+        source = "JFK"
+        self.backtrack(graph, source, [source])
+        
+        return self.res
+    
+    def backtrack(self, graph, source, path):
+        if len(path) == self.lens + 1:
+            self.res = path
+            return
 
+        if source not in graph:
+            return
+        
+        for _ in range(len(graph[source])):
+            nextSource = graph[source].pop()
+            path.append(nextSource)
+            self.backtrack(graph, nextSource, path)
+            if len(path) == self.lens + 1:  # don't understand why we need to check here
+                self.res = path
+                return
+            graph[source].insert(0, nextSource)     # 注意这里不能用append
+            path.pop() 
+    
+    
+    
+"""
+iterative solution
+"""
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
         graph = defaultdict(list)       
