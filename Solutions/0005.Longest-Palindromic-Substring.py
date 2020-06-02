@@ -66,34 +66,6 @@ class Solution:
            
     
     
-"""解法一：暴力法，枚举所有子串，并逐一判断 O(N**3), O(1)"""
-class Solution:
-    def longestPalindrome(self, s: str) -> str:
-        # 特判
-        lens = len(s)
-        if lens < 2:
-            return s 
-        # 枚举所有长度大于等于2的子串，然后判断哪些是回文子串，如果是回文串，那就比较这个回文串的长度是不是最长的
-        maxLen = 1
-        res = ''
-        for i in range(lens-1):
-            for j in range(i+1, lens):
-                if self.isPalin(s[i:j+1]):
-                    if j+1-i > maxLen:
-                        maxLen = j+1-i 
-                        res = s[i:j+1]
-        return res 
-    
-    def isPalin(self, s: str) -> bool:
-        left, right = 0, len(s)-1
-        while left < right:
-            if s[left] != s[right]:
-                return False
-            left += 1
-            right -= 1
-        return True
-      
-      
 """解法二：中心扩散法，center spread
 暴力法采用双指针两边夹，验证是否是回文子串，时间复杂度比较高，除了枚举字符串的左右边界以外，比较容易想到的是枚举可能出现的回文子串的“中心位置”
 从“中心位置”尝试尽可能扩散出去，得到一个回文串。
@@ -128,6 +100,39 @@ class Solution:
             j += 1
         return s[i+1:j], j-i-1
       
+    
+    
+    
+    
+"""解法一：暴力法，枚举所有子串，并逐一判断 O(N**3), O(1)"""
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        # 特判
+        lens = len(s)
+        if lens < 2:
+            return s 
+        # 枚举所有长度大于等于2的子串，然后判断哪些是回文子串，如果是回文串，那就比较这个回文串的长度是不是最长的
+        maxLen = 1
+        res = ''
+        for i in range(lens-1):
+            for j in range(i+1, lens):
+                if self.isPalin(s[i:j+1]):
+                    if j+1-i > maxLen:
+                        maxLen = j+1-i 
+                        res = s[i:j+1]
+        return res 
+    
+    def isPalin(self, s: str) -> bool:
+        left, right = 0, len(s)-1
+        while left < right:
+            if s[left] != s[right]:
+                return False
+            left += 1
+            right -= 1
+        return True
+      
+      
+
       
       
 """方法三：动态规划（推荐）
