@@ -21,7 +21,7 @@ Explanation: Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","
    
   
 """
-Recurssive backtracking
+Recurssive backtracking.  Worst case: O(E^d), where E is # of edges, d is is the maximum number of flights from an airport.
 """  
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
