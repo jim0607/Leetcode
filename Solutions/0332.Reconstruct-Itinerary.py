@@ -66,6 +66,19 @@ class Solution:
 Solution 2: 因为只需要输出一种包含所有边的路径，所以可以用另一种图的解法 Eulerian Path - every edge is visited exactly once. 
 Eulerian path 使用的算法叫做 Hierholzer algorithm. Hierholzer algorithm 不做backtrack, 所以每一条边只访问一次，所以时间复杂度是O(E), where E is the # of edges.
 """  
+
+Hierholzer algorithm 模板：
+
+path = []
+dfs(source):
+    while u 存在未被访问的边 e[u, v]:
+        mark 边e[u, v] 为访问过        # 保证每条边being visited exactly once.
+        dfs(v)
+        
+    path.pushleft(u)
+
+
+    
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
         # step 1: build a graph
@@ -86,7 +99,7 @@ class Solution:
     
     def dfs(self, graph, source):
         while graph[source]:
-            nextSource = graph[source].pop()
+            nextSource = graph[source].pop()  # pop出来不再append进去就相当于mark这条边为访问过了
             self.dfs(graph, nextSource)     # 这里不做backtrack, 所以每一条边只访问一次，所以时间复杂度是O(E), where E is the # of edges.
             
         self.res.append(source)   # 想想append的顺序，应该是谁先出while循环先append谁，len(graph[v])=0最先出while循环，所以先append v, 也就是最先append终点机场
