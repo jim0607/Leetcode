@@ -13,8 +13,8 @@ If there is such window, you are guaranteed that there will always be only one u
 
 
 """
-below solution is easy, but time comsuming O(MN)
-"""
+below solution is easy, but time comsuming O(MN) """
+
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
         lens, lensTarget = len(s), len(t)
