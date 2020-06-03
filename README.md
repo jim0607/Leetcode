@@ -197,11 +197,11 @@ It seems there is an O(M+N) solution, same idea of using slideing window, I shou
 - [0340. Longest Substring with At Most K Distinct Characters](Solutions/0340.Longest-Substringwith-At-Most-K-Distinct-Characters.py) (H) <br>
 维护一个charDict, 用来记录i->j中的char的频率，套模板时满足的条件是len(charDict) <= k; 更新j: charDict[s[j]+=1; 更新i: charDict[s[i]] -= 1, if charDict[s[i]] == 0: del charDict[s[i]]
 - [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
-Note that the numbers are positive, so the prefixProd will be an increasing arr. 维护一个sums, 用来记录i->j中数的produce. 
+Note that the numbers are positive, so the prefixProd will be an increasing arr. 维护一个sums, 用来记录i->j中数的product, 指针j再往前跑，指针i在后面追。
 - [0242. Valid Anagram](Solutions/0242.Valid-Anagram.py) (E) <br>
 string s and t are anagram with each other when all the ch in s have the same count as that in t
 - [567. Permutation in String](Solutions/0567.Permutation-in-String.py) (M) <br>
-sliding window solution 1: 九章模板，use one collections.Counters for p and one for s. liding window solution 2: keep the window size len(s1), check the tempCntDict == cntDict ? O(M+M*(N-M)). 
+sliding window solution 1: 九章模板，use one collections.Counters for p and one for s. sliding window solution 2: keep the window size len(s1), check the tempCntDict == cntDict ? O(M+M*(N-M)). 
 - [0438. Find All Anagrams in a String](Solutions/0438.Find-All-Anagrams-in-a-String.py) (!!M) <br>
 similar with 567, 套用九章模板就可以了
 
@@ -226,12 +226,13 @@ use two deques; 要学会抛出error: in pop function, if the stack is empty the
 - [0155. Min Stack](Solutions/0155.Min-Stack.py) (!!E) <br>
 use two stacks, a stack is to store all items, a minStack to store min items. If a num is less than minStack[-1] then we should append to minStack.
 - [0716. Max Stack](Solutions/0716.Max-Stack.py) (E) <br>
-Solutino 1: just use one list. Since we have to implement popMax method, we have to find the maxItem pos in the stack, it takes O(N).  Solution 2: by using double linked list and tree map, we can realize O(logN) for push, pop and popMax
+Solutino 1: just use one list. Since we have to implement popMax method, we have to find the maxItem pos in the stack, it takes O(N).  Solution 2: by using double linked list and heapq, we can realize O(logN) for push, pop and popMax. Use a doubly linkedlist for popMax.
 - [0346. Moving Average from Data Stream](Solutions/0346.Moving-Average-from-Data-Stream.cs) (E) <br>
 In C#, Queue class is by default a deque, with two methods: 1. enqueue, meaning push to the back of the queue; 2. dequeue, meaning pop from the front of the queue. They are all O(1).
 - [0933. Number of Recent Calls](Solutions/0933.Number-of-Recent-Calls.py) (E) <br>
 In C#, Count is a method that gets the number of elements contained in the Queue.
 - [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
+定义一个numStack, 一个strStack 存nums和parenthesis. if it's a digit, should use a while loop to add the num in case there are multiple digits; if it's a ch, then put it into strStack; if it's a [, then put the num in numStack and re-initialize the tempNum and tempStr for calculation inside the []; if it's a ], then pop the resStack and signStack and update res.
 - [0224. Basic Calculator](Solutions/0224.Basic-Calculator.py) (!!H) <br>
 if it's a digit, should use a while loop to add the num in case there are multiple digits, eg: 322 - 16; if it's a sign, then convert to 1 or -1; if it's a (, then append the previous res and sign into the resStack and signStack, and initialize the sign and num for calculation inside the (); if it's a ), then pop the resStack and signStack and update res.
 - [0227. Basic Calculator II](Solutions/0227.Basic-Calculator-II.py) (M) <br>
@@ -245,11 +246,14 @@ if it's a digit, should use a while loop to add the num in case there are multip
 - [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (!!M) <br>
 注意这类问题的主程序一般都写在hasNext里面！if topItem.isInteger(): return True; else: if it is a nestedList, 就展开: self.stack = self.stack[:-1] + topItem.getList()[::-1]
 - [0251. Flatten 2D Vector](Solutions/0251.Flatten-2D-Vector.py) (M) <br>
+Solution 1: use a queue to flatten the 2D vector first. Solution 2: use two pointers, one for row, one for col. O(1) space
 - [0281. Zigzag Iterator](Solutions/0281.Zigzag-Iterator.py) (M) <br>
 use two pointers and a flag. What if you are given k 1d vectors? How well can your code be extended to such cases? Solution: We append all the list into one deque. Every time we call next(), we pop a list first, then pop the first num from the list, and then re-add it to the end to deque so that we can call it again after k next calls.
-- [0284. Peeking Iterator](Solutions/0284.Peeking-Iterator.py) (!M) saving peeked value
+- [0284. Peeking Iterator](Solutions/0284.Peeking-Iterator.py) (!M) <br>
+saving peeked value in advance
 - [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (!!M) <br>
-用stack实现binary search tree的in order traversal的方法类似
+用stack实现binary search tree的in order traversal的方法类似, 需要额外定义一个 def getLeftMost(self, root)
+
 
 ### [Monotonic stack](/Data-Structure.py) （递增栈，就是栈中只存放递增序列）
 - [0084. Largest Rectangle in Histogram](Solutions/0084.Largest-Rectangle-in-Histogram.py) (!!H) <br>
