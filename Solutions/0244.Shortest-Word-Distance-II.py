@@ -60,7 +60,7 @@ class WordDistance:
 
 
 
-Follow up: 
+Follow up 1: 
 你都用两个额外空间去存结果以达到加速的目的了（一个是dictinoary存放每个word在words中的位置，另一个是cache/memo记录已经query过的a and b的结果）
 可是面试官还不开心，他还希望调用 query method 能更快一些，怎么办？
 那咱们就采用最极端的方法：把所有words里可能的word1 and word2组合的结果都算出来存到cache中，这样所有的query 就都是O(1)了
