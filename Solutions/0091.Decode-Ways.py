@@ -14,9 +14,10 @@ Input: "12"
 Output: 2
 Explanation: It could be decoded as "AB" (1 2) or "L" (12).
 
-    
+"""
 """经典的dp题，很容易想到。
-不考虑繁琐的edge case和可能的0的存在的话，下面的code就是对的"""
+不考虑繁琐的edge case和可能的0的存在的话，下面的code就是对的
+"""
 class Solution:
     def numDecodings(self, s: str) -> int:
         lens = len(s)
