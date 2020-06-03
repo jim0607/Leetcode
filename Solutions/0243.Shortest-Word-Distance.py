@@ -23,8 +23,7 @@ class Solution:
             if word == word2:
                 idx2.append(i)
                 
-        idx1.sort()     # O(MlogM) where M is the number of duplicated word1 in words
-        idx2.sort()
+        # 需要注意的是出了for loop之后idx1 and idx2 are already sorted.
         i, j = 0, 0
         minDist = abs(idx1[i]-idx2[j])
         while i < len(idx1) and j < len(idx2):
@@ -53,3 +52,10 @@ class Solution:
                 minDist = min(minDist, abs(idx1-idx2))
         
         return minDist
+
+    
+follow up:
+如果word1在words中很少只有两个，word2在words中很多有1 million个，怎么优化算法？
+那么这时候solution 1就派上用场了，我们可以存下idx1 和 idx2两个list
+eg: idx1 = [10, 50000]; idx2 = [.......], 那么我们可以在idx2中binary search离10最近的数，然后binary search离50000最近的数。
+这样时间复杂度就是O(MlogN)了。
