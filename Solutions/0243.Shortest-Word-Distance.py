@@ -53,9 +53,22 @@ class Solution:
         
         return minDist
 
-    
-follow up:
+""" 
+follow up 1:
 如果word1在words中很少只有两个，word2在words中很多有1 million个，怎么优化算法？
 那么这时候solution 1就派上用场了，我们可以存下idx1 和 idx2两个list
 eg: idx1 = [10, 50000]; idx2 = [.......], 那么我们可以在idx2中binary search离10最近的数，然后binary search离50000最近的数。
 这样时间复杂度就是O(MlogN)了。
+
+
+Follow up 2:
+如果题目改成不是求两个word的最短距离而是是求K个word的最短距离呢？
+solution 1: leetcode 76. Minimum Window Substring.  O(N) where N is the the lens of words
+soltution 2: leetcode 23. Merge k Sorted Lists.  O(NlogK), 方法与solution 1类似，只是为了知道k个idx list中哪根指针需要往前移动一下
+我们需要一个heapq, heapq中最小的那个往前挪动一步.
+
+
+Follow up 3:
+what if word1 and word2 may be the same and they represent two individual words in the list.
+245. Shortest Word Distance III 分成word1==word2和word1!=word2来讨论就可以了。没什么特别的
+"""
