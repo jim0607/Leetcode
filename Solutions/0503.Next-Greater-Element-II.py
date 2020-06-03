@@ -24,7 +24,7 @@ class Solution:
             if not stack:
                 res[i] = -1
             else:
-                res[i] = stack[-1]
+                res[i] = stack[-1]  # 注意这里不是res.append(),否则res就需要return reverse of res了
                 
             stack.append(nums[i])
 
