@@ -11,9 +11,10 @@ Note:
 If there is no such window in S that covers all characters in T, return the empty string .
 If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
 
-
+""""""
 """
-below solution is easy, but time comsuming O(MN) """
+below solution is easy, but time comsuming O(MN) 
+"""
 
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
