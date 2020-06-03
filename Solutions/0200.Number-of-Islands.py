@@ -143,3 +143,33 @@ class Solution:
                             graph.connect((i, j), (row, col))   # connect method include: 1. find the root of a and b; 2. connect a and b; 3. reduce cnt
                             
         return graph.cnt
+
+    
+ 
+"""
+Solution 3: dfs O(N), O(N)
+"""
+class Solution:
+    MOVES = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not grid or not grid[0]:
+            return 0
+        
+        m, n = len(grid), len(grid[0])
+        cnt = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == "1":
+                    self.dfs(grid, i, j)
+                    cnt += 1
+        
+        return cnt
+    
+    def dfs(self, grid, x, y):
+        if x < 0 or x >= len(grid) or y < 0 or y >= len(grid[0]) or grid[x][y] == "0":  # "0"就不在访问
+            return
+        
+        grid[x][y] = "0"    # 访问过的变成零
+        for move in self.MOVES:
+            next_x, next_y = x + move[0], y + move[1]
+            self.dfs(grid, next_x, next_y)
