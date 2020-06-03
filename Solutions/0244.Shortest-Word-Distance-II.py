@@ -13,7 +13,7 @@ Note:
 You may assume that word1 does not equal to word2, and word1 and word2 are both in the list.
 
 
-
+"""
 """
 如果题目要求multiple query with unlimited time, 那么一定考察的是precomputation!! precomputation记录结果一般都需要一个hash map!! 
 这个思想非常重要！！这个题用dictionary记录每个word在words中的位置，这样如果这次需要query a and b, 下次需要query c and d, 
