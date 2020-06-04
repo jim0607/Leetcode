@@ -75,3 +75,4 @@ Then, we can iterate over the array to find the middle value to get our median (
 Q2: If 99% of all integer numbers from the stream are between 0 and 100, how would you optimize it?
 As 99% is between 0-100.  So the median (not mean) is definetely in the range 0-100. 
 So can keep a counter for less_than_hundred and greater_than_hundred. Then do Q1. O(100)
+"""
