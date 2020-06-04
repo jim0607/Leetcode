@@ -21,8 +21,8 @@ word1 and word2 may be the same and they represent two individual words in the l
 
 
 
-# [Dynamic Programming](Dynamic-Programming.py)
-### [Recursion with memoization](/Dynamic-Programming.py)
+# [Dynamic Programming/bottom up](Dynamic-Programming.py)
+### [Recursion with memoization/top down](/Dynamic-Programming.py)
 139. word break; 312. Burst Balloons
 使用记忆数组 memo 的递归写法，和使用 dp 数组的迭代写法，乃解题的两大神器，凡事能用 dp 解的题，一般也有用记忆数组的递归解法，好似一对形影不离的好基友～何时用带memo的recursion? 如果用dp的转移方程很复杂，那就用带memo的recursion, 一定要会默写！
 
@@ -265,21 +265,22 @@ step 1: construct a heights list for each row; step 2: calculate the largestRect
 solution 1: simple recursionsolution 2: monostack 通过观察发现规律，对于每个node的父亲节点 = min(左边第一个比它大的，右边第一个比它大的), 维护一个降序数组，可以实现对这个min的快速查找, # O(N), O(N)
 - [0496. Next Greater Element I](Solutions/0496.Next-Greater-ElementI.py) (!!M) <br>
 scan nums2 from right to left: <br>
-for a new scanning item i:  <br>
-    while stack is not empty and nums2[i] >= stack[-1]:  <br>
-        stack.pop()  <br>
-    if stack 被 pop 空了:  <br>
-        nums2[i]: -1  <br>
-    else:  <br>
-        nums2[i]: stack[-1]  <br>
-    stack.append(nums[i])  <br>
-    
+for a new scanning item i:  while nums2[i] >= stack[-1]: we pop, until we got a nums2[i]<stack[-1], then this stack[-1] is the next great number we are looking for for nums2[i].
+- [0503. Next Greater Element II](Solutions/503. Next Greater Element II) (M) <br>
+Double the nums first, then do the same thing as 496.
+- [0556. Next Greater Element III](Solutions/0556.Next-Greater-Element-III.py) (M) <br>
+very similar with 31. Next Permutation. # step 1: 从右至左找到第一个降序的； # step 2: swap the nums[idx] with the num just larger then it; # step 3: reverse the rest of the list
+
     
 402. Remove K Digits
 496. Next Greater Element I (Easy)
 503. Next Greater Element II
 739. Daily Temperatures
 901. Online Stock Span
+1130. Minimum Cost Tree From Leaf Values
+907. Sum of Subarray Minimums
+901. Online Stock Span
+856. Score of Parentheses
 
 
 
@@ -314,6 +315,9 @@ solution 1: 扫描线；solution 2: 以end时间来构造最小堆，每次进�
 将两个list各挑一个数出来的加和做成一个2D Array, 由于两个list都是sorted, 那么这个2D array就是与378同样sorted array了。
 - [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!M) <br>
 maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we should overriding ListNode compare function __lt__ to make customized compare happens: compare ListNodeSolution 2: divide and conquer, O(NlogK), should also understand.
+- [0632. Smallest Range Covering Elements from K Lists](Solutions/0632.Smallest-Range-Covering-Elements-from-K-Lists.py) (!!H) <br>
+heapq solution: O(m+nlogm) where m is len(nums), n is len(lst). hq stores (the item in the lst, the lst_idx of where lst is in the nums, the num_idx where the num is in the lst). whenver a min_val is popped, we compare the max_val-min_val with the previous diff. 
+Then we update max_val, and push (nums[lst_idx][num_idx+1], lst_idx, num_idx+1) into the heapq
 - [0621. Task Scheduler](Solutions/0621.Task-Scheduler.py) (!!M) <br>
 I have to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
 - [0264. Ugly Number II](Solutions/0264.Ugly-Number-II.py) (M) <br>
@@ -673,6 +677,16 @@ sort the intervals first, res = []; for interval in intervals: if the interval s
 - [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
 midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx1], nums2[midIdx2]; when k is relatively large, then we can safely drop the first half that are surely smaller than the kth, the question is where is the first half that are surely smaller than the kth? by comparing midVal1 and midVal2, we can find it out, if midVal1 < midVal2, then all the vals in nums1[:midIdx1] are less than midVal2, also all of those vals are less than kth, we can safely drop all those vals
 
+
+### [Bucket Sort](/Sort.py) 
+- [0217. Contains Duplicate](Solutions/0217.Contains-Duplicate.py) (E) <br>
+hash set to store the seen number, if seen again, return True. Warm up for 219
+- [0219. Contains Duplicate II](Solutions/0219.Contains-Duplicate-II.py) (M) <br>
+solution 1: dictionary to store the positions where the same num appears. O(N), O(N); solution 2: sliding window: fix the sliding window to be k.  O(N), O(k). Warm up for 220
+- [0220. Contains Duplicate III](Solutions/0220.Contains-Duplicate-III.py) (!!M) <br>
+Solution 1: brutal force O(n^2); solution 2: Balanced BST O(nlogk); solution 3: bucket method: O(n). bucket sort利用的是分块的思想
+The main idea is splitting elements in nums into different buckets in terms of the value of t (for each element, divide by (t+1) for integer division). 保持bucket的大小为t这样只要有两个数被分配到了同一个bucket, 那么就可以return True了
+If the result is True, which means one of the following 3 cases hold: 1. Two elements in the same bucket; 2. One in the previous bucket; 3. One in the next bucket. If the case 2 or 3 holds, you need to check if their difference <= t.
 
 
 
