@@ -24,6 +24,7 @@ The length of both nums1 and nums2 would not exceed 1000.
 
 
 """
+单调栈的模板！
 scan nums2 from right to left:
 for a new scanning item i:
     while stack is not empty and nums2[i] >= stack[-1]:
@@ -48,6 +49,7 @@ class Solution:
                 resDict[nums2[i]] = -1
             else:
                 resDict[nums2[i]] = stack[-1]
+                
             stack.append(nums2[i])
             
         res = []
