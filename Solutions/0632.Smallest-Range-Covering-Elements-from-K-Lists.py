@@ -19,7 +19,7 @@ List 3: [5, 18, 22, 30], 22 is in range [20,24].
 heapq solution: O(m+nlogm) where m is len(nums), n is len(lst)
 hq stores (the item in the lst, the lst_idx of where lst is in the nums, the num_idx where the num is in the lst)
 whenver a min_val is popped, we compare the max_val-min_val with the previous diff. 
-Then we update max_val, and push (nums[lst_idx][num_idx+1], lst_idx, num_idx+1) into the heapq
+Then we push (nums[lst_idx][num_idx+1], lst_idx, num_idx+1) into the heapq and update max_val in the heapq
 """
 
 from heapq import *
