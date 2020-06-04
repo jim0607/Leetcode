@@ -99,7 +99,7 @@ class Solution:
         while deq and nums[i] > nums[deq[-1]]:
             deq.pop()
           
-        """ 为什么从前面开始pop就不行呢？
+        """ 为什么从前面开始pop就不行呢？  因为line 87: res.append(nums[deq[0]])我们要保证最左边的元素是最大的，耳聪右边pop是办不到的。
         while deq and nums[deq[0]] <= nums[i]:
             deq.popleft()
         """
