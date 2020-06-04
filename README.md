@@ -255,7 +255,7 @@ saving peeked value in advance
 用stack实现binary search tree的in order traversal的方法类似, 需要额外定义一个 def getLeftMost(self, root)
 
 
-### [Monotonic stack](/Data-Structure.py) （递增栈，就是栈中只存放递增序列）
+### [Monotonic stack](/Data-Structure.py) （用于向左/向右寻找第一个比自己大/小的数）
 - [0084. Largest Rectangle in Histogram](Solutions/0084.Largest-Rectangle-in-Histogram.py) (!!H) <br>
 非单调栈算法：从左向右遍历数组，然后每遍历到一个高度h，向左边找第一个比自己小的的高度在位置i，向右边找第一个比自己小的的高度在位置j，
 那此时的面积就是h*(j-i). 这个算法需要向左向右找第一个比自己小的元素，这类问题就要想到用monostack. 通过maintain a monostack,可以很快找到第一个比i小的元素，就是栈中排在i前面的元素，我们需要做的只是向右找了，所以我们向右遍历，每当遇到大于栈顶的值时，直接入栈保持递增stack，如果遇到小于栈顶的值，这时候说明找到了第一个比i（栈顶）小的元素，这时候我们回头且慢莫慌，栈内各个元素依次出栈并回头计算一下面积。
@@ -265,8 +265,8 @@ step 1: construct a heights list for each row; step 2: calculate the largestRect
 solution 1: simple recursionsolution 2: monostack 通过观察发现规律，对于每个node的父亲节点 = min(左边第一个比它大的，右边第一个比它大的), 维护一个降序数组，可以实现对这个min的快速查找, # O(N), O(N)
 - [0496. Next Greater Element I](Solutions/0496.Next-Greater-ElementI.py) (!!M) <br>
 scan nums2 from right to left: <br>
-for a new scanning item i:  while nums2[i] >= stack[-1]: we pop, until we got a nums2[i]<stack[-1], then this stack[-1] is the next great number we are looking for for nums2[i].
-- [0503. Next Greater Element II](Solutions/503. Next Greater Element II) (M) <br>
+for a new scanning item i:  while nums2[i] >= stack[-1]: we pop, until we got a nums2[i]<stack[-1], then this stack[-1] is the next great number we are looking for for nums2[i].  背诵模板！
+- [0503. Next Greater Element II](Solutions/0503.Next-Greater-Element-II.py (M) <br>
 Double the nums first, then do the same thing as 496.
 - [0556. Next Greater Element III](Solutions/0556.Next-Greater-Element-III.py) (M) <br>
 very similar with 31. Next Permutation. # step 1: 从右至左找到第一个降序的； # step 2: swap the nums[idx] with the num just larger then it; # step 3: reverse the rest of the list
@@ -303,7 +303,7 @@ Sparse matrices, which are common in scientific applications, are matrices in wh
 time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的push 和pop都是logK; heapq适合做第K大，第K小，前K大，前K小问题; solution 2: quick select: O(n)
 - [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (M) <br>
 需要一个freqDict来记录每个数出现的freq， heapq, heapq中放入的是(freq, key)对; 按照freq来做heapq，这样就保证了可以筛选出most freqent k item; solution 2: quick select
-- [0692. Top K Frequent Words](Solutions/0692.Top-K-Frequent -Words.py) (M) <br>
+- [0692. Top K Frequent Words](Solutions/0692.Top-K-Frequent-Words.py) (!!M) <br>
 heapq solution: O(N + klogN); quick select solution: O(N + klogk)
 - [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
 solution 1: 扫描线；solution 2: 以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
@@ -317,17 +317,19 @@ solution 1: 扫描线；solution 2: 以end时间来构造最小堆，每次进�
 maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we should overriding ListNode compare function __lt__ to make customized compare happens: compare ListNodeSolution 2: divide and conquer, O(NlogK), should also understand.
 - [0632. Smallest Range Covering Elements from K Lists](Solutions/0632.Smallest-Range-Covering-Elements-from-K-Lists.py) (!!H) <br>
 heapq solution: O(m+nlogm) where m is len(nums), n is len(lst). hq stores (the item in the lst, the lst_idx of where lst is in the nums, the num_idx where the num is in the lst). whenver a min_val is popped, we compare the max_val-min_val with the previous diff. 
-Then we update max_val, and push (nums[lst_idx][num_idx+1], lst_idx, num_idx+1) into the heapq
+Then we push (nums[lst_idx][num_idx+1], lst_idx, num_idx+1) into the heapq and update max_val in the heapq.
 - [0621. Task Scheduler](Solutions/0621.Task-Scheduler.py) (!!M) <br>
-I have to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
+we only need to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
 - [0264. Ugly Number II](Solutions/0264.Ugly-Number-II.py) (M) <br>
 维护一个heapq，让它记录从小到大的ugly number, 每次pop出一个currMin，然后生成三个数2* currMin, 3*currMin, 5*currMin, 如果not in seen, 就push进heapq
 - [0407. Trapping Rain Water II](Solutions/0407.Trapping-Rain-Water-II.py) (!!H) <br>
-Similar with 1D trapping rain water. Step 1: store all the outliners of the matrix in heapq.  Maintain a visited set to mark all the visited locations. Step 2: starting from the min height position, do BFS the 4 possible moves. If found a height < the min Height, then we can store water, else we cannot store water and we should update this leaking point by putting the new height into the heapq
+Similar with 42. 1D trapping rain water. 1D trapping rain water 是用双指针，一个指针记录左边漏水或储水的可能情况，一个指针记录右边漏水或储水的可能情况。 Step 1: store all the outliners of the matrix in heapq.  Maintain a visited set to mark all the visited locations. Step 2: starting from the min height position, do BFS the 4 possible moves. If found a height < the min Height, then we can store water, else we cannot store water and we should update this leaking point by putting the new height into the heapq
 - [0295. Find Median from Data Stream](Solutions/0295.Find-Median-from-Data-Stream.py) (!!H) <br>
-定义两个heap: self.leftHq as a maxheap to store the nums that are smaller than median; and self.rightHq as a minheap store the nums that are larger then median.  每次新增一个数num的时候，先根据比 maxheap 中最后一个数大还是小丢到对应的 heap 里。丢完以后，再处理左右两边的平衡性:如果左边太少了，就从右边拿出一个最小的丢到左边。如果右边太少了，从左边拿出一个最大的丢到右边。How to answer following questions.
+定义两个heap: self.leftHq as a maxheap to store the nums that are smaller than median; and self.rightHq as a minheap store the nums that are larger then median.  每次新增一个数num的时候，先根据比 maxheap 中最后一个数大还是小丢到对应的 heap 里。丢完以后，再处理左右两边的平衡性:如果左边太少了，就从右边拿出一个最小的丢到左边。如果右边太少了，从左边拿出一个最大的丢到右边。时间复杂度是O(logN). Follow up questions are important. 
+Follow up: leetcode 1093
 - [0480. Sliding Window Median](Solutions/0480.Sliding-Window-Median.py) (H) <br>
-similar with 295, we need to maintain two heaps, leftHq and rightHq. To slide one step is actually to do two things: 1. add a number, which is exactly the same as that in 295. 2. remove a number; 全是难题，看不进去https://leetcode.com/problems/sliding-window-median/discuss/412047/Two-heaps-%2B-sliding-window-approach-O(-n-*-k-)-runtime-O(k)-space
+Solution 1: maitain a sorted window.  We can use binary search for remove and indert. the overall time complexity is O(NK).
+similar with 295, we need to maintain two heaps in the window, leftHq and rightHq. To slide one step is actually to do two things: step 1. add a number, which is exactly the same as that in 295. add a number in heapq could be heapq.heappush() which is O(logn) step 2. remove the number that is outside the window; there is not a remmove method in heapq.  We need to implement sift_up and sift_down method for heapq.  Need to implement a heapq in Python!!
 
 ----- 313	Super Ugly Number ------- 373	Find K Pairs with Smallest Sums
 
