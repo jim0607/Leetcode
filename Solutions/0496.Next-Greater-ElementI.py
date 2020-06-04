@@ -32,6 +32,7 @@ for a new scanning item i:
         nums2[i]: -1
     else:
         nums2[i]: stack[-1]
+        
     stack.append(nums[i])
     
 O(M+N)
