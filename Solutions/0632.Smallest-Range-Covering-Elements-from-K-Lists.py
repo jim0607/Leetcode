@@ -40,5 +40,6 @@ class Solution:
                 res = min_val, max_val
             if num_idx == len(nums[lst_idx]) - 1:    # meaning that cannot append another val from this lst anymore
                 return res
-            max_val = max(max_val, nums[lst_idx][num_idx+1])
+            
             heappush(hq, (nums[lst_idx][num_idx+1], lst_idx, num_idx+1))
+            max_val = max(max_val, nums[lst_idx][num_idx+1])
