@@ -67,7 +67,11 @@ class MedianFinder:
             return (self.rightHq[0] - self.leftHq[0]) / 2
 
 
-# Your MedianFinder object will be instantiated and called as such:
-# obj = MedianFinder()
-# obj.addNum(num)
-# param_2 = obj.findMedian()
+"""
+Q1: If all integer numbers from the stream are between 0 and 100, how would you optimize it?
+We can maintain an integer array of length 100 to store the count of each number along with a total count. 
+Then, we can iterate over the array to find the middle value to get our median (where the totalCnt//2 lies). O(100)
+
+Q2: If 99% of all integer numbers from the stream are between 0 and 100, how would you optimize it?
+As 99% is between 0-100.  So the median (not mean) is definetely in the range 0-100. 
+So can keep a counter for less_than_hundred and greater_than_hundred. Then do Q1. O(100)
