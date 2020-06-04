@@ -17,9 +17,10 @@ Output: false
 
 
 
-Brute Force Solution
+""" Brute Force Solution
 Brute force solution is use two loops and test both the conditions. The inner loop starts from i+1 to i+k. Because of that, we no longer need to test one of the conditions since that is taken care of automatically.
 Time complexity : O(n * k).
+"""
 class Solution(object):
     def containsNearbyAlmostDuplicate(self, nums, k, t):
         """
@@ -36,7 +37,7 @@ class Solution(object):
         return False
 
 
-
+"""
 Solution 2: balanced BST: O(nlogk)
 Binary Search Tree Solution.  In solution 1, for nums[i], we need to compare with every nums[j] that are within (i+1, i+k+1).
 In fact we just need to compare nums[i] with the number that is just larger than it and the number that is just smaller than it.
@@ -53,10 +54,10 @@ Time complexity : O(n * log (min(n,k))). Space complexity: O(min(n,k))
 In Java, it is called TreeMap, but in Python, there is no such data structure to use.
 We have to implement a balanced BST in Python. The implementation is below:
 https://leetcode.com/problems/contains-duplicate-iii/discuss/174416/Python-balanced-BST-solution
-
-
-Solution 3: buckets method  O(N)
 """
+
+"""
+Solution 3: buckets method  O(N)
 bucket sort利用的是分块的思想
 The main idea is splitting elements in nums into different buckets in terms of the value of t (for each element, divide by (t+1) for integer division). 保持bucket的大小为t这样只要有两个数被分配到了同一个bucket, 那么就可以return True了
 If the result is True, which means one of the following 3 cases hold:
