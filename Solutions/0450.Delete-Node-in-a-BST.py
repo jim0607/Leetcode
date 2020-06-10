@@ -68,8 +68,11 @@
 
 # this is definetely a hard problem
 # https://leetcode.com/problems/delete-node-in-a-bst/solution/
+"""
+O(height), O(height)
+"""
 class Solution:
-    def successor(self, root: TreeNode) -> int:
+    def successor(self, root: TreeNode) -> int:     # O(height), 因为一直都在往下走
         """
         return the successor of the root by taking one step right and always left, cuz the 
         successor is the node just larger than the root
@@ -80,7 +83,7 @@ class Solution:
             
         return root.val
     
-    def predecessor(self, root: TreeNode) -> int:
+    def predecessor(self, root: TreeNode) -> int:   # O(height), 因为一直都在往下走
         """
         return the predecessor of the root by taking one step left and then always right
         """
@@ -90,7 +93,7 @@ class Solution:
             
         return root.val
 
-    def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
+    def deleteNode(self, root: TreeNode, key: int) -> TreeNode:  # O(height), 因为一直都在往下走
         if not root:
             return None
         
@@ -120,3 +123,38 @@ class Solution:
         
 # @lc code=end
 
+
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
+        if not root:
+            return None
+        
+        if key < root.val:
+            root.left = self.deleteNode(root.left, key)
+        elif key > root.val:
+            root.right = self.deleteNode(root.right, key)
+        else:
+            if not root.left:
+                return root.right
+            elif not root.right:
+                return root.left
+            else:
+                predessor = self.findMax(root.left)
+                root.val = predessor.val
+                root.left = self.deleteNode(root.left, predessor.val)
+                
+        return root
+    
+    def findMax(self, root):
+        while root.right:
+            root = root.right
+            
+        return root
