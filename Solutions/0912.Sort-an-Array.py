@@ -32,7 +32,7 @@ class Solution:
         self.quickSort(nums, left, end)
         
         
-# solution 1: merge sort
+# solution 1: merge sort (top down recurssion)
 # there are logN merge operations and each merging takes O(N) operations. That is why the time complexity is O(NlogN)
 class Solution:
     def sortArray(self, nums: List[int]) -> List[int]:
