@@ -13,7 +13,7 @@ Input:
 Output: 1->1->2->3->4->4->5->6
 
 
-
+solution 1: heapq
 O(NlogK), O(K)
 
 class Solution:
@@ -46,3 +46,37 @@ class Solution:
                 heapq.heappush(hq, minNode.next)
                 
         return dummyNode.next
+      
+      
+"""
+soluiton 2: divide and conquer
+time complexity: each merge takes N operations and we divide/merge logk times, so it's O(Nlogk)
+"""
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        if not lists:
+            return None
+        if len(lists) == 1:
+            return lists[0]
+        
+        # divide
+        mid = len(lists) // 2
+        leftHead = self.mergeKLists(lists[:mid])
+        rightHead = self.mergeKLists(lists[mid:])
+        
+        # conquer/merge
+        dummy = ListNode(0)
+        curr = dummy
+        leftCurr, rightCurr = leftHead, rightHead
+        while leftCurr and rightCurr:
+            if leftCurr.val < rightCurr.val:
+                curr.next = leftCurr
+                leftCurr = leftCurr.next
+                curr = curr.next
+            else:
+                curr.next = rightCurr
+                rightCurr = rightCurr.next
+                curr = curr.next
+        curr.next = leftCurr if leftCurr else rightCurr
+        
+        return dummy.next
