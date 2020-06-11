@@ -34,6 +34,7 @@ class Solution:
         # 中序遍历，遍历中间，在这里update DLL
         if not self.head:
             # 此时如果 first 为空的话，说明当前就是最左结点，赋值给 first
+            # 也许使用dummy node可以省掉这一步
             self.head = root
             self.curr = root
             
