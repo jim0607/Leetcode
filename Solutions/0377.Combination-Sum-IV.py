@@ -101,16 +101,9 @@ class Solution:
                     
         return dp[target]
 
-"""为什么这样就是错的呢
+"""为什么下面这样就是错的呢
 ### 因为思路不对，我们每次更新的是dp[i]，所以每一个循环更新一次。总共更新n次就对了。"""
-"""
-不要求输出所有的combination，所以除了dfs，还有更快的方法：背包问题。
-如果问题要求用i个数加在一起拼出target，那么多半是背包问题。
-f[i]=how many ways to combine to number i  背包问题一定要把总承重放到状态里！！
-f[i]=f[i-A1]+f[i-A2]+f[i-A3]....
-f[0] = 1
-return f[target]
-"""
+""" """
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
         lens = len(nums)
