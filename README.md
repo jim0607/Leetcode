@@ -526,7 +526,7 @@ C(m, n)：m个里面找出n个的组合问题; 模板的DFS + back tracking求co
 - [0518. Coin Change 2](Solutions/0518.Coin-Change-2.py) (M) <br>
 与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解。不理解DP解的for循环顺序。有时间请教高人，怎么理解这个DP的顺序。
 - [0216. Combination Sum III](Solutions/0216.Combination-Sum-III.py) (M)<br>
-self.dfs(nums, k - 1, n - nums[i], i + 1, curr)   # 不能出现重复数字，所以从i+1开始
+self.dfs(nums, k - 1, n - nums[i], i + 1, curr)   # 不能重复同一个数，所以从i+1开始
 - [0090. k Sum II](Solutions/0090.k-Sum-II.py) (M Lintcode) <br>
 exactly the same as 216.
 - [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (M)<br>
