@@ -86,22 +86,7 @@ class Solution:
             j -= 1
             
         return True
-    
-    
-    def canPermutePalindrome(self, s: str) -> bool:
-        charFreq = collections.defaultdict(int)
-        for char in s:
-            charFreq[char] += 1
-            
-        cnt = 0
-        for char, freq in charFreq.items():
-            if freq % 2 == 1:
-                cnt += 1
-            
-            if cnt > 1:
-                return False
-        
-        return True
+
 
     
 """
