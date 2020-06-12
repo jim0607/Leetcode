@@ -17,31 +17,7 @@ return 13.
 Note:
 You may assume k is always valid, 1 ≤ k ≤ n2.
 
-
-
-
-"""利用heapq，heapq中存储lens - k + 1个数，那还有k-1个数都被pop出来了，最后留在最上面的肯定是第k小的
-没有用到sorted matrix的特性，时间复杂度为O(N^2 logM), M = N*2 - K + 1
-"""
-
-import heapq
-
-class Solution:
-    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
-        if not matrix:
-            return None
-
-        n = len(matrix)
-        m = n * n - k + 1
-        heap = []
-        for i in range(n):
-            for j in range(n):
-                heapq.heappush(heap, matrix[i][j])
-                if len(heap) > m:
-                    heapq.heappop(heap)
-        
-        return heap[0]
-        
+     
         
 """
 利用sorted matrix的性质，从左上角第一个元素开始，添加进heap，然后heap当然自动排序了，然后pop出最小的，然后把最小的那个数的右边和下边的元素分别入heap，这样可以保证每次pop出来的都是最小的。
@@ -70,3 +46,27 @@ class Solution:
                 visited.add((row, col + 1))
                 
         return currMin
+
+   
+
+"""利用heapq，heapq中存储lens - k + 1个数，那还有k-1个数都被pop出来了，最后留在最上面的肯定是第k小的
+没有用到sorted matrix的特性，时间复杂度为O(N^2 logM), M = N*2 - K + 1
+"""
+
+import heapq
+
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        if not matrix:
+            return None
+
+        n = len(matrix)
+        m = n * n - k + 1
+        heap = []
+        for i in range(n):
+            for j in range(n):
+                heapq.heappush(heap, matrix[i][j])
+                if len(heap) > m:
+                    heapq.heappop(heap)
+        
+        return heap[0]
