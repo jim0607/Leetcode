@@ -456,6 +456,9 @@ Similar with 257, find all the paths and put all the pathSums in a set.
 - [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
 Solution 1: 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
 Solution 2: similar with 257 and 112, we just find all the possible paths.
+- [0129. Sum Root to Leaf Numbers](Solutions/0129.Sum-Root-to-Leaf-Numbers.py) (!!M) <br> 
+solution 1: similar with 113, backtrack;
+solution 2: Morris Preorder Traversal  O(N), O(1).
 - [0437. Path Sum III](Solutions/0437.Path-Sum-III.py) (M) <br>
 不需要从根节点出发，所以 leftCnt_withoutRoot = self.pathSum(root.left, sum); leftCnt_withRoot = self.pathSum(root.left, sum - root.val), why doesnot work?
 - [0596. Minimum Subtree](Solutions/0596.Minimum-Subtree.py) (LintCode) <br>
