@@ -67,6 +67,42 @@
 
 
 
+
+"""DP: not working, don't know why..."""
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        dp = [0] * (amount + 1)         # dp[i] = how many ways get i
+        dp[0] = 1
+        
+        # 这样会有一个问题，那就是(1,3)可以进solution, (3,1)也可以进solution
+        # 想想num=4的时候, 当coin遍历到coin=1时dp[4]+=dp[1]
+        # coin遍历到coin=3时dp[4]+=dp[3]，此时dp[3]已经被更新过一次了，里面就带有dp[1]的信息了
+        for num in range(1, amount +3 1):
+            for coin in coins:      
+                if num - coin >= 0:   # 这里会导致(1,3)可以进solution, (3,1)也可以进solution
+                    dp[num] += dp[num - coin]
+
+        return dp[amount]   
+    
+"""DP: working, why...""" 
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        dp = [0] * (amount + 1)         # dp[i] = how many ways get i
+        dp[0] = 1
+        
+        # 这样写可以保证避开(1,3)和(3,1)的问题，因为当coin遍历到coin=1的时候，dp[4]+=d[3]此时的dp[3]=0所以dp[4]实际上加的是0
+        # 而当coin遍历到coin=3的时候，dp[4]+=d[1]，此时d[1]被更新过一次。所以真个过程dp[4]只被更新一次，不会重复更新。
+        for coin in coins:      
+            for num in range(1, amount + 1):
+                if num - coin >= 0:
+                    dp[num] += dp[num - coin]
+
+        return dp[amount]    
+
+
+
+
+
 class Solution:
     def change(self, target: int, nums: List[int]) -> int:
         self.res = 0
@@ -148,28 +184,4 @@ class Solution:
             curr.pop()
 
             
-"""DP: not working, don't know why..."""
-class Solution:
-    def change(self, amount: int, coins: List[int]) -> int:
-        dp = [0] * (amount + 1)         # dp[i] = how many ways get i
-        dp[0] = 1
-        
-        for num in range(1, amount + 1):
-            for coin in coins:      # 如果这样写的话，比如计算到到某一个dp[num]的时候，一种coin只能用一次，所以不符合题意 ******
-                if num - coin >= 0:
-                    dp[num] += dp[num - coin]
 
-        return dp[amount]   
-    
-"""DP: working, why...""" 
-class Solution:
-    def change(self, amount: int, coins: List[int]) -> int:
-        dp = [0] * (amount + 1)         # dp[i] = how many ways get i
-        dp[0] = 1
-        
-        for coin in coins:
-            for num in range(1, amount + 1):
-                if num - coin >= 0:
-                    dp[num] += dp[num - coin]
-
-        return dp[amount]    
