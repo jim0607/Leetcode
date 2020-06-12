@@ -155,7 +155,7 @@ class Solution:
         dp[0] = 1
         
         for num in range(1, amount + 1):
-            for coin in coins:
+            for coin in coins:      # 如果这样写的话，比如计算到到某一个dp[num]的时候，一种coin只能用一次，所以不符合题意 ******
                 if num - coin >= 0:
                     dp[num] += dp[num - coin]
 
