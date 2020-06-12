@@ -887,6 +887,18 @@ condition 2. the sum of area of all the small rectangles should be the same as t
 
 
 
+## [Robert Simulation](/)
+- [0657. Robot Return to Origin](Solutions/0657.Robot-Return-to-Origin.py) (E) <br>
+Beacuase the way that the robot is "facing" is irrelevant, hte solution is trivial.  Just count if the steps of going up equals the steps of going down; and the steps of going left equals the steps of going right.
+- [0874. Walking Robot Simulation](Solutions/0874.Walking-Robot-Simulation.py) (E) <br>
+首先定义facing directions: (1, 0) 代表facing up, (0, 1)代表facing right，(-1, 0)代表facing down, (0, -1)达标facing left, facing_directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]  注意顺序不能变. 如果是右转就是facing = (facing + 1) % 4, 新的facing direction 就是facing_directions[facing];  如果是左转就是facing = (facing - 1) % 4, 新的facing direction 就是facing_directions[facing].  
+- [1041. Robot Bounded In Circle](Solutions/1041.Robot-Bounded-In-Circle.py) (M) <br>
+The robot stays in the circle if (looking at the final vector), it changes direction (ie. doesn't stay pointing north), or it moves 0
+- [0489. Robot Room Cleaner](Solutions/0489. Robot Room Cleaner) (H) 
+遍历机器人的四个方向即可，唯一需要注意的是每次都需要调整机器人的朝向才能move一下，毕竟是机器人嘛
+
+
+
 
 # [图的遍历](/)
 ## [图的基础](/)
