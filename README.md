@@ -129,8 +129,10 @@ f[i][j]=当石子还剩i到j时，先手最多能赢多少; f[i][j] = max(取左
 f[i][m]=能否用前i个物品拼出重量m; f[i][m] = f[i-1][m] (放不入，表示前i-1个物品就可以拼出m) or f[i-1][m-A[i-1]] (放入，表示前i-1个物品可以拼出m-A[i-1]); # 注意点1：这里要定义lens+1，这样就可以做一个buffer layer出来了; # 注意点2；这里循环i在外面，m在里面，千万别搞反了！！# 注意点3：由于buffer layer的存在，这里用nums[i-1]与m相比较
 - [0563. Backpack-V](Solutions/0563.Backpack-V.py) (!!M Lintcode) <br>
 一个num不能取多次，所以与322. coin change 不同。所以必须用二维数组，f[i][m]=前i个物品能拼出重量m有多少种方式。f[i][m] = 不放入 f[i-1][m] + 放入 f[i-1][m-A[i-1]] if m > nums[i] else =f[i-1][m]
-- [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (!!M) <br> 
-一个num能取多次，所以与322. coin change 相同。所以可以用一维数组，f[i]=how many ways to combine to number i; 背包问题一定要把总承重放到状态里！！ f[i]=f[i-A1]+f[i-A2]+f[i-A3].... <br>
+- [0518. Coin Change 2](Solutions/0518.Coin-Change-2.py) (M) <br>
+与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解。DP解的for循环顺序很重要，由于(1,3)和(3,1)被认为是同一解，所以for coin in coins:是主循环，for num in range(1, amount + 1):是次循环。因为当coin遍历到coin=1的时候，dp[4]+=d[3]此时的dp[3]=0所以dp[4]实际上加的是0；而当coin遍历到coin=3的时候，dp[4]+=d[1]，此时d[1]被更新过一次。所以真个过程dp[4]只被更新一次，不会重复更新。
+- [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (M)<br>
+self.dfs(nums, target - nums[i], 0, curr, res)  # (1, 3)和(3, 1)被认为是不同解，所以让i从0开始; solution 2: dp. 一个num能取多次，所以与322. coin change 相同。所以可以用一维数组，f[i]=how many ways to combine to number i; 背包问题一定要把总承重放到状态里！！ f[i]=f[i-A1]+f[i-A2]+f[i-A3].... <br> DP解的for循环顺序很重要， for m in range(target + 1): 是主循环，for num in nums:是次循环，这么写可以保证(1,3)可以进solution, (3,1)也可以进solution, 所以符合题意。
 - [0125. Backpack II](Solutions/0125.Backpack-II.py) (!!M Lintcode) <br>
 这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。用子问题定义状态：即f[i][j]表示前i件物品拼出重量j可以获得的最大价值。
 f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1][M]
@@ -523,14 +525,14 @@ C(m, n)：m个里面找出n个的组合问题; 模板的DFS + back tracking求co
 模板：find_solution: if target == 0； Is_not_valid：if nums[i] > targetstart是从i开始的，而不是subsets里面的i+1, 这是因为Subsets 一个数只能选一次，Combination Sum 一个数可以选很多次
 - [0040. Combination Sum II](Solutions/0040.Combination-Sum-II.py) (M) <br>
 输入中存在重复元素，避免重复输出的方法与Subsets II一样; 模板 find_solution: if target == 0; is_not_valid: if (nums[i] > target) or (i >= 1 and nums[i] == nums[i-1]) and i != startIdx
-- [0518. Coin Change 2](Solutions/0518.Coin-Change-2.py) (M) <br>
-与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解。不理解DP解的for循环顺序。有时间请教高人，怎么理解这个DP的顺序。
 - [0216. Combination Sum III](Solutions/0216.Combination-Sum-III.py) (M)<br>
 self.dfs(nums, k - 1, n - nums[i], i + 1, curr)   # 不能重复同一个数，所以从i+1开始
 - [0090. k Sum II](Solutions/0090.k-Sum-II.py) (M Lintcode) <br>
 exactly the same as 216.
+- [0518. Coin Change 2](Solutions/0518.Coin-Change-2.py) (M) <br>
+与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解。DP解的for循环顺序很重要，由于(1,3)和(3,1)被认为是同一解，所以for coin in coins:是主循环，for num in range(1, amount + 1):是次循环。因为当coin遍历到coin=1的时候，dp[4]+=d[3]此时的dp[3]=0所以dp[4]实际上加的是0；而当coin遍历到coin=3的时候，dp[4]+=d[1]，此时d[1]被更新过一次。所以真个过程dp[4]只被更新一次，不会重复更新。
 - [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (M)<br>
-self.dfs(nums, target - nums[i], 0, curr, res)  # 顺序不重要（(1, 3)和(3, 1)都可以，所以让i从0开始; solution 2: dp. 
+self.dfs(nums, target - nums[i], 0, curr, res)  # (1, 3)和(3, 1)被认为是不同解，所以让i从0开始; solution 2: dp. DP解的for循环顺序很重要， for m in range(target + 1): 是主循环，for num in nums:是次循环，这么写可以保证(1,3)可以进solution, (3,1)也可以进solution, 所以符合题意。
 - [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (!!!M) <br>
 递归的定义：从s中的start位置开始，挑一些位置切割，判断从start到i的部分是否为回文，如果是就放入curr中，如果i到了string末尾了则说明此事curr是一种组合方式，放入res中 <br>
 - [0332. Reconstruct Itinerary](Solutions/0332.Reconstruct-Itinerary.py) (!!M) <br>
