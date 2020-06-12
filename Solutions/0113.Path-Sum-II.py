@@ -36,7 +36,7 @@ class Solution:
         return the path for root that can sum to sum
         """
         if not root.left and not root.right and sum == 0:
-            self.res.append(curr.copy())
+            self.res.append(curr.copy())        # !!!!!!!!!!!每次都把.copy忘记了!!!!!!
             return
         
         if not root:
