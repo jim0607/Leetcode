@@ -50,6 +50,57 @@
 #
 
 
+
+"""
+不要求输出所有的combination，所以除了dfs，还有更快的方法：背包问题。
+如果问题要求用i个数加在一起拼出target，那么多半是背包问题。
+f[i]=how many ways to combine to number i  背包问题一定要把总承重放到状态里！！
+f[i]=f[i-A1]+f[i-A2]+f[i-A3]....
+f[0] = 1
+return f[target]
+这个题其实和coin change那题是一样的。
+"""
+class Solution:
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        # dp[m]=how many ways to add to m
+        # dp[m] += dp[m-num] for num in numsand m>=num
+        # dp[0] = 0
+        # return dp[target]
+        
+        lens = len(nums)
+        dp = [0] * (target + 1)
+        dp[0] = 1
+        
+        for m in range(target + 1):
+            for num in nums:    # 这里会导致(1,3)可以进solution, (3,1)也可以进solution, 所以符合题意。
+                if m >= num:
+                    dp[m] += dp[m - num]
+                    
+        return dp[target]
+
+"""为什么下面这样就是错的呢
+### 因为思路不对，我们每次更新的是dp[i]，所以每一个循环更新一次。总共更新n次就对了。"""
+""" """
+class Solution:
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        lens = len(nums)
+        dp = [0] * (target + 1)
+        dp[0] = 1
+        
+        # 这样写可以就不能区分开(1,3)和(3,1)的问题，因为当coin遍历到coin=1的时候，dp[4]+=d[3]此时的dp[3]=0所以dp[4]实际上加的是0
+        # 而当coin遍历到coin=3的时候，dp[4]+=d[1]，此时d[1]被更新过一次。所以真个过程dp[4]只被更新一次，不会重复更新，也就是在(1,3)和(3,1)中只取了一种情况。
+        for num in nums:
+            for i in range(1, target + 1):
+                if i - num >= 0:
+                    dp[i] += dp[i - num]
+                    
+        return dp[target]
+
+
+
+
+
+
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
         res = []
@@ -74,45 +125,3 @@ class Solution:
             curr.pop()       
         
 
-"""
-不要求输出所有的combination，所以除了dfs，还有更快的方法：背包问题。
-如果问题要求用i个数加在一起拼出target，那么多半是背包问题。
-f[i]=how many ways to combine to number i  背包问题一定要把总承重放到状态里！！
-f[i]=f[i-A1]+f[i-A2]+f[i-A3]....
-f[0] = 1
-return f[target]
-这个题其实和coin change那题是一样的。
-"""
-class Solution:
-    def combinationSum4(self, nums: List[int], target: int) -> int:
-        # dp[m]=how many ways to add to m
-        # dp[m] += dp[m-num] for num in numsand m>=num
-        # dp[0] = 0
-        # return dp[target]
-        
-        lens = len(nums)
-        dp = [0] * (target + 1)
-        dp[0] = 1
-        
-        for m in range(target + 1):
-            for num in nums:
-                if m >= num:
-                    dp[m] += dp[m - num]
-                    
-        return dp[target]
-
-"""为什么下面这样就是错的呢
-### 因为思路不对，我们每次更新的是dp[i]，所以每一个循环更新一次。总共更新n次就对了。"""
-""" """
-class Solution:
-    def combinationSum4(self, nums: List[int], target: int) -> int:
-        lens = len(nums)
-        dp = [0] * (target + 1)
-        dp[0] = 1
-        
-        for num in nums:
-            for i in range(1, target + 1):
-                if i - num >= 0:
-                    dp[i] += dp[i - num]
-                    
-        return dp[target]
