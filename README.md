@@ -209,6 +209,9 @@ string s and t are anagram with each other when all the ch in s have the same co
 sliding window solution 1: 九章模板，use one collections.Counters for p and one for s. sliding window solution 2: keep the window size len(s1), check the tempCntDict == cntDict ? O(M+M*(N-M)). 
 - [0438. Find All Anagrams in a String](Solutions/0438.Find-All-Anagrams-in-a-String.py) (!!M) <br>
 similar with 567, 套用九章模板就可以了
+- [0049. Group Anagrams](Solutions/0049.Group-Anagrams.py) (!!M) <br>
+dictionary: key is a tuple keeping track of the cnt of all 26 letters, val is the word list corresponding to the tuple
+
 
 ------- 
 209. Minimum Size Subarray Sum - Medium
