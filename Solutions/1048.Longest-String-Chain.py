@@ -31,7 +31,7 @@ if predecessor in dp: dp[word] = max(dp[redesessor]+1)
 """
 class Solution:
     def longestStrChain(self, words: List[str]) -> int:
-        # 也可以用这么写：words = sorted(words, key = lambda word: len(word)) 
+        # 也可以用这么写：words.sort(words, key = lambda word: len(word)) 
         self.sortByLens(words, 0, len(words) - 1)   # O(NlogN), , where N is length of words list
         dp = collections.defaultdict(lambda: 1)
         maxLens = 1
