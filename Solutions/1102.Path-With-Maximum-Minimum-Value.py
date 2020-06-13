@@ -54,3 +54,57 @@ class Solution:
                     
                 heappush(hq, (-min(-currMin, A[nextPos[0]][nextPos[1]]), nextPos))
                 visited.add(nextPos)
+
+                
+                
+"""
+Solution 2: Union-Find
+step 1: sort the array by the values descendingly
+step 2: union one-by-one, until (0, 0) and (m-1, n-1) is connected
+"""
+class Solution:
+    def maximumMinimumPath(self, A: List[List[int]]) -> int:
+        moves = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        m, n = len(A), len(A[0])
+        
+        points = [(x, y) for x in range(m) for y in range(n)]   # 定义一个一维数组， 注意python是怎么写的
+        points.sort(key = lambda point: -A[point[0]][point[1]])     # O(MNlogMN)
+        
+        graph = UnionFind(points)
+        
+        visited = set()
+        for point in points:        # O(MN)
+            visited.add(point)
+            
+            for move in moves:
+                nextPoint = (point[0] + move[0], point[1] + move[1])
+                if nextPoint[0] < 0 or nextPoint[0] >= m or nextPoint[1] < 0 or nextPoint[1] >= n:
+                    continue
+                if nextPoint in visited:   # 注意nextPoint一定要in visited才能将其连上currPoint!! 这是UnionFind的定义决定的
+                    graph.union(point, nextPoint)
+                
+            if graph.find((0, 0)) == graph.find((m-1, n-1)):    # check if (0, 0) and (m-1, n-1) are connected
+                return A[point[0]][point[1]]
+
+
+class UnionFind:
+    def __init__(self, points):
+        self.father = collections.defaultdict()
+        for point in points:
+            self.father[point] = point
+        
+    def add(self, item):
+        self.father[item] = item
+        
+    def find(self, item):
+        if self.father[item] == item:
+            return item
+        
+        self.father[item] = self.find(self.father[item])
+        
+        return self.father[item]
+        
+    def union(self, item1, item2):
+        root1, root2 = self.find(item1), self.find(item2)
+        if root1 != root2:
+            self.father[root1] = root2
