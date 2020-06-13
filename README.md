@@ -354,8 +354,9 @@ Union-Find 算法是解决动态连通性（Dynamic Conectivity）问题的一�
 - [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
 Solution 2: Union find: O(N); Solution 1: BFS O(N)判断图是不是一棵树（不一定非要是二叉树）需要满足两点:1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树
 - [0128. Longest Consecutive Sequence](Solutions/0128.Longest-Consecutive-Sequence.py) (!!H) <br>
-Solution 1: Greedy O(N) 使用一个集合HashSet存入所有的数字，然后遍历数组中的每个数字，如果其在集合中存在，那么将其移除，然后分别用两个变量pre和next算出其前一个数跟后一个数，然后在集合中循环查找，如果pre在集合中，那么将pre移除集合，然后pre再自减1，直至pre不在集合之中，对next采用同样的方法，
-那么next-pre-1就是当前数字的最长连续序列，更新res即可; Solution 2: Union find: O(N)
+Solution 1: Greedy O(N) 使用一个集合HashSet存入所有的数字，然后遍历数组中的每个数字，如果其在集合中存在，那么将其移除，然后分别用两个变量pre和next算出其前一个数跟后一个数，然后在集合中循环查找，如果pre在集合中，那么将pre移除集合，然后pre再自减1，直至pre不在集合之中，对next采用同样的方法，那么next-pre-1就是当前数字的最长连续序列，更新res即可; Solution 2: Union find: O(N)
+- [1102. Path With Maximum Minimum Value](Solutions/1102.Path-With-Maximum-Minimum-Value.py) (M) <br>
+Solution 1: Dijkstra's : 每次都把目前为止最小值最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走. maintain a heapq to store (the minimum value in the path so far till the currPos, currPos); each time, we push (min(nextVal, currMinVal), nextPos); O(MNlogMN), O(MN). Solution 2: Union-Find, step 1: sort the array by the values descendingly; step 2: union one-by-one, until (0, 0) and (m-1, n-1) is connected
 
 ---------
 130 Surrounded Regions 18.6% Medium
