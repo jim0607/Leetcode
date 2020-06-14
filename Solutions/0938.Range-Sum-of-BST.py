@@ -48,6 +48,30 @@
 # 
 #
 
+
+
+
+# solution 2: divide and conquer
+class Solution:
+    def rangeSumBST(self, root: TreeNode, L: int, R: int) -> int:
+        if not root:
+            return 0
+        
+        # divide
+        leftSum = self.rangeSumBST(root.left, L, R)
+        rightSum = self.rangeSumBST(root.right, L, R)
+        
+        # conquer
+        if root.val > R:
+            return leftSum
+        elif root.val < L:
+            return rightSum
+        else:
+            return leftSum + rightSum + root.val
+
+
+
+
 class Solution:
     def rangeSumBST(self, root: TreeNode, L: int, R: int) -> int:
         if not root:
@@ -82,21 +106,3 @@ class Solution:
         
         return res
     
-
-# solution 2: divide and conquer
-class Solution:
-    def rangeSumBST(self, root: TreeNode, L: int, R: int) -> int:
-        if not root:
-            return 0
-        
-        # divide
-        leftSum = self.rangeSumBST(root.left, L, R)
-        rightSum = self.rangeSumBST(root.right, L, R)
-        
-        # conquer
-        if root.val > R:
-            return leftSum
-        elif root.val < L:
-            return rightSum
-        else:
-            return leftSum + rightSum + root.val
