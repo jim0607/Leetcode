@@ -656,6 +656,8 @@ eg: 10//3, 每次通过右移3 << 1的方法将3乘以2,这种算法是O(N), 每
 - [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
 SOlution 1: find Kth smallest O(log(M+N)). midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx1], nums2[midIdx2]; when k is relatively large, then we can safely drop the first half that are surely smaller than the kth, the question is where is the first half that are surely smaller than the kth? by comparing midVal1 and midVal2, we can find it out, if midVal1 < midVal2, then all the vals in nums1[:midIdx1] are less than midVal2, also all of those vals are less than kth, we can safely drop all those vals
 
+LeetCode 上二分「答案」相关的问题有：第 410 题、第 875 题、第 1231 题、第 1011 题、第 69 题、第 287 题。
+
 
 
 
