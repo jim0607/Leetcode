@@ -52,7 +52,7 @@ class Solution:
         res = [[0 for _ in range(len(B[0]))] for _ in range(len(A))]
         for (rowA, colA), valA in dictA.items():
             for (rowB, colB), valB in dictB.items():
-                if colA == rowB:        # 这里地方在面试的时候不一定写得出来，一定要多想想
+                if colA == rowB:       # 这里地方在面试的时候不一定写得出来，一定要多想想，画一个2x3的矩阵点乘3x2的矩阵就很清楚了
                     res[rowA][colB] += valA * valB
                     
         return res
