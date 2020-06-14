@@ -46,10 +46,11 @@ O(1) find的原理是：比如来了一个key，需要查找这个key在不在ha
 一个hash map的例子：MD5，其实就是取模：key % hash_table_size
 
 hashing的冲突解决方法：
-1. closed hashing: hash_table_size是固定的，采取取模的方式，如果出现冲突，比如8%7 = 1,将8放到地址1，下一个进来15%7 也是1，这个时候就把15放到紧接着的后面那个地址也就是2
-2. opend hashing: 如果出现冲突，也坚决不去紧接着的后面那个地址，而是将15排在8的后面，两个数都占1那个地址。
+1. Seperate chaining: hash_table_size是固定的，采取取模的方式，如果出现冲突，比如8%7 = 1,将8放到地址1，下一个进来15%7 也是1，这个时候就把15放到紧接着的后面那个地址也就是2
+2. Opend addressing / Linear probing: 如果出现冲突，也坚决不去紧接着的后面那个地址，而是将15排在8的后面，两个数都占1那个地址。
   
 如果hash_table_size不够大怎么办： re-hashing，若果存入的元素的个数大约hash_table_size的十分之一，那就要re-hashing了，不然冲突会很多。
+In practicle: shrink the size when less than 1/8 were full, double the size when 1/2 were full
 ****146. LRU!!!
 
 
