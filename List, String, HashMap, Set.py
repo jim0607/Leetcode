@@ -8,6 +8,10 @@ case 1: 如果arr中的element是string, eg: ["1", "2", "3"], 则用 "".join(arr
 case 2: 如果arr中的element是int, eg: [1, 2, 3], 则用 "".join(map(str, arr)) 输出 "123". 
       map(str, arr) is to map every element in an array into string type
       
+      最大的int:  import sys
+                  max = sys.maxsize
+                  min = -sys.maxsize - 1
+      
 3. 将string变成arr: arr = list(string), 时间复杂度是O(N)
       
 4. Somehow these two are different: [collections.defaultdict(lambda: 1) for _ in range(lens)] and [collections.defaultdict(lambda: 1)] * lens
