@@ -47,3 +47,37 @@ class Solution:
         self.maxSum = max(self.maxSum, leftPathSum + rightPathSum + root.val)
         
         return max(leftPathSum, rightPathSum) + root.val
+
+
+
+class Solution:
+    def maxPathSum(self, root: TreeNode) -> int:
+        """
+        returns the maxSum for the tree with/wo root in the path
+        """
+        self.maxSum = -float("inf")
+        self.helper(root)
+        return self.maxSum
+        
+    def helper(self, root):
+        """
+        returns the maxSum for the tree ended with root in the path
+        """
+        if not root:
+            return -float("inf")    # 如果root=none就不加进去
+        
+        if not root.left and not root.right:    # 也可以不要这一句，但是加上这句会快很多，因为省去了not root return float("inf")之后的比较
+            self.maxSum = max(self.maxSum, root.val)    # 注意不要忘了在这里打擂台
+            return root.val 
+        
+        # divide
+        leftMaxSum = self.helper(root.left)     # the max ended with root.left
+        rightMaxSum = self.helper(root.right)   
+        
+        # conquer
+        # rootMaxSum is defined as the maxSum ended with root
+        rootMaxSum = max(leftMaxSum + root.val, rightMaxSum + root.val, root.val)
+        rootMaxSum_pass_root = leftMaxSum + rightMaxSum + root.val  # maxSum pass root
+        self.maxSum = max(rootMaxSum, rootMaxSum_pass_root, self.maxSum)
+        
+        return rootMaxSum
