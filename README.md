@@ -916,9 +916,11 @@ The robot stays in the circle if (looking at the final vector), it changes direc
 ----- 0547.friend-circles --------
 - [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (M) <br>
 Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现; Step 2: 复制所有原有的node，存到mapping中，这样就建立了一个new_node和original_node的一一映射; Step 3: 复制所有original_node对应的neighbors 到 new_node里面
+- [0785. Is Graph Bipartite?](Solutions/0785.Is-Graph-Bipartite.py) (M)  <br>
+solution 1: bfs, visit every node and label their color every other step. O(V+E); 
+solution 2: dfs, mark the color of nodes as we go.  O(V+E)
 - [0399. Evaluate Division](Solutions/0399.Evaluate-Division.py) (!!M) <br>
-Solution 1: bfs 去做path compression
-注意这里构建图的时候采用hashmap构建邻接表 graph = collections.defaultdict(dict)  
+Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hashmap构建邻接表 graph = collections.defaultdict(dict)  
 in graph, key is node1, val is a dict of (key: node2, val: node1/node2)
 Given the number of variables N, and number of equations E,
 building the graph takes O(E), each query takes O(N), space for graph takes O(E)
@@ -926,6 +928,8 @@ I think if we start to compress paths, the graph will grow to O(N^2) gradually, 
 that is why we use global variable for graph, so that we can compress paths and avoid duplicated computing;  Soltution 2: Union Find;  Solution 3: Floyd–Warshall algorithm
 - [0310. Minimum Height Trees](Solutions/0310.Minimum-Height-Trees.py) (M) <br>
 想想如果是一个很大的图，那minimum height trees的root就应该是这个图的最中心，所以我们就去找图的最中心就可以了，采用从外围(inDegree=1的node)往中间走的方法，解法类似topological sort, 走到最后留下的顶点就是最中心的顶点，也就是距离所有外围顶点最小的顶点。
+
+
 ## [Celebrity](/)
 - [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (E) <br>
 one dict to store the inDegree (beingTrusted), one dict to store the outDegree (trustOthers). there exsit a town judge only if there is a node with inDegree==N-1(beiing trusted by all others), and at the same time the node should have outDegree==0(not trust anyone)
