@@ -2,6 +2,10 @@
 # This is the robot's control interface.
 # You should not implement it, or speculate about its implementation
 # """
+# """
+# This is the robot's control interface.
+# You should not implement it, or speculate about its implementation
+# """
 #class Robot:
 #    def move(self):
 #        """
@@ -39,26 +43,26 @@ class Solution:
         robot.turnRight()    
     
     def cleanRoom(self, robot):
-        # going clockwise from 0 deg to 270 deg
-        self.facing_directions = {
-            0: (-1, 0), 
-            90: (0, 1), 
-            180: (1, 0), 
-            270: (0, -1) }
+        # (1, 0) 代表facing up, (0, 1)代表facing right，(-1, 0)代表facing down, (0, -1)达标facing left 
+        # 注意顺序不能变
+        self.directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 
         self.visited = set()
         self.backtrack(robot, 0, 0, 0)
         
-    def backtrack(self, robot, x, y, facing_dir):
+    def backtrack(self, robot, x, y, facing):
+        """
+        backtrack so that the robot can visit every possible spot in the room
+        """
         self.visited.add((x, y))
         robot.clean()
         
-        for i in range(4):  # 这里的for i in range(4)其实就相当于是for going up, right, down, left
-            new_facing_dir = (facing_dir + i * 90) % 360  # 这一部分是调整机器人朝向之后对应的下一步是什么？
-            next_x, next_y = x + self.facing_directions[new_facing_dir][0], y + self.facing_directions[new_facing_dir][1]
+        for _ in range(4):
+            facing = (facing + 1) % 4
+            robot.turnRight()
+            
+            next_x, next_y = x + self.directions[facing][0], y + self.directions[facing][1]
 
             if (next_x, next_y) not in self.visited and robot.move():
-                self.backtrack(robot, next_x, next_y, new_facing_dir)
+                self.backtrack(robot, next_x, next_y, facing)
                 self.goBack(robot)
-
-            robot.turnRight()     # 这一步就是调整机器人的朝向，这样他才能换一个方向走。
