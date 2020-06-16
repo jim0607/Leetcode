@@ -13,7 +13,8 @@ Input: [3,4,5,1,2]
 Output: 1
 
 
-"""画个图就知道，问题可以转换成寻找第一个小于nums[0]的数，属于OOOXXX问题，OOO表示前面的数都大于nums[0]，XXX表示之后的数都小于nums[0]，找出第一个这样的X"""
+"""画个图就知道，问题可以转换成寻找第一个小于nums[0]的数，属于OOOXXX问题，OOO表示前面的数都大于nums[0]，
+XXX表示之后的数都小于nums[0]，找出第一个这样的X"""
 class Solution:
     def findMin(self, nums: List[int]) -> int:
         lens = len(nums)
@@ -28,15 +29,16 @@ class Solution:
                 end = mid
             else:
                 start = mid
+        if nums[start] < nums[0]:  # # 寻找第一个X的问题，需要返回尽量小的值，所以需要把小的值start放在前面return ，这样如果nums[end]和nums[start]都小于nums[0]的话，就应该取较小的start。
+            return nums[start]
         if nums[end] < nums[0]:
             return nums[end]
-        if nums[start] < nums[0]:  # # 寻找第一个X的问题，需要返回尽量小的值，所以需要把小的值start放在后面判断，这样如果nums[end]和nums[start]都小于nums[0]的话，就应该取较小的start。
-            return nums[start]
 
         
 """为了更好的去解follow up questions: 154. Find Minimum in Rotated Sorted Array II（存在重复的数）,我们采用下面的方法，
 instead of comapring nums[mid] and nums[0], we compare nums[mid] and nums[end]. 
-It should be noted that end is always on the right of the minimum point, and start is alwyas on the left, that is why the algorithm works."""
+It should be noted that end is always on the right of the minimum point, and start is alwyas on the left, 
+that is why the algorithm works."""
 class Solution:
     def findMin(self, nums: List[int]) -> int:
         lens = len(nums)
