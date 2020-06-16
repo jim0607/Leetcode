@@ -20,7 +20,8 @@ This is a follow up problem to Find Minimum in Rotated Sorted Array.
 Would allow duplicates affect the run-time complexity? How and why?
 
 
-"""The problem is a follow-up to the problem of 153. Find Minimum in Rotated Sorted Array. The difference is that in this problem the array can contain duplicates. So the question is "Would allow duplicates affect the run-time complexity? How and why?"""
+"""The problem is a follow-up to the problem of 153. Find Minimum in Rotated Sorted Array. The difference is that in this problem the array can contain duplicates. 
+So the question is "Would allow duplicates affect the run-time complexity? How and why?"""
 """画个图就清晰了，it should be noted that end is always on th right of minimum, and low is always on the left of minimum"""
 class Solution:
     def findMin(self, nums: List[int]) -> int:
@@ -38,6 +39,8 @@ class Solution:
         
         return min(nums[start], nums[end])
         
-"""Time complexity: on average (logN) where N is the length of the array, since in general it is a binary search algorithm. However, in the worst case where the array contains identical elements (i.e. case #3 nums[mid]==nums[end]), the algorithm would deteriorate to iterating each element, as a result, the time complexity becomes O(N)."""
+"""Time complexity: on average (logN) where N is the length of the array, since in general it is a binary search algorithm. 
+However, in the worst case where the array contains identical elements (i.e. case #3 nums[mid]==nums[end]), 
+the algorithm would deteriorate to iterating each element, as a result, the time complexity becomes O(N)."""
 
 """第二个注意的点是这里使用nums[mid]和nums[end]做比较，尝试过多次用拿nums[start]作比较都不work,原因不知。"""
