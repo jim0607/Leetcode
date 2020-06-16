@@ -9,7 +9,11 @@ Output: 4
 Explanation: 9 exists in nums and its index is 4
 
 
-"""二分法是基于起点和终点的，但是由于本题的array size unknown，也就是说终点是不知道的，这时候就需要去终点，这个终点需要是>=target就可以。怎么找呢，当然不能设置成无穷大，不然二分回来时间太长O(log无穷大)，题目要求的是log(k)，k是target在数组中的位置。寻找的方法是很经典很重要的double 的方法（与动态数组dynamic array or array list的实现原理一样）：先从位置1开始，判断如果小于nums[k]，就判断位置2，如果还小于，再判断位置4，再判断位置8，再判断位置16，32，64，2**m次方，直到到了某个位置p满足,nums[p]>=nums[k]，这时候p的位置一定落在k到2k之间，而不会是无穷大的位置了。"""
+"""二分法是基于起点和终点的，但是由于本题的array size unknown，也就是说终点是不知道的，这时候就需要去终点，这个终点需要是>=target就可以。
+怎么找呢，当然不能设置成无穷大，不然二分回来时间太长O(log无穷大)，题目要求的是log(k)，k是target在数组中的位置。
+寻找的方法是很经典很重要的double 的方法（与动态数组dynamic array or array list的实现原理一样）：
+先从位置1开始，判断如果小于nums[k]，就判断位置2，如果还小于，再判断位置4，再判断位置8，再判断位置16，32，64，2**m次方，
+直到到了某个位置p满足,nums[p]>=nums[k]，这时候p的位置一定落在k到2k之间，而不会是无穷大的位置了。"""
 class Solution:
     def search(self, reader, target):
         """
