@@ -41,4 +41,5 @@ class Solution:
         else:
             return start           
             
-"""It should be noted that the problem says nums[i] ≠ nums[i+1], if not, it has to be O(N), eg: [2,2,2,2,2,2,3,2,2,2,2,2],如果nums[mid]取到的是2，那根本没办法判断是要丢掉左边还是右边，因为很可能nums[mid-1]=nums[mid]=nums[mid+1]"""
+"""It should be noted that the problem says nums[i] ≠ nums[i+1], if not, it has to be O(N), 
+eg: [2,2,2,2,2,2,3,2,2,2,2,2],如果nums[mid]取到的是2，那根本没办法判断是要丢掉左边还是右边，因为很可能nums[mid-1]=nums[mid]=nums[mid+1]"""
