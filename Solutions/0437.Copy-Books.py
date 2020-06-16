@@ -57,7 +57,32 @@ class Solution:
             
         return personNeeded
     
-    
+  
+class Solution:
+    def copyBooks(self, pages, k):
+        if not pages:
+            return 0
+            
+        startTime, endTime = max(pages), sum(pages)
+        while startTime + 1 < endTime:
+            midTime = startTime + (endTime - startTime) // 2
+            if self.canFinish(pages, k, midTime):
+                endTime = midTime
+            else:
+                startTime = midTime
+                
+        return startTime if self.canFinish(pages, k, startTime) else endTime
+        
+    def canFinish(self, pages, k, timeLimit):
+        k -= 1
+        timeNeeded = 0   
+        for page in pages:
+            if timeNeeded + page > timeLimit:    
+                k -= 1
+                timeNeeded = 0  
+            timeNeeded += page
+            
+        return k >= 0
     
 
 """需要找到一种分段方式，使得所有段的数字之和的最大值最小
