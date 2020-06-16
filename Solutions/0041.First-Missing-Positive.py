@@ -39,7 +39,7 @@ class Solution:
         for num in nums:
             idx = abs(num)
             if idx == n:
-                nums[0] = - abs(nums[0])
+                nums[0] = -abs(nums[0])
             else:
                 nums[idx] = -abs(nums[idx])
                 
