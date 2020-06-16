@@ -896,7 +896,7 @@ condition 2. the sum of area of all the small rectangles should be the same as t
 
 
 
-## [Robert Simulation](/)
+## [Robot Simulation](/)
 - [0657. Robot Return to Origin](Solutions/0657.Robot-Return-to-Origin.py) (E) <br>
 Beacuase the way that the robot is "facing" is irrelevant, hte solution is trivial.  Just count if the steps of going up equals the steps of going down; and the steps of going left equals the steps of going right.
 - [0874. Walking Robot Simulation](Solutions/0874.Walking-Robot-Simulation.py) (E) <br>
@@ -907,6 +907,17 @@ The robot stays in the circle if (looking at the final vector), it changes direc
 遍历机器人的四个方向即可，唯一需要注意的是每次都需要调整机器人的朝向才能move一下，毕竟是机器人嘛
 
 
+## [把数当坐标用](/)
+- [0448. Find All Numbers Disappeared in an Array](Solutions/0448.Find-All-Numbers-Disappeared-in-an-Array.py) (E) <br>
+难就难在题目要求O(1) space. 做法是把数组里的数当坐标用，We use the sign of the index as the indicator. If one number never occur, 
+we know the number corresponding to the idx will never be negative. eg: [4,3,1,3] -- > [-4,3,-1,-3], 2 is missing, so num[2-1] will never be changed to be negative. 1st pass: change numbers to be negative [4,3,1,3] --> [-4,3,-1,-3].  2nd pass: find those numbers that has not been changed negative, there is not num corrsponding to their idx.
+- [0442. Find All Duplicates in an Array](Solutions/0442.Find-All-Duplicates-in-an-Array.py) (M) <br>
+难就难在题目要求O(1) space. 做法是把数组里的数当坐标用，We use the sign of the index as the indicator. If one number occurs twice, 
+we know the second time occurance becasue we flip the sign each time.
+- [0268. Missing Number](Solutions/0268.Missing-Number.py) (M) <br>
+solution 1: 448类似的做法，我们通过nums[i] += 1来change all 0s to be positive number.  solution 2: bit manipulation 所有的idx and num都异或起来. solution 3: 题目确定只有一个missing number. add every num together and compare with n(n+1)/2. O(1).  Follow up: what is there are 2 missing numbers?  How can we solve within O(1). we can calculate the sum of the 2 missing numbers using solutino 3, and also prodct of the 2 missing number, then 用求根公式求出来就可以了
+- [0041. First Missing Positive](Solutions/0041.First-Missing-Positive.py) (H) <br>
+1st pass: change all negtive numbers to be 1, so that there will be no negtive numbers;  2nd pass: change the positive numbers into negative; 3rd pass: find the first positive number, and the corresponding idx is missing
 
 
 # [图的遍历](/)
