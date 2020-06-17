@@ -416,7 +416,7 @@ Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现; S
 - [0207. Course Schedule](Solutions/0207.Course-Schedule.py) (!!M) <br>
 套用模板分三步：1. collect the inDegree of each node; 2. collect the neighbors information; 3. topological sort - BFS
 - [0210. Course Schedule II](Solutions/0210.Course-Schedule-II.py) (!!M) <br>
-套用模板 return res if len(res) == numCourses else []
+套用模板 return res if len(res) == numCourses else [].  Google follow up: 打印出所有可能的选课组合，感觉有点像word ladder I and II.
 - [0444. Sequence Reconstruction](Solutions/0444.Sequence-Reconstruction.py) (!!M) <br>
 这个题目要做三个判断：1. 判断seqs的拓扑排序是否存在，只需判断len(res) 是否等于len(neighbors) or len(inDegrees), 如果小于说明有孤立节点，如果大于说明有环，两者都不存在拓扑排序; 2. 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素, 即每一层只有一个选择: if len(q)>1: return False; 3. 最后判断这个唯一的拓扑排序res是否等于org
 - [0269. Alien Dictionary](Solutions/0269.Alien-Dictionary.py) (!!H) <br>
