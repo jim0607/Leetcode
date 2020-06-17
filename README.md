@@ -698,8 +698,6 @@ QuickSort with 3-way partitioning is very fast because it is entropy optimal
 ### [Sorted Array](/Sort.py) 
 - [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) (E) <br>
 sort the arr first, then the maximum sum of pairs is the sum of every other num
-- [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (M) <br>
-sort the intervals first, res = []; for interval in intervals: if the interval start time is larger than the largest end time in res, then the interval cannot be merged, then res.append(interval), else then res[-1][1] = max(res[-1][1], interval[1])
 - [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
 midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx1], nums2[midIdx2]; when k is relatively large, then we can safely drop the first half that are surely smaller than the kth, the question is where is the first half that are surely smaller than the kth? by comparing midVal1 and midVal2, we can find it out, if midVal1 < midVal2, then all the vals in nums1[:midIdx1] are less than midVal2, also all of those vals are less than kth, we can safely drop all those vals
 
@@ -707,8 +705,8 @@ midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx
 ### [Bucket Sort](/Sort.py) 
 - [0217. Contains Duplicate](Solutions/0217.Contains-Duplicate.py) (E) <br>
 hash set to store the seen number, if seen again, return True. Warm up for 219
-- [0219. Contains Duplicate II](Solutions/0219.Contains-Duplicate-II.py) (M) <br>
-solution 1: dictionary to store the positions where the same num appears. O(N), O(N); solution 2: sliding window: fix the sliding window to be k.  O(N), O(k). Warm up for 220
+- [0219. Contains Duplicate II](Solutions/0219.Contains-Duplicate-II.py) (E) <br>
+solution 1: dictionary to store the (num, pos) pairs. O(N), O(M), where N is the number of num in nums, M is the number of distinct num in nums; solution 2: sliding window: use a numSet to fix the sliding window to be k.  O(N), O(k), where k is the size of the window. Warm up for 220
 - [0220. Contains Duplicate III](Solutions/0220.Contains-Duplicate-III.py) (!!M) <br>
 Solution 1: brutal force O(n^2); solution 2: Balanced BST O(nlogk); solution 3: bucket method: O(n). bucket sort利用的是分块的思想
 The main idea is splitting elements in nums into different buckets in terms of the value of t (for each element, divide by (t+1) for integer division). 保持bucket的大小为t这样只要有两个数被分配到了同一个bucket, 那么就可以return True了
@@ -724,7 +722,7 @@ If the result is True, which means one of the following 3 cases hold: 1. Two ele
 - [0148. Sort List](Solutions/0148.Sort-List.py) (!!M) <br>
 step1: divide: 先找到mid, 然后在mid处cut成左右half, 再分别sort left and right; step 2: merge, 同21
 - [0206. Reverse Linked List](Solutions/0206.Reverse-Linked-List.py) (!!E) 
-需要熟背理解solution 1: interrative, prev, curr = None, head; solution 2: recurssive
+需要熟背理解solution 1: interrative: 注意初始化prev, curr = None, head; solution 2: recurssive: 非常容易漏掉 head.next = None
 - [0092. Reverse Linked List II](Solutions/0092.Reverse-Linked-List-II.py) (M) <br>
 reverse node from m to n: step 1: find node_m and node_m_minus; find node_n and node_n_plus; step 2. reverse the nodes from m to n; 3. hook up node_m_minus with node_n, node_m with node_n_plus
 - [0024. Swap Nodes in Pairs](Solutions/0024.Swap-Nodes-in-Pairs.py) (M) <br>
@@ -888,6 +886,8 @@ BFS, if can find arr[idx]==0, then return True.
 - [0391. Number of Airplanes in the Sky](Solutions/0391.Number-of-Airplanes-in-the-Sky.py) (M Lintcode) <br>
 扫描线做法：碰到interval的start，也就是起飞一架飞机，当前天上的飞机数++。碰到interval的end，也就是降落一架飞机，当前天上的飞机数--。
 Step 1: 我们分别把所有的start和所有的end放进两个数组，并排序。Step 2: 然后从第一个start开始统计，碰到start较小就加一，碰到end较小就减一。并且同时维护一个最大飞机数的max。
+- [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (M) <br>
+这种interval的题目首先都需要sort, sort the intervals first, res = []; for interval in intervals: if the interval start time is larger than the largest end time in res, then the interval cannot be merged, then res.append(interval), else then res[-1][1] = max(res[-1][1], interval[1])
 - [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
 solution 1: 扫描线；minimum meeting rooms required could be understood us maximum meeting rooms in use
 Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky <br> solution 2: 先把interval进行sort: intervals.sort(key = lambda x: (x[0], x[1])), 然后以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
