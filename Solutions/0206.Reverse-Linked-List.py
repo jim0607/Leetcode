@@ -41,18 +41,16 @@ solution 1: iterative
 """
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
-        if not head:
-            return
+        if not head or not head.next:
+            return head
         
         prev, curr = None, head
-
         while curr:
             temp = curr.next
             curr.next = prev
-            
             prev = curr
             curr = temp
-    
+            
         return prev
         
 
@@ -70,6 +68,6 @@ class Solution:
         nextNode = head.next
         reversedHead = self.reverseList(nextNode)   # 这一部分执行完了之后nextNode已经变成了后面一大坨已经翻转好的List的tail了
         nextNode.next = head
-        head.next = None
+        head.next = None        #！！ 非常容易漏掉！！
         
         return reversedHead
