@@ -33,6 +33,7 @@ class Solution:
         
         res = []
         for j in range(lens - 1, 0, -1):
+            
             # find the max from 0-jth idx
             maxVal, maxIdx = A[0], 0
             for i in range(j + 1):
@@ -43,8 +44,8 @@ class Solution:
             # do two filps
             self.flip(A, 0, maxIdx)
             res.append(maxIdx + 1)
-            self.flip(A, 0, i)
-            res.append(i + 1)
+            self.flip(A, 0, j)
+            res.append(j + 1)
             
         return res
             
