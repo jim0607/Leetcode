@@ -16,46 +16,6 @@ Input: nums = [1,5,9,1,5,9], k = 2, t = 3
 Output: false
 
 
-
-""" Brute Force Solution
-Brute force solution is use two loops and test both the conditions. The inner loop starts from i+1 to i+k. Because of that, we no longer need to test one of the conditions since that is taken care of automatically.
-Time complexity : O(n * k).
-"""
-class Solution(object):
-    def containsNearbyAlmostDuplicate(self, nums, k, t):
-        """
-        :type nums: List[int]
-        :type k: int
-        :type t: int
-        :rtype: bool
-        """
-        for i in range(0, len(nums)):
-            for j in range(i+1, i+k+1):
-                if j < len(nums):
-                    if abs(nums[i]-nums[j]) <= t:
-                        return True
-        return False
-
-
-"""
-Solution 2: balanced BST: O(nlogk)
-Binary Search Tree Solution.  In solution 1, for nums[i], we need to compare with every nums[j] that are within (i+1, i+k+1).
-In fact we just need to compare nums[i] with the number that is just larger than it and the number that is just smaller than it.
-How can we effeciently find the number that is just larger/smaller than it? Use a balanced BST.
-Maintain a BST of previous k elements. This is the invariant for this problem!
-When you get element x, we want to find an element y in the BST such that (y-x)<=t or (x-y)<=t
-How do we find (y-x)<=t ? Solution: Find the smallest value in the BST greater than or equal to x i.e. ceiling of x. Then test that value for the above condition.If the smallest value greater than x doesnt meet the criterion, then no other value y greater than x will meet the condition. One may consider the smallest element y that is greater or equal to x as the successor of x in the BST, as in: "What is the next greater value of x?"
-How do we find (x-y)<=t? Find the greatest element y in the BST which is smaller than or equal to x. Again if this y doesnt meet the condition, no other y in the BST will meet the condition. We consider the greatest element y that is smaller or equal to x as the predecessor of x in the BST, as in: "What is the previous smaller value of x?
-Visualize or imagine this as x and its two closest neighbors.
-After trying the above tests, if they fail, then put x in set
-If the size of the set is larger than k, remove the oldest item - this maintains the invariant.
-Time complexity : O(n * log (min(n,k))). Space complexity: O(min(n,k))
-
-In Java, it is called TreeMap, but in Python, there is no such data structure to use.
-We have to implement a balanced BST in Python. The implementation is below:
-https://leetcode.com/problems/contains-duplicate-iii/discuss/174416/Python-balanced-BST-solution
-"""
-
 """
 Solution 3: buckets method  O(N)
 bucket sort利用的是分块的思想
@@ -97,3 +57,46 @@ class Solution:
 那么这里面其中有些数和bucket 1里的有些数相减的 abs会小于等于t 
 同样的解释可以用于bucket2. bucket 3里的数为 12，13，14，15.这里的任何一个数和bucket1 里的任意数相减都不会小于等于 t (12-7=5). 
 为什么+1 因为避免t=0. 
+    
+    
+    
+
+""" Brute Force Solution
+Brute force solution is use two loops and test both the conditions. The inner loop starts from i+1 to i+k. Because of that, we no longer need to test one of the conditions since that is taken care of automatically.
+Time complexity : O(n * k).
+"""
+class Solution(object):
+    def containsNearbyAlmostDuplicate(self, nums, k, t):
+        """
+        :type nums: List[int]
+        :type k: int
+        :type t: int
+        :rtype: bool
+        """
+        for i in range(0, len(nums)):
+            for j in range(i+1, i+k+1):
+                if j < len(nums):
+                    if abs(nums[i]-nums[j]) <= t:
+                        return True
+        return False
+
+
+"""
+Solution 2: balanced BST: O(nlogk)
+Binary Search Tree Solution.  In solution 1, for nums[i], we need to compare with every nums[j] that are within (i+1, i+k+1).
+In fact we just need to compare nums[i] with the number that is just larger than it and the number that is just smaller than it.
+How can we effeciently find the number that is just larger/smaller than it? Use a balanced BST.
+Maintain a BST of previous k elements. This is the invariant for this problem!
+When you get element x, we want to find an element y in the BST such that (y-x)<=t or (x-y)<=t
+How do we find (y-x)<=t ? Solution: Find the smallest value in the BST greater than or equal to x i.e. ceiling of x. Then test that value for the above condition.If the smallest value greater than x doesnt meet the criterion, then no other value y greater than x will meet the condition. One may consider the smallest element y that is greater or equal to x as the successor of x in the BST, as in: "What is the next greater value of x?"
+How do we find (x-y)<=t? Find the greatest element y in the BST which is smaller than or equal to x. Again if this y doesnt meet the condition, no other y in the BST will meet the condition. We consider the greatest element y that is smaller or equal to x as the predecessor of x in the BST, as in: "What is the previous smaller value of x?
+Visualize or imagine this as x and its two closest neighbors.
+After trying the above tests, if they fail, then put x in set
+If the size of the set is larger than k, remove the oldest item - this maintains the invariant.
+Time complexity : O(n * log (min(n,k))). Space complexity: O(min(n,k))
+
+In Java, it is called TreeMap, but in Python, there is no such data structure to use.
+We have to implement a balanced BST in Python. The implementation is below:
+https://leetcode.com/problems/contains-duplicate-iii/discuss/174416/Python-balanced-BST-solution
+"""
+
