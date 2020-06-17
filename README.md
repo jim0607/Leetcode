@@ -692,7 +692,7 @@ a[i] > pivot: exchange a[i] and a[gt] and gt--;
 a[i] = pivot: i++;
 QuickSort with 3-way partitioning is very fast because it is entropy optimal
 - [0399. Nuts & Bolts Problem](Solutions/0399.Nuts&Bolts-Problem.py) (!!M Lintcode) 
-写一个带返回pivotIdx的partition function, 先以nuts[(start+end)//2]为pivotVal对bolts进行partition, 然后返回pivotIdx and pivotVal, 在以这个pivotVal对nuts进行partition, 这样就保证了bolts和nuts进行的是同样的partition; 最后pivotIdx左右两边分别递归调用quickSort function 即可
+写一个带返回pivotIdx的partition function, 先以nuts[(start+end)//2]为nuts_pivotVal对bolts进行partition, 然后返回在bolts中对应nuts_pivotVal的bolts_pivotIdx and bolts_pivotVal, 在以这个bolts_pivotVal对nuts进行partition, 这样就保证了bolts和nuts进行partition的时候用的是同一个pivotVal; 最后pivotIdx左右两边分别递归调用quickSort function 即可
 
 
 ### [Sorted Array](/Sort.py) 
