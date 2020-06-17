@@ -12,7 +12,40 @@ Input: [2,0,2,1,1,0]
 Output: [0,0,1,1,2,2]
 
 
+    
+"""
+经典的荷兰三色旗问题采用 Dijkstra's 3-way partitioning:
+a[i] < pivot: exchange a[i] and a[lt] and i++, lt++;
+a[i] > pivot: exchange a[i] and a[gt] and gt--;
+a[i] = pivot: i++;
+QuickSort with 3-way partitioning is very fast because it is entropy optimal
+"""
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        lens = len(nums)
+        lt, i, gt = 0, 0, lens - 1
+        pivot = 1
+        while i <= gt:
+            if nums[i] < pivot:
+                nums[lt], nums[i] = nums[i], nums[lt]
+                i += 1
+                lt += 1
+            elif nums[i] > pivot:
+                nums[gt], nums[i] = nums[i], nums[gt]
+                # i += 1 注意这里不要做i++操作
+                gt -= 1
+            else:
+                i += 1
+    
+    
+    
+    
+    
 """typical partition problem"""
+
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
         """
@@ -77,29 +110,3 @@ class Solution:
                 nums[anchor1], nums[curr] = nums[curr], nums[anchor1]
                 anchor1 += 1
                 curr += 1    
-    
-    
-    
-"""使用一次扫描的办法。
-设立三根指针，left, index, right。定义如下规则：
-left 的左侧都是 0（不含 left）
-right 的右侧都是 2（不含 right）
-index 从左到右扫描每个数，如果碰到 0 就丢给 left，碰到 2 就丢给 right。碰到 1 就跳过不管。
-这种解法相当于设置了left, right两个anchor"""
-class Solution:
-    def sortColors(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        lens = len(nums)
-        left, index, right = 0, 0, lens - 1
-        while index <= right:       # be careful, index < right is not correct  （不太懂）
-            if nums[index] == 0:
-                nums[index], nums[left] = nums[left], nums[index]
-                left += 1
-                index += 1
-            elif nums[index] == 2:
-                nums[index], nums[right] = nums[right], nums[index]
-                right -= 1
-            elif nums[index] == 1:  
-                index += 1
