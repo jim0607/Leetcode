@@ -48,7 +48,7 @@ class Solution:
 
     def partition(self, nums, start, end, k):
         if start == end:
-            return nums[k]
+            return nums[k]      # 一定要心里记着partition function return的是什么
 
         left, right = start, end
         pivot = nums[(start + end) // 2]
