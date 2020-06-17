@@ -91,9 +91,6 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        if not nums:
-            return nums
-        
         lens = len(nums)
         left, index, right = 0, 0, lens - 1
         while index <= right:       # be careful, index < right is not correct  （不太懂）
@@ -106,5 +103,3 @@ class Solution:
                 right -= 1
             elif nums[index] == 1:  
                 index += 1
-        
-        return nums
