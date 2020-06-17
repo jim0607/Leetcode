@@ -802,6 +802,11 @@ anchor is the first zero element, __anchor keeps all the non-zero numbers on it'
 首先找到最高highestBar的位置。然后从左边往最高的位置扫，同时maintain一个指针记录leftHighest的高度，如果扫到的地方i小于这个leftHighest的高度，
 则说明i这个地方可以蓄水，可蓄水量为leftHighest的高度减去i的高度；如果扫到的地方i大于这个leftHighest的高度，则说明i这个地方不可以蓄水，所以这时候要更新leftHighest为i的高度。同理对右边做同样的操作
 
+### [双指针处理双序列问题](/Two-pointers.py)
+- [0844. Backspace String Compare](Solutions/0844.Backspace-String-Compare.py) (!!E) <br>
+这种双指针处理比较双序列问题很常见。We can use a pointer traverse from right to left, and use a counter to count how many # we got so far.
+一般要求用O(1) space解决。Google follow up: 加一个按键是类似caps lock，即按了之后所有的字母小写变大写，再按一下大写变小写。
+思路：定义caps cnt，先扫一遍看多少个caps lock，比较s1.charAt(i) == s2.charAt(j) && caps1 == caps2
 
 
 # [Two Sum]()
@@ -970,6 +975,45 @@ SOlution 2: 无权图单源节点的最短路径问题，自然想到A-star sear
 
 
 
+# [Desgin](/)
+- [0359. Logger Rate Limiter](Solutions/0359.Logger-Rate-Limiter.py) (E) <br>
+很简单，用一个dictionary存(message, last timestamp when message was printed)就可以了。Google followup: input在K长度内无序的，但是时间t+K之后的输入一定出现在t之后。比如K是5，
+[4, foo], [1, foo], [0, bar], [6, bar] => 在[4, foo], [1, foo], [0, bar]内是无序的，但是[6, bar]一定出现在[0, bar]之后，因为6>0+5.
+也就是短程无序，长程有序。这时候该怎么print输出呢？
+用一个heapq, heapq里面存(timestamp, message), 用一个deque里面也存(timestamp, message), 当发现下一个时间大于当前最小时间+K，就pop出当前的最小的放入到deque里面去, 这样deque里面存的就是长短程都有序的了
+- [0362. Design Hit Counter](Solutions/0362.Design-Hit-Counter.py) (M) <br>
+很简单，用一个deque存hit的timestamp就可以了, 这种拿分题一定要细心，这里容易漏掉self.counter是否为空的判断，导致扣分。Follow up:
+What if the number of hits per second could be very large? Does your design scale?
+deque里面默认是每一个时间戳hit了一次，如果需要记录每秒钟有几次hit，我们需要用到dictionary, 但是同时有需要deque一样的有序，
+所以自然而然想到OrderedDict. 这样可以保证最多使用O(300)的空间, 还是要熟悉OrderedDict的方法的。
+OrderedDict是deque的增强版，这一点在LRU那题中已经体现。
+
+
+346	Moving Average from Data Stream	视频讲解	Sliding Window
+281	Zigzag Iterator	视频讲解	
+284	Peeking Iterator	视频讲解	
+251	Flatten 2D Vector	视频讲解	
+288	Unique Word Abbreviation	视频讲解	
+170	Two Sum III - Data structure design	视频讲解	
+348	Design Tic-Tac-Toe	视频讲解	
+379	Design Phone Directory	视频讲解	
+353	Design Snake Game	视频讲解	
+146	LRU Cache	视频讲解	
+355	Design Twitter	视频讲解	
+303	Range Sum Query - Immutable	视频讲解	
+304	Range Sum Query 2D - Immutable	视频讲解	
+307	Range Sum Query - Mutable	视频讲解	BIT & ST
+308	Range Sum Query 2D - Mutable	视频讲解	BIT & ST
+460. LFU Cache
+588. Design In-Memory File System
+604. Design Compressed String Iterator
+
+
+
+
+
+
+
 
 ## 抓大放小，下面的算法可以先不去管！
 #### [Floyd-Warshall](/)
@@ -1003,28 +1047,6 @@ SOlution 2: 无权图单源节点的最短路径问题，自然想到A-star sear
 138	Copy List with Random Pointer	视频讲解
 
 
-
-# [Desgin](/)
-359	Logger Rate Limiter	视频讲解	
-346	Moving Average from Data Stream	视频讲解	Sliding Window
-362	Design Hit Counter	视频讲解	
-281	Zigzag Iterator	视频讲解	
-284	Peeking Iterator	视频讲解	
-251	Flatten 2D Vector	视频讲解	
-288	Unique Word Abbreviation	视频讲解	
-170	Two Sum III - Data structure design	视频讲解	
-348	Design Tic-Tac-Toe	视频讲解	
-379	Design Phone Directory	视频讲解	
-353	Design Snake Game	视频讲解	
-146	LRU Cache	视频讲解	
-355	Design Twitter	视频讲解	
-303	Range Sum Query - Immutable	视频讲解	
-304	Range Sum Query 2D - Immutable	视频讲解	
-307	Range Sum Query - Mutable	视频讲解	BIT & ST
-308	Range Sum Query 2D - Mutable	视频讲解	BIT & ST
-460. LFU Cache
-588. Design In-Memory File System
-604. Design Compressed String Iterator
 
 
 
