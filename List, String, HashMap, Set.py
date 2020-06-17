@@ -88,11 +88,23 @@ Solution: Cast list to a tuple. eg: 305. Number of Islands II
    --> Counter({'s': 3, 'u': 1, 'g': 2, 'e': 1, 't': 1, 'i': 1, 'o': 1, 'n': 1})
       
       
+  
+OrderedDict
+      
+The OrderedDict is a subclass of dict object in Python. 
+The only difference between OrderedDict and dict is that, in OrderedDict, it maintains the orders of keys as inserted. 
+The OrderedDict is a standard library class, which is located in the collections module.
+ordict = collections.defaultdict()
+
+可以把OrderedDict当做是更强大的deque
+1. OrderedDict可以先进先出: OrderedDict.popitem(last=True)
+2. OrderedDict可以O(1) delete: del OrderedDict(key)
+3. 支持move to end: OrderedDict.move_to_end(key)
       
       
 
 Set
-      
+Set is a hash table except it caitains only keys, not key-val pairs.
 1. Set的特点是集合中的元素是唯一的，不能有重复元素
       
 2. A set is a hash table, so "if item in set" has O(1) complexity
