@@ -11,7 +11,11 @@ Input : arr[] = {10, 9, 8, 7, 4, 70, 60, 50}
          k = 4
 Output : arr[] = {4, 7, 8, 9, 10, 50, 60, 70}
     
-
+"""
+solution: 用一个大小为k的heapq存储k个元素，然后i从k开始遍历nums, 遍历的过程中每次都更新nums的最左边: nums[target_idx] = heappop(hq)，
+同时更新hq: heappush(hq, nums[i]), 这么做成立的原因是i是从k开始遍历的，所以nums[i]一定是大于nums[0]的，而nums[0]>=heappop(hq), 
+所以nums[i]及其后面的数一定是大于heappop(hq)的，所以可以放心地把heappop(hq)放到target_idx的位置。时间复杂度是O(nlogk). 当k=1: O(0), 当k=n: O(nlogn)
+"""
 
 from heapq import heapify, heappop, heappush
 
