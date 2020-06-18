@@ -1064,6 +1064,10 @@ OrderedDict是deque的增强版，这一点在LRU那题中已经体现。
 
 # [Company High Freq](/)
 ## [Google](/)
+- [BinarySearchable](Solutions/Google__BinarySearchable.py) (M) <br>
+一个数是binary searchable的必须满足的条件是：前面的数都比他小，后面的数都比他大
+
+
 Count Complete Tree Nodes; Longest Increasing Path in a Matrix; Evaluate Division; Cracking the Safe; Robot Room Cleaner; Most Stones Removed with Same Row or Column; Flip Equivalent Binary Trees; Word Squares; Count of Smaller Numbers After Self; Peak Index in a Mountain Array; Split Array Largest Sum; Logger Rate Limiter; Insert Delete GetRandom O(1); Design Search Autocomplete System; Reverse Integer; Candy; Isomorphic Strings; Strobogrammatic Number; Bulls and Cows; Range Sum Query 2D - Mutable; My Calendar II; Jewels and Stones; Swap Adjacent in LR String; Guess the Word; Minimum Area Rectangle
 
 
