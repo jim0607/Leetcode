@@ -744,7 +744,7 @@ Solution 1 O(N), O(N): Just iterate the linked list and create copies of the nod
 - [0002. Add Two Numbers](Solutions/0002.Add-Two-Numbers.py) (!!M) <br>
 本题的考点是关于如何新建一个linked list, 要用someNode.next = ListNode(someVal), 而不是简单的修改value; 还考察了是否细心, 最后很容易漏掉carryBit != 0的判断"
 - [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!M) <br>
-maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we should overriding ListNode compare function __ lt __ to make customized compare happens: compare ListNode. Solution 2: divide and conquer, O(NlogK), should also understand.
+maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we should override ListNode compare function __ lt __ to make customized compare happens: compare ListNode. Solution 2: divide and conquer, O(NlogK), this is a better solution.
 
 
 
