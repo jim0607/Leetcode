@@ -40,22 +40,34 @@ class Solution:
         return False
 
     
-    
-"""solution 1: recursion (TLE) O(M*N)"""
+"""
+solution 2: in-order-traversal + 反向双指针
+"""  
 class Solution:
     def twoSumBSTs(self, root1: TreeNode, root2: TreeNode, target: int) -> bool:
-        if not root1 or not root2:
-            return False
+        arr_1 = self.in_order_trav(root1)
+        arr_2 = self.in_order_trav(root2)
+        idx_1, idx_2 = 0, len(arr_2) - 1
+        while idx_1 < len(arr_1) and idx_2 >= 0:
+            if arr_1[idx_1] + arr_2[idx_2] > target:
+                idx_2 -= 1
+            elif arr_1[idx_1] + arr_2[idx_2] < target:
+                idx_1 += 1
+            else:
+                return True
+            
+        return False
+    
+    def in_order_trav(self, root):
+        """
+        return a list which is in-order-traversal of BST
+        """
+        if not root:
+            return []
         
-        if not root1.left and not root1.right and not root2.left and not root2.right:
-            return root1.val + root2.val == target
-
-        if target == root1.val + root2.val:
-            return True
+        res = []
+        res += self.in_order_trav(root.left)
+        res.append(root.val)
+        res += self.in_order_trav(root.right)
         
-        elif target > root1.val + root2.val:
-            return self.twoSumBSTs(root1.right, root2, target) or self.twoSumBSTs(root1, root2.right, target)
-        
-        else:
-            return self.twoSumBSTs(root1.left, root2, target) or self.twoSumBSTs(root1, root2.left, target)
-         
+        return res
