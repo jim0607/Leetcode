@@ -59,12 +59,45 @@ Google followup: input在K长度内无序的，但是时间t+K之后的输入一
 也就是短程无序，长程有序。这时候该怎么print输出呢？
 用一个heapq, heapq里面存(timestamp, message), 用一个deque里面也存(timestamp, message)
 当发现下一个时间大于当前最小时间+K，就pop出当前的最小的放入到deque里面去, 这样deque里面存的就是长短程都有序的了
-from heapq import *
-class Logger:
-    def __init__(self):
-        self.dq = collections.deque()
-        self.hq = []
 
-    def shouldPrintMessage(self, timestamp: int, message: str, K: int) -> bool:
-        while self.hq and timestamp >= self.hq[0][0] + K:
-            self.dq.append(heappop(self.hq))
+
+本质就是Sort a nearly sorted (or K sorted) array： 时间复杂度是nlogk
+Given an array of n elements, where each element is at most k away from its target position, devise an algorithm that sorts in O(n log k) time. 
+For example, let us consider k is 2, an element at index 7 in the sorted array, can be at indexes 5, 6, 7, 8, 9 in the given array.
+
+Examples:
+
+Input : arr[] = {6, 5, 3, 2, 8, 10, 9}
+            k = 3 
+Output : arr[] = {2, 3, 5, 6, 8, 9, 10}
+
+Input : arr[] = {10, 9, 8, 7, 4, 70, 60, 50}
+         k = 4
+Output : arr[] = {4, 7, 8, 9, 10, 50, 60, 70}
+    
+
+
+from heapq import heapify, heappop, heappush
+
+def sort_k(nums, k):
+    hq = []
+    for i in range(k):
+        hq.append(nums[i])
+
+    heapify(hq)
+
+    target_idx = 0
+    for i in range(k, len(nums)):
+        nums[target_idx] = heappop(hq)
+        target_idx += 1
+        heappush(hq, nums[i])
+
+    while hq:
+        nums[target_idx] = heappop(hq)
+        target_idx += 1
+
+if __name__ == "__main__":
+    k = 3
+    arr = [2, 6, 3, 12, 56, 8]
+    sort_k(arr, k)
+    print(arr)
