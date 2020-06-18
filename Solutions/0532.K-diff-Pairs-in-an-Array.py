@@ -12,28 +12,30 @@ Although we have two 1s in the input, we should only return the number of unique
 """
 class Solution:
     def findPairs(self, nums: List[int], k: int) -> int:
-        if not nums or k < 0:
+        if not nums or len(nums) < 2:
+            return 0
+        if k < 0:
             return 0
         
         nums.sort()
         
+        i, j = 0, 0
         cnt = 0
-        i, j = 0, 1
         while i < len(nums) and j < len(nums):
             if nums[j] - nums[i] > k:
                 i += 1
             elif nums[j] - nums[i] < k or i == j:
                 j += 1
-            elif nums[j] - nums[i] == k:       
-                cnt += 1
+            elif nums[j] - nums[i] == k:
                 i += 1
                 j += 1
-                # 如果碰到符合条件的，把i和j往前挪到不重复的元素去。
-                while j < len(nums) and nums[j] == nums[j - 1]: 
-                    j += 1
+                cnt += 1
+                # 去重：如果碰到符合条件的，把i和j往前挪到不重复的元素去。
                 while i < len(nums) and nums[i] == nums[i - 1]:
                     i += 1
-                
+                while j < len(nums) and nums[j] == nums[j - 1]:
+                    j += 1
+                    
         return cnt
         
         
