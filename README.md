@@ -817,8 +817,6 @@ self.numsDict = collections.defaultdict(lambda: 0) # val is num val, key is how 
 In order traversal into an array and then use two pointer method
 - [1099. Two Sum Less Than K](Solutions/1099.Two-Sum-Less-Than-K.py) (E) <br>
 最优解是sort之后用反向双指针O(nlogn); solution 2: bucket sort: O(n)? coudl be a good follow up question.
-- [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) <br>
-同向双指针法，注意题目需要去重，如果碰到符合条件的，把i和j往前挪到不重复的元素去。
 - [0609. Two Sum - Less than or equal to target](Solutions/0609.Two-Sum-Less-than-or-equal-to-target.py) (E) <br>
 if nums[i] + nums[j] <= target: cnt += j - i		# 注意这里是 cnt += j - i 表示nums[i] 加上 i 到 j之间的任何数，一定也是小于等于target的
 - [1214. Two Sum BSTs](Solutions/1214.Two-Sum-BSTs.py) (M) <br>
