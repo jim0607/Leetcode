@@ -76,3 +76,13 @@ Q2: If 99% of all integer numbers from the stream are between 0 and 100, how wou
 As 99% is between 0-100.  So the median (not mean) is definetely in the range 0-100. 
 So can keep a counter for less_than_hundred and greater_than_hundred. Then do Q1. O(100)
 """
+
+
+Google 真题：
+Create a data structure to take in a stream of numbers and create a function that will give the average excluding the outliers (5% and 95%).
+Solution: use 4 heapq, one maxHeap for left outliner, one maxHeap close to left, one minHeap colse to right, one minHeap for right outliner.
+  []    (       []			      		  []     )    []
+maxHeap1		   minHeap1		     maxHeap2     minHeap2
+这题由于是求average, 所以不需要管中间的minHeap1与maxHeap2之间的关系，我们只需要用上题同样的方法来维护maxHeap1与minHeap1之间的关系，
+以及maxHeap2与minHeap2之间的关系就可以了。好牛逼的题呀！
+
