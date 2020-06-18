@@ -671,6 +671,8 @@ quick sort, self-define comparing two strings by: if s1 + s2 <= s2 + s1: return 
 for i in range(lens-1, -1, -1 ): Find maxIndex -> flip max to top -> flip max to bottom of the whole arr -> repeat
 - [0280. Wiggle Sort](Solutions/0280.Wiggle-Sort.py) (M) <br>
 O(N): 从左到右扫一遍，不满足条件的交换就好了。定义一个变量prevShouldLessThanCurr, in the for loop, prevShouldLessThanCurr = not prevShouldLessThanCurr every step, and based on prevShouldLessThanCurr is true or not, we swap nums[i-1] with nums[i] or not.
+- [Sort a nearly sorted (or K sorted) array](Solutions/Geeks__Sort-a-nearly-sorted-or-K-sorted-array.py) (Geeks) <br>
+题目要求sort一个长程无序短(k)程有序的数组，solution: 用一个大小为k的heapq存储k个元素，然后i从k开始遍历nums, 遍历的过程中每次都更新nums的最左边: nums[target_idx] = heappop(hq)，同时更新hq: heappush(hq, nums[i]), 这么做成立的原因是i是从k开始遍历的，所以nums[i]一定是大于nums[0]的，而nums[0]>=heappop(hq), 所以nums[i]及其后面的数一定是大于heappop(hq)的，所以可以放心地把heappop(hq)放到target_idx的位置。时间复杂度是O(nlogk). 当k=1: O(0), 当k=n: O(nlogn)
 
 
 ### [Partition and quick select](/Sort.py) 
