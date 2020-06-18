@@ -775,15 +775,6 @@ prefixSumDict = {0: 1} # key is the prefixSum, val is how many times the prefixS
 ### [反向双指针](/Two-pointers.py)
 - [0977. Squares of a Sorted Array](Solutions/0977.Squares-of-a-Sorted-Array.py) (E) <br>
 three pointers: i starts from beginning of A; j starts from the end of A; k starts from end of res 
-- [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode) 
-用quick select的模板，partition这个函数的作用是O(N)找到某个数k在一个无序数组中所在的位置，并按照这个数k将该数组分为左右两部分。
-- [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E) <br>
-solution 1: 同上31的方法做partition; solution 2: 同向双指针: anchor and curr, swap A[anchor] and A[curr] when A[curr] is even
-- [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
-STEP 1: 反向双指针进行partition，负数在左边，正数在右边[-1, -2, -3, 4, 5, 6]; STEP 2: 再来进行正负正负正负安插
-- [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) <br>
-solution 1: typical partition problem, step 1: 先把0放到最前面; step 2: 再把2放到最后
-solution 2: 同向双指针的方法也应该理解掌握！
 - [0238. Product of Array Except Self](Solutions/0238.Product-of-Array-Except-Self.py) (M) <br>
 定义两个数组分别记录product before ith num: fwd[i]=fwd[i-1] * nums[i-1] and product after ith num: bwd[i]=bwd[i+1] * nums[i+1], then res[i]=fwd[i] * bwd[i]
 - [0011. Container With Most Water](Solutions/0011.Container-With-Most-Water.py) (!!M) <br>
