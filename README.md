@@ -800,8 +800,7 @@ anchor is the first zero element, __anchor keeps all the non-zero numbers on it'
 
 ### [双指针处理双序列问题](/Two-pointers.py)
 - [0844. Backspace String Compare](Solutions/0844.Backspace-String-Compare.py) (!!E) <br>
-这种双指针处理比较双序列问题很常见。We can use a pointer traverse from right to left, and use a counter to count how many # we got so far.
-一般要求用O(1) space解决。Google follow up: 加一个按键是类似caps lock，即按了之后所有的字母小写变大写，再按一下大写变小写。
+这种双指针处理比较双序列问题很常见。We can use a pointer traverse from __right to left__, and use a counter to count how many "#" we got so far. 一般要求用O(1) space解决。Google follow up: 加一个按键是类似caps lock，即按了之后所有的字母小写变大写，再按一下大写变小写。
 思路：定义caps cnt，先扫一遍看多少个caps lock，比较s1.charAt(i) == s2.charAt(j) && caps1 == caps2
 - [0524. Longest Word in Dictionary through Deleting](Solutions/0524.Longest-Word-in-Dictionary-through-Deleting.py) (M) <br>
 sort the words by lens, and check the word one by one to see if there is a match. How to check if word matches s? use two pointers to traverse word and s, compare as they go.
