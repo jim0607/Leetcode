@@ -1,6 +1,6 @@
 ## 三刷：不做新题了，就这300题！目标是刷熟练！模板总结出来天天拿出来背诵！
 ## 每日Review
-06/01-0334; 06/02-0010; 06/03-0173; 06/04-0480; 06/05-0212; 06/10-0752; 06/11-0241; 06/12-0060; 06/15-0037; 06/16-0004; 06/17-0142; 06/18-0089
+06/01-0334; 06/02-0010; 06/03-0173; 06/04-0480; 06/05-0212; 06/10-0752; 06/11-0241; 06/12-0060; 06/15-0037; 06/16-0004; 06/17-0142; 06/18-0089; 06/19-0489
 
 
 
@@ -934,8 +934,7 @@ solution 1: 448类似的做法，我们通过nums[i] += 1来change all 0s to be 
 
 
 # [图的遍历](/)
-## [基础图问题](/)
------ 0547.friend-circles --------
+## [基础图问题](http://www.google.com/)
 - [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (E) <br>
 one dict to store the inDegree (beingTrusted), one dict to store the outDegree (trustOthers). there exsit a town judge only if there is a node with inDegree==N-1(beiing trusted by all others), and at the same time the node should have outDegree==0(not trust anyone)
 - [0277. Find the Celebrity](Solutions/0277.Find-the-Celebrity.py) (!!M) <br>
@@ -962,7 +961,7 @@ solution 1: 带层序遍历的bfs, if grid[next_x][next_y] == BLOCK 那就contin
 SOlution 2: 无权图单源节点的最短路径问题，自然想到A-star search algorithm. use manhatan distance as Heuristic esitimation for A-star algorithm: steps + (abs(nextBoxPos[0]-targetPos[0]) + abs(nextBoxPos[1]-targetPos[1])).  put the heuristic estimation in the hq, together with steps, so the hq stores (heristic estimation of hte minimum steps needed from source to target, steps, boxPos, playerPos).  in A* algorithm, do not do level order bfs, do non-level order bfs.  
 
 
-## [Minimum Spanning Tree - Kruskal's and Prim's)](/)
+## [Minimum Spanning Tree - Kruskal's and Prim's](/)
 - [1135. Connecting Cities With Minimum Cost](Solutions/1091.Shortest-Path-in-Binary-Matrix.py) (M) <br>
 This problem is to find the minimum path to connect all nodes, so it is a minimum spanning tree (MST) problem.
 There are two defferent algorithms to solve MST problem, one is Prim's, the other is Kruskal's.
