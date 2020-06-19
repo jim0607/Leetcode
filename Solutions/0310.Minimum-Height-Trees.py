@@ -36,7 +36,7 @@ Output: [3, 4]
 
 """
 想想如果是一个很大的图，那minimum height trees的root就应该是这个图的最中心，所以我们就去找图的最中心就可以了，
-采用从外围(inDegree=1的node)往中间走的方法，解法类似topological sort, 走到最后留下的顶点就是最中心的顶点，也就是距离所有外围顶点最小的顶点。
+从外围所有的(inDegree=1的node)往中间走，解法类似topological sort, 走到最后留下的顶点就是inDegree最大的点也就是距离所有外围顶点距离最小的顶点，也是整张图的中心点。
 """
 class Solution:
     def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
