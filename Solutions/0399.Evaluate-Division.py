@@ -17,7 +17,7 @@ queries = [ ["a", "c"], ["b", "a"], ["a", "e"], ["a", "a"], ["x", "x"] ].
  
 The input is always valid. You may assume that evaluating the queries will result in no division by zero and there is no contradiction.
 
-
+"""
 """
 Solution 1: bfs
 注意这里构建图的时候是graph = collections.defaultdict(dict)  
@@ -27,11 +27,12 @@ building the graph takes O(E), each query takes O(N), space for graph takes O(E)
 I think if we start to compress paths, the graph will grow to O(N^2) gradually, and we can optimize each query to O(1), 
 that is why we use global variable for graph, so that we can compress paths and avoid duplicated computing
 """
+"""
 
 class Solution:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
         self.graph = collections.defaultdict(dict)  # key is node1, val is a dict of (key: node2, val: node1/node2)
-        for [x, y], val in zip(equations, values):
+        for [x, y], val in zip(equations, values):  # 用dictonary of adjacency list构建一个带权值的图
             self.graph[x][y] = val
             self.graph[y][x] = 1 / val
 
