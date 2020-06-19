@@ -968,8 +968,18 @@ solution 1: 带层序遍历的bfs, if grid[next_x][next_y] == BLOCK 那就contin
 SOlution 2: 无权图单源节点的最短路径问题，自然想到A-star search algorithm. use manhatan distance as Heuristic esitimation for A-star algorithm: steps + (abs(nextBoxPos[0]-targetPos[0]) + abs(nextBoxPos[1]-targetPos[1])).  put the heuristic estimation in the hq, together with steps, so the hq stores (heristic estimation of hte minimum steps needed from source to target, steps, boxPos, playerPos).  in A* algorithm, do not do level order bfs, do non-level order bfs.  
 
 
+## [Minimum Spanning Tree - Kruskal's and Prim's)](/)
+- [1135. Connecting Cities With Minimum Cost](Solutions/1091.Shortest-Path-in-Binary-Matrix.py) (M) <br>
+This problem is to find the minimum path to connect all nodes, so it is a minimum spanning tree (MST) problem.
+There are two defferent algorithms to solve MST problem, one is Prim's, the other is Kruskal's.
+The Kruskul's algorithm is easy to implement using Union-Find, with O(ElogE) time and O(V) space.
+Step 1: add all vertices to UnionFind obj;
+Step 2: sort the graph by edge weights;
+Step 3: add the smallest edge into the MST if adding the edge do not form a cycle;
+(if the two vertices of the edge was already connected, then adding the edge will form a cycle);
+Step 4: keep step 3 until all the edges are collected (E = V-1 or only one disjoint_cnt = 1)
 
-
+--- 1168. Optimize Water Distribution in a Village
 
 
 # [Desgin](/)
