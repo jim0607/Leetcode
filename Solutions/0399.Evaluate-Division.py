@@ -17,7 +17,7 @@ queries = [ ["a", "c"], ["b", "a"], ["a", "e"], ["a", "a"], ["x", "x"] ].
  
 The input is always valid. You may assume that evaluating the queries will result in no division by zero and there is no contradiction.
 
-"""
+
 """
 Solution 1: bfs
 注意这里构建图的时候是graph = collections.defaultdict(dict)  
