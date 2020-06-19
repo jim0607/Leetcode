@@ -28,7 +28,12 @@ class Solution:
     
 """TLE, should try Greedy solution with O(N), O(1)"""
 
-"""Greedy 解法: O(N) Iterating right-to-left, for each position we check if there is a potential jump that reaches a GOOD index (currPosition + nums[currPosition] >= GoodIndex). If we can reach a GOOD index, then our position is itself GOOD. Iteration continues until the beginning of the array.  Return if the first position is a GOOD index."""
+"""Greedy 解法: O(N) 
+Iterating right-to-left, for each position we check if there is a potential jump that 
+reaches a GOOD index (currPosition + nums[currPosition] >= GoodIndex). If we can reach a GOOD index, 
+then our position is itself GOOD. Iteration continues until the beginning of the array.  
+Return if the first position is a GOOD index."""
+
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
         lens = len(nums)
