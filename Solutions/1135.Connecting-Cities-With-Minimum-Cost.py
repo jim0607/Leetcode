@@ -20,7 +20,7 @@ Explanation:
 There is no way to connect all cities even if all edges are used.
 
 
-
+"""
 """
 This problem is to find the minimum path to connect all nodes, so it is a minimum spanning tree (MST) problem.
 There are two defferent algorithms to solve MST problem, one is Prim's, the other is Kruskal's.
@@ -29,7 +29,8 @@ Step 1: sort the graph by edge weights
 Step 2: add the smallest edge into the MST if adding the edge do not form a cycle.
 (if the two vertices of the edge was already connected, then adding the edge will form a cycle)
 Step 3: keep step 2 until all the edges are collected (E = V-1 or only one disjoint_cnt = 1)
-""""""
+"""
+"""
             
 from heapq import heappush, heappop
 
