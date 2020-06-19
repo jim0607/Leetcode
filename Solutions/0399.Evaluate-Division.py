@@ -74,7 +74,7 @@ since we need to use paths compression to enable efficient query, we can use uni
 
 
 """
-solution 3: 弗洛伊德算法
+solution 3: 弗洛伊德算法 (超纲)
 """
 def calcEquation(self, edges, weights, pairs):
      
