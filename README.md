@@ -978,8 +978,8 @@ Step 2: sort the graph by edge weights;
 Step 3: add the smallest edge into the MST if adding the edge do not form a cycle;
 (if the two vertices of the edge was already connected, then adding the edge will form a cycle);
 Step 4: keep step 3 until all the edges are collected (E = V-1 or only one disjoint_cnt = 1)
-
---- 1168. Optimize Water Distribution in a Village
+- [1168. Optimize Water Distribution in a Village](Solutions/1168.Optimize-Water-Distribution-in-a-Village.py) (H) <br>
+这个题目比较tricky的地方是需要想像有一个虚拟的house_0, house_0是出水的house, 这样house_1自己打井需要的cost就相当于从house_0连接到house_1所需的cost了.  Other than hte tricky part, everything is exactly the same as 1135.
 
 
 # [Desgin](/)
