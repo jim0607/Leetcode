@@ -7,8 +7,10 @@ Each rectangle is represented as a bottom-left point and a top-right point. For 
 
 """
 In order to form a perfect rectangle, two condictions must be satisfied:
-condition 1. for all the coordinates, there are 4 and only 4 coordinates that appear only once, others appear either twice or 4 times.  So we can use a set to store all the coordinates and cnt their appear times
-condition 2. the sum of area of all the small rectangles should be the same as the whole big one (the area enclosed by the 4 coordinates in condition 1)
+condition 1. for all the coordinates, there are 4 and only 4 coordinates that appear only once, others appear either twice or 4 times.  
+So we can use a set to store all the coordinates and cnt their appear times
+condition 2. the sum of area of all the small rectangles should be the same as the whole big one 
+(the area enclosed by the 4 coordinates in condition 1)
 """
 class Solution:
     def isRectangleCover(self, rectangles: List[List[int]]) -> bool:
