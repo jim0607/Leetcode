@@ -931,12 +931,7 @@ Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现; S
 solution 1: bfs, visit every node and label their color every other step. O(V+E); 
 solution 2: dfs, mark the color of nodes as we go.  O(V+E)
 - [0399. Evaluate Division](Solutions/0399.Evaluate-Division.py) (!!M) <br>
-Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hashmap构建邻接表 graph = collections.defaultdict(dict)  
-in graph, key is node1, val is a dict of (key: node2, val: node1/node2)
-Given the number of variables N, and number of equations E,
-building the graph takes O(E), each query takes O(N), space for graph takes O(E)
-I think if we start to compress paths, the graph will grow to O(N^2) gradually, and we can optimize each query to O(1), 
-that is why we use global variable for graph, so that we can compress paths and avoid duplicated computing;  Soltution 2: Union Find;  Solution 3: Floyd–Warshall algorithm
+Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hashmap构建邻接表 graph = collections.defaultdict(dict), in graph, key is node1, val is a dict of (key: node2, val: node1/node2), 然后每次query其实就是从单源节点出发寻求不带权值最短路径问题。  Soltution 2: Union Find;
 - [0310. Minimum Height Trees](Solutions/0310.Minimum-Height-Trees.py) (M) <br>
 想想如果是一个很大的图，那minimum height trees的root就应该是这个图的最中心，所以我们就去找图的最中心就可以了，采用从外围(inDegree=1的node)往中间走的方法，解法类似topological sort, 走到最后留下的顶点就是最中心的顶点，也就是距离所有外围顶点最小的顶点。
 
