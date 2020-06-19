@@ -41,8 +41,6 @@ class Solution:
         startNode, endNode = query[0], query[1]
         if startNode not in self.graph or endNode not in self.graph:
             return -1
-        if startNode == endNode:
-            return 1.0
             
         q = collections.deque()
         visited = set()
@@ -51,6 +49,9 @@ class Solution:
             
         while q:
             currNode, currVal = q.popleft()
+            if currNode == endNode:
+                return currVal
+            
             for nextNode, nextVal in self.graph[currNode].items():
                 if nextNode in visited:
                     continue       
@@ -60,11 +61,7 @@ class Solution:
                 
                 q.append((nextNode, nextVal * currVal))
                 visited.add(nextNode)
-                
-               #  print((nextNode, endNode))
-                if nextNode == endNode:
-                    return self.graph[startNode][nextNode]
-                
+ 
         return -1.0
 
 
