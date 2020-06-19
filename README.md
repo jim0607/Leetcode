@@ -411,6 +411,11 @@ serialize every root and put into a dictionary, with key is str constructed from
 判断图是不是一棵树（不一定非要是二叉树）需要满足两点:1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树
 - [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (M) <br>
 Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现; Step 2: 复制所有原有的node，存到mapping中，这样就建立了一个new_node和original_node的一一映射; Step 3: 复制所有original_node对应的neighbors 到 new_node里面
+- [0785. Is Graph Bipartite?](Solutions/0785.Is-Graph-Bipartite.py) (M)  <br>
+solution 1: bfs, visit every node and label their color every other step. O(V+E); 
+solution 2: dfs, mark the color of nodes as we go.  O(V+E)
+- [0399. Evaluate Division](Solutions/0399.Evaluate-Division.py) (!!M) <br>
+Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hashmap构建邻接表 graph = collections.defaultdict(dict), in graph, key is node1, val is a dict of (key: node2, val: node1/node2), 然后每次query其实就是从单源节点出发寻求不带权值最短路径问题。  Soltution 2: Union Find;
 - [0127. Topological Sorting](Solutions/0127.Topological-Sorting.py) (!!LintCode) <br>
 有向图的问题，可以检测有向图是否有环！必考，其实也非常模板化，一定要记住。Three steps: 1. 从数字关系求出每个节点的inDegrees（就是找节点与相邻节点的依赖关系） (inDegrees = collections.defaultdict(int))，key是node, val是这个node的indegree值; 2. 和每个节点的neighbors （neighbors = collections.defaultdict(list)), key是node, val是装有这个node的neighbor的list; 3. 然后 BFS，背诵模板就可以了。
 - [0207. Course Schedule](Solutions/0207.Course-Schedule.py) (!!M) <br>
@@ -421,6 +426,8 @@ Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现; S
 这个题目要做三个判断：1. 判断seqs的拓扑排序是否存在，只需判断len(res) 是否等于len(neighbors) or len(inDegrees), 如果小于说明有孤立节点，如果大于说明有环，两者都不存在拓扑排序; 2. 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素, 即每一层只有一个选择: if len(q)>1: return False; 3. 最后判断这个唯一的拓扑排序res是否等于org
 - [0269. Alien Dictionary](Solutions/0269.Alien-Dictionary.py) (!!H) <br>
 只需要比较word[i]与word[i+1]中每个char，即可得到inDegree的关系以及neighbors的关系
+- [0310. Minimum Height Trees](Solutions/0310.Minimum-Height-Trees.py) (M) <br>
+想想如果是一个很大的图，那minimum height trees的root就应该是这个图的最中心，所以我们就去找图的最中心就可以了，采用从外围(inDegree=1的node)往中间走的方法，解法类似topological sort, 走到最后留下的顶点就是最中心的顶点，也就是距离所有外围顶点最小的顶点。
 
 
 
@@ -923,20 +930,8 @@ solution 1: 448类似的做法，我们通过nums[i] += 1来change all 0s to be 
 
 
 # [图的遍历](/)
-## [图的基础](/)
+## [基础图问题](/)
 ----- 0547.friend-circles --------
-- [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (M) <br>
-Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现; Step 2: 复制所有原有的node，存到mapping中，这样就建立了一个new_node和original_node的一一映射; Step 3: 复制所有original_node对应的neighbors 到 new_node里面
-- [0785. Is Graph Bipartite?](Solutions/0785.Is-Graph-Bipartite.py) (M)  <br>
-solution 1: bfs, visit every node and label their color every other step. O(V+E); 
-solution 2: dfs, mark the color of nodes as we go.  O(V+E)
-- [0399. Evaluate Division](Solutions/0399.Evaluate-Division.py) (!!M) <br>
-Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hashmap构建邻接表 graph = collections.defaultdict(dict), in graph, key is node1, val is a dict of (key: node2, val: node1/node2), 然后每次query其实就是从单源节点出发寻求不带权值最短路径问题。  Soltution 2: Union Find;
-- [0310. Minimum Height Trees](Solutions/0310.Minimum-Height-Trees.py) (M) <br>
-想想如果是一个很大的图，那minimum height trees的root就应该是这个图的最中心，所以我们就去找图的最中心就可以了，采用从外围(inDegree=1的node)往中间走的方法，解法类似topological sort, 走到最后留下的顶点就是最中心的顶点，也就是距离所有外围顶点最小的顶点。
-
-
-## [Celebrity](/)
 - [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (E) <br>
 one dict to store the inDegree (beingTrusted), one dict to store the outDegree (trustOthers). there exsit a town judge only if there is a node with inDegree==N-1(beiing trusted by all others), and at the same time the node should have outDegree==0(not trust anyone)
 - [0277. Find the Celebrity](Solutions/0277.Find-the-Celebrity.py) (!!M) <br>
