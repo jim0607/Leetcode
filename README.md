@@ -952,6 +952,24 @@ O(N^4), O(N^2)
 
 
 
+# [Random](/)
+- [0384. Shuffle an Array](Solutions/0384.Shuffle-an-Array.py) (!!M) 
+step 1: generate a random idx after i;
+step 2: swap the num in i with random idx after i, then we have got the random num for ith pos;
+step 3: keep going forward until we generate all the random num using the generated random idx;
+- [0398. Random Pick Index](Solutions/0398.Random-Pick-Index.py) (!!M) 
+step 1: generate a random
+solution 1: O(N) time O(N) space using random.choice(seq): Return a random element from the non-empty sequence seq.
+Solution 2: Reservoir Sampling solution
+
+382	Linked List Random Node	视频讲解	
+380	Insert Delete GetRandom O(1)	视频讲解	
+381	Insert Delete GetRandom O(1) - Duplicates allowed	视频讲解	
+138	Copy List with Random Pointer	视频讲解
+
+
+
+
 # [图的遍历](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 ## [基础图问题](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (E) <br>
@@ -1055,15 +1073,6 @@ OrderedDict是deque的增强版，这一点在LRU那题中已经体现。
 
 
 
-
-
-# [Random](/)
-384	Shuffle an Array	视频讲解	
-398	Random Pick Index	视频讲解	
-382	Linked List Random Node	视频讲解	
-380	Insert Delete GetRandom O(1)	视频讲解	
-381	Insert Delete GetRandom O(1) - Duplicates allowed	视频讲解	
-138	Copy List with Random Pointer	视频讲解
 
 
 
