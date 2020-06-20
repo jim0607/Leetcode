@@ -72,6 +72,7 @@ There is only one character 'S', 'B' and 'T' in the grid.
 总体思路就是上述了，需要注意的是bfs_1中由于box每移动一下boxPos会变playerPos也会变，所以要把boxPos和playerPos都入队列。
 另外易错点：visited里面只装boxPos. 这是不对的, 因为box从不同的方向被推到同一个地方是允许的，因此visited里面应该装入(boxPos, the pos where the boxPos comes from)
 """
+"""
 
 class Solution:
     MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
