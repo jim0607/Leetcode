@@ -944,6 +944,14 @@ O(N^4), O(N^2)
 
 
 
+
+## [Rabin Karp / Rolling Hash]()
+- [0028. Implement strStr()](Solutions/0028.Implement-strStr().py) (E) (Rabin Karp Algorithm O(M+N), use Hashcode, ord(ch)-ord("a"))
+1062. Logest repeating substring
+
+
+
+
 # [图的遍历](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 ## [基础图问题](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (E) <br>
@@ -1075,29 +1083,5 @@ Count Complete Tree Nodes; Longest Increasing Path in a Matrix; Evaluate Divisio
 
 
 
-
-
-
-
-
-
-
-
-
-
-# Other Algorithms
-### [Rabin Karp / Rolling Hash]()
-- [0028. Implement strStr()](Solutions/0028.Implement-strStr().py) (E) (Rabin Karp Algorithm O(M+N), use Hashcode, ord(ch)-ord("a"))
-1062. Logest repeating substring
-
-
-
-
-
-
-
-## Let's take a look at the famous Algorithm book.
 ### top 50 of interview questions and top liked questions and top Google interview questions top green
-## 把laioffer视频里的题都刷一遍！
 ## 九章高频
-## 九章Python
