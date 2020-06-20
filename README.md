@@ -933,6 +933,17 @@ solution 1: 448类似的做法，我们通过nums[i] += 1来change all 0s to be 
 1st pass: change all negtive numbers to be 1, so that there will be no negtive numbers;  2nd pass: change the positive numbers into negative; 3rd pass: find the first positive number, and the corresponding idx is missing
 
 
+
+## [Image Process](/)
+- [0048. Rotate Image](Solutions/0048.Rotate-Image.py) (M) <br>
+Step 1: transpose: swap( matrix[i][j], matrix[j][i] ); Step 2: reverse columns: swap( matrix[][i], matrix[][j] )
+- [0835. Image Overlap](Solutions/0835.Image-Overlap.py) (M) <br>
+step 1: use a list to record the positions for A and B where 1s are located;
+step 2: use a counter to remember the cnt of (delta_i, delta_j)
+O(N^4), O(N^2)
+
+
+
 # [图的遍历](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 ## [基础图问题](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (E) <br>
