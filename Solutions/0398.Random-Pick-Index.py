@@ -32,6 +32,21 @@ class Solution:
     def pick(self, target: int) -> int:
         print(self.pos_dict)
         return choice(self.pos_dict[target])
+    
+或者这样写也是一样的：
+from random import randrange
+
+class Solution:
+
+    def __init__(self, nums: List[int]):
+        self.pos_dict = collections.defaultdict(list)
+        for i, num in enumerate(nums):
+            self.pos_dict[num].append(i)
+
+    def pick(self, target: int) -> int:
+        random_idx = randrange(len(self.pos_dict[target]))
+        return self.pos_dict[target][random_idx]
+    
 
 
 # Your Solution object will be instantiated and called as such:
