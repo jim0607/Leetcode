@@ -90,8 +90,9 @@ Important for A* search is that h((i,j)) does not overestimate the actual cost t
 A*: time complexity: 不好算，depends on the graph (how 0s and 1s are distributed)
 """
 """
-A* is better than bfs in finding the shorted path from source node to end node. 这是一道经典的A* 题，很有启发性，只要可以想到可行的heuristic estimation的方法，
-都可以尝试将bfs改成更快的A* . bfs 需要visit every node. but A* only greedily choose the best route to go. The best route is estimated by heuristic estimation.
+A* is better than bfs in finding the shorted path from source node to end node. 这是一道经典的A* 题，很有启发性，
+只要可以想到可行的heuristic estimation的方法，都可以尝试将bfs改成更快的A* . 
+bfs 需要visit every node. but A* only greedily choose the best route to go. The best route is estimated by heuristic estimation.
 """
 from heapq import *
 class Solution:
