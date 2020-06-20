@@ -19,7 +19,8 @@ solution.shuffle();
 
 
 """
-randrange(): Python offers a function that can generate random numbers from a specified range and also allowing rooms for steps to be included, called randrange() in random module. 
+randrange(): Python offers a function that can generate random numbers from a specified range and 
+also allowing rooms for steps to be included, called randrange() in random module. 
 Syntax: random.randrange(start(opt),stop,step(opt)), will return random numbers in range [start, stop), with step step.
 # step 1: generate a random idx after i;
 # step 2: swap the num in i with random idx after i, then we have got the random num for ith pos;
@@ -47,7 +48,7 @@ class Solution:
         """
         lens = len(self.arr)
         for i in range(lens):
-            random_idx = randrange(i, lens)     
+            random_idx = randrange(i, lens)     # O(1)
             self.arr[i], self.arr[random_idx] = self.arr[random_idx], self.arr[i]
             
         return self.arr
