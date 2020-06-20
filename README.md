@@ -999,7 +999,7 @@ Solution 2: 无权图单源节点的最短路径问题，自然想到A-star sear
 
 
 ## [Minimum Spanning Tree - Kruskal's and Prim's](/)
-- [1135. Connecting Cities With Minimum Cost](Solutions/1091.Shortest-Path-in-Binary-Matrix.py) (M) <br>
+- [1135. Connecting Cities With Minimum Cost](Solutions/1135.Connecting-Cities-With-Minimum-Cost.py) (M) <br>
 This problem is to find the minimum path to connect all nodes, so it is a minimum spanning tree (MST) problem.
 There are two defferent algorithms to solve MST problem, one is Prim's, the other is Kruskal's.
 The Kruskul's algorithm is easy to implement using Union-Find, with O(ElogE) time and O(V) space.
