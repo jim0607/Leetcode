@@ -49,6 +49,34 @@ class Solution:
     
 
 
+"""
+reservoir sampling: 特点是来一个算一下，因此适用于data stream
+"""
+
+import random
+
+class Solution:
+
+    def __init__(self, nums: List[int]):
+        self.nums = nums
+
+    def pick(self, target: int) -> int:
+        cnt = 0
+        res = -1
+        for i, num in enumerate(self.nums):
+            if num == target:
+                cnt += 1
+                random_idx = random.randrange(cnt)
+                if random_idx == 0:     # 这里不一定random_idx == 0, 我们用random_idx等于啥都行，我们需要的只是等于某一个数的概率是1/m
+                    res = i
+        return res
+
+
+# Your Solution object will be instantiated and called as such:
+# obj = Solution(nums)
+# param_1 = obj.pick(target)
+
+
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(nums)
 # param_1 = obj.pick(target)
