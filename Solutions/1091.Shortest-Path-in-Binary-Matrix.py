@@ -123,7 +123,7 @@ class Solution:
                 next_x, next_y = curr_x + delta_x, curr_y + delta_y
                 if self.isNotValid(next_x, next_y, grid):
                     continue
-                # 这一句是精华，如果之前访问过(next_x, next_y)，但是这次访问的时候发现能更快到达，
+                # 这一句是精华，如果之前访问过(next_x, next_y)，但是这次访问的时候发现能更快到达，可否举个例子？
                 # 那就把这个(next_x, next_y)重新再次放进去（这就是为什么不要用visited set in A*），并更新从source到(next_x, next_y)的距离
                 if step + 1 < steps[next_x][next_y]:    
                     heapq.heappush(hq, (step + max(m - next_x, n - next_y), (next_x, next_y), step + 1))
