@@ -956,7 +956,7 @@ step 3: keep going forward until we generate all the random num using the genera
 - [0398. Random Pick Index](Solutions/0398.Random-Pick-Index.py) (!!M) 
 step 1: generate a random
 solution 1: O(N) time O(N) space using random.choice(seq): Return a random element from the non-empty sequence seq.
-Solution 2: Reservoir Sampling solution
+Solution 2: Reservoir Sampling solution reservoir sampling 特点是来一个算一下，因此适用于data stream
 
 382	Linked List Random Node	视频讲解	
 380	Insert Delete GetRandom O(1)	视频讲解	
