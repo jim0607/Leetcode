@@ -80,7 +80,10 @@ class Solution:
                 nextPoint = (point[0] + move[0], point[1] + move[1])
                 if nextPoint[0] < 0 or nextPoint[0] >= m or nextPoint[1] < 0 or nextPoint[1] >= n:
                     continue
-                if nextPoint in visited:   # 注意nextPoint一定要in visited才能将其连上currPoint!! 这是UnionFind的定义决定的
+                # 注意nextPoint一定要in visited才能将其连上currPoint!! 这是UnionFind的定义决定的
+                # 只有visited过了才可以连接起来，因为visited过的一定是比现在point大的，我们只连大的
+                # 如果没有visited过的就去连上，那么会连上很多小的，比如例子中7会连上1
+                if nextPoint in visited:   
                     graph.union(point, nextPoint)
                 
             if graph.find((0, 0)) == graph.find((m-1, n-1)):    # check if (0, 0) and (m-1, n-1) are connected
