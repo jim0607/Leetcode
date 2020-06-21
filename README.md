@@ -946,7 +946,7 @@ O(N^4), O(N^2)
 Rabin Karp Algorithm O(M+N
 - [0028. Implement strStr()](Solutions/0028.Implement-strStr().py) (E) <br>
 Rabin Karp Algorithm O(M+N): Rolling hash 的核心就是用一个hash function把一个长度为m的string hash成一个整数，这样就可以避免O(m)的时间复杂度去比较两个string是否相等，而是去比较两个string的hash code 只用O(1)的就可以比较了。
-- [1062. Longest Repeating Substring](Solutions/1062.Longest-Repeating-Substring.py) (H) <br>
+- [1062. Longest Repeating Substring](Solutions/1062.Longest-Repeating-Substring.py) (!!M) <br>
 如果存在repeating substring的长度是L的话，那么也一定存在repeating substring的长度是小于L的;
 所以主体是一个OOXXX问题，寻找first L to satisfy that there are two substring both L long and equal.
 确定了是binary search之后就来思考怎样drop左边或者右边，如果不存在two substring both mid long and equal, 那就drop right;
