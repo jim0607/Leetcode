@@ -966,12 +966,9 @@ step 2: generate a rand_idx;
 step 3: binary search to find where the idx is in the prefix_sum arr
 
 
-
-382	Linked List Random Node	视频讲解	
+拒绝采样Rejection Sampling来做，因为之前做过使用该方法的两道题 Implement Rand10() Using Rand7() 和 Generate Random Point in a Circle，
 380	Insert Delete GetRandom O(1)	视频讲解	
 381	Insert Delete GetRandom O(1) - Duplicates allowed	视频讲解	
-138	Copy List with Random Pointer	视频讲解
-
 
 
 
