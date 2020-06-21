@@ -12,32 +12,9 @@ Input: haystack = "aaaaa", needle = "bba"
 Output: -1
 
 
-# 回溯法 O(M*N)
-class Solution:
-    def strStr(self, haystack: str, needle: str) -> int:
-        lens_1, lens_2 = len(haystack), len(needle)
-        if lens_2 == 0:
-            return 0
-        if lens_1 == 0:
-            return -1
-        if needle not in haystack:
-            return -1
-        
-        i, j = 0, 0
-        while i < lens_1 and j < lens_2:
-            temp_i = i
-            while i < lens_1 and j < lens_2 and haystack[i] == needle[j]:   # 养成每次都判断i, j不超过长度的好习惯
-                i += 1
-                j += 1
-            if j == lens_2:
-                return temp_i
-            i = temp_i + 1
-            j = 0
-            
-        return -1
         
         
-# 方法二：Rabin Karp Algorithm O(M+N)
+# Rabin Karp Algorithm O(M+N)
 
 """
 Rolling hash 的核心就是用一个hash function把一个长度为m的string hash成一个整数，这样就可以避免O(m)的时间复杂度去比较两个string是否相等，
@@ -81,11 +58,10 @@ class Solution:
             if i >= m:
                 source_code = ( source_code - (ord(source[i - m]) - ord("a")) * power % BASE ) % BASE 
             if source_code == target_code:
-                if source[i - m + 1: i + 1] == target:   # This check is neceessary cuz P776 in Algorithms book
+                if source[i - m + 1: i + 1] == target:   # This check is neceessary cuz this algorithm is only extremely likely to be correct due to the possibility of hash collision.
                     return i - m + 1
                 
         return -1
-
 
 
 
@@ -136,3 +112,29 @@ class Solution:
         
         
 # KMP算法，超纲，不会在面试中出现的。
+
+
+
+# 回溯法 O(M*N)
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        lens_1, lens_2 = len(haystack), len(needle)
+        if lens_2 == 0:
+            return 0
+        if lens_1 == 0:
+            return -1
+        if needle not in haystack:
+            return -1
+        
+        i, j = 0, 0
+        while i < lens_1 and j < lens_2:
+            temp_i = i
+            while i < lens_1 and j < lens_2 and haystack[i] == needle[j]:   # 养成每次都判断i, j不超过长度的好习惯
+                i += 1
+                j += 1
+            if j == lens_2:
+                return temp_i
+            i = temp_i + 1
+            j = 0
+            
+        return -1
