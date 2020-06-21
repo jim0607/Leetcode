@@ -380,7 +380,7 @@ addWord mehtod is the same as 208 insert method. But search mehtod is a little d
 The capability of finding matching prefix is where the data structure called Trie would shine, comparing the hashset data structure. Not only can Trie tell the membership of a word, but also it can instantly find the words that share a given prefix. 打印所有路径所以用Trie + Backtracking DFS. 非常经典的题呀！
 ------- 472 ; 677. Map Sum Pairs; 648. Replace Words; 425. Word Squares------------
 - [0850. Rectangle Area II](Solutions/ (H) <br>
-------- 642. Design Search Autocomplete System -------
+------- 642. Design Search Autocomplete System -------0820.short-encoding-of-words
 
 
 
