@@ -36,18 +36,20 @@ import random
 class Solution:
 
     def __init__(self, N: int, blacklist: List[int]):
-        self.could_random_get = N - len(blacklist)
-        self.unreachable_set = set()
+        self.could_random_get = N - len(blacklist)    
+        self.unreachable_set = set()        # 保存本应random_get到但是could not random_get的数的一一映射
         self.unreachable_dict = collections.defaultdict(int)  # 保存blacklist中的数与could not random_get的数的一一映射
         
+        # 找到本应random_get到但是could not random_get的数的一一映射
         for i in range(self.could_random_get, N):
             self.unreachable_set.add(i)
         for black_num in blacklist:
             if black_num in self.unreachable_set:
                 self.unreachable_set.remove(black_num)   # now we have unreachable_set with number could not random_get and needs to be 映射到unreachable_dict中
         
+        # 建立blacklist中的数(可以random_get到的数)与本应random_get到但是could not random_get的数的一一映射
         i = 0
-        for num in self.unreachable_set:     # 建立blacklist中的数(可以random_get到的数)与本应random_get到但是could not random_get的数的一一映射
+        for num in self.unreachable_set:  
             while blacklist[i] >= self.could_random_get:    # blacklist[i]如果自己都random_get不到的话，那用它去映射的数肯定也得不到呀
                 i += 1
             self.unreachable_dict[blacklist[i]] = num
@@ -103,4 +105,3 @@ class Solution:
 
         rand_idx = random.randrange(len(self.white_list))
         return self.white_list[rand_idx]
-
