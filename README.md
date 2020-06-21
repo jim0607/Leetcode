@@ -960,6 +960,10 @@ Solution 2: Reservoir Sampling solution reservoir sampling 特点是来一个算
 - [0382. Linked List Random Node](Solutions/0382.Linked-List-Random-Node.py) (!!M) 
 step 1: generate a random
 solution 1: reservoir sampling: O(1), O(n). It is good for really large linkedlist and the linkedlist dynamically changing length; solution 2: O(n), O(1) just use an arr to store all the node vals
+- [0528. Random Pick with Weight](Solutions/0528.Random-Pick-with-Weight.py) (!!M Google) 
+step 1: create a prefix sum arr;
+step 2: generate a rand_idx;
+step 3: binary search to find where the idx is in the prefix_sum arr
 
 
 
