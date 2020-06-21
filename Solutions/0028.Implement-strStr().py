@@ -38,6 +38,57 @@ class Solution:
         
         
 # 方法二：Rabin Karp Algorithm O(M+N)
+
+"""
+Rolling hash 的核心就是用一个hash function把一个长度为m的string hash成一个整数，这样就可以避免O(m)的时间复杂度去比较两个string是否相等，
+而是去比较两个string的hash code 只用O(1)的就可以比较了。
+eg: string = "abcdef"  pattern = "cde"
+step 1: 首先我们计算hash code of pattern:
+hash code for "cde" is: ( (ord("c")-ord("a"))*31^2 + (ord("d")-ord("a"))*31^1 + (ord("e")-ord("a"))*31^0 ) % BASE
+实际计算过程中为了防止hash code太大overflow，我们每算一下就取个模：
+( (ord("c")-ord("a"))*31^2 ) % BASE + ( (ord("d")-ord("a"))*31^1 ) % BASE + ( (ord("e")-ord("a"))*31^0 ) % BASE ) % BASE
+step 2: 然后我们计算hash code in source
+首先计算hash code for "abc", compare the hash code of "abc" with target_code
+then calculate the hash code for "abcd", then calculate the hash code for "bcd", and then compare with target_code
+go on and on until the hash code equals.
+"""
+
+class Solution:
+    def strStr(self, source: str, target: str) -> int:
+        n, m = len(source), len(target)
+        if m == 0:
+            return 0
+        if n == 0:
+            return -1
+        
+        BASE = 10 ** 6
+        
+        # step 1: calculate the hash code of the target
+        target_code = 0
+        for ch in target:
+            target_code = (target_code * 31 + (ord(ch) - ord("a"))) % BASE
+
+        #step 2: calculate the hash code in source
+        power = 1
+        for _ in range(m):
+            power = (power * 31) % BASE
+            
+        source_code = 0
+        for i, ch in enumerate(source):
+            source_code = (source_code * 31 + (ord(ch) - ord("a"))) % BASE
+            if i < m - 1:
+                continue
+            if i >= m:
+                source_code = ( source_code - (ord(source[i - m]) - ord("a")) * power % BASE ) % BASE 
+            if source_code == target_code:
+                if source[i - m + 1: i + 1] == target:   # This check is neceessary cuz P776 in Algorithms book
+                    return i - m + 1
+                
+        return -1
+
+
+
+
 # 26 是很常用的hash表里做进制转换的常数
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
@@ -75,7 +126,8 @@ class Solution:
             # then compute abcd-a
             hashStr = hashStr - (ord(haystack[i-lens2]) - ord("a")) * power % modulus  # 有时候hashStr < (ord(haystack[i-lens2]) - ord("a")) * power % modulus, 这时候hashStr会变成负值，不过没关系，如果变成负值，再加上nodulus就可以了。
 
-            if hashStr < 0:
+            # in python, we don't need to worry aobut get mod for negative vals because python already taken care of that: (-3) % 4 = 1, the mod always return a positive val
+            if hashStr < 0:     # 如果用java的话这一句是必要的，如果用python的话就没必要担心了
                 hashStr = hashStr + modulus
             # 这里虽然直接判断hashStr == hashNeedle程序通过了，但是要注意hashStr == hashNeedle不一定意味着haystack[i-lens2:i]与Needle相等，面试时再加一句haystack[i-lens2:i]==Needle的判断语句。
             if hashStr == hashNeedle:
