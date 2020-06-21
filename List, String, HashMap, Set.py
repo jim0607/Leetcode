@@ -124,6 +124,10 @@ Set is a hash table except it caitains only keys, not key-val pairs.
       
 7. sort a set 只能用sorted(setA). eg: for pos in sorted(positionSet):  218. The Skyline Problem
       
+8. 遍历set的方法 eg: 710. Random Pick with Blacklist
+   1. for num in self.unreachable_set:
+   2. for i, num in self.unreachable_set:
+      
       
 
       
