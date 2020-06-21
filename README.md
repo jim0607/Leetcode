@@ -975,6 +975,15 @@ HashMap再难也不过如此了吧，目标是建立一个blacklist中的数与c
 
 
 
+
+## [Segment Tree](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+
+
+
+
+
+
+
 # [图的遍历](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 ## [基础图问题](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (E) <br>
@@ -1049,36 +1058,6 @@ OrderedDict是deque的增强版，这一点在LRU那题中已经体现。
 460. LFU Cache
 588. Design In-Memory File System
 604. Design Compressed String Iterator
-
-
-
-
-
-
-
-
-## 抓大放小，下面的算法可以先不去管！
-#### [Floyd-Warshall](/)
-#### [Bellman-Ford](/)
-- [0743. Network Delay Time] 花花酱
-#### [Kruskal/Prim](/)
-1135. Connecting Cities With Minimum Cost; Eddie 讲的课
-#### [Tarjan's](/)
-1192. Critical Connections in a Network
-
-
-## [Advanced Trees](/)
-#### [Red/Black tree](/)
-#### [Splay tree](/)
-#### [AVL tree](/)
-#### [Morris 线索二叉树](/)
-#### [Fenwick tree](/)
------   315. Count of Smaller Numbers After Self ----------
-
-
-
-
-
 
 
 
