@@ -15,19 +15,25 @@ Output: -1
 # 回溯法 O(M*N)
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
-        lens1, lens2 = len(haystack), len(needle)
-        if lens2 == 0:
+        lens_1, lens_2 = len(haystack), len(needle)
+        if lens_2 == 0:
             return 0
-        i, j, anchor = 0, 0, 0
-        while i < lens1 and j < lens2:
-            anchor = i
-            while i < lens1 and j < lens2 and haystack[i] == needle[j]: # 养成每次都判断i, j不超过长度的好习惯
+        if lens_1 == 0:
+            return -1
+        if needle not in haystack:
+            return -1
+        
+        i, j = 0, 0
+        while i < lens_1 and j < lens_2:
+            temp_i = i
+            while i < lens_1 and j < lens_2 and haystack[i] == needle[j]:   # 养成每次都判断i, j不超过长度的好习惯
                 i += 1
                 j += 1
-            if j == lens2:
-                return anchor
-            i = anchor + 1
+            if j == lens_2:
+                return temp_i
+            i = temp_i + 1
             j = 0
+            
         return -1
         
         
