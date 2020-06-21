@@ -136,3 +136,7 @@ zip(*iterables)
 Make an iterator that aggregates elements from each of the iterables.
 Returns an iterator of tuples, where the i-th tuple contains the i-th element from each of the argument sequences or iterables. 
 The iterator stops when the shortest input iterable is exhausted. 
+      
+      
+      
+In python, we don't need to worry aobut get mod for negative vals because python already taken care of that: (-3) % 4 = 1, the mod always return a positive val
