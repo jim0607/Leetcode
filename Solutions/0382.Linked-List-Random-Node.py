@@ -42,7 +42,7 @@ class Solution:
         while curr:
             cnt += 1
             rand_idx = random.randrange(cnt)
-            if rand_idx == 0:
+            if rand_idx == 0:    # 这里不一定random_idx == 0, 我们用random_idx等于啥都行，我们需要的只是等于某一个数的概率是1/m
                 res = curr.val
             curr = curr.next
             
