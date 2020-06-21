@@ -53,7 +53,6 @@ class Solution:
             power = (power * 31) % HASH_SIZE
         for i, ch in enumerate(source):
             source_code = (source_code * 31 + (ord(ch) - ord("a"))) % HASH_SIZE
-            # print(sou)
             if i < m - 1:
                 continue
             if i >= m:
