@@ -948,7 +948,7 @@ O(N^4), O(N^2)
 
 
 
-# [Random/Reservoir Sampling](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+## [Random/Reservoir Sampling](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0384. Shuffle an Array](Solutions/0384.Shuffle-an-Array.py) (!!M) 
 step 1: generate a random idx after i;
 step 2: swap the num in i with random idx after i, then we have got the random num for ith pos;
