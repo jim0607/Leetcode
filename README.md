@@ -964,7 +964,8 @@ solution 1: reservoir sampling: O(1), O(n). It is good for really large linkedli
 step 1: create a prefix sum arr;
 step 2: generate a rand_idx;
 step 3: binary search to find where the idx is in the prefix_sum arr
-
+- [0710. Random Pick with Blacklist](Solutions/0710.Random-Pick-with-Blacklist.py) (H) 
+HashMap再难也不过如此了吧，目标是建立一个blacklist中的数与could not random_get的数的一一映射
 
 拒绝采样Rejection Sampling来做，因为之前做过使用该方法的两道题 Implement Rand10() Using Rand7() 和 Generate Random Point in a Circle，
 380	Insert Delete GetRandom O(1)	视频讲解	
