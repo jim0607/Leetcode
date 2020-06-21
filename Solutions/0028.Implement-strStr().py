@@ -39,7 +39,7 @@ class Solution:
         if n == 0:
             return -1
 
-        HASH_SIZE = 10 ** 6
+        HASH_SIZE = 2 ** 31
 
         # step 1: calculate the hash code of the target
         target_code = 0
