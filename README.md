@@ -378,7 +378,10 @@ Firstly we need to define a TrieNode class, a TrieNode class hs two properties: 
 addWord mehtod is the same as 208 insert method. But search mehtod is a little different than search method in 208, cuz "." is a wildcard that can represent any char. So we use a queue to store (currNode, idx), then append layer by layer.
 - [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!M) <br>
 The capability of finding matching prefix is where the data structure called Trie would shine, comparing the hashset data structure. Not only can Trie tell the membership of a word, but also it can instantly find the words that share a given prefix. 打印所有路径所以用Trie + Backtracking DFS. 非常经典的题呀！
-------- 472 ; 677. Map Sum Pairs; 648. Replace Words; 425. Word Squares------------
+- [0677. Map Sum Pairs](Solutions/0677.Map-Sum-Pairs.py) (!!M) <br>
+In TrieNode, define a self.sums 代表所有的子node所代表的string的val的和。
+在class MapSum中用一个dictionary记录之前出现的key-val pair, 如果key出现过，就通过delta=val-self.dict[key]来update node.sums的值。
+------- 472 ; 648. Replace Words; 425. Word Squares------------
 - [0850. Rectangle Area II](Solutions/ (H) <br>
 ------- 642. Design Search Autocomplete System -------0820.short-encoding-of-words
 
