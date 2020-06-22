@@ -136,6 +136,21 @@ zip(*iterables)
 Make an iterator that aggregates elements from each of the iterables.
 Returns an iterator of tuples, where the i-th tuple contains the i-th element from each of the argument sequences or iterables. 
 The iterator stops when the shortest input iterable is exhausted. 
+
+a = "abc"
+b = "cba"
+print(zip(a, b))
+for ch in zip(a, b):
+    print(type(ch))
+    print(ch)
+
+Output:
+<class 'tuple'>
+('a', 'c')
+<class 'tuple'>
+('b', 'b')
+<class 'tuple'>
+('c', 'a')
       
       
       
