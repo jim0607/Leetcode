@@ -385,6 +385,11 @@ In TrieNode, define a self.sums 代表所有的子node所代表的string的val�
 - [0421. Maximum XOR of Two Numbers in an Array](Solutions/0421.Maximum-XOR-of-Two-Numbers-in-an-Array.py) (M) <br>
 首先把所有的数的二进制存到 Trie 里面去，然后对于数组中的每个数 x，和 x 一起异或结果最大的 y 就是用 x 的二进制的反码在Trie 里面搜索，尽可能的与 x 的反码匹配，这样当走到叶子节点时，叶子节点对应的数就是 y。然后遍历一遍数组，求出 max(x ^ y), solution 写的很差，但是图画的很好！
 O(32N), where N is len(nums), 32 is the height of the trie using format(num, '032b') to convert to 32 bit
+- [0720. Longest Word in Dictionary](Solutions/0720.Longest-Word-in-Dictionary.py) (M) <br>
+Trie + bfs: 首先insert所有的word进Trie, 然后再从root出发对所有的nodes进行bfs, 只要next_node.is_end=True就可以append到q中；
+O(∑wi) to insert all words into Trie where wi is the lens of ith word, same for search longest word.
+- [0336. Palindrome Pairs](Solutions/0336.Palindrome-Pairs.py) (H) <br>
+Trie + bfs: 首先insert所有
 
 ------- 642. Design Search Autocomplete System -------0820.short-encoding-of-words 
 336. Palindrome Pairs;      425. Word Squares;       472. Concatenated Words
