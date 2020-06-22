@@ -956,6 +956,8 @@ So the overall time complexity is O(nlogn), where n is the lens of S
 - [1147. Longest Chunked Palindrome Decomposition](Solutions/1147.Longest-Chunked-Palindrome-Decomposition.py) (H) <br>
 greedy algorithm: use two pointers iterate the s, and s[::-1], if find equal substring, we can just count them as a valid divide;
 O(n)* O(string), n is lens of s, string is the average lens of equal string. check two substring equal 的地方应该可以用rolling hash优化成O(1). 但是greedy 已经破天了，面试官还要优化的话我就mmp了
+- [1316. Distinct Echo Substrings](Solutions/1316.Distinct-Echo-Substrings.py) (H) <br>
+先把整个string的hash_code计算出来存在一个数组里面hash_code[i] = the hash code for s[:i] 相当于prefix_hash_code这样后面计算是substring s[i:j]的hash code就是O(1) 了
 
 
 
