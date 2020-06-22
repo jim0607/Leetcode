@@ -389,7 +389,7 @@ O(32N), where N is len(nums), 32 is the height of the trie using format(num, '03
 Trie + bfs: 首先insert所有的word进Trie, 然后再从root出发对所有的nodes进行bfs, 只要next_node.is_end=True就可以append到q中；
 O(∑wi) to insert all words into Trie where wi is the lens of ith word, same for search longest word.
 - [0336. Palindrome Pairs](Solutions/0336.Palindrome-Pairs.py) (H) <br>
-Trie + bfs: 首先insert所有
+不用trie的解法更好做一些，有点动态规划的意思。
 
 ------- 642. Design Search Autocomplete System -------0820.short-encoding-of-words 
 336. Palindrome Pairs;      425. Word Squares;       472. Concatenated Words
