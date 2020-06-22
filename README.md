@@ -953,7 +953,9 @@ Rabin Karp Algorithm O(M+N): Rolling hash 的核心就是用一个hash function�
 如何快速判断是否存在two substring with length = mid that equal? 
 Using rolling hash to check if two substring have the same hash_code, using rolling hash, we realized O(1) string comparison;
 So the overall time complexity is O(nlogn), where n is the lens of S
-
+- [1147. Longest Chunked Palindrome Decomposition](Solutions/1147.Longest-Chunked-Palindrome-Decomposition.py) (H) <br>
+greedy algorithm: use two pointers iterate the s, and s[::-1], if find equal substring, we can just count them as a valid divide;
+O(n)* O(string), n is lens of s, string is the average lens of equal string. check two substring equal 的地方应该可以用rolling hash优化成O(1). 但是greedy 已经破天了，面试官还要优化的话我就mmp了
 
 
 
