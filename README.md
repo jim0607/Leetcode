@@ -370,10 +370,9 @@ Solution 1: Dijkstra's : 每次都把目前为止最小值最大的那个path的
 
 
 
-### [Trie](Union-Find-and-Trie.py)
---- There is a chapter in Leetcode official website for Trie
+### [Trie](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0208. Implement Trie (Prefix Tree)](Solutions/0208.Implement-Trie-(Prefix-Tree).py) (!!M) <br>
-Firstly we need to define a TrieNode class, a TrieNode class hs two properties: 1. self.child = collections.defaultdict(TrieNode)  # use a defaultdict, key is char, value is TrieNode corresponding to the char.  2. self.isEnd = False   # return True if reached the end of the Trie.  Then implement 3 methods: insert(word), search(word), startWith(prefix); 注意currNode往下遍历时currNode = currNode.child[char]
+Firstly we need to define a TrieNode class, a TrieNode class hs two properties: 1. self.child = collections.defaultdict(TrieNode), use a defaultdict, key is char, value is TrieNode corresponding to the char.  2. self.isEnd = False   # return True if reached the end of the Trie.  Then implement 3 methods: insert(word), search(word), startWith(prefix); 注意currNode往下遍历时currNode = currNode.child[char]
 - [0211. Add and Search Word - Data structure design](Solutions/0211.Add-and-Search-Word-Data-structure-design.py) (!!M) <br>
 addWord mehtod is the same as 208 insert method. But search mehtod is a little different than search method in 208, cuz "." is a wildcard that can represent any char. So we use a queue to store (currNode, idx), then append layer by layer.
 - [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!M) <br>
@@ -387,7 +386,6 @@ In TrieNode, define a self.sums 代表所有的子node所代表的string的val�
 首先把所有的数的二进制存到 Trie 里面去，然后对于数组中的每个数 x，和 x 一起异或结果最大的 y 就是用 x 的二进制的反码在Trie 里面搜索，尽可能的与 x 的反码匹配，这样当走到叶子节点时，叶子节点对应的数就是 y。然后遍历一遍数组，求出 max(x ^ y), solution 写的很差，但是图画的很好！
 O(32N), where N is len(nums), 32 is the height of the trie using format(num, '032b') to convert to 32 bit
 
-- [0850. Rectangle Area II](Solutions/ (H) <br>
 ------- 642. Design Search Autocomplete System -------0820.short-encoding-of-words 
 336. Palindrome Pairs;      425. Word Squares;       472. Concatenated Words
 
