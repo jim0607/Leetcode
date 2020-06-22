@@ -381,9 +381,15 @@ The capability of finding matching prefix is where the data structure called Tri
 - [0677. Map Sum Pairs](Solutions/0677.Map-Sum-Pairs.py) (!!M) <br>
 In TrieNode, define a self.sums 代表所有的子node所代表的string的val的和。
 在class MapSum中用一个dictionary记录之前出现的key-val pair, 如果key出现过，就通过delta=val-self.dict[key]来update node.sums的值。
-------- 472 ; 648. Replace Words; 425. Word Squares------------
+- [0648. Replace Words](Solutions/0648.Replace-Words.py) (M) <br>
+这题是用prefix build一个Trie, 而通过这个Trie来query输入word的prefix
+- [0421. Maximum XOR of Two Numbers in an Array](Solutions/0421.Maximum-XOR-of-Two-Numbers-in-an-Array.py) (M) <br>
+首先把所有的数的二进制存到 Trie 里面去，然后对于数组中的每个数 x，和 x 一起异或结果最大的 y 就是用 x 的二进制的反码在Trie 里面搜索，尽可能的与 x 的反码匹配，这样当走到叶子节点时，叶子节点对应的数就是 y。然后遍历一遍数组，求出 max(x ^ y), solution 写的很差，但是图画的很好！
+O(32N), where N is len(nums), 32 is the height of the trie using format(num, '032b') to convert to 32 bit
+
 - [0850. Rectangle Area II](Solutions/ (H) <br>
-------- 642. Design Search Autocomplete System -------0820.short-encoding-of-words
+------- 642. Design Search Autocomplete System -------0820.short-encoding-of-words 
+336. Palindrome Pairs;      425. Word Squares;       472. Concatenated Words
 
 
 
