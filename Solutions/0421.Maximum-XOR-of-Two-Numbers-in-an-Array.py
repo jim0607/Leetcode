@@ -67,4 +67,5 @@ class Solution:
         for num in nums:
             trie.insert(num)    # 注意要先把num insert进去，这样第一个进去的num在执行trie.search_max_XOR(num)的时候就会与自身异或, 否则会与0异或得到的值可能不对，eg: [2, 3]
             max_XOR = max(max_XOR, trie.search_max_XOR(num))
+         
         return max_XOR
