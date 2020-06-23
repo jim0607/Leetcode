@@ -32,7 +32,7 @@ In TrieNode, there should be self.child, self.is_end, self.word;
 In Trie, there should be a method to insert a word into the trie; there should also be 
 a method to search for all the possible autocomplete words of a given input string;
 这个search mehtod分三步，第一步是遍历Trie找到需要search的input_str在trie中所在的node, 第二步是从这个node出发，
-找到其所有能到达的endNode, 显然是backtrack来做，第三步是对所有能达到的endNode排个序，取前三作为输出。
+找到其所有能到达的endNode, 显然是backtrack来做，第三步是对所有能达到的endNode.word排个序，取前三作为输出。
 """
 class TrieNode:
     
