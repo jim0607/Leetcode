@@ -390,6 +390,12 @@ Trie + bfs: 首先insert所有的word进Trie, 然后再从root出发对所有的
 O(∑wi) to insert all words into Trie where wi is the lens of ith word, same for search longest word.
 - [0336. Palindrome Pairs](Solutions/0336.Palindrome-Pairs.py) (H) <br>
 不用trie的解法更好做一些，有点动态规划的意思。
+- [1268. Search Suggestions System](Solutions/1268.Search-Suggestions-System.py) (!!M) <br>
+In TrieNode, there should be self.child, self.is_end, self.word;
+In Trie, there should be a method to insert a word into the trie; there should also be 
+a method to search for all the possible autocomplete words of a given input string;
+这个search mehtod分三步，第一步是遍历Trie找到需要search的input_str在trie中所在的node, 第二步是从这个node出发，
+找到其所有能到达的endNode, 显然是backtrack来做，第三步是对所有能达到的endNode排个序，取前三作为输出。
 - [0642. Design Search Autocomplete System](Solutions/0642.Design-Search-Autocomplete-System.py) (!!H) <br>
 In TrieNode, there should be self.child, self.is_end, self.sentence, self.hotness.
 In Trie, there should be a method to insert a sentence into the trie; there should also be 
