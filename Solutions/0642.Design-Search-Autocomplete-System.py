@@ -56,11 +56,12 @@ Please remember to RESET your class variables declared in class AutocompleteSyst
 
 
 """
+与1268很像，只不过输入input_str是流数据，需要不断更新hotness.
 In TrieNode, there should be self.child, self.is_end, self.sentence, self.hotness.
 In Trie, there should be a method to insert a sentence into the trie; there should also be 
 a method to search for all the possible autocomplete words of a given input string;
 这个search mehtod分三步，第一步是遍历找到需要search的input_str在trie中所在的node, 第二步是从这个node出发，
-找到其所有能到达的endNode, 显然是backtrack来做，第三步是对所有能达到的endNode.sentence排个序，取前三作为输出。
+找到其所有能到达的endNode, 显然是backtrack来做，第三步是对所有能达到的endNode.hotness排个序，取前三作为输出。
 """
 """
 class TrieNode:
