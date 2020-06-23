@@ -1019,6 +1019,17 @@ HashMap再难也不过如此了吧，目标是建立一个blacklist中的数与c
 
 
 ## [Segment Tree](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+- [0201. Segment Tree Build](Solutions/0201.Segment-Tree-Build.py) (M Lintcode) 
+Segment tree build takes O(N), where lens of the input arr
+- [0203. Segment Tree Modify](Solutions/0203.Segment-Tree-Modify.py) (M Lintcode) 
+Segment tree update takes O(h) or O(logN)
+- [0202. Segment Tree Query](Solutions/0202.Segment-Tree-Query.py) (M Lintcode) 
+Segment tree query takes O(h) or O(logN)
+- [0207. Interval Sum II](Solutions/0207.Interval-Sum-II.py) (!!M Lintcode) 
+Segment tree is good for 需要动态更新数组和query range sum的情况，O(logN) update and O(logN) range sum query
+
+
+
 307. Range Sum Query - Mutable 为例说明。
 lintcode 区间求和 I · Interval Sum, 207. 区间求和 II
 315. Count of Smaller Numbers After Self
