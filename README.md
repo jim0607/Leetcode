@@ -1019,7 +1019,12 @@ HashMap再难也不过如此了吧，目标是建立一个blacklist中的数与c
 
 
 ## [Segment Tree](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-
+307. Range Sum Query - Mutable 为例说明。
+lintcode 区间求和 I · Interval Sum, 207. 区间求和 II
+315. Count of Smaller Numbers After Self
+850. Rectangle Area II
+Falling Squares, Number of Longest Increasing Subsequence.
+Reverse Pairs
 
 
 
