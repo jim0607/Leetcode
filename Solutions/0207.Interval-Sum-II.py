@@ -88,17 +88,17 @@ class SegmentTree:
             
         root.range_sum = root.left.range_sum + root.right.range_sum
         
-    def query(self, root, left_idx, right_idx):
+    def query(self, root, start, end):
         """
         given a range, return the range sum covered by the range - O(logN)
         """
-        if root.start > right_idx or root.end < left_idx:
+        if end < root.start or start > root.end:
             return 0
             
-        if root.start >= left_idx and root.end <= right_idx:
+        if start <= root.start and end >= root.end:
             return root.range_sum
         
-        return self.query(root.left, left_idx, right_idx) + self.query(root.right, left_idx, right_idx)
+        return self.query(root.left, start, end) + self.query(root.right, start, end)
 
 
 class Solution:
