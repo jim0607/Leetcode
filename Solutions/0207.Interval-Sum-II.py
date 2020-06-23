@@ -58,11 +58,10 @@ class SegmentTree:
         if start > end:
             return None
             
+        root = SegmentTree(start, end, nums[start])
         if start == end:
-            return SegmentTree(start, end, nums[start])
-            
-        root = SegmentTree(start, end, nums[start])     # change to 0
-        
+            return root
+
         mid = start + (end - start) // 2
         root.left = self.build(start, mid, nums)
         root.right = self.build(mid + 1, end, nums)
