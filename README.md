@@ -414,6 +414,28 @@ a method to search for all the possible autocomplete words of a given input stri
 
 
 
+
+
+
+## [Segment Tree](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+- [0201. Segment Tree Build](Solutions/0201.Segment-Tree-Build.py) (M Lintcode) <br>
+Segment tree build takes O(N), where lens of the input arr
+- [0439. Segment Tree Build II](Solutions/0439.Segment-Tree-Build-II.py) (M Lintcode) <br>
+Segment tree build takes O(N), root.max need to be updated in this problem
+- [0203. Segment Tree Modify](Solutions/0203.Segment-Tree-Modify.py) (M Lintcode) <br>
+Segment tree update takes O(h) or O(logN)
+- [0202. Segment Tree Query](Solutions/0202.Segment-Tree-Query.py) (M Lintcode) <br>
+Segment tree query takes O(h) or O(logN). This problem is to query the max number in a range.
+- [0247. Segment Tree Query II](Solutions/0247.Segment-Tree-Query-II.py) (M Lintcode) <br>
+Segment tree query takes O(h) or O(logN). This problem is to query the count in a range.
+- [0207. Interval Sum II](Solutions/0207.Interval-Sum-II.py) (!!M Lintcode) <br>
+Segment tree is good for 需要动态更新数组和query range sum的情况，O(logN) update and O(logN) range sum query
+
+
+
+
+
+
 # [Breadth First Search](/Breadth-First-Search.py)
 ### [BFS in Trees](/Breadth-First-Search.py) (总结：Tree中需要一层一层输出的都用BFS)
 - [0102. Binary Tree Level Order Traversal](Solutions/0102.Binary-Tree-Level-Order-Traversal.py) (!!M, youtubed) <br>
@@ -1018,16 +1040,6 @@ HashMap再难也不过如此了吧，目标是建立一个blacklist中的数与c
 
 
 
-## [Segment Tree](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-- [0201. Segment Tree Build](Solutions/0201.Segment-Tree-Build.py) (M Lintcode) 
-Segment tree build takes O(N), where lens of the input arr
-- [0203. Segment Tree Modify](Solutions/0203.Segment-Tree-Modify.py) (M Lintcode) 
-Segment tree update takes O(h) or O(logN)
-- [0202. Segment Tree Query](Solutions/0202.Segment-Tree-Query.py) (M Lintcode) 
-Segment tree query takes O(h) or O(logN)
-- [0207. Interval Sum II](Solutions/0207.Interval-Sum-II.py) (!!M Lintcode) 
-Segment tree is good for 需要动态更新数组和query range sum的情况，O(logN) update and O(logN) range sum query
-
 
 
 307. Range Sum Query - Mutable 为例说明。
@@ -1132,6 +1144,7 @@ Count Complete Tree Nodes; Longest Increasing Path in a Matrix; Evaluate Divisio
 
 
 
-
-### top 50 of interview questions and top liked questions and top Google interview questions top green
-## 九章高频
+### top 100 of interview questions
+### Top 100 Google interview questions
+### Top 100 Facebook interview questions
+### Top 100 Amazon interview questions
