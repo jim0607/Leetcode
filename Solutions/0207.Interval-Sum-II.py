@@ -53,7 +53,7 @@ class SegmentTree:
         
     def build(self, start, end, nums):
         """
-        build the segment tree - O(N)
+        build the segment tree, return the root of the tre - O(N)
         """
         if start > end:
             return None
