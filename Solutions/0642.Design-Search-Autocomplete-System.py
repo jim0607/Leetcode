@@ -60,10 +60,9 @@ In TrieNode, there should be self.child, self.is_end, self.sentence, self.hotnes
 In Trie, there should be a method to insert a sentence into the trie; there should also be 
 a method to search for all the possible autocomplete words of a given input string;
 这个search mehtod分三步，第一步是遍历找到需要search的input_str在trie中所在的node, 第二步是从这个node出发，
-找到其所有的子path, 显然是backtrack来做，第三步是对所有的子path的hotness排个序，取前三作为输出。
+找到其所有能到达的endNode, 显然是backtrack来做，第三步是对所有能达到的endNode.sentence排个序，取前三作为输出。
 """
 """
-
 class TrieNode:
     
     def __init__(self):
@@ -97,17 +96,17 @@ class Trie:
                 return res
             curr = curr.child[ch]
             
-        self.backtrack(curr, "", res)
+        self.backtrack(curr, res)
 
-        return [input_str + suffix[1] for suffix in sorted(res)[:3]]
+        return [sentence[1] for sentence in sorted(res)[:3]]
     
-    def backtrack(self, curr, path, res):
+    def backtrack(self, curr, res):
         if curr.is_end:
-            res.append((curr.hotness, path))      # append the hotness so that we can sort later
+            res.append((curr.hotness, curr.sentence))      # append the hotness so that we can sort later
             # return        注意这里不能return 因为收到health之后，如果return了就搜不到healthy了
         
-        for ch, next in curr.child.items():     # 注意这里的next node is the value of the dictionary cuz it's a trieNode
-            self.backtrack(next, path + ch, res)
+        for next in curr.child.values():     # 注意这里的next node is the value of the dictionary cuz it's a trieNode
+            self.backtrack(next, res)
         
 
 class AutocompleteSystem:
