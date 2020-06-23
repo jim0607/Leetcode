@@ -62,6 +62,8 @@ a method to search for all the possible autocomplete words of a given input stri
 这个search mehtod分三步，第一步是遍历找到需要search的input_str在trie中所在的node, 第二步是从这个node出发，
 找到其所有的子path, 显然是backtrack来做，第三步是对所有的子path的hotness排个序，取前三作为输出。
 """
+"""
+
 class TrieNode:
     
     def __init__(self):
