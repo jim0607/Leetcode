@@ -72,6 +72,7 @@ class SegmentTree:
     def update(self, root, idx, val):
         """
         update the segment tree when there is an update in nums (change to val at idx) - O(logN)
+        update 函数其实就是update range_sum
         """
         if not root:
             return
