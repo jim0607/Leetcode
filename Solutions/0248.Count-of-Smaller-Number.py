@@ -37,7 +37,7 @@ class SegmentTree:
         self.left = None 
         self.right = None
         
-    def build(self, start, end):
+    def build(self, start, end):     # 这种用val来build tree的方法不提倡，因为可能导致tree非常大，最好是用nums的idx
         """
         After building the tree, all the number in range [start, end] are initialized as self.cnt = 0
         """
