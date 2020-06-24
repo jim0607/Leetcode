@@ -126,7 +126,7 @@ similar with 295, we need to maintain two heaps in the window, leftHq and rightH
 
 
 
-###  [Desgin Problem](/)
+###  [Desgin Problems](/)
 - [0359. Logger Rate Limiter](Solutions/0359.Logger-Rate-Limiter.py) (E) <br>
 很简单，用一个dictionary存(message, last timestamp when message was printed)就可以了。Google followup: input在K长度内无序的，但是时间t+K之后的输入一定出现在t之后。比如K是5，
 [4, foo], [1, foo], [0, bar], [6, bar] => 在[4, foo], [1, foo], [0, bar]内是无序的，但是[6, bar]一定出现在[0, bar]之后，因为6>0+5.
@@ -288,7 +288,7 @@ Solution 1: Dijkstra's : 每次都把目前为止最小值最大的那个path的
 
 
 
-## [Minimum Spanning Tree - Kruskal's and Prim's](/)
+### [Minimum Spanning Tree - Kruskal's and Prim's](/)
 - [1135. Connecting Cities With Minimum Cost](Solutions/1135.Connecting-Cities-With-Minimum-Cost.py) (M) <br>
 This problem is to find the minimum path to connect all nodes, so it is a minimum spanning tree (MST) problem.
 There are two defferent algorithms to solve MST problem, one is Prim's, the other is Kruskal's.
