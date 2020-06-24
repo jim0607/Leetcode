@@ -428,6 +428,12 @@ Segment tree update takes O(h) or O(logN)
 Segment tree query takes O(h) or O(logN). This problem is to query the max number in a range.
 - [0247. Segment Tree Query II](Solutions/0247.Segment-Tree-Query-II.py) (M Lintcode) <br>
 Segment tree query takes O(h) or O(logN). This problem is to query the count in a range.
+- [0205. Interval Minimum Number](Solutions/0205.Interval-Minimum-Number.py) (M Lintcode) <br>
+Maintain a self.min_num in building the SegmentTree
+- [0751. John's business](Solutions/0751.John's-business.py) (M Lintcode) <br>
+Maintain a self.min_num in building the SegmentTree
+- [0206. Interval Sum](Solutions/0206.Interval-Sum.py) (M Lintcode) <br>
+Maintain a self.range_sum in buildign the SegmentTree
 - [0207. Interval Sum II](Solutions/0207.Interval-Sum-II.py) (!!M Lintcode) <br>
 Segment tree is good for 需要动态更新数组和query range sum的情况，O(logN) update and O(logN) range sum query
 
