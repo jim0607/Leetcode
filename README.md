@@ -443,11 +443,11 @@ Segment tree is good for 需要动态更新数组和query range sum的情况，O
 - [0248. Count of Smaller Number](Solutions/0248.Count-of-Smaller-Number.py) (M) <br>
 solution 1: binary search, need to sort the arr first which takes O(NlogN)
 solution 2: Segment Tree, which takes O(N) to build the tree and O(logN) to query. To find how many numbers are less than num, 
-is actually to find how many numbers are there in range [0, num-1], since the minimum number is 0 given by the description of the problem.
-since we add num into the tree one by one, each update takes O(logN), so the whole updating takes O(NlogN).
+is actually to find how many numbers are there in range [0, num-1], since the minimum number is 0 given by the description of the problem. 这样就相当于转化成了类似range_sum的问题了，since we add num into the tree one by one, each update takes O(logN), so the whole updating takes O(NlogN).
 这题的self.start, self.end represent the num, not idx.  sel.cnt is how many numbers are there in range [start, end], and again start, end are not idx, they are actual vals.
 - [0315. Count of Smaller Numbers After Self](Solutions/0315.Count-of-Smaller-Numbers-After-Self.py) (!!H) <br>
-Segment Tree solution: O(NlogN) time and O(N) space
+Segment Tree solution: O(NlogN) time and O(N) space. 从右往左遍历add num into the tree one by one， at the same time update the cnt of smaller number after self
+
 
 
 
