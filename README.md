@@ -446,6 +446,8 @@ solution 2: Segment Tree, which takes O(N) to build the tree and O(logN) to quer
 is actually to find how many numbers are there in range [0, num-1], since the minimum number is 0 given by the description of the problem.
 since we add num into the tree one by one, each update takes O(logN), so the whole updating takes O(NlogN).
 这题的self.start, self.end represent the num, not idx.  sel.cnt is how many numbers are there in range [start, end], and again start, end are not idx, they are actual vals.
+- [0315. Count of Smaller Numbers After Self](Solutions/0315.Count-of-Smaller-Numbers-After-Self.py) (!!H) <br>
+Segment Tree solution: O(NlogN) time and O(N) space
 
 
 
