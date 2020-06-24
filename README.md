@@ -4,54 +4,6 @@
 
 
 
-# [Data Stream and Multiple Query]()
-- [0243. Shortest Word Distance](Solutions/0243.Shortest-Word-Distance.py) (E) <br>
-Should know both two pass solution and One pass solution. follow up 1:  如果word1在words中很少只有两个，word2在words中很多有1 million个，怎么优化算法？那么这时候solution 1就派上用场了，我们可以存下idx1 和 idx2两个list. eg: idx1 = [10, 50000]; idx2 = [.......], 那么我们可以在idx2中binary search离10最近的数，然后binary search离50000最近的数。这样时间复杂度就是O(MlogN)了。
-Follow up 2:
-如果题目改成不是求两个word的最短距离而是是求K个word的最短距离呢？ solution 1: leetcode 76. Minimum Window Substring.  O(N) where N is the the lens of words.  soltution 2: leetcode 23. Merge k Sorted Lists.  O(NlogK), 方法与solution 1类似，只是为了知道k个idx list中哪根指针需要往前移动一下, 我们需要一个heapq, heapq中最小的那个往前挪动一步.
-- [0244. Shortest Word Distance II](Solutions/0244.Shortest-Word-Distance-II.py) (!!M) <br>
-如果题目要求multiple query with unlimited time, 那么一定考察的是precomputation!! precomputation记录结果一般都需要一个hash map!! 
-这个思想非常重要！！这个题用dictionary记录每个word在words中的位置，这样如果这次需要query a and b, 下次需要query c and d, 
-我们都可以很快找到他们的位置。    # 注意可能会有重复的query，比如第一次query a and b, 第三次又需要query a and b, 这时候为了为了避免重复计算，我们可以直接用memo/cache保存query a and b 的结果, 这个思想非常重要！！这个思想成立的前提是memory不值钱！Follow up 1: 
-你都用两个额外空间去存结果以达到加速的目的了（一个是dictinoary存放每个word在words中的位置，另一个是cache/memo记录已经query过的a and b的结果）,可是面试官还不开心，他还希望调用 query method 能更快一些，怎么办？那咱们就采用最极端的方法：把所有words里可能的word1 and word2组合的结果都算出来存到cache中，这样所有的query 就都是O(1)了这个方法的前提是words list是不会变的，如果重新instantiate一个class把constrcutor里的words list变了那之前的所有结果就都白算了。
-- [245. Shortest Word Distance III](Solutions/0245.Shortest-Word-Distance-III.py) (M) <br>
-word1 and word2 may be the same and they represent two individual words in the list. 分word1等于和不等于两种情况讨论就可以了。
-
-
-
-
-# [Sliding Window (同向双指针)](/Sliding-window.py)
-- [0209. Minimum Size Subarray Sum](Solutions/0209.Minimum-Size-Subarray-Sum.py) (!!M) <br>
-维护一个sums, 用来记录i->j中数的和，套模板时满足的条件是sums < target; 更新j: sums += nums[j]; 更新i: sums -= nums[j]
-Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search the fisrt j that satisfy sum(nums[i:]>=s), so it is a OOXX probelm, which could be solved using binary search.
-- [0003. Longest Substring Without Repeating Characters](Solutions/0003.Longest-Substring-Without-Repeating-Characters.py) (!!M) <br>
-维护一个included=set(), 用来记录i->j中include的char，套模板时满足的条件是s[j] not in included; 更新j: included.add(s[j]); 更新i: included.remove(s[i])
-- [0076. Minimum Window Substring](Solutions/0076.Minimum-Window-Substring.py) (!!H) <br>
-维护一个sourceFreqDict, 用来记录i->j中的char的频率，套用模板时满足的条件是sourceFreqDict all included in targetFreqDict; 更新j: sourceDict[s[j]] += 1, 更新i: sourceDict[s[i]] -= 1.  time complexity is O(MN). solution 2: O(N), instead of using self.allIncluded(sourceDict, targetDict) to check matched or not,  we use a int missing to keep track of how many chars are still needed in order to match, this reduce the time from O(M) to O(1). also, instead of using s[i:j] everytime when we renew res, we use start, end to renew the idx, which reduce time from O(N) to O(1)
-It seems there is an O(M+N) solution, same idea of using slideing window, I should understand it later. 山景城一姐有video
-- [0340. Longest Substring with At Most K Distinct Characters](Solutions/0340.Longest-Substringwith-At-Most-K-Distinct-Characters.py) (H) <br>
-维护一个charDict, 用来记录i->j中的char的频率，套模板时满足的条件是len(charDict) <= k; 更新j: charDict[s[j]+=1; 更新i: charDict[s[i]] -= 1, if charDict[s[i]] == 0: del charDict[s[i]]
-- [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
-Note that the numbers are positive, so the prefixProd will be an increasing arr. 维护一个sums, 用来记录i->j中数的product, 指针j再往前跑，指针i在后面追。
-- [0242. Valid Anagram](Solutions/0242.Valid-Anagram.py) (E) <br>
-string s and t are anagram with each other when all the ch in s have the same count as that in t
-- [567. Permutation in String](Solutions/0567.Permutation-in-String.py) (M) <br>
-sliding window solution 1: 九章模板，use one collections.Counters for p and one for s. sliding window solution 2: keep the window size len(s1), check the tempCntDict == cntDict ? O(M+M*(N-M)). 
-- [0438. Find All Anagrams in a String](Solutions/0438.Find-All-Anagrams-in-a-String.py) (!!M) <br>
-similar with 567, 套用九章模板就可以了
-- [0049. Group Anagrams](Solutions/0049.Group-Anagrams.py) (!!M) <br>
-dictionary: key is a tuple keeping track of the cnt of all 26 letters, val is the word list corresponding to the tuple
-
-
-------- 
-209. Minimum Size Subarray Sum - Medium
-159. Longest Substring with At Most Two Distinct Characters - Medium
-30. Substring with Concatenation of All Words - Hard
-239	Sliding Window Maximum	hard
-295	Find Median from Data Stream
-228	Summary Ranges	medium
-163	Missing Ranges	medium	  ----------
-
 
 
 # [Data Structure](/Data-Structure.py)
@@ -172,35 +124,43 @@ similar with 295, we need to maintain two heaps in the window, leftHq and rightH
 ----- 313	Super Ugly Number ------- 373	Find K Pairs with Smallest Sums
 
 
-### [Union-Find](Union-Find-and-Trie.py)
-- [0589. Connecting Graph](Solutions/0589.connecting-graph.java) (!!M Lintcode) <br>
-将a和b connect: 只需要将a和b的father connect就好；query a和b有没有连接:其实就是判断a和b在不在同一个集合里面，只需要判断find(a) == find(b)
-- [0590 Connecting Graph II](Solutions/0590.Connecting-Graph-II.java) (!!M Lintcode) <br>
-需要query 点a所在集合的元素个数，所以需要一个list size, 用来记录每个father节点所在集合的点的个数，在union i 和 j 的时候: father[i] = j, sz[j] += sz[i];
-- [0591. Connecting Graph III](Solutions/0591.Connecting-Graph-III.py) (!!M Lintcode) <br>
-需要query 整个图中有多少个集合，所以需要一个counter, 用来记录图中集合的个数，初始化为n, 在union i 和 j 的时候: father[i] = j, counter--;
-- [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (!!M, youtubed) <br>
-Soluiton 1: Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a Breadth First Search. <br>
-SOlution 2: Union Find: think the grid as a graph, find how may isolated components in the graph, we traversal the whole gird, whenever find a 1, we connect all the 4 adjacent 1s. 方法同lintcode 591.
-- [0305. Number of Islands II](Solutions/0305.Number-of-Islands-II.py) (!!H) <br>
-Union-Find 算法是解决动态连通性（Dynamic Conectivity）问题的一种算法. 这里的island可以看做是一个图. 每放置一个1, 就将其与其上下左右四个点的1连接起来。O(m×n+L), follow up question?
-- [0547 Friend Circles](Solutions/0547.Friend-Circles.py) (!!M) <br>
-Solution 1: Union-Find, 题目的表述有问题，看上去像是和200一模一样，其实不是的
-https://leetcode.com/problems/friend-circles/discuss/228414/Wrong-problem-statement-made-me-waste-half-an-hour-looking-for-a-solution-for-a-complex-problem  bfs and dfs solutions should also be implemented.
-- [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
-Solution 2: Union find: O(N); Solution 1: BFS O(N)判断图是不是一棵树（不一定非要是二叉树）需要满足两点:1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树
-- [0128. Longest Consecutive Sequence](Solutions/0128.Longest-Consecutive-Sequence.py) (!!H) <br>
-Solution 1: Greedy O(N) 使用一个集合HashSet存入所有的数字，然后遍历数组中的每个数字，如果其在集合中存在，那么将其移除，然后分别用两个变量pre和next算出其前一个数跟后一个数，然后在集合中循环查找，如果pre在集合中，那么将pre移除集合，然后pre再自减1，直至pre不在集合之中，对next采用同样的方法，那么next-pre-1就是当前数字的最长连续序列，更新res即可; Solution 2: Union find: O(N)
-- [1102. Path With Maximum Minimum Value](Solutions/1102.Path-With-Maximum-Minimum-Value.py) (M) <br>
-Solution 1: Dijkstra's : 每次都把目前为止最小值最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走. maintain a heapq to store (the minimum value in the path so far till the currPos, currPos); each time, we push (min(nextVal, currMinVal), nextPos); O(MNlogMN), O(MN). Solution 2: Union-Find, step 1: sort the array by the values descendingly; step 2: union one-by-one, until (0, 0) and (m-1, n-1) is connected
+
+
+###  [Desgin Problem](/)
+- [0359. Logger Rate Limiter](Solutions/0359.Logger-Rate-Limiter.py) (E) <br>
+很简单，用一个dictionary存(message, last timestamp when message was printed)就可以了。Google followup: input在K长度内无序的，但是时间t+K之后的输入一定出现在t之后。比如K是5，
+[4, foo], [1, foo], [0, bar], [6, bar] => 在[4, foo], [1, foo], [0, bar]内是无序的，但是[6, bar]一定出现在[0, bar]之后，因为6>0+5.
+也就是短程无序，长程有序。这时候该怎么print输出呢？
+用一个heapq, heapq里面存(timestamp, message), 用一个deque里面也存(timestamp, message), 当发现下一个时间大于当前最小时间+K，就pop出当前的最小的放入到deque里面去, 这样deque里面存的就是长短程都有序的了
+- [0362. Design Hit Counter](Solutions/0362.Design-Hit-Counter.py) (M) <br>
+很简单，用一个deque存hit的timestamp就可以了, 这种拿分题一定要细心，这里容易漏掉self.counter是否为空的判断，导致扣分。Follow up:
+What if the number of hits per second could be very large? Does your design scale?
+deque里面默认是每一个时间戳hit了一次，如果需要记录每秒钟有几次hit，我们需要用到dictionary, 但是同时有需要deque一样的有序，
+所以自然而然想到OrderedDict. 这样可以保证最多使用O(300)的空间, 还是要熟悉OrderedDict的方法的。
+OrderedDict是deque的增强版，这一点在LRU那题中已经体现。
+
+346	Moving Average from Data Stream	视频讲解	Sliding Window
+281	Zigzag Iterator	视频讲解	
+284	Peeking Iterator	视频讲解	
+251	Flatten 2D Vector	视频讲解	
+288	Unique Word Abbreviation	视频讲解	
+170	Two Sum III - Data structure design	视频讲解	
+348	Design Tic-Tac-Toe	视频讲解	
+379	Design Phone Directory	视频讲解	
+353	Design Snake Game	视频讲解	
+146	LRU Cache	视频讲解	
+355	Design Twitter	视频讲解	
+303	Range Sum Query - Immutable	视频讲解	
+304	Range Sum Query 2D - Immutable	视频讲解	
+307	Range Sum Query - Mutable	视频讲解	BIT & ST
+308	Range Sum Query 2D - Mutable	视频讲解	BIT & ST
+460. LFU Cache
+588. Design In-Memory File System
+604. Design Compressed String Iterator
 
 
 
----------
-130 Surrounded Regions 18.6% Medium
-323 Number of Connected Components in an Undirected Graph 
-721 Accounts Merge 
-684. Redundant Connection -----------
+
 
 
 
@@ -288,6 +248,58 @@ of how many prefix sums are in a certain range.
 Finally, we traverse the prefix sum list and query how many prefix sums are there in range [prefix-upper, prefix-lower].
 eg if there is one prefix_1 in range [prefix-upper, prefix-lower], then prefix - prefix_1 in range [lower, upper]
 
+307. Range Sum Query - Mutable 为例说明。
+lintcode 区间求和 I · Interval Sum, 207. 区间求和 II
+315. Count of Smaller Numbers After Self
+850. Rectangle Area II
+Falling Squares, Number of Longest Increasing Subsequence.
+Reverse Pairs
+
+
+
+
+# [Union-Find](Union-Find-and-Trie.py)
+- [0589. Connecting Graph](Solutions/0589.connecting-graph.java) (!!M Lintcode) <br>
+将a和b connect: 只需要将a和b的father connect就好；query a和b有没有连接:其实就是判断a和b在不在同一个集合里面，只需要判断find(a) == find(b)
+- [0590 Connecting Graph II](Solutions/0590.Connecting-Graph-II.java) (!!M Lintcode) <br>
+需要query 点a所在集合的元素个数，所以需要一个list size, 用来记录每个father节点所在集合的点的个数，在union i 和 j 的时候: father[i] = j, sz[j] += sz[i];
+- [0591. Connecting Graph III](Solutions/0591.Connecting-Graph-III.py) (!!M Lintcode) <br>
+需要query 整个图中有多少个集合，所以需要一个counter, 用来记录图中集合的个数，初始化为n, 在union i 和 j 的时候: father[i] = j, counter--;
+- [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (!!M, youtubed) <br>
+Soluiton 1: Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a Breadth First Search. <br>
+SOlution 2: Union Find: think the grid as a graph, find how may isolated components in the graph, we traversal the whole gird, whenever find a 1, we connect all the 4 adjacent 1s. 方法同lintcode 591.
+- [0305. Number of Islands II](Solutions/0305.Number-of-Islands-II.py) (!!H) <br>
+Union-Find 算法是解决动态连通性（Dynamic Conectivity）问题的一种算法. 这里的island可以看做是一个图. 每放置一个1, 就将其与其上下左右四个点的1连接起来。O(m×n+L), follow up question?
+- [0547 Friend Circles](Solutions/0547.Friend-Circles.py) (!!M) <br>
+Solution 1: Union-Find, 题目的表述有问题，看上去像是和200一模一样，其实不是的
+https://leetcode.com/problems/friend-circles/discuss/228414/Wrong-problem-statement-made-me-waste-half-an-hour-looking-for-a-solution-for-a-complex-problem  bfs and dfs solutions should also be implemented.
+- [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
+Solution 2: Union find: O(N); Solution 1: BFS O(N)判断图是不是一棵树（不一定非要是二叉树）需要满足两点:1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树
+- [0128. Longest Consecutive Sequence](Solutions/0128.Longest-Consecutive-Sequence.py) (!!H) <br>
+Solution 1: Greedy O(N) 使用一个集合HashSet存入所有的数字，然后遍历数组中的每个数字，如果其在集合中存在，那么将其移除，然后分别用两个变量pre和next算出其前一个数跟后一个数，然后在集合中循环查找，如果pre在集合中，那么将pre移除集合，然后pre再自减1，直至pre不在集合之中，对next采用同样的方法，那么next-pre-1就是当前数字的最长连续序列，更新res即可; Solution 2: Union find: O(N)
+- [1102. Path With Maximum Minimum Value](Solutions/1102.Path-With-Maximum-Minimum-Value.py) (M) <br>
+Solution 1: Dijkstra's : 每次都把目前为止最小值最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走. maintain a heapq to store (the minimum value in the path so far till the currPos, currPos); each time, we push (min(nextVal, currMinVal), nextPos); O(MNlogMN), O(MN). Solution 2: Union-Find, step 1: sort the array by the values descendingly; step 2: union one-by-one, until (0, 0) and (m-1, n-1) is connected
+
+---------
+130 Surrounded Regions 18.6% Medium
+323 Number of Connected Components in an Undirected Graph 
+721 Accounts Merge 
+684. Redundant Connection -----------
+
+
+
+## [Minimum Spanning Tree - Kruskal's and Prim's](/)
+- [1135. Connecting Cities With Minimum Cost](Solutions/1135.Connecting-Cities-With-Minimum-Cost.py) (M) <br>
+This problem is to find the minimum path to connect all nodes, so it is a minimum spanning tree (MST) problem.
+There are two defferent algorithms to solve MST problem, one is Prim's, the other is Kruskal's.
+The Kruskul's algorithm is easy to implement using Union-Find, with O(ElogE) time and O(V) space.
+Step 1: add all vertices to UnionFind obj;
+Step 2: sort the graph by edge weights;
+Step 3: add the smallest edge into the MST if adding the edge do not form a cycle;
+(if the two vertices of the edge was already connected, then adding the edge will form a cycle);
+Step 4: keep step 3 until all the edges are collected (E = V-1 or only one disjoint_cnt = 1)
+- [1168. Optimize Water Distribution in a Village](Solutions/1168.Optimize-Water-Distribution-in-a-Village.py) (H) <br>
+这个题目比较tricky的地方是需要想像有一个虚拟的house_0, house_0是出水的house, 这样house_1自己打井需要的cost就相当于从house_0连接到house_1所需的cost了.  Other than hte tricky part, everything is exactly the same as 1135.
 
 
 
@@ -363,6 +375,29 @@ bfs: the maximum distance is steps needed to change all WATER to be LAND, so we 
 Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and use dist[][] to record the sum of distance from all 1 grids to this 0 grid. Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a BFS. in the bfs, we do level bfs and update the reachable_cnt matrix and dist matrix. 遇到obstacle不放进q就可以了. each bfs, all position are visited, so O(MNk) where k is how many building are there or how many bfs are triggered. Finnaly return the min of dist[i][j] if reachable_cnt[i][j] = total number of buildings. Strong Prune: if if starting from building (i, j), can reach all other building? if not, that means at least one building is isolated and can not be reached, then return -1 directly: in each BFS we use reachableBuildings to count how many 1s we reached. If reachableBuldings != totalBuildings - 1 then we know not all 1s are connected are we can return -1 immediately, which greatly improved speed.
 - [0752. Open the Lock](Solutions/0752.Open-the-Lock.py) (M) <br>
 题目蛮有意思的, 带层序遍历的bfs, 遇到currNode in deadends 就不再去访问其neighbor了, find neighbor 函数比较有意思，这里第一次学到了yield;
+
+
+### [Dijkstra](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+- [0743. Network Delay Time](Solutions/0743.Network-Delay-Time.py) (!!M) <br>
+**带权值**的**有向图**求**单源节点**出发的最短路径问题马上就想到Dijkstra, **O(NlogN + E)** N is # nodes, E is # edges <br>
+Dijkstra就是贪心版的bfs, bfs是勤勤恳恳一层一层推进，一层没访问完绝不访问下一层。Dijkstra就很贪心了，才不一层一层地走呢，他每次都想走最low cost的。如何实现每次走最low cost的呢？用一个heapq来store a pair: (currCost to reach the node, node), 这样每次pop出来的就都最low cost的node了，再去访问这个node的neighbors，把这些neighbors都加到hq中，代码比较短。思路其实与23. Merge k Sorted Lists非常类似，把23里的linked list加上一个虚拟头节点连接所有的头节点，然后把Linked list node的val改成边的权值，那就变成了单源节点出发求访问到所有节点的最短路径。
+- [0787. Cheapest Flights Within K Stops](Solutions/0787.Cheapest-Flights-Within-K-Stops.py) (!!M) <br>
+有向图，带权值，找从单源出发最佳路径问题：Dijkstra's algorithm O(NlogN + E) <br> 
+hq 需要 store (cost, stops, airports), 与743相比少了一个currNode in costs: continue因为次好路径也可能是最后的结果，这是由于最好路径可能不满足stops < K; 这题需要加一个 if currStops >= K: continue
+- [0882. Reachable Nodes In Subdivided Graph](Solutions/0882.Reachable-Nodes-In-Subdivided-Graph.py) (H) <br>
+hq store (how many moves left, node); # seen[i] means that we can arrive at node i and have seen[i] moves left; if movesLeft > insertNumber: heappush
+- [1102. Path With Maximum Minimum Value](Solutions/1102.Path-With-Maximum-Minimum-Value.py) (M) <br>
+Solution 1: Dijkstra's : 每次都把目前为止最小值最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走. maintain a heapq to store (__the minimum value in the path so far till the currPos__, currPos); each time, we push (min(nextVal, currMinVal), nextPos); O(MNlogMN), O(MN). Solution 2: Union-Find, step 1: sort the array by the values descendingly; step 2: union one-by-one, until (0, 0) and (m-1, n-1) is connected; solution 3: dfs + binary search
+
+
+### [A*](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+- [1091. Shortest Path in Binary Matrix](Solutions/1091.Shortest-Path-in-Binary-Matrix.py) (M) <br>
+solution 1: 带层序遍历的bfs, if grid[next_x][next_y] == BLOCK 那就continue掉不放进q; solution 2: bi-directional bfs; solution 3: A*, **A* is better than bfs in finding the shorted path from source node to end node.** 这是一道经典的A* 题，很有启发性，以后做完一道bfs求最短路径的题，都可以想想能不能用A-star的方法求解，只要可以想到可行的heuristic estimation的方法，都可以尝试将bfs改成更快的A* . bfs 需要visit every node. but A* only greedily choose the best route to go. The best route is estimated by heuristic estimation. 在A* 算法中，heuristic estimation 一定要入队列进行排序，而且当前的steps也要入队列，heapq stores (1. heuristic estimation of min # of steps from source to target if 经过currNode, 2. currNode_pos, 3. steps from source to currNode)
+- [1263. Minimum Moves to Move a Box to Their Target Location](Solutions/1263.Minimum-Moves-to-Move-a-Box-to-Their-Target-Location.py) (H) <br>
+思路：这个题是从源节点到目标节点的最短路径问题，所以想到用bfs, 源节点是对boxPos, 目标节点是targetPos, 从源节点出发做带层序遍历的bfs_1, return 层数即可。注意在判断nextBoxPos是否可以append到q的时候需要兼顾考虑到player能不能到nextBoxPos的相反方向去推box, 所以需要找到从currPlayerPos到oppositeNextBoxPos的可能路径，这是一个从源节点到目标节点的问题，源节点是对currPlayerPos, 目标节点是oppositeNextBoxPos, 需要做bfs_2, 如果能到就返回true. 总体思路就是上述了，需要注意的是bfs_1中由于box每移动一下boxPos会变playerPos也会变，所以要把boxPos和playerPos都入队列。另外易错点：visited里面只装boxPos. 这是不对的, 因为box从不同的方向被推到同一个地方是允许的，因此visited里面应该装入(boxPos, the pos where the boxPos comes from). <br>
+Solution 2: 无权图单源节点的最短路径问题，自然想到A-star search algorithm. use manhatan distance as Heuristic esitimation for A-star algorithm: steps + (abs(nextBoxPos[0]-targetPos[0]) + abs(nextBoxPos[1]-targetPos[1])).  put the heuristic estimation in the hq, together with steps, so the hq stores (heristic estimation of hte minimum steps needed from source to target, steps, boxPos, playerPos).  in A* algorithm, do not do level order bfs, do non-level order bfs.  
+
+
 
 
 
@@ -494,7 +529,15 @@ Solution 1: divide and conquer方法：helper function return the increasing and
 
 
 
-### [图上的搜索](/Depth-First-Search.py) <br>
+
+# [图的遍历](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+## [基础图问题](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+- [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (E) <br>
+one dict to store the inDegree (beingTrusted), one dict to store the outDegree (trustOthers). there exsit a town judge only if there is a node with inDegree==N-1(beiing trusted by all others), and at the same time the node should have outDegree==0(not trust anyone)
+- [0277. Find the Celebrity](Solutions/0277.Find-the-Celebrity.py) (!!M) <br>
+main algorithm: each comparing kowns(i, j), we are sure either i is definitely not a celebrity (knows(i, j)=True), or j is definitely not a celebrity (knows(i, j)=False). step 1: one pass, find a candidate by making sure other people are not candidates; step 2: one pass, double check the candidate selected in step 1 is indeed a celebrity
+
+## [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0093. Restore IP Addresses](Solutions/should solve later) (M)  <br>
 根据目前刷了这么多题，得出了两个经验，一是只要遇到字符串的子序列或配准问题首先考虑动态规划DP，二是只要遇到需要求出所有可能情况首先考虑用递归
 https://www.cnblogs.com/grandyang/p/4305572.html
@@ -510,8 +553,6 @@ Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来�
 - [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (H) <br> 
 dfs + backtracking, time complexity is (9!)^9, which is veyr high. <br>
 ----------- 980. Unique Paths III ---------- 351. Android Unlock Patterns ---------- 301. Remove Invalid Parentheses ----------- 329. Longest Increasing Path in a Matrix ----------- 1239. Maximum Length of a Concatenated String with Unique Characters ---------- 733. Flood Fill----130. Surrounded Regions------- 417. Pacific Atlantic Water Flow ------ 320. Generalized Abbreviation ----- 753. Cracking the Safe ---- ----- 291	Word Pattern II ---------- 282	Expression Add Operators ------ 140	Word Break II ------ 
-
-
 
 
 
@@ -662,26 +703,6 @@ maintain一个heapq，初始化将每个list的head放入，然后每次pop出�
 
 
 
-# [SubArray](/SubArray.py)
-- [0053. Maximum Subarray](Solutions/0053.Maximum-Subarray.py) (!!E) <br>
-Maintian a prefixSum and minPrefixSum, so that maxSubSum = max(maxSubSum, prefixSum - minPrefixSum); minPrefixSum = min(prefixSum, minPrefixSum)
-- [0724. Find Pivot Index](Solutions/0724.Find-Pivot-Index.py) (E) <br>
-在nums前面添加一个[0]然后再进入循环。for i, num in enumerate([0] + nums[:-1]): if prefixSum * 2 == sumNums - nums[i]: return i
-- [0560. Subarray Sum Equals K](Solutions/0560.Subarray-Sum-Equals-K.py) (!!M) <br>
-新建一个prefixSumDict = {0: 1}, key是prefixSum, val是how many times the prefixSum appears; if prefixSum - k in prefixSumDict: 等价于if prefixSum[j+1]-prefixSum[i] == k
-- [1074. Number of Submatrices That Sum to Target](Solutions/1074.Number-of-Submatrices-That-Sum-to-Target.py) (H) <br>
-也可以先把行处理好，让每一行里面保存上面所有行的和，接下来就是在每一行里面去求560问题了，注意一点不同的是需要遍历upRow和downRow的, 如果不遍历就是solution 3的错误写法举一个反例想明白solution 3为什么行不通，自然就会改成solution 2了O(MMN)
-- [0523. Continuous Subarray Sum](Solutions/0523.Continuous-Subarray-Sum.py) (M) <br>
-prefixSumMap = {0: -1} # key: prefixSum[j], val: j/position, initial position should be -1; prefixSum += num; prefixSum = prefixSum % k 因为题目要求要能被subArray Sum 要能被k整除
-- [0974. Subarray Sums Divisible by K](Solutions/0974.Subarray-Sums-Divisible-by-K.py) (M) <br>
-prefixSumDict = {0: 1} # key is the prefixSum, val is how many times the prefixSum appears; prefixSum += num; prefixSum %= K
-- [0139. Subarray Sum Closest](Solutions/0139.Subarray-Sum-Closest.py) (M Lintcode) <br>
-题目要求NlogN, 那就是疯狂暗示要sort, prefixSumList = [(0, -1)] # (0, -1) are prefixSum and index; 对prefixSum来进行sort，这样最小的subArrSum (或者prefixSums[j+1][0] - prefixSums[i][0])就一定来自于相邻的两个prefisxSums了
-- [0152. Maximum Product Subarray](Solutions/0152.Maximum-Product-Subarray.py) (M) <br>
-最大值问题。用一个数组记录最大的正数maxDP[i]，另一个数组记录最小的负数minDP[i], maxDP[i]表示以i为结尾的subarray的最product. 分nums[i]的正负,更新maxDP[i]和minDP[i]。maxDP[i] = max(nums[i], maxDP[i-1]* nums[i]) if nums[i]>0
-
-
-
 
 
 
@@ -750,6 +771,66 @@ solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1
 
 
 
+
+# [Sliding Window (同向双指针)](/Sliding-window.py)
+- [0209. Minimum Size Subarray Sum](Solutions/0209.Minimum-Size-Subarray-Sum.py) (!!M) <br>
+维护一个sums, 用来记录i->j中数的和，套模板时满足的条件是sums < target; 更新j: sums += nums[j]; 更新i: sums -= nums[j]
+Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search the fisrt j that satisfy sum(nums[i:]>=s), so it is a OOXX probelm, which could be solved using binary search.
+- [0003. Longest Substring Without Repeating Characters](Solutions/0003.Longest-Substring-Without-Repeating-Characters.py) (!!M) <br>
+维护一个included=set(), 用来记录i->j中include的char，套模板时满足的条件是s[j] not in included; 更新j: included.add(s[j]); 更新i: included.remove(s[i])
+- [0076. Minimum Window Substring](Solutions/0076.Minimum-Window-Substring.py) (!!H) <br>
+维护一个sourceFreqDict, 用来记录i->j中的char的频率，套用模板时满足的条件是sourceFreqDict all included in targetFreqDict; 更新j: sourceDict[s[j]] += 1, 更新i: sourceDict[s[i]] -= 1.  time complexity is O(MN). solution 2: O(N), instead of using self.allIncluded(sourceDict, targetDict) to check matched or not,  we use a int missing to keep track of how many chars are still needed in order to match, this reduce the time from O(M) to O(1). also, instead of using s[i:j] everytime when we renew res, we use start, end to renew the idx, which reduce time from O(N) to O(1)
+It seems there is an O(M+N) solution, same idea of using slideing window, I should understand it later. 山景城一姐有video
+- [0340. Longest Substring with At Most K Distinct Characters](Solutions/0340.Longest-Substringwith-At-Most-K-Distinct-Characters.py) (H) <br>
+维护一个charDict, 用来记录i->j中的char的频率，套模板时满足的条件是len(charDict) <= k; 更新j: charDict[s[j]+=1; 更新i: charDict[s[i]] -= 1, if charDict[s[i]] == 0: del charDict[s[i]]
+- [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
+Note that the numbers are positive, so the prefixProd will be an increasing arr. 维护一个sums, 用来记录i->j中数的product, 指针j再往前跑，指针i在后面追。
+- [0242. Valid Anagram](Solutions/0242.Valid-Anagram.py) (E) <br>
+string s and t are anagram with each other when all the ch in s have the same count as that in t
+- [567. Permutation in String](Solutions/0567.Permutation-in-String.py) (M) <br>
+sliding window solution 1: 九章模板，use one collections.Counters for p and one for s. sliding window solution 2: keep the window size len(s1), check the tempCntDict == cntDict ? O(M+M*(N-M)). 
+- [0438. Find All Anagrams in a String](Solutions/0438.Find-All-Anagrams-in-a-String.py) (!!M) <br>
+similar with 567, 套用九章模板就可以了
+- [0049. Group Anagrams](Solutions/0049.Group-Anagrams.py) (!!M) <br>
+dictionary: key is a tuple keeping track of the cnt of all 26 letters, val is the word list corresponding to the tuple
+
+------- 
+209. Minimum Size Subarray Sum - Medium
+159. Longest Substring with At Most Two Distinct Characters - Medium
+30. Substring with Concatenation of All Words - Hard
+239	Sliding Window Maximum	hard
+295	Find Median from Data Stream
+228	Summary Ranges	medium
+163	Missing Ranges	medium	  ----------
+
+
+
+
+
+# [SubArray](/SubArray.py)
+- [0053. Maximum Subarray](Solutions/0053.Maximum-Subarray.py) (!!E) <br>
+Maintian a prefixSum and minPrefixSum, so that maxSubSum = max(maxSubSum, prefixSum - minPrefixSum); minPrefixSum = min(prefixSum, minPrefixSum)
+- [0724. Find Pivot Index](Solutions/0724.Find-Pivot-Index.py) (E) <br>
+在nums前面添加一个[0]然后再进入循环。for i, num in enumerate([0] + nums[:-1]): if prefixSum * 2 == sumNums - nums[i]: return i
+- [0560. Subarray Sum Equals K](Solutions/0560.Subarray-Sum-Equals-K.py) (!!M) <br>
+新建一个prefixSumDict = {0: 1}, key是prefixSum, val是how many times the prefixSum appears; if prefixSum - k in prefixSumDict: 等价于if prefixSum[j+1]-prefixSum[i] == k
+- [1074. Number of Submatrices That Sum to Target](Solutions/1074.Number-of-Submatrices-That-Sum-to-Target.py) (H) <br>
+也可以先把行处理好，让每一行里面保存上面所有行的和，接下来就是在每一行里面去求560问题了，注意一点不同的是需要遍历upRow和downRow的, 如果不遍历就是solution 3的错误写法举一个反例想明白solution 3为什么行不通，自然就会改成solution 2了O(MMN)
+- [0523. Continuous Subarray Sum](Solutions/0523.Continuous-Subarray-Sum.py) (M) <br>
+prefixSumMap = {0: -1} # key: prefixSum[j], val: j/position, initial position should be -1; prefixSum += num; prefixSum = prefixSum % k 因为题目要求要能被subArray Sum 要能被k整除
+- [0974. Subarray Sums Divisible by K](Solutions/0974.Subarray-Sums-Divisible-by-K.py) (M) <br>
+prefixSumDict = {0: 1} # key is the prefixSum, val is how many times the prefixSum appears; prefixSum += num; prefixSum %= K
+- [0139. Subarray Sum Closest](Solutions/0139.Subarray-Sum-Closest.py) (M Lintcode) <br>
+题目要求NlogN, 那就是疯狂暗示要sort, prefixSumList = [(0, -1)] # (0, -1) are prefixSum and index; 对prefixSum来进行sort，这样最小的subArrSum (或者prefixSums[j+1][0] - prefixSums[i][0])就一定来自于相邻的两个prefisxSums了
+- [0152. Maximum Product Subarray](Solutions/0152.Maximum-Product-Subarray.py) (M) <br>
+最大值问题。用一个数组记录最大的正数maxDP[i]，另一个数组记录最小的负数minDP[i], maxDP[i]表示以i为结尾的subarray的最product. 分nums[i]的正负,更新maxDP[i]和minDP[i]。maxDP[i] = max(nums[i], maxDP[i-1]* nums[i]) if nums[i]>0
+
+
+
+
+
+
+
 # [Sweep-Line](/Sweep-Line.py) <br>
 - [0391. Number of Airplanes in the Sky](Solutions/0391.Number-of-Airplanes-in-the-Sky.py) (M Lintcode) <br>
 扫描线做法：碰到interval的start，也就是起飞一架飞机，当前天上的飞机数++。碰到interval的end，也就是降落一架飞机，当前天上的飞机数--。
@@ -778,6 +859,21 @@ BFS, if can find arr[idx]==0, then return True.
 
 
 
+
+
+
+# [Data Stream and Multiple Query]()
+- [0243. Shortest Word Distance](Solutions/0243.Shortest-Word-Distance.py) (E) <br>
+Should know both two pass solution and One pass solution. follow up 1:  如果word1在words中很少只有两个，word2在words中很多有1 million个，怎么优化算法？那么这时候solution 1就派上用场了，我们可以存下idx1 和 idx2两个list. eg: idx1 = [10, 50000]; idx2 = [.......], 那么我们可以在idx2中binary search离10最近的数，然后binary search离50000最近的数。这样时间复杂度就是O(MlogN)了。
+Follow up 2:
+如果题目改成不是求两个word的最短距离而是是求K个word的最短距离呢？ solution 1: leetcode 76. Minimum Window Substring.  O(N) where N is the the lens of words.  soltution 2: leetcode 23. Merge k Sorted Lists.  O(NlogK), 方法与solution 1类似，只是为了知道k个idx list中哪根指针需要往前移动一下, 我们需要一个heapq, heapq中最小的那个往前挪动一步.
+- [0244. Shortest Word Distance II](Solutions/0244.Shortest-Word-Distance-II.py) (!!M) <br>
+如果题目要求multiple query with unlimited time, 那么一定考察的是precomputation!! precomputation记录结果一般都需要一个hash map!! 
+这个思想非常重要！！这个题用dictionary记录每个word在words中的位置，这样如果这次需要query a and b, 下次需要query c and d, 
+我们都可以很快找到他们的位置。    # 注意可能会有重复的query，比如第一次query a and b, 第三次又需要query a and b, 这时候为了为了避免重复计算，我们可以直接用memo/cache保存query a and b 的结果, 这个思想非常重要！！这个思想成立的前提是memory不值钱！Follow up 1: 
+你都用两个额外空间去存结果以达到加速的目的了（一个是dictinoary存放每个word在words中的位置，另一个是cache/memo记录已经query过的a and b的结果）,可是面试官还不开心，他还希望调用 query method 能更快一些，怎么办？那咱们就采用最极端的方法：把所有words里可能的word1 and word2组合的结果都算出来存到cache中，这样所有的query 就都是O(1)了这个方法的前提是words list是不会变的，如果重新instantiate一个class把constrcutor里的words list变了那之前的所有结果就都白算了。
+- [245. Shortest Word Distance III](Solutions/0245.Shortest-Word-Distance-III.py) (M) <br>
+word1 and word2 may be the same and they represent two individual words in the list. 分word1等于和不等于两种情况讨论就可以了。
 
 
 
@@ -891,111 +987,6 @@ HashMap再难也不过如此了吧，目标是建立一个blacklist中的数与c
 拒绝采样Rejection Sampling来做，因为之前做过使用该方法的两道题 Implement Rand10() Using Rand7() 和 Generate Random Point in a Circle，
 380	Insert Delete GetRandom O(1)	视频讲解	
 381	Insert Delete GetRandom O(1) - Duplicates allowed	视频讲解	
-
-
-
-
-
-
-307. Range Sum Query - Mutable 为例说明。
-lintcode 区间求和 I · Interval Sum, 207. 区间求和 II
-315. Count of Smaller Numbers After Self
-850. Rectangle Area II
-Falling Squares, Number of Longest Increasing Subsequence.
-Reverse Pairs
-
-
-
-
-
-
-# [图的遍历](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-## [基础图问题](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-- [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (E) <br>
-one dict to store the inDegree (beingTrusted), one dict to store the outDegree (trustOthers). there exsit a town judge only if there is a node with inDegree==N-1(beiing trusted by all others), and at the same time the node should have outDegree==0(not trust anyone)
-- [0277. Find the Celebrity](Solutions/0277.Find-the-Celebrity.py) (!!M) <br>
-main algorithm: each comparing kowns(i, j), we are sure either i is definitely not a celebrity (knows(i, j)=True), or j is definitely not a celebrity (knows(i, j)=False). step 1: one pass, find a candidate by making sure other people are not candidates; step 2: one pass, double check the candidate selected in step 1 is indeed a celebrity
-
-## [Dijkstra](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-- [0743. Network Delay Time](Solutions/0743.Network-Delay-Time.py) (!!M) <br>
-**带权值**的**有向图**求**单源节点**出发的最短路径问题马上就想到Dijkstra, **O(NlogN + E)** N is # nodes, E is # edges <br>
-Dijkstra就是贪心版的bfs, bfs是勤勤恳恳一层一层推进，一层没访问完绝不访问下一层。Dijkstra就很贪心了，才不一层一层地走呢，他每次都想走最low cost的。如何实现每次走最low cost的呢？用一个heapq来store a pair: (currCost to reach the node, node), 这样每次pop出来的就都最low cost的node了，再去访问这个node的neighbors，把这些neighbors都加到hq中，代码比较短。思路其实与23. Merge k Sorted Lists非常类似，把23里的linked list加上一个虚拟头节点连接所有的头节点，然后把Linked list node的val改成边的权值，那就变成了单源节点出发求访问到所有节点的最短路径。
-- [0787. Cheapest Flights Within K Stops](Solutions/0787.Cheapest-Flights-Within-K-Stops.py) (!!M) <br>
-有向图，带权值，找从单源出发最佳路径问题：Dijkstra's algorithm O(NlogN + E) <br> 
-hq 需要 store (cost, stops, airports), 与743相比少了一个currNode in costs: continue因为次好路径也可能是最后的结果，这是由于最好路径可能不满足stops < K; 这题需要加一个 if currStops >= K: continue
-- [0882. Reachable Nodes In Subdivided Graph](Solutions/0882.Reachable-Nodes-In-Subdivided-Graph.py) (H) <br>
-hq store (how many moves left, node); # seen[i] means that we can arrive at node i and have seen[i] moves left; if movesLeft > insertNumber: heappush
-- [1102. Path With Maximum Minimum Value](Solutions/1102.Path-With-Maximum-Minimum-Value.py) (M) <br>
-Solution 1: Dijkstra's : 每次都把目前为止最小值最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走. maintain a heapq to store (__the minimum value in the path so far till the currPos__, currPos); each time, we push (min(nextVal, currMinVal), nextPos); O(MNlogMN), O(MN). Solution 2: Union-Find, step 1: sort the array by the values descendingly; step 2: union one-by-one, until (0, 0) and (m-1, n-1) is connected; solution 3: dfs + binary search
-
-
-## [A*](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-- [1091. Shortest Path in Binary Matrix](Solutions/1091.Shortest-Path-in-Binary-Matrix.py) (M) <br>
-solution 1: 带层序遍历的bfs, if grid[next_x][next_y] == BLOCK 那就continue掉不放进q; solution 2: bi-directional bfs; solution 3: A*, **A* is better than bfs in finding the shorted path from source node to end node.** 这是一道经典的A* 题，很有启发性，以后做完一道bfs求最短路径的题，都可以想想能不能用A-star的方法求解，只要可以想到可行的heuristic estimation的方法，都可以尝试将bfs改成更快的A* . bfs 需要visit every node. but A* only greedily choose the best route to go. The best route is estimated by heuristic estimation. 在A* 算法中，heuristic estimation 一定要入队列进行排序，而且当前的steps也要入队列，heapq stores (1. heuristic estimation of min # of steps from source to target if 经过currNode, 2. currNode_pos, 3. steps from source to currNode)
-- [1263. Minimum Moves to Move a Box to Their Target Location](Solutions/1263.Minimum-Moves-to-Move-a-Box-to-Their-Target-Location.py) (H) <br>
-思路：这个题是从源节点到目标节点的最短路径问题，所以想到用bfs, 源节点是对boxPos, 目标节点是targetPos, 从源节点出发做带层序遍历的bfs_1, return 层数即可。注意在判断nextBoxPos是否可以append到q的时候需要兼顾考虑到player能不能到nextBoxPos的相反方向去推box, 所以需要找到从currPlayerPos到oppositeNextBoxPos的可能路径，这是一个从源节点到目标节点的问题，源节点是对currPlayerPos, 目标节点是oppositeNextBoxPos, 需要做bfs_2, 如果能到就返回true. 总体思路就是上述了，需要注意的是bfs_1中由于box每移动一下boxPos会变playerPos也会变，所以要把boxPos和playerPos都入队列。另外易错点：visited里面只装boxPos. 这是不对的, 因为box从不同的方向被推到同一个地方是允许的，因此visited里面应该装入(boxPos, the pos where the boxPos comes from). <br>
-Solution 2: 无权图单源节点的最短路径问题，自然想到A-star search algorithm. use manhatan distance as Heuristic esitimation for A-star algorithm: steps + (abs(nextBoxPos[0]-targetPos[0]) + abs(nextBoxPos[1]-targetPos[1])).  put the heuristic estimation in the hq, together with steps, so the hq stores (heristic estimation of hte minimum steps needed from source to target, steps, boxPos, playerPos).  in A* algorithm, do not do level order bfs, do non-level order bfs.  
-
-
-## [Minimum Spanning Tree - Kruskal's and Prim's](/)
-- [1135. Connecting Cities With Minimum Cost](Solutions/1135.Connecting-Cities-With-Minimum-Cost.py) (M) <br>
-This problem is to find the minimum path to connect all nodes, so it is a minimum spanning tree (MST) problem.
-There are two defferent algorithms to solve MST problem, one is Prim's, the other is Kruskal's.
-The Kruskul's algorithm is easy to implement using Union-Find, with O(ElogE) time and O(V) space.
-Step 1: add all vertices to UnionFind obj;
-Step 2: sort the graph by edge weights;
-Step 3: add the smallest edge into the MST if adding the edge do not form a cycle;
-(if the two vertices of the edge was already connected, then adding the edge will form a cycle);
-Step 4: keep step 3 until all the edges are collected (E = V-1 or only one disjoint_cnt = 1)
-- [1168. Optimize Water Distribution in a Village](Solutions/1168.Optimize-Water-Distribution-in-a-Village.py) (H) <br>
-这个题目比较tricky的地方是需要想像有一个虚拟的house_0, house_0是出水的house, 这样house_1自己打井需要的cost就相当于从house_0连接到house_1所需的cost了.  Other than hte tricky part, everything is exactly the same as 1135.
-
-
-# [Desgin](/)
-- [0359. Logger Rate Limiter](Solutions/0359.Logger-Rate-Limiter.py) (E) <br>
-很简单，用一个dictionary存(message, last timestamp when message was printed)就可以了。Google followup: input在K长度内无序的，但是时间t+K之后的输入一定出现在t之后。比如K是5，
-[4, foo], [1, foo], [0, bar], [6, bar] => 在[4, foo], [1, foo], [0, bar]内是无序的，但是[6, bar]一定出现在[0, bar]之后，因为6>0+5.
-也就是短程无序，长程有序。这时候该怎么print输出呢？
-用一个heapq, heapq里面存(timestamp, message), 用一个deque里面也存(timestamp, message), 当发现下一个时间大于当前最小时间+K，就pop出当前的最小的放入到deque里面去, 这样deque里面存的就是长短程都有序的了
-- [0362. Design Hit Counter](Solutions/0362.Design-Hit-Counter.py) (M) <br>
-很简单，用一个deque存hit的timestamp就可以了, 这种拿分题一定要细心，这里容易漏掉self.counter是否为空的判断，导致扣分。Follow up:
-What if the number of hits per second could be very large? Does your design scale?
-deque里面默认是每一个时间戳hit了一次，如果需要记录每秒钟有几次hit，我们需要用到dictionary, 但是同时有需要deque一样的有序，
-所以自然而然想到OrderedDict. 这样可以保证最多使用O(300)的空间, 还是要熟悉OrderedDict的方法的。
-OrderedDict是deque的增强版，这一点在LRU那题中已经体现。
-
-
-346	Moving Average from Data Stream	视频讲解	Sliding Window
-281	Zigzag Iterator	视频讲解	
-284	Peeking Iterator	视频讲解	
-251	Flatten 2D Vector	视频讲解	
-288	Unique Word Abbreviation	视频讲解	
-170	Two Sum III - Data structure design	视频讲解	
-348	Design Tic-Tac-Toe	视频讲解	
-379	Design Phone Directory	视频讲解	
-353	Design Snake Game	视频讲解	
-146	LRU Cache	视频讲解	
-355	Design Twitter	视频讲解	
-303	Range Sum Query - Immutable	视频讲解	
-304	Range Sum Query 2D - Immutable	视频讲解	
-307	Range Sum Query - Mutable	视频讲解	BIT & ST
-308	Range Sum Query 2D - Mutable	视频讲解	BIT & ST
-460. LFU Cache
-588. Design In-Memory File System
-604. Design Compressed String Iterator
-
-
-
-
-
-# [Company High Freq](/)
-## [Google](/)
-- [BinarySearchable](Solutions/Google__BinarySearchable.py) (M) <br>
-一个数是binary searchable的必须满足的条件是：前面的数都比他小，后面的数都比他大
-- [Path with Circle Blocks](Solutions/Google__Path-with-Circle-Blocks.py) (M) <br>
-Solution: Union-Find all the circles
-
-Count Complete Tree Nodes; Longest Increasing Path in a Matrix; Evaluate Division; Cracking the Safe; Robot Room Cleaner; Most Stones Removed with Same Row or Column; Flip Equivalent Binary Trees; Word Squares; Count of Smaller Numbers After Self; Peak Index in a Mountain Array; Split Array Largest Sum; Logger Rate Limiter; Insert Delete GetRandom O(1); Design Search Autocomplete System; Reverse Integer; Candy; Isomorphic Strings; Strobogrammatic Number; Bulls and Cows; Range Sum Query 2D - Mutable; My Calendar II; Jewels and Stones; Swap Adjacent in LR String; Guess the Word; Minimum Area Rectangle
 
 
 
@@ -1166,6 +1157,22 @@ f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B
 - [1223. Dice Roll Simulation](Solutions/1223.Dice-Roll-Simulation.py) (M)
 - [1105. Filling Bookcase Shelves](Solutions/1105.Filling-Bookcase-Shelves.py) (M)
 - [0464. Can I Win](Solutions/0464.Can-I-Win.py) (M)
+
+
+
+
+
+
+# [Company High Freq](/)
+## [Google](/)
+- [BinarySearchable](Solutions/Google__BinarySearchable.py) (M) <br>
+一个数是binary searchable的必须满足的条件是：前面的数都比他小，后面的数都比他大
+- [Path with Circle Blocks](Solutions/Google__Path-with-Circle-Blocks.py) (M) <br>
+Solution: Union-Find all the circles
+
+Count Complete Tree Nodes; Longest Increasing Path in a Matrix; Evaluate Division; Cracking the Safe; Robot Room Cleaner; Most Stones Removed with Same Row or Column; Flip Equivalent Binary Trees; Word Squares; Count of Smaller Numbers After Self; Peak Index in a Mountain Array; Split Array Largest Sum; Logger Rate Limiter; Insert Delete GetRandom O(1); Design Search Autocomplete System; Reverse Integer; Candy; Isomorphic Strings; Strobogrammatic Number; Bulls and Cows; Range Sum Query 2D - Mutable; My Calendar II; Jewels and Stones; Swap Adjacent in LR String; Guess the Word; Minimum Area Rectangle
+
+
 
 
 
