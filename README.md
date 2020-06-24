@@ -436,9 +436,16 @@ Maintain a self.min_num in building the SegmentTree
 Maintain a self.range_sum in buildign the SegmentTree
 - [0207. Interval Sum II](Solutions/0207.Interval-Sum-II.py) (!!M Lintcode) <br>
 Segment tree is good for 需要动态更新数组和query range sum的情况，O(logN) update and O(logN) range sum query
-
-
-
+- [0303. Range Sum Query - Immutable](Solutions/0303.Range-Sum-Query-Immutable.py) (E) <br>
+输入数组是immutable的，因此用不着segment tree, 用一个prefix_sum数组做cache就可以实现O(1) query 了
+- [0307. Range Sum Query - Mutable](Solutions/0307.Range-Sum-Query-Mutable.py) (!!M) <br>
+输入数组是mutable, 需要快速的update, 所以可以用segment tree来实现O(logn) update and O(logn) query.
+- [0248. Count of Smaller Number](Solutions/0248.Count-of-Smaller-Number.py) (M) <br>
+solution 1: binary search, need to sort the arr first which takes O(NlogN)
+solution 2: Segment Tree, which takes O(N) to build the tree and O(logN) to query. To find how many numbers are less than num, 
+is actually to find how many numbers are there in range [0, num-1], since the minimum number is 0 given by the description of the problem.
+since we add num into the tree one by one, each update takes O(logN), so the whole updating takes O(NlogN).
+这题的self.start, self.end represent the num, not idx.  sel.cnt is how many numbers are there in range [start, end], and again start, end are not idx, they are actual vals.
 
 
 
