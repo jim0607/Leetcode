@@ -248,9 +248,6 @@ of how many prefix sums are in a certain range.
 Finally, we traverse the prefix sum list and query how many prefix sums are there in range [prefix-upper, prefix-lower].
 eg if there is one prefix_1 in range [prefix-upper, prefix-lower], then prefix - prefix_1 in range [lower, upper]
 
-307. Range Sum Query - Mutable 为例说明。
-lintcode 区间求和 I · Interval Sum, 207. 区间求和 II
-315. Count of Smaller Numbers After Self
 850. Rectangle Area II
 Falling Squares, Number of Longest Increasing Subsequence.
 Reverse Pairs
@@ -879,7 +876,7 @@ word1 and word2 may be the same and they represent two individual words in the l
 
 
 # [系列题](/)
-##  [Intervals](/)
+###  [Intervals](/)
 ------ 252 meeting room[easy] ------
 ------- 56	Merge Intervals; 57	Insert Interval --------
 --------- 352	Data Stream as Disjoint Intervals --------
@@ -896,7 +893,7 @@ Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes 
 
 
 
-## [Perfect Rectangle](/)
+### [Perfect Rectangle](/)
 - [0836. Rectangle Overlap](Solutions/0836.Rectangle-Overlap.py) (E) <br>
 比较点的坐标即可
 - [0223. Rectangle Area](Solutions/0223.Rectangle-Area.py) (M) <br>
@@ -908,7 +905,7 @@ condition 2. the sum of area of all the small rectangles should be the same as t
 
 
 
-## [Robot Simulation](/)
+### [Robot Simulation](/)
 - [0657. Robot Return to Origin](Solutions/0657.Robot-Return-to-Origin.py) (E) <br>
 Beacuase the way that the robot is "facing" is irrelevant, hte solution is trivial.  Just count if the steps of going up equals the steps of going down; and the steps of going left equals the steps of going right.
 - [0874. Walking Robot Simulation](Solutions/0874.Walking-Robot-Simulation.py) (E) <br>
@@ -919,7 +916,7 @@ The robot stays in the circle if (looking at the final vector), it changes direc
 遍历机器人的四个方向即可，唯一需要注意的是每次都需要调整机器人的朝向才能move一下，毕竟是机器人嘛
 
 
-## [把数当坐标用](/)
+### [把数当坐标用](/)
 - [0448. Find All Numbers Disappeared in an Array](Solutions/0448.Find-All-Numbers-Disappeared-in-an-Array.py) (E) <br>
 难就难在题目要求O(1) space. 做法是把数组里的数当坐标用，We use the sign of the index as the indicator. If one number never occur, 
 we know the number corresponding to the idx will never be negative. eg: [4,3,1,3] -- > [-4,3,-1,-3], 2 is missing, so num[2-1] will never be changed to be negative. 1st pass: change numbers to be negative [4,3,1,3] --> [-4,3,-1,-3].  2nd pass: find those numbers that has not been changed negative, there is not num corrsponding to their idx.
@@ -933,7 +930,7 @@ solution 1: 448类似的做法，我们通过nums[i] += 1来change all 0s to be 
 
 
 
-## [Image Process](/)
+### [Image Process](/)
 - [0048. Rotate Image](Solutions/0048.Rotate-Image.py) (M) <br>
 Step 1: transpose: swap( matrix[i][j], matrix[j][i] ); Step 2: reverse columns: swap( matrix[][i], matrix[][j] )
 - [0835. Image Overlap](Solutions/0835.Image-Overlap.py) (M) <br>
@@ -944,7 +941,7 @@ O(N^4), O(N^2)
 
 
 
-## [Rolling Hash/Rabin Karp]()
+### [Rolling Hash/Rabin Karp]()
 - [0128. Hash Function](Solutions/0128.Hash-Function.py) (E Lintcode) <br>
 Rabin Karp Algorithm O(M+N
 - [0028. Implement strStr()](Solutions/0028.Implement-strStr().py) (E) <br>
@@ -964,11 +961,28 @@ O(n)* O(string), n is lens of s, string is the average lens of equal string. che
 
 
 
-## [Random/Reservoir Sampling](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+# [Random/Sampling](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0384. Shuffle an Array](Solutions/0384.Shuffle-an-Array.py) (!!M) 
 step 1: generate a random idx after i;
 step 2: swap the num in i with random idx after i, then we have got the random num for ith pos;
 step 3: keep going forward until we generate all the random num using the generated random idx;
+- [0528. Random Pick with Weight](Solutions/0528.Random-Pick-with-Weight.py) (!!M Google) 
+step 1: create a prefix sum arr;
+step 2: generate a rand_idx;
+step 3: binary search to find where the idx is in the prefix_sum arr
+- [0497. Random Point in Non-overlapping Rectangles](Solutions/0497.Random-Point-in-Non-overlapping-Rectangles.py) (M) 
+Similar with random pick with weight, here we use number of points in the rectangle as weight.
+Firslty, create a weight list w, where w[i] is the number of points in the rectangle. 
+Secondly, use a prefix_sum list to store the prefix_sum of the weight list.
+Then generate a rand_int and use binary search to find which rectangle the rand_int belongs to. 
+- [0710. Random Pick with Blacklist](Solutions/0710.Random-Pick-with-Blacklist.py) (H) 
+HashMap再难也不过如此了吧，目标是建立一个blacklist中的数与could not random_get的数的一一映射
+
+
+380	Insert Delete GetRandom O(1)	视频讲解	
+381	Insert Delete GetRandom O(1) - Duplicates allowed	视频讲解
+
+## [Reservoir Sampling]()
 - [0398. Random Pick Index](Solutions/0398.Random-Pick-Index.py) (!!M) 
 step 1: generate a random
 solution 1: O(N) time O(N) space using random.choice(seq): Return a random element from the non-empty sequence seq.
@@ -976,17 +990,11 @@ Solution 2: Reservoir Sampling solution reservoir sampling 特点是来一个算
 - [0382. Linked List Random Node](Solutions/0382.Linked-List-Random-Node.py) (!!M) 
 step 1: generate a random
 solution 1: reservoir sampling: O(1), O(n). It is good for really large linkedlist and the linkedlist dynamically changing length; solution 2: O(n), O(1) just use an arr to store all the node vals
-- [0528. Random Pick with Weight](Solutions/0528.Random-Pick-with-Weight.py) (!!M Google) 
-step 1: create a prefix sum arr;
-step 2: generate a rand_idx;
-step 3: binary search to find where the idx is in the prefix_sum arr
-- [0710. Random Pick with Blacklist](Solutions/0710.Random-Pick-with-Blacklist.py) (H) 
-HashMap再难也不过如此了吧，目标是建立一个blacklist中的数与could not random_get的数的一一映射
 
+## [Rejection Sampling]()
 870. Advantage Shuffle
 拒绝采样Rejection Sampling来做，因为之前做过使用该方法的两道题 Implement Rand10() Using Rand7() 和 Generate Random Point in a Circle，
-380	Insert Delete GetRandom O(1)	视频讲解	
-381	Insert Delete GetRandom O(1) - Duplicates allowed	视频讲解	
+	
 
 
 
