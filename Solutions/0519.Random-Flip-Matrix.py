@@ -24,7 +24,13 @@ Explanation of Input Syntax:
 
 The input is two lists: the subroutines called and their arguments. Solution's constructor has two arguments, n_rows and n_cols. flip and reset have no arguments. Arguments are always wrapped with a list, even if there aren't any.
 
-
+    
+"""
+This is a sampling n elements without replacement problem. It is the same as the operation that random shuffe an array and then return the first n elements.
+When we random pick an element in the array we can store its new position in a hash table instead of the array because n is extremely less than the total num. 
+So we can accomplish this within O(1) time and O(k) space where k is the maxium call of flip.
+"""
+    
 import random
 
 class Solution:
