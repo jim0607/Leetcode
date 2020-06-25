@@ -966,10 +966,14 @@ O(n)* O(string), n is lens of s, string is the average lens of equal string. che
 
 
 # [Random/Sampling](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+### [Shuffle]()
 - [0384. Shuffle an Array](Solutions/0384.Shuffle-an-Array.py) (!!M) 
 step 1: generate a random idx after i;
 step 2: swap the num in i with random idx after i, then we have got the random num for ith pos;
 step 3: keep going forward until we generate all the random num using the generated random idx;
+- [0519. Random Flip Matrix](Solutions/0519.Random-Flip-Matrix.py) (M) 
+This is a sampling n elements without replacement problem. It is the same as the operation that random shuffe an array and then return the first n elements.
+When we random pick an element in the array we can store its new position in a hash table instead of the array because n is extremely less than the total num. So we can accomplish this within O(1) time and O(k) space where k is the maxium call of flip.
 - [0528. Random Pick with Weight](Solutions/0528.Random-Pick-with-Weight.py) (!!M Google) 
 step 1: create a prefix sum arr;
 step 2: generate a rand_idx;
@@ -979,14 +983,27 @@ Similar with random pick with weight, here we use number of points in the rectan
 Firslty, create a weight list w, where w[i] is the number of points in the rectangle. 
 Secondly, use a prefix_sum list to store the prefix_sum of the weight list.
 Then generate a rand_int and use binary search to find which rectangle the rand_int belongs to. 
+- [0380	Insert Delete GetRandom O(1)](Solutions/0380.Insert-Delete-GetRandom-O(1).py) (!!M) 
+这道题让我们在常数时间范围内实现插入删除和获得随机数操作，如果这道题没有常数时间的限制，那么将会是一道非常简单的题，直接用一个 HashSet 就可以搞定所有的操作。
+但是由于时间的限制，无法在常数时间内实现获取随机数，所以只能另辟蹊径。此题的正确解法是利用到了一个一维数组和一个 HashMap，
+其中数组用来保存数字，HashMap 用来建立每个数字和其在数组中的位置之间的映射，
+对于插入操作，先看这个数字是否已经在 HashMap 中存在，如果存在的话直接返回 false，不存在的话，将其插入到数组的末尾，然后建立数字和其位置的映射。
+删除操作是比较 tricky 的，还是要先判断其是否在 HashMap 里，如果没有，直接返回 false。由于 HashMap 的删除是常数时间的，而数组并不是，为了使数组删除也能常数级，
+实际上将要删除的数字和数组的最后一个数字调换个位置，然后修改对应的 HashMap 中的值，这样只需要删除数组的最后一个元素即可，保证了常数时间内的删除。
+而返回随机数对于数组来说就很简单了，只要随机生成一个位置idx，返回该位置上的数字即可.
+- [0381. Insert Delete GetRandom O(1) - Duplicates allowed](Solutions/0381.Insert-Delete-GetRandom-O(1)-Duplicates-allowed.py) (!!M) 
+这题是之前那道 Insert Delete GetRandom O(1) 的拓展，与其不同的是，之前那道题不能有重复数字，而这道题可以有，
+那么就不能像之前那道题那样建立每个数字和其坐标的映射了，但是我们可以建立数字和其所有出现位置的集合set之间的映射，
+虽然写法略有不同，但是思路和之前那题完全一样。
+对于 insert 函数，我们在数组 nums 末尾加入 val，然后将val所在 nums 中的位置idx加入 dict[val] set中。
+remove 函数是这题的难点，我们首先看 HashMap 中有没有 val，或者有val但是对应的idx set 为空，则直接返回 false。
+然后跟380是一样的。我们取出 nums 的尾元素和眼删除的元素调换位置，
+如果dict[val]有多个元素，那我们就pop set中的一个元素，当然要记录其对应的idx然后把idx的位置填上last_num, 还要更新last_num在pos_dict中的新位置。
 - [0710. Random Pick with Blacklist](Solutions/0710.Random-Pick-with-Blacklist.py) (H) 
 HashMap再难也不过如此了吧，目标是建立一个blacklist中的数与could not random_get的数的一一映射
 
 
-380	Insert Delete GetRandom O(1)	视频讲解	
-381	Insert Delete GetRandom O(1) - Duplicates allowed	视频讲解
-
-## [Reservoir Sampling]()
+### [Reservoir Sampling]()
 - [0398. Random Pick Index](Solutions/0398.Random-Pick-Index.py) (!!M) 
 step 1: generate a random
 solution 1: O(N) time O(N) space using random.choice(seq): Return a random element from the non-empty sequence seq.
@@ -995,7 +1012,7 @@ Solution 2: Reservoir Sampling solution reservoir sampling 特点是来一个算
 step 1: generate a random
 solution 1: reservoir sampling: O(1), O(n). It is good for really large linkedlist and the linkedlist dynamically changing length; solution 2: O(n), O(1) just use an arr to store all the node vals
 
-## [Rejection Sampling]()
+### [Rejection Sampling]()
 870. Advantage Shuffle
 - [0470. Implement Rand10() Using Rand7()](Solutions/0470.Implement-Rand10-Using-Rand7.py) (M) 
 This solution is based upon Rejection Sampling. 
