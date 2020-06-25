@@ -995,7 +995,9 @@ solution 1: reservoir sampling: O(1), O(n). It is good for really large linkedli
 870. Advantage Shuffle
 拒绝采样Rejection Sampling来做，因为之前做过使用该方法的两道题 Implement Rand10() Using Rand7() 和 Generate Random Point in a Circle，
 	
-
+- [0478. Generate Random Point in a Circle](Solutions/0478.Generate-Random-Point-in-a-Circle.py) (M) 
+solution 1: convert to Polar coodinates - O(1) call random only once. 注意要取平方根, 这是因为random.randrange()取的点在线性范围内是uniform的，但是在2D圆内不是
+solution 2: rejection sampling - O(1) need to call random multiple times
 
 
 
