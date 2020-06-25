@@ -1013,7 +1013,6 @@ step 1: generate a random
 solution 1: reservoir sampling: O(1), O(n). It is good for really large linkedlist and the linkedlist dynamically changing length; solution 2: O(n), O(1) just use an arr to store all the node vals
 
 ### [Rejection Sampling]()
-870. Advantage Shuffle
 - [0470. Implement Rand10() Using Rand7()](Solutions/0470.Implement-Rand10-Using-Rand7.py) (M) 
 This solution is based upon Rejection Sampling. 
 The main idea is when you generate a number in the desired range, output that number immediately. 
