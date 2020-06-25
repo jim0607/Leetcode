@@ -851,6 +851,10 @@ If first position is a GOOD index then we can reach the last index from the firs
 Greedy算法：第一步可以跳到比如位置10，也就是说0-10我们都可以一步跳到，那我们就在0-10这些位置中，选一个位置i跳第二步，看看第二步能跳到最远的地方是哪里，比如是最远的是从位置6跳到位置28，那么就说明两步可以跳到位置28，也就是说11-28我们可以通过两步跳到，那我们就继续在11-28这些位置中，选一个位置i跳第三步.........
 - [1306. Jump Game III](Solutions/1306.Jump-Game-III.py) (M) <br>
 BFS, if can find arr[idx]==0, then return True.
+- [0870. Advantage Shuffle](Solutions/0870.Advantage-Shuffle.py) (M) <br>
+田忌赛马：Greedy algorithm: sort A and B first, and then assign num_a to num_b so that num_a is larger than num_b and num_a as small as possible.
+For each num_a a in sortedA, we will either beat that num_b (put a into assigned[b] map), or throw it out (put a into not_assigned list). 
+
 1024. 视频拼接，中等
 1326. 灌溉花园的最少水龙头数目，困难
 
