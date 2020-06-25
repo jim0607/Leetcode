@@ -462,8 +462,20 @@ same as 95, return len(helper(1, n)).
 - [0241. Different Ways to Add Parentheses](Solutions/0241.Different-Ways-to-Add-Parentheses.py) (!!M) <br>
 similar with 95, in helper function, return all the different results to add parentheses for input, for i in range(len(input): divide into leftResults and rightResults. Optimization: use a memo dictionary in the helper function to memorize the input that has already been calculated.
 
-
-
+### [Nary Tree](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+- [0589. N-ary Tree Preorder Traversal](Solutions/0589.N-ary-Tree-Preorder-Traversal.py) (E) <br>
+solution 1: Recurrsion; Solution 2: Iteration using a stack
+- [0590. N-ary Tree Postorder Traversal](Solutions/0590.N-ary-Tree-Postorder-Traversal.py) (E) <br>
+solution 1: Recurrsion; Solution 2: Iteration using a stack
+- [0429. N-ary Tree Level Order Traversal](Solutions/0429.N-ary-Tree-Level-Order-Traversal.py) (E) <br>
+Level order bfs using a queue
+- [0559. Maximum Depth of N-ary Tree](Solutions/0559.Maximum-Depth-of-N-ary-Tree.py) (E) <br>
+- [0431. Encode N-ary Tree to Binary Tree](Solutions/0431.Encode-N-ary-Tree-to-Binary-Tree.py) (H) <br>
+The left child of a binary node is the subtree encoding all the children of the corresponding n-ary node.
+The right child of a binary node is a chain of the binary root nodes encoding each sibling of the n-ary node.
+Solution 1: bfs using q; Solution 2: dfs using recursion
+Step 1). Link all siblings together, like a singly-linked list.
+Step 2). Link the head of the obtained list of siblings with its parent node.
 
 
 
