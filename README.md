@@ -89,6 +89,7 @@ use a double linked list and a dictionary; Double linkedlist: newest node append
 
 
 ### [Heap/Heapq](/Data-Structure.py) 
+- [Heapq implementation](Solutions/Implement_Heapq.py) (!!M) <br>
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M) <br>
 time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的push 和pop都是logK; heapq适合做第K大，第K小，前K大，前K小问题; solution 2: quick select: O(n)
 - [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (M) <br>
