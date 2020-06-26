@@ -54,7 +54,12 @@
 #         self.left = None
 #         self.right = None
 
-from collections import deque
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
 class Codec:
 
@@ -67,21 +72,25 @@ class Codec:
         if not root:
             return ""
         
-        # typical style for BFS
-        res = ""
-        q = deque()
+        res = []
+        q = collections.deque()             # q 里面放的是TreeNode
         q.append(root)
         while q:
-            node = q.popleft()
-            if node:
-                q.append(node.left)
-                q.append(node.right)
-                res += str(node.val) + ","
-            else:
-                res += "None,"
-        
-        return res
+            level = []
+            lens = len(q)
+            for _ in range(lens):
+                curr = q.popleft()
+                if curr:
+                    level.append(str(curr.val))
+                    q.append(curr.left)
+                    q.append(curr.right)
+                else:
+                    level.append("#")       # "#" means None
 
+            res += level
+
+        return ",".join(res)
+        
     def deserialize(self, data):
         """Decodes your encoded data to tree.
         
@@ -90,30 +99,32 @@ class Codec:
         """
         if not data:
             return None
-
-        vals = data.split(",")
-
-        root = TreeNode(int(vals[0]))
-        q = deque()
+        
+        res = data.split(",")
+        idx = 0
+        root = TreeNode(res[idx])
+        idx += 1
+        q = collections.deque()     # q 里面放的是TreeNode, q 里面永远都放TreeNode, 放别的没有意义呀，list可以通过idx进行查询呀！
         q.append(root)
-        index = 1
-        while q and index < len(vals):
-            node = q.popleft()
-            if vals[index] != "None":
-                node.left = TreeNode(int(vals[index]))
-                q.append(node.left)
-            index += 1      # 注意index不要写到if里面，因为vals[index]==None的情况下，我们也需要将index往前进一步
+        while q and idx < len(res):
+            curr_node = q.popleft()
+            if res[idx] == "#":
+                curr_node.left = None
+            else:
+                curr_node.left = TreeNode(res[idx])
+                q.append(curr_node.left)
+            idx += 1        # 注意index不要写到if里面，因为vals[index]==None的情况下，我们也需要将index往前进一步
 
-            if vals[index] != "None":
-                node.right = TreeNode(int(vals[index]))
-                q.append(node.right)
-            index += 1
+            if res[idx] == "#":
+                curr_node.right = None
+            else:
+                curr_node.right = TreeNode(res[idx])
+                q.append(curr_node.right)
+            idx += 1
 
         return root
-                    
-
+    
+    
 # Your Codec object will be instantiated and called as such:
 # codec = Codec()
 # codec.deserialize(codec.serialize(root))
-# @lc code=end
-
