@@ -70,11 +70,13 @@ class Solution:
 Folllow up 1:
 Could you solve it in-place? Remember that the board needs to be updated at the same time: 
 You cannot update some cells first and then use their updated values to update other cells.
-"""                       
+"""    
+"""
 """
 O(MN) O(1) solution.
 Two traversals. Traversal 1: dead -> live: mark as 2; live -> dead: -1  can be whatever number you want, it's just for mark.
 Traversal 2: re-mark 2 to 1, -1 to 0
+"""
 """
 
 class Solution:
@@ -126,5 +128,4 @@ For that scenario, we assume that the contents of the matrix are stored in a fil
 In order for us to update a particular cell, we only have to look at its 8 neighbors which essentially lie in the row above and below it. 
 So, for updating the cells of a row, we just need the row above and the row below. Thus, we read one row at a time from the file and at max we will have 3 rows in memory. 
 We will keep discarding rows that are processed and then we will keep reading new rows from the file, one at a time.
-
-
+"""
