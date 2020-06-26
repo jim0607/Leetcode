@@ -24,7 +24,7 @@ class Solution:
         intervals.append(newInterval)
         
         # below we will just need to do the merge interval problem
-        intervals.sort(key = lambda interval: (interval[0], interval[1]))
+        intervals.sort(key = lambda interval: (interval[0], interval[1]))   # only the last item is not sorted, to sort a nearly sorted list, we use insertion sort - close to O(N)
         
         res = [intervals[0]]
         for interval in intervals[1:]:
@@ -34,3 +34,32 @@ class Solution:
                 res[-1][-1] = max(res[-1][-1], interval[1])
         
         return res
+    
+    
+"""
+Solution 2: add the interval on the run O(n).  If there is overlap, we update the new interval.
+"""
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        res = []
+        new_start, new_end = newInterval[0], newInterval[1]
+        for i, (start, end) in enumerate(intervals):
+            if new_start > end:
+                res.append([start, end])
+            elif new_end < start:
+                res.append([start, end])
+            else:       # overlap case - 更新new interval
+                new_start = min(start, new_start)
+                new_end = max(end, new_end)
+                
+        res.append([new_start, new_end])    
+            
+        return sorted(res)      # to sort a nearly sorted list, we use insertion sort - close to O(N)
+
+    
+Facebook follow up:  How do you add intervals and merge them for a large stream of intervals?
+Since each insert takes O(N), it is not wise to use list as the data structure.  
+BST is a good data structure to enable O(logn) insertion and O(logn) query as well.
+We need to have two functions for the tree (add interval and query tree).
+https://leetcode.com/problems/merge-intervals/discuss/355318/Fully-Explained-and-Clean-Interval-Tree-for-Facebook-Follow-Up-No-Sorting
+    
