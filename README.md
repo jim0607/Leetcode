@@ -855,15 +855,43 @@ prefixSumDict = {0: 1} # key is the prefixSum, val is how many times the prefixS
 
 
 
-# [Sweep-Line](/Sweep-Line.py) <br>
+# [Sweep-Line/Intervals](/Sweep-Line.py) <br>
+- [0252. Meeting Rooms](Solutions/0252.Meeting-Rooms.py) (E) <br>
+O(nlogn), O(1). 题目问一个人能不能参加所有的meeting, 只需要sort the intervals, if intervals[i][0] < intervals[i - 1][1] then return False
 - [0391. Number of Airplanes in the Sky](Solutions/0391.Number-of-Airplanes-in-the-Sky.py) (M Lintcode) <br>
 扫描线做法：碰到interval的start，也就是起飞一架飞机，当前天上的飞机数++。碰到interval的end，也就是降落一架飞机，当前天上的飞机数--。
 Step 1: 我们分别把所有的start和所有的end放进两个数组，并排序。Step 2: 然后从第一个start开始统计，碰到start较小就加一，碰到end较小就减一。并且同时维护一个最大飞机数的max。
 - [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
 solution 1: 扫描线；minimum meeting rooms required could be understood us maximum meeting rooms in use
 Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky <br> solution 2: 先把interval进行sort: intervals.sort(key = lambda x: (x[0], x[1])), 然后以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
+- [0435. Non-overlapping Intervals](Solutions/0435.Non-overlapping-Intervals.py) (!!M) <br>
+This is actually greedy algorithm: always pick the interval with the earliest end time. 
+Then you can get the maximal number of non-overlapping intervals. (or minimal number to remove).
+Implemented using sweep line: 
+Step 1: sort the list based on the end time of the intervals, cuz we want to pick up the earliest end time.
+step 2: use a pointer (represent end time) to sweep over the intervals. each time, we compare the pointer with the start time.
+if the interval has an start time larger than the pointer, then renew the pointer to be the new end time;
+else then we will have to remove the interval in order to to keep the end time as small as possible,  removed_cnt += 1
+- [0452. Minimum Number of Arrows to Burst Balloons](Solutions/0452.Minimum-Number of Arrows-to-Burst-Balloons.py) (!!M) <br>
+Step 1: sort the intervals by end time;
+Step 2: sweep line: use a pointer representing the end time, at each interval, we compare the pointer with the interval start time.
+if end >= interval start time: then there is overlap and we should wait so that later we can shot them together;
+if end > interval start time, then we can shot the previously 积累下来的interveals, shots += 1, and move the end to the new interval end time
+- [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (!!M) <br>
+这种interval的题目首先都需要sort, sort the intervals first, res = []; for interval in intervals: if the interval start time is larger than the largest end time in res, then the interval cannot be merged; If can be merged, then res.append(interval), else then res[-1][1] = max(res[-1][1], interval[1])
+- [0057. Insert Interval](Solutions/0057.Insert-Interval.py) (H) <br>
+Solution 1: Append the new interval to the intervals, and then do the merge interval problem. O(~n). Solution 2: add the interval on the run O(~n). If there is overlap, we update the new interval. 画个图会好理解很多。
+- [1272. Remove Interval](Solutions/1272.Remove-Interval.py) (M) <br>
+一个interval与另一个interval的位置关系就六种情况，一一讨论就可以了
+--------- 352	Data Stream as Disjoint Intervals --------
+- [1229. Meeting Scheduler](Solutions/1229.Meeting-Scheduler.py) (M) <br>
+双指针法, if min(end1, end2) - max(start1, start2) >= duration: return [max(start1, start2), max(start1, start2) + duration]
 - [0218. The Skyline Problem](Solutions/0218.The-Skyline-Problem.py) (!!H) <br>
 sweep lint + heapq；a maxHeap to store all alive buildings, 存高度和终点. res 里面需要保存的其实是每一次高度发生变化时的终点. 在指针currPos做扫描的时候做三件事情: 1. pop buildings that end before curPos, cuz they are no longer "alive"; 2. push [negative_height, end_point] of all buildings that start before curPos; 3. 更新res: if -maxHeap[0][0] != prevHeight: 说明出现了一个拐点要么上升要么下降，这时候就需要append拐点了
+
+
+
+
 
 
 
@@ -918,23 +946,6 @@ Traversal 2: re-mark 2 to 1, -1 to 0.  Follow up: what if the board is infinite 
 
 
 # [系列题](/)
-###  [Intervals](/)
------- 252 meeting room[easy] ------
-------- 56	Merge Intervals; 57	Insert Interval --------
---------- 352	Data Stream as Disjoint Intervals --------
-- [1229. Meeting Scheduler](Solutions/1229.Meeting-Scheduler.py) (M) <br>
-双指针法, if min(end1, end2) - max(start1, start2) >= duration: return [max(start1, start2), max(start1, start2) + duration]
-- [0391. Number of Airplanes in the Sky](Solutions/0391.Number-of-Airplanes-in-the-Sky.py) (M Lintcode) <br>
-扫描线做法：碰到interval的start，也就是起飞一架飞机，当前天上的飞机数++。碰到interval的end，也就是降落一架飞机，当前天上的飞机数--。
-Step 1: 我们分别把所有的start和所有的end放进两个数组，并排序。Step 2: 然后从第一个start开始统计，碰到start较小就加一，碰到end较小就减一。并且同时维护一个最大飞机数的max。
-- [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (M) <br>
-这种interval的题目首先都需要sort, sort the intervals first, res = []; for interval in intervals: if the interval start time is larger than the largest end time in res, then the interval cannot be merged, then res.append(interval), else then res[-1][1] = max(res[-1][1], interval[1])
-- [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
-solution 1: 扫描线；minimum meeting rooms required could be understood us maximum meeting rooms in use
-Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky <br> solution 2: 先把interval进行sort: intervals.sort(key = lambda x: (x[0], x[1])), 然后以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
-
-
-
 ### [Perfect Rectangle](/)
 - [0836. Rectangle Overlap](Solutions/0836.Rectangle-Overlap.py) (E) <br>
 比较点的坐标即可
