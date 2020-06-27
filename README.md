@@ -864,11 +864,6 @@ Step 1: 我们分别把所有的start和所有的end放进两个数组，并排�
 - [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
 solution 1: 扫描线；minimum meeting rooms required could be understood us maximum meeting rooms in use
 Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky <br> solution 2: 先把interval进行sort: intervals.sort(key = lambda x: (x[0], x[1])), 然后以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
-- [0452. Minimum Number of Arrows to Burst Balloons](Solutions/0452.Minimum-Number of Arrows-to-Burst-Balloons.py) (!!M) <br>
-Step 1: sort the intervals by end time;
-Step 2: sweep line: use a pointer representing the end time, at each interval, we compare the pointer with the interval start time.
-if end >= interval start time: then there is overlap and we should wait so that later we can shot them together;
-if end > interval start time, then we can shot the previously 积累下来的interveals, shots += 1, and move the end to the new interval end time
 - [0435. Non-overlapping Intervals](Solutions/0435.Non-overlapping-Intervals.py) (!!M) <br>
 This is actually greedy algorithm: always pick the interval with the earliest end time. 
 Then you can get the maximal number of non-overlapping intervals. (or minimal number to remove).
@@ -877,6 +872,11 @@ Step 1: sort the list based on the end time of the intervals, cuz we want to pic
 step 2: use a pointer (represent end time) to sweep over the intervals. each time, we compare the pointer with the start time.
 if the interval has an start time larger than the pointer, then renew the pointer to be the new end time;
 else then we will have to remove the interval in order to to keep the end time as small as possible,  removed_cnt += 1.
+- [0435. Non-overlapping Intervals](Solutions/0435.Non-overlapping-Intervals.py) (!!M) <br>
+Step 1: sort the intervals by end time;
+Step 2: sweep line: use a pointer representing the end time, at each interval, we compare the pointer with the interval start time.
+if end >= interval start time: then there is overlap and we should wait so that later we can shot them together;
+if end > interval start time, then we can shot the previously 积累下来的interveals, shots += 1, and move the end to the new interval end time
 - [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (!!M) <br>
 这种interval的题目首先都需要sort, sort the intervals first, res = []; for interval in intervals: if the interval start time is larger than the largest end time in res, then the interval cannot be merged; If can be merged, then res.append(interval), else then res[-1][1] = max(res[-1][1], interval[1]). merge interval的算法非常重要，后面的题经常用到！
 - [0057. Insert Interval](Solutions/0057.Insert-Interval.py) (H) <br>
