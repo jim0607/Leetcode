@@ -873,6 +873,7 @@ step 2: use a pointer (represent end time) to sweep over the intervals. each tim
 if the interval has an start time larger than the pointer, then renew the pointer to be the new end time;
 else then we will have to remove the interval in order to to keep the end time as small as possible,  removed_cnt += 1.
 - [0452. Minimum Number of Arrows to Burst Balloons](Solutions/0452.Minimum-Number of Arrows-to-Burst-Balloons.py) (!!M) <br>
+- [0452. Minimum Number of Arrows to Burst Balloons](Solutions/0452.Minimum-Number of Arrows-to-Burst-Balloons.py) (!!M) <br>
 Step 1: sort the intervals by end time;
 Step 2: sweep line: use a pointer representing the end time, at each interval, we compare the pointer with the interval start time.
 if end >= interval start time: then there is overlap and we should wait so that later we can shot them together;
