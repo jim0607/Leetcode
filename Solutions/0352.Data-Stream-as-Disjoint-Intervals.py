@@ -94,7 +94,15 @@ class SummaryRanges:
         return res
         
         
-Solution 2: in the addNum method, firstly find the pos of insertion into the intervals, then merge with prev interval and next interval - O(n), 
-getIntervals method takes O(1)
+        
+Follow up:
+What if there are lots of merges and the number of disjoint intervals are small compared to the data stream's size?  
 
+Solution 2: in the addNum method, firstly find the pos of insertion into the intervals, then merge with prev interval and next interval - O(n), 
+getIntervals method takes O(1).
+This solution is better suit for the follow up question.  Because merge interval only takes O(n), which is better than O(nlogn).  
+But remember that in solution 1, the heapq is always almost sorted. so I would say the merge operation is more close to O(n) than O(nlogn).
 https://leetcode.com/problems/data-stream-as-disjoint-intervals/discuss/82546/simple-python-solution-with-binary-search
+ 
+
+ 
