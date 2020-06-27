@@ -878,7 +878,7 @@ Step 2: sweep line: use a pointer representing the end time, at each interval, w
 if end >= interval start time: then there is overlap and we should wait so that later we can shot them together;
 if end > interval start time, then we can shot the previously 积累下来的interveals, shots += 1, and move the end to the new interval end time
 - [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (!!M) <br>
-这种interval的题目首先都需要sort, sort the intervals first, res = []; for interval in intervals: if the interval start time is larger than the largest end time in res, then the interval cannot be merged; If can be merged, then res.append(interval), else then res[-1][1] = max(res[-1][1], interval[1]). merge interval的算法非常重要，后面的题经常用到！
+这种interval的题目首先都需要sort, sort the intervals first, res = []; for interval in intervals: if the interval start time is larger than the largest end time in res, then the interval cannot be merged; If cannot be merged, then res.append(interval), else then res[-1][1] = max(res[-1][1], interval[1]). merge interval的算法非常重要，后面的题经常用到！
 - [0057. Insert Interval](Solutions/0057.Insert-Interval.py) (H) <br>
 Solution 1: Append the new interval to the intervals, and then do the merge interval problem. O(~n). Solution 2: add the interval on the run O(~n). If there is overlap, we update the new interval. 画个图会好理解很多。
 - [0352. Data Stream as Disjoint Intervals](Solutions/0352.Data-Stream-as-Disjoint-Intervals.py) (H) <br>
