@@ -359,6 +359,9 @@ In deserialize, while res[idx] != "#" 就说明还要继续给curr_node添加chi
 需要query 点a所在集合的元素个数，所以需要一个list size, 用来记录每个father节点所在集合的点的个数，在union i 和 j 的时候: father[i] = j, sz[j] += sz[i];
 - [0591. Connecting Graph III](Solutions/0591.Connecting-Graph-III.py) (!!M Lintcode) <br>
 需要query 整个图中有多少个集合，所以需要一个counter, 用来记录图中集合的个数，初始化为n, 在union i 和 j 的时候: father[i] = j, counter--;
+- [0323. Number of Connected Components in an Undirected Graph](Solutions/0323.Number-of-Connected-Components-in-an-Undirected-Graph.py) (M) <br>
+Union Find: With path compression, it takes ~O(1) to find and union. So the time complexity for Union Find is O(V+E).
+O(V) comes from construct the graph, O(E) comes from visiting each edge in edges.
 - [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (!!M, youtubed) <br>
 Soluiton 1: Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a Breadth First Search. <br>
 SOlution 2: Union Find: think the grid as a graph, find how may isolated components in the graph, we traversal the whole gird, whenever find a 1, we connect all the 4 adjacent 1s. 方法同lintcode 591.
@@ -374,11 +377,6 @@ Solution 1: Greedy O(N) 使用一个集合HashSet存入所有的数字，然后�
 - [1102. Path With Maximum Minimum Value](Solutions/1102.Path-With-Maximum-Minimum-Value.py) (M) <br>
 Solution 1: Dijkstra's : 每次都把目前为止最小值最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走. maintain a heapq to store (the minimum value in the path so far till the currPos, currPos); each time, we push (min(nextVal, currMinVal), nextPos); O(MNlogMN), O(MN). Solution 2: Union-Find, step 1: sort the array by the values descendingly; step 2: union one-by-one, until (0, 0) and (m-1, n-1) is connected
 
----------
-130 Surrounded Regions 18.6% Medium
-323 Number of Connected Components in an Undirected Graph 
-721 Accounts Merge 
-684. Redundant Connection -----------
 
 
 
@@ -562,6 +560,14 @@ one dict to store the inDegree (beingTrusted), one dict to store the outDegree (
 main algorithm: each comparing kowns(i, j), we are sure either i is definitely not a celebrity (knows(i, j)=True), or j is definitely not a celebrity (knows(i, j)=False). step 1: one pass, find a candidate by making sure other people are not candidates; step 2: one pass, double check the candidate selected in step 1 is indeed a celebrity
 
 ## [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+- [0130. Surrounded Regions](Solutions/0130.Surrounded-Regions.py) (!!M) <br>
+Solution 1: Union Find.  Step 1: Union all the "O" that are neighborign with each other. We do a weighted union, meaning when we union, we also choose to point to the one that is on the border. Step 2: 2nd pass, we change to "X" tha "O" that has a root not on border.  Solution 2: bfs: Step 1: Start from border, do a bfs for "O", mark all the "O" that can be reached from the border. We can either mark by putting them into a visited set, or just change it to some symbol "#". Step 2: 2nd pass, we change to "X" tha "O" that could not be visited from the border. bfs只从border出发做bfs, 很中间的"O"就不用管了，而Union Find中间的也需要union, 所以bfs 比union find 更快。Solution 3: dfs interatively, only change one line in the bfs solution. Solution 4: dfs recurssively.
+- [0721. Accounts Merge](Solutions/0721.Accounts-Merge.py) (M) <br>
+union find: if email under the same name, then connect emails, or if email under name_1 equals to email under name_2, connect emails.
+In this way, we build a graph, then we map each disjoint_component into one name.
+Step 1: use a dictionary to store email_to_name map. Step 2: iterate the edges to connect them. 
+Step 2: use the email_to_name map and the graph to generage a new list where each name corresponding to a disjoint_component
+
 - [0093. Restore IP Addresses](Solutions/should solve later) (M)  <br>
 根据目前刷了这么多题，得出了两个经验，一是只要遇到字符串的子序列或配准问题首先考虑动态规划DP，二是只要遇到需要求出所有可能情况首先考虑用递归
 https://www.cnblogs.com/grandyang/p/4305572.html
@@ -576,6 +582,12 @@ Step 1. 从end到start做BFS，记录每一个节点到end节点的距离，存�
 Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近(if self.distance[nextWord] >= self.distance[currWord]: continue)。最后将路径都存入到res里
 - [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (H) <br> 
 dfs + backtracking, time complexity is (9!)^9, which is veyr high. <br>
+
+
+
+
+721 Accounts Merge 
+684. Redundant Connection -----------
 ----------- 980. Unique Paths III ---------- 351. Android Unlock Patterns ---------- 301. Remove Invalid Parentheses ----------- 329. Longest Increasing Path in a Matrix ----------- 1239. Maximum Length of a Concatenated String with Unique Characters ---------- 733. Flood Fill----130. Surrounded Regions------- 417. Pacific Atlantic Water Flow ------ 320. Generalized Abbreviation ----- 753. Cracking the Safe ---- ----- 291	Word Pattern II ---------- 282	Expression Add Operators ------ 140	Word Break II ------ 
 
 
