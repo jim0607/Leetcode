@@ -569,6 +569,8 @@ main algorithm: each comparing kowns(i, j), we are sure either i is definitely n
 
 
 ## [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+- [0733. Flood Fill](Solutions/0733.Flood-Fill.py) (!!E) <br>
+Solution 1: Union Find; Solution 2: bfs; Solution 3: dfs iteratively; Solution 4: dfs recurssively
 - [0130. Surrounded Regions](Solutions/0130.Surrounded-Regions.py) (!!M) <br>
 Solution 1: Union Find.  Step 1: Union all the "O" that are neighborign with each other. We do a weighted union, meaning when we union, we also choose to point to the one that is on the border. Step 2: 2nd pass, we change to "X" tha "O" that has a root not on border.  Solution 2: bfs: Step 1: Start from border, do a bfs for "O", mark all the "O" that can be reached from the border. We can either mark by putting them into a visited set, or just change it to some symbol "#". Step 2: 2nd pass, we change to "X" tha "O" that could not be visited from the border. bfs只从border出发做bfs, 很中间的"O"就不用管了，而Union Find中间的也需要union, 所以bfs 比union find 更快。Solution 3: dfs interatively, only change one line in the bfs solution. Solution 4: dfs recurssively.
 - [0093. Restore IP Addresses](Solutions/should solve later) (M)  <br>
@@ -585,10 +587,16 @@ Step 1. 从end到start做BFS，记录每一个节点到end节点的距离，存�
 Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近(if self.distance[nextWord] >= self.distance[currWord]: continue)。最后将路径都存入到res里
 - [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (H) <br> 
 dfs + backtracking, time complexity is (9!)^9, which is veyr high. <br>
+- [0980.Unique-Paths-III.py](Solutions/0980.Unique-Paths-III.py) (!!M youtube with path-I and II) <br>
+Solution 2: since we don't need to print the actual paths, DP or dfs with memorization is good.
+Total ime complexity for this DP = No. of sub-problems * Time taken per sub-problem = O(n * 2^n) * O(1) = O(n * 2^n).
+solution 1: dfs+backtrack: 这种方法不但可以找出有多少种路径，而且可以打印出所有路径
+O(4^N) time where N is number of non-block squares in the grid. 
+- [0351. Android Unlock Patterns](Solutions/0351.Android-Unlock-Patterns.py) (!!M) <br>
+backtrack: 跟普通的backtrack不同的是From a number in the keypad we can reach any other number, but can't reach the one's that have a number as obstacle in between. 
+For example, for (1 to 3), the obstacle is 2. 所以在判断要不要把next_num作为下一个valid candidates的时候如果(curr_num, next_num) in cannot_pass那就不行。
 
-
-
------------ 980. Unique Paths III ---------- 351. Android Unlock Patterns ---------- 301. Remove Invalid Parentheses ----------- 329. Longest Increasing Path in a Matrix ----------- 1239. Maximum Length of a Concatenated String with Unique Characters ---------- 733. Flood Fill----130. Surrounded Regions------- 417. Pacific Atlantic Water Flow ------ 320. Generalized Abbreviation ----- 753. Cracking the Safe ---- ----- 291	Word Pattern II ---------- 282	Expression Add Operators ------ 140	Word Break II ------ 
+ ---------- 301. Remove Invalid Parentheses ----------- 329. Longest Increasing Path in a Matrix ----------- 1239. Maximum Length of a Concatenated String with Unique Characters -------- 417. Pacific Atlantic Water Flow ------ 320. Generalized Abbreviation ----- 753. Cracking the Safe ---- ----- 291	Word Pattern II ---------- 282	Expression Add Operators ------ 140	Word Break II ------ 
 
 
 
@@ -1088,12 +1096,20 @@ solution 2: rejection sampling - O(1) need to call random multiple times
 
 
 
-# [Dynamic Programming/bottom up](Dynamic-Programming.py)
-### [Recursion with memoization/top down](/Dynamic-Programming.py)
+
+# [Recursion with memoization/top down DP](/https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+- [0980.Unique-Paths-III.py](Solutions/0980.Unique-Paths-III.py) (!!M youtube with path-I and II) <br>
+Solution 2: since we don't need to print the actual paths, DP or dfs with memorization is good.
+Total ime complexity for this DP = No. of sub-problems * Time taken per sub-problem = O(n * 2^n) * O(1) = O(n * 2^n).
+solution 1: dfs+backtrack: 这种方法不但可以找出有多少种路径，而且可以打印出所有路径
+O(4^N) time where N is number of non-block squares in the grid. 
+
 139. word break; 312. Burst Balloons
-使用记忆数组 memo 的递归写法，和使用 dp 数组的迭代写法，乃解题的两大神器，凡事能用 dp 解的题，一般也有用记忆数组的递归解法，好似一对形影不离的好基友～何时用带memo的recursion? 如果用dp的转移方程很复杂，那就用带memo的recursion, 一定要会默写！
 
 
+
+
+# [Dynamic Programming/bottom up DP](Dynamic-Programming.py)
 ### [坐标型DP](/Dynamic-Programming.py)
 - [0062. Unique Paths](Solutions/0062.Unique-Paths.py) (!!M) <br>
 状态: f[i][j]=有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = f[i][j-1]+f[i-1][j]
