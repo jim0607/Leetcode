@@ -37,6 +37,59 @@ Note that the starting and ending square can be anywhere in the grid.
 
 
 """
+Solution 2: since we don't need to print the actual paths, DP or dfs with memorization is good.
+Total ime complexity for this DP = No. of sub-problems * Time taken per sub-problem = O(n * 2^n) * O(1) = O(n * 2^n).
+"""
+import collections
+class Solution:
+    def uniquePathsIII(self, grid) -> int:
+        m, n = len(grid), len(grid[0])
+        moves = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        
+        start, end = (0, 0), (0, 0)
+        steps_needed = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    start = (i, j)
+                if grid[i][j] == 2:
+                    end = (i, j)
+                if grid[i][j] != -1:
+                    steps_needed += 1
+
+        visited = set()
+        visited.add(start)
+        
+        # key is how many steps to reach (i, j), val is how many ways to use so many steps to reach(i, j)
+        memo = collections.defaultdict(int)
+        
+        def dfs(curr_i, curr_j, steps):
+            if (curr_i, curr_j, steps) in memo:
+                return memo[curr_i][curr_j][steps]
+            
+            if (curr_i, curr_j) == end:
+                return 1 if steps == steps_needed - 1 else 0
+            
+            ways = 0
+            for delta_i, delta_j in moves:
+                next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                
+                if 0 <= next_i < m and 0 <= next_j < n and \
+                grid[next_i][next_j] != -1 and (next_i, next_j) not in visited:
+                    visited.add((next_i, next_j))
+                    ways += dfs(next_i, next_j, steps + 1)
+                    visited.remove((next_i, next_j))        # backtrack
+                               
+            memo[(curr_i, curr_j, steps + 1)] = ways      # 注意事项steps + 1
+            
+            return ways
+                    
+        return dfs(start[0], start[1], 0)
+
+
+
+
+"""
 The problem stated that we need to land on each empty square exactly once, 
 this simply meant the length of our unique path must equal the total number of empty squares in the grid (including start and end squares). 
 After that, it's just a typical backtracking path finding problem.
