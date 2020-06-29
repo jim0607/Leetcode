@@ -602,9 +602,12 @@ step 1: 从左上角外围的每个点出发做dfs, next_pos is a valid candidat
 step 2: 同样的方法记录atlantic ocean water可以达到的pos.  然后用2nd pass 来找到哪些点是两个ocean都能到达的。
 - [0329. Longest Increasing Path in a Matrix](Solutions/0329.Longest-Increasing-Path-in-a-Matrix.py) (!!H) <br>
 solution 1: dfs + backtrack - next candidate valid的条件是matrix[next_i][next_j] > matrix[curr_i][curr_j].  - O(2^(MN)).  solution 2: 由于题目并不要求算出path, 所以可以用dfs+memorization (top up dp). Time complexity : O(mn). solution 3: buttom up dp.
+- [0282. Expression Add Operators](Solutions/0282.Expression-Add-Operators.py) (!!H) <br>
+如果非要找一个类似的题，可能跟combination sum II 比较像吧, 找next candidate 比较麻烦，我们需要两个变量curr_res, curr_num，一个用于计算当前所有运算加一起的值，另一个用来记录当前的数。
 
 
- ---------- 301. Remove Invalid Parentheses ------------- 1239. Maximum Length of a Concatenated String with Unique Characters ------- 320. Generalized Abbreviation ----- 753. Cracking the Safe ---- ----- 291	Word Pattern II ---------- 282	Expression Add Operators ------ 140	Word Break II ------ 
+
+ ---------- 301. Remove Invalid Parentheses ----------- 320. Generalized Abbreviation ----- 753. Cracking the Safe ---- ----- 291	Word Pattern II ---------- 140	Word Break II ------ 
 
 
 
