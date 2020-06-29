@@ -24,16 +24,10 @@ Notes:
 You may assume pattern contains only lowercase letters, and str contains lowercase letters that may be separated by a single space.
 
 
+
 class Solution:
     def wordPattern(self, pattern: str, words_str: str) -> bool:
-        words = []
-        i = 0
-        while i < len(words_str):
-            anchor = i
-            while i < len(words_str) and words_str[i] != " ":
-                i += 1
-            words.append(words_str[anchor:i])  
-            i += 1
+        words = words_str.split(" ")
             
         lens = len(pattern)
         if len(words) != lens:
