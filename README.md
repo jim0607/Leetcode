@@ -604,10 +604,19 @@ step 2: 同样的方法记录atlantic ocean water可以达到的pos.  然后用2
 solution 1: dfs + backtrack - next candidate valid的条件是matrix[next_i][next_j] > matrix[curr_i][curr_j].  - O(2^(MN)).  solution 2: 由于题目并不要求算出path, 所以可以用dfs+memorization (top up dp). Time complexity : O(mn). solution 3: buttom up dp.
 - [0282. Expression Add Operators](Solutions/0282.Expression-Add-Operators.py) (!!H) <br>
 如果非要找一个类似的题，可能跟combination sum II 比较像吧, 找next candidate 比较麻烦，我们需要两个变量curr_res, curr_num，一个用于计算当前所有运算加一起的值，另一个用来记录当前的数。
+- [0290. Word Pattern](Solutions/0290.Word-Pattern.py) (E) <br>
+use a dictinoary to map the ch in pattern with the word in words. warm up for 291.
+- [0291. Word Pattern II](Solutions/0291.Word-Pattern-II.py) (!!H) <br>
+backtracking solution.  next candidate is valid only if string[curr_idx:next_idx] is satisfy the mapping condition.
+- [0139. Word Break](Solutions/0139.Word-Break.py) (!!M) <br>
+solution 1: dp[i]=can partition until ith char?, not including i; dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in wordDict). solution 2: bfs, solution 3: dfs + memorization (top-down dp)
+- [0140. Word Break II](Solutions/0140.Word-Break-II.py) (!!H) <br>
+Need to find a path, so backtracking.  O(2^m + m^2 + n), where m is the lens of string, n is the lens of word_dict.
+O(2^m) comes from backtracking on the string, cuz each 每个ch之间我们可以选择切一刀或不切一刀.
+O(m^2) comes from the checking for wordBreakI.  O(n) for converting word_dict to a set.
 
 
-
- ---------- 301. Remove Invalid Parentheses ----------- 320. Generalized Abbreviation ----- 753. Cracking the Safe ---- ----- 291	Word Pattern II ---------- 140	Word Break II ------ 
+ ---------- 301. Remove Invalid Parentheses ----------- 320. Generalized Abbreviation ----- 753. Cracking the Safe --
 
 
 
@@ -1203,7 +1212,7 @@ Lintcode 476. Stone Game <br>
 1444
 ###  [划分型DP](/Dynamic-Programming.py) (状态往往定义为前j个的某种特性，不包括j！！！！，这个思想很重要，相当于给前面做了一层buffer layer)
 - [0139. Word Break](Solutions/0139.Word-Break.py) (!!M) <br>
-dp[i]=can partition until ith char?, not including i; dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in wordDict)
+solution 1: dp[i]=can partition until ith char?, not including i; dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in wordDict). solution 2: bfs, solution 3: dfs + memorization (top-down dp)
 - [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M) <br>
 f[i]=number of decode ways until i (not including i); f[i]=f[i-1]+f[i-2] if int(s[i-2:i])<=26 else f[i-1]
 - [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (M) <br>
