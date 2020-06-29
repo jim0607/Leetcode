@@ -166,6 +166,7 @@ OrderedDict是deque的增强版，这一点在LRU那题中已经体现。
 
 
 ### [Trie](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+像trie, union-find这样的数据结构，可以现在Trie class里面先把interface写好，然后再写主程序，写完主程序之后再回来写这些interface.
 https://leetcode.com/problems/search-suggestions-system/discuss/436183/Python-Trie-Solution This guy’s solution about Trie is awesome!
 - [0208. Implement Trie (Prefix Tree)](Solutions/0208.Implement-Trie-(Prefix-Tree).py) (!!M) <br>
 Firstly we need to define a TrieNode class, a TrieNode class hs two properties: 1. self.child = collections.defaultdict(TrieNode), use a defaultdict, key is char, value is TrieNode corresponding to the char.  2. self.isEnd = False   # return True if reached the end of the Trie.  Then implement 3 methods: insert(word), search(word), startWith(prefix); 注意currNode往下遍历时currNode = currNode.child[char]
@@ -353,6 +354,7 @@ In deserialize, while res[idx] != "#" 就说明还要继续给curr_node添加chi
 
 
 # [Union-Find](Union-Find-and-Trie.py)
+像trie, union-find这样的数据结构，可以现在UnionFind class里面先把interface写好，然后再写主程序，写完主程序之后再回来写这些interface.
 - [0589. Connecting Graph](Solutions/0589.connecting-graph.java) (!!M Lintcode) <br>
 将a和b connect: 只需要将a和b的father connect就好；query a和b有没有连接:其实就是判断a和b在不在同一个集合里面，只需要判断find(a) == find(b)
 - [0590 Connecting Graph II](Solutions/0590.Connecting-Graph-II.java) (!!M Lintcode) <br>
@@ -383,8 +385,15 @@ Step 1: use a dictionary to store email_to_name map. Step 2: iterate the edges t
 Step 2: use the email_to_name map and the graph to generage a new list where each name corresponding to a disjoint_component
 - [0684. Redundant Connection](Solutions/0684.Redundant-Connection.py) (M) <br>
 union find: if uf.connected(edge[0], edge[1]), there edge is redundant.
-
 685. Redundant Connection II - undirected graph 变成了 directed graph - 这时需要分三种情况，有点麻烦
+- [0734. Sentence Similarity](Solutions/0734.Sentence-Similarity.py) (E) <br>
+用dictionary map similar words即可, warm up for 737. Sentence Similarity II
+- [0737. Sentence Similarity II](Solutions/0737.Sentence-Similarity-II.py) (M) <br>
+Different from Sentence SImilarity I, similarity relation is transitive. 
+Two words are similar if they are the same, or are in the same connected component of this graph.  
+So we can use union find to connect all the similar words. 
+Using path compression, the time complexity is almost O(1) for find method and union mehtod. 
+So the overall complexity is ~O(N) where N is the lens of words1.
 
 
 
