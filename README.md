@@ -555,7 +555,6 @@ It really is all about pattern finding; https://leetcode.com/problems/permutatio
 
 
 ### [树上的DFS](/Depth-First-Search.py) <br>
--------- 979. Distribute Coins in Binary Tree ---------
 - [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
 Solution 1: 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
 Solution 2: similar with 257 and 112, we just find all the possible paths.
@@ -565,7 +564,11 @@ solution 2: backtracking dfs 的 interative 的写法 by using a stack
 Solution 3: 不需要打印所有的路径，所以可以用普通的二叉树的divide and conquer方法：helper function return the Longest Consecutive Sequence **started with** root node, 全局变量res进到helper function中去打擂台
 - [0549. Binary Tree Longest Consecutive Sequence II](Solutions/0549.Binary-Tree-Longest-Consecutive-Sequence-II.py) (M) <br> 
 Solution 1: divide and conquer方法：helper function return the increasing and decreasing Longest Consecutive Sequence **started with** root node, 全局变量res进到helper function中去打擂台: self.res = max(self.res, root_increasing + root_decreasing - 1)
-
+- [0979. Distribute Coins in Binary Tree](Solutions/0979.Distribute-Coins-in-Binary-Tree.py) (!!M) <br> 
+helper(node) return how many coins should a node receive from it's parent to make itself balanced.
+The number of coins a node should receive from it's parent to make a node balanced is 1 - node.val. 
+- [0834. Sum of Distances in Tree](Solutions/0834.Sum-of-Distances-in-Tree.py) (H) <br> 
+两个dfs. 看不懂呀，真TMD难呀
 
 
 
@@ -1310,6 +1313,13 @@ f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B
 一个数是binary searchable的必须满足的条件是：前面的数都比他小，后面的数都比他大
 - [Path with Circle Blocks](Solutions/Google__Path-with-Circle-Blocks.py) (M) <br>
 Solution: Union-Find all the circles
+- [Max Absolute Difference of Subarrays](Solutions/Google__Max_Absolute_Difference_of_Subarrays.py) (M) <br>
+step 1: maintain一个prefix_sum list和一个suffix_sum list.
+step 2: 用这两个list计算出dp1 list and dp2 lsit, dp1[i] = the max subarray sum before i, dp2[i] = the min subarray sum before i;
+dp3[i] = the min subarray sum after i, dp4[i] = the max subarray sum after i.
+step 3: 从左到右遍历一遍，比较i左右两边的min 和 max, 更新max_abs_diff即可。
+O(N), O(N)
+
 
 Count Complete Tree Nodes; Longest Increasing Path in a Matrix; Evaluate Division; Cracking the Safe; Robot Room Cleaner; Most Stones Removed with Same Row or Column; Flip Equivalent Binary Trees; Word Squares; Count of Smaller Numbers After Self; Peak Index in a Mountain Array; Split Array Largest Sum; Logger Rate Limiter; Insert Delete GetRandom O(1); Design Search Autocomplete System; Reverse Integer; Candy; Isomorphic Strings; Strobogrammatic Number; Bulls and Cows; Range Sum Query 2D - Mutable; My Calendar II; Jewels and Stones; Swap Adjacent in LR String; Guess the Word; Minimum Area Rectangle
 
