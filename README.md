@@ -915,7 +915,11 @@ Step 2: using the prefix_sum and suffix_sum, find the prefix_max_L, where prefix
 do the same for prefix_max_M, suffix_sum_L, suffix_sum_M;
 Step 3: travel the arr and update max_sum as max(max_sum, prefix_max_L[i] + suffix_max_M[i], prefix_max_M[i] + suffix_max_L[i]).
 Solution 2: DP可以做到O(1) space. 具体做法与下一题689类似
-
+- [0689. Maximum Sum of 3 Non-Overlapping Subarrays](Solutions/0689.Maximum-Sum-of-3-Non-Overlapping-Subarrays.py) (!!H) <br>
+DP solution is somehow similar with 123. Best Time to Buy and Sell Stock III.
+sub_1_sum, sub_2_sum, sub_3_sum represent the sum of 1st k nums, 1st + 2nd k nums, 1st + 2nd + 3rd k nums.
+max_1_sum, max_2_sum, max_3_sum represent the max sum of 1st k nums, 1st + 2nd k nums, 1st + 2nd + 3rd k nums.
+update the max_1_sum, max_2_sum, max_3_sum as we travel through the array.
 
 
 
