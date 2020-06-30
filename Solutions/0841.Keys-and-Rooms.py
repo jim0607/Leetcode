@@ -56,7 +56,7 @@ class Solution:
         
         
 """
-solution 1: dfs - 不用global variable的写法，直接返回
+solution 1: dfs - 不用global variable的写法，直接返回 - O(N)
 """
 class Solution:
     def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
@@ -81,6 +81,12 @@ class Solution:
         
         return dfs(0)
         
-        
+
+"""
 这题不能用union find来解，因为其实这个题是有向的图，eg: [[1],[],[0,3],[]], 2号房间有0号房间的钥匙所以2号可以从2号房间去到0号房间，
 但是并不意味着从0号房间可以去到2号房间。可是union find把两个node连在一起代表的是双向联通的，所以如果用union find 例子会输出True.
+"""
+"""
+Follow up 1: 如果要求访问所有房间的最短路径，那就用BFS
+Follow up 2: 如果要求输出所有的path, 那就用backtracking. 普通dfs是O(n)时间复杂度因为有visited的判断，而backtracking的时间复杂度跟solution个数有关，往往是指数级别的。
+"""
