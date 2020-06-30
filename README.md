@@ -913,7 +913,8 @@ prefixSumDict = {0: 1} # key is the prefixSum, val is how many times the prefixS
 Step 1: find the prefix_sum and suffix_sum;
 Step 2: using the prefix_sum and suffix_sum, find the prefix_max_L, where prefix_max_L[i] = the max subarray sum with window size L before i;
 do the same for prefix_max_M, suffix_sum_L, suffix_sum_M;
-Step 3: travel the arr and update max_sum as max(max_sum, prefix_max_L[i] + suffix_max_M[i], prefix_max_M[i] + suffix_max_L[i])
+Step 3: travel the arr and update max_sum as max(max_sum, prefix_max_L[i] + suffix_max_M[i], prefix_max_M[i] + suffix_max_L[i]).
+Solution 2: DP可以做到O(1) space. 具体做法与下一题689类似
 
 
 
