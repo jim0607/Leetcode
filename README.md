@@ -395,6 +395,7 @@ So we can use union find to connect all the similar words.
 Using path compression, the time complexity is almost O(1) for find method and union mehtod. 
 So the overall complexity is ~O(N) where N is the lens of words1.
 
+--------- Largest Component Size by Common Factor ------------- 990. Satisfiability of Equality Equations ----------839. Similar String Groups-----1319. Number of Operations to Make Network Connected--------
 
 
 ### [Minimum Spanning Tree - Kruskal's and Prim's](/)
@@ -639,7 +640,7 @@ O(2^m) comes from backtracking on the string, cuz each 每个ch之间我们可�
 O(m^2) comes from the checking for wordBreakI.  O(n) for converting word_dict to a set.
 
 
- --------827. Making A Large Island----------- 301. Remove Invalid Parentheses ----------- 320. Generalized Abbreviation ----- 753. Cracking the Safe -- 802. Find Eventual Safe States
+ --------827. Making A Large Island----------- 301. Remove Invalid Parentheses ----------- 320. Generalized Abbreviation ----- 753. Cracking the Safe -- 802. Find Eventual Safe States --------1042. Flower Planting With No Adjacent-----------886. Possible Bipartition---------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors----------863. All Nodes Distance K in Binary Tree------------815. Bus Routes---------996. Number of Squareful Arrays---------943. Find the Shortest Superstring----864. Shortest Path to Get All Keys---------1298. Maximum Candies You Can Get from Boxes------------959. Regions Cut By Slashes------
 
 
 
@@ -1350,7 +1351,7 @@ Count Complete Tree Nodes; Longest Increasing Path in a Matrix; Evaluate Divisio
 
 
 
-
+### 按照花花酱的分类来做 https://zxi.mytechroad.com/blog/leetcode-problem-categories/
 ### top 100 of interview questions
 ### Top 100 Google interview questions
 ### Top 100 Facebook interview questions
