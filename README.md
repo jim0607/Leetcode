@@ -909,7 +909,11 @@ prefixSumDict = {0: 1} # key is the prefixSum, val is how many times the prefixS
 题目要求NlogN, 那就是疯狂暗示要sort, prefixSumList = [(0, -1)] # (0, -1) are prefixSum and index; 对prefixSum来进行sort，这样最小的subArrSum (或者prefixSums[j+1][0] - prefixSums[i][0])就一定来自于相邻的两个prefisxSums了
 - [0152. Maximum Product Subarray](Solutions/0152.Maximum-Product-Subarray.py) (M) <br>
 最大值问题。用一个数组记录最大的正数maxDP[i]，另一个数组记录最小的负数minDP[i], maxDP[i]表示以i为结尾的subarray的最product. 分nums[i]的正负,更新maxDP[i]和minDP[i]。maxDP[i] = max(nums[i], maxDP[i-1]* nums[i]) if nums[i]>0
-
+- [1031. Maximum Sum of Two Non-Overlapping Subarrays](Solutions/1031.Maximum-Sum-of-Two-Non-Overlapping-Subarrays.py) (!!M) <br>
+Step 1: find the prefix_sum and suffix_sum;
+Step 2: using the prefix_sum and suffix_sum, find the prefix_max_L, where prefix_max_L[i] = the max subarray sum with window size L before i;
+do the same for prefix_max_M, suffix_sum_L, suffix_sum_M;
+Step 3: travel the arr and update max_sum as max(max_sum, prefix_max_L[i] + suffix_max_M[i], prefix_max_M[i] + suffix_max_L[i])
 
 
 
