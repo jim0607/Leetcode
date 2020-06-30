@@ -567,6 +567,15 @@ Solution 1: divide and conquer方法：helper function return the increasing and
 - [0979. Distribute Coins in Binary Tree](Solutions/0979.Distribute-Coins-in-Binary-Tree.py) (!!M) <br> 
 helper(node) return how many coins should a node receive from it's parent to make itself balanced.
 The number of coins a node should receive from it's parent to make a node balanced is 1 - node.val. 
+- [0968. Binary Tree Cameras](Solutions/0968.Binary-Tree-Cameras.py) (!!H) <br> 
+solution 1: dp. bottom up: O(N)
+state0[i] = the min cameras needed to get all the children of node i covered but node i not covered;
+state1[i] = the min cameras needed to get all the children of node i and node i covered - no camera on node i;
+state2[i] = the min cameras needed to get all the children of node i and node i covered - camera on node i;
+Solution 2: Greedy algorithm: O(N)
+If a node has children that are not covered by a camera, then we must place a camera here. 
+Additionally, if a node has no parent and it is not covered, 因为我们是从下往上的，所以如果this node is not covered, 
+then it means it is not covered by it's children, then we must place a camera here.
 - [0834. Sum of Distances in Tree](Solutions/0834.Sum-of-Distances-in-Tree.py) (H) <br> 
 两个dfs. 看不懂呀，真TMD难呀
 
