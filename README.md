@@ -1035,7 +1035,8 @@ Greedy: the whole idea is to check if "(" could be paired. Maintain two variable
 cmin is the minimum number of "(" that MUST be paired later.
 cmax is the maximum number of "(" that COULD possibly be paired later.
 After interate the while s, if cmin == 0 then return True.
-
+- [32. Longest Valid Parentheses](Solutions/0032.Longest-Valid-Parentheses.py) (H)  <br>
+Solution 1: stack; solution 2: dp; solution 3: greedy: O(N) O(1): 正向扫一遍，反向扫一遍, 真TM niubi呀
 
 
 856. Score of Parentheses
