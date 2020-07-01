@@ -70,7 +70,7 @@ very similar with 31. Next Permutation. # step 1: 从右至左找到第一个降
 1130. Minimum Cost Tree From Leaf Values
 907. Sum of Subarray Minimums
 901. Online Stock Span
-856. Score of Parentheses
+
 
 
 
@@ -319,10 +319,11 @@ Iteratively do an inorder traversal for root1, and store the val in a hashSet; t
 do a in order traversal (reversed version: go all the way to the right) to keep track the addValues
 - [0095. Unique Binary Search Trees II](Solutions/0095.Unique-Binary-Search-Trees-II.py) (!!M) <br>
 helper(start, end): return the trees from start to end.  Finally return helper(1, n). Time complexity: The main computations are to construct all possible trees with a given root, that is actually Catalan number Gn (超纲).
-- [0096. Unique Binary Search Trees](Solutions/0096.Unique-Binary-Search-Trees.py) (M) <br>
-same as 95, return len(helper(1, n)).
 - [0241. Different Ways to Add Parentheses](Solutions/0241.Different-Ways-to-Add-Parentheses.py) (!!M) <br>
 similar with 95, in helper function, return all the different results to add parentheses for input, for i in range(len(input): divide into leftResults and rightResults. Optimization: use a memo dictionary in the helper function to memorize the input that has already been calculated.
+- [0096. Unique Binary Search Trees](Solutions/0096.Unique-Binary-Search-Trees.py) (M) <br>
+same as 95, return len(helper(1, n)).
+
 
 ### [Nary Tree](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0589. N-ary Tree Preorder Traversal](Solutions/0589.N-ary-Tree-Preorder-Traversal.py) (E) <br>
@@ -538,8 +539,6 @@ self.dfs(nums, target - nums[i], 0, curr, res)  # (1, 3)和(3, 1)被认为是不
 ### [Permutation](/Depth-First-Search.py)
 - [0046. Permutations](Solutions/0046.Permutations.py) (!!M)<br>
 与combination相比少了一个startIndex参数，加入visited用于防止重复出现; append之后需要将visited[i]变为True; pop出来之后将visited[i]再变回False
-- [0022. Generate Parentheses](Solutions/0022.Generate-Parentheses.py) (!!M)  <br>
-if leftCnt == n and rightCnt == n: self.res.append(curr) return; if leftCnt < rightCnt: return  # 这个判断尤为关键！
 - [0052. N Queens II](Solutions/0052.N-Queens-II.py) (!!H) <br>
 排列问题：先打印出数组[0, 1, 2, 3....n]中所有的可能排列：[[0,1,2,3], [1,3,0,2].....]，其中的每一个子数组表示一种可能的方法，子数组中的数字表示在哪个数字的地方放一个Queen，数字对应的下标位置是放那个Queen的行，数字的值是放那个Queen的列。由于Queen可以很冲直撞，所以列是不能相同的，所以需要去重，用visited标记就可以。又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。用三个字典visited_col, visited_sum, visited_diff分别存储列号，横纵坐标之和，横纵坐标之差有没有被用过
 - [0051. N Queens](Solutions/0051.N-Queens.py) (H)<br>
@@ -640,7 +639,7 @@ O(2^m) comes from backtracking on the string, cuz each 每个ch之间我们可�
 O(m^2) comes from the checking for wordBreakI.  O(n) for converting word_dict to a set.
 
 
- --------827. Making A Large Island----------- 301. Remove Invalid Parentheses ----------- 320. Generalized Abbreviation ----- 753. Cracking the Safe -- 802. Find Eventual Safe States --------1042. Flower Planting With No Adjacent-----------886. Possible Bipartition---------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors----------863. All Nodes Distance K in Binary Tree------------815. Bus Routes---------996. Number of Squareful Arrays---------943. Find the Shortest Superstring----864. Shortest Path to Get All Keys---------1298. Maximum Candies You Can Get from Boxes------------959. Regions Cut By Slashes------
+ --------827. Making A Large Island-----------  ----------- 320. Generalized Abbreviation ----- 753. Cracking the Safe -- 802. Find Eventual Safe States --------1042. Flower Planting With No Adjacent-----------886. Possible Bipartition---------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors----------863. All Nodes Distance K in Binary Tree------------815. Bus Routes---------996. Number of Squareful Arrays---------943. Find the Shortest Superstring----864. Shortest Path to Get All Keys---------1298. Maximum Candies You Can Get from Boxes------------959. Regions Cut By Slashes------
 
 
 
@@ -1022,6 +1021,22 @@ Traversal 2: re-mark 2 to 1, -1 to 0.  Follow up: what if the board is infinite 
 
 
 # [系列题](/)
+### [Parentheses](/)
+- [0020. Valid Parentheses](Solutions/0020.Valid-Parentheses.py) (!!E) <br>
+不能用简单的用三个counter, 会过不了这种情况: "([)]".
+这题的题眼是a sub-expression of a valid expression should also be a valid expression. 所以用stack.
+- [0022. Generate Parentheses](Solutions/0022.Generate-Parentheses.py) (!!M)  <br>
+Very similar with permutatino problem. if leftCnt == n and rightCnt == n: self.res.append(curr) return; if leftCnt < rightCnt: return  # 这个判断尤为关键！
+- [0301. Remove Invalid Parentheses](Solutions/0301.Remove-Invalid-Parentheses.py) (H)  <br>
+solution: dfs 解法跟22. Generate parentheses是一样的，给你这么多括号，去生成所有的valid parentheses, 然后取其中最长的valid parentheses就可以了；
+只能暴力generate出所有的valid parenthsis，每个括号都有可能加或不加进去，所以是O(2^N).
+
+856. Score of Parentheses
+
+
+
+
+
 ### [Perfect Rectangle](/)
 - [0836. Rectangle Overlap](Solutions/0836.Rectangle-Overlap.py) (E) <br>
 比较点的坐标即可
