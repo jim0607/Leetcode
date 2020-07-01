@@ -1030,6 +1030,13 @@ Very similar with permutatino problem. if leftCnt == n and rightCnt == n: self.r
 - [0301. Remove Invalid Parentheses](Solutions/0301.Remove-Invalid-Parentheses.py) (H)  <br>
 solution: dfs 解法跟22. Generate parentheses是一样的，给你这么多括号，去生成所有的valid parentheses, 然后取其中最长的valid parentheses就可以了；
 只能暴力generate出所有的valid parenthsis，每个括号都有可能加或不加进去，所以是O(2^N).
+- [0678. Valid Parenthesis String](Solutions/0678.Valid-Parenthesis-String.py) (H)  <br>
+Greedy: the whole idea is to check if "(" could be paired. Maintain two variables: cmin and cmax.
+cmin is the minimum number of "(" that MUST be paired later.
+cmax is the maximum number of "(" that COULD possibly be paired later.
+After interate the while s, if cmin == 0 then return True.
+
+
 
 856. Score of Parentheses
 
