@@ -1035,11 +1035,17 @@ Greedy: the whole idea is to check if "(" could be paired. Maintain two variable
 cmin is the minimum number of "(" that MUST be paired later.
 cmax is the maximum number of "(" that COULD possibly be paired later.
 After interate the while s, if cmin == 0 then return True.
-- [32. Longest Valid Parentheses](Solutions/0032.Longest-Valid-Parentheses.py) (H)  <br>
+- [0032. Longest Valid Parentheses](Solutions/0032.Longest-Valid-Parentheses.py) (H)  <br>
 Solution 1: stack; solution 2: dp; solution 3: greedy: O(N) O(1): 正向扫一遍，反向扫一遍, 真TM niubi呀
-
-
-856. Score of Parentheses
+- [0921. Minimum Add to Make Parentheses Valid](Solutions/0921.Minimum-Add-to-Make-Parentheses-Valid.py) (H)  <br>
+借鉴32. Longest Valid Parentheses的做法：从左往右扫描，记录left和right，
+如果right大于left了,就表明前面需要添加right-left个左括号
+- [1249. Minimum Remove to Make Valid Parentheses](Solutions/1249. Minimum Remove to Make Valid Parentheses) (M)  <br>
+借鉴32. Longest Valid Parentheses的做法：first sweep left to right, and store the ")" that should be deleted, eg: "())", the last ")" should be deleted;
+then sweep right to left, and store "(" that should be deleted, eg: eg: "(()", the first "(" should be deleted; 
+lastly delete the prarentheses that should be deleted.
+- [0856. Score of Parentheses](Solutions/0856.Score-of-Parentheses.py) (M)  <br>
+stack is always good for parentheses
 
 
 
