@@ -28,6 +28,8 @@ This is the maximum distance possible, so the answer is 3.
 
 """
 遍历过程中不断update idx_of_1和max_dist就可以了，把seats[0]==0和seats[-1]==0单独拿出来判断。
+讨论：这道题的一个很好的 follow up 是让我们返回爱丽丝坐下的位置.
+那么要在结果 res 可以被更新的时候，同时还应该记录下连续空位的起始位置 start，这样有了 start 和 最大距离 res，那么就可以定位出爱丽丝的座位了。
 """
 class Solution:
     def maxDistToClosest(self, seats: List[int]) -> int:
