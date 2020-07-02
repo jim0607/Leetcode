@@ -121,6 +121,8 @@ Follow up: leetcode 1093
 - [0480. Sliding Window Median](Solutions/0480.Sliding-Window-Median.py) (H) <br>
 Solution 1: maitain a sorted window.  We can use binary search for remove and indert. the overall time complexity is O(NK).
 similar with 295, we need to maintain two heaps in the window, leftHq and rightHq. To slide one step is actually to do two things: step 1. add a number, which is exactly the same as that in 295. add a number in heapq could be heapq.heappush() which is O(logn) step 2. remove the number that is outside the window; there is not a remmove method in heapq.  We need to implement sift_up and sift_down method for heapq.  Need to implement a heapq in Python!!
+- [0849. Maximize Distance to Closest Person](Solutions/0849.Maximize-Distance-to-Closest-Person.py) (E) <br>
+遍历过程中不断update idx_of_1和max_dist就可以了，把seats[0]==0和seats[-1]==0单独拿出来判断。warm up for next question.
 
 ----- 313	Super Ugly Number ------- 373	Find K Pairs with Smallest Sums
 
@@ -1085,7 +1087,13 @@ we know the second time occurance becasue we flip the sign each time.
 solution 1: 448类似的做法，我们通过nums[i] += 1来change all 0s to be positive number.  solution 2: bit manipulation 所有的idx and num都异或起来. solution 3: 题目确定只有一个missing number. add every num together and compare with n(n+1)/2. O(1).  Follow up: what is there are 2 missing numbers?  How can we solve within O(1). we can calculate the sum of the 2 missing numbers using solutino 3, and also prodct of the 2 missing number, then 用求根公式求出来就可以了
 - [0041. First Missing Positive](Solutions/0041.First-Missing-Positive.py) (H) <br>
 1st pass: change all negtive numbers to be 1, so that there will be no negtive numbers;  2nd pass: change the positive numbers into negative; 3rd pass: find the first positive number, and the corresponding idx is missing
-
+- [0041. First Missing Positive](Solutions/0855.Exam-Room.py) (M) <br>
+Use a sorted list to record the index of seats where people sit, so that we can save tons of space if the seats is sparse;
+seat():
+1. find the biggest distance at the start, at the end and in the middle.
+2. insert index of seat into the idx list.
+3. return index.
+leave(p): pop out p.
 
 
 ### [Image Process](/)
@@ -1386,3 +1394,6 @@ Count Complete Tree Nodes; Longest Increasing Path in a Matrix; Evaluate Divisio
 ### Top 100 Facebook interview questions
 ### Top 100 Amazon interview questions
 ### Jeff Jeff Erickson's Algorithms https://jeffe.cs.illinois.edu/teaching/algorithms/
+### 分topic 刷：
+https://leetcode.com/discuss/general-discussion/655708/Graph-For-Beginners-Problems-or-Pattern-or-Sample-Solutions
+https://leetcode.com/discuss/career/448024/Topic-wise-problems-for-Beginners
