@@ -645,7 +645,7 @@ curr_path: the path BEFORE curr_idx;
 分两个case做backtrack: case 1: treat word[next_idx] as a number; # case 2: treat word[next_idx] as a ch, then 我们需要结算curr_cnt了
 - [0827. Making A Large Island](Solutions/0827.Making-A-Large-Island.py) (!!H) <br>
 solution 1: UnionFind O(MN) - 要注意每次将0变1都会改变uf的图，所以要提前用一个temp_father=uf.father来保存father的信息
-
+934. Shortest Bridge
 After identifying both islands correctly via DFS, it is a BFS finding shortest path problem.
 3 steps:
 DSF to mark the first island + collect edge points of the first island;
