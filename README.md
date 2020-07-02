@@ -646,6 +646,14 @@ curr_path: the path BEFORE curr_idx;
 - [0827. Making A Large Island](Solutions/0827.Making-A-Large-Island.py) (!!H) <br>
 solution 1: UnionFind O(MN) - 要注意每次将0变1都会改变uf的图，所以要提前用一个temp_father=uf.father来保存father的信息
 
+After identifying both islands correctly via DFS, it is a BFS finding shortest path problem.
+3 steps:
+DSF to mark the first island + collect edge points of the first island;
+DSF to mark the second island + collect edge points of the second island;
+Calculate the min distance between every pair of the points between the two islands.
+
+
+
  -------------------  -------- 753. Cracking the Safe -- 802. Find Eventual Safe States --------1042. Flower Planting With No Adjacent-----------886. Possible Bipartition---------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors----------863. All Nodes Distance K in Binary Tree------------815. Bus Routes---------996. Number of Squareful Arrays---------943. Find the Shortest Superstring----864. Shortest Path to Get All Keys---------1298. Maximum Candies You Can Get from Boxes------------959. Regions Cut By Slashes------
 
 
