@@ -638,9 +638,15 @@ solution 1: dp[i]=can partition until ith char?, not including i; dp[j]=true if 
 Need to find a path, so backtracking.  O(2^m + m^2 + n), where m is the lens of string, n is the lens of word_dict.
 O(2^m) comes from backtracking on the string, cuz each 每个ch之间我们可以选择切一刀或不切一刀.
 O(m^2) comes from the checking for wordBreakI.  O(n) for converting word_dict to a set.
+- [0320. Generalized Abbreviation](Solutions/0320.Generalized-Abbreviation.py) (!!H) <br>
+dfs, similar with permutation. curr_idx: the idx at word; 
+curr_cnt: the cnt at of number BEFORE curr_idx;
+curr_path: the path BEFORE curr_idx;
+分两个case做backtrack: case 1: treat word[next_idx] as a number; # case 2: treat word[next_idx] as a ch, then 我们需要结算curr_cnt了
+- [0827. Making A Large Island](Solutions/0827.Making-A-Large-Island.py) (!!H) <br>
+solution 1: UnionFind O(MN) - 要注意每次将0变1都会改变uf的图，所以要提前用一个temp_father=uf.father来保存father的信息
 
-
- --------827. Making A Large Island-----------  ----------- 320. Generalized Abbreviation ----- 753. Cracking the Safe -- 802. Find Eventual Safe States --------1042. Flower Planting With No Adjacent-----------886. Possible Bipartition---------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors----------863. All Nodes Distance K in Binary Tree------------815. Bus Routes---------996. Number of Squareful Arrays---------943. Find the Shortest Superstring----864. Shortest Path to Get All Keys---------1298. Maximum Candies You Can Get from Boxes------------959. Regions Cut By Slashes------
+ -------------------  -------- 753. Cracking the Safe -- 802. Find Eventual Safe States --------1042. Flower Planting With No Adjacent-----------886. Possible Bipartition---------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors----------863. All Nodes Distance K in Binary Tree------------815. Bus Routes---------996. Number of Squareful Arrays---------943. Find the Shortest Superstring----864. Shortest Path to Get All Keys---------1298. Maximum Candies You Can Get from Boxes------------959. Regions Cut By Slashes------
 
 
 
