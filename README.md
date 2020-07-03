@@ -659,7 +659,9 @@ Calculate the min distance between every pair of the points between the two isla
 Assign the first person RED, then anyone the first person doesn't like should be assigned BLUE. Then anyone those BLUE person don't like should be RED.
 If a person has to be both BLUE and RED, then it is impossible. 
 Solution 1: dfs - Time: O(V+E); Space: O(V+E); solution 2: 层序遍历bfs
-
+- [0863. All Nodes Distance K in Binary Tree](Solutions/0863.All-Nodes-Distance-K-in-Binary-Tree.py) (M) <br>
+step 1: use dfs, change a tree to a graph with adjacency list representation; 
+step 2: start from target, use bfs/dfs to find the nodes with distance == K
 
 
  -------------------  -------- 753. Cracking the Safe -- 802. Find Eventual Safe States --------1042. Flower Planting With No Adjacent------------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors----------863. All Nodes Distance K in Binary Tree---------------996. Number of Squareful Arrays---------943. Find the Shortest Superstring----864. Shortest Path to Get All Keys---------1298. Maximum Candies You Can Get from Boxes------------959. Regions Cut By Slashes------
