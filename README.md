@@ -478,6 +478,8 @@ solution 2!!!: 从source和destination两端同时进行bfs!!!!注意双端bfs�
 solution 3: recurrsion with memorization: cache[(x, y)] = min(dp(abs(x-1), abs(y-2)), dp(abs(x-2), abs(y-1))) + 1; 60 ms<br>
 - [0127. Word Ladder](Solutions/0127.Word-Ladder.py) (!!M) <br>
 利用双端BFS大大提高速度，注意双端bfs传进去的参数包含q and visited, bfs返回值是updated q and visited. 在双端BFS的过程中判断if not q_src or not q_des: 则说明q_src或q_des里面的所有possible neighbor都不在wordList里面，也就是没有必要继续进行了; The idea behind bidirectional search is to run two simultaneous searches: one forward from the initial state and the other backward from the destination state — hoping that the two searches meet in the middle. The motivation is that b^(d/2) + b^(d/2) is much less than b^d. b is branch number, d is depth. 这题最好定义一个wordSet = set(wordList)来降低时间寻找下一个neighborWord的复杂度到O(26L); 
+- [0815. Bus Routes](Solutions/0815.Bus-Routes.py) (H) <br>
+Shortest path problem: bfs. 与word ladder那题类似，word ladder是one-to-one的bfs, 这个是多源节点出发的bfs
 ------ 433. Minimum Genetic Mutation ----------
 - [1162. As Far from Land as Possible](Solutions/1162.As-Far-from-Land-as-Possible.py) (M) <br>
 bfs: the maximum distance is steps needed to change all WATER to be LAND, so we append all land into the first layer of q, and do a level order bfs. the maxumum distance is then the answer we want. solution 2: DP same as 542. 01 matrix
@@ -487,6 +489,8 @@ bfs: the maximum distance is steps needed to change all WATER to be LAND, so we 
 Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and use dist[][] to record the sum of distance from all 1 grids to this 0 grid. Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a BFS. in the bfs, we do level bfs and update the reachable_cnt matrix and dist matrix. 遇到obstacle不放进q就可以了. each bfs, all position are visited, so O(MNk) where k is how many building are there or how many bfs are triggered. Finnaly return the min of dist[i][j] if reachable_cnt[i][j] = total number of buildings. Strong Prune: if if starting from building (i, j), can reach all other building? if not, that means at least one building is isolated and can not be reached, then return -1 directly: in each BFS we use reachableBuildings to count how many 1s we reached. If reachableBuldings != totalBuildings - 1 then we know not all 1s are connected are we can return -1 immediately, which greatly improved speed.
 - [0752. Open the Lock](Solutions/0752.Open-the-Lock.py) (M) <br>
 题目蛮有意思的, 带层序遍历的bfs, 遇到currNode in deadends 就不再去访问其neighbor了, find neighbor 函数比较有意思，这里第一次学到了yield;
+
+
 
 
 ### [Dijkstra](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
@@ -645,16 +649,20 @@ curr_path: the path BEFORE curr_idx;
 分两个case做backtrack: case 1: treat word[next_idx] as a number; # case 2: treat word[next_idx] as a ch, then 我们需要结算curr_cnt了
 - [0827. Making A Large Island](Solutions/0827.Making-A-Large-Island.py) (!!H) <br>
 solution 1: UnionFind O(MN) - 要注意每次将0变1都会改变uf的图，所以要提前用一个temp_father=uf.father来保存father的信息
-934. Shortest Bridge
+- [0934. Shortest Bridge](Solutions/0934.Shortest-Bridge.py) (!!M) <br>
 After identifying both islands correctly via DFS, it is a BFS finding shortest path problem.
 3 steps:
-DSF to mark the first island + collect edge points of the first island;
-DSF to mark the second island + collect edge points of the second island;
+DSF to mark the first island + collect outliner points of the first island;
+DSF to mark the second island + collect outliner points of the second island;
 Calculate the min distance between every pair of the points between the two islands.
+- [0886. Possible Bipartition](Solutions/0886.Possible-Bipartition.py) (!!M) <br>
+Assign the first person RED, then anyone the first person doesn't like should be assigned BLUE. Then anyone those BLUE person don't like should be RED.
+If a person has to be both BLUE and RED, then it is impossible. 
+Solution 1: dfs - Time: O(V+E); Space: O(V+E); solution 2: 层序遍历bfs
 
 
 
- -------------------  -------- 753. Cracking the Safe -- 802. Find Eventual Safe States --------1042. Flower Planting With No Adjacent-----------886. Possible Bipartition---------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors----------863. All Nodes Distance K in Binary Tree------------815. Bus Routes---------996. Number of Squareful Arrays---------943. Find the Shortest Superstring----864. Shortest Path to Get All Keys---------1298. Maximum Candies You Can Get from Boxes------------959. Regions Cut By Slashes------
+ -------------------  -------- 753. Cracking the Safe -- 802. Find Eventual Safe States --------1042. Flower Planting With No Adjacent------------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors----------863. All Nodes Distance K in Binary Tree---------------996. Number of Squareful Arrays---------943. Find the Shortest Superstring----864. Shortest Path to Get All Keys---------1298. Maximum Candies You Can Get from Boxes------------959. Regions Cut By Slashes------
 
 
 
