@@ -489,6 +489,11 @@ bfs: the maximum distance is steps needed to change all WATER to be LAND, so we 
 Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and use dist[][] to record the sum of distance from all 1 grids to this 0 grid. Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a BFS. in the bfs, we do level bfs and update the reachable_cnt matrix and dist matrix. 遇到obstacle不放进q就可以了. each bfs, all position are visited, so O(MNk) where k is how many building are there or how many bfs are triggered. Finnaly return the min of dist[i][j] if reachable_cnt[i][j] = total number of buildings. Strong Prune: if if starting from building (i, j), can reach all other building? if not, that means at least one building is isolated and can not be reached, then return -1 directly: in each BFS we use reachableBuildings to count how many 1s we reached. If reachableBuldings != totalBuildings - 1 then we know not all 1s are connected are we can return -1 immediately, which greatly improved speed.
 - [0752. Open the Lock](Solutions/0752.Open-the-Lock.py) (M) <br>
 题目蛮有意思的, 带层序遍历的bfs, 遇到currNode in deadends 就不再去访问其neighbor了, find neighbor 函数比较有意思，这里第一次学到了yield;
+- [0864. Shortest Path to Get All Keys](Solutions/0864.Shortest-Path-to-Get-All-Keys.py) (H) <br>
+BFS algorithm can be used to solve a lot of problems of finding shortest distance.
+In this problem, we may visit a point more than one times, simply storing visited position is not enough.
+We need to save (pos, keys_collected) in the visited set, because visiting the same pos without getting new key is not allowed,
+but in order to get a new key, we may visit a certain pos, after getting the key, we may go back and visit the pos again.
 
 
 
