@@ -27,9 +27,14 @@ In C#, Count is a method that gets the number of elements contained in the Queue
 if it's a digit, should use a while loop to add the num in case there are multiple digits, eg: 322 - 16; if it's a sign, then convert to 1 or -1; if it's a (, then append the previous res and sign into the resStack and signStack, and initialize the sign and num for calculation inside the (); if it's a ), then pop the resStack and signStack and update res.
 - [0227. Basic Calculator II](Solutions/0227.Basic-Calculator-II.py) (M) <br>
 不用stack, 用四根指针prevNum, prevSign, currNum, currSign
----------385	Mini Parser ------ 150	Evaluate Reverse Polish Notation
+- [0150. Evaluate Reverse Polish Notation](Solutions/0150.Evaluate-Reverse-Polish-Notation.py) (M) <br>
+stack存num就可以了
+- [0388. Longest Absolute File Path](Solutions/0388.Longest-Absolute-File-Path.py) (!!M) <br>
+stack存the lens of the dir or file names, everytime we append a dir of file name into the stack, we need to go back to the correct depth where it belongs.
+
+
 71	Simplify Path
-388	Longest Absolute File Path ---------
+
 
 
 ### [Iterator](/Data-Structure.py)
