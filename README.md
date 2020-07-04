@@ -459,6 +459,8 @@ Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hash
 只需要比较word[i]与word[i+1]中每个char，即可得到inDegree的关系以及neighbors的关系
 - [0310. Minimum Height Trees](Solutions/0310.Minimum-Height-Trees.py) (M) <br>
 想想如果是一个很大的图，那minimum height trees的root就应该是这个图的最中心，所以我们就去找图的最中心就可以了，采用从外围(inDegree=1的node)往中间走的方法，解法类似topological sort, 走到最后留下的顶点就是最中心的顶点，也就是距离所有外围顶点最小的顶点。
+- [0802. Find Eventual Safe States](Solutions/0802.Find-Eventual-Safe-States.py) (M) <br>
+寻找不在环里的node, 其实就是其实就是topological sort for out_degree!
 
 
 
@@ -669,7 +671,7 @@ step 1: use dfs, change a tree to a graph with adjacency list representation;
 step 2: start from target, use bfs/dfs to find the nodes with distance == K
 
 
- -------------------  -------- 753. Cracking the Safe -- 802. Find Eventual Safe States --------1042. Flower Planting With No Adjacent------------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors----------863. All Nodes Distance K in Binary Tree---------------996. Number of Squareful Arrays---------943. Find the Shortest Superstring----864. Shortest Path to Get All Keys---------1298. Maximum Candies You Can Get from Boxes------------959. Regions Cut By Slashes------
+ -------Restore IP Addresses-----------1042. Flower Planting With No Adjacent------------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors-----------996. Number of Squareful Arrays---------943. Find the Shortest Superstring-----------959. Regions Cut By Slashes------
 
 
 
@@ -1418,7 +1420,7 @@ Count Complete Tree Nodes; Longest Increasing Path in a Matrix; Evaluate Divisio
 
 
 
-
+### 还是要多刷新题，见过和没见过真的很不一样！
 ### 按照花花酱的分类来做 https://zxi.mytechroad.com/blog/leetcode-problem-categories/
 ### top 100 of interview questions
 ### Top 100 Google interview questions
