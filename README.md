@@ -608,9 +608,11 @@ Solution 1: Union Find; Solution 2: bfs; Solution 3: dfs iteratively; Solution 4
 dfs. 这题不能用union find来解
 - [0130. Surrounded Regions](Solutions/0130.Surrounded-Regions.py) (!!M) <br>
 Solution 1: Union Find.  Step 1: Union all the "O" that are neighborign with each other. We do a weighted union, meaning when we union, we also choose to point to the one that is on the border. Step 2: 2nd pass, we change to "X" tha "O" that has a root not on border.  Solution 2: bfs: Step 1: Start from border, do a bfs for "O", mark all the "O" that can be reached from the border. We can either mark by putting them into a visited set, or just change it to some symbol "#". Step 2: 2nd pass, we change to "X" tha "O" that could not be visited from the border. bfs只从border出发做bfs, 很中间的"O"就不用管了，而Union Find中间的也需要union, 所以bfs 比union find 更快。Solution 3: dfs interatively, only change one line in the bfs solution. Solution 4: dfs recurssively.
-- [0093. Restore IP Addresses](Solutions/should solve later) (M)  <br>
-根据目前刷了这么多题，得出了两个经验，一是只要遇到字符串的子序列或配准问题首先考虑动态规划DP，二是只要遇到需要求出所有可能情况首先考虑用递归
-https://www.cnblogs.com/grandyang/p/4305572.html
+- [0093. Restore IP Addresses](Solutions/0093.Restore-IP-Addresses.py) (!!M)  <br>
+Grandyang: 根据目前刷了这么多题，得出了两个经验，一是只要遇到字符串的子序列或配准问题首先考虑动态规划DP，二是只要遇到需要求出所有可能情况首先考虑用递归。
+这道题并非是求字符串的子序列或配准问题，更符合第二种情况，所以我们要用递归来解。我们用k来表示当前已经分出的段数，
+如果k = 4，四段已经形成，若这时字符串刚好为空，则将当前分好的结果保存。
+则对于每一段，我们分别用一位，两位，三位来尝试，分别判断其合不合法，如果合法，则调用递归继续分剩下的字符串，最终和求出所有合法组合.
 - [0017. Letter Combinations of a Phone Number](Solutions/0017.Letter-Combinations-of-a-Phone-Number.py) (!!M) <br>
 经典的backtrack题，in dfs template, find solution: if currIdx == len(digits); for next_candidate in list_of_candidates: for ch in self.phone[digits[currIdx]]; is_not_valid: None
 - [0079. Word Search](Solutions/0079.Word-Search.py) (!!M) <br>
