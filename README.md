@@ -29,11 +29,11 @@ if it's a digit, should use a while loop to add the num in case there are multip
 不用stack, 用四根指针prevNum, prevSign, currNum, currSign
 - [0150. Evaluate Reverse Polish Notation](Solutions/0150.Evaluate-Reverse-Polish-Notation.py) (M) <br>
 stack存num就可以了
+- [0071. Simplify Path](Solutions/0071.Simplify-Path.py) (!!M) <br>
+stack保存string, 处理stack的问题往往需要提前split the path by ("/")
 - [0388. Longest Absolute File Path](Solutions/0388.Longest-Absolute-File-Path.py) (!!M) <br>
 stack存the lens of the dir or file names, everytime we append a dir of file name into the stack, we need to go back to the correct depth where it belongs.
 
-
-71	Simplify Path
 
 
 
@@ -66,15 +66,13 @@ Double the nums first, then do the same thing as 496.
 - [0556. Next Greater Element III](Solutions/0556.Next-Greater-Element-III.py) (M) <br>
 very similar with 31. Next Permutation. # step 1: 从右至左找到第一个降序的； # step 2: swap the nums[idx] with the num just larger then it; # step 3: reverse the rest of the list
 
-    
-402. Remove K Digits
-496. Next Greater Element I (Easy)
-503. Next Greater Element II
-739. Daily Temperatures
-901. Online Stock Span
+
+
+739. Daily Temperatures 
 1130. Minimum Cost Tree From Leaf Values
-907. Sum of Subarray Minimums
+402. Remove K Digits
 901. Online Stock Span
+907. Sum of Subarray Minimums
 
 
 
