@@ -26,6 +26,14 @@ we immediately return False since the transformation is impossible.
 Next, we check the number of unique characters in str2. If all 26 characters are represented, there are no characters available to use for temporary conversions, 
 and the transformation is impossible. The only exception to this is if str1 is equal to str2, so we handle this case at the start of the function.
 """
+"""
+why this case should return False?
+"abcdefghijklmnopqrstuvwxyz"
+"bcdefghijklmnopqrstuvwxyza"
+You can choose to change a -> b. So now the str1 becomes :
+"abcdefghijklmnopqrstuvwxyz" -> "bbcdefghijklmnopqrstuvwxyz"
+Now you are stuck. If you try to change b-> c, your first character will also change. The order of transformation matters.
+"""
 
 class Solution:
     def canConvert(self, str1: str, str2: str) -> bool:
