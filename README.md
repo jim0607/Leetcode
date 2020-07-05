@@ -51,11 +51,6 @@ saving peeked value in advance
 
 
 ### [Monotonic stack](/Data-Structure.py) （用于向左/向右寻找第一个比自己大/小的数）
-- [0084. Largest Rectangle in Histogram](Solutions/0084.Largest-Rectangle-in-Histogram.py) (!!H) <br>
-非单调栈算法：从左向右遍历数组，然后每遍历到一个高度h，向左边找第一个比自己小的的高度在位置i，向右边找第一个比自己小的的高度在位置j，
-那此时的面积就是h*(j-i). 这个算法需要向左向右找第一个比自己小的元素，这类问题就要想到用monostack. 通过maintain a monostack,可以很快找到第一个比i小的元素，就是栈中排在i前面的元素，我们需要做的只是向右找了，所以我们向右遍历，每当遇到大于栈顶的值时，直接入栈保持递增stack，如果遇到小于栈顶的值，这时候说明找到了第一个比i（栈顶）小的元素，这时候我们回头且慢莫慌，栈内各个元素依次出栈并回头计算一下面积。
-- [0085. Maximal Rectangle](Solutions/0085.Maximal-Rectangle.py) (!!H) <br>
-step 1: construct a heights list for each row; step 2: calculate the largestRectangularHistogram of each height using the same method in 84; Should think about dynamic programming solution also.
 - [0654. Maximum Binary Tree](Solutions/0654.Maximum-Binary-Tree.py) (M) <br>
 solution 1: simple recursionsolution 2: monostack 通过观察发现规律，对于每个node的父亲节点 = min(左边第一个比它大的，右边第一个比它大的), 维护一个降序数组，可以实现对这个min的快速查找, # O(N), O(N)
 - [0496. Next Greater Element I](Solutions/0496.Next-Greater-ElementI.py) (!!M) <br>
@@ -65,15 +60,26 @@ for a new scanning item i:  while nums2[i] >= stack[-1]: we pop, until we got a 
 Double the nums first, then do the same thing as 496.
 - [0556. Next Greater Element III](Solutions/0556.Next-Greater-Element-III.py) (M) <br>
 very similar with 31. Next Permutation. # step 1: 从右至左找到第一个降序的； # step 2: swap the nums[idx] with the num just larger then it; # step 3: reverse the rest of the list
+- [0739. Daily Temperatures](Solutions/0739.Daily-Temperatures.py) (!!M) <br>
+维护一个单调递减栈即可, stack里面存(temperature, idx)
+- [0901. Online Stock Span](Solutions/0901.Online-Stock-Span.py) (!!M) <br>
+维护一个单调递减栈即可, __init__ 函数中需要用到的有self.st = [], store the price and idx, mono-decreasing; self.res = collections.defaultdict(lambda: 1), store the res; self.idx = -1.
+- [1130. Minimum Cost Tree From Leaf Values](Solutions/1130.Minimum-Cost-Tree-From-Leaf-Values.py) (M) <br>
+维护一个单调递减栈 The main idea is that you want to use the two smallest as leaf nodes to construct a root node. 
+So, here we loop through the entire array, whenever we find stack[-1] <= currNum, 
+which means that this top element stack[-1] is a local minimum. 
+So we use this element with its left or right to construct a root node. (res += min(drop * currNum, drop * stack[-1])). You can think this is a greedy algorithm.
+- [0402. Remove K Digits](Solutions/0402.Remove-K-Digits.py) (M) <br>
+维护一个递增栈，这样排在前面的就都是最小的了
+- [0084. Largest Rectangle in Histogram](Solutions/0084.Largest-Rectangle-in-Histogram.py) (!!H) <br>
+非单调栈算法：从左向右遍历数组，然后每遍历到一个高度h，向左边找第一个比自己小的的高度在位置i，向右边找第一个比自己小的的高度在位置j，
+那此时的面积就是h*(j-i). 这个算法需要向左向右找第一个比自己小的元素，这类问题就要想到用monostack. 通过maintain a monostack,可以很快找到第一个比i小的元素，就是栈中排在i前面的元素，我们需要做的只是向右找了，所以我们向右遍历，每当遇到大于栈顶的值时，直接入栈保持递增stack，如果遇到小于栈顶的值，这时候说明找到了第一个比i（栈顶）小的元素，这时候我们回头且慢莫慌，栈内各个元素依次出栈并回头计算一下面积。
+- [0085. Maximal Rectangle](Solutions/0085.Maximal-Rectangle.py) (!!H) <br>
+step 1: construct a heights list for each row; step 2: calculate the largestRectangularHistogram of each height using the same method in 84; Should think about dynamic programming solution also.
+- [0907. Sum of Subarray Minimums](Solutions/0907.Sum-of-Subarray-Minimums.py) (M) <br>
+单调递增栈存idx
 
-
-
-739. Daily Temperatures 
-1130. Minimum Cost Tree From Leaf Values
-402. Remove K Digits
-901. Online Stock Span
-907. Sum of Subarray Minimums
-
+-----------456. 132 Pattern------Create Maximum Number---------Max Chunks To Make Sorted II-----------
 
 
 
@@ -85,6 +91,10 @@ heapq的方法是O(NK); deque O(N): Iterate over the array. At each step: I. Cle
 ### [Hashmap/Dictionary](/Data-Structure.py) 
 - [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!M youtubed) <br>
 use a double linked list and a dictionary; Double linkedlist: newest node append to tail, eldest node remove from head, so that the operation is O(1); Hashmap: key is key, value is the corresponding double linkedlist node
+- [1153. String Transforms Into Another String](Solutions/1153.String-Transforms-Into-Another-String.py) (!!H Google) <br>
+Map each character in str1 to what it needs to be in str2. If any of these mappings collide (e.g. str1 = "aa", str2 = "bc", "a" needs to become both "b" and "c"),
+we immediately return False since the transformation is impossible.
+
 --------LFU!!-------变形题snapchat：在一个data stream 中find top K most frequent number用LFU来解，也可以用heapq NO(k) --
 
 
@@ -1359,6 +1369,8 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 f[i][j][s]表示有多少种方法可以在前i个数中选出j个，使得它们的和是s; 情况一:（A[i-1]不选入）：需要在前n-1个数中选K个数，使得它们的和是Target: f[i][j][s] += f[i-1][j][s]; 情况二（A[i-1]选入）：需要在前i-1个数中选j-1个数，使得它们的和是Target-A[i-1]: f[i][j][s] += f[i-1][j-1][s-A[i-1]]
 - [0416. Partition Equal Subset Sum](Solutions/0416.Partition-Equal-Subset-Sum.py) (M) <br>
 背包问题：将A中的物品放入容量为target的背包中，问是否存在？一个num不能取多次，所以与322. coin change 不同。所以必须用二维数组。与0092一模一样。 f[i][t]=将前i个物品放入背包中，能否拼出t (背包问题重量一定要入状态); f[i][t]=True if 不放最后一个进背包: f[i-1][t]=True or 放最后一个进背包: f[i-1][t-A[i-1]]=True
+-------------956. Tallest Billboard---------
+
 
 ### [位操作型DP](/Dynamic-Programming.py)
 - [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) <br>
