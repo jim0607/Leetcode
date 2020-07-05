@@ -53,8 +53,20 @@ class Solution:
             
         return self.arr
 
+"""
+Google follow up: 写test方案证明shuffle符合要求。
+那就跑N次，假设N很大，然后跑完之后在每个位置上出现的数字的概率是不是都在[1/lens - margin, 1/lens + margin]内, margin很小比如1e-8
+"""
+def check_random_shuffle(self, N, margin):
+    cnt_dict = collections.defaultdict(lambda: collections.defaultdict(int)
+    for i in range(N):
+        self.shuffle(nums)
+        for idx in range(lens):
+            cnt_dict[idx][nums[idx]] += 1
 
-# Your Solution object will be instantiated and called as such:
-# obj = Solution(nums)
-# param_1 = obj.reset()
-# param_2 = obj.shuffle()
+    for idx, dict in cnt_dict.items():
+        if len(dict) == lens:           # 如果有的数从来不能出现在一个idx上，那说明不是random的
+            return False
+        for num, cnt in dict.items():
+            if not (1 / lens - margin <= cnt / N <= 1/ lens + margin):      # 如果有的数出现的概率偏高或偏低就说明不是random的
+                return False
