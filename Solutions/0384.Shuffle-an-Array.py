@@ -57,8 +57,8 @@ class Solution:
 Google follow up: 写test方案证明shuffle符合要求。
 那就跑N次，假设N很大，然后跑完之后在每个位置上出现的数字的概率是不是都在[1/lens - margin, 1/lens + margin]内, margin很小比如1e-8
 """
-def check_random_shuffle(self, N, margin):
-    cnt_dict = collections.defaultdict(lambda: collections.defaultdict(int)
+def check_random_shuffle(self, nums, N, margin):
+    cnt_dict = collections.defaultdict(lambda: collections.defaultdict(int))        # 记录在某个idx上出翔某个数的次数
     for i in range(N):
         self.shuffle(nums)
         for idx in range(lens):
