@@ -91,11 +91,16 @@ heapq的方法是O(NK); deque O(N): Iterate over the array. At each step: I. Cle
 ### [Hashmap/Dictionary](/Data-Structure.py) 
 - [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!M youtubed) <br>
 use a double linked list and a dictionary; Double linkedlist: newest node append to tail, eldest node remove from head, so that the operation is O(1); Hashmap: key is key, value is the corresponding double linkedlist node
+- [0460. LFU Cache](Solutions/0460.LFU-Cache.py) (!!H) <br>
+Use a dictionary to store (key, freq) pair.
+Use another dicitonary to store (freq, list of keys) pair, where list of keys could be OrderedDict like LRU to enable O(1) operations.
+其实是在LRU的基础上加了一个frequency的要求。
+Follow up 变形题snapchat：在一个data stream 中find top K most frequent number用LFU来解，也可以用heapq O(Nk).
 - [1153. String Transforms Into Another String](Solutions/1153.String-Transforms-Into-Another-String.py) (!!H Google) <br>
 Map each character in str1 to what it needs to be in str2. If any of these mappings collide (e.g. str1 = "aa", str2 = "bc", "a" needs to become both "b" and "c"),
 we immediately return False since the transformation is impossible.
 
---------LFU!!-------变形题snapchat：在一个data stream 中find top K most frequent number用LFU来解，也可以用heapq NO(k) --
+------- 588. Design In-Memory File System !!!-----------
 
 
 
@@ -119,13 +124,19 @@ solution 1: 扫描线；solution 2: 以end时间来构造最小堆，每次进�
 将两个list各挑一个数出来的加和做成一个2D Array, 由于两个list都是sorted, 那么这个2D array就是与378同样sorted array了。
 - [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!M) <br>
 maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we should overriding ListNode compare function __lt__ to make customized compare happens: compare ListNodeSolution 2: divide and conquer, the same as merge sort. O(NlogK)
+- [0373. Find K Pairs with Smallest Sums](Solutions/0373.Find-K-Pairs-with-Smallest-Sums.py) (M) <br>
+heap solution: klogk, very simlilar with merge k sorted list.
 - [0632. Smallest Range Covering Elements from K Lists](Solutions/0632.Smallest-Range-Covering-Elements-from-K-Lists.py) (!!H) <br>
 heapq solution: O(m+nlogm) where m is len(nums), n is len(lst). hq stores (the item in the lst, the lst_idx of where lst is in the nums, the num_idx where the num is in the lst). whenver a min_val is popped, we compare the max_val-min_val with the previous diff. 
 Then we push (nums[lst_idx][num_idx+1], lst_idx, num_idx+1) into the heapq and update max_val in the heapq.
 - [0621. Task Scheduler](Solutions/0621.Task-Scheduler.py) (!!M) <br>
 we only need to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
+- [0263. Ugly Number](Solutions/0263.Ugly-Number.py) (M) <br>
+warm up for the next question.
 - [0264. Ugly Number II](Solutions/0264.Ugly-Number-II.py) (M) <br>
 维护一个heapq，让它记录从小到大的ugly number, 每次pop出一个currMin，然后生成三个数2* currMin, 3*currMin, 5*currMin, 如果not in seen, 就push进heapq
+- [0313. Super Ugly Number](Solutions/0313.Super-Ugly-Number.py) (M) <br>
+Exactly the same as 264
 - [0407. Trapping Rain Water II](Solutions/0407.Trapping-Rain-Water-II.py) (!!H) <br>
 Similar with 42. 1D trapping rain water. 1D trapping rain water 是用双指针，一个指针记录左边漏水或储水的可能情况，一个指针记录右边漏水或储水的可能情况。 Step 1: store all the outliners of the matrix in heapq.  Maintain a visited set to mark all the visited locations. Step 2: starting from the min height position, do BFS the 4 possible moves. If found a height < the min Height, then we can store water, else we cannot store water and we should update this leaking point by putting the new height into the heapq
 - [0295. Find Median from Data Stream](Solutions/0295.Find-Median-from-Data-Stream.py) (!!H) <br>
@@ -134,44 +145,6 @@ Follow up: leetcode 1093
 - [0480. Sliding Window Median](Solutions/0480.Sliding-Window-Median.py) (H) <br>
 Solution 1: maitain a sorted window.  We can use binary search for remove and indert. the overall time complexity is O(NK).
 similar with 295, we need to maintain two heaps in the window, leftHq and rightHq. To slide one step is actually to do two things: step 1. add a number, which is exactly the same as that in 295. add a number in heapq could be heapq.heappush() which is O(logn) step 2. remove the number that is outside the window; there is not a remmove method in heapq.  We need to implement sift_up and sift_down method for heapq.  Need to implement a heapq in Python!!
-
-
------ 313	Super Ugly Number ------- 373	Find K Pairs with Smallest Sums
-
-
-
-
-###  [Desgin Problems](/)
-- [0359. Logger Rate Limiter](Solutions/0359.Logger-Rate-Limiter.py) (E) <br>
-很简单，用一个dictionary存(message, last timestamp when message was printed)就可以了。Google followup: input在K长度内无序的，但是时间t+K之后的输入一定出现在t之后。比如K是5，
-[4, foo], [1, foo], [0, bar], [6, bar] => 在[4, foo], [1, foo], [0, bar]内是无序的，但是[6, bar]一定出现在[0, bar]之后，因为6>0+5.
-也就是短程无序，长程有序。这时候该怎么print输出呢？
-用一个heapq, heapq里面存(timestamp, message), 用一个deque里面也存(timestamp, message), 当发现下一个时间大于当前最小时间+K，就pop出当前的最小的放入到deque里面去, 这样deque里面存的就是长短程都有序的了
-- [0362. Design Hit Counter](Solutions/0362.Design-Hit-Counter.py) (M) <br>
-很简单，用一个deque存hit的timestamp就可以了, 这种拿分题一定要细心，这里容易漏掉self.counter是否为空的判断，导致扣分。Follow up:
-What if the number of hits per second could be very large? Does your design scale?
-deque里面默认是每一个时间戳hit了一次，如果需要记录每秒钟有几次hit，我们需要用到dictionary, 但是同时有需要deque一样的有序，
-所以自然而然想到OrderedDict. 这样可以保证最多使用O(300)的空间, 还是要熟悉OrderedDict的方法的。
-OrderedDict是deque的增强版，这一点在LRU那题中已经体现。
-
-346	Moving Average from Data Stream	视频讲解	Sliding Window
-281	Zigzag Iterator	视频讲解	
-284	Peeking Iterator	视频讲解	
-251	Flatten 2D Vector	视频讲解	
-288	Unique Word Abbreviation	视频讲解	
-170	Two Sum III - Data structure design	视频讲解	
-348	Design Tic-Tac-Toe	视频讲解	
-379	Design Phone Directory	视频讲解	
-353	Design Snake Game	视频讲解	
-146	LRU Cache	视频讲解	
-355	Design Twitter	视频讲解	
-303	Range Sum Query - Immutable	视频讲解	
-304	Range Sum Query 2D - Immutable	视频讲解	
-307	Range Sum Query - Mutable	视频讲解	BIT & ST
-308	Range Sum Query 2D - Mutable	视频讲解	BIT & ST
-460. LFU Cache
-588. Design In-Memory File System
-604. Design Compressed String Iterator
 
 
 
@@ -270,7 +243,37 @@ Reverse Pairs
 
 
 
+###  [Desgin Problems](/)
+- [0359. Logger Rate Limiter](Solutions/0359.Logger-Rate-Limiter.py) (E) <br>
+很简单，用一个dictionary存(message, last timestamp when message was printed)就可以了。Google followup: input在K长度内无序的，但是时间t+K之后的输入一定出现在t之后。比如K是5，
+[4, foo], [1, foo], [0, bar], [6, bar] => 在[4, foo], [1, foo], [0, bar]内是无序的，但是[6, bar]一定出现在[0, bar]之后，因为6>0+5.
+也就是短程无序，长程有序。这时候该怎么print输出呢？
+用一个heapq, heapq里面存(timestamp, message), 用一个deque里面也存(timestamp, message), 当发现下一个时间大于当前最小时间+K，就pop出当前的最小的放入到deque里面去, 这样deque里面存的就是长短程都有序的了
+- [0362. Design Hit Counter](Solutions/0362.Design-Hit-Counter.py) (M) <br>
+很简单，用一个deque存hit的timestamp就可以了, 这种拿分题一定要细心，这里容易漏掉self.counter是否为空的判断，导致扣分。Follow up:
+What if the number of hits per second could be very large? Does your design scale?
+deque里面默认是每一个时间戳hit了一次，如果需要记录每秒钟有几次hit，我们需要用到dictionary, 但是同时有需要deque一样的有序，
+所以自然而然想到OrderedDict. 这样可以保证最多使用O(300)的空间, 还是要熟悉OrderedDict的方法的。
+OrderedDict是deque的增强版，这一点在LRU那题中已经体现。
 
+346	Moving Average from Data Stream	视频讲解	Sliding Window
+281	Zigzag Iterator	视频讲解	
+284	Peeking Iterator	视频讲解	
+251	Flatten 2D Vector	视频讲解	
+288	Unique Word Abbreviation	视频讲解	
+170	Two Sum III - Data structure design	视频讲解	
+348	Design Tic-Tac-Toe	视频讲解	
+379	Design Phone Directory	视频讲解	
+353	Design Snake Game	视频讲解	
+146	LRU Cache	视频讲解	
+355	Design Twitter	视频讲解	
+303	Range Sum Query - Immutable	视频讲解	
+304	Range Sum Query 2D - Immutable	视频讲解	
+307	Range Sum Query - Mutable	视频讲解	BIT & ST
+308	Range Sum Query 2D - Mutable	视频讲解	BIT & ST
+460. LFU Cache
+588. Design In-Memory File System
+604. Design Compressed String Iterator
 
 
 
