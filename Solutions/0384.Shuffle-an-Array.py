@@ -70,3 +70,5 @@ def check_random_shuffle(self, nums, N, margin):
         for num, cnt in dict.items():
             if not (1 / lens - margin <= cnt / N <= 1/ lens + margin):      # 如果有的数出现的概率偏高或偏低就说明不是random的
                 return False
+    
+    return True
