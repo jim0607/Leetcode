@@ -602,7 +602,8 @@ then it means it is not covered by it's children, then we must place a camera he
 one dict to store the inDegree (beingTrusted), one dict to store the outDegree (trustOthers). there exsit a town judge only if there is a node with inDegree==N-1(beiing trusted by all others), and at the same time the node should have outDegree==0(not trust anyone)
 - [0277. Find the Celebrity](Solutions/0277.Find-the-Celebrity.py) (!!M) <br>
 main algorithm: each comparing kowns(i, j), we are sure either i is definitely not a celebrity (knows(i, j)=True), or j is definitely not a celebrity (knows(i, j)=False). step 1: one pass, find a candidate by making sure other people are not candidates; step 2: one pass, double check the candidate selected in step 1 is indeed a celebrity
-
+- [1153. String Transforms Into Another String](Solutions/) (!H Google++) <br>
+follow up 是若transform可行，判断是否需要用到中介字符，即判断有向图是否有环。
 
 ## [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0733. Flood Fill](Solutions/0733.Flood-Fill.py) (!!E) <br>
@@ -667,16 +668,17 @@ After identifying both islands correctly via DFS, it is a BFS finding shortest p
 DSF to mark the first island + collect outliner points of the first island;
 DSF to mark the second island + collect outliner points of the second island;
 Calculate the min distance between every pair of the points between the two islands.
-- [0886. Possible Bipartition](Solutions/0886.Possible-Bipartition.py) (!!M) <br>
-Assign the first person RED, then anyone the first person doesn't like should be assigned BLUE. Then anyone those BLUE person don't like should be RED.
+- [0886. Possible Bipartition](Solutions/0886.Possible-Bipartition.py) (!!M Google) <br>
+Assign the first person RED, then anyone the first person doesn't like should be assigned BLUE. Then anyone those BLUE persons don't like should be assigned to RED.
 If a person has to be both BLUE and RED, then it is impossible. 
-Solution 1: dfs - Time: O(V+E); Space: O(V+E); solution 2: 层序遍历bfs
+Solution 1: dfs - Time: O(V+E); Space: O(V+E); solution 2: 层序遍历bfs; Solution 3: union find 这题不太适合比较慢;
+Google两个follow up 很难
 - [0863. All Nodes Distance K in Binary Tree](Solutions/0863.All-Nodes-Distance-K-in-Binary-Tree.py) (M) <br>
 step 1: use dfs, change a tree to a graph with adjacency list representation; 
 step 2: start from target, use bfs/dfs to find the nodes with distance == K
 
 
- -------Restore IP Addresses-----------1042. Flower Planting With No Adjacent------------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors-----------996. Number of Squareful Arrays---------943. Find the Shortest Superstring-----------959. Regions Cut By Slashes------
+ -------1042. Flower Planting With No Adjacent------------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors-----------996. Number of Squareful Arrays---------943. Find the Shortest Superstring-----------959. Regions Cut By Slashes------
 
 
 
@@ -1167,17 +1169,19 @@ O(n)* O(string), n is lens of s, string is the average lens of equal string. che
 
 # [Random/Sampling](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 ### [Shuffle]()
-- [0384. Shuffle an Array](Solutions/0384.Shuffle-an-Array.py) (!!M) 
+- [0384. Shuffle an Array](Solutions/0384.Shuffle-an-Array.py) (!!M Google) 
 step 1: generate a random idx after i;
 step 2: swap the num in i with random idx after i, then we have got the random num for ith pos;
 step 3: keep going forward until we generate all the random num using the generated random idx;
+follow up是写test方案证明自己写的shuffle符合要求
 - [0519. Random Flip Matrix](Solutions/0519.Random-Flip-Matrix.py) (M) 
 This is a sampling n elements without replacement problem. It is the same as the operation that random shuffe an array and then return the first n elements.
 When we random pick an element in the array we can store its new position in a hash table instead of the array because n is extremely less than the total num. So we can accomplish this within O(1) time and O(k) space where k is the maxium call of flip.
-- [0528. Random Pick with Weight](Solutions/0528.Random-Pick-with-Weight.py) (!!M Google) 
+- [0528. Random Pick with Weight](Solutions/0528.Random-Pick-with-Weight.py) (!!M Google++) 
 step 1: create a prefix sum arr;
 step 2: generate a rand_idx;
-step 3: binary search to find where the idx is in the prefix_sum arr
+step 3: binary search to find where the idx is in the prefix_sum arr;
+follow up 是设计一个class支持修改已有元素的权重, 可能要用到数的结构实现o(logn)吧，没弄明白
 - [0497. Random Point in Non-overlapping Rectangles](Solutions/0497.Random-Point-in-Non-overlapping-Rectangles.py) (M) 
 Similar with random pick with weight, here we use number of points in the rectangle as weight.
 Firslty, create a weight list w, where w[i] is the number of points in the rectangle. 
@@ -1205,12 +1209,11 @@ HashMap再难也不过如此了吧，目标是建立一个blacklist中的数与c
 
 ### [Reservoir Sampling]()
 - [0398. Random Pick Index](Solutions/0398.Random-Pick-Index.py) (!!M) 
-step 1: generate a random
 solution 1: O(N) time O(N) space using random.choice(seq): Return a random element from the non-empty sequence seq.
 Solution 2: Reservoir Sampling solution reservoir sampling 特点是来一个算一下，因此适用于data stream
-- [0382. Linked List Random Node](Solutions/0382.Linked-List-Random-Node.py) (!!M) 
-step 1: generate a random
+- [0382. Linked List Random Node](Solutions/0382.Linked-List-Random-Node.py) (!!M Google) 
 solution 1: reservoir sampling: O(1), O(n). It is good for really large linkedlist and the linkedlist dynamically changing length; solution 2: O(n), O(1) just use an arr to store all the node vals
+
 
 ### [Rejection Sampling]()
 - [0470. Implement Rand10() Using Rand7()](Solutions/0470.Implement-Rand10-Using-Rand7.py) (M) 
@@ -1415,7 +1418,10 @@ step 2: 用这两个list计算出dp1 list and dp2 lsit, dp1[i] = the max subarra
 dp3[i] = the min subarray sum after i, dp4[i] = the max subarray sum after i.
 step 3: 从左到右遍历一遍，比较i左右两边的min 和 max, 更新max_abs_diff即可。
 O(N), O(N)
-
+- [Student Cheating sheet](Solutions/Google__Student_Cheating_sheet.py) (M) <br>
+问从a到b被捉概率最小的传递路线。本质上是weighted edge shortest path，因为不是DAG 所以用dijkstra
+- [0766. Toeplitz Matrix](Solutions/0766.Toeplitz-Matrix.py) (E) <br>
+遍历整个matrix, 每次都与其右下角的数进行比较. 遇到这么简单的题，follow up 就不会太简单了, 三个follow up很重要！！
 
 Count Complete Tree Nodes; Longest Increasing Path in a Matrix; Evaluate Division; Cracking the Safe; Robot Room Cleaner; Most Stones Removed with Same Row or Column; Flip Equivalent Binary Trees; Word Squares; Count of Smaller Numbers After Self; Peak Index in a Mountain Array; Split Array Largest Sum; Logger Rate Limiter; Insert Delete GetRandom O(1); Design Search Autocomplete System; Reverse Integer; Candy; Isomorphic Strings; Strobogrammatic Number; Bulls and Cows; Range Sum Query 2D - Mutable; My Calendar II; Jewels and Stones; Swap Adjacent in LR String; Guess the Word; Minimum Area Rectangle
 
