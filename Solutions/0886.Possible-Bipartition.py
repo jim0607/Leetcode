@@ -135,3 +135,53 @@ class Solution:
                     return False
                 
         return True
+
+       
+       
+"""
+Solution 3: union find
+"""
+class Solution:
+    def possibleBipartition(self, N: int, dislikes: List[List[int]]) -> bool:
+        graph = collections.defaultdict(list)
+        for u, v in dislikes:       # change list of edges representation to adjacency list representation 
+            graph[u].append(v)
+            graph[v].append(u)
+            
+        uf = UnionFind(graph)
+        
+        visited = set()     # 用visited标记一下不然会超时, 每次做union就标记visited一下
+        for node in graph:
+            for dislike_node in graph[node]:
+                if uf.connected(node, dislike_node):
+                    return False
+                if dislike_node in visited:
+                    continue
+                for dis_dislike_node in graph[dislike_node]:    # 敌人的敌人是朋友
+                    uf.union(node, dis_dislike_node)
+                    visited.add(node)
+                    visited.add(dis_dislike_node)
+                    
+        return True
+        
+        
+class UnionFind:
+    
+    def __init__(self, graph):
+        self.father = collections.defaultdict()
+        for node in graph:
+            self.father[node] = node
+        
+    def find(self, x):
+        if self.father[x] == x:
+            return x
+        self.father[x] = self.find(self.father[x])
+        return self.father[x]
+    
+    def connected(self, a, b):
+        return self.find(a) == self.find(b)
+    
+    def union(self, a, b):
+        root_a, root_b = self.find(a), self.find(b)
+        if root_a != root_b:
+            self.father[root_a] = root_b
