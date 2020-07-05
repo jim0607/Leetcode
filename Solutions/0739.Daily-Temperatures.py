@@ -8,18 +8,17 @@ Note: The length of temperatures will be in the range [1, 30000]. Each temperatu
 
 
 """
-维护一个单调递减栈即可
+维护一个单调递减栈即可, stack里面存(temperature, idx)
 """
 class Solution:
     def dailyTemperatures(self, T: List[int]) -> List[int]:
         st = []
         res = [0] * len(T)
         for i, temp in enumerate(T):
-            while st and st[-1][0] < temp:    # 注意一般先写这个while loop把该pop出来的都pop出来，然后再去处理append.
+            while st and st[-1][0] < temp:
                 top = st.pop()
                 res[top[1]] = i - top[1]
                 
-            if not st or st[-1][0] >= temp:
-                st.append((temp, i))
+            st.append((temp, i))
                 
         return res
