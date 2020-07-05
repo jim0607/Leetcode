@@ -91,9 +91,6 @@ class RandomizedSet:
         rand_idx = random.randrange(0, self.size)
         return self.arr[rand_idx]
 
-
-# Your RandomizedSet object will be instantiated and called as such:
-# obj = RandomizedSet()
-# param_1 = obj.insert(val)
-# param_2 = obj.remove(val)
-# param_3 = obj.getRandom()
+"""
+Google follow up: 对一棵二叉树做增删改node操作，如何get random node，可能把树的node加到list里面吧
+"""
