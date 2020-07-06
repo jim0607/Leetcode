@@ -50,7 +50,7 @@ class Solution:
             if len(path) != 0:
                 res.append(path + [target])
             
-            for num in range(curr_num, int(target ** 0.5) + 1):     # 需要好好想想为什么是 int(target ** 0.5) + 1
+            for num in range(curr_num, int(target ** 0.5) + 1):     # 需要好好想想为什么是 int(target ** 0.5) + 1, 不知为什么这样可以避免重复
                 if target % num == 0:
                     dfs(target // num, num, path + [num])
         
