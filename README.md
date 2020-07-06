@@ -56,7 +56,7 @@ solution 1: simple recursionsolution 2: monostack 通过观察发现规律，对
 - [0496. Next Greater Element I](Solutions/0496.Next-Greater-ElementI.py) (!!M) <br>
 scan nums2 from right to left: <br>
 for a new scanning item i:  while nums2[i] >= stack[-1]: we pop, until we got a nums2[i]<stack[-1], then this stack[-1] is the next great number we are looking for for nums2[i].  背诵模板！
-- [0503. Next Greater Element II](Solutions/0503.Next-Greater-Element-II.py (M) <br>
+- [0503. Next Greater Element II](Solutions/0503.Next-Greater-Element-II.py) (M) <br>
 Double the nums first, then do the same thing as 496.
 - [0556. Next Greater Element III](Solutions/0556.Next-Greater-Element-III.py) (M) <br>
 very similar with 31. Next Permutation. # step 1: 从右至左找到第一个降序的； # step 2: swap the nums[idx] with the num just larger then it; # step 3: reverse the rest of the list
