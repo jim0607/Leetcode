@@ -35,6 +35,57 @@ Explanation:
 Notice you can have extra video after the event ends.
 
 
+"""
+每次都选结束时间最大的，比如选了[0, 4], 那就选开始时间在[0, 4]的Interval中选结束时间最大的, 比如选到了[2, 9],
+接着就在开始时间为[4, 9]的interval中选结束时间最大的，比如[7, 15]....这样依次下去。。。
+直到找到一个结束时间大于T的。
+"""
+class Solution:
+    def videoStitching(self, clips: List[List[int]], T: int) -> int:
+        clips.sort(key = lambda clip: (clip[0], clip[1]))
+        
+        if clips[0][0] > 0 or clips[-1][1] < T:
+            return -1
+
+        curr_start, curr_end = 0, 0
+        cnt = 0
+        i, j = 0, 0
+        while i < len(clips):
+            max_end = curr_end
+            while j < len(clips) and curr_start <= clips[j][0] <= curr_end:
+                max_end = max(max_end, clips[j][1])
+                j += 1
+                  
+            if max_end == curr_end:
+                return -1
+            
+            curr_start, curr_end = curr_end + 1, max_end
+            cnt += 1
+            
+            if curr_end >= T:
+                return cnt
+            
+            i = j
+            
+        return -1
+
+"""
+[[0, 2], [1, 5], [1, 9], [4, 6], [5, 9], [8, 10]]
+                            i                      j
+   
+   
+curr_start = 10
+curr_end =   10
+"""
+
+
+
+
+
+
+
+
+
 """动态规划DP: O(T*N), O(T), 但是merge sort需要O(NlogN), O(N), 所以总的复杂度为O(T*N+NlogN), O(T+N)
 这道题我看到了懵逼了一些时间。思考了良久发现这是一个跳蛙类型的动态规划。
 动态规划的要点：
