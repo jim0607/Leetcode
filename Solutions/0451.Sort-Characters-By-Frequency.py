@@ -41,6 +41,7 @@ Note that 'A' and 'a' are treated as two different characters.
 """
 solution 1: use hash map, and then convert to list, then sort, then conver to string - O(nlogn)
 """
+"""
 class Solution:
     def frequencySort(self, s: str) -> str:
         freq = collections.defaultdict(int)
@@ -70,6 +71,11 @@ Recall that Bucket Sort is the sorting algorithm where items are placed at Array
 For this problem, we can put our chars in buckets/indexes based on their frequency, we'll have a List of characters at each index.
 While we could simply make our bucket Array length n, we're best to just look for the maximum value (frequency) in the HashMap. 
 That way, we only use as much space as we need, and won't need to iterate over lots of empty buckets.
+
+In order to use bucket sort:
+step 1: 确定把什么放进bucket里做idx, 什么做idx对应的val, 这一题是把freq当做idx来放入bucket中, idx对应的val是a list of chars having the same freqency;
+step 2: 确定bucket size, 这一题是use max_freq as our bucket size;
+step 3: O(N) 遍历把相应的(freq, ch) pair 放到相应的(idx, ch)上, 这样一来high freq的ch就天然的放在bucket数组后面了, 就不需要sort了
 """
 class Solution:
     def frequencySort(self, s: str) -> str:
@@ -79,11 +85,11 @@ class Solution:
         for ch in s:
             freq[ch] += 1
             
-        max_freq = max(freq.values())   # we use max_freq as our bucket size
+        max_freq = max(freq.values())   # we use max_freq as our bucket size, in order to use bucket sort, the first step is to 确定bucket size
             
         bucket = [[] for _ in range(max_freq + 1)]
         for ch, cnt in freq.items():
-            bucket[cnt].append(ch)      # 把freq当做idx来放入bucket中，这样一来high freq的ch就天然的放在bucket后面了, 就不需要sort了
+            bucket[cnt].append(ch)      # 把freq当做idx来放入bucket中，这样一来high freq的ch就天然的放在bucket数组后面了, 就不需要sort了
         
         res = ""
         for i in range(len(bucket) - 1, 0, -1):     # 这里的index i就是freq
