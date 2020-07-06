@@ -42,6 +42,7 @@ Notice you can have extra video after the event ends.
 接着就在开始时间为[4, 9]的interval中选结束时间最大的，比如[7, 15]....这样依次下去。。。
 直到找到一个结束时间大于T的 - 需要提前sort - O(nlogn)
 """
+"""
 class Solution:
     def videoStitching(self, clips: List[List[int]], T: int) -> int:
         clips.sort(key = lambda clip: (clip[0], clip[1]))
