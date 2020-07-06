@@ -830,8 +830,18 @@ solution 1: dictionary to store the (num, pos) pairs. O(N), O(M), where N is the
 Solution 1: brutal force O(n^2); solution 2: Balanced BST O(nlogk); solution 3: bucket method: O(n). bucket sort利用的是分块的思想
 The main idea is splitting elements in nums into different buckets in terms of the value of t (for each element, divide by (t+1) for integer division). 保持bucket的大小为t这样只要有两个数被分配到了同一个bucket, 那么就可以return True了
 If the result is True, which means one of the following 3 cases hold: 1. Two elements in the same bucket; 2. One in the previous bucket; 3. One in the next bucket. If the case 2 or 3 holds, you need to check if their difference <= t.
+- [0275. H-Index II](Solutions/0275.H-Index-II.py) (!!M) <br>
+The list is sorted, 疯狂暗示二分呀有木有！
+find the first idx where citations[idx] >= N - idx, OOOXXX problem
+- [0274. H-Index](Solutions/0274.H-Index.py) (!!M) <br>
+Now the list is not sorted, what do we do? We can sort it and then do exactly the same as 275.  However, that takes nlogn. bucket sort: - O(N) garanteed.
+step 1: 把citation num被引次数放入bucket中作为idx, 而idx上对应的值是cnt of how many papers were cited this much time.
+step 2: bucket size 是 len(citations);
+step 3: O(N) 遍历把相应的(被引次数, how many paper被引了那么多次) pair 放到相应的(idx, val)上, 这样一来high idx上就天然放着high 被引次数了, 就不需要sort了
 
-------------- 274. H-Index -----------
+
+
+
 
 
 # [Linked List](/Linked-List)
