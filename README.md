@@ -738,6 +738,8 @@ If Koko can finish eating all the bananas (within H hours) with an eating speed 
 If we can cut into pieces with lens, then we can also cut into prices with len - 1, So this is a OOOXXX problem, to find the last O.
 - [0437. Copy Books](Solutions/0437.Copy-Books.py) (!!M Lintcode) <br>
 OOOXXX problem, to find the first O. 二分法不难想，难想的是比较mid时的那个helper function, helper function 中 return if k people can finish all the pages in the midTime.  Algorithm: greedy. 每次发现要超时了就加一个人。 
+- [1011. Capacity To Ship Packages Within D Days](Solutions/1011.Capacity-To-Ship-Packages-Within-D-Days.py) (M) <br>
+similar with copy books
 - [0074. Search a 2D Matrix](Solutions/0074.Search-a-2D-Matrix.py) (M) <br>
 Think it as a long 1D array with MxN element, then we can use binary search; row = mid // n, col = mid % n; O(log(MN)), O(1)
 - [0240. Search a 2D Matrix II](Solutions/0240.Search-a-2D-Matrix-II.py) (M) <br>
