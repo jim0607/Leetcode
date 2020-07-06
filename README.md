@@ -954,6 +954,8 @@ Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search
 It seems there is an O(M+N) solution, same idea of using slideing window, I should understand it later. 山景城一姐有video
 - [0340. Longest Substring with At Most K Distinct Characters](Solutions/0340.Longest-Substringwith-At-Most-K-Distinct-Characters.py) (H) <br>
 维护一个charDict, 用来记录i->j中的char的频率，套模板时满足的条件是len(charDict) <= k; 更新j: charDict[s[j]+=1; 更新i: charDict[s[i]] -= 1, if charDict[s[i]] == 0: del charDict[s[i]]
+- [0159. Longest Substring with At Most Two Distinct Characters](Solutions/0159.Longest-Substring-with-At-Most-Two-Distinct-Characters.py) (M) <br>
+Exactly the same as 340.
 - [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
 Note that the numbers are positive, so the prefixProd will be an increasing arr. 维护一个sums, 用来记录i->j中数的product, 指针j再往前跑，指针i在后面追。
 - [0242. Valid Anagram](Solutions/0242.Valid-Anagram.py) (E) <br>
@@ -964,15 +966,15 @@ sliding window solution 1: 九章模板，use one collections.Counters for p and
 similar with 567, 套用九章模板就可以了
 - [0049. Group Anagrams](Solutions/0049.Group-Anagrams.py) (!!M) <br>
 dictionary: key is a tuple keeping track of the cnt of all 26 letters, val is the word list corresponding to the tuple
-
-------- 
-209. Minimum Size Subarray Sum - Medium
-159. Longest Substring with At Most Two Distinct Characters - Medium
-30. Substring with Concatenation of All Words - Hard
-239	Sliding Window Maximum	hard
-295	Find Median from Data Stream
-228	Summary Ranges	medium
-163	Missing Ranges	medium	  ----------
+- [0030. Substring with Concatenation of All Words](Solutions/0030.Substring-with-Concatenation-of-All-Words.py) (H) <br>
+固定长度的sliding window: solution: use two hashmaps to record the frequency of word.
+O(len(s)* len(words)* len(words[0]))
+- [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (!!H) <br>
+heapq的方法是O(NK); deque O(N): Iterate over the array. At each step: I. Clean the deque: 1. Keep only the indexes of elements from the current sliding window; 2. Remove indexes of all elements smaller than the current one, since they will not be the maximum ones. eg: [1,2,7,3,5,4], k = 3, because of 7, 1 and 2 will never be in res; II. Append the current element to the deque. Append deque[0] to the output.
+- [0228. Summary Ranges](Solutions/0228.Summary-Ranges.py) (M) <br>
+sliding window可解
+- [163. Missing Ranges](Solutions/0163.Missing-Ranges.py) (M) <br>
+这题是上一题的延伸，跟sliding window没啥关系
 
 
 
@@ -1057,20 +1059,26 @@ sweep lint + heapq；a maxHeap to store all alive buildings, 存高度和终点.
 
 
 # [Greedy](/) <br>
+- [0870. Advantage Shuffle](Solutions/0870.Advantage-Shuffle.py) (M) <br>
+田忌赛马：Greedy algorithm: sort A and B first, and then assign num_a to num_b so that num_a is larger than num_b and num_a as small as possible.
+For each num_a a in sortedA, we will either beat that num_b (put a into assigned[b] map), or throw it out (put a into not_assigned list). 
 - [0055. Jump Game](Solutions/0055.Jump-Game.py) (!!M) <br>
 存在性问题。状态: dp[j]=能不能跳到位置j; 转移方程：dp[j]=True if dp[i] and nums[i]>=j-i) (TLE 注意只要有一个dp[i]是的dp[j]=True了就可以break了). DP解法: O(N^2).  Greedy 解法: O(N) Iterating right-to-left, for each position we check if there is a potential jump that reaches a GOOD index (currPosition + nums[currPosition] >= leftmostGoodIndex). 
 If we can reach a GOOD index, then our position is itself GOOD. Iteration continues until the beginning of the array. 
 If first position is a GOOD index then we can reach the last index from the first position.
-- [0045. Jump Game II](Solutions/0045.Jump-Game-II.py) (H) <br>
-Greedy算法：第一步可以跳到比如位置10，也就是说0-10我们都可以一步跳到，那我们就在0-10这些位置中，选一个位置i跳第二步，看看第二步能跳到最远的地方是哪里，比如是最远的是从位置6跳到位置28，那么就说明两步可以跳到位置28，也就是说11-28我们可以通过两步跳到，那我们就继续在11-28这些位置中，选一个位置i跳第三步.........
+- [0045. Jump Game II](Solutions/0045.Jump-Game-II.py) (!!H) <br>
+Greedy算法：第一步可以跳到比如位置10，也就是说0-10我们都可以一步跳到，那我们就在0-10这些位置中，选一个位置i跳第二步，看看第二步能跳到最远的地方是哪里，比如是最远的是从位置6跳到位置28，那么就说明两步可以跳到位置28，也就是说11-28我们可以通过两步跳到，那我们就继续在11-28这些位置中，选一个位置i跳第三步.........这个greedy的思想非常重要，要熟记！！ 
+- [1024. Video Stitching](Solutions/1024.Video-Stitching.py) (!!M) <br>
+每次都选结束时间最大的，比如选了[0, 4], 那就选开始时间在[0, 4]的Interval中选结束时间最大的, 比如选到了[2, 9],
+接着就在开始时间为[4, 9]的interval中选结束时间最大的，比如[7, 15]....这样依次下去。。。
+直到找到一个结束时间大于T的- 需要提前sort - O(nlogn).  solution 2: jump game - 无需sort - O(N).
+先建立一个reacable list存放从当前idx出发能到达的地方，然后就是jump game II了，求最少几步从0跳到T.
+- [1326. Minimum Number of Taps to Open to Water a Garden](Solutions/1326.Minimum-Number-of-Taps-to-Open-to-Water-a-Garden.py) (!!H Twitter) <br>
+We build a list reachable to store the max range it can be watered from each index.
+Then it becomes Jump Game II, where we want to find the minimum steps to jump from 0 to n.
+每跳一步就相当于开一个水龙头. 所以我们可以看到45. Jump Game II, 1024. Video Stitching和这题其实是一个题。
 - [1306. Jump Game III](Solutions/1306.Jump-Game-III.py) (M) <br>
 BFS, if can find arr[idx]==0, then return True.
-- [0870. Advantage Shuffle](Solutions/0870.Advantage-Shuffle.py) (M) <br>
-田忌赛马：Greedy algorithm: sort A and B first, and then assign num_a to num_b so that num_a is larger than num_b and num_a as small as possible.
-For each num_a a in sortedA, we will either beat that num_b (put a into assigned[b] map), or throw it out (put a into not_assigned list). 
-
-1024. 视频拼接，中等
-1326. 灌溉花园的最少水龙头数目，困难
 
 
 
@@ -1438,7 +1446,6 @@ f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B
 - [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
 - [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (M)
 - [1049. Last Stone Weight II](Solutions/1049.Last-Stone-Weight-II.py) (M)
-- [1024. Video Stitching](Solutions/1024.Video-Stitching.py) (M)
 - [1155. Number of Dice Rolls With Target Sum](Solutions/1155.Number-of-Dice-Rolls-With-Target-Sum.py) (M)
 - [0983. Minimum Cost For Tickets](Solutions/0983.Minimum-Cost-For-Tickets.py) (M)
 - [0688. Knight Probability in Chessboard](Solutions/0688.Knight-Probability-in-Chessboard.py) (M)
