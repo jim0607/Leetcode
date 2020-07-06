@@ -63,3 +63,31 @@ class Solution:
             res.append(heapq.heappop(hq)[1])
             
         return res
+    
+    
+    
+"""
+solution 2: quick select - O(N)
+"""
+
+"""
+solution 3: bucket sort - O(N)
+"""
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        freq = collections.Counter(nums)
+        max_freq = max(freq.values())   # 
+        
+        # we use max_freq as our bucket size
+        # we use a list of num with frequency=i at idx i
+        bucket = [[] for _ in range(max_freq + 1)]    
+        
+        for num, cnt in freq.items():
+            bucket[cnt].append(num)   # 把freq当做idx来放入bucket中，这样一来high freq的ch就天然的放在bucket后面了, 就不需要sort了
+        
+        res = []
+        for i in range(len(bucket) - 1, -1, -1):
+            for num in bucket[i]:
+                res.append(num)
+                if len(res) == k:
+                    return res
