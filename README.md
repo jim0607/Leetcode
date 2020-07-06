@@ -546,6 +546,8 @@ C(m, n)：m个里面找出n个的组合问题; 模板的DFS + back tracking求co
 其实可以不用把res传进去，定义一个全局变量self.res即可，可以简化dfs传入的参数。
 - [0090. Subsets II](Solutions/0090.Subsets-II.py) (!!M)<br>
 如果输入存在重复元素，[1, 2, 2]的遍历中，我们只取前面的那个2，对于后面的那个2，如果不是挨着前面那个2选的，也就是说i != startIndex，那么就不要放后面那个2，这样会造成重复出现[1,第一个2],[1,第二个2], 注意可以挨着第一个2来选第二个2是可以的，因为允许出现[1,2,2]作为答案。所以contraint是: if (i >= 1 and nums[i] == nums[i-1]) and i != startIndex: continue
+- [0254. Factor Combinations](Solutions/0254.Factor-Combinations.py) (M)<br>
+dfs找所有的约数组合
 - [0039. Combination Sum](Solutions/0039.Combination-Sum.py) (M) <br>
 模板：find_solution: if target == 0； Is_not_valid：if nums[i] > targetstart是从i开始的，而不是subsets里面的i+1, 这是因为Subsets 一个数只能选一次，Combination Sum 一个数可以选很多次
 - [0040. Combination Sum II](Solutions/0040.Combination-Sum-II.py) (M) <br>
@@ -578,7 +580,7 @@ step 1: sweeping from right to left, find the first decreasing element nums[i]; 
 step 1: put the characters that have seen two times in the char list; now we have a charList that only holds char that appears even times, eg: "aaaabbc" now becomes "aab", Step 2: we only need to do permutation for this charList, so the time complexity is O((n/2)!), which is quite an improve. Step 3: when return the results, we just use the permuation generated in steps 2 + permuation[::-1]
 - [0060. Permutation Sequence](Solutions/0060.Permutation-Sequence.py) (M)  <br>
 It really is all about pattern finding; https://leetcode.com/problems/permutation-sequence/discuss/22507/%22Explain-like-I'm-five%22-Java-Solution-in-O(n)
------ 254	Factor Combinations ----
+
 
 
 
