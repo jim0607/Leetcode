@@ -61,7 +61,7 @@ class Solution:
         next_coverage = reachable[0]
         cnt = 0
         i = 0
-        while i < n:
+        while i < n + 1:
             while i < n + 1 and i <= last_coverage:
                 next_coverage = max(next_coverage, reachable[i]) 
                 i += 1
