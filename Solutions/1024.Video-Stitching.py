@@ -35,10 +35,12 @@ Explanation:
 Notice you can have extra video after the event ends.
 
 
+
+
 """
 每次都选结束时间最大的，比如选了[0, 4], 那就选开始时间在[0, 4]的Interval中选结束时间最大的, 比如选到了[2, 9],
 接着就在开始时间为[4, 9]的interval中选结束时间最大的，比如[7, 15]....这样依次下去。。。
-直到找到一个结束时间大于T的。
+直到找到一个结束时间大于T的 - 需要提前sort - O(nlogn)
 """
 class Solution:
     def videoStitching(self, clips: List[List[int]], T: int) -> int:
@@ -47,14 +49,13 @@ class Solution:
         if clips[0][0] > 0 or clips[-1][1] < T:
             return -1
 
-        curr_start, curr_end = 0, 0
+        curr_start, curr_end, max_end = 0, 0, 0
         cnt = 0
-        i, j = 0, 0
+        i = 0
         while i < len(clips):
-            max_end = curr_end
-            while j < len(clips) and curr_start <= clips[j][0] <= curr_end:
-                max_end = max(max_end, clips[j][1])
-                j += 1
+            while i < len(clips) and curr_start <= clips[i][0] <= curr_end:
+                max_end = max(max_end, clips[i][1])
+                i += 1
                   
             if max_end == curr_end:
                 return -1
@@ -65,13 +66,11 @@ class Solution:
             if curr_end >= T:
                 return cnt
             
-            i = j
-            
         return -1
 
 """
 [[0, 2], [1, 5], [1, 9], [4, 6], [5, 9], [8, 10]]
-                            i                      j
+                           i                  j
    
    
 curr_start = 10
@@ -81,6 +80,42 @@ curr_end =   10
 
 
 
+"""
+solution 2: jump game - 无需sort - O(N).
+先建立一个reacable list存放从当前idx出发能到达的地方，然后就是jump game II了，求最少几步从0跳到T.
+Jump Game II greedy的思想非常重要。
+"""
+class Solution:
+    def videoStitching(self, clips: List[List[int]], T: int) -> int:
+        # step 1: construct a reachable list to get prepared for jump game II
+        # the index is each second of starting time, value is the largest end time can be reached at this second.
+        reachable = [0 for _ in range(T)]
+        for start, end in clips:
+            if start >= T:
+                continue
+            reachable[start] = max(reachable[start], end)
+            
+        print(reachable)
+        # step 2: now we can do jump game II to find min steps
+        last_coverage = 0
+        next_coverage = reachable[0]
+        cnt = 0
+        i = 0
+        while i < T:
+            while i < T and i <= last_coverage:     # 这里的下标i是start time, 所以自然而然是已经sort好了的
+                next_coverage = max(next_coverage, reachable[i])
+                i += 1
+            
+            if next_coverage == last_coverage:
+                return -1
+            
+            last_coverage = next_coverage
+            cnt += 1
+            
+            if last_coverage >= T:
+                return cnt
+            
+        return -1
 
 
 
