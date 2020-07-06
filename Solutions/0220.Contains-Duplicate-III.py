@@ -34,7 +34,7 @@ class Solution:
         
         bucket = collections.defaultdict(int) # key is bucket_id where nums[i] should be put in, val is nums[i]
         for i in range(len(nums)):     
-            bucket_id = nums[i]//(t+1)  # 取除数在python里-4//3=-2, 所以不用像java solution那样还要考虑负数的情况
+            bucket_id = nums[i]//(t+1)  # 取除数在python里-4//3=-2, 所以不用像java solution那样还要考虑负数的情况, 除以t+1是为了防止t=0的情况
             if bucket_id in bucket: # meaning that there is already a number that is in there
                 return True
             if bucket_id+1 in bucket and abs(bucket[bucket_id+1] - nums[i]) <= t:
