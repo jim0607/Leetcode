@@ -34,6 +34,8 @@ stack保存string, 处理stack的问题往往需要提前split the path by ("/")
 - [0388. Longest Absolute File Path](Solutions/0388.Longest-Absolute-File-Path.py) (!!M) <br>
 stack存the lens of the dir or file names, everytime we append a dir of file name into the stack, we need to go back to the correct depth where it belongs.
 
+-------------895. Maximum Frequency Stack-------------
+
 
 
 
