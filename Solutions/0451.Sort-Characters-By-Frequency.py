@@ -72,6 +72,7 @@ For this problem, we can put our chars in buckets/indexes based on their frequen
 While we could simply make our bucket Array length n, we're best to just look for the maximum value (frequency) in the HashMap. 
 That way, we only use as much space as we need, and won't need to iterate over lots of empty buckets.
 
+Bucket sort的本质是让idx含信息，把信息压缩到idx里，变相用空间换时间了。
 In order to use bucket sort:
 step 1: 确定把什么放进bucket里做idx, 什么做idx对应的val, 这一题是把freq当做idx来放入bucket中, idx对应的val是a list of chars having the same freqency;
 step 2: 确定bucket size, 这一题是use max_freq as our bucket size;
