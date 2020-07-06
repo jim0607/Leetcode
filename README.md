@@ -820,6 +820,8 @@ midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx
 ### [Bucket Sort](/Sort.py) 
 - [0451. Sort Characters By Frequency](Solutions/0451.Sort-Characters-By-Frequency.py) (!!M) <br>
 solution 1: use hash map, and then convert to list, then sort, then conver to string - O(nlogn). solution 2: bucket sort: putting our chars in buckets/indexes based on their frequency - O(N).
+- [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (M) <br>
+需要一个freqDict来记录每个数出现的freq， heapq, heapq中放入的是(freq, key)对; 按照freq来做heapq，这样就保证了可以筛选出most freqent k item; solution 2: quick select should implement; solution 3: bucket sort O(N) faster then solution 2, cuz solution 2 is O(N^2) in worst case. putting our nums in buckets/indexes based on their frequency
 - [0217. Contains Duplicate](Solutions/0217.Contains-Duplicate.py) (E) <br>
 hash set to store the seen number, if seen again, return True. Warm up for 219
 - [0219. Contains Duplicate II](Solutions/0219.Contains-Duplicate-II.py) (E) <br>
@@ -828,7 +830,7 @@ solution 1: dictionary to store the (num, pos) pairs. O(N), O(M), where N is the
 Solution 1: brutal force O(n^2); solution 2: Balanced BST O(nlogk); solution 3: bucket method: O(n). bucket sort利用的是分块的思想
 The main idea is splitting elements in nums into different buckets in terms of the value of t (for each element, divide by (t+1) for integer division). 保持bucket的大小为t这样只要有两个数被分配到了同一个bucket, 那么就可以return True了
 If the result is True, which means one of the following 3 cases hold: 1. Two elements in the same bucket; 2. One in the previous bucket; 3. One in the next bucket. If the case 2 or 3 holds, you need to check if their difference <= t.
-----------347. Top K Frequent Elements-------------
+
 ------------- 274. H-Index -----------
 
 
