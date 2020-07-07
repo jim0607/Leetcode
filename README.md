@@ -2,10 +2,6 @@
 ## 每日Review
 
 
-
-
-
-
 # [Data Structure](/Data-Structure.py)
 ### [Stack and Queue](/Data-Structure.py)
 - [0232. Implement Queue using Stacks](Solutions/0232.Implement-Queue-using-Stacks.py) (E) <br>
@@ -33,10 +29,6 @@ stack存num就可以了
 stack保存string, 处理stack的问题往往需要提前split the path by ("/")
 - [0388. Longest Absolute File Path](Solutions/0388.Longest-Absolute-File-Path.py) (!!M) <br>
 stack存the lens of the dir or file names, everytime we append a dir of file name into the stack, we need to go back to the correct depth where it belongs.
-
--------------895. Maximum Frequency Stack-------------
-
-
 
 
 ### [Iterator](/Data-Structure.py)
@@ -89,6 +81,7 @@ LC907. Sum of Subarray Minimums-----975. Odd Even Jump------
 ### [Deque](/Data-Structure.py) 
 - [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (H) <br>
 heapq的方法是O(NK); deque O(N): Iterate over the array. At each step: I. Clean the deque: 1. Keep only the indexes of elements from the current sliding window; 2. Remove indexes of all elements smaller than the current one, since they will not be the maximum ones. eg: [1,2,7,3,5,4], k = 3, because of 7, 1 and 2 will never be in res; II. Append the current element to the deque. Append deque[0] to the output.
+
 -------------- 1425. Constrained Subsequence Sum ---------------
 
 
@@ -103,6 +96,8 @@ Follow up 变形题snapchat：在一个data stream 中find top K most frequent n
 - [1153. String Transforms Into Another String](Solutions/1153.String-Transforms-Into-Another-String.py) (!!H Google) <br>
 Map each character in str1 to what it needs to be in str2. If any of these mappings collide (e.g. str1 = "aa", str2 = "bc", "a" needs to become both "b" and "c"),
 we immediately return False since the transformation is impossible.
+- [0895. Maximum Frequency Stack](Solutions/0895.Maximum-Frequency-Stack.py) (H) <br>
+O(1) solution: self.freq = collections.defaultdict(int), # key is num, val is freq of the num; self.mapping = collections.defaultdict(list), key is freq, val is a stack of num of that freq; self.max_freq = 0; we update the 3 global variables in push method and pop method.
 
 ------- 588. Design In-Memory File System !!!-----------
 
@@ -156,9 +151,7 @@ Top K Frequent Elements
 Sort Characters By Frequency
 Course Schedule III
 Find K Closest Elements
-Reorganize String
-Maximum Frequency Stack
-K Closest Points to Origin------------------------------
+Reorganize String------------------------------
 
 
 
@@ -380,11 +373,6 @@ In deserialize, while res[idx] != "#" 就说明还要继续给curr_node添加chi
 
 
 
-
-
-
-
-
 # [Union-Find](Union-Find-and-Trie.py)
 像trie, union-find这样的数据结构，可以现在UnionFind class里面先把interface写好，然后再写主程序，写完主程序之后再回来写这些interface.
 - [0589. Connecting Graph](Solutions/0589.connecting-graph.java) (!!M Lintcode) <br>
@@ -465,8 +453,6 @@ Same as 297.  Solution says since BST, the answer could be as compact as possibl
 serialize every root and put into a dictionary, with key is str constructed from the root, val is a list of root that can construct into the root.  Note that in-order traversal never works for serialization!
 
 
-
-
 ### [BFS in Graphs](/Breadth-First-Search.py)
 - [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
 判断图是不是一棵树（不一定非要是二叉树）需要满足两点:1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树
@@ -491,7 +477,6 @@ Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hash
 想想如果是一个很大的图，那minimum height trees的root就应该是这个图的最中心，所以我们就去找图的最中心就可以了，采用从外围(inDegree=1的node)往中间走的方法，解法类似topological sort, 走到最后留下的顶点就是最中心的顶点，也就是距离所有外围顶点最小的顶点。
 - [0802. Find Eventual Safe States](Solutions/0802.Find-Eventual-Safe-States.py) (M) <br>
 寻找不在环里的node, 其实就是其实就是topological sort for out_degree!
-
 
 
 ### [BFS in Matrix](/Breadth-First-Search.py) (隐式图搜索问题!!!)
@@ -528,8 +513,6 @@ We need to save (pos, keys_collected) in the visited set, because visiting the s
 but in order to get a new key, we may visit a certain pos, after getting the key, we may go back and visit the pos again.
 
 
-
-
 ### [Dijkstra](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0743. Network Delay Time](Solutions/0743.Network-Delay-Time.py) (!!M) <br>
 **带权值**的**有向图**求**单源节点**出发的最短路径问题马上就想到Dijkstra, **O(NlogN + E)** N is # nodes, E is # edges <br>
@@ -549,7 +532,6 @@ solution 1: 带层序遍历的bfs, if grid[next_x][next_y] == BLOCK 那就contin
 - [1263. Minimum Moves to Move a Box to Their Target Location](Solutions/1263.Minimum-Moves-to-Move-a-Box-to-Their-Target-Location.py) (H) <br>
 思路：这个题是从源节点到目标节点的最短路径问题，所以想到用bfs, 源节点是对boxPos, 目标节点是targetPos, 从源节点出发做带层序遍历的bfs_1, return 层数即可。注意在判断nextBoxPos是否可以append到q的时候需要兼顾考虑到player能不能到nextBoxPos的相反方向去推box, 所以需要找到从currPlayerPos到oppositeNextBoxPos的可能路径，这是一个从源节点到目标节点的问题，源节点是对currPlayerPos, 目标节点是oppositeNextBoxPos, 需要做bfs_2, 如果能到就返回true. 总体思路就是上述了，需要注意的是bfs_1中由于box每移动一下boxPos会变playerPos也会变，所以要把boxPos和playerPos都入队列。另外易错点：visited里面只装boxPos. 这是不对的, 因为box从不同的方向被推到同一个地方是允许的，因此visited里面应该装入(boxPos, the pos where the boxPos comes from). <br>
 Solution 2: 无权图单源节点的最短路径问题，自然想到A-star search algorithm. use manhatan distance as Heuristic esitimation for A-star algorithm: steps + (abs(nextBoxPos[0]-targetPos[0]) + abs(nextBoxPos[1]-targetPos[1])).  put the heuristic estimation in the hq, together with steps, so the hq stores (heristic estimation of hte minimum steps needed from source to target, steps, boxPos, playerPos).  in A* algorithm, do not do level order bfs, do non-level order bfs.  
-
 
 
 
@@ -596,8 +578,6 @@ step 1: put the characters that have seen two times in the char list; now we hav
 It really is all about pattern finding; https://leetcode.com/problems/permutation-sequence/discuss/22507/%22Explain-like-I'm-five%22-Java-Solution-in-O(n)
 
 
-
-
 ### [树上的DFS](/Depth-First-Search.py) <br>
 - [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
 Solution 1: 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
@@ -624,7 +604,6 @@ then it means it is not covered by it's children, then we must place a camera he
 两个dfs. 看不懂呀，真TMD难呀
 
 
-
 # [图的遍历](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 ## [基础图问题](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (E) <br>
@@ -633,6 +612,7 @@ one dict to store the inDegree (beingTrusted), one dict to store the outDegree (
 main algorithm: each comparing kowns(i, j), we are sure either i is definitely not a celebrity (knows(i, j)=True), or j is definitely not a celebrity (knows(i, j)=False). step 1: one pass, find a candidate by making sure other people are not candidates; step 2: one pass, double check the candidate selected in step 1 is indeed a celebrity
 - [1153. String Transforms Into Another String](Solutions/) (!H Google++) <br>
 follow up 是若transform可行，判断是否需要用到中介字符，即判断有向图是否有环。
+
 
 ## [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0733. Flood Fill](Solutions/0733.Flood-Fill.py) (!!E) <br>
@@ -705,13 +685,15 @@ Google两个follow up 很难
 - [0863. All Nodes Distance K in Binary Tree](Solutions/0863.All-Nodes-Distance-K-in-Binary-Tree.py) (M) <br>
 step 1: use dfs, change a tree to a graph with adjacency list representation; 
 step 2: start from target, use bfs/dfs to find the nodes with distance == K
+- [1057.Campus-Bikes.py](Solutions/1057.Campus-Bikes.py) (!!M) <br>
+brutal force solution O(MNlog(MN)): find the distance of all combinations, and sort them.
+. bucket sort solution O(MN): find the distance of all combinations, and put them into bucket based on their distance. 
+In this way, the distances are represented by idx, which were sort by nature.
+- [1066. Campus Bikes II](Solutions/1066.Campus-Bikes-II.py) (!!M) <br>
+backtracking with memorization, 由于必须把assigned_bike set放入到state中，所以是指数级别的复杂度
 
 
  ----89. Gray Codes ---1042. Flower Planting With No Adjacent-----401. Binary Watch-------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors------357. Count Numbers with Unique Digits	-----996. Number of Squareful Arrays-----306. Additive Number	----943. Find the Shortest Superstring-----------959. Regions Cut By Slashes----  Letter Case Permutation -----526. Beautiful Arrangement------842. Split Array into Fibonacci Sequence---------996. Number of Squareful Arrays--------1079. Letter Tile Possibilities----Sum Root to Leaf Numbers------Flip Game--------Flip Game II--------Nim Game---691. Stickers to Spell Word----964. Least Operators to Express Number------279. Perfect Squares------------------
-
-
-
-
 
 
 
@@ -776,10 +758,6 @@ Use greedy to check can get - O(N).  Overall: O(NlogM), where N = len(sweetness)
 - [0774. Minimize Max Distance to Gas Station](Solutions/0774.Minimize-Max-Distance-to-Gas-Station.py) (H) <br>
 If we can do it at D, then we can do it at larger than D. This is a OOXX problem to find the minimum D.
 The difficult part is to find if is_valid to place K stations so that every adjacent station has distance smaller than D - using greedy. 注意这一题的start, end都是小数
-
-
-
-
 
 
 
@@ -850,14 +828,11 @@ step 2: bucket size 是 len(citations);
 step 3: O(N) 遍历把相应的(被引次数, how many paper被引了那么多次) pair 放到相应的(idx, val)上, 这样一来high idx上就天然放着high 被引次数了, 就不需要sort了
 
 
-
 ### [Cyclic Sort](/Sort.py) 
 Find the Missing Number
 Find all Missing Numbers
 Find the Duplicate Number
 Find all Duplicate Numbers
-
-
 
 
 # [Linked List](/Linked-List)
@@ -894,8 +869,6 @@ Rotate List
 Reverse Linked List II
 Reverse Linked List
 Odd Even Linked List
-
-
 
 
 # [Two Pointers](/Two-pointers.py)
@@ -976,8 +949,6 @@ solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1
 
 
 
-
-
 # [Sliding Window (同向双指针)](/Sliding-window.py)
 - [0209. Minimum Size Subarray Sum](Solutions/0209.Minimum-Size-Subarray-Sum.py) (!!M) <br>
 维护一个sums, 用来记录i->j中数的和，套模板时满足的条件是sums < target; 更新j: sums += nums[j]; 更新i: sums -= nums[j]
@@ -1055,8 +1026,6 @@ update the max_1_sum, max_2_sum, max_3_sum as we travel through the array.
 
 
 
-
-
 # [Sweep-Line/Intervals](/Sweep-Line.py) <br>
 - [0252. Meeting Rooms](Solutions/0252.Meeting-Rooms.py) (E) <br>
 O(nlogn), O(1). 题目问一个人能不能参加所有的meeting, 只需要sort the intervals, if intervals[i][0] < intervals[i - 1][1] then return False
@@ -1098,10 +1067,6 @@ sweep lint + heapq；a maxHeap to store all alive buildings, 存高度和终点.
 
 
 
-
-
-
-
 # [Greedy](/) <br>
 - [0870. Advantage Shuffle](Solutions/0870.Advantage-Shuffle.py) (M) <br>
 田忌赛马：Greedy algorithm: sort A and B first, and then assign num_a to num_b so that num_a is larger than num_b and num_a as small as possible.
@@ -1135,8 +1100,6 @@ And the question guaranteed that the solution is unique(The first one I found is
 
 
 
-
-
 # [Data Stream and Multiple Query]()
 - [0243. Shortest Word Distance](Solutions/0243.Shortest-Word-Distance.py) (E) <br>
 Should know both two pass solution and One pass solution. follow up 1:  如果word1在words中很少只有两个，word2在words中很多有1 million个，怎么优化算法？那么这时候solution 1就派上用场了，我们可以存下idx1 和 idx2两个list. eg: idx1 = [10, 50000]; idx2 = [.......], 那么我们可以在idx2中binary search离10最近的数，然后binary search离50000最近的数。这样时间复杂度就是O(MlogN)了。
@@ -1152,7 +1115,6 @@ word1 and word2 may be the same and they represent two individual words in the l
 
 
 
-
 # [Big Data]()
 - [0311. Sparse Matrix Multiplication](Solutions/0311.Sparse-Matrix-Multiplication.py) (!!M Facebook) <br>
 Sparse matrices, which are common in scientific applications, are matrices in which most elements are zero. To save space and running time it is critical to only store the nonzero elements. Many real world applications of vectors include sparse vectors. An example of it in Machine Learning is the popular one-hot encoding method for categorical computation. We can se a dictinoary to store the index and value of non-zero values, O(M+N + mn), O(M+N), M is the number of elements in matrix A, m is the number of non-zero elements in A.
@@ -1165,8 +1127,6 @@ Traversal 2: re-mark 2 to 1, -1 to 0.  Follow up: what if the board is infinite 
 Use a sorted list to record the index of seats where people sit, so that we can save tons of space if the seats is sparse;
 seat(): 1. find the biggest distance at the start, at the end and in the middle. 2. insert index of seat into the idx list. 3. return index.
 leave(p): pop out p.
-
-
 
 
 
@@ -1200,8 +1160,6 @@ stack is always good for parentheses
 -----------Parentheses--------------
 
 
-
-
 ### [Perfect Rectangle](/)
 - [0836. Rectangle Overlap](Solutions/0836.Rectangle-Overlap.py) (E) <br>
 比较点的坐标即可
@@ -1211,7 +1169,6 @@ stack is always good for parentheses
 属于观察题目性质的题, In order to form a perfect rectangle, two condictions must be satisfied:
 condition 1. for all the coordinates, there are 4 and only 4 coordinates that appear only once, others appear either twice or 4 times.  So we can use a set to store all the coordinates and cnt their appear times
 condition 2. the sum of area of all the small rectangles should be the same as the whole big one (the area enclosed by the 4 coordinates in condition 1)
-
 
 
 ### [Robot Simulation](/)
@@ -1238,7 +1195,6 @@ solution 1: 448类似的做法，我们通过nums[i] += 1来change all 0s to be 
 1st pass: change all negtive numbers to be 1, so that there will be no negtive numbers;  2nd pass: change the positive numbers into negative; 3rd pass: find the first positive number, and the corresponding idx is missing
 
 
-
 ### [Image Process](/)
 - [0048. Rotate Image](Solutions/0048.Rotate-Image.py) (M) <br>
 Step 1: transpose: swap( matrix[i][j], matrix[j][i] ); Step 2: reverse columns: swap( matrix[][i], matrix[][j] )
@@ -1246,8 +1202,6 @@ Step 1: transpose: swap( matrix[i][j], matrix[j][i] ); Step 2: reverse columns: 
 step 1: use a list to record the positions for A and B where 1s are located;
 step 2: use a counter to remember the cnt of (delta_i, delta_j)
 O(N^4), O(N^2)
-
-
 
 
 ### [Rolling Hash/Rabin Karp]()
@@ -1267,7 +1221,6 @@ greedy algorithm: use two pointers iterate the s, and s[::-1], if find equal sub
 O(n)* O(string), n is lens of s, string is the average lens of equal string. check two substring equal 的地方应该可以用rolling hash优化成O(1). 但是greedy 已经破天了，面试官还要优化的话我就mmp了
 - [1316. Distinct Echo Substrings](Solutions/1316.Distinct-Echo-Substrings.py) (H) <br>
 先把整个string的hash_code计算出来存在一个数组里面hash_code[i] = the hash code for s[:i] 相当于prefix_hash_code这样后面计算是substring s[i:j]的hash code就是O(1) 了
-
 
 
 # [Random/Sampling](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
@@ -1331,8 +1284,6 @@ solution 2: rejection sampling - O(1) need to call random multiple times
 
 
 
-
-
 # [Recursion with memoization/top down DP](/https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0980.Unique-Paths-III.py](Solutions/0980.Unique-Paths-III.py) (!!M youtube with path-I and II) <br>
 Solution 2: since we don't need to print the actual paths, DP or dfs with memorization is good.
@@ -1341,8 +1292,6 @@ solution 1: dfs+backtrack: 这种方法不但可以找出有多少种路径，�
 O(4^N) time where N is number of non-block squares in the grid. 
 
 139. word break; 312. Burst Balloons
-
-
 
 
 # [Dynamic Programming/bottom up DP](Dynamic-Programming.py)
@@ -1510,8 +1459,6 @@ f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B
 
 
 
-
-
 # [Company High Freq](/)
 ## [Google](/)
 - [BinarySearchable](Solutions/Google__BinarySearchable.py) (M) <br>
@@ -1530,9 +1477,6 @@ O(N), O(N)
 遍历整个matrix, 每次都与其右下角的数进行比较. 遇到这么简单的题，follow up 就不会太简单了, 三个follow up很重要！！
 
 Count Complete Tree Nodes; Longest Increasing Path in a Matrix; Evaluate Division; Cracking the Safe; Robot Room Cleaner; Most Stones Removed with Same Row or Column; Flip Equivalent Binary Trees; Word Squares; Count of Smaller Numbers After Self; Peak Index in a Mountain Array; Split Array Largest Sum; Logger Rate Limiter; Insert Delete GetRandom O(1); Design Search Autocomplete System; Reverse Integer; Candy; Isomorphic Strings; Strobogrammatic Number; Bulls and Cows; Range Sum Query 2D - Mutable; My Calendar II; Jewels and Stones; Swap Adjacent in LR String; Guess the Word; Minimum Area Rectangle
-
-
-
 
 
 
