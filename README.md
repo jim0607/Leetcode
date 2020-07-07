@@ -72,9 +72,10 @@ So we use this element with its left or right to construct a root node. (res += 
 step 1: construct a heights list for each row; step 2: calculate the largestRectangularHistogram of each height using the same method in 84; Should think about dynamic programming solution also.
 - [0907. Sum of Subarray Minimums](Solutions/0907.Sum-of-Subarray-Minimums.py) (M) <br>
 单调递增栈存idx
+- [0456. 132 Pattern](Solutions/0456.132-Pattern.py) (H) <br>
+solution: 从右往左，维护一个单调递减栈，while loop是为了保证选出一个最接近num的two, 这样num作为three, 下一个进来的num就更容易小于two了！
 
------------456. 132 Pattern------Create Maximum Number---------Max Chunks To Make Sorted II------LC862. Shortest Subarray with Sum at Least K--------
-LC907. Sum of Subarray Minimums-----975. Odd Even Jump------
+---------------Create Maximum Number---------Max Chunks To Make Sorted II------LC862. Shortest Subarray with Sum at Least K-----------975. Odd Even Jump------
 
 
 
@@ -991,7 +992,15 @@ Longest Repeating Character Replacement
 Permutation in String
 Count Unique Characters of All Substrings of a Given String
 Fruit Into Baskets
-Minimum Number of K Consecutive Bit Flips----------------
+Minimum Number of K Consecutive Bit Flips
+Count Number of Nice Subarrays
+Replace the Substring for Balanced String
+Max Consecutive Ones III
+Binary Subarrays With Sum
+Subarrays with K Different Integers
+Fruit Into Baskets
+Shortest Subarray with Sum at Least K
+Minimum Size Subarray Sum----------------
 
 
 
