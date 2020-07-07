@@ -1123,8 +1123,15 @@ Then it becomes Jump Game II, where we want to find the minimum steps to jump fr
 每跳一步就相当于开一个水龙头. 所以我们可以看到45. Jump Game II, 1024. Video Stitching和这题其实是一个题。
 - [1306. Jump Game III](Solutions/1306.Jump-Game-III.py) (M) <br>
 BFS, if can find arr[idx]==0, then return True.
+- [0134. Gas Station](Solutions/0134.Gas-Station.py) (!!M) <br>
+Every time a fail happens, we start reset the gas_left to 0, and reset the possible_station. 
+The problem has an assumption: if sum of gas is more than sum of cost, then there must be a solution. 
+And the question guaranteed that the solution is unique(The first one I found is the right one).
+- [0135. Candy](Solutions/0135.Candy.py) (!!H) <br>
+先给每个孩子分配一个糖果，然后从左往右扫，更新向上的child需要的candy, 接着从右往左扫，更新向下的child需要的candy. 需要证明
 
------------------ 134. Gas Station; 135. Candy        ---------0455-assign-cookies（1、升序排序）.py          0435-non-overlapping-intervals（按终点排序）.py                        0316-remove-duplicate-letters（栈、贪心算法）.py                         0310-minimum-height-trees（广度优先遍历）.py                  0012-integer-to-roman（贪心算法）.py-----------------455. Assign Cookies-------------406. Queue Reconstruction by Height--------------------------------------------------------------------------
+
+----------0455-assign-cookies（1、升序排序）.py          0435-non-overlapping-intervals（按终点排序）.py                        0316-remove-duplicate-letters（栈、贪心算法）.py                         0310-minimum-height-trees（广度优先遍历）.py                  0012-integer-to-roman（贪心算法）.py-----------------455. Assign Cookies-------------406. Queue Reconstruction by Height--------------------------------------------------------------------------
 
 
 
