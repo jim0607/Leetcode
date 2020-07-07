@@ -1111,10 +1111,7 @@ Traversal 2: re-mark 2 to 1, -1 to 0.  Follow up: what if the board is infinite 
 遍历过程中不断update idx_of_1和max_dist就可以了，把seats[0]==0和seats[-1]==0单独拿出来判断。warm up for next question.
 - [0855. Exam Room](Solutions/0855.Exam-Room.py) (M) <br>
 Use a sorted list to record the index of seats where people sit, so that we can save tons of space if the seats is sparse;
-seat():
-1. find the biggest distance at the start, at the end and in the middle.
-2. insert index of seat into the idx list.
-3. return index.
+seat(): 1. find the biggest distance at the start, at the end and in the middle. 2. insert index of seat into the idx list. 3. return index.
 leave(p): pop out p.
 
 
