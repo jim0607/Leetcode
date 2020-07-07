@@ -81,13 +81,15 @@ step 1: construct a heights list for each row; step 2: calculate the largestRect
 - [0907. Sum of Subarray Minimums](Solutions/0907.Sum-of-Subarray-Minimums.py) (M) <br>
 单调递增栈存idx
 
------------456. 132 Pattern------Create Maximum Number---------Max Chunks To Make Sorted II-----------
+-----------456. 132 Pattern------Create Maximum Number---------Max Chunks To Make Sorted II------LC862. Shortest Subarray with Sum at Least K--------
+LC907. Sum of Subarray Minimums-----975. Odd Even Jump------
 
 
 
 ### [Deque](/Data-Structure.py) 
 - [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (H) <br>
 heapq的方法是O(NK); deque O(N): Iterate over the array. At each step: I. Clean the deque: 1. Keep only the indexes of elements from the current sliding window; 2. Remove indexes of all elements smaller than the current one, since they will not be the maximum ones. eg: [1,2,7,3,5,4], k = 3, because of 7, 1 and 2 will never be in res; II. Append the current element to the deque. Append deque[0] to the output.
+-------------- 1425. Constrained Subsequence Sum ---------------
 
 
 ### [Hashmap/Dictionary](/Data-Structure.py) 
@@ -148,7 +150,15 @@ Follow up: leetcode 1093
 Solution 1: maitain a sorted window.  We can use binary search for remove and indert. the overall time complexity is O(NK).
 similar with 295, we need to maintain two heaps in the window, leftHq and rightHq. To slide one step is actually to do two things: step 1. add a number, which is exactly the same as that in 295. add a number in heapq could be heapq.heappush() which is O(logn) step 2. remove the number that is outside the window; there is not a remmove method in heapq.  We need to implement sift_up and sift_down method for heapq.  Need to implement a heapq in Python!!
 
-
+--------------------------------------------Kth Kth Largest Element in an Array
+Kth Smallest Element in a BST
+Top K Frequent Elements
+Sort Characters By Frequency
+Course Schedule III
+Find K Closest Elements
+Reorganize String
+Maximum Frequency Stack
+K Closest Points to Origin------------------------------
 
 
 
@@ -697,7 +707,7 @@ step 1: use dfs, change a tree to a graph with adjacency list representation;
 step 2: start from target, use bfs/dfs to find the nodes with distance == K
 
 
- -------1042. Flower Planting With No Adjacent------------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors-----------996. Number of Squareful Arrays---------943. Find the Shortest Superstring-----------959. Regions Cut By Slashes------
+ ----89. Gray Codes ---1042. Flower Planting With No Adjacent-----401. Binary Watch-------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors------357. Count Numbers with Unique Digits	-----996. Number of Squareful Arrays-----306. Additive Number	----943. Find the Shortest Superstring-----------959. Regions Cut By Slashes----  Letter Case Permutation -----526. Beautiful Arrangement------842. Split Array into Fibonacci Sequence---------996. Number of Squareful Arrays--------1079. Letter Tile Possibilities----Sum Root to Leaf Numbers------Flip Game--------Flip Game II--------Nim Game---691. Stickers to Spell Word----964. Least Operators to Express Number------279. Perfect Squares------------------
 
 
 
@@ -841,6 +851,12 @@ step 3: O(N) 遍历把相应的(被引次数, how many paper被引了那么多�
 
 
 
+### [Cyclic Sort](/Sort.py) 
+Find the Missing Number
+Find all Missing Numbers
+Find the Duplicate Number
+Find all Duplicate Numbers
+
 
 
 
@@ -871,8 +887,13 @@ Solution 1 O(N), O(N): Just iterate the linked list and create copies of the nod
 本题的考点是关于如何新建一个linked list, 要用someNode.next = ListNode(someVal), 而不是简单的修改value; 还考察了是否细心, 最后很容易漏掉carryBit != 0的判断"
 - [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!M) <br>
 maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we should override ListNode compare function __ lt __ to make customized compare happens: compare ListNode. Solution 2: divide and conquer, O(NlogK), this is a better solution.
-
-
+--------------------------
+Swap Nodes in Pairs
+Reverse Nodes in k-Group
+Rotate List
+Reverse Linked List II
+Reverse Linked List
+Odd Even Linked List
 
 
 
@@ -910,6 +931,20 @@ anchor is the first zero element, __anchor keeps all the non-zero numbers on it'
 思路：定义caps cnt，先扫一遍看多少个caps lock，比较s1.charAt(i) == s2.charAt(j) && caps1 == caps2
 - [0524. Longest Word in Dictionary through Deleting](Solutions/0524.Longest-Word-in-Dictionary-through-Deleting.py) (M) <br>
 sort the words by lens, and check the word one by one to see if there is a match. How to check if word matches s? use two pointers to traverse word and s, compare as they go.
+
+
+--------- Two Sum
+Container With Most Water
+3Sum
+3Sum Closest
+Trapping Rain Water
+Sort Colors
+Minimum Window Substring
+Remove Duplicates from Sorted List
+Subarray Product Less Than K
+Backspace String Compare
+Squares of a Sorted Array ----------
+
 
 
 # [Two Sum]()
@@ -976,7 +1011,16 @@ sliding window可解
 - [163. Missing Ranges](Solutions/0163.Missing-Ranges.py) (M) <br>
 这题是上一题的延伸，跟sliding window没啥关系
 
-
+------------- Longest Substring Without Repeating Characters
+Substring with Concatenation of All Words
+Minimum Window Substring
+Minimum Size Subarray Sum
+Sliding Window Maximum
+Longest Repeating Character Replacement
+Permutation in String
+Count Unique Characters of All Substrings of a Given String
+Fruit Into Baskets
+Minimum Number of K Consecutive Bit Flips----------------
 
 
 
@@ -1050,7 +1094,7 @@ Solution 2: in the addNum method, firstly find the pos of insertion into the int
 - [0218. The Skyline Problem](Solutions/0218.The-Skyline-Problem.py) (!!H) <br>
 sweep lint + heapq；a maxHeap to store all alive buildings, 存高度和终点. res 里面需要保存的其实是每一次高度发生变化时的终点. 在指针currPos做扫描的时候做三件事情: 1. pop buildings that end before curPos, cuz they are no longer "alive"; 2. push [negative_height, end_point] of all buildings that start before curPos; 3. 更新res: if -maxHeap[0][0] != prevHeight: 说明出现了一个拐点要么上升要么下降，这时候就需要append拐点了
 
-
+--------------757. Set Intersection Size At Least Two--------------850. Rectangle Area II-------715. Range Module---------------------------------------
 
 
 
@@ -1080,7 +1124,7 @@ Then it becomes Jump Game II, where we want to find the minimum steps to jump fr
 - [1306. Jump Game III](Solutions/1306.Jump-Game-III.py) (M) <br>
 BFS, if can find arr[idx]==0, then return True.
 
------------------ 134. Gas Station; 135. Candy        ---------0455-assign-cookies（1、升序排序）.py          0435-non-overlapping-intervals（按终点排序）.py                        0316-remove-duplicate-letters（栈、贪心算法）.py                         0310-minimum-height-trees（广度优先遍历）.py                  0012-integer-to-roman（贪心算法）.py--------
+----------------- 134. Gas Station; 135. Candy        ---------0455-assign-cookies（1、升序排序）.py          0435-non-overlapping-intervals（按终点排序）.py                        0316-remove-duplicate-letters（栈、贪心算法）.py                         0310-minimum-height-trees（广度优先遍历）.py                  0012-integer-to-roman（贪心算法）.py-----------------455. Assign Cookies-------------406. Queue Reconstruction by Height--------------------------------------------------------------------------
 
 
 
@@ -1145,7 +1189,8 @@ then sweep right to left, and store "(" that should be deleted, eg: eg: "(()", t
 lastly delete the prarentheses that should be deleted.
 - [0856. Score of Parentheses](Solutions/0856.Score-of-Parentheses.py) (M)  <br>
 stack is always good for parentheses
-
+------------------------------------------------
+-----------Parentheses--------------
 
 
 
