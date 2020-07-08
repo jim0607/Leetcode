@@ -74,11 +74,8 @@ step 1: construct a heights list for each row; step 2: calculate the largestRect
 单调递增栈存idx
 - [0456. 132 Pattern](Solutions/0456.132-Pattern.py) (H) <br>
 solution: 从右往左，维护一个单调递减栈，while loop是为了保证选出一个最接近num的two, 这样num作为three, 下一个进来的num就更容易小于two了！
-- [0769. Max Chunks To Make Sorted](Solutions/0769.Max-Chunks-To-Make-Sorted.py) (M) <br>
-Iterate the array, if the max(A[0] ~ A[i]) = i, then we can cut it at this index.,
-so that it the chunk ended with i. - just some game about number.
 
----------------Create Maximum Number---------Max Chunks To Make Sorted II------------975. Odd Even Jump------
+----------975. Odd Even Jump------
 
 
 
@@ -111,8 +108,6 @@ O(1) solution: self.freq = collections.defaultdict(int), # key is num, val is fr
 
 
 
-
-
 ### [Heap/Heapq](/Data-Structure.py) 
 - [Heapq implementation](Solutions/Implement_Heapq.py) (!!M) <br>
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M) <br>
@@ -125,6 +120,8 @@ heapq solution: O(N + klogN); quick select solution: O(N + klogk)
 solution 1: 扫描线；solution 2: 以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
 - [0973. K Closest Points to Origin](Solutions/0973.K-Closest-Points-to-Origin.py) (M) <br>
 （以squre来构建heap就可以了，heap中的元素是(square, point)） quick select is only O(N), I guess all the kth largest problem can use quick select.
+- [0658. Find K Closest Elements](Solutions/0658.Find-K-Closest-Elements.py) (M) <br>
+step 1: binary search to find the idx where x should be; step 2: put the closest k elements in a hq - O(klogk); step 3: output - O(klogk)
 - [0378. Kth Smallest Element in a Sorted Matrix](Solutions/0378.Kth-Smallest-Element-in-a-Sorted-Matrix.py) (!!M) <br>
 利用sorted matrix的性质，从左上角第一个元素开始，添加进heap，然后heap当然自动排序了，然后pop出最小的，然后把最小的那个数的右边和下边的元素分别入heap，这样可以保证每次pop出来的都是最小的。1. use a heap to store (num, row, col); 2. use a set to check if row + 1, col + 1 visited already before push into the heap; Solution 2: binary search 了解一下。<br>
 - [0465 Kth Smallest Sum in Two Sorted Arrays](Solutions/0465.Kth-Smallest-Sum-in-Two-Sorted-Arrays.py) (M Lintcode) <br>
@@ -153,12 +150,8 @@ Follow up: leetcode 1093
 Solution 1: maitain a sorted window.  We can use binary search for remove and indert. the overall time complexity is O(NK).
 similar with 295, we need to maintain two heaps in the window, leftHq and rightHq. To slide one step is actually to do two things: step 1. add a number, which is exactly the same as that in 295. add a number in heapq could be heapq.heappush() which is O(logn) step 2. remove the number that is outside the window; there is not a remmove method in heapq.  We need to implement sift_up and sift_down method for heapq.  Need to implement a heapq in Python!!
 
---------------------------------------------Kth Kth Largest Element in an Array
-Kth Smallest Element in a BST
-Top K Frequent Elements
-Sort Characters By Frequency
+---------------------------------------
 Course Schedule III
-Find K Closest Elements
 Reorganize String------------------------------
 
 
@@ -294,6 +287,8 @@ OrderedDict是deque的增强版，这一点在LRU那题中已经体现。
 # [Binary Tree, Divide and Conquer](/Binary-Tree-Divide-and-Conquer.py) <br> 
 - [0144. Binary Tree Preorder Traversal](Solutions/0144.Binary-Tree-Preorder-Traversal.py) (M) memorize the iterative version using stack
 - [0094. Binary Tree Inorder Traversal](Solutions/0094.Binary-Tree-Inorder-Traversal.py) (M) memorize the iterative version using stack
+- [0230. Kth Smallest Element in a BST](Solutions/0230.Kth-Smallest-Element-in-a-BST.py) (M) <br>
+solution 2: in order traversal of BST (iteratively) - O(k+H) where H is height of tree. solution 1: trivial - in order traversal of BST - O(N), O(N).
 - [0104. Maximum Depth of Binary Tree](Solutions/0104.Maximum-Depth-of-Binary-Tree.py) (E) <br>
 rootDepth = max(leftDepth, rightDepth) + 1
 - [0257. Binary Tree Paths](Solutions/0257.Binary-Tree-Paths.py) (!!E) <br>
@@ -1110,7 +1105,7 @@ And the question guaranteed that the solution is unique(The first one I found is
 先给每个孩子分配一个糖果，然后从左往右扫，更新向上的child需要的candy, 接着从右往左扫，更新向下的child需要的candy. 需要证明
 
 
-----------0455-assign-cookies（1、升序排序）.py          0435-non-overlapping-intervals（按终点排序）.py                        0316-remove-duplicate-letters（栈、贪心算法）.py                         0310-minimum-height-trees（广度优先遍历）.py                  0012-integer-to-roman（贪心算法）.py-----------------455. Assign Cookies-------------406. Queue Reconstruction by Height--------------------------------------------------------------------------
+----------0455-assign-cookies（1、升序排序）.py          0435-non-overlapping-intervals（按终点排序）.py                        0316-remove-duplicate-letters（栈、贪心算法）.py                         0310-minimum-height-trees（广度优先遍历）.py                  0012-integer-to-roman（贪心算法）.py-----------------455. Assign Cookies-------------406. Queue Reconstruction by Height------------Create Maximum Number----------670. Maximum Swap-----------------------------------------------------
 
 
 
@@ -1494,6 +1489,14 @@ O(N), O(N)
 遍历整个matrix, 每次都与其右下角的数进行比较. 遇到这么简单的题，follow up 就不会太简单了, 三个follow up很重要！！
 
 Count Complete Tree Nodes; Longest Increasing Path in a Matrix; Evaluate Division; Cracking the Safe; Robot Room Cleaner; Most Stones Removed with Same Row or Column; Flip Equivalent Binary Trees; Word Squares; Count of Smaller Numbers After Self; Peak Index in a Mountain Array; Split Array Largest Sum; Logger Rate Limiter; Insert Delete GetRandom O(1); Design Search Autocomplete System; Reverse Integer; Candy; Isomorphic Strings; Strobogrammatic Number; Bulls and Cows; Range Sum Query 2D - Mutable; My Calendar II; Jewels and Stones; Swap Adjacent in LR String; Guess the Word; Minimum Area Rectangle
+
+
+# [浪费青春刷了的题](/)
+- [0769. Max Chunks To Make Sorted](Solutions/0769.Max-Chunks-To-Make-Sorted.py) (M) <br>
+Iterate the array, if the max(A[0] ~ A[i]) = i, then we can cut it at this index.,
+so that it the chunk ended with i. - just some game about number.
+- [0768. Max Chunks To Make Sorted II](Solutions/0768.Max-Chunks-To-Make-Sorted-II.py) (H) <br>
+没看懂，也没啥意思，这个Alice Wice喜欢为出题而出题，讨论区有用stack解的O(N)，比他自己给出的solution好多了
 
 
 
