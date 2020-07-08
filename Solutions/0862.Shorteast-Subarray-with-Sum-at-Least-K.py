@@ -19,10 +19,12 @@ Output: 3
 
 """
 不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
-这题的最优解是mono deque. O(N). 方法与239类似的，两个while循环，一个从队首pop, 同时更新res, 另一个从队尾pop, 对deq进行清理。
+这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
+两个while循环，一个while loop从队首pop, 同时更新res, 另一个while loop 从队尾pop, 对deq进行清理。
 """
 class Solution:
     def shortestSubarray(self, A: List[int], K: int) -> int:
+        # step 1: 构造一个presum list
         lens = len(A)
         presum = [0 for _ in range(lens + 1)]
         for i, num in enumerate(A):
@@ -31,10 +33,12 @@ class Solution:
         res = float("inf")
         deq = collections.deque()   # deq store the idx in the presum
         for i, pre in enumerate(presum):
+            # 一个while loop从队首pop, 同时更新res
             while deq and pre - presum[deq[0]] >= K:    # 注意这里是pop出deq[0]队首的presum
                 idx = deq.popleft()
                 res = min(res, i - idx)
                 
+            # 另一个while loop 从队尾pop, 对deq进行清理
             # 把现在这个pre push进deq之前，把deq尾部的比现在这个pre要大的presum给pop出来，因为由于这个pre的存在，这些尾部的都用上了, 
             # 这里跟上一题是一样的，都是从队尾进行pop的
             while deq and presum[deq[-1]] >= pre:
