@@ -135,6 +135,14 @@ heapq solution: O(m+nlogm) where m is len(nums), n is len(lst). hq stores (the i
 Then we push (nums[lst_idx][num_idx+1], lst_idx, num_idx+1) into the heapq and update max_val in the heapq.
 - [0621. Task Scheduler](Solutions/0621.Task-Scheduler.py) (!!M) <br>
 we only need to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
+- [0358. Rearrange String k Distance Apart](Solutions/0358.Rearrange-String-k-Distance-Apart.py) (!!H) <br>
+similar with task schedule, 我们按频率从大到小去坐k个位置，pop出来之后需要将freq-=1然后push回去, pop出来再push回去的思想很重要！！
+- [0767. Reorganize String](Solutions/0767.Reorganize-String.py) (!!M) <br>
+I think it is similar with task schedule.  always put the most freq ch adjacent with the 2nd most freq ch.
+We can firstly find the freq, and then put them into a heapq,
+then each time we pop the most freq one, and also pop to get the second most freq one.
+after using them, their freq-=1 and we push them back.
+O(Nlogk), where N is total number of ch, K is total number of distinct number.
 - [0263. Ugly Number](Solutions/0263.Ugly-Number.py) (M) <br>
 warm up for the next question.
 - [0264. Ugly Number II](Solutions/0264.Ugly-Number-II.py) (M) <br>
@@ -151,8 +159,7 @@ Solution 1: maitain a sorted window.  We can use binary search for remove and in
 similar with 295, we need to maintain two heaps in the window, leftHq and rightHq. To slide one step is actually to do two things: step 1. add a number, which is exactly the same as that in 295. add a number in heapq could be heapq.heappush() which is O(logn) step 2. remove the number that is outside the window; there is not a remmove method in heapq.  We need to implement sift_up and sift_down method for heapq.  Need to implement a heapq in Python!!
 
 ---------------------------------------
-Course Schedule III
-Reorganize String------------------------------
+Course Schedule III------------------------------
 
 
 
@@ -1058,7 +1065,9 @@ Step 2: sweep line: use a pointer representing the end time, at each interval, w
 if end >= interval start time: then there is overlap and we should wait so that later we can shot them together;
 if end > interval start time, then we can shot the previously 积累下来的interveals, shots += 1, and move the end to the new interval end time
 - [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (!!M) <br>
-这种interval的题目首先都需要sort, sort the intervals first, res = []; for interval in intervals: if the interval start time is larger than the largest end time in res, then the interval cannot be merged; If cannot be merged, then res.append(interval), else then res[-1][1] = max(res[-1][1], interval[1]). merge interval的算法非常重要，后面的题经常用到！
+这种interval的题目首先都需要sort, 因为我们总不可能一会处理前面的，一会处理后面的区间。 so sort the intervals first, res = []; for interval in intervals: if the interval start time is larger than the largest end time in res, then the interval cannot be merged; If cannot be merged, then res.append(interval), else then res[-1][1] = max(res[-1][1], interval[1]). merge interval的算法非常重要，后面的题经常用到！
+- [0759. Employee Free Time](Solutions/0759.Employee-Free-Time.py) (!!H) <br>
+这题是merge interval的变形题，第一步先sort所有的intervals, 然后去找所有非公共的intervals - O(NlogN). solution 2: heapq. O(NlogK)
 - [0057. Insert Interval](Solutions/0057.Insert-Interval.py) (H) <br>
 Solution 1: Append the new interval to the intervals, and then do the merge interval problem. O(~n). Solution 2: add the interval on the run O(~n). If there is overlap, we update the new interval. 画个图会好理解很多。
 - [0352. Data Stream as Disjoint Intervals](Solutions/0352.Data-Stream-as-Disjoint-Intervals.py) (H) <br>
