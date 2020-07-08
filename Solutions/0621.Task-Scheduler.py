@@ -26,39 +26,35 @@ class Solution:
         # 继续把频率次高的插入:  A B C D A B C - A B - - A B
         # 于是总的任务数就是上图的
         # I have to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap.
-        freqDict = collections.defaultdict(int)
         
-        for task in tasks:
-            freqDict[task] += 1
+        freqDict = collections.Counter(tasks)
             
         hq = []
-        # get the most frequent items to heap top, by using negative freq
-        # 维护一个最大堆
         for task, freq in freqDict.items():
-            heapq.heappush(hq, (-freq, task))
+            heapq.heappush(hq, (-freq, task))   # get the most frequent items to heap top, by using negative freq, 维护一个最大堆
             
         res = 0
         while hq:
             addBack = []
             
             # 先预设有n + 1个座位，eg: n = 3， 那就先预设四个座位: _ _ _ _
+            # 每进一次循环代表占领一个座位的位置，让高频的去占领那4个座位
+            # 同时将高频的那四个的freq分别减1
             for _ in range(n + 1):
-                # 每进一次循环代表占领一个座位的位置，让高频的去占领那4个座位
-                # 同时将高频的那四个的freq分别减1
                 res += 1  
                 
                 if hq:      # 遍历一遍hq的所有元素，这些元素分别freq分别减1
                     freq, task = heapq.heappop(hq)
-                    # if more than one char remains, then should add the char back to heap
-                    if freq != -1:
-                        addBack.append((freq + 1, task))
-                        
-                # if not heap, and no additon to heap, 需要提前出来！
-                if not hq and not addBack:
+                    freq *= -1
+                    freq -= 1
+                    if freq > 0:  # if more than one char remains, then should add the char back to heap
+                        addBack.append((freq, task))
+
+                if not hq and not addBack:  # if not heap, and no additon to heap, 需要提前出来！
                     return res
                 
             # add back to heap
-            for item in addBack:
-                heapq.heappush(hq, item)
+            for freq, task in addBack:
+                heapq.heappush(hq, (-freq, task))
                     
         return res
