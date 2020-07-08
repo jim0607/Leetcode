@@ -74,14 +74,21 @@ step 1: construct a heights list for each row; step 2: calculate the largestRect
 单调递增栈存idx
 - [0456. 132 Pattern](Solutions/0456.132-Pattern.py) (H) <br>
 solution: 从右往左，维护一个单调递减栈，while loop是为了保证选出一个最接近num的two, 这样num作为three, 下一个进来的num就更容易小于two了！
+- [0769. Max Chunks To Make Sorted](Solutions/0769.Max-Chunks-To-Make-Sorted.py) (M) <br>
+Iterate the array, if the max(A[0] ~ A[i]) = i, then we can cut it at this index.,
+so that it the chunk ended with i. - just some game about number.
 
----------------Create Maximum Number---------Max Chunks To Make Sorted II------LC862. Shortest Subarray with Sum at Least K-----------975. Odd Even Jump------
+---------------Create Maximum Number---------Max Chunks To Make Sorted II------------975. Odd Even Jump------
 
 
 
 ### [Deque](/Data-Structure.py) 
-- [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (H) <br>
+- [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (!!H) <br>
 heapq的方法是O(NK); deque O(N): Iterate over the array. At each step: I. Clean the deque: 1. Keep only the indexes of elements from the current sliding window; 2. Remove indexes of all elements smaller than the current one, since they will not be the maximum ones. eg: [1,2,7,3,5,4], k = 3, because of 7, 1 and 2 will never be in res; II. Append the current element to the deque. Append deque[0] to the output.
+- [0862. Shortest Subarray with Sum at Least K](Solutions/0862.Shorteast-Subarray-with-Sum-at-Least-K.py) (!!H) <br>
+不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
+这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
+两个while循环，一个while loop从队首pop, 同时更新res, 另一个while loop 从队尾pop, 对deq进行清理。
 
 -------------- 1425. Constrained Subsequence Sum ---------------
 
@@ -953,7 +960,7 @@ solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1
 # [Sliding Window (同向双指针)](/Sliding-window.py)
 - [0209. Minimum Size Subarray Sum](Solutions/0209.Minimum-Size-Subarray-Sum.py) (!!M) <br>
 维护一个sums, 用来记录i->j中数的和，套模板时满足的条件是sums < target; 更新j: sums += nums[j]; 更新i: sums -= nums[j]
-Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search the fisrt j that satisfy sum(nums[i:]>=s), so it is a OOXX probelm, which could be solved using binary search.
+Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search the fisrt j that satisfy sum(nums[i:]>=s), so it is a OOXX probelm, which could be solved using binary search. Follow up: 如果有负数怎么办？那就不能用sliding window了，只能用deque. 详见239.
 - [0003. Longest Substring Without Repeating Characters](Solutions/0003.Longest-Substring-Without-Repeating-Characters.py) (!!M) <br>
 维护一个included=set(), 用来记录i->j中include的char，套模板时满足的条件是s[j] not in included; 更新j: included.add(s[j]); 更新i: included.remove(s[i])
 - [0076. Minimum Window Substring](Solutions/0076.Minimum-Window-Substring.py) (!!H) <br>
@@ -976,8 +983,6 @@ dictionary: key is a tuple keeping track of the cnt of all 26 letters, val is th
 - [0030. Substring with Concatenation of All Words](Solutions/0030.Substring-with-Concatenation-of-All-Words.py) (H) <br>
 固定长度的sliding window: solution: use two hashmaps to record the frequency of word.
 O(len(s)* len(words)* len(words[0]))
-- [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (!!H) <br>
-heapq的方法是O(NK); deque O(N): Iterate over the array. At each step: I. Clean the deque: 1. Keep only the indexes of elements from the current sliding window; 2. Remove indexes of all elements smaller than the current one, since they will not be the maximum ones. eg: [1,2,7,3,5,4], k = 3, because of 7, 1 and 2 will never be in res; II. Append the current element to the deque. Append deque[0] to the output.
 - [0228. Summary Ranges](Solutions/0228.Summary-Ranges.py) (M) <br>
 sliding window可解
 - [163. Missing Ranges](Solutions/0163.Missing-Ranges.py) (M) <br>
@@ -1304,6 +1309,9 @@ O(4^N) time where N is number of non-block squares in the grid.
 
 
 # [Dynamic Programming/bottom up DP](Dynamic-Programming.py)
+
+--------------931. Minimum Falling Path Sum ------------
+
 ### [坐标型DP](/Dynamic-Programming.py)
 - [0062. Unique Paths](Solutions/0062.Unique-Paths.py) (!!M) <br>
 状态: f[i][j]=有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = f[i][j-1]+f[i-1][j]
