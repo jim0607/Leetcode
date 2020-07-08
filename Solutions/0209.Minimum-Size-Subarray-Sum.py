@@ -35,6 +35,8 @@ class Solution:
         return 0 if minSize == float("inf") else minSize
     
     
+Follow up: 如果有负数怎么办？那就不能用sliding window了，只能用deque. 详见239.  
+    
     
 class Solution {
     public int minSubArrayLen(int s, int[] nums) {
