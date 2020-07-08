@@ -110,6 +110,10 @@ O(1) solution: self.freq = collections.defaultdict(int), # key is num, val is fr
 
 ### [Heap/Heapq](/Data-Structure.py) 
 - [Heapq implementation](Solutions/Implement_Heapq.py) (!!M) <br>
+- [0703. Kth Largest Element in a Stream](Solutions/0703.Kth-Largest-Element-in-a-Stream.py) (E) <br>
+heap solution: maintain a hq with size k, the kth largest is always hq[0] - O(klogk)
+Maybe we can do log time complexity for add method using a red–black tree, 
+red-black tree is a type of self-balancing binary search tree, Google requires at least talk about it.
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M) <br>
 time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的push 和pop都是logK; heapq适合做第K大，第K小，前K大，前K小问题; solution 2: quick select: O(n)
 - [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (M) <br>
