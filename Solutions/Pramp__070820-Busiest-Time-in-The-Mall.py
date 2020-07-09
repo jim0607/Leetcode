@@ -52,6 +52,7 @@ def find_busiest_period(data):
         if curr_num > max_num:
             max_num = curr_num
             res = data[i - 1][0]
+            
         if i < len(data):
             curr_num = curr_num + data[i][1] if data[i][2] == 1 else curr_num - data[i][1]
         i += 1
