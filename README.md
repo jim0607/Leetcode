@@ -1524,6 +1524,12 @@ so that it the chunk ended with i. - just some game about number.
 没看懂，也没啥意思，这个Alice Wice喜欢为出题而出题，讨论区有用stack解的O(N)，比他自己给出的solution好多了
 
 
+# [Pramp](/)
+- [070820-Busiest Time in The Mall](Solutions/Pramp__070820-Busiest-Time-in-The-Mall.py) (M) <br>
+居然没做出来呀，太菜了，真的需要练呀！！
+
+
+
 
 
 ### 还是要多刷新题，见过和没见过真的很不一样！
