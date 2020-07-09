@@ -220,6 +220,8 @@ a method to search for all the possible autocomplete words of a given input stri
 1032. Stream of Characters
 676. Implement Magic Dictionary
 745. Prefix and Suffix Search
+1268. Search Suggestions System
+745. Prefix and Suffix Search----------
 
 
 
