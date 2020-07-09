@@ -160,7 +160,16 @@ Similar with 42. 1D trapping rain water. 1D trapping rain water 是用双指针�
 Follow up: leetcode 1093
 - [0480. Sliding Window Median](Solutions/0480.Sliding-Window-Median.py) (H) <br>
 Solution 1: maitain a sorted window.  We can use binary search for remove and indert. the overall time complexity is O(NK).
-similar with 295, we need to maintain two heaps in the window, leftHq and rightHq. To slide one step is actually to do two things: step 1. add a number, which is exactly the same as that in 295. add a number in heapq could be heapq.heappush() which is O(logn) step 2. remove the number that is outside the window; there is not a remmove method in heapq.  We need to implement sift_up and sift_down method for heapq.  Need to implement a heapq in Python!!
+similar with 295, we need to maintain two heaps in the window, leftHq and rightHq. To slide one step is actually to do two things: step 1. add a number, which is exactly the same as that in 295. add a number in heapq could be heapq.heappush() which is O(logn) step 2. remove the number that is outside the window; there is not a remmove method in heapq.
+- [0871. Minimum Number of Refueling Stops](Solutions/0871.Minimum-Number-of-Refueling-Stops.py) (!!H Google) <br>
+像这种求极值的问题，十有八九要用动态规划 Dynamic Programming 来做，
+但是这道题的 dp 定义式并不是直接来定义需要的最少加油站的个数，那样定义的话不太好推导出状态转移方程。
+正确的定义应该是根据加油次数能到达的最远距离，我们就用一个一维的 dp 数组，其中 dp[i] 表示加了i次油能到达的最远距离，
+dp[i+1] = max(dp[i] + stations[j][1] among all the station that dp[i] can reach) - O(n^2);
+return the first i where dp[i] >= target. 
+solution 2: heapq - O(nlogn)
+heapq stores the fuel at the station. 这题的关键是不要考虑到达的那个station的位置，
+我们永远只需要考虑从0出发，中途能加多少油，加的油越多跑得越远. 维护一个possible_coverage变量表示能跑多远
 
 ---------------------------------------
 Course Schedule III------------------------------
