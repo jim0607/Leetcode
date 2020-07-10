@@ -34,3 +34,11 @@ class Solution:
                 res += cnt[i]
         
         return res
+    
+    
+"""    
+Solution 2: segment tree - O(nlogn)   
+Suppose we knew for each length L-1, the number of sequences with length L-1 ending in x. 
+Then when considering the next element of nums, updating our knowledge hinges on knowing the number of sequences with length L-1 ending in x < y. 
+This type of query over an interval is a natural fit for using some sort of tree.
+"""
