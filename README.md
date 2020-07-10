@@ -190,6 +190,9 @@ The capability of finding matching prefix is where the data structure called Tri
 - [0677. Map Sum Pairs](Solutions/0677.Map-Sum-Pairs.py) (!!M) <br>
 In TrieNode, define a self.sums 代表所有的子node所代表的string的val的和。
 在class MapSum中用一个dictionary记录之前出现的key-val pair, 如果key出现过，就通过delta=val-self.dict[key]来update node.sums的值。
+- [0820. Short Encoding of Words](Solutions/0820.Short-Encoding-of-Words.py) (M) <br>
+find the words with common suffix using a Trie, 
+we only keep the longest word among all the words that share the same suffix, and put a "#" behind it.
 - [0648. Replace Words](Solutions/0648.Replace-Words.py) (M) <br>
 这题是用prefix build一个Trie, 而通过这个Trie来query输入word的prefix
 - [0421. Maximum XOR of Two Numbers in an Array](Solutions/0421.Maximum-XOR-of-Two-Numbers-in-an-Array.py) (M) <br>
@@ -218,12 +221,9 @@ Trie的解法怎样一步一步来的很重要！！把这题多写几遍backtra
 
 
 
-------0820.short-encoding-of-words 
+------
 1233. Remove Sub-Folders from the Filesystem
 1032. Stream of Characters
-676. Implement Magic Dictionary
-745. Prefix and Suffix Search
-1268. Search Suggestions System
 745. Prefix and Suffix Search----------
 
 
@@ -286,6 +286,10 @@ What if the number of hits per second could be very large? Does your design scal
 deque里面默认是每一个时间戳hit了一次，如果需要记录每秒钟有几次hit，我们需要用到dictionary, 但是同时有需要deque一样的有序，
 所以自然而然想到OrderedDict. 这样可以保证最多使用O(300)的空间, 还是要熟悉OrderedDict的方法的。
 OrderedDict是deque的增强版，这一点在LRU那题中已经体现。
+- [0676. Implement Magic Dictionary](Solutions/0676.Implement-Magi-Dictionary.py) (M) <br>
+find all combination of input word, and search if one of them is in the word_set.
+O(26L^2), where L is the lens of word that we want to serach. 也可以用Trie来解，但是比较麻烦不推荐。
+
 
 346	Moving Average from Data Stream	视频讲解	Sliding Window
 281	Zigzag Iterator	视频讲解	
