@@ -219,7 +219,6 @@ Trie的解法怎样一步一步来的很重要！！把这题多写几遍backtra
 
 
 ------0820.short-encoding-of-words 
-    472. Concatenated Words
 1233. Remove Sub-Folders from the Filesystem
 1032. Stream of Characters
 676. Implement Magic Dictionary
@@ -694,6 +693,8 @@ solution 1: dp[i]=can partition until ith char?, not including i; dp[j]=true if 
 Need to find a path, so backtracking.  O(2^m + m^2 + n), where m is the lens of string, n is the lens of word_dict.
 O(2^m) comes from backtracking on the string, cuz each 每个ch之间我们可以选择切一刀或不切一刀.
 O(m^2) comes from the checking for wordBreakI.  O(n) for converting word_dict to a set.
+- [0472. Concatenated Words](Solutions/0472.Concatenated-Words.py) (!!H) 打印/输出所有满足条件的路径必用DFS
+dfs + memorization - Top down DP.  与139, 140构成砍单词三部曲！
 - [0320. Generalized Abbreviation](Solutions/0320.Generalized-Abbreviation.py) (!!H) <br>
 dfs, similar with permutation. curr_idx: the idx at word; 
 curr_cnt: the cnt at of number BEFORE curr_idx;
