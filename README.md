@@ -190,9 +190,20 @@ The capability of finding matching prefix is where the data structure called Tri
 - [0677. Map Sum Pairs](Solutions/0677.Map-Sum-Pairs.py) (!!M) <br>
 In TrieNode, define a self.sums 代表所有的子node所代表的string的val的和。
 在class MapSum中用一个dictionary记录之前出现的key-val pair, 如果key出现过，就通过delta=val-self.dict[key]来update node.sums的值。
+- [1032. Stream of Characters](Solutions/0745.Prefix-and-Suffix-Search.py) (H) <br>
+construct a pref-trie and a suff-trie. In the trie node, we should indlude the idx.
+node.idx is a list consist of the idx of word in words
+- [1032. Stream of Characters](Solutions/1032.Stream-of-Characters.py) (!!H) <br>
+If we really think about it, this is a suffix problem: 
+each time we query, we go back to the previous queried letters and check if they can form a word.
+Construct a Trie takes O(∑w_i) where w_i is the the lens of word in words.
+Query takes O(L) where L is the word in the trie, so it is really constant time for query.
 - [0820. Short Encoding of Words](Solutions/0820.Short-Encoding-of-Words.py) (M) <br>
 find the words with common suffix using a Trie, 
 we only keep the longest word among all the words that share the same suffix, and put a "#" behind it.
+- [1233. Remove Sub-Folders from the Filesystem](Solutions/1233.Remove-Sub-Folders-from-the-Filesystem.py) (H) <br>
+find the folder names with common prefix using a Trie, 
+we only keep the shortest folder name among all the words that share the same prefix.
 - [0648. Replace Words](Solutions/0648.Replace-Words.py) (M) <br>
 这题是用prefix build一个Trie, 而通过这个Trie来query输入word的prefix
 - [0421. Maximum XOR of Two Numbers in an Array](Solutions/0421.Maximum-XOR-of-Two-Numbers-in-an-Array.py) (M) <br>
@@ -218,16 +229,6 @@ a method to search for all the possible autocomplete words of a given input stri
 找到其所有能到达的endNode, 显然是backtrack来做，第三步是对所有能达到的endNode.hotness排个序，取前三作为输出。
 - [0425. Word Squares](Solutions/0425.Word-Squares.py) (!!H Google) <br>
 Trie的解法怎样一步一步来的很重要！！把这题多写几遍backtrack+Trie+hashmap就都有更深的理解！
-
-
-
-------
-1233. Remove Sub-Folders from the Filesystem
-1032. Stream of Characters
-745. Prefix and Suffix Search----------
-
-
-
 
 
 
