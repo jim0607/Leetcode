@@ -253,13 +253,24 @@ Segment tree is good for 需要动态更新数组和query range sum的情况，O
 输入数组是immutable的，因此用不着segment tree, 用一个prefix_sum数组做cache就可以实现O(1) query 了
 - [0307. Range Sum Query - Mutable](Solutions/0307.Range-Sum-Query-Mutable.py) (!!M) <br>
 输入数组是mutable, 需要快速的update, 所以可以用segment tree来实现O(logn) update and O(logn) query.
+- [0304. Range Sum Query 2D - Immutable](Solutions/0304.Range-Sum-Query-2D-Immutable.py) (M) <br>
+a 2D version prefix sum. O(1) for query.
+- [0308. Range Sum Query 2D - Mutable](Solutions/0308.Range-Sum-Query-2D-Mutable.py) (H) <br>
+solution: segment tree. 代码裸长115行，我去NMLGB!
 - [0248. Count of Smaller Number](Solutions/0248.Count-of-Smaller-Number.py) (M) <br>
 solution 1: binary search, need to sort the arr first which takes O(NlogN)
 solution 2: Segment Tree, which takes O(N) to build the tree and O(logN) to query. To find how many numbers are less than num, 
 is actually to find how many numbers are there in range [0, num-1], since the minimum number is 0 given by the description of the problem. 这样就相当于转化成了类似range_sum的问题了，since we add num into the tree one by one, each update takes O(logN), so the whole updating takes O(NlogN).
 这题的self.start, self.end represent the num, not idx.  sel.cnt is how many numbers are there in range [start, end], and again start, end are not idx, they are actual vals.
+Follow up: how to solve Spare Segment Tree problem? - Merge sort
 - [0315. Count of Smaller Numbers After Self](Solutions/0315.Count-of-Smaller-Numbers-After-Self.py) (!!H) <br>
-Segment Tree solution: O(NlogN) time and O(N) space. 从右往左遍历add num into the tree one by one， at the same time update the cnt of smaller number after self
+Segment Tree solution: O(NlogN) time and O(N) space. 从右往左遍历add num into the tree one by one， at the same time update the cnt of smaller number after self.
+- [0493. Reverse Pairs](Solutions/0493.Reverse-Pairs.py) (!!H) <br>
+solution 1: segment tree. similar with 315. count of smaller number after itself.
+We sweep from left to right, and query range [2* num+1, max_num].
+与count number after itself相比，就只有一行代码不同. solution 2: merge sort. 其实merge sort才是这道题的正解！Count "important reverse pairs" while doing mergesort:
+When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j.
+So in addition to the while loop for do merge/conquer, we use a while loop to compare nums[i] and 2* nums[j] to update cnt. - O(nlogn)
 - [0327. Count of Range Sum](Solutions/0327.Count-of-Range-Sum.py) (H) <br>
 Firstly, create a list to store all the prefix sum; then sort the prefix sum list
 Secondly, use the sorted prefix sum list to build a segment tree, the tree node has an attribute self.cnt representing the cnt
@@ -267,7 +278,8 @@ of how many prefix sums are in a certain range.
 Finally, we traverse the prefix sum list and query how many prefix sums are there in range [prefix-upper, prefix-lower].
 eg if there is one prefix_1 in range [prefix-upper, prefix-lower], then prefix - prefix_1 in range [lower, upper]
 
-850. Rectangle Area II
+
+
 Falling Squares, Number of Longest Increasing Subsequence.
 Reverse Pairs
 
@@ -1228,6 +1240,8 @@ stack is always good for parentheses
 比较点的坐标即可
 - [0223. Rectangle Area](Solutions/0223.Rectangle-Area.py) (M) <br>
 分成是否overlap两种情况来计算
+- [0223. Rectangle Area](Solutions/0223.Rectangle-Area.py) (M) <br>
+分成是
 - [0391. Perfect Rectangle](Solutions/0391.Perfect-Rectangle.py) (H) <br>
 属于观察题目性质的题, In order to form a perfect rectangle, two condictions must be satisfied:
 condition 1. for all the coordinates, there are 4 and only 4 coordinates that appear only once, others appear either twice or 4 times.  So we can use a set to store all the coordinates and cnt their appear times
