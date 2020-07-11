@@ -88,3 +88,13 @@ class Solution:
             res[i] = cnt_of_smaller
             
         return res
+
+"""
+Follow up:
+对于segment tree的解法, update 和 query 都是O(logM), 所以overall time complexity is O(NlogM), N is the lens of nums, M is (max_num - min_num).
+对于M很大的情况就很吃亏比如 [2147483647,-2147483647] 在build的时候就需要构建很大的一棵树 - O(max - min) 会导致TLE.
+怎样避免呢？
+我们可以使用mergesort:
+The smaller numbers on the right of a number are exactly those that jump from its right to its left during a stable sort. 
+So we can do mergesort with added tracking of those right-to-left jumps.
+"""
