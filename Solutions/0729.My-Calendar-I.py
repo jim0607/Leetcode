@@ -61,6 +61,51 @@ class MyCalendar:
         
         return True
 
+
+                                                                                                                          
+"""
+solution 2: binary search where the interval should be inserted and insert the interval, so O(n + logn)
+"""
+class MyCalendar:
+
+    def __init__(self):
+        self.calendar = []      # maintain a sorted list
+
+    def book(self, start: int, end: int) -> bool:
+        if not self.calendar:
+            self.calendar.append([start, end])
+            return True
+        
+        if start >= self.calendar[-1][-1]:
+            self.calendar.append([start, end])
+            return True
+        
+        if end <= self.calendar[0][0]:
+            self.calendar.insert(0, [start, end])
+            return True
+        
+        # below we will binary search where the start should be located
+        lens = len(self.calendar)
+        left, right = 0, lens - 1
+        while left + 1 < right:
+            mid = left + (right - left) // 2
+            if start <= self.calendar[mid][0]:
+                right = mid
+            else:
+                left = mid
+        idx = left if self.calendar[left][0] > start else right
+
+        # after found where the idx should be located, we should check if [start, end] could fit in
+        if start < self.calendar[idx-1][1]:
+            return False
+        if end > self.calendar[idx][0]:
+            return False
+        
+        # if [start, end] can fit in, we insert it at the idx we found - O(N)
+        self.calendar.insert(idx, [start, end])
+        return True
+            
+
 # Your MyCalendar object will be instantiated and called as such:
 # obj = MyCalendar()
 # param_1 = obj.book(start,end)
