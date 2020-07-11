@@ -106,6 +106,7 @@ class MyCalendar:
         return True
             
 
-# Your MyCalendar object will be instantiated and called as such:
-# obj = MyCalendar()
-# param_1 = obj.book(start,end)
+"""
+solution 3: we can try to implement a balanced tree (maybe a red-black tree) to enable O(logn) insert and O(logn) search.  But it is way too complicated. 
+"""
+                                                                                                                          
