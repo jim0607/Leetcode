@@ -16,6 +16,7 @@ To the right of 1 there is 0 smaller element.
 """
 Segment Tree solution: O(NlogN) time and O(N) space
 """
+"""
 
 class SegmentTree:
     
