@@ -1066,7 +1066,7 @@ update the max_1_sum, max_2_sum, max_3_sum as we travel through the array.
 
 
 
-# [Sweep-Line/Intervals](/Sweep-Line.py) <br>
+# [Intervals/Sweep-Line](/Sweep-Line.py) <br>
 - [0252. Meeting Rooms](Solutions/0252.Meeting-Rooms.py) (E) <br>
 O(nlogn), O(1). 题目问一个人能不能参加所有的meeting, 只需要sort the intervals, if intervals[i][0] < intervals[i - 1][1] then return False
 - [0391. Number of Airplanes in the Sky](Solutions/0391.Number-of-Airplanes-in-the-Sky.py) (M Lintcode) <br>
@@ -1104,16 +1104,29 @@ Solution 2: in the addNum method, firstly find the pos of insertion into the int
 双指针法, if min(end1, end2) - max(start1, start2) >= duration: return [max(start1, start2), max(start1, start2) + duration]
 - [0218. The Skyline Problem](Solutions/0218.The-Skyline-Problem.py) (!!H) <br>
 sweep lint + heapq；a maxHeap to store all alive buildings, 存高度和终点. res 里面需要保存的其实是每一次高度发生变化时的终点. 在指针currPos做扫描的时候做三件事情: 1. pop buildings that end before curPos, cuz they are no longer "alive"; 2. push [negative_height, end_point] of all buildings that start before curPos; 3. 更新res: if -maxHeap[0][0] != prevHeight: 说明出现了一个拐点要么上升要么下降，这时候就需要append拐点了
+- [0850. Rectangle Area II](Solutions/0850.Rectangle-Area-II.py) (!!H Google) <br>
+sweep line solution: O(N^2logN).
+This is two sweep line problem pieced together. - google高频题，还没完全搞懂，道行不够呀
 - [1353. Maximum Number of Events That Can Be Attended](Solutions/1353.Maximum-Number-of-Events-That-Can-Be-Attended.py) (M) <br>
 Sort events. Priority queue pq keeps the current open events.
 Iterate from the day 1 to day 100000, each day, we 1. add new events starting on day d to the queue pq; 
 2. remove the events that are already closed; 
 3. greedily attend the event that ends soonest, if we can attend a meeting, we increment the res.
 - [0729. My Calendar I](Solutions/0729.My-Calendar-I.py) (M) <br>
-solution 1: sweep line just like the airplane in the sky problem - need to sort, so O(nlogn).
+solution 1: sweep line just like the airplane in the sky problem - need to sort, so O(nlogn). 
+solution 2: binary search where the interval should be inserted and insert the interval, so O(n + logn)
+- [0731. My Calendar II](Solutions/0731.My-Calendar-II.py) (M) <br>
+We maintain a calendar list and a overlap list. In book method, we first check if [start, end] is in an overlap,
+if it is, then we return False directly.
+If it's not, then we return True, before return true, we should update the calendar list and overlap list accordingly.
+update calendar: just append [start, end] cuz we don't need the calendar be sorted.
+update overlap: find where the overlap is by go through the calendar list, and update it.
+- [0732. My Calendar III](Solutions/0732.My-Calendar-III.py) (H) <br>
+Maintain a start_time list and end_time list and keep them sorted by using binary search each time we insert a time.
+Do do exactly the same as the airplane in the sky problem. O(N).  Solution 2: we can use a segment tree, each query takes O(logn). Should know but don't need to implement.
 
-
---------------757. Set Intersection Size At Least Two--------------850. Rectangle Area II-------715. Range Module---------------------------------------
+--------------757. Set Intersection Size At Least Two--------------850. Rectangle Area II-------715. Range Module-------------1094. Car Pooling
+1109. Corporate Flight Bookings--------------------------
 
 
 
@@ -1210,7 +1223,7 @@ stack is always good for parentheses
 -----------Parentheses--------------
 
 
-### [Perfect Rectangle](/)
+### [Rectangle几何题](/)
 - [0836. Rectangle Overlap](Solutions/0836.Rectangle-Overlap.py) (E) <br>
 比较点的坐标即可
 - [0223. Rectangle Area](Solutions/0223.Rectangle-Area.py) (M) <br>
@@ -1404,7 +1417,7 @@ dp + binary search (O(NlogN))的算法也很重要！dp[i] = the maintianed arra
 - [0354. Russian Doll Envelopes](Solutions/0354.Russian-Doll-Envelopes.py) (H) <br>
 Similiar with 300. LIS; sort the list first envelopes.sort(key = lambda x: (x[0], x[1])), here we not only compare nums[j]>nums[i], but instead both the width and height; TLE. Solution 2: sort the evelopes first, then do LIS for the 2nd dimension of the evelopes O(nlogn) using the exact same way as 300.
 - [0673. Number of Longest Increasing Subsequence](Solutions/0673.Number-of-Longest-Increasing-Subsequence.py) (!!M) <br>
- dp=以i为结尾的最大的长度; cnt=以i为结尾的最大的长度的个数; 在nums[j]>nums[i]的情况下：cnt[j]+=cnt[i] if dp[j]=dp[i]+1. solution 2: segment tree - O(nlogn)   
+ dp=以i为结尾的最大的长度; cnt=以i为结尾的最大的长度的个数; 在nums[j]>nums[i]的情况下：cnt[j]+=cnt[i] if dp[j]=dp[i]+1. solution 2: segment tree - O(nlogn)需要掌握！   
 - [1027. Longest Arithmetic Sequence.py](Solutions/1027.Longest-Arithmetic-Sequence.py) (M) <br>
 dp[i] = {key:diff, val:lens of arithmetic sequence ended with i and diff as 公差}; dp[j][nums[j]-nums[i]] = dp[i][nums[j] - nums[i]] + 1
 - [0873. Length of Longest Fibonacci Subsequence](Solutions/0873.Length-of-Longest-Fibonacci-Subsequence.py) (M) <br>
