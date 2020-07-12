@@ -99,3 +99,59 @@ Follow up:
 The smaller numbers on the right of a number are exactly those that jump from its right to its left during a stable sort. 
 So we can do mergesort with added tracking of those right-to-left jumps.
 """
+
+"""
+Count while doing mergesort:
+When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j.
+So in addition to the while loop for do merge/conquer, we use a while loop to compare nums[i] and nums[j] to update cnt.  
+This while loop is for every left_sublist and right_sublist.
+没想到merge sort还能这么出题，看来熟练掌握理解各种基础sort的方法很有用呀！
+"""
+class Solution:
+    def countSmaller(self, nums: List[int]) -> List[int]:
+        def merge_sort(nums_tuple):
+            if len(nums_tuple) <= 1:
+                return nums_tuple
+            
+            # divide
+            mid = len(nums_tuple) // 2
+            left = merge_sort(nums_tuple[:mid])
+            right = merge_sort(nums_tuple[mid:])
+            
+            # conquer
+            # before conquer, we need to update res for this sorted left_sublist and right_sublist
+            i, j = 0, 0
+            while i < len(left) and j < len(right):
+                if left[i][0] > right[j][0]:            # 这里只需要比较数值不需要比较idx是因为left属于nums[:mid], 而right属于num[mid:]
+                    self.res[left[i][1]] += len(right) - j   # 因为right已经sort好了，所以如果left[i]>right[j], 那么left[i]>所有j后面的数
+                    i += 1
+                else:
+                    j += 1
+                    
+            # conquer/merge - 这里merge要逆序排列
+            i, j, k = 0, 0, 0
+            while i < len(left) and j < len(right):
+                if left[i][0] > right[j][0]:    # 逆序排列
+                    nums_tuple[k] = left[i]
+                    i += 1
+                    k += 1
+                else:
+                    nums_tuple[k] = right[j]
+                    j += 1
+                    k += 1
+            while i < len(left):
+                nums_tuple[k] = left[i]
+                i += 1
+                k += 1
+            while j < len(right):
+                nums_tuple[k] = right[j]
+                j += 1
+                k += 1
+                
+            return nums_tuple
+        
+        self.res = [0 for _ in range(len(nums))]
+        nums_tuple = [(num, i) for i, num in enumerate(nums)]
+        merge_sort(nums_tuple)
+        
+        return self.res
