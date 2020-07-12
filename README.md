@@ -262,26 +262,26 @@ solution 1: binary search, need to sort the arr first which takes O(NlogN)
 solution 2: Segment Tree, which takes O(N) to build the tree and O(logN) to query. To find how many numbers are less than num, 
 is actually to find how many numbers are there in range [0, num-1], since the minimum number is 0 given by the description of the problem. 这样就相当于转化成了类似range_sum的问题了，since we add num into the tree one by one, each update takes O(logN), so the whole updating takes O(NlogN).
 这题的self.start, self.end represent the num, not idx.  sel.cnt is how many numbers are there in range [start, end], and again start, end are not idx, they are actual vals.
-Follow up: how to solve Spare Segment Tree problem? - Merge sort
-- [0315. Count of Smaller Numbers After Self](Solutions/0315.Count-of-Smaller-Numbers-After-Self.py) (!!H) <br>
-Segment Tree solution: O(NlogN) time and O(N) space. 从右往左遍历add num into the tree one by one， at the same time update the cnt of smaller number after self.
-- [0493. Reverse Pairs](Solutions/0493.Reverse-Pairs.py) (!!H) <br>
-solution 1: segment tree. similar with 315. count of smaller number after itself.
-We sweep from left to right, and query range [2* num+1, max_num].
-与count number after itself相比，就只有一行代码不同. solution 2: merge sort. 其实merge sort才是这道题的正解！Count "important reverse pairs" while doing mergesort:
-When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j.
-So in addition to the while loop for do merge/conquer, we use a while loop to compare nums[i] and 2* nums[j] to update cnt. - O(nlogn)
 - [0327. Count of Range Sum](Solutions/0327.Count-of-Range-Sum.py) (H) <br>
 Firstly, create a list to store all the prefix sum; then sort the prefix sum list
 Secondly, use the sorted prefix sum list to build a segment tree, the tree node has an attribute self.cnt representing the cnt
 of how many prefix sums are in a certain range. 
 Finally, we traverse the prefix sum list and query how many prefix sums are there in range [prefix-upper, prefix-lower].
 eg if there is one prefix_1 in range [prefix-upper, prefix-lower], then prefix - prefix_1 in range [lower, upper]
+- [0493. Reverse Pairs](Solutions/0493.Reverse-Pairs.py) (!!H) <br>
+solution 1: segment tree. similar with 315. count of smaller number after itself.
+We sweep from left to right, and query range [2* num+1, max_num].
+与count number after itself相比，就只有一行代码不同. solution 2: merge sort. 其实merge sort才是这道题的正解！Count "important reverse pairs" while doing mergesort:
+When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j.
+So in addition to the while loop for do merge/conquer, we use a while loop to compare nums[i] and 2* nums[j] to update cnt. - O(nlogn)
+- [0315. Count of Smaller Numbers After Self](Solutions/0315.Count-of-Smaller-Numbers-After-Self.py) (!!H) <br>
+Segment Tree solution: O(NlogN) time and O(N) space. 从右往左遍历add num into the tree one by one， at the same time update the cnt of smaller number after self. Follow up: how to solve Spare Segment Tree problem? - Merge sort. 正解是solution 2: merge sort O(nlogn)
+
 
 
 
 Falling Squares, Number of Longest Increasing Subsequence.
-Reverse Pairs
+
 
 
 
@@ -822,7 +822,7 @@ O(N): 从左到右扫一遍，不满足条件的交换就好了。定义一个�
 题目要求sort一个长程无序短(k)程有序的数组，solution: 用一个大小为k的heapq存储k个元素，然后i从k开始遍历nums, 遍历的过程中每次都更新nums的最左边: nums[target_idx] = heappop(hq)，同时更新hq: heappush(hq, nums[i]), 这么做成立的原因是i是从k开始遍历的，所以nums[i]一定是大于nums[0]的，而nums[0]>=heappop(hq), 所以nums[i]及其后面的数一定是大于heappop(hq)的，所以可以放心地把heappop(hq)放到target_idx的位置。时间复杂度是O(nlogk). 当k=1: O(0), 当k=n: O(nlogn)
 
 
-### [Partition and quick select](/Sort.py) 
+### [Quick sort - Partition and quick select](/Sort.py) 
 - [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode) 
 用quick select的模板，partition这个函数的作用是O(N)找到某个数k在一个无序数组中所在的位置，并按照这个数k将该数组分为左右两部分。
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!!M Youtubed)  <br>
@@ -844,11 +844,16 @@ QuickSort with 3-way partitioning is very fast because it is entropy optimal
 写一个带返回pivotIdx的partition function, 先以nuts[(start+end)//2]为nuts_pivotVal对bolts进行partition, 然后返回在bolts中对应nuts_pivotVal的bolts_pivotIdx and bolts_pivotVal, 在以这个bolts_pivotVal对nuts进行partition, 这样就保证了bolts和nuts进行partition的时候用的是同一个pivotVal; 最后pivotIdx左右两边分别递归调用quickSort function 即可
 
 
-### [Sorted Array](/Sort.py) 
-- [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) (E) <br>
-sort the arr first, then the maximum sum of pairs is the sum of every other num
-- [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
-midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx1], nums2[midIdx2]; when k is relatively large, then we can safely drop the first half that are surely smaller than the kth, the question is where is the first half that are surely smaller than the kth? by comparing midVal1 and midVal2, we can find it out, if midVal1 < midVal2, then all the vals in nums1[:midIdx1] are less than midVal2, also all of those vals are less than kth, we can safely drop all those vals
+### [Merge sort](/Sort.py) 
+- [0493. Reverse Pairs](Solutions/0493.Reverse-Pairs.py) (!!H) <br>
+solution 1: segment tree. similar with 315. count of smaller number after itself.
+We sweep from left to right, and query range [2* num+1, max_num].
+与count number after itself相比，就只有一行代码不同. solution 2: merge sort. 其实merge sort才是这道题的正解！Count "important reverse pairs" while doing mergesort:
+When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j.
+So in addition to the while loop for do merge/conquer, we use a while loop to compare nums[i] and 2* nums[j] to update cnt. - O(nlogn)
+- [0315. Count of Smaller Numbers After Self](Solutions/0315.Count-of-Smaller-Numbers-After-Self.py) (!!H) <br>
+Segment Tree solution: O(NlogN) time and O(N) space. 从右往左遍历add num into the tree one by one， at the same time update the cnt of smaller number after self. Follow up: how to solve Spare Segment Tree problem? - Merge sort. 正解是solution 2: merge sort O(nlogn)
+
 
 
 ### [Bucket Sort](/Sort.py) 
@@ -879,6 +884,14 @@ Find the Missing Number
 Find all Missing Numbers
 Find the Duplicate Number
 Find all Duplicate Numbers
+
+
+### [Sorted Array](/Sort.py) 
+- [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) (E) <br>
+sort the arr first, then the maximum sum of pairs is the sum of every other num
+- [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
+midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx1], nums2[midIdx2]; when k is relatively large, then we can safely drop the first half that are surely smaller than the kth, the question is where is the first half that are surely smaller than the kth? by comparing midVal1 and midVal2, we can find it out, if midVal1 < midVal2, then all the vals in nums1[:midIdx1] are less than midVal2, also all of those vals are less than kth, we can safely drop all those vals
+
 
 
 # [Linked List](/Linked-List)
@@ -1025,6 +1038,8 @@ O(len(s)* len(words)* len(words[0]))
 sliding window可解
 - [163. Missing Ranges](Solutions/0163.Missing-Ranges.py) (M) <br>
 这题是上一题的延伸，跟sliding window没啥关系
+727. Minimum Window Subsequence - Google onsite for 土拨鼠
+
 
 ------------- Longest Substring Without Repeating Characters
 Substring with Concatenation of All Words
@@ -1495,6 +1510,7 @@ f[i][j][s]表示有多少种方法可以在前i个数中选出j个，使得它�
 
 
 ### [位操作型DP](/Dynamic-Programming.py)
+---------191. Number of 1 Bits 土拨鼠google onsite ---------
 - [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) <br>
 状态dp[i]=i的二进制中有多少个1; dp[i] = dp[i >> 1] + i % 2
 
