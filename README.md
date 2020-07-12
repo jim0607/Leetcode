@@ -75,7 +75,6 @@ step 1: construct a heights list for each row; step 2: calculate the largestRect
 - [0456. 132 Pattern](Solutions/0456.132-Pattern.py) (H) <br>
 solution: 从右往左，维护一个单调递减栈，while loop是为了保证选出一个最接近num的two, 这样num作为three, 下一个进来的num就更容易小于two了！
 
-----------975. Odd Even Jump------
 
 
 
@@ -87,7 +86,7 @@ heapq的方法是O(NK); deque O(N): Iterate over the array. At each step: I. Cle
 这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
 两个while循环，一个while loop从队首pop, 同时更新res, 另一个while loop 从队尾pop, 对deq进行清理。
 
--------------- 1425. Constrained Subsequence Sum ---------------
+
 
 
 ### [Hashmap/Dictionary](/Data-Structure.py) 
@@ -280,12 +279,12 @@ Segment Tree solution: O(NlogN) time and O(N) space. 从右往左遍历add num i
 
 
 
-Falling Squares, Number of Longest Increasing Subsequence.
-
-
-
 
 ###  [Desgin Problems](/)
+- [0706. Design HashMap](Solutions/0706.Design-HashMap.py) (!!E) <br>
+Resolve hash collision: approach 1: Seperate chaining; approach 2: Open addressing.  We implement seperate chaining: we use an arr of linked list to sore the keys: self.hashmap = [ListNode(-1, -1) for _ in range(self.SIZE)], store linked list head in the arr,ListNode(-1, -1)是一个dummy node, 方便后续操作. Time complexity for seach/put/get is O(n/m) where m is the talbe size, n is number of keys in the table.
+- [0705. Design HashSet](Solutions/0705.Design-HashSet.py) (E) <br>
+similar with design hashmap, we use seperate chaining to resovle collision.
 - [0359. Logger Rate Limiter](Solutions/0359.Logger-Rate-Limiter.py) (E) <br>
 很简单，用一个dictionary存(message, last timestamp when message was printed)就可以了。Google followup: input在K长度内无序的，但是时间t+K之后的输入一定出现在t之后。比如K是5，
 [4, foo], [1, foo], [0, bar], [6, bar] => 在[4, foo], [1, foo], [0, bar]内是无序的，但是[6, bar]一定出现在[0, bar]之后，因为6>0+5.
@@ -300,6 +299,11 @@ OrderedDict是deque的增强版，这一点在LRU那题中已经体现。
 - [0676. Implement Magic Dictionary](Solutions/0676.Implement-Magi-Dictionary.py) (M) <br>
 find all combination of input word, and search if one of them is in the word_set.
 O(26L^2), where L is the lens of word that we want to serach. 也可以用Trie来解，但是比较麻烦不推荐。
+- [0348. Design Tic-Tac-Toe](Solutions/0348.DesignTic-Tac-Toe.py) (M) <br>
+use a hashmap for player1: key is row/col/dia, val is how many taken by player1 at row/col/dia; use another hashmap for player 2. 
+then each time we place a position, we update the hashmap, which takes O(1)
+
+
 
 
 346	Moving Average from Data Stream	视频讲解	Sliding Window
@@ -525,7 +529,8 @@ Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hash
 ### [BFS in Matrix](/Breadth-First-Search.py) (隐式图搜索问题!!!)
 - [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (!!M, youtubed) <br>
 Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a Breadth First Search.
-Solution 2: dynamic connection problem, Union Find
+Solution 2: dynamic connection problem, Union Find.
+Follow up: 如何找到这些岛屿有多少种不同的形状，union find就做不了了，只能dfs
 - [0695. Max Area of Island](Solutions/0695.Max-Area-of-Island.py) (M) <br>
 Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a Breadth First Search.
 - [0994. Rotting Oranges](Solutions/0994.Rotting-Oranges.py) (M) <br>
