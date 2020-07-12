@@ -34,26 +34,6 @@ popleft: pop from the left end
 
 
 
-3. Hash/Dictionary
-常见面试问题：what is hash map?
-Hash table or a Hashmap is a type of data structure that maps keys to its value pairs
-how to implement a hash map?
-using a hash function, for examples, we want to put an int 8 in hash map. First step is take mode 8%7 = 1, then choose to store 8 at address 1.
-when trying to find if an int say 8 is in the hashmap, first step is take mode 8%7 = 1, then compare the integer stored in adrress 1 to see if it is 8.  By using a funciton, we can realize O(1) find operation.
-O(1) Insert / O(1) Find / O(1) Delete
-hash function是针对任意一个key，算出其应该去到的地址。
-O(1) find的原理是：比如来了一个key，需要查找这个key在不在hash中，这个时候hash map是把key代入到hash fuction中，然后算出这个key对应的地址，然后直接去这个地址去看，如果这个地址里面有key了，就说明key in hash map，如果没有就key not in hash map，所以O(1) find是因为hash function计算只需要O(1)的时间。
-一个hash map的例子：MD5，其实就是取模：key % hash_table_size
-
-hashing的冲突解决方法：
-1. Seperate chaining: hash_table_size是固定的，采取取模的方式，如果出现冲突，比如8%7 = 1,将8放到地址1，下一个进来15%7 也是1，这个时候就把15放到紧接着的后面那个地址也就是2
-2. Opend addressing / Linear probing: 如果出现冲突，也坚决不去紧接着的后面那个地址，而是将15排在8的后面，两个数都占1那个地址。
-  
-如果hash_table_size不够大怎么办： re-hashing，若果存入的元素的个数大约hash_table_size的十分之一，那就要re-hashing了，不然冲突会很多。
-In practicle: shrink the size when less than 1/8 were full, double the size when 1/2 were full
-****146. LRU!!!
-
-
 
 
 4. heap and heapq
