@@ -28,6 +28,10 @@ Please do not use the built-in HashMap library.
 
 
 
+
+"""
+There are two main issues that we should tackle, in order to design an efficient hashmap data structure: 
+1). hash function design and 2). collision handling.
 hashing的冲突解决方法：
 (Robert Sedgewick) The first component of a hashing algorithm is hasing function.  A hash function converts keys into array indices. 
 The second component of hasing algorithm is collision resolution: a strategy for handling the case when more than one key are hased to the same index.
@@ -45,6 +49,7 @@ Such method are called open addressing.
 The simpliest open addressing is called Linear probing: when there is a collision, then we just check the next entry in the table (by incrementing the index).  
 hash_table_size是固定的，采取取模的方式，如果出现冲突，比如8%7 = 1,将8放到地址1，下一个进来15%7 也是1，这个时候就把15放到紧接着的后面那个地址也就是2
 """
+"""
 Some of the questions which can be asked to the interviewer before implementing the solution
 
 For simplicity, are the keys integers only?
@@ -55,7 +60,7 @@ Can we assume this fits memory?
 """
 
 """
-Seperate chaining to resolve hash collision.
+Seperate chaining to resolve hash collision. Time complexity for seach/put/get is O(n/m) where m is the talbe size, n is number of keys in the table.
 """
 class ListNode:
     
@@ -67,6 +72,8 @@ class ListNode:
         
 class MyHashMap:
     
+    # (Robert Sedgewick) In seperate-chaining, our goal is to choose the table size to be suffciently small so that we do not waste too much memory,
+    # but sufficiently large so that we do not waste time searching through along hte chains.
     SIZE = 100007   # 不知道为什么改成10007就过不了某个test case
 
     def __init__(self):
