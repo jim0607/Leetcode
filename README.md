@@ -1131,6 +1131,7 @@ Solution 2: in the addNum method, firstly find the pos of insertion into the int
 双指针法, if min(end1, end2) - max(start1, start2) >= duration: return [max(start1, start2), max(start1, start2) + duration]
 - [0218. The Skyline Problem](Solutions/0218.The-Skyline-Problem.py) (!!H) <br>
 sweep lint + heapq；a maxHeap to store all alive buildings, 存高度和终点. res 里面需要保存的其实是每一次高度发生变化时的终点. 在指针currPos做扫描的时候做三件事情: 1. pop buildings that end before curPos, cuz they are no longer "alive"; 2. push [negative_height, end_point] of all buildings that start before curPos; 3. 更新res: if -maxHeap[0][0] != prevHeight: 说明出现了一个拐点要么上升要么下降，这时候就需要append拐点了
+------- 699. Falling Squares - great analogy to skyline problem!--------
 - [0850. Rectangle Area II](Solutions/0850.Rectangle-Area-II.py) (!!H Google) <br>
 sweep line solution: O(N^2logN).
 This is two sweep line problem pieced together. - google高频题，还没完全搞懂，道行不够呀
