@@ -152,6 +152,6 @@ class Solution:
         
         self.res = [0 for _ in range(len(nums))]
         nums_tuple = [(num, i) for i, num in enumerate(nums)]
-        merge_sort(nums_tuple)
+        merge_sort(nums_tuple)      # 这里把idx传进去的原因是为了update self.res的时候能通过left[i][1]]找到需要update的位置
         
         return self.res
