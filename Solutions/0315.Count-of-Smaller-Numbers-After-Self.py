@@ -124,7 +124,7 @@ class Solution:
             while i < len(left) and j < len(right):
                 if left[i][0] > right[j][0]:            # 这里只需要比较数值不需要比较idx是因为left属于nums[:mid], 而right属于num[mid:]
                     self.res[left[i][1]] += len(right) - j   # 因为right已经sort好了，所以如果left[i]>right[j], 那么left[i]>所有j后面的数
-                    i += 1
+                    i += 1      # 注意这里是i+=1
                 else:
                     j += 1
                     
