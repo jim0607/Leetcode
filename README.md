@@ -284,6 +284,12 @@ Segment Tree solution: O(NlogN) time and O(N) space. 从右往左遍历add num i
 
 
 ###  [Desgin](/)
+- [0622. Design Circular Queue](Solutions/0622.Design-Circular-Queue.py) (!!M) <br>
+we can use a Singly-Linked List. 也可以用double-linked-list这把宰牛刀也非常快
+enqueue: we append the value to the tail; dequeue: we remove node from head.
+front: the head; rear: the tail; isempty: cnt=0; isFull: cnt = k
+- [0622. Design Circular Queue](Solutions/0641. Design Circular Deque) (!!M) <br>
+we can use a double-linked list. 1. create a dummy head and a dummy tail; For insertFront mehtod, 注意insert到dummy head后面而不是前面
 - [0706. Design HashMap](Solutions/0706.Design-HashMap.py) (!!E) <br>
 Resolve hash collision: approach 1: Seperate chaining; approach 2: Open addressing.  We implement seperate chaining: we use an arr of linked list to sore the keys: self.hashmap = [ListNode(-1, -1) for _ in range(self.SIZE)], store linked list head in the arr,ListNode(-1, -1)是一个dummy node, 方便后续操作. Time complexity for seach/put/get is O(n/m) where m is the talbe size, n is number of keys in the table.
 - [0705. Design HashSet](Solutions/0705.Design-HashSet.py) (E) <br>
@@ -320,6 +326,9 @@ In put mehod, we can maitain a sorted list, using binary search to find where we
 In retrive method, we can use binary search to find where the start time locates and where the end time locates. It takes O(logN)
 - [1472. Design Browser History](Solutions/1472.Design-Browser-History.py) (M) <br>
 solution 1: two stacks. Solution 2: one arr and two pointers.
+- [1244. Design A Leaderboard](Solutions/1244.Design-A-Leaderboard.py) (M) <br>
+use a dictionary for fast addscore and reset. use a heapq to find top K elements
+
 
 
 ------------------------------- leetcode design 的tab最好都做掉，design确实很重要常考 ----------------------------------
