@@ -288,7 +288,7 @@ Segment Tree solution: O(NlogN) time and O(N) space. 从右往左遍历add num i
 we can use a Singly-Linked List. 也可以用double-linked-list这把宰牛刀也非常快
 enqueue: we append the value to the tail; dequeue: we remove node from head.
 front: the head; rear: the tail; isempty: cnt=0; isFull: cnt = k
-- [0622. Design Circular Queue](Solutions/0641. Design Circular Deque) (!!M) <br>
+- [0641. Design Circular Deque](Solutions/0641.Design-Circular-Deque) (!!M) <br>
 we can use a double-linked list. 1. create a dummy head and a dummy tail; For insertFront mehtod, 注意insert到dummy head后面而不是前面
 - [0706. Design HashMap](Solutions/0706.Design-HashMap.py) (!!E) <br>
 Resolve hash collision: approach 1: Seperate chaining; approach 2: Open addressing.  We implement seperate chaining: we use an arr of linked list to sore the keys: self.hashmap = [ListNode(-1, -1) for _ in range(self.SIZE)], store linked list head in the arr,ListNode(-1, -1)是一个dummy node, 方便后续操作. Time complexity for seach/put/get is O(n/m) where m is the talbe size, n is number of keys in the table.
@@ -311,6 +311,10 @@ deque里面默认是每一个时间戳hit了一次，如果需要记录每秒钟
 OrderedDict是deque的增强版，这一点在LRU那题中已经体现。
 - [0355. Design Twitter](Solutions/0355.Design-Twitter.py) (M) <br>
 self.time = 0; self.follows = collections.defaultdict(set)  # key is user, val is a set of users that this use follows; self.tweets = collections.defaultdict(collections.deque)   # key is user, val is a deque of (time, tweetsId)
+- [0353. Design Snake Game](Solutions/0353.Design-Snake-Game.py) (M) <br>
+为了考虑到蛇太长转太多弯会咬到自己的情况，我们需要记录蛇的尾巴的位置，所以需要用一个deque.
+Each time we eat a food, we update the head pos as new head pos, and update the tail pos as stay the same pos, 
+if not eating a food, then update the head pos as new head pos, and update the tail pos by simply popping it out of the deque. 
 - [0379. Design Phone Directory](Solutions/0379.Design-Phone-Directory.py) (M) <br>
 self.available_pool = set(i for i in range(maxNumbers))
 - [0676. Implement Magic Dictionary](Solutions/0676.Implement-Magi-Dictionary.py) (M) <br>
