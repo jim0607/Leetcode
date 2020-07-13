@@ -60,75 +60,7 @@ String
    判断一个字符ch是不是字母字符比如"8": ch.isalpha(); 如果return true, 则说明ch是字母字符.
       
       
-Hash Map
-      
-In python, hash map is dictionary
-1. ways to iterate over hash map:
-      1. for key in dict.keys():
-      2. for val in dict.values():
-      3. for key, val in dict.items():
-      
-2. defaultdict means that if a key doesn't exsit in a dictionary, then instead of error being thrown, a new entry is created.
-   dictNums = collections.defaultdict()
-   如果想声明dict里面的val是int：dictNums = collections.defaultdict(int)
-   如果想将默认的int值设置为1,可以使用lambda表达式: dictNums = collections.defaultdict(lambda: 1), eg: 1027. Longest Arithmetic Sequence
-   edges = collections.defaultdict(list) means that value of the dictionary is a list, defaultdict里面必须传入val的类型可以是list, bool, str, TrieNode等等.
-      
-3. delete a key, val pair in a dict: del dictNums[key]
-      
-将list作为key放入dict会报错: unhashable type 'list'   
-Reason: Dictionary keys must be immutable types and list is a mutable type. 
-Solution: Cast list to a tuple. eg: 305. Number of Islands II
-      
-4. instead of using a cntDict, we can use the defulat Counter in Python
-   from collections import Counter
-   s = "suggest"
-   sCnt = Counter(s)
-   print(sCnt)
-   --> Counter({'s': 3, 'u': 1, 'g': 2, 'e': 1, 't': 1, 'i': 1, 'o': 1, 'n': 1})
-      
-      
-  
-OrderedDict
-      
-The OrderedDict is a subclass of dict object in Python. 
-The only difference between OrderedDict and dict is that, in OrderedDict, it maintains the orders of keys as inserted. 
-The OrderedDict is a standard library class, which is located in the collections module.
-ordict = collections.defaultdict()
 
-可以把OrderedDict当做是更强大的deque
-1. OrderedDict可以先进先出: OrderedDict.popitem(last=True)
-2. OrderedDict可以O(1) delete: del OrderedDict(key)
-3. 支持move to end: OrderedDict.move_to_end(key)
-      
-      
-
-Set
-Set is a hash table except it caitains only keys, not key-val pairs.
-1. Set的特点是集合中的元素是唯一的，不能有重复元素
-      
-2. A set is a hash table, so "if item in set" has O(1) complexity
-      
-3. Add item to set: set.add(item), 如果item already in set, 就加不进去，但不会报错。
-   Remove from set: set.remove(item)
-      
-4. create a set: 
-      1. numSet = set(), numSet.add(1), numSet.add(2)
-      2. letterSet = {"a", "e", "i", "o", "u"} 
-      3. nums = [1, 2, 3, 4, 5], numsSet = set(nums)
-      4. 不能numsSet = {}来create a set, 因为这是在create a dictionary
-      
-5. 'set' does not support indexing, so numSet[0] is wrong sytax.
-      
-6. 我去才发现定义visited = set(3) 是错的，只能一步步按4.1中那样定义！79. Word Search
-      
-7. sort a set 只能用sorted(setA). eg: for pos in sorted(positionSet):  218. The Skyline Problem
-      
-8. 遍历set的方法 eg: 710. Random Pick with Blacklist
-   1. for num in self.unreachable_set:
-   2. for i, num in enumerate(self.unreachable_set):
-      
-      
 
       
 zip:
