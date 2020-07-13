@@ -103,7 +103,6 @@ we immediately return False since the transformation is impossible.
 - [0895. Maximum Frequency Stack](Solutions/0895.Maximum-Frequency-Stack.py) (H) <br>
 O(1) solution: self.freq = collections.defaultdict(int), # key is num, val is freq of the num; self.mapping = collections.defaultdict(list), key is freq, val is a stack of num of that freq; self.max_freq = 0; we update the 3 global variables in push method and pop method.
 
-------- 588. Design In-Memory File System !!!-----------
 
 
 
@@ -190,10 +189,14 @@ In TrieNode, define a self.sums 代表所有的子node所代表的string的val�
 - [1233. Remove Sub-Folders from the Filesystem](Solutions/1233.Remove-Sub-Folders-from-the-Filesystem.py) (!!M) <br>
 find the folder names with common prefix using a Trie, 
 we only keep the shortest folder name among all the words that share the same prefix.
+- [1166. Design File System](Solutions/1166.Design-File-System.py) (!!M) <br>
+经典的trie来处理文件夹的问题，在遍历for i, name in enumerate(path)中如果 i == len(path) - 1 这时候要create a new TrieNode 
+- [0588. Design In-Memory File System](Solutions/0588.Design-In-Memory-File-System.py) (!!H) <br>
+Trie solution: search/add/insert都是O(L)的时间复杂度，L是filePath的长度
 - [0820. Short Encoding of Words](Solutions/0820.Short-Encoding-of-Words.py) (M) <br>
 find the words with common suffix using a Trie, 
 we only keep the longest word among all the words that share the same suffix, and put a "#" behind it.
-- [1032. Stream of Characters](Solutions/0745.Prefix-and-Suffix-Search.py) (H) <br>
+- [0745. Prefix and Suffix Search](Solutions/0745.Prefix-and-Suffix-Search.py) (H) <br>
 construct a pref-trie and a suff-trie. In the trie node, we should indlude the idx.
 node.idx is a list consist of the idx of word in words
 - [1032. Stream of Characters](Solutions/1032.Stream-of-Characters.py) (!!H) <br>
@@ -280,11 +283,15 @@ Segment Tree solution: O(NlogN) time and O(N) space. 从右往左遍历add num i
 
 
 
-###  [Desgin Problems](/)
+###  [Desgin](/)
 - [0706. Design HashMap](Solutions/0706.Design-HashMap.py) (!!E) <br>
 Resolve hash collision: approach 1: Seperate chaining; approach 2: Open addressing.  We implement seperate chaining: we use an arr of linked list to sore the keys: self.hashmap = [ListNode(-1, -1) for _ in range(self.SIZE)], store linked list head in the arr,ListNode(-1, -1)是一个dummy node, 方便后续操作. Time complexity for seach/put/get is O(n/m) where m is the talbe size, n is number of keys in the table.
 - [0705. Design HashSet](Solutions/0705.Design-HashSet.py) (E) <br>
 similar with design hashmap, we use seperate chaining to resovle collision.
+- [1206. Design Skiplist](Solutions/1206.Design-Skiplist.py) (H) <br>
+Each node has 2 pointers: "next" targets to the next node in the same level, "down" targets the "next" level node. We need to define a helper function to find the largest node that is smaller than search target in all levels. If you add a node in a level, all levels after that also need to be added.  In add mehtod, we need to use random function to randomly choose if we want to add the node into upper levels.
+- [0432. All O(1) Data Structure](Solutions/0432.All-O`one-Data-Structure.py) (H) <br>
+use a Double Linked list, a hashmap to store (key, cnt) pair, use a hashmap to store (cnt, node) pair.  node is a DLL node, there is a node.key_set = set() which stores all the keys with that cnt.  The rest is to update the dll, the two hashmaps in each method call. similar with LRU.
 - [0359. Logger Rate Limiter](Solutions/0359.Logger-Rate-Limiter.py) (E) <br>
 很简单，用一个dictionary存(message, last timestamp when message was printed)就可以了。Google followup: input在K长度内无序的，但是时间t+K之后的输入一定出现在t之后。比如K是5，
 [4, foo], [1, foo], [0, bar], [6, bar] => 在[4, foo], [1, foo], [0, bar]内是无序的，但是[6, bar]一定出现在[0, bar]之后，因为6>0+5.
@@ -296,34 +303,28 @@ What if the number of hits per second could be very large? Does your design scal
 deque里面默认是每一个时间戳hit了一次，如果需要记录每秒钟有几次hit，我们需要用到dictionary, 但是同时有需要deque一样的有序，
 所以自然而然想到OrderedDict. 这样可以保证最多使用O(300)的空间, 还是要熟悉OrderedDict的方法的。
 OrderedDict是deque的增强版，这一点在LRU那题中已经体现。
+- [0355. Design Twitter](Solutions/0355.Design-Twitter.py) (M) <br>
+self.time = 0; self.follows = collections.defaultdict(set)  # key is user, val is a set of users that this use follows; self.tweets = collections.defaultdict(collections.deque)   # key is user, val is a deque of (time, tweetsId)
+- [0379. Design Phone Directory](Solutions/0379.Design-Phone-Directory.py) (M) <br>
+self.available_pool = set(i for i in range(maxNumbers))
 - [0676. Implement Magic Dictionary](Solutions/0676.Implement-Magi-Dictionary.py) (M) <br>
 find all combination of input word, and search if one of them is in the word_set.
 O(26L^2), where L is the lens of word that we want to serach. 也可以用Trie来解，但是比较麻烦不推荐。
 - [0348. Design Tic-Tac-Toe](Solutions/0348.DesignTic-Tac-Toe.py) (M) <br>
 use a hashmap for player1: key is row/col/dia, val is how many taken by player1 at row/col/dia; use another hashmap for player 2. 
 then each time we place a position, we update the hashmap, which takes O(1)
+- [0635. Design Log Storage System](Solutions/0635.Design-Log-Storage-System.py) (M) <br>
+use an arr self.log = [] to store the (id, timestamp) information. put method just append a new (id, timestamp) to list, retrieve method just O(N) travel the list.
+Follow up: can we do better for retrieve method?
+In put mehod, we can maitain a sorted list, using binary search to find where we should insert the new timestamp.
+In retrive method, we can use binary search to find where the start time locates and where the end time locates. It takes O(logN)
+- [1472. Design Browser History](Solutions/1472.Design-Browser-History.py) (M) <br>
+solution 1: two stacks. Solution 2: one arr and two pointers.
 
 
+------------------------------- leetcode design 的tab最好都做掉，design确实很重要常考 ----------------------------------
 
 
-346	Moving Average from Data Stream	视频讲解	Sliding Window
-281	Zigzag Iterator	视频讲解	
-284	Peeking Iterator	视频讲解	
-251	Flatten 2D Vector	视频讲解	
-288	Unique Word Abbreviation	视频讲解	
-170	Two Sum III - Data structure design	视频讲解	
-348	Design Tic-Tac-Toe	视频讲解	
-379	Design Phone Directory	视频讲解	
-353	Design Snake Game	视频讲解	
-146	LRU Cache	视频讲解	
-355	Design Twitter	视频讲解	
-303	Range Sum Query - Immutable	视频讲解	
-304	Range Sum Query 2D - Immutable	视频讲解	
-307	Range Sum Query - Mutable	视频讲解	BIT & ST
-308	Range Sum Query 2D - Mutable	视频讲解	BIT & ST
-460. LFU Cache
-588. Design In-Memory File System
-604. Design Compressed String Iterator
 
 
 
