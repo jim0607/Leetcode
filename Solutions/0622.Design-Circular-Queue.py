@@ -1,3 +1,4 @@
+"""
 622. Design Circular Queue
 
 Design your implementation of the circular queue. The circular queue is a linear data structure in which the operations are performed based on FIFO (First In First Out) principle and the last position is connected back to the first position to make a circle. It is also called "Ring Buffer".
@@ -30,10 +31,10 @@ circularQueue.Rear();  // return 4
 
 
 """
+"""
 we can use a Singly-Linked List. 
 enqueue: we append the value to the tail; dequeue: we remove node from head.
 front: the head; rear: the tail; isempty: cnt=0; isFull: cnt = k
-"""
 """
 class ListNode:
     
