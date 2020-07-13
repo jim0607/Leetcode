@@ -1,3 +1,4 @@
+"""
 641. Design Circular Deque
 
 Design your implementation of the circular double-ended queue (deque).
@@ -27,7 +28,7 @@ circularDeque.isFull();				// return true
 circularDeque.deleteLast();			// return true
 circularDeque.insertFront(4);			// return true
 circularDeque.getFront();			// return 4
-
+"""
 
 """
 代码看上去很长，但是逻辑很简单
