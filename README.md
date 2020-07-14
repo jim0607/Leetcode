@@ -323,6 +323,9 @@ O(26L^2), where L is the lens of word that we want to serach. 也可以用Trie�
 - [0348. Design Tic-Tac-Toe](Solutions/0348.DesignTic-Tac-Toe.py) (M) <br>
 use a hashmap for player1: key is row/col/dia, val is how many taken by player1 at row/col/dia; use another hashmap for player 2. 
 then each time we place a position, we update the hashmap, which takes O(1)
+- [1396. Design Underground System](Solutions/1396.Design-Underground-System.py) (M) <br>
+checkInData = a new HashMap (id -> [startStation, checkInTime])
+journeyData = a new HashMap ((startStation, endStation) -> [total time, count of trips from startStation to endStation])
 - [0635. Design Log Storage System](Solutions/0635.Design-Log-Storage-System.py) (M) <br>
 use an arr self.log = [] to store the (id, timestamp) information. put method just append a new (id, timestamp) to list, retrieve method just O(N) travel the list.
 Follow up: can we do better for retrieve method?
@@ -332,12 +335,11 @@ In retrive method, we can use binary search to find where the start time locates
 solution 1: two stacks. Solution 2: one arr and two pointers.
 - [1244. Design A Leaderboard](Solutions/1244.Design-A-Leaderboard.py) (M) <br>
 use a dictionary for fast addscore and reset. use a heapq to find top K elements
-
-
-
-------------------------------- leetcode design 的tab最好都做掉，design确实很重要常考 ----------------------------------
-
-
+- [1286. Iterator for Combination](Solutions/1286.Iterator-for-Combination.py) (M) <br>
+use backtrack to find all the possible combinations, then put them in a deque so that we can output in lexicographical order.
+- [1172. Dinner Plate Stacks](Solutions/1172.Dinner-Plate-Stacks.py) (H) <br>
+use a stack to store all the stacks.  
+Use a heapq to store all the leftmost available-to-push stack, by storing their idx.
 
 
 
