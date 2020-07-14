@@ -46,33 +46,8 @@ class Solution:
         
         
 """
-solution 2: iterative using stack - O(N) - 没看明白，各大博主无人提及O(N)的解法，
-面试可以写一个递归解法，然后follow up的时候提一下iterative using stack可能可以实现O(N)
+solution 2: O(N) - 没看明白，各大博主无人提及O(N)的解法
 """
-class Solution(object):
-    def buildTree(self, preorder, inorder):
-        if not preorder or not inorder:
-            return None
-        
-        j = 0
-        root = TreeNode(preorder[0])
-        stack = [root]
-        
-        for i in preorder[1:]:
-            parent = stack[-1]
-            is_left = True
-            node = TreeNode(i)
-            
-            while stack and inorder[j] == stack[-1].val:
-                parent = stack.pop()
-                is_left = False
-                j += 1
-                
-            if is_left:
-                parent.left = node
-            else:
-                parent.right = node
-            
-            stack.append(node)
-            
-        return root
+争取看懂解答！
+"""
+
