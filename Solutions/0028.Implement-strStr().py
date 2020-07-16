@@ -111,6 +111,14 @@ class Solution:
         return -1
         
         
+        
+"""
+A good application of this strStr() problem is that it can be used as an API for solving the problem of check if T2 is subtree of T1 ,both are very large trees.
+https://leetcode.com/discuss/interview-question/738978/Amazon-Onsite-or-check-if-T2-is-subtree-of-T1-both-are-very-large-trees
+https://www.geeksforgeeks.org/check-binary-tree-subtree-another-binary-tree-set-2/
+"""
+    
+        
 # KMP算法，超纲，不会在面试中出现的。
 
 
