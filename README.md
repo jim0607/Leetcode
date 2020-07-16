@@ -515,6 +515,10 @@ Same as 297.  Solution says since BST, the answer could be as compact as possibl
 - [0652. Find Duplicate Subtrees](Solutions/0652.Find-Duplicate-Subtrees.py) (M) <br>
 serialize every root and put into a dictionary, with key is str constructed from the root, val is a list of root that can construct into the root.  Note that in-order traversal never works for serialization!
 
+--------------------- A good application of this strStr() problem is that it can be used as an API for solving the problem of check if T2 is subtree of T1 ,both are very large trees.
+https://leetcode.com/discuss/interview-question/738978/Amazon-Onsite-or-check-if-T2-is-subtree-of-T1-both-are-very-large-trees
+https://www.geeksforgeeks.org/check-binary-tree-subtree-another-binary-tree-set-2/ --------------
+
 
 ### [BFS in Graphs](/Breadth-First-Search.py)
 - [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
@@ -1322,7 +1326,9 @@ O(N^4), O(N^2)
 - [0128. Hash Function](Solutions/0128.Hash-Function.py) (E Lintcode) <br>
 Rabin Karp Algorithm O(M+N
 - [0028. Implement strStr()](Solutions/0028.Implement-strStr().py) (E) <br>
-Rabin Karp Algorithm O(M+N): Rolling hash 的核心就是用一个hash function把一个长度为m的string hash成一个整数，这样就可以避免O(m)的时间复杂度去比较两个string是否相等，而是去比较两个string的hash code 只用O(1)的就可以比较了。
+Rabin Karp Algorithm O(M+N): Rolling hash 的核心就是用一个hash function把一个长度为m的string hash成一个整数，这样就可以避免O(m)的时间复杂度去比较两个string是否相等，而是去比较两个string的hash code 只用O(1)的就可以比较了。A good application of this strStr() problem is that it can be used as an API for solving the problem of check if T2 is subtree of T1 ,both are very large trees.
+https://leetcode.com/discuss/interview-question/738978/Amazon-Onsite-or-check-if-T2-is-subtree-of-T1-both-are-very-large-trees
+https://www.geeksforgeeks.org/check-binary-tree-subtree-another-binary-tree-set-2/
 - [1062. Longest Repeating Substring](Solutions/1062.Longest-Repeating-Substring.py) (!!M) <br>
 如果存在repeating substring的长度是L的话，那么也一定存在repeating substring的长度是小于L的;
 所以主体是一个OOXXX问题，寻找first L to satisfy that there are two substring both L long and equal.
