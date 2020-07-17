@@ -417,7 +417,7 @@ solution 1 takes O(N^2) because each time we find idx in inorder, it takes O(N).
 We can use a hash table to store the num-to-idx pair in advance.
 This leads to solution 2, which is O(N) instead of O(N^2).
 - [0889. Construct Binary Tree from Preorder and Postorder Traversal](Solutions/0889.Construct-Binary-Tree-from-Preorder-and-Postorder-Traversal.py) (!!M) <br>
-O(N^2) solution. 
+O(N^2) solution and O(N) solution. 
 
 ---------------1008. 1008. Construct Binary Search Tree from Preorder Traversal ------------------
 
