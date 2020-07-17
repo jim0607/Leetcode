@@ -12,7 +12,9 @@ Input: pre = [1,2,4,5,3,6,7], post = [4,5,2,6,7,3,1]
 Output: [1,2,3,4,5,6,7]
 
 
-
+"""
+solution 1: O(N^2)
+"""
 class Solution:
     def constructFromPrePost(self, pre: List[int], post: List[int]) -> TreeNode:
         if not pre or not post:
@@ -28,3 +30,44 @@ class Solution:
         root.right = self.constructFromPrePost(pre[idx+1:], post[idx+1:])
         
         return root
+
+       
+       
+       
+"""
+solution 2: O(N)
+"""
+class Solution:
+    def constructFromPrePost(self, pre: List[int], post: List[int]) -> TreeNode:
+        if not pre or not post:
+            return None
+
+        pre_dq = collections.deque(pre)
+        post_idxmap = collections.defaultdict(int)
+        for i, num in enumerate(post):
+            post_idxmap[num] = i
+        
+        def helper(pre_dq, preL, preR, postL, postR):
+            if not pre_dq or not post:
+                return None
+            if preL >= preR or postL >= postR:
+                return None
+                
+            root = TreeNode(pre_dq.popleft())
+            # post.pop()
+            preL += 1
+            postR -= 1
+            if preL >= preR or postL >= postR:
+                return root
+
+            if not pre_dq: return root
+            idx = post_idxmap[pre_dq[0]]        
+            lens = idx - postL + 1          # 左子树区间长度为
+
+            root.left = helper(pre_dq, preL, preL+lens, postL, idx+1)
+            root.right = helper(pre_dq, preL+lens, preR, idx+1, postR)
+
+            return root
+        
+        
+        return helper(pre_dq, 0, len(pre), 0, len(post))
