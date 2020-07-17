@@ -408,6 +408,18 @@ helper(start, end): return the trees from start to end.  Finally return helper(1
 similar with 95, in helper function, return all the different results to add parentheses for input, for i in range(len(input): divide into leftResults and rightResults. Optimization: use a memo dictionary in the helper function to memorize the input that has already been calculated.
 - [0096. Unique Binary Search Trees](Solutions/0096.Unique-Binary-Search-Trees.py) (M) <br>
 same as 95, return len(helper(1, n)).
+- [0105. Construct Binary Tree from Preorder and Inorder Traversal](Solutions/0105.Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal.py) (!!M) <br>
+solution 1中需要O(N^2)的原因是1. preorder.pop(0) takes O(N). We can convert preorder into a deque and popleft.
+2. finding the idx in inorder list takes O(N). We can use a hash table to store num-to-idx pair in advance.
+This leads to solution 2, which takes O(N) instead of O(N^2).
+- [0106. Construct Binary Tree from Inorder and Postorder Traversal](Solutions/0106.Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal.py) (!!M) <br>
+solution 1 takes O(N^2) because each time we find idx in inorder, it takes O(N).
+We can use a hash table to store the num-to-idx pair in advance.
+This leads to solution 2, which is O(N) instead of O(N^2).
+- [0889. Construct Binary Tree from Preorder and Postorder Traversal](Solutions/0889.Construct-Binary-Tree-from-Preorder-and-Postorder-Traversal.py) (!!M) <br>
+O(N^2) solution. 
+
+---------------1008. 1008. Construct Binary Search Tree from Preorder Traversal ------------------
 
 ----------501. Find Mode in Binary Search Tree----------
 
