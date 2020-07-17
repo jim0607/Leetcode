@@ -50,6 +50,11 @@ solution 1中需要O(N^2)的原因是1. preorder.pop(0) takes O(N). We can conve
 2. finding the idx in inorder list takes O(N). We can use a hash table to store num-to-idx pair in advance.
 This leads to solution 2, which takes O(N) instead of O(N^2).
 """
+"""
+solution 1中需要O(N^2)的原因是1. preorder.pop(0) takes O(N). We can convert preorder into a deque and popleft.
+2. finding the idx in inorder list takes O(N). We can use a hash table to store num-to-idx pair in advance.
+This leads to solution 2, which takes O(N) instead of O(N^2).
+"""
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
         if not preorder or not inorder:
@@ -61,7 +66,7 @@ class Solution:
             inorder_idxmap[num] = i
             
             
-        def helper(preorder_dq, inorder, i, j):     # i, j are idx in inorder list
+        def helper(preorder_dq, i, j):     # i, j are idx in inorder list
             if not preorder_dq:
                 return None
             
@@ -74,10 +79,10 @@ class Solution:
             # find the index where root.val is in inorder list - O(1)
             idx = inorder_idxmap[root.val]
             
-            root.left = helper(preorder_dq, inorder, i, idx)
-            root.right = helper(preorder_dq, inorder, idx + 1, j)
+            root.left = helper(preorder_dq, i, idx)
+            root.right = helper(preorder_dq, idx + 1, j)
         
             return root
         
         
-        return helper(preorder_dq, inorder, 0, len(inorder))
+        return helper(preorder_dq, 0, len(inorder))
