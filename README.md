@@ -418,8 +418,9 @@ We can use a hash table to store the num-to-idx pair in advance.
 This leads to solution 2, which is O(N) instead of O(N^2).
 - [0889. Construct Binary Tree from Preorder and Postorder Traversal](Solutions/0889.Construct-Binary-Tree-from-Preorder-and-Postorder-Traversal.py) (!!M) <br>
 O(N^2) solution and O(N) solution. 
+- [1008. Construct Binary Search Tree from Preorder Traversal](Solutions/1008.Construct-Binary-Search-Tree-from-Preorder-Traversal.py) (!!M) <br>
+we can traverse the preorder list and determine where it can be placed in the subtree.
 
----------------1008. 1008. Construct Binary Search Tree from Preorder Traversal ------------------
 
 ----------501. Find Mode in Binary Search Tree----------
 
