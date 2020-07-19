@@ -80,15 +80,16 @@ class Solution:
 Follow up: what if only use constant extra space?
 我们可以设立两个指针，一根leftmost一直往下走，一根head在一层之中一直往右走，边走边连
 """
+"""
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
         if not root:
             return None
         
         leftmost = root
-        while leftmost.left:
+        while leftmost.left:        #从上往下一层一层遍历
             head = leftmost
-            while head:     # 从leftmost node开始连接
+            while head:     # 从leftmost node开始从左往右连接
                 head.left.next = head.right     # 连接head.left和head.right
                 if head.next:                   # 连接head.right和head.next.left
                     head.right.next = head.next.left
