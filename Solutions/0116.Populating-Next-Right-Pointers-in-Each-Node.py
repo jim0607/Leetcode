@@ -80,7 +80,6 @@ class Solution:
 Follow up: what if only use constant extra space?
 我们可以设立两个指针，一根leftmost一直往下走，一根head在一层之中一直往右走，边走边连
 """
-"""
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
         if not root:
