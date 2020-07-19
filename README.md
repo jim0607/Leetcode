@@ -377,6 +377,23 @@ helper function 是 104. Maximum Depth of Binary Tree, 在helper function 中用
 - [0236. Lowest Common Ancestor of a Binary Tree](Solutions/0236.Lowest-Common-Ancestor-of-a-Binary-Tree.py) (!!M) <br>
 - [0250. Count Univalue Subtrees](Solutions/0250.Count-Univalue-Subtrees.py) (M) <br>
 从叶子节点出发的方法叫bottum up recurrsion. helper function return if the node is a UnivalTree? 用一个global cnt, 每遇到一个node is a UnivalTree, then cnt += 1.
+- [0106. Construct Binary Tree from Inorder and Postorder Traversal](Solutions/0106.Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal.py) (!!M) <br>
+solution 1 takes O(N^2) because each time we find idx in inorder, it takes O(N).
+We can use a hash table to store the num-to-idx pair in advance.
+This leads to solution 2, which is O(N) instead of O(N^2).
+- [0889. Construct Binary Tree from Preorder and Postorder Traversal](Solutions/0889.Construct-Binary-Tree-from-Preorder-and-Postorder-Traversal.py) (!!M) <br>
+O(N^2) solution and O(N) solution. 
+- [1008. Construct Binary Search Tree from Preorder Traversal](Solutions/1008.Construct-Binary-Search-Tree-from-Preorder-Traversal.py) (!!M) <br>
+we can traverse the preorder list and determine where it can be placed in the subtree.
+- [0222. Count Complete Tree Nodes](Solutions/0222.Count-Complete-Tree-Nodes.py) (!!M) <br>
+solution 1: dfs to visit every node; solution 2: use the property of complete Tree - O(logN* logN)
+- [0116. Populating Next Right Pointers in Each Node](Solutions/0116.Populating-Next-Right-Pointers-in-Each-Node.py) (M) <br>
+solution using q is trivial. Follow up: what if only use constant extra space?
+我们可以设立两个指针，一根leftmost一直往下走，一根head在一层之中一直往右走，边走边连
+
+
+### [BST](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+- [0669. Trim a Binary Search Tree](Solutions/0669.Trim-a-Binary-Search-Tree.py) (E) <br>
 - [0700. Search in a Binary Search Tree](Solutions/0700.Search-in-a-Binary-Search-Tree.py) (E) <br>
 - [0938. Range Sum of BST](Solutions/0938.Range-Sum-of-BST.py) (E) <br>
 - [0226. Invert Binary Tree](Solutions/0226.Invert-Binary-Tree.py) (E) <br>
@@ -412,18 +429,10 @@ same as 95, return len(helper(1, n)).
 solution 1中需要O(N^2)的原因是1. preorder.pop(0) takes O(N). We can convert preorder into a deque and popleft.
 2. finding the idx in inorder list takes O(N). We can use a hash table to store num-to-idx pair in advance.
 This leads to solution 2, which takes O(N) instead of O(N^2).
-- [0106. Construct Binary Tree from Inorder and Postorder Traversal](Solutions/0106.Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal.py) (!!M) <br>
-solution 1 takes O(N^2) because each time we find idx in inorder, it takes O(N).
-We can use a hash table to store the num-to-idx pair in advance.
-This leads to solution 2, which is O(N) instead of O(N^2).
-- [0889. Construct Binary Tree from Preorder and Postorder Traversal](Solutions/0889.Construct-Binary-Tree-from-Preorder-and-Postorder-Traversal.py) (!!M) <br>
-O(N^2) solution and O(N) solution. 
-- [1008. Construct Binary Search Tree from Preorder Traversal](Solutions/1008.Construct-Binary-Search-Tree-from-Preorder-Traversal.py) (!!M) <br>
-we can traverse the preorder list and determine where it can be placed in the subtree.
-
-
-----------501. Find Mode in Binary Search Tree----------
-
+- [0501. Find Mode in Binary Search Tree](Solutions/0501.Find-Mode-in-Binary-Search-Tree.py) (!!E) <br>
+Trivial solution: dfs to visit every node and put their freq in a dict - O(N), O(N); Follow up: Could you do that without using any extra space? (Assume that the implicit stack space incurred due to recursion does not count). solving BST problems is very similar with solving sorted arr problems, we just need to do in order traversal of the tree - O(N), O(1).
+- [0099. Recover Binary Search Tree](Solutions/0099.Recover-Binary-Search-Tree.py) (!!H) <br>
+Similar with the previous mode problem, we need to use a global prev_node, so that we can compare the adjacent nodes in the sorted arr.
 
 ### [Nary Tree](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0589. N-ary Tree Preorder Traversal](Solutions/0589.N-ary-Tree-Preorder-Traversal.py) (E) <br>
@@ -1418,11 +1427,13 @@ solution 2: rejection sampling - O(1) need to call random multiple times
 
 
 # [Recursion with memoization/top down DP](/https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-- [0980.Unique-Paths-III.py](Solutions/0980.Unique-Paths-III.py) (!!M youtube with path-I and II) <br>
+- [0980. Unique Paths III](Solutions/0980.Unique-Paths-III.py) (!!M youtube with path-I and II) <br>
 Solution 2: since we don't need to print the actual paths, DP or dfs with memorization is good.
 Total ime complexity for this DP = No. of sub-problems * Time taken per sub-problem = O(n * 2^n) * O(1) = O(n * 2^n).
 solution 1: dfs+backtrack: 这种方法不但可以找出有多少种路径，而且可以打印出所有路径
 O(4^N) time where N is number of non-block squares in the grid. 
+- [0894. All Possible Full Binary Trees](Solutions/0894.All-Possible-Full-Binary-Trees.py) (M) <br>
+
 
 139. word break; 312. Burst Balloons
 
