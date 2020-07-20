@@ -413,6 +413,18 @@ step 2: construct the tree based on the in_order list
 what we need to append into res is the nodes that are roots and not in to_delete list.
 we need to pass is_root bool into the helper function to determine whether of not 
 we should append it into res.  If it is root and not in to_delete_set, then we should append into res.
+- [0814. Binary Tree Pruning](Solutions/0814.Binary-Tree-Pruning.py) (M) <br>
+solution 1: my own solution: dfs visit each node, at each node, use a should_delete(node) function to tell
+if this node should be deleted.
+- [0563. Binary Tree Tilt](Solutions/0563.Binary-Tree-Tilt.py) (!!E) <br>
+helper function 需要 return the tilt and the sum
+- [0513. Find Bottom Left Tree Value](Solutions/0513.Find-Bottom-Left-Tree-Value.py) (M) <br>
+right to left bfs
+- [0156. Binary Tree Upside Down](Solutions/0156.Binary-Tree-Upside-Down.py) (M) <br>
+没明白题目啥意思，大概就是一通左右连接的操作吧
+- [0366. Find Leaves of Binary Tree](Solutions/0366.Find-Leaves-of-Binary-Tree.py) (!!M) <br>
+我们将leaf node的level定义为0, 那么紧紧邻接leaf node的level定义为1；
+那么我们只需要将level相同的nodes存在一起就可以了；所以选用dict, key is level, val is nodes that in that level.
 
 
 ### [BST](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
