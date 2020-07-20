@@ -114,6 +114,7 @@ class Solution:
         
 """
 A good application of this strStr() problem is that it can be used as an API for solving the problem of check if T2 is subtree of T1 ,both are very large trees.
+572. Subtree of Another Tree
 https://leetcode.com/discuss/interview-question/738978/Amazon-Onsite-or-check-if-T2-is-subtree-of-T1-both-are-very-large-trees
 https://www.geeksforgeeks.org/check-binary-tree-subtree-another-binary-tree-set-2/
 """
