@@ -423,6 +423,11 @@ right to left bfs
 - [0366. Find Leaves of Binary Tree](Solutions/0366.Find-Leaves-of-Binary-Tree.py) (!!M) <br>
 我们将leaf node的level定义为0, 那么紧紧邻接leaf node的level定义为1；
 那么我们只需要将level相同的nodes存在一起就可以了；所以选用dict, key is level, val is nodes that in that level.
+- [0572. Subtree of Another Tree](Solutions/0572.Subtree-of-Another-Tree.py) (!!E) <br>
+solution 1: brutal force: dfs to visit every node, at each node, stop and check if the subtree rooted
+as that node is the same as t - O(MN); solution 2: O(M+N).  we can in order traversal the two trees and turn them into two strings s and t. 
+Then the problem becomes exactly the same as finding a substring in s that equals t, which is 28. Implement strStr().
+Use rolling hash, we can realize O(M+N) solution.
 
 
 ### [BST](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
