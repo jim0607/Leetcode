@@ -519,6 +519,8 @@ Soluiton 1: Linear scan the 2d grid map, if a node contains a '1', then it is a 
 SOlution 2: Union Find: think the grid as a graph, find how may isolated components in the graph, we traversal the whole gird, whenever find a 1, we connect all the 4 adjacent 1s. 方法同lintcode 591.
 - [0305. Number of Islands II](Solutions/0305.Number-of-Islands-II.py) (!!H) <br>
 Union-Find 算法是解决动态连通性（Dynamic Conectivity）问题的一种算法. 这里的island可以看做是一个图. 每放置一个1, 就将其与其上下左右四个点的1连接起来。O(m×n+L), follow up question?
+- [0959. Regions Cut By Slashes](Solutions/0959.Regions-Cut-By-Slashes.py) (M) <br>
+Split a grid into 4 parts, each part is a uf component. Congratulation. Now you have another problem of counting the number of islands.
 - [0547 Friend Circles](Solutions/0547.Friend-Circles.py) (!!M) <br>
 Solution 1: Union-Find, 题目的表述有问题，看上去像是和200一模一样，其实不是的
 https://leetcode.com/problems/friend-circles/discuss/228414/Wrong-problem-statement-made-me-waste-half-an-hour-looking-for-a-solution-for-a-complex-problem  bfs and dfs solutions should also be implemented.
@@ -535,7 +537,8 @@ Step 1: use a dictionary to store email_to_name map. Step 2: iterate the edges t
 Step 2: use the email_to_name map and the graph to generage a new list where each name corresponding to a disjoint_component
 - [0684. Redundant Connection](Solutions/0684.Redundant-Connection.py) (M) <br>
 union find: if uf.connected(edge[0], edge[1]), there edge is redundant.
-685. Redundant Connection II - undirected graph 变成了 directed graph - 这时需要分三种情况，有点麻烦
+- [0685. Redundant Connection II](Solutions/0685.Redundant-Connection-II.py) (H) <br>
+undirected graph 变成了 directed graph - 这时需要分三种情况，有点麻烦, 算了了解一下思路就好了
 - [0734. Sentence Similarity](Solutions/0734.Sentence-Similarity.py) (E) <br>
 用dictionary map similar words即可, warm up for 737. Sentence Similarity II
 - [0737. Sentence Similarity II](Solutions/0737.Sentence-Similarity-II.py) (M) <br>
@@ -544,8 +547,12 @@ Two words are similar if they are the same, or are in the same connected compone
 So we can use union find to connect all the similar words. 
 Using path compression, the time complexity is almost O(1) for find method and union mehtod. 
 So the overall complexity is ~O(N) where N is the lens of words1.
+- [0947. Most Stones Removed with Same Row or Column](Solutions/0947.Most-Stones-Removed-with-Same-Row-or-Column.py) (!!M) <br>
+we compare each pos with another pos in the list, each time there is a union, we set cnt+=1 - O(n^2); The improved DSU solution creates a map of all the nodes with a certain X coordinate and a second map with all the nodes with a Y coordinate. 
+This allows us to quickly join all of a node's neighbour into a set. 
+This improves the naïve DSU implementation from O(n^2) to O(n)!!
 
---------- Largest Component Size by Common Factor ------------- 990. Satisfiability of Equality Equations ----------839. Similar String Groups-----1319. Number of Operations to Make Network Connected--------
+--------- --------
 
 
 ### [Minimum Spanning Tree - Kruskal's and Prim's](/)
@@ -585,9 +592,6 @@ Same as 297.  Solution says since BST, the answer could be as compact as possibl
 - [0652. Find Duplicate Subtrees](Solutions/0652.Find-Duplicate-Subtrees.py) (M) <br>
 serialize every root and put into a dictionary, with key is str constructed from the root, val is a list of root that can construct into the root.  Note that in-order traversal never works for serialization!
 
---------------------- A good application of this strStr() problem is that it can be used as an API for solving the problem of check if T2 is subtree of T1 ,both are very large trees.
-https://leetcode.com/discuss/interview-question/738978/Amazon-Onsite-or-check-if-T2-is-subtree-of-T1-both-are-very-large-trees
-https://www.geeksforgeeks.org/check-binary-tree-subtree-another-binary-tree-set-2/ --------------
 
 
 ### [BFS in Graphs](/Breadth-First-Search.py)
