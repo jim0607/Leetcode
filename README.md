@@ -416,11 +416,8 @@ solution 1: my own solution: dfs visit each node, at each node, use a should_del
 if this node should be deleted.
 - [0563. Binary Tree Tilt](Solutions/0563.Binary-Tree-Tilt.py) (!!E) <br>
 helper function 需要 return the tilt and the sum
-- [0513. Find Bottom Left Tree Value](Solutions/0513.Find-Bottom-Left-Tree-Value.py) (M) <br>
-right to left bfs
 - [0156. Binary Tree Upside Down](Solutions/0156.Binary-Tree-Upside-Down.py) (M) <br>
 没明白题目啥意思，大概就是一通左右连接的操作吧
-- [0366. Find Leaves of Binary Tree](Solutions/0366.Find-Leaves-of-Binary-Tree.py) (!!M) <br>
 我们将leaf node的level定义为0, 那么紧紧邻接leaf node的level定义为1；
 那么我们只需要将level相同的nodes存在一起就可以了；所以选用dict, key is level, val is nodes that in that level.
 - [0572. Subtree of Another Tree](Solutions/0572.Subtree-of-Another-Tree.py) (!!E) <br>
@@ -572,6 +569,10 @@ same as 102, 在res.append(level)的时候间隔性选择res.append(level) or re
 same as 102，只是题目要求从下至上输出，只需要return res[::-1]即可
 - [0199. Binary Tree Right Side View](Solutions/0199.Binary-Tree-Right-Side-View.py) (M) <br>
 same as 102，只需要res.append(level[-1])即可
+- [0513. Find Bottom Left Tree Value](Solutions/0513.Find-Bottom-Left-Tree-Value.py) (M) <br>
+right to left bfs
+- [0515. Find Largest Value in Each Tree Row](Solutions/0515.Find-Largest-Value-in-Each-Tree-Row.py) (M) <br>
+- [0366. Find Leaves of Binary Tree](Solutions/0366.Find-Leaves-of-Binary-Tree.py) (!!M) <br>
 - [0111. Minimum Depth of Binary Tree](Solutions/0111.Minimum-Depth-of-Binary-Tree.py) (E) <br>
 solution 1: recursion; soluiton 2: BFS; for _ in range(lens): if not node.left and not node.right: return depth
 - [0297. Serialize and Deserialize Binary Tree](Solutions/0297.Serialize-and-Deserialize-Binary-Tree.py) (!!H) <br>
