@@ -474,7 +474,8 @@ Similar with the previous mode problem, we need to use a global prev_node, so th
 这题跟上面两题有一个相同的特征就是论keep a prev node有多方便
 - [1038. Binary Search Tree to Greater Sum Tree](Solutions/1038.Binary-Search-Tree-to-Greater-Sum-Tree.py) (M) <br>
 跟上题一模一样，solution 2: do a in order traversal (reversed version: go all the way to the right) to keep track the addValues
-
+- [0530. Minimum Absolute Difference in BST](Solutions/0530.Minimum-Absolute-Difference-in-BST.py) (E) <br>
+just in order traversal to turn the tree into a list, and then compare the adjacent elements in a list.
 
 
 ### [Nary Tree](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
