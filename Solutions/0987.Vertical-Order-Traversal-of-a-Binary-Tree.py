@@ -39,7 +39,7 @@ solution: in order traversal of the tree and record the x-pos
 """
 class Solution:
     def verticalTraversal(self, root: TreeNode) -> List[List[int]]:
-        in_order = self._in_order(root, 0, 0, [])
+        in_order = self._in_order(root, 0, 0)
         in_order.sort(key = lambda x: (x[0], x[1], x[2]))
         
         i = 0
@@ -54,14 +54,13 @@ class Solution:
                 
         return res
         
-    def _in_order(self, root, pos, level, res):
+    def _in_order(self, root, pos, level):
         if not root:
             return []
 
-        self._in_order(root.left, pos-1, level+1, res)
-        
+        res = []
+        res += self._in_order(root.left, pos-1, level+1)
         res.append((pos, level, root.val))
-        
-        self._in_order(root.right, pos+1, level+1, res)
+        res += self._in_order(root.right, pos+1, level+1)
         
         return res
