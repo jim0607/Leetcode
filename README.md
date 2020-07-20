@@ -366,6 +366,10 @@ solution 2: Morris Preorder Traversal  O(N), O(1).
 - [0596. Minimum Subtree](Solutions/0596.Minimum-Subtree.py) (LintCode) <br>
 Divide and Conquer的方法输出以root为根的subTree的subSum，然后每次与minSum打擂台进行比较，注意python中定义全局变量可以用self.minSum = float("inf"), self.minNode = None，在主函数中定义这两个变量就可以了
 - [0597. Subtree with Maximum Average](Solutions/0597.Subtree-with-Maximum-Average.py) (LintCode) 同上 Divide and Conquer
+- [0687. Longest Univalue Path](Solutions/0687.Longest-Univalue-Path.py) (!!E) <br>
+在binary tree里求longest path问题，如果任何path都算数的话，那么我们在divide and conquer的时候要分成两种情况讨论：
+1. path ended with root; 2: path not ended with root.
+我们往往需要在helper函数中返回end_w和end_wo两种情况的值
 - [0124. Binary Tree Maximum Path Sum](Solutions/0124.Binary-Tree-Maximum-Path-Sum.py) (H) <br>
 题意应该是任何path都可以，只要点和点连接在一起就算一个path，起点和终点doesn't matter. 方法是定义一个self.maxSum在helper函数中去打擂台。helper 函数return the maxPathSum for tree ended with root: return max(left of root, right of root) + root.val; 打擂台: self.maxSum = max(self.maxSum, leftmax + rightMax + root.val)
 - [0110. Balanced Binary Tree](Solutions/0110.Balanced-Binary-Tree.py) (E) <br>
@@ -388,8 +392,27 @@ we can traverse the preorder list and determine where it can be placed in the su
 - [0222. Count Complete Tree Nodes](Solutions/0222.Count-Complete-Tree-Nodes.py) (!!M) <br>
 solution 1: dfs to visit every node; solution 2: use the property of complete Tree - O(logN* logN)
 - [0116. Populating Next Right Pointers in Each Node](Solutions/0116.Populating-Next-Right-Pointers-in-Each-Node.py) (M) <br>
-solution using q is trivial. Follow up: what if only use constant extra space?
+BFS solution using q is trivial. Follow up: what if only use constant extra space?
 我们可以设立两个指针，一根leftmost一直往下走，一根head在一层之中一直往右走，边走边连
+- [0117. Populating Next Right Pointers in Each Node II](Solutions/0117.Populating-Next-Right-Pointers-in-Each-Node-II.py) (M) <br>
+BFS solution using q
+- [0655. Print Binary Tree](Solutions/0655.Print-Binary-Tree.py) (M) <br>
+DFS, pass the depth and pos into the dfs arguments.
+- [0987. Vertical Order Traversal of a Binary Tree](Solutions/0987.Vertical-Order-Traversal-of-a-Binary-Tree.py) (M) <br>
+solution: in order traversal of the tree and record the x-pos
+- [0404. Sum of Left Leaves](Solutions/0404.Sum-of-Left-Leaves.py) (E) <br>
+simple dfs to visit every node, use a global variable to recorde the left leaf sum
+- [1104. Path In Zigzag Labelled Binary Tree](Solutions/1104.PathIn-Zigzag-Labelled-Binary-Tree.py) (M) <br>
+完全一个数学找规律的题，没啥意思
+- [0637. Average of Levels in Binary Tree](Solutions/0637.Average-of-Levels-in-Binary-Tree.py) (M) <br>
+level order traversal using a q.
+- [0897. Increasing Order Search Tree](Solutions/0897.Increasing-Order-Search-Tree.py) (E) <br>
+step 1: in order traversal to get a list of node vals;
+step 2: construct the tree based on the in_order list
+- [1110. Delete Nodes And Return Forest](Solutions/1110.Delete-Nodes-And-Return-Forest.py) (!!M) <br>
+what we need to append into res is the nodes that are roots and not in to_delete list.
+we need to pass is_root bool into the helper function to determine whether of not 
+we should append it into res.  If it is root and not in to_delete_set, then we should append into res.
 
 
 ### [BST](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
@@ -417,8 +440,6 @@ if val > root.val则更新root.right: root.right = self.insertIntoBST(root.right
 Case 1: if node is a leaf, simply delete it Case 2: If the node is not a leaf and has the right child, then replace the node value by a successor value root.val = successor.val, and then delete the successor in the right subtree root.right = deleteNode(root.right, root.val). Case 3: If the node is not a leaf and has only the left child, then replace the node value by a predecessor value root.val = predecessor.val, and then delete the predecessor in the left subtree root.left = deleteNode(root.left, root.val). define a function to find successor: find the successor of the root by taking one step right and always left, cuz the successor is the node just larger than the root. define a function to find predecessor: find the predecessor of the root by taking one step left and then always right. Delete a node in BST takes O(logN).
 - [1214. Two Sum BSTs](Solutions/1214.Two-Sum-BSTs.py) (M) <br>
 Iteratively do an inorder traversal for root1, and store the val in a hashSet; then itteratively do an inorder traversal for root2, and at the same time check if a target-val is in the hashSet. time complexity: O(M + N). 算法跟two sum是一样的，如果闭着眼睛能写要会iterative in-order traversal的哈！
-- [1038. Binary Search Tree to Greater Sum Tree](Solutions/1038.Binary-Search-Tree-to-Greater-Sum-Tree.py) (M) <br>
-do a in order traversal (reversed version: go all the way to the right) to keep track the addValues
 - [0095. Unique Binary Search Trees II](Solutions/0095.Unique-Binary-Search-Trees-II.py) (!!M) <br>
 helper(start, end): return the trees from start to end.  Finally return helper(1, n). Time complexity: The main computations are to construct all possible trees with a given root, that is actually Catalan number Gn (超纲).
 - [0241. Different Ways to Add Parentheses](Solutions/0241.Different-Ways-to-Add-Parentheses.py) (!!M) <br>
@@ -433,6 +454,13 @@ This leads to solution 2, which takes O(N) instead of O(N^2).
 Trivial solution: dfs to visit every node and put their freq in a dict - O(N), O(N); Follow up: Could you do that without using any extra space? (Assume that the implicit stack space incurred due to recursion does not count). solving BST problems is very similar with solving sorted arr problems, we just need to do in order traversal of the tree - O(N), O(1).
 - [0099. Recover Binary Search Tree](Solutions/0099.Recover-Binary-Search-Tree.py) (!!H) <br>
 Similar with the previous mode problem, we need to use a global prev_node, so that we can compare the adjacent nodes in the sorted arr.
+- [0538. Convert BST to Greater Tree](Solutions/0538.Convert-BST-to-Greater-Tree.py) (M) <br>
+由于visit某一个节点的时候需要用到右边的节点,所以可以做reveerse_order traversal. 
+这题跟上面两题有一个相同的特征就是论keep a prev node有多方便
+- [1038. Binary Search Tree to Greater Sum Tree](Solutions/1038.Binary-Search-Tree-to-Greater-Sum-Tree.py) (M) <br>
+跟上题一模一样，solution 2: do a in order traversal (reversed version: go all the way to the right) to keep track the addValues
+
+
 
 ### [Nary Tree](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0589. N-ary Tree Preorder Traversal](Solutions/0589.N-ary-Tree-Preorder-Traversal.py) (E) <br>
