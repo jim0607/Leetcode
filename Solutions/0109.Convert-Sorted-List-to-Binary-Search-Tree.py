@@ -59,3 +59,34 @@ class Solution:
         root.right = self.sortedListToBST(righthead)
         
         return root
+
+
+
+
+"""
+solution 2: 上述方法需要 O(NlogN)的原因是每次寻找中间点mid的时间都是O(N), 我们可以把linked list转化为arr,
+这样我们找mid就只需要O(1)了, 这时候再根据Master's theorem: 我们通过O(1)的时间将T(N)的任务变成了2T(N/2)的任务，
+所以总的时间复杂度是O(N)
+"""
+class Solution:
+    def sortedListToBST(self, head: ListNode) -> TreeNode:
+        arr = []
+        curr = head
+        while curr:
+            arr.append(curr.val)
+            curr = curr.next
+            
+        return self._constructBST(arr, 0, len(arr)-1)
+        
+    def _constructBST(self, arr, left, right):
+        if left > right:
+            return None
+        if left == right:
+            return TreeNode(arr[left])
+        
+        mid = (left + right) // 2
+        root = TreeNode(arr[mid])
+        root.left = self._constructBST(arr, left, mid-1)
+        root.right = self._constructBST(arr, mid+1, right)
+        
+        return root
