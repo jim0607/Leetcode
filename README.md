@@ -426,6 +426,10 @@ solution 1: brutal force: dfs to visit every node, at each node, stop and check 
 as that node is the same as t - O(MN); solution 2: O(M+N).  we can in order traversal the two trees and turn them into two strings s and t. 
 Then the problem becomes exactly the same as finding a substring in s that equals t, which is 28. Implement strStr().
 Use rolling hash, we can realize O(M+N) solution.
+- [0109. Convert Sorted List to Binary Search Tree](Solutions/0109.Convert-Sorted-List-to-Binary-Search-Tree.py) (!!M) <br>
+先分为左中右三个部分，然后divide and conquer - O(NlogN); 上述方法需要 O(NlogN)的原因是每次寻找中间点mid的时间都是O(N), 我们可以把linked list转化为arr,
+这样我们找mid就只需要O(1)了, 这时候再根据Master's theorem: 我们通过O(1)的时间将T(N)的任务变成了2T(N/2)的任务，
+所以总的时间复杂度是O(N)
 - [0156. Binary Tree Upside Down](Solutions/0156.Binary-Tree-Upside-Down.py) (M) <br>
 没明白题目啥意思，大概就是一通左右连接的操作吧
 
@@ -850,6 +854,14 @@ brutal force solution O(MNlog(MN)): find the distance of all combinations, and s
 In this way, the distances are represented by idx, which were sort by nature.
 - [1066. Campus Bikes II](Solutions/1066.Campus-Bikes-II.py) (!!M) <br>
 backtracking with memorization, 由于必须把assigned_bike set放入到state中，所以是指数级别的复杂度
+- [1192. Critical Connections in a Network](Solutions/1192.Critical-Connections-in-a-Network.py) (!!H) <br>
+solution 1: brutal force: 每次都是尝试去掉一条边，然后看去掉之后connected comonents的个数是不是还是只有一个 - O(E^2).
+solution 2: Tarjan's algorithm. In Tarjan's algorithm we keep a list low[i].
+low[i]: 表示节点i所见到过的除了目前的父节点parent之外的所有节点中步数最小的那一个。
+eg: [[0,1],[1,2],[2,3],[3,0],[2,4]]. 节点2第一次被访问到的时候是作为节点1的next, 那时候节点2的low[2]没有被更新过，
+所以我们继续访问节点2; 节点2第二次被访问到的时候是作为节点3的next, 那时候节点2的low[2]已经被更新过了，
+说明2已经被访问过了，那就不继续访问了
+We use dfs to scan all the node, at each node, we update the low[node]. 需要传入curr node and prev node
 
 
  ----89. Gray Codes ---1042. Flower Planting With No Adjacent-----401. Binary Watch-------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors------357. Count Numbers with Unique Digits	-----996. Number of Squareful Arrays-----306. Additive Number	----943. Find the Shortest Superstring-----------959. Regions Cut By Slashes----  Letter Case Permutation -----526. Beautiful Arrangement------842. Split Array into Fibonacci Sequence---------996. Number of Squareful Arrays--------1079. Letter Tile Possibilities----Sum Root to Leaf Numbers------Flip Game--------Flip Game II--------Nim Game---691. Stickers to Spell Word----964. Least Operators to Express Number------279. Perfect Squares------------------
