@@ -551,8 +551,17 @@ So the overall complexity is ~O(N) where N is the lens of words1.
 we compare each pos with another pos in the list, each time there is a union, we set cnt+=1 - O(n^2); The improved DSU solution creates a map of all the nodes with a certain X coordinate and a second map with all the nodes with a Y coordinate. 
 This allows us to quickly join all of a node's neighbour into a set. 
 This improves the naïve DSU implementation from O(n^2) to O(n)!!
-
---------- --------
+- [0765. Couples Holding Hands](Solutions/0765.Couples-Holding-Hands.py) (!!M) <br>
+solution 1 暴力法：从左至右依次配对好 - O(N^2); solution 2: union find - O(N). 
+step 1: initialize by connecting 0-1, 2-3, 4-5....
+step 2: we traverse the row, and union row[i] and row[i+1],
+if needs to be unioned, then that means needs one swap to make it row[i] and row[i+1] a couple.
+- [0924. Minimize Malware Spread](Solutions/0924.Minimize-Malware-Spread.py) (!!H) <br>
+实际上这道题的本质还是遍历这个无向图，遍历的方法就有 DFS 和 BFS 两种。方法是先尝试去掉一个node，然后看有多少可以感染；
+然后尝试去掉另一个node，看看多少可以感染；比较去掉哪一个node能使得感染的最少。O(M* N^2). solution 3: union find.
+step 1: connect the original graph, so that we have multiple connected components and we keep track of size of each component.
+step 2: traverse the initial infected list, and check which node in the list has the largest connected component size.
+The one in the largest connected component sizee can infect the most nodes, so we should delete it.
 
 
 ### [Minimum Spanning Tree - Kruskal's and Prim's](/)
@@ -666,7 +675,11 @@ hq 需要 store (cost, stops, airports), 与743相比少了一个currNode in cos
 hq store (how many moves left, node); # seen[i] means that we can arrive at node i and have seen[i] moves left; if movesLeft > insertNumber: heappush
 - [1102. Path With Maximum Minimum Value](Solutions/1102.Path-With-Maximum-Minimum-Value.py) (M) <br>
 Solution 1: Dijkstra's : 每次都把目前为止最小值最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走. maintain a heapq to store (__the minimum value in the path so far till the currPos__, currPos); each time, we push (min(nextVal, currMinVal), nextPos); O(MNlogMN), O(MN). Solution 2: Union-Find, step 1: sort the array by the values descendingly; step 2: union one-by-one, until (0, 0) and (m-1, n-1) is connected; solution 3: dfs + binary search
------------------ 778. Swim in Rising Water ------------------------
+- [0778. Swim in Rising Water](Solutions/0778.Swim-in-Rising-Water.py) (!!H) <br>
+find a path with the minimum max-height in the path.
+采用Dikstra, 每次pop出来的都是min height就可了 - O(N^2* log(N^2)), where N is the lens of grid.
+Google 面经：有一个nxn矩阵，信使从(0, 0)出发，想走到(n-1, n-1)去报信，
+中途会有一些狮子/敌营，我们离狮子的距离越远越安全，问为了尽可能到达目的地，离狮子最大的最近距离是多少？
 
 
 ### [A*](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
