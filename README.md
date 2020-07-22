@@ -432,6 +432,8 @@ Use rolling hash, we can realize O(M+N) solution.
 所以总的时间复杂度是O(N)
 - [0156. Binary Tree Upside Down](Solutions/0156.Binary-Tree-Upside-Down.py) (M) <br>
 没明白题目啥意思，大概就是一通左右连接的操作吧
+- [0314. Binary Tree Vertical Order Traversal](Solutions/0314.Binary-Tree-Vertical-Order-Traversal.py) (M) <br>
+step 1: 找到树的深度和宽度; step 2: df每个node并且把node的位置信息存到一个dict中; step 3: sort dictionary得到ans
 
 
 
@@ -874,7 +876,8 @@ We use dfs to scan all the node, at each node, we update the low[node]. 需要�
 - [0529. Minesweeper](Solutions/0529.Minesweeper.py) (M) <br>
 dfs - neighbor的for循环要做两次，第一个for循环，更新board[curr_pos], 因为如果board[curr_pos].isdigit()就不能further explore了,
 第二个for循环further explore if not board[curr_pos].isdigit()
-
+- [0430. Flatten a Multilevel Doubly Linked List](Solutions/0430.Flatten-a-Multilevel-Doubly-Linked-List.py) (M) <br>
+dfs pass prev_node, curr_node in the parameters, dfs return the tail of the curr_node-->child_node
 
 
 
@@ -1522,6 +1525,9 @@ O(4^N) time where N is number of non-block squares in the grid.
 - [0894. All Possible Full Binary Trees](Solutions/0894.All-Possible-Full-Binary-Trees.py) (M) <br>
 - [0494. Target Sum](Solutions/0494.Target-Sum.py) (!!M) <br>
 solution 1: naive dfs - O(2^n); solution 2: naive dfs + memorization - O(n * t) where n is len(nums), t is target
+- [0638. Shopping Offers](Solutions/0638.Shopping-Offers.py) (!!M) <br>
+solution 1: backtrack; solution 2: dfs + memorization
+
 
 ------------664. Strange Printer----------------546. Remove Boxes------------
 
