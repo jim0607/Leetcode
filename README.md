@@ -742,6 +742,8 @@ It really is all about pattern finding; https://leetcode.com/problems/permutatio
 
 
 ### [树上的DFS](/Depth-First-Search.py) <br>
+- [1469. Find All The Lonely Nodes](Solutions/1469.Find-All-The-Lonely-Nodes.py) (E) <br> 
+simple dfs to visit every node, check if it is a lonely node when visit it.
 - [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
 Solution 1: 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
 Solution 2: similar with 257 and 112, we just find all the possible paths.
@@ -1060,6 +1062,8 @@ Solution 1 O(N), O(N): Just iterate the linked list and create copies of the nod
 本题的考点是关于如何新建一个linked list, 要用someNode.next = ListNode(someVal), 而不是简单的修改value; 还考察了是否细心, 最后很容易漏掉carryBit != 0的判断"
 - [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!M) <br>
 maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we should override ListNode compare function __ lt __ to make customized compare happens: compare ListNode. Solution 2: divide and conquer, O(NlogK), this is a better solution.
+- [0234. Palindrome Linked List](Solutions/0234.Palindrome-Linked-List.py) (E) <br>
+题目要求O(n) time and O(1) space: 我们只能prev, slow, fast往前走的过程中修改指针指向，将slow反向指给prev.
 --------------------------
 Swap Nodes in Pairs
 Reverse Nodes in k-Group
@@ -1721,6 +1725,12 @@ O(N), O(N)
 遍历整个matrix, 每次都与其右下角的数进行比较. 遇到这么简单的题，follow up 就不会太简单了, 三个follow up很重要！！
 
 Count Complete Tree Nodes; Longest Increasing Path in a Matrix; Evaluate Division; Cracking the Safe; Robot Room Cleaner; Most Stones Removed with Same Row or Column; Flip Equivalent Binary Trees; Word Squares; Count of Smaller Numbers After Self; Peak Index in a Mountain Array; Split Array Largest Sum; Logger Rate Limiter; Insert Delete GetRandom O(1); Design Search Autocomplete System; Reverse Integer; Candy; Isomorphic Strings; Strobogrammatic Number; Bulls and Cows; Range Sum Query 2D - Mutable; My Calendar II; Jewels and Stones; Swap Adjacent in LR String; Guess the Word; Minimum Area Rectangle
+
+
+## [Amazon](/)
+- [0412. Fizz Buzz](Solutions/0412.Fizz-Buzz.py) (E) <br>
+How to do it without for-loop: recursion
+
 
 
 # [浪费青春刷了的题](/)
