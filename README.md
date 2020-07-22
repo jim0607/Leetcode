@@ -776,6 +776,10 @@ follow up 是若transform可行，判断是否需要用到中介字符，即判�
 
 
 ## [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+- [0339. Nested List Weight Sum](Solutions/0339.Nested-List-Weight-Sum.py) (E) <br>
+simple dfs or bfs is ok.
+- [0364. Nested List Weight Sum II](Solutions/0364.Nested-List-Weight-Sum-II.py) (M) <br>
+do a dfs to find the depth first, then another dfs to do 339. Nested List Weight Sum I
 - [0733. Flood Fill](Solutions/0733.Flood-Fill.py) (!!E) <br>
 Solution 1: Union Find; Solution 2: bfs; Solution 3: dfs iteratively; Solution 4: dfs recurssively
 - [0841. Keys and Rooms](Solutions/0841.Keys-and-Rooms.py) (!!M) <br>
@@ -815,6 +819,9 @@ step 2: 同样的方法记录atlantic ocean water可以达到的pos.  然后用2
 solution 1: dfs + backtrack - next candidate valid的条件是matrix[next_i][next_j] > matrix[curr_i][curr_j].  - O(2^(MN)).  solution 2: 由于题目并不要求算出path, 所以可以用dfs+memorization (top up dp). Time complexity : O(mn). solution 3: buttom up dp.
 - [0282. Expression Add Operators](Solutions/0282.Expression-Add-Operators.py) (!!H) <br>
 如果非要找一个类似的题，可能跟combination sum II 比较像吧, 找next candidate 比较麻烦，我们需要两个变量curr_res, curr_num，一个用于计算当前所有运算加一起的值，另一个用来记录当前的数。
+- [0679. 24 Game](Solutions/0679.24-Game.py) (!!H) <br>
+recursively 'glue' 2 numbers as a new number, and try to make 24 with the new nums list.
+at the end, when len(nums) = 1, check if it is 24 (due to division some precision loss should be expected, here set as 1e-4).
 - [0290. Word Pattern](Solutions/0290.Word-Pattern.py) (E) <br>
 use a dictinoary to map the ch in pattern with the word in words. warm up for 291.
 - [0291. Word Pattern II](Solutions/0291.Word-Pattern-II.py) (!!H) <br>
