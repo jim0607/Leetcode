@@ -780,6 +780,8 @@ follow up 是若transform可行，判断是否需要用到中介字符，即判�
 simple dfs or bfs is ok.
 - [0364. Nested List Weight Sum II](Solutions/0364.Nested-List-Weight-Sum-II.py) (M) <br>
 do a dfs to find the depth first, then another dfs to do 339. Nested List Weight Sum I
+- [0690. Employee Importance](Solutions/0690.Employee-Importance.py) (E) <br>
+simple dfs 可破
 - [0733. Flood Fill](Solutions/0733.Flood-Fill.py) (!!E) <br>
 Solution 1: Union Find; Solution 2: bfs; Solution 3: dfs iteratively; Solution 4: dfs recurssively
 - [0841. Keys and Rooms](Solutions/0841.Keys-and-Rooms.py) (!!M) <br>
@@ -869,9 +871,11 @@ eg: [[0,1],[1,2],[2,3],[3,0],[2,4]]. 节点2第一次被访问到的时候是作
 所以我们继续访问节点2; 节点2第二次被访问到的时候是作为节点3的next, 那时候节点2的low[2]已经被更新过了，
 说明2已经被访问过了，那就不继续访问了
 We use dfs to scan all the node, at each node, we update the low[node]. 需要传入curr node and prev node
+- [0529. Minesweeper](Solutions/0529.Minesweeper.py) (M) <br>
+dfs - neighbor的for循环要做两次，第一个for循环，更新board[curr_pos], 因为如果board[curr_pos].isdigit()就不能further explore了,
+第二个for循环further explore if not board[curr_pos].isdigit()
 
 
- ----89. Gray Codes ---1042. Flower Planting With No Adjacent-----401. Binary Watch-------1192. Critical Connections in a Network-------1129. Shortest Path with Alternating Colors------357. Count Numbers with Unique Digits	-----996. Number of Squareful Arrays-----306. Additive Number	----943. Find the Shortest Superstring-----------959. Regions Cut By Slashes----  Letter Case Permutation -----526. Beautiful Arrangement------842. Split Array into Fibonacci Sequence---------996. Number of Squareful Arrays--------1079. Letter Tile Possibilities----Sum Root to Leaf Numbers------Flip Game--------Flip Game II--------Nim Game---691. Stickers to Spell Word----964. Least Operators to Express Number------279. Perfect Squares------------------
 
 
 
@@ -1379,8 +1383,6 @@ then sweep right to left, and store "(" that should be deleted, eg: eg: "(()", t
 lastly delete the prarentheses that should be deleted.
 - [0856. Score of Parentheses](Solutions/0856.Score-of-Parentheses.py) (M)  <br>
 stack is always good for parentheses
-------------------------------------------------
------------Parentheses--------------
 
 
 ### [Rectangle几何题](/)
@@ -1518,14 +1520,17 @@ Total ime complexity for this DP = No. of sub-problems * Time taken per sub-prob
 solution 1: dfs+backtrack: 这种方法不但可以找出有多少种路径，而且可以打印出所有路径
 O(4^N) time where N is number of non-block squares in the grid. 
 - [0894. All Possible Full Binary Trees](Solutions/0894.All-Possible-Full-Binary-Trees.py) (M) <br>
+- [0494. Target Sum](Solutions/0494.Target-Sum.py) (!!M) <br>
+solution 1: naive dfs - O(2^n); solution 2: naive dfs + memorization - O(n * t) where n is len(nums), t is target
 
+------------664. Strange Printer----------------546. Remove Boxes------------
 
 139. word break; 312. Burst Balloons
 
 
 # [Dynamic Programming/bottom up DP](Dynamic-Programming.py)
 
---------------931. Minimum Falling Path Sum ------------
+--------------931. Minimum Falling Path Sum --------------------------
 
 ### [坐标型DP](/Dynamic-Programming.py)
 - [0062. Unique Paths](Solutions/0062.Unique-Paths.py) (!!M) <br>
