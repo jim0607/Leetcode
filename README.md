@@ -661,7 +661,9 @@ solution 1: 利用对称性质: x,y=abs(x),abs(y); q.append(neighbor) only if (-
 solution 2!!!: 从source和destination两端同时进行bfs!!!!注意双端bfs传进去的参数包含q and visited, bfs返回值是updated q and visited. cnt+=1的操作在主函数中进行. while true的结束条件: if visited_src & visited_des: return cnt_src + cnt_des; 452 ms <br>
 solution 3: recurrsion with memorization: cache[(x, y)] = min(dp(abs(x-1), abs(y-2)), dp(abs(x-2), abs(y-1))) + 1; 60 ms<br>
 - [0127. Word Ladder](Solutions/0127.Word-Ladder.py) (!!M) <br>
-利用双端BFS大大提高速度，注意双端bfs传进去的参数包含q and visited, bfs返回值是updated q and visited. 在双端BFS的过程中判断if not q_src or not q_des: 则说明q_src或q_des里面的所有possible neighbor都不在wordList里面，也就是没有必要继续进行了; The idea behind bidirectional search is to run two simultaneous searches: one forward from the initial state and the other backward from the destination state — hoping that the two searches meet in the middle. The motivation is that b^(d/2) + b^(d/2) is much less than b^d. b is branch number, d is depth. 这题最好定义一个wordSet = set(wordList)来降低时间寻找下一个neighborWord的复杂度到O(26L); 
+利用双端BFS大大提高速度，注意双端bfs传进去的参数包含q and visited, bfs返回值是updated q and visited. 双端bfs是src/des每走一步判断一下if visited_src & visited_des: return step; 在双端BFS的过程中判断if not q_src or not q_des: 则说明q_src或q_des里面的所有possible neighbor都不在wordList里面，也就是没有必要继续进行了; The idea behind bidirectional search is to run two simultaneous searches: one forward from the initial state and the other backward from the destination state — hoping that the two searches meet in the middle. The motivation is that b^(d/2) + b^(d/2) is much less than b^d. b is branch number, d is depth. 这题最好定义一个wordSet = set(wordList)来降低时间寻找下一个neighborWord的复杂度到O(26L); 
+- [0433. Minimum Genetic Mutation](Solutions/0433.Minimum-Genetic-Mutation.py) (!!M) <br>
+same as 127. Word Ladder. 双端bfs大大提高速度
 - [0815. Bus Routes](Solutions/0815.Bus-Routes.py) (H) <br>
 Shortest path problem: bfs. 与word ladder那题类似，word ladder是one-to-one的bfs, 这个是多源节点出发的bfs
 ------ 433. Minimum Genetic Mutation ----------
@@ -683,6 +685,10 @@ f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i
 Given a N-ary tree, where each node represents a __remainder__ of the number n subtracting a combination of square numbers, 
 our task is to find a node in the tree, which should meet the conditions or remainder=0.
 Time complexity: 比较复杂最后是 O(n^(h/2)), where h is the height of the N-ary tree, h is 0 to 4
+- [1236. Web Crawler](Solutions/1236.Web-Crawler.py) (!!M) <br>
+简单bfs可破
+- [1242. Web Crawler Multithreaded](Solutions/1242.Web-Crawler-Multithreaded.py) (!!M) <br>
+bfs + multi-thread + MapReduce
 
 
 ### [Dijkstra](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
@@ -718,6 +724,7 @@ Solution 2: 无权图单源节点的最短路径问题，自然想到A-star sear
 - [0078. Subsets](Solutions/0078.Subsets.py) (!!M) <br>
 C(m, n)：m个里面找出n个的组合问题; 模板的DFS + back tracking求combination问题 O(NS), S是solution的个数，这里S=2^N; 注意两点：1.res.append(curr.copy()); has to be a deep copy; 2. self.dfs(nums, i + 1, curr, res) 要从i+1开始cuz不能回头找会重复
 其实可以不用把res传进去，定义一个全局变量self.res即可，可以简化dfs传入的参数。
+- [0077. Combinations](Solutions/0077.Combinations.py) (!!M) <br>
 - [0090. Subsets II](Solutions/0090.Subsets-II.py) (!!M)<br>
 如果输入存在重复元素，[1, 2, 2]的遍历中，我们只取前面的那个2，对于后面的那个2，如果不是挨着前面那个2选的，也就是说i != startIndex，那么就不要放后面那个2，这样会造成重复出现[1,第一个2],[1,第二个2], 注意可以挨着第一个2来选第二个2是可以的，因为允许出现[1,2,2]作为答案。所以contraint是: if (i >= 1 and nums[i] == nums[i-1]) and i != startIndex: continue
 - [0254. Factor Combinations](Solutions/0254.Factor-Combinations.py) (M)<br>
@@ -1557,7 +1564,7 @@ solution 1: backtrack; solution 2: dfs + memorization
 
 # [Dynamic Programming/bottom up DP](Dynamic-Programming.py)
 
---------------931. Minimum Falling Path Sum --------------------------
+--------------931. Minimum Falling Path Sum ----------174. Dungeon Game------741. Cherry Pickup----------
 
 ### [坐标型DP](/Dynamic-Programming.py)
 - [0062. Unique Paths](Solutions/0062.Unique-Paths.py) (!!M) <br>
