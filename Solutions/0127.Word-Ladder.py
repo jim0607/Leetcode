@@ -149,33 +149,27 @@ class Solution:
         q_des.append(endWord)
         visited_des.add(endWord)
         
-        steps = 1
-        while True:
-            if visited_src & visited_des:
+        steps = 0
+        while q_src and q_des:              # 这里是为了判断如果q_src为空了，说明所有的q_src里面的possible beighbor都不在wordList里面，也就是说not possible to trasform from beginWord to endWord
+            steps += 1
+            if visited_src & visited_des:   # 找到了可以从src也可以从des到达的节点了
                 return steps
             
             q_src, visited_src = self.bfs(wordList, q_src, visited_src)
             steps += 1
             
-            if len(q_src) == 0:  # 这里是为了判断如果q_src为空了，说明所有的q_src里面的possible beighbor都不在wordList里面，也就是说not possible to trasform from beginWord to endWord
-                return 0
-            
             if visited_src & visited_des:
                 return steps
             
             q_des, visited_des = self.bfs(wordList, q_des, visited_des)
-            steps += 1
             
-            if len(q_des) == 0:
-                return 0
-            
+        return 0
         
     def bfs(self, wordList, q, visited):
         """
-        return the next level of q, also update visited
+        双端bfs中每个bfs只走一步，走完一步之后比较visited_src & visited_des
         """
         lens = len(q)
-
         for _ in range(lens):
             currWord = q.popleft()
             for nextWord in self.neighbors(wordList, currWord):
