@@ -425,7 +425,9 @@ in order traversal to find the leaves of the tree and put them into a list
 since we need the position information of node 6, and disctionary doesnot maitain the position order.
 we choose to use a list to store (level, node) information, the pos at the list stores the information
 of porisiton order.
-
+- [1145. Binary Tree Coloring Game](Solutions/1145.Binary-Tree-Coloring-Game.py) (M) <br>
+check the 3 nodes that are adjacent to node x, find the number of nodes each of the 3 subtree has. If there exist one subtree that has more nodes than other two subtrees add together, then the second player can color that node.
+- [0971. Flip Binary Tree To Match Preorder Traversal](Solutions/0971.Flip-Binary-Tree-To-Match-Preorder-Traversal.py) (M) <br>
 
 
 
@@ -676,6 +678,11 @@ BFS algorithm can be used to solve a lot of problems of finding shortest distanc
 In this problem, we may visit a point more than one times, simply storing visited position is not enough.
 We need to save (pos, keys_collected) in the visited set, because visiting the same pos without getting new key is not allowed,
 but in order to get a new key, we may visit a certain pos, after getting the key, we may go back and visit the pos again.
+- [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (!!M) <br>
+f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i^2]+1) for i^2<=j; Time complexity: j is from 0 to n, i is from 0 to j^0.5, so O(N^1.5); solution 2: level order BFS.
+Given a N-ary tree, where each node represents a __remainder__ of the number n subtracting a combination of square numbers, 
+our task is to find a node in the tree, which should meet the conditions or remainder=0.
+Time complexity: 比较复杂最后是 O(n^(h/2)), where h is the height of the N-ary tree, h is 0 to 4
 
 
 ### [Dijkstra](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
@@ -1637,8 +1644,11 @@ Lintcode 476. Stone Game <br>
 solution 1: dp[i]=can partition until ith char?, not including i; dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in wordDict). solution 2: bfs, solution 3: dfs + memorization (top-down dp)
 - [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M) <br>
 f[i]=number of decode ways until i (not including i); f[i]=f[i-1]+f[i-2] if int(s[i-2:i])<=26 else f[i-1]
-- [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (M) <br>
-f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i^2]+1) for i^2<=j; Time complexity: j is from 0 to n, i is from 0 to j^0.5, so O(N^1.5); solution 2 mathematics: Four-square theorem states that every natural number can be represented as the sum of at most four integer squares.
+- [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (!!M) <br>
+f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i^2]+1) for i^2<=j; Time complexity: j is from 0 to n, i is from 0 to j^0.5, so O(N^1.5); solution 2: level order BFS.
+Given a N-ary tree, where each node represents a __remainder__ of the number n subtracting a combination of square numbers, 
+our task is to find a node in the tree, which should meet the conditions or remainder=0.
+Time complexity: 比较复杂最后是 O(n^(h/2)), where h is the height of the N-ary tree, h is 0 to 4
 - [0132. Palindrome Partitioning II](Solutions/0132.Palindrome-Partitioning-II.py) (!!H) <br>
 子数组或者子字符串且求极值的题，基本就是 DP 没差了. f[j]=the minimum number of total palindrome till the jth character (not including j); f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome. O(N^3), 划分型的dp的状态一般都not include j, 这样就有一个buffer layer可以用。Solution 2: 优化为O(N^2), 用一个isPalin[i][j]记录s[i:j]是否是palindrome, 更新isPalin[i][j]的方法与leetcode 5 相同，这样就不用每次都用双指针去判断s[i:j]是不是palindrome. 输出所有的可能的partition成palindrome的组合问题只能dfs+backtracking了- 131. Palindrome Partitioning
 
