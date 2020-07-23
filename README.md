@@ -421,6 +421,14 @@ in order traversal to find the leaves of the tree and put them into a list
 - [0366. Find Leaves of Binary Tree](Solutions/0366.Find-Leaves-of-Binary-Tree.py) (!!M) <br>
 我们将leaf node的level定义为0, 那么紧紧邻接leaf node的level定义为1；
 那么我们只需要将level相同的nodes存在一起就可以了；所以用dict存level-nodes pair, key is level, val is nodes that in that level.
+- [1028. Recover a Tree From Preorder Traversal](Solutions/1028.Recover-a-Tree-From-Preorder-Traversal.py) (H) <br>
+since we need the position information of node 6, and disctionary doesnot maitain the position order.
+we choose to use a list to store (level, node) information, the pos at the list stores the information
+of porisiton order.
+
+
+
+
 - [0572. Subtree of Another Tree](Solutions/0572.Subtree-of-Another-Tree.py) (!!E) <br>
 solution 1: brutal force: dfs to visit every node, at each node, stop and check if the subtree rooted
 as that node is the same as t - O(MN); solution 2: O(M+N).  we can in order traversal the two trees and turn them into two strings s and t. 
@@ -880,7 +888,8 @@ dfs - neighbor的for循环要做两次，第一个for循环，更新board[curr_p
 第二个for循环further explore if not board[curr_pos].isdigit()
 - [0430. Flatten a Multilevel Doubly Linked List](Solutions/0430.Flatten-a-Multilevel-Doubly-Linked-List.py) (M) <br>
 dfs pass prev_node, curr_node in the parameters, dfs return the tail of the curr_node-->child_node
-
+- [0753. Cracking the Safe](Solutions/0753.Cracking-the-Safe.py) (!!H) <br>
+思路：# 一共有k** n种可能的组合，取res的最后n-1个数字(贪心)，加上k中的一个新的数字来组新的combination, 判断这个combination是否已经cover到了
 
 
 
@@ -946,6 +955,7 @@ Use greedy to check can get - O(N).  Overall: O(NlogM), where N = len(sweetness)
 If we can do it at D, then we can do it at larger than D. This is a OOXX problem to find the minimum D.
 The difficult part is to find if is_valid to place K stations so that every adjacent station has distance smaller than D - using greedy. 注意这一题的start, end都是小数
 
+----------441. Arranging Coins-----------475. Heaters----------911. Online Election-----------349. Intersection of Two Arrays
 
 
 
@@ -1330,7 +1340,7 @@ And the question guaranteed that the solution is unique(The first one I found is
 先给每个孩子分配一个糖果，然后从左往右扫，更新向上的child需要的candy, 接着从右往左扫，更新向下的child需要的candy. 需要证明
 
 
-----------0455-assign-cookies（1、升序排序）.py          0435-non-overlapping-intervals（按终点排序）.py                        0316-remove-duplicate-letters（栈、贪心算法）.py                         0310-minimum-height-trees（广度优先遍历）.py                  0012-integer-to-roman（贪心算法）.py-----------------455. Assign Cookies-------------406. Queue Reconstruction by Height------------Create Maximum Number----------670. Maximum Swap------------659. Split Array into Consecutive Subsequences-----------------------------------------
+----946. Validate Stack Sequences (google)------0455-assign-cookies（1、升序排序）.py          0435-non-overlapping-intervals（按终点排序）.py                        0316-remove-duplicate-letters（栈、贪心算法）.py                         0310-minimum-height-trees（广度优先遍历）.py                  0012-integer-to-roman（贪心算法）.py-----------------455. Assign Cookies-------------406. Queue Reconstruction by Height------------Create Maximum Number----------670. Maximum Swap------------659. Split Array into Consecutive Subsequences-----------------------------------------
 
 
 
