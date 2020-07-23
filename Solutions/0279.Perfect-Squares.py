@@ -22,3 +22,37 @@ class Solution:
                 i += 1
                 
         return dp[n]
+    
+    
+    
+"""
+solution 2: level order BFS.
+Given a N-ary tree, where each node represents a __remainder__ of the number n subtracting a combination of square numbers, 
+our task is to find a node in the tree, which should meet the conditions or remainder=0.
+Time complexity: 比较复杂最后是 O(n^(h/2)), where h is the height of the N-ary tree, h is 0 to 4
+"""
+class Solution(object):
+    def numSquares(self, n):
+        squares = [i*i for i in range(1, n+1) if i*i <= n]
+        q = collections.deque()
+        q.append(n)
+        visited = set()
+        visited.add(n)
+        level = 0
+        while q:
+            level += 1
+            lens = len(q)
+            for _ in range(lens):
+                curr_remain = q.popleft()
+                for sq in squares:
+                    next_remain = curr_remain - sq
+                    if next_remain < 0:
+                        continue
+                    if next_remain == 0:
+                        return level
+                    if next_remain in visited:
+                        continue
+                    q.append(next_remain)
+                    visited.add(next_remain)
+                
+        return level
