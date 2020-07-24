@@ -421,16 +421,15 @@ in order traversal to find the leaves of the tree and put them into a list
 - [0366. Find Leaves of Binary Tree](Solutions/0366.Find-Leaves-of-Binary-Tree.py) (!!M) <br>
 我们将leaf node的level定义为0, 那么紧紧邻接leaf node的level定义为1；
 那么我们只需要将level相同的nodes存在一起就可以了；所以用dict存level-nodes pair, key is level, val is nodes that in that level.
-- [1028. Recover a Tree From Preorder Traversal](Solutions/1028.Recover-a-Tree-From-Preorder-Traversal.py) (H) <br>
+- [1028. Recover a Tree From Preorder Traversal](Solutions/1028.Recover-a-Tree-From-Preorder-Traversal.py) (!!H) <br>
 since we need the position information of node 6, and disctionary doesnot maitain the position order.
 we choose to use a list to store (level, node) information, the pos at the list stores the information
 of porisiton order.
 - [1145. Binary Tree Coloring Game](Solutions/1145.Binary-Tree-Coloring-Game.py) (M) <br>
 check the 3 nodes that are adjacent to node x, find the number of nodes each of the 3 subtree has. If there exist one subtree that has more nodes than other two subtrees add together, then the second player can color that node.
 - [0971. Flip Binary Tree To Match Preorder Traversal](Solutions/0971.Flip-Binary-Tree-To-Match-Preorder-Traversal.py) (M) <br>
-
-
-
+dfs solution:
+Global integer i indicates next index in voyage v.mIf current node == null, it's fine, we return true; If current node.val != v[i], doesn't match wanted value, return false; If left child exist but don't have wanted value, flip it with right child.
 - [0572. Subtree of Another Tree](Solutions/0572.Subtree-of-Another-Tree.py) (!!E) <br>
 solution 1: brutal force: dfs to visit every node, at each node, stop and check if the subtree rooted
 as that node is the same as t - O(MN); solution 2: O(M+N).  we can in order traversal the two trees and turn them into two strings s and t. 
@@ -535,6 +534,13 @@ Soluiton 1: Linear scan the 2d grid map, if a node contains a '1', then it is a 
 SOlution 2: Union Find: think the grid as a graph, find how may isolated components in the graph, we traversal the whole gird, whenever find a 1, we connect all the 4 adjacent 1s. 方法同lintcode 591.
 - [0305. Number of Islands II](Solutions/0305.Number-of-Islands-II.py) (!!H) <br>
 Union-Find 算法是解决动态连通性（Dynamic Conectivity）问题的一种算法. 这里的island可以看做是一个图. 每放置一个1, 就将其与其上下左右四个点的1连接起来。O(m×n+L), follow up question?
+- [0694. Number of Distinct Islands](Solutions/0694.Number-of-Distinct-Islands.py) (!!M) <br>
+When we start a dfs on the top-left square of some island, the path taken by dfs will be the same if and only if the shape is the same. So path is the signature of shape.
+So we can record the path, and count how many distinct path.
+- [0711. Number of Distinct Islands II](Solutions/0711.Number-of-Distinct-Islands-II.py) (H) <br>
+与上题一样得到shape, 得到之后可以通过定义一个transform(shape)函数得到all the trasformed shape.
+
+
 - [0959. Regions Cut By Slashes](Solutions/0959.Regions-Cut-By-Slashes.py) (M) <br>
 Split a grid into 4 parts, each part is a uf component. Congratulation. Now you have another problem of counting the number of islands.
 - [0547 Friend Circles](Solutions/0547.Friend-Circles.py) (!!M) <br>
@@ -629,20 +635,16 @@ solution 1: bfs, visit every node and label their color every other step. O(V+E)
 solution 2: dfs, mark the color of nodes as we go.  O(V+E)
 - [0399. Evaluate Division](Solutions/0399.Evaluate-Division.py) (!!M) <br>
 Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hashmap构建邻接表 graph = collections.defaultdict(dict), in graph, key is node1, val is a dict of (key: node2, val: node1/node2), 然后每次query其实就是从单源节点出发寻求不带权值最短路径问题。  Soltution 2: Union Find;
-- [0127. Topological Sorting](Solutions/0127.Topological-Sorting.py) (!!LintCode) <br>
-有向图的问题，可以检测有向图是否有环！必考，其实也非常模板化，一定要记住。Three steps: 1. 从数字关系求出每个节点的inDegrees（就是找节点与相邻节点的依赖关系） (inDegrees = collections.defaultdict(int))，key是node, val是这个node的indegree值; 2. 和每个节点的neighbors （neighbors = collections.defaultdict(list)), key是node, val是装有这个node的neighbor的list; 3. 然后 BFS，背诵模板就可以了。
-- [0207. Course Schedule](Solutions/0207.Course-Schedule.py) (!!M) <br>
-套用模板分三步：1. collect the inDegree of each node; 2. collect the neighbors information; 3. topological sort - BFS
-- [0210. Course Schedule II](Solutions/0210.Course-Schedule-II.py) (!!M) <br>
-套用模板 return res if len(res) == numCourses else [].  Google follow up: 打印出所有可能的选课组合，感觉有点像word ladder I and II.
-- [0444. Sequence Reconstruction](Solutions/0444.Sequence-Reconstruction.py) (!!M) <br>
-这个题目要做三个判断：1. 判断seqs的拓扑排序是否存在，只需判断len(res) 是否等于len(neighbors) or len(inDegrees), 如果小于说明有孤立节点，如果大于说明有环，两者都不存在拓扑排序; 2. 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素, 即每一层只有一个选择: if len(q)>1: return False; 3. 最后判断这个唯一的拓扑排序res是否等于org
-- [0269. Alien Dictionary](Solutions/0269.Alien-Dictionary.py) (!!H) <br>
-只需要比较word[i]与word[i+1]中每个char，即可得到inDegree的关系以及neighbors的关系
-- [0310. Minimum Height Trees](Solutions/0310.Minimum-Height-Trees.py) (M) <br>
-想想如果是一个很大的图，那minimum height trees的root就应该是这个图的最中心，所以我们就去找图的最中心就可以了，采用从外围(inDegree=1的node)往中间走的方法，解法类似topological sort, 走到最后留下的顶点就是最中心的顶点，也就是距离所有外围顶点最小的顶点。
-- [0802. Find Eventual Safe States](Solutions/0802.Find-Eventual-Safe-States.py) (M) <br>
-寻找不在环里的node, 其实就是其实就是topological sort for out_degree!
+- [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (!!M) <br>
+f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i^2]+1) for i^2<=j; Time complexity: j is from 0 to n, i is from 0 to j^0.5, so O(N^1.5); solution 2: level order BFS.
+Given a N-ary tree, where each node represents a __remainder__ of the number n subtracting a combination of square numbers, 
+our task is to find a node in the tree, which should meet the conditions or remainder=0.
+Time complexity: 比较复杂最后是 O(n^(h/2)), where h is the height of the N-ary tree, h is 0 to 4
+- [1236. Web Crawler](Solutions/1236.Web-Crawler.py) (!!M) <br>
+简单bfs可破
+- [1242. Web Crawler Multithreaded](Solutions/1242.Web-Crawler-Multithreaded.py) (!!M) <br>
+bfs + multi-thread + MapReduce
+
 
 
 ### [BFS in Matrix](/Breadth-First-Search.py) (隐式图搜索问题!!!)
@@ -666,29 +668,40 @@ solution 3: recurrsion with memorization: cache[(x, y)] = min(dp(abs(x-1), abs(y
 same as 127. Word Ladder. 双端bfs大大提高速度
 - [0815. Bus Routes](Solutions/0815.Bus-Routes.py) (H) <br>
 Shortest path problem: bfs. 与word ladder那题类似，word ladder是one-to-one的bfs, 这个是多源节点出发的bfs
------- 433. Minimum Genetic Mutation ----------
 - [1162. As Far from Land as Possible](Solutions/1162.As-Far-from-Land-as-Possible.py) (M) <br>
 bfs: the maximum distance is steps needed to change all WATER to be LAND, so we append all land into the first layer of q, and do a level order bfs. the maxumum distance is then the answer we want. solution 2: DP same as 542. 01 matrix
 - [0542. 01 Matrix](Solutions/0542.01-Matrix.py) (M) <br>
 方法是先把所有0放入q的第一层，然后一层层遍历，同时更新遇到的1为当前的层数，层数就是1离0的距离; solution 2: DP same as 542. 01 matrix
 - [0317. Shortest Distance from All Buildings](Solutions/0317.Shortest-Distance-from-All-Buildings.py) (!!H) <br>
 Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and use dist[][] to record the sum of distance from all 1 grids to this 0 grid. Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a BFS. in the bfs, we do level bfs and update the reachable_cnt matrix and dist matrix. 遇到obstacle不放进q就可以了. each bfs, all position are visited, so O(MNk) where k is how many building are there or how many bfs are triggered. Finnaly return the min of dist[i][j] if reachable_cnt[i][j] = total number of buildings. Strong Prune: if if starting from building (i, j), can reach all other building? if not, that means at least one building is isolated and can not be reached, then return -1 directly: in each BFS we use reachableBuildings to count how many 1s we reached. If reachableBuldings != totalBuildings - 1 then we know not all 1s are connected are we can return -1 immediately, which greatly improved speed.
-- [0752. Open the Lock](Solutions/0752.Open-the-Lock.py) (M) <br>
+- [0752. Open the Lock](Solutions/0752.Open-the-Lock.py) (!!M) <br>
 题目蛮有意思的, 带层序遍历的bfs, 遇到currNode in deadends 就不再去访问其neighbor了, find neighbor 函数比较有意思，这里第一次学到了yield;
 - [0864. Shortest Path to Get All Keys](Solutions/0864.Shortest-Path-to-Get-All-Keys.py) (H) <br>
 BFS algorithm can be used to solve a lot of problems of finding shortest distance.
 In this problem, we may visit a point more than one times, simply storing visited position is not enough.
 We need to save (pos, keys_collected) in the visited set, because visiting the same pos without getting new key is not allowed,
 but in order to get a new key, we may visit a certain pos, after getting the key, we may go back and visit the pos again.
-- [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (!!M) <br>
-f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i^2]+1) for i^2<=j; Time complexity: j is from 0 to n, i is from 0 to j^0.5, so O(N^1.5); solution 2: level order BFS.
-Given a N-ary tree, where each node represents a __remainder__ of the number n subtracting a combination of square numbers, 
-our task is to find a node in the tree, which should meet the conditions or remainder=0.
-Time complexity: 比较复杂最后是 O(n^(h/2)), where h is the height of the N-ary tree, h is 0 to 4
-- [1236. Web Crawler](Solutions/1236.Web-Crawler.py) (!!M) <br>
-简单bfs可破
-- [1242. Web Crawler Multithreaded](Solutions/1242.Web-Crawler-Multithreaded.py) (!!M) <br>
-bfs + multi-thread + MapReduce
+- [0490. The Maze](Solutions/0490.The-Maze.py) (!!M) <br>
+像1263. Minimum Moves to Move a Box to Their Target Location那道题一样, 
+bfs need to pass direction into the q, so that we know where the ball is coming from
+
+
+
+### [Topological Sort](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+- [0127. Topological Sorting](Solutions/0127.Topological-Sorting.py) (!!LintCode) <br>
+有向图的问题，可以检测有向图是否有环！必考，其实也非常模板化，一定要记住。Three steps: 1. 从数字关系求出每个节点的inDegrees（就是找节点与相邻节点的依赖关系） (inDegrees = collections.defaultdict(int))，key是node, val是这个node的indegree值; 2. 和每个节点的neighbors （neighbors = collections.defaultdict(list)), key是node, val是装有这个node的neighbor的list; 3. 然后 BFS，背诵模板就可以了。
+- [0207. Course Schedule](Solutions/0207.Course-Schedule.py) (!!M) <br>
+套用模板分三步：1. collect the inDegree of each node; 2. collect the neighbors information; 3. topological sort - BFS
+- [0210. Course Schedule II](Solutions/0210.Course-Schedule-II.py) (!!M) <br>
+套用模板 return res if len(res) == numCourses else [].  Google follow up: 打印出所有可能的选课组合，感觉有点像word ladder I and II.
+- [0444. Sequence Reconstruction](Solutions/0444.Sequence-Reconstruction.py) (!!M) <br>
+这个题目要做三个判断：1. 判断seqs的拓扑排序是否存在，只需判断len(res) 是否等于len(neighbors) or len(inDegrees), 如果小于说明有孤立节点，如果大于说明有环，两者都不存在拓扑排序; 2. 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素, 即每一层只有一个选择: if len(q)>1: return False; 3. 最后判断这个唯一的拓扑排序res是否等于org
+- [0269. Alien Dictionary](Solutions/0269.Alien-Dictionary.py) (!!H) <br>
+只需要比较word[i]与word[i+1]中每个char，即可得到inDegree的关系以及neighbors的关系
+- [0310. Minimum Height Trees](Solutions/0310.Minimum-Height-Trees.py) (M) <br>
+想想如果是一个很大的图，那minimum height trees的root就应该是这个图的最中心，所以我们就去找图的最中心就可以了，采用从外围(inDegree=1的node)往中间走的方法，解法类似topological sort, 走到最后留下的顶点就是最中心的顶点，也就是距离所有外围顶点最小的顶点。
+- [0802. Find Eventual Safe States](Solutions/0802.Find-Eventual-Safe-States.py) (M) <br>
+寻找不在环里的node, 其实就是其实就是topological sort for out_degree!
 
 
 ### [Dijkstra](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
@@ -904,8 +917,10 @@ dfs - neighbor的for循环要做两次，第一个for循环，更新board[curr_p
 dfs pass prev_node, curr_node in the parameters, dfs return the tail of the curr_node-->child_node
 - [0753. Cracking the Safe](Solutions/0753.Cracking-the-Safe.py) (!!H) <br>
 思路：# 一共有k** n种可能的组合，取res的最后n-1个数字(贪心)，加上k中的一个新的数字来组新的combination, 判断这个combination是否已经cover到了
-
-
+- [0306. Additive Number](Solutions/0306.Additive-Number.py) (!!M) <br>
+固定两个开头的idx, 然后做dfs
+- [0842. Split Array into Fibonacci Sequence](Solutions/0842.Split-Array into-Fibonacci-Sequence.py) (!!M) <br>
+与上一题相比要求输出所有Fibonacci组合，所以用backtrack: pass curr as signature to record the curr path/res
 
 
 
@@ -1766,7 +1781,8 @@ Iterate the array, if the max(A[0] ~ A[i]) = i, then we can cut it at this index
 so that it the chunk ended with i. - just some game about number.
 - [0768. Max Chunks To Make Sorted II](Solutions/0768.Max-Chunks-To-Make-Sorted-II.py) (H) <br>
 没看懂，也没啥意思，这个Alice Wice喜欢为出题而出题，讨论区有用stack解的O(N)，比他自己给出的solution好多了
-
+- [0089. Gray Code](Solutions/0089.Gray-Code.py) (M) <br>
+找规律的题
 
 # [Pramp](/)
 - [070820-Busiest Time in The Mall](Solutions/Pramp__070820-Busiest-Time-in-The-Mall.py) (M) <br>
@@ -1776,8 +1792,7 @@ so that it the chunk ended with i. - just some game about number.
 
 
 
-### 还是要多刷新题，见过和没见过真的很不一样！
-### 按照花花酱的分类来做 https://zxi.mytechroad.com/blog/leetcode-problem-categories/
+### 还是要多刷新题，见过和没见过真的很不一样！刷新题的方法：先按tag一个一个点开，点开之后看like/dislke比例，如果 >2 了就重点做，如果 <1 了就不做
 ### top 100 of interview questions
 ### Top 100 Google interview questions
 ### Top 100 Facebook interview questions
