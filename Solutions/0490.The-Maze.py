@@ -39,7 +39,8 @@ Input 3: destination coordinate (rowDest, colDest) = (3, 2)
 
 Output: false
 
-""""
+    
+"""
 像1263. Minimum Moves to Move a Box to Their Target Location那道题一样, 
 bfs need to pass direction into the q, so that we know where the ball is coming from
 """
@@ -104,8 +105,10 @@ class Solution:
                 
             # now that curr_i, curr_j stopped at wall, we can choose which direction to go next
             next_i, next_j = curr_i, curr_j
-            for next_dir in moves:
+            for next_dir, move in moves.items():
                 if (next_i, next_j, next_dir) in visited:
+                    continue
+                if maze[next_i+move[0]][next_j+move[1]] == self.WALL:
                     continue
                 q.append((next_i, next_j, next_dir))     # put direction into q
                 visited.add((next_i, next_j, next_dir))
