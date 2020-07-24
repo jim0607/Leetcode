@@ -82,35 +82,29 @@ class Solution:
         maze[des[0]+moves["down"][0]][des[1]+moves["down"][1]] == self.EMPTY:
             return False
         
-        # bfs, need to pass direction into the q, so that we know where the ball is coming from
+        # 上述两个步骤其实也可以不要，一个是为了更方便一些，另一个是为了cut edge case
+        # now we do bfs
         q = collections.deque()
         visited = set()
-        for direction, move in moves.items():
-            if maze[src[0]+move[0]][src[1]+move[1]] == self.EMPTY:
-                q.append((src[0], src[1], direction))     # put direction into q
-                visited.add((src[0], src[1], direction))
+        for i, j in moves.values():
+            if maze[src[0]+i][src[1]+j] == self.EMPTY:
+                q.append((src[0], src[1]))     
+                visited.add((src[0], src[1]))
                 
         while q:
-            curr_i, curr_j, curr_dir = q.popleft()
+            curr_i, curr_j = q.popleft()
             if (curr_i, curr_j) == des:     # check if curr stopped pos is the destination
                 return True
             
             # find the next position that the ball can stop
-            next_i, next_j = curr_i + moves[curr_dir][0], curr_j + moves[curr_dir][1]
-            while maze[next_i][next_j] == self.EMPTY:  # cannot stop at an empty place, must stop at wall
-                curr_i += moves[curr_dir][0]
-                curr_j += moves[curr_dir][1]
-                next_i += moves[curr_dir][0]
-                next_j += moves[curr_dir][1]
-                
-            # now that curr_i, curr_j stopped at wall, we can choose which direction to go next
-            next_i, next_j = curr_i, curr_j
-            for next_dir, move in moves.items():
-                if (next_i, next_j, next_dir) in visited:
+            for i, j in moves.values():
+                next_i, next_j = curr_i, curr_j
+                while maze[next_i+i][next_j+j] == self.EMPTY:  # cannot stop at an empty place, must stop at wall
+                    next_i += i
+                    next_j += j
+                if (next_i, next_j) in visited:
                     continue
-                if maze[next_i+move[0]][next_j+move[1]] == self.WALL:
-                    continue
-                q.append((next_i, next_j, next_dir))     # put direction into q
-                visited.add((next_i, next_j, next_dir))
+                q.append((next_i, next_j))     # put direction into q
+                visited.add((next_i, next_j))
             
         return False
