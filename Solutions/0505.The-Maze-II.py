@@ -59,6 +59,7 @@ The maze contains at least 2 empty spaces, and both the width and height of the 
 solution 1: just use a bfs, every time we reach the destination, we cannot return directly,
 because第二次到达的steps可能还更小，所以我们需要记录所有达到destination所用的步数
 """
+"""
 class Solution:
     EMPTY = 0
     WALL = 1
