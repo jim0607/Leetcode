@@ -116,9 +116,9 @@ class Solution:
         while hq:
             curr_step, curr_i, curr_j = heappop(hq)
             
-            if [curr_i, curr_j] == des:
-                return curr_step    # garanteed to return the minimum step if using heapq, otherwise, not garanteed
-            
+            if [curr_i, curr_j] == des: # garanteed to return the minimum step if using heapq, otherwise, not garanteed
+                return curr_step        # since we can return directly when we first reach the des, we don't need to get to the des multipule times
+                                        # so using Dikstra is faster than using normal bfs                                    
             for i, j in ((1,0), (-1,0), (0,1), (0,-1)):
                 # find the next position that the ball can stop
                 next_i, next_j, next_step = curr_i, curr_j, curr_step
