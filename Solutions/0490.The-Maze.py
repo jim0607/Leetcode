@@ -47,7 +47,7 @@ class Solution:
     EMPTY = 0
     WALL = 1
     def hasPath(self, maze: List[List[int]], src: List[int], des: List[int]) -> bool:
-        # modify maze
+        # modify maze - 四面加一层墙
         m, n = len(maze), len(maze[0])
         modified_maze = [[1 for _ in range(n+2)] for _ in range(m+2)]
         for i in range(m):
