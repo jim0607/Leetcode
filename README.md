@@ -584,6 +584,10 @@ if needs to be unioned, then that means needs one swap to make it row[i] and row
 step 1: connect the original graph, so that we have multiple connected components and we keep track of size of each component.
 step 2: traverse the initial infected list, and check which node in the list has the largest connected component size.
 The one in the largest connected component sizee can infect the most nodes, so we should delete it.
+- [0928. Minimize Malware Spread II](Solutions/0928.Minimize-Malware-Spread-II.py) (!!H) <br>
+the difference of this problem is when we remove a node from the list, 
+that node cannot be infected anymore in later malware spread.
+只需要在做bfs/dfs的时候保证next_candidate!=removed_node就可以了
 
 
 ### [Minimum Spanning Tree - Kruskal's and Prim's](/)
@@ -682,9 +686,14 @@ In this problem, we may visit a point more than one times, simply storing visite
 We need to save (pos, keys_collected) in the visited set, because visiting the same pos without getting new key is not allowed,
 but in order to get a new key, we may visit a certain pos, after getting the key, we may go back and visit the pos again.
 - [0490. The Maze](Solutions/0490.The-Maze.py) (!!M) <br>
-像1263. Minimum Moves to Move a Box to Their Target Location那道题一样, 
-bfs need to pass direction into the q, so that we know where the ball is coming from
-
+the tricky part is from the curr_stoppable position, find the next_stoppable position: use a while loop to find where is the next stop position. 
+- [0505. The Maze II](Solutions/0505.The-Maze-II.py) (!!M) <br>
+solution 1: just use a bfs, every time we reach the destination, we cannot return directly,
+because第二次到达的steps可能还更小，所以我们需要记录所有达到destination所用的步数. solution 2: use dikstra to make sure always pop the smallest steps.  
+重点是use a dictionary for visited, key is the pos visited, val is the steps to reach there.
+第二次到达这个a certain pos的时候所用的steps如果比第一次更小，那就更新visited[pos].
+- [0499. The Maze III](Solutions/0499.The-Maze-III.py) (!!H) <br>
+similar iwth 505 solution 2, use Dikstra's algorithm. hq needs to store the path: curr_step, curr_i, curr_j, curr_path = heappop(hq)
 
 
 ### [Topological Sort](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
@@ -779,6 +788,9 @@ It really is all about pattern finding; https://leetcode.com/problems/permutatio
 ### [树上的DFS](/Depth-First-Search.py) <br>
 - [1469. Find All The Lonely Nodes](Solutions/1469.Find-All-The-Lonely-Nodes.py) (E) <br> 
 simple dfs to visit every node, check if it is a lonely node when visit it.
+- [1302. Deepest Leaves Sum](Solutions/1302.Deepest-Leaves-Sum.py) (M) <br> 
+first dfs find the max depth, 2nd dfs get the sum of all nodes with max depth.
+solution 2: level order bfs, 每次都在while循环里初始化max_depth_sums就可以保证输出的是最后一层的sums了，只需一次遍历
 - [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
 Solution 1: 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
 Solution 2: similar with 257 and 112, we just find all the possible paths.
@@ -1559,7 +1571,7 @@ solution 2: rejection sampling - O(1) need to call random multiple times
 
 
 
-# [Recursion with memoization/top down DP](/https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+# [dfs + memoization/top down DP](/https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0980. Unique Paths III](Solutions/0980.Unique-Paths-III.py) (!!M youtube with path-I and II) <br>
 Solution 2: since we don't need to print the actual paths, DP or dfs with memorization is good.
 Total ime complexity for this DP = No. of sub-problems * Time taken per sub-problem = O(n * 2^n) * O(1) = O(n * 2^n).
@@ -1570,7 +1582,10 @@ O(4^N) time where N is number of non-block squares in the grid.
 solution 1: naive dfs - O(2^n); solution 2: naive dfs + memorization - O(n * t) where n is len(nums), t is target
 - [0638. Shopping Offers](Solutions/0638.Shopping-Offers.py) (!!M) <br>
 solution 1: backtrack; solution 2: dfs + memorization
-
+- [0514. Freedom Trail](Solutions/0514.Freedom-Trail.py) (!!H) <br>
+dfs+memo的关键是memo的定义，跟dp的关键是状态的定义是一样的。
+这题的定义为memo[(curr_ring, curr_idx)] = steps needed if from (curr_ring, curr_idx)
+then memo[(curr_ring, curr_idx)] = min(memo[(curr_ring, curr_idx)], steps + 1 + dfs(next_ring, curr_idx + 1, memo))
 
 ------------664. Strange Printer----------------546. Remove Boxes------------
 
