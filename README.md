@@ -741,8 +741,8 @@ Solution 2: 无权图单源节点的最短路径问题，自然想到A-star sear
 ------------------ 818. Race Car -----------------
 
 
-# [Depth First Search / Backgracking](/Depth-First-Search.py)
-### [Combination](/Depth-First-Search.py)
+# [Depth First Search](/Depth-First-Search.py)
+### [Backtrack - Combination](/Depth-First-Search.py)
 - [0078. Subsets](Solutions/0078.Subsets.py) (!!M) <br>
 C(m, n)：m个里面找出n个的组合问题; 模板的DFS + back tracking求combination问题 O(NS), S是solution的个数，这里S=2^N; 注意两点：1.res.append(curr.copy()); has to be a deep copy; 2. self.dfs(nums, i + 1, curr, res) 要从i+1开始cuz不能回头找会重复
 其实可以不用把res传进去，定义一个全局变量self.res即可，可以简化dfs传入的参数。
@@ -769,14 +769,16 @@ self.dfs(nums, target - nums[i], 0, curr, res)  # (1, 3)和(3, 1)被认为是不
 有向图的遍历问题，LeetCode关于有向图的题只有两道Course Schedule和Course Schedule II，而那两道是关于有向图的顶点的遍历的，而本题是关于有向图的边的遍历。每张机票都是有向图的一条边，我们需要找出一条经过所有边的路径，那么DFS不是我们的不二选择. Recurssive backtracking.  Worst case: O(E^d), where E is # of edges, d is is the maximum number of flights from an airport.  Solution 2: 因为只需要输出一种包含所有边的路径，所以可以用另一种图的解法 Eulerian Path - every edge is visited exactly once. Eulerian path 使用的算法叫做 Hierholzer algorithm. Hierholzer algorithm 不做backtrack, 所以每一条边只访问一次，所以时间复杂度是O(E), where E is the # of edges.
 
 
-### [Permutation](/Depth-First-Search.py)
+### [Backtracking - Permutation](/Depth-First-Search.py)
 - [0046. Permutations](Solutions/0046.Permutations.py) (!!M)<br>
 与combination相比少了一个startIndex参数，加入visited用于防止重复出现; append之后需要将visited[i]变为True; pop出来之后将visited[i]再变回False
+- [0047. Permutations II](Solutions/0047.Permutations-II.py) (M) <br>
+模板: is_not_valid: if i in self.visited: continue; if (i > 0 and nums[i] == nums[i-1]) and (i-1) not in self.visited: continue
+- [1079. Letter Tile Possibilities](Solutions/1079.Letter-Tile-Possibilities.py) (!!M) <br>
+用47. Permutations II中的方法去重, 需要先sort!!!!!!!!
 - [0052. N Queens II](Solutions/0052.N-Queens-II.py) (!!H) <br>
 排列问题：先打印出数组[0, 1, 2, 3....n]中所有的可能排列：[[0,1,2,3], [1,3,0,2].....]，其中的每一个子数组表示一种可能的方法，子数组中的数字表示在哪个数字的地方放一个Queen，数字对应的下标位置是放那个Queen的行，数字的值是放那个Queen的列。由于Queen可以很冲直撞，所以列是不能相同的，所以需要去重，用visited标记就可以。又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。用三个字典visited_col, visited_sum, visited_diff分别存储列号，横纵坐标之和，横纵坐标之差有没有被用过
 - [0051. N Queens](Solutions/0051.N-Queens.py) (H)<br>
-- [0047. Permutations II](Solutions/0047.Permutations-II.py) (M) <br>
-模板: is_not_valid: if i in self.visited: continue; if (i > 0 and nums[i] == nums[i-1]) and (i-1) not in self.visited: continue
 - [0031. Next Permutation](Solutions/0031.Next-Permutation.py) (M) <br>
 step 1: sweeping from right to left, find the first decreasing element nums[i]; Step 2: sweep from right to left, find the first element larger just than nums[i], then swap nums[i] and nums[j], then swap all the items starting from i+1
 - [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (!!M)  <br>
@@ -785,19 +787,49 @@ step 1: put the characters that have seen two times in the char list; now we hav
 It really is all about pattern finding; https://leetcode.com/problems/permutation-sequence/discuss/22507/%22Explain-like-I'm-five%22-Java-Solution-in-O(n)
 
 
+### [Backtrack](/Depth-First-Search.py)
+- [1219. Path with Maximum Gold](Solutions/1219.Path-with-Maximum-Gold.py) (!!M)<br>
+尝试每一个pos
+- [0784. Letter Case Permutation](Solutions/0784.Letter-Case-Permutation.py) (!!E)<br>
+backtrack - O(2^N) which the total number of solutions
+- [0351. Android Unlock Patterns](Solutions/0351.Android-Unlock-Patterns.py) (!!M) <br>
+backtrack: 跟普通的backtrack不同的是From a number in the keypad we can reach any other number, but can't reach the one's that have a number as obstacle in between. 
+For example, for (1 to 3), the obstacle is 2. 所以在判断要不要把next_num作为下一个valid candidates的时候如果(curr_num, next_num) in cannot_pass那就不行。
+- [0093. Restore IP Addresses](Solutions/0093.Restore-IP-Addresses.py) (!!M)  <br>
+Grandyang: 根据目前刷了这么多题，得出了两个经验，一是只要遇到字符串的子序列或配准问题首先考虑动态规划DP，二是只要遇到需要求出所有可能情况首先考虑用递归。
+这道题并非是求字符串的子序列或配准问题，更符合第二种情况，所以我们要用递归来解。我们用k来表示当前已经分出的段数，
+如果k = 4，四段已经形成，若这时字符串刚好为空，则将当前分好的结果保存。
+则对于每一段，我们分别用一位，两位，三位来尝试，分别判断其合不合法，如果合法，则调用递归继续分剩下的字符串，最终和求出所有合法组合.
+- [0017. Letter Combinations of a Phone Number](Solutions/0017.Letter-Combinations-of-a-Phone-Number.py) (!!M) <br>
+经典的backtrack题，in dfs template, find solution: if currIdx == len(digits); for next_candidate in list_of_candidates: for ch in self.phone[digits[currIdx]]; is_not_valid: None
+- [0329. Longest Increasing Path in a Matrix](Solutions/0329.Longest-Increasing-Path-in-a-Matrix.py) (!!H) <br>
+solution 1: dfs + backtrack - next candidate valid的条件是matrix[next_i][next_j] > matrix[curr_i][curr_j].  - O(2^(MN)).  solution 2: 由于题目并不要求算出path, 所以可以用dfs+memorization (top up dp). Time complexity : O(mn). solution 3: buttom up dp.
+- [0282. Expression Add Operators](Solutions/0282.Expression-Add-Operators.py) (!!H) <br>
+如果非要找一个类似的题，可能跟combination sum II 比较像吧, 找next candidate 比较麻烦，我们需要两个变量curr_res, curr_num，一个用于计算当前所有运算加一起的值，另一个用来记录当前的数。
+- [0079. Word Search](Solutions/0079.Word-Search.py) (!!M) <br>
+经典的backtrack题，whenever we find a char == word[0], we trigger a backtracking dfs. in dfs template, find solution:  currIdx == len(word); is_not_valid:  if new_x < 0 or new_x >= len(self.board) or new_y < 0 or new_y >= len(self.board[0]): continue; if (new_x, new_y) in self.visited: continue; if self.board[new_x][new_y] != word[currIdx]: continue; 需要一个visited set来标记已经走过的路径避免走重复的路径。
+- [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!H) <br>
+要求打印所有路径所以：Trie + Backtracking DFS. in dfs template, find_solution:  if currNode.isEnd; is_not_valid: if next_x < 0 or next_x >= len(self.board) or next_y < 0 or next_y >= len(self.board[0]): continue; if (next_x, next_y) in self.visited: continue; if self.board[next_x][next_y] not in currNode.child: continue.
+- [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
+Solution 1: 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
+Solution 2: similar with 257 and 112, we just find all the possible paths.
+- [0298. Binary Tree Longest Consecutive Sequence](Solutions/0298.Binary-Tree-Longest-Consecutive-Sequence.py) (!!M) <br> 
+Solution 1: 带backtracking the dfs;
+solution 2: backtracking dfs 的 interative 的写法 by using a stack;
+Solution 3: 不需要打印所有的路径，所以可以用普通的二叉树的divide and conquer方法：helper function return the Longest Consecutive Sequence **started with** root node, 全局变量res进到helper function中去打擂台
+- [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (H) <br> 
+dfs + backtracking, time complexity is (9!)^9, which is veyr high.
+
+
+
+
+
 ### [树上的DFS](/Depth-First-Search.py) <br>
 - [1469. Find All The Lonely Nodes](Solutions/1469.Find-All-The-Lonely-Nodes.py) (E) <br> 
 simple dfs to visit every node, check if it is a lonely node when visit it.
 - [1302. Deepest Leaves Sum](Solutions/1302.Deepest-Leaves-Sum.py) (M) <br> 
 first dfs find the max depth, 2nd dfs get the sum of all nodes with max depth.
 solution 2: level order bfs, 每次都在while循环里初始化max_depth_sums就可以保证输出的是最后一层的sums了，只需一次遍历
-- [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
-Solution 1: 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
-Solution 2: similar with 257 and 112, we just find all the possible paths.
-- [0298. Binary Tree Longest Consecutive Sequence](Solutions/0298.Binary-Tree-Longest-Consecutive-Sequence.py) (!!M) <br> 
-Solution 1: 带backtracking the dfs
-solution 2: backtracking dfs 的 interative 的写法 by using a stack
-Solution 3: 不需要打印所有的路径，所以可以用普通的二叉树的divide and conquer方法：helper function return the Longest Consecutive Sequence **started with** root node, 全局变量res进到helper function中去打擂台
 - [0549. Binary Tree Longest Consecutive Sequence II](Solutions/0549.Binary-Tree-Longest-Consecutive-Sequence-II.py) (M) <br> 
 Solution 1: divide and conquer方法：helper function return the increasing and decreasing Longest Consecutive Sequence **started with** root node, 全局变量res进到helper function中去打擂台: self.res = max(self.res, root_increasing + root_decreasing - 1)
 - [0979. Distribute Coins in Binary Tree](Solutions/0979.Distribute-Coins-in-Binary-Tree.py) (!!M) <br> 
@@ -826,6 +858,7 @@ main algorithm: each comparing kowns(i, j), we are sure either i is definitely n
 follow up 是若transform可行，判断是否需要用到中介字符，即判断有向图是否有环。
 
 
+
 ## [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0339. Nested List Weight Sum](Solutions/0339.Nested-List-Weight-Sum.py) (E) <br>
 simple dfs or bfs is ok.
@@ -839,39 +872,19 @@ Solution 1: Union Find; Solution 2: bfs; Solution 3: dfs iteratively; Solution 4
 dfs. 这题不能用union find来解
 - [0130. Surrounded Regions](Solutions/0130.Surrounded-Regions.py) (!!M) <br>
 Solution 1: Union Find.  Step 1: Union all the "O" that are neighborign with each other. We do a weighted union, meaning when we union, we also choose to point to the one that is on the border. Step 2: 2nd pass, we change to "X" tha "O" that has a root not on border.  Solution 2: bfs: Step 1: Start from border, do a bfs for "O", mark all the "O" that can be reached from the border. We can either mark by putting them into a visited set, or just change it to some symbol "#". Step 2: 2nd pass, we change to "X" tha "O" that could not be visited from the border. bfs只从border出发做bfs, 很中间的"O"就不用管了，而Union Find中间的也需要union, 所以bfs 比union find 更快。Solution 3: dfs interatively, only change one line in the bfs solution. Solution 4: dfs recurssively.
-- [0093. Restore IP Addresses](Solutions/0093.Restore-IP-Addresses.py) (!!M)  <br>
-Grandyang: 根据目前刷了这么多题，得出了两个经验，一是只要遇到字符串的子序列或配准问题首先考虑动态规划DP，二是只要遇到需要求出所有可能情况首先考虑用递归。
-这道题并非是求字符串的子序列或配准问题，更符合第二种情况，所以我们要用递归来解。我们用k来表示当前已经分出的段数，
-如果k = 4，四段已经形成，若这时字符串刚好为空，则将当前分好的结果保存。
-则对于每一段，我们分别用一位，两位，三位来尝试，分别判断其合不合法，如果合法，则调用递归继续分剩下的字符串，最终和求出所有合法组合.
-- [0017. Letter Combinations of a Phone Number](Solutions/0017.Letter-Combinations-of-a-Phone-Number.py) (!!M) <br>
-经典的backtrack题，in dfs template, find solution: if currIdx == len(digits); for next_candidate in list_of_candidates: for ch in self.phone[digits[currIdx]]; is_not_valid: None
-- [0079. Word Search](Solutions/0079.Word-Search.py) (!!M) <br>
-经典的backtrack题，whenever we find a char == word[0], we trigger a backtracking dfs. in dfs template, find solution:  currIdx == len(word); is_not_valid:  if new_x < 0 or new_x >= len(self.board) or new_y < 0 or new_y >= len(self.board[0]): continue; if (new_x, new_y) in self.visited: continue; if self.board[new_x][new_y] != word[currIdx]: continue; 需要一个visited set来标记已经走过的路径避免走重复的路径。
-- [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!H) <br>
-要求打印所有路径所以：Trie + Backtracking DFS. in dfs template, find_solution:  if currNode.isEnd; is_not_valid: if next_x < 0 or next_x >= len(self.board) or next_y < 0 or next_y >= len(self.board[0]): continue; if (next_x, next_y) in self.visited: continue; if self.board[next_x][next_y] not in currNode.child: continue.
 - [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (!!H) 打印/输出所有满足条件的路径必用DFS
 Step 1. 从end到start做BFS，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
 Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近(if self.distance[nextWord] >= self.distance[currWord]: continue)。最后将路径都存入到res里
-- [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (H) <br> 
-dfs + backtracking, time complexity is (9!)^9, which is veyr high. <br>
 - [0980.Unique-Paths-III.py](Solutions/0980.Unique-Paths-III.py) (!!M youtube with path-I and II) <br>
 Solution 2: since we don't need to print the actual paths, DP or dfs with memorization is good.
 Total ime complexity for this DP = No. of sub-problems * Time taken per sub-problem = O(n * 2^n) * O(1) = O(n * 2^n).
 solution 1: dfs+backtrack: 这种方法不但可以找出有多少种路径，而且可以打印出所有路径
 O(4^N) time where N is number of non-block squares in the grid. 
-- [0351. Android Unlock Patterns](Solutions/0351.Android-Unlock-Patterns.py) (!!M) <br>
-backtrack: 跟普通的backtrack不同的是From a number in the keypad we can reach any other number, but can't reach the one's that have a number as obstacle in between. 
-For example, for (1 to 3), the obstacle is 2. 所以在判断要不要把next_num作为下一个valid candidates的时候如果(curr_num, next_num) in cannot_pass那就不行。
 - [0417. Pacific Atlantic Water Flow](Solutions/0417.Pacific-Atlantic-Water-Flow.py) (!!M) <br>
 题目的意思是外围一圈的地方是water进来的地方，左上角的外围是pacific ocean water进来的地方，右下角的外围是atlantic ocean water进来的地方。
 step 1: 从左上角外围的每个点出发做dfs, next_pos is a valid candidate if matrix[curr_pos] <= matrix[next_pos], 
 如果能visited就存起来表示pacific ocean water可以到达这个pos；
 step 2: 同样的方法记录atlantic ocean water可以达到的pos.  然后用2nd pass 来找到哪些点是两个ocean都能到达的。
-- [0329. Longest Increasing Path in a Matrix](Solutions/0329.Longest-Increasing-Path-in-a-Matrix.py) (!!H) <br>
-solution 1: dfs + backtrack - next candidate valid的条件是matrix[next_i][next_j] > matrix[curr_i][curr_j].  - O(2^(MN)).  solution 2: 由于题目并不要求算出path, 所以可以用dfs+memorization (top up dp). Time complexity : O(mn). solution 3: buttom up dp.
-- [0282. Expression Add Operators](Solutions/0282.Expression-Add-Operators.py) (!!H) <br>
-如果非要找一个类似的题，可能跟combination sum II 比较像吧, 找next candidate 比较麻烦，我们需要两个变量curr_res, curr_num，一个用于计算当前所有运算加一起的值，另一个用来记录当前的数。
 - [0679. 24 Game](Solutions/0679.24-Game.py) (!!H) <br>
 recursively 'glue' 2 numbers as a new number, and try to make 24 with the new nums list.
 at the end, when len(nums) = 1, check if it is 24 (due to division some precision loss should be expected, here set as 1e-4).
@@ -1586,8 +1599,11 @@ solution 1: backtrack; solution 2: dfs + memorization
 dfs+memo的关键是memo的定义，跟dp的关键是状态的定义是一样的。
 这题的定义为memo[(curr_ring, curr_idx)] = steps needed if from (curr_ring, curr_idx)
 then memo[(curr_ring, curr_idx)] = min(memo[(curr_ring, curr_idx)], steps + 1 + dfs(next_ring, curr_idx + 1, memo))
+- [0293. Flip Game](Solutions/0293.Flip-Game.py) (E) <br>
+- [0294. Flip Game II](Solutions/0294.Flip-Game-II.py) (!!M) <br>
+dfs+memo: O(N^2); memo[(curr_s)] = 能稳赢
 
-------------664. Strange Printer----------------546. Remove Boxes------------
+------------664. Strange Printer----------------546. Remove Boxes---------691. Stickers to Spell Word-------------------------
 
 139. word break; 312. Burst Balloons
 
