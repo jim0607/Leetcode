@@ -49,7 +49,6 @@ class UnionFind:
             
 class Solution:
     def numSimilarGroups(self, A: List[str]) -> int:
-        A.sort()
         uf = UnionFind(A)
         for i in range(len(A) - 1):
             for j in range(i + 1, len(A)):
