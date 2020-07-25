@@ -81,9 +81,9 @@ class Solution:
                 # find the next position that the ball can stop
                 next_i, next_j, next_step = curr_i, curr_j, curr_step
                 while 0 <= next_i + i < m and 0 <= next_j + j < n and maze[next_i+i][next_j+j] == self.EMPTY:
-                    next_i += i
-                    next_j += j
-                    next_step += 1
+                    next_i += i        # 我们知道Dikstra's针对的是有权图，这里的节点是stoppable point
+                    next_j += j        # 而edge就是一个stoppable point to another stoppable point
+                    next_step += 1     # 权值就是这个while循环里面的经历的step, 知道了这一点我们就可以做Dikstra's了
                     
                 # 这里是重点，由于bfs "一步"实际上可以走很多steps, 所以对于某个点，
                 # 可能第二次到达这个点的时候所用的steps比第一次更小（甚至在第二次到达的enter方向第一次相同的情况下）
