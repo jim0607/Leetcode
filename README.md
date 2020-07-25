@@ -618,6 +618,7 @@ same as 102，只需要res.append(level[-1])即可
 - [0513. Find Bottom Left Tree Value](Solutions/0513.Find-Bottom-Left-Tree-Value.py) (M) <br>
 right to left bfs
 - [0515. Find Largest Value in Each Tree Row](Solutions/0515.Find-Largest-Value-in-Each-Tree-Row.py) (M) <br>
+- [1161. Maximum Level Sum of a Binary Tree](Solutions/1161.Maximum-Level-Sum-of-a-Binary-Tree.py) (M) <br>
 - [0111. Minimum Depth of Binary Tree](Solutions/0111.Minimum-Depth-of-Binary-Tree.py) (E) <br>
 solution 1: recursion; soluiton 2: BFS; for _ in range(lens): if not node.left and not node.right: return depth
 - [0297. Serialize and Deserialize Binary Tree](Solutions/0297.Serialize-and-Deserialize-Binary-Tree.py) (!!H) <br>
@@ -680,6 +681,9 @@ bfs: the maximum distance is steps needed to change all WATER to be LAND, so we 
 Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and use dist[][] to record the sum of distance from all 1 grids to this 0 grid. Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a BFS. in the bfs, we do level bfs and update the reachable_cnt matrix and dist matrix. 遇到obstacle不放进q就可以了. each bfs, all position are visited, so O(MNk) where k is how many building are there or how many bfs are triggered. Finnaly return the min of dist[i][j] if reachable_cnt[i][j] = total number of buildings. Strong Prune: if if starting from building (i, j), can reach all other building? if not, that means at least one building is isolated and can not be reached, then return -1 directly: in each BFS we use reachableBuildings to count how many 1s we reached. If reachableBuldings != totalBuildings - 1 then we know not all 1s are connected are we can return -1 immediately, which greatly improved speed.
 - [0752. Open the Lock](Solutions/0752.Open-the-Lock.py) (!!M) <br>
 题目蛮有意思的, 带层序遍历的bfs, 遇到currNode in deadends 就不再去访问其neighbor了, find neighbor 函数比较有意思，这里第一次学到了yield;
+- [1129. Shortest Path with Alternating Colors](Solutions/1129.Shortest-Path-with-Alternating-Colors.py) (!!M) <br>
+这一题的题眼是visiting the same node with same color is not allowed, with same color is not.
+所以color信息要放到adjacency list 里，也要放到q里，还要放到visited里
 - [0864. Shortest Path to Get All Keys](Solutions/0864.Shortest-Path-to-Get-All-Keys.py) (H) <br>
 BFS algorithm can be used to solve a lot of problems of finding shortest distance.
 In this problem, we may visit a point more than one times, simply storing visited position is not enough.
@@ -694,6 +698,7 @@ because第二次到达的steps可能还更小，所以我们需要记录所有�
 第二次到达这个a certain pos的时候所用的steps如果比第一次更小，那就更新visited[pos].
 - [0499. The Maze III](Solutions/0499.The-Maze-III.py) (!!H) <br>
 similar iwth 505 solution 2, use Dikstra's algorithm. hq needs to store the path: curr_step, curr_i, curr_j, curr_path = heappop(hq)
+
 
 
 ### [Topological Sort](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
@@ -788,6 +793,10 @@ It really is all about pattern finding; https://leetcode.com/problems/permutatio
 
 
 ### [Backtrack](/Depth-First-Search.py)
+- [1239. Maximum Length of a Concatenated String with Unique Characters](Solutions/1239.Maximum-Length-of-a-Concatenated-String-with-Unique-Characters.py) (!!M)<br>
+subsets问题的变形
+- [0526. Beautiful Arrangement](Solutions/0526.Beautiful-Arrangement.py) (!!M)<br>
+For constrained permutation problem, the time complexity is O(valid solutions)
 - [1219. Path with Maximum Gold](Solutions/1219.Path-with-Maximum-Gold.py) (!!M)<br>
 尝试每一个pos
 - [0784. Letter Case Permutation](Solutions/0784.Letter-Case-Permutation.py) (!!E)<br>
@@ -854,6 +863,9 @@ then it means it is not covered by it's children, then we must place a camera he
 one dict to store the inDegree (beingTrusted), one dict to store the outDegree (trustOthers). there exsit a town judge only if there is a node with inDegree==N-1(beiing trusted by all others), and at the same time the node should have outDegree==0(not trust anyone)
 - [0277. Find the Celebrity](Solutions/0277.Find-the-Celebrity.py) (!!M) <br>
 main algorithm: each comparing kowns(i, j), we are sure either i is definitely not a celebrity (knows(i, j)=True), or j is definitely not a celebrity (knows(i, j)=False). step 1: one pass, find a candidate by making sure other people are not candidates; step 2: one pass, double check the candidate selected in step 1 is indeed a celebrity
+- [1267. Count Servers that Communicate](Solutions/1267.Count-Servers-that-Communicate.py) (M) <br>
+one pass to store the number of servers in each row and each col, cnt += 1.
+another pass to find the isolated severs, cnt -= 1.
 - [1153. String Transforms Into Another String](Solutions/) (!H Google++) <br>
 follow up 是若transform可行，判断是否需要用到中介字符，即判断有向图是否有环。
 
@@ -1603,7 +1615,7 @@ then memo[(curr_ring, curr_idx)] = min(memo[(curr_ring, curr_idx)], steps + 1 + 
 - [0294. Flip Game II](Solutions/0294.Flip-Game-II.py) (!!M) <br>
 dfs+memo: O(N^2); memo[(curr_s)] = 能稳赢
 
-------------664. Strange Printer----------------546. Remove Boxes---------691. Stickers to Spell Word-------------------------
+------------664. Strange Printer----------------546. Remove Boxes---------691. Stickers to Spell Word-------1043. Partition Array for Maximum Sum------------------
 
 139. word break; 312. Burst Balloons
 
