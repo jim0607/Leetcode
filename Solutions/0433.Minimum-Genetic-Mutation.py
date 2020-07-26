@@ -46,7 +46,7 @@ return: 3
 
 
 """
-单端bfs: O(4^L)
+单端bfs: 我觉得是O(4^LM), 大家都认为是O(LM), where L is lens of Gene, M is number of candidates in bank.
 """
 class Solution:
     def minMutation(self, start: str, end: str, bank: List[str]) -> int:
@@ -94,7 +94,7 @@ class Solution:
         
         
 """
-双端bfs: O(2*4^(L/2))
+双端bfs: 我觉得是O(2*4^(L/2)), 为什么网上都说不是呢？
 """
 class Solution:
     def minMutation(self, start: str, end: str, bank: List[str]) -> int:
