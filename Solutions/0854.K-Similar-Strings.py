@@ -69,6 +69,7 @@ solution 2: prune: How to prune?  there are so many swaps, how to make sure we c
 1. while S[i]==B[i], we don't need to swap them, until we found S[i]!=B[i], then ith pos needs to be swapped; 
 2. swapped with whom? we find S[j]==B[i], then swap j and i in S, now B[i]==S[i], and S is getting closer to B!
 """
+"""
 class Solution:
     def kSimilarity(self, A: str, B: str) -> int:
         q = collections.deque()
