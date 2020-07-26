@@ -98,7 +98,8 @@ Step 3: Use the 2-pointer approach (approach 2) above to generate our solution:
         - Divide nums2 into chunks that can fit in memory without consuming over ~10% of it
         - The resulting ~80% can be used for our generated intersection
         - Bring in 1 chunk of nums1 and 1 chunk of nums2 into memory together
-        - If the intersection we're generating gets too big to fit in memory, we can save our partial solution to disk and continue with our algorithm
+        - If the intersection we're generating gets too big to fit in memory, 
+          we can save our partial solution to disk and continue with our algorithm
 """
 """
 External sorting is a class of sorting algorithms that can handle massive amounts of data. 
