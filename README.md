@@ -453,6 +453,8 @@ Since DFS works going finished path by finished path, so values are not corrupte
 ### [BST](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0669. Trim a Binary Search Tree](Solutions/0669.Trim-a-Binary-Search-Tree.py) (E) <br>
 - [0700. Search in a Binary Search Tree](Solutions/0700.Search-in-a-Binary-Search-Tree.py) (E) <br>
+- [0270. Closest Binary Search Tree Value](Solutions/0270.Closest-Binary-Search-Tree-Value.py) (E) <br>
+iterative vs. recursion. 我们可以直观地看到: BST这种树结构的search一般都是O(h)的, 因为我们是一路往下search的
 - [0938. Range Sum of BST](Solutions/0938.Range-Sum-of-BST.py) (E) <br>
 - [0226. Invert Binary Tree](Solutions/0226.Invert-Binary-Tree.py) (E) <br>
 STEP 1. divide 先局部有序; STEP 2. conquer 再整体有序
@@ -878,6 +880,9 @@ main algorithm: each comparing kowns(i, j), we are sure either i is definitely n
 - [1267. Count Servers that Communicate](Solutions/1267.Count-Servers-that-Communicate.py) (M) <br>
 one pass to store the number of servers in each row and each col, cnt += 1.
 another pass to find the isolated severs, cnt -= 1.
+- [0531. Lonely Pixel I](Solutions/0531.Lonely-Pixel I.py) (!!M) <br>
+same as the above problem. one pass to store number of "B" in col_cnt and row_cnt;
+another pass to find where col_cnt == 1 or row_cnt == 1
 - [1153. String Transforms Into Another String](Solutions/) (!H Google++) <br>
 follow up 是若transform可行，判断是否需要用到中介字符，即判断有向图是否有环。
 
@@ -1432,8 +1437,7 @@ And the question guaranteed that the solution is unique(The first one I found is
 # [Data Stream and Multiple Query]()
 - [0243. Shortest Word Distance](Solutions/0243.Shortest-Word-Distance.py) (E) <br>
 Should know both two pass solution and One pass solution. follow up 1:  如果word1在words中很少只有两个，word2在words中很多有1 million个，怎么优化算法？那么这时候solution 1就派上用场了，我们可以存下idx1 和 idx2两个list. eg: idx1 = [10, 50000]; idx2 = [.......], 那么我们可以在idx2中binary search离10最近的数，然后binary search离50000最近的数。这样时间复杂度就是O(MlogN)了。
-Follow up 2:
-如果题目改成不是求两个word的最短距离而是是求K个word的最短距离呢？ solution 1: leetcode 76. Minimum Window Substring.  O(N) where N is the the lens of words.  soltution 2: leetcode 23. Merge k Sorted Lists.  O(NlogK), 方法与solution 1类似，只是为了知道k个idx list中哪根指针需要往前移动一下, 我们需要一个heapq, heapq中最小的那个往前挪动一步.
+Follow up 2: 如果题目改成不是求两个word的最短距离而是是求K个word的最短距离呢？ solution 1: leetcode 76. Minimum Window Substring.  O(N) where N is the the lens of words.  soltution 2: leetcode 23. Merge k Sorted Lists.  O(NlogK), 方法与solution 1类似，只是为了知道k个idx list中哪根指针需要往前移动一下, 我们需要一个heapq, heapq中最小的那个往前挪动一步.
 - [0244. Shortest Word Distance II](Solutions/0244.Shortest-Word-Distance-II.py) (!!M) <br>
 如果题目要求multiple query with unlimited time, 那么一定考察的是precomputation!! precomputation记录结果一般都需要一个hash map!! 
 这个思想非常重要！！这个题用dictionary记录每个word在words中的位置，这样如果这次需要query a and b, 下次需要query c and d, 
@@ -1445,6 +1449,12 @@ word1 and word2 may be the same and they represent two individual words in the l
 
 
 # [Big Data]()
+- [0349. Intersection of Two Arrays](Solutions/0349.Intersection-of-Two-Arrays.py) (!!E) <br>
+Facebook follow up: what if the lists are sorted and you are requred to use O(1) space. Approach: two-pointers solution, 注意去重的方法！！
+- [0350. Intersection of Two Arrays II](Solutions/0350.Intersection-of-Two-Arrays-II.py) (!!E) <br>
+Fackbook follow up 1: what if sorted? solution is using two-pointers. Follow up 2: what if size of nums1 is small? solution is binary search.  Follow up 3: what if nums2 is so large that it cannot fit in the memory? solution: Divide nums2 into n chunks of 1/n size and load 1/n piece each time. Follow up 4: What if neither nums1 or nums2 can fully fit in memory? solution: external sort + n chunks + two pointers.
+- [1213. Intersection of Three Sorted Arrays](Solutions/1213.Intersection-of-Three-Sorted-Arrays.py) (E) <br>
+sorted arr, three-pointers 就可以了
 - [0311. Sparse Matrix Multiplication](Solutions/0311.Sparse-Matrix-Multiplication.py) (!!M Facebook) <br>
 Sparse matrices, which are common in scientific applications, are matrices in which most elements are zero. To save space and running time it is critical to only store the nonzero elements. Many real world applications of vectors include sparse vectors. An example of it in Machine Learning is the popular one-hot encoding method for categorical computation. We can se a dictinoary to store the index and value of non-zero values, O(M+N + mn), O(M+N), M is the number of elements in matrix A, m is the number of non-zero elements in A.
 - [0289. Game of Life](Solutions/0289.Game-of-Life.py) (M) <br>
@@ -1762,6 +1772,7 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 f[i][j][s]表示有多少种方法可以在前i个数中选出j个，使得它们的和是s; 情况一:（A[i-1]不选入）：需要在前n-1个数中选K个数，使得它们的和是Target: f[i][j][s] += f[i-1][j][s]; 情况二（A[i-1]选入）：需要在前i-1个数中选j-1个数，使得它们的和是Target-A[i-1]: f[i][j][s] += f[i-1][j-1][s-A[i-1]]
 - [0416. Partition Equal Subset Sum](Solutions/0416.Partition-Equal-Subset-Sum.py) (M) <br>
 背包问题：将A中的物品放入容量为target的背包中，问是否存在？一个num不能取多次，所以与322. coin change 不同。所以必须用二维数组。与0092一模一样。 f[i][t]=将前i个物品放入背包中，能否拼出t (背包问题重量一定要入状态); f[i][t]=True if 不放最后一个进背包: f[i-1][t]=True or 放最后一个进背包: f[i-1][t-A[i-1]]=True
+--------------------------- 473. Matchsticks to Square -------------------
 -------------956. Tallest Billboard---------
 
 
