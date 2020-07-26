@@ -27,6 +27,7 @@ Output: 2
 求一个状态到另一个状态的最短路径: bfs, 想要速度更快？双端 + Prune!
 solution 1: 双端
 """
+"""
 class Solution:
     def kSimilarity(self, A: str, B: str) -> int:
         q_A, q_B = collections.deque(), collections.deque()
