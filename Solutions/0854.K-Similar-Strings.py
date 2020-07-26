@@ -99,3 +99,9 @@ class Solution:
         for j in range(i + 1, len(s)):
             if s[j] == B[i]:  # since B[i]!=s[i], if we swap s[j] to s[i], now B[i]=s[i]: this is how every swap make sure we get more and more closer to B
                 yield s[:i] + s[j] + s[i+1:j] + s[i] + s[j+1:]
+
+"""
+这个strong pruning 可以work的原因是我们的candidate_pool是所有的anagram, 而不是给你一个list里面包含一些candidate_pool 的情况，
+所以127. Word Ladder那一题给了你一个possilbe candidates就不可以用这个pruning 了，同样433. Minimum Genetic Mutation给了你一个possilbe Gene bank,
+所以也不可以用这个pruning
+"""
