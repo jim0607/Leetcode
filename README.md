@@ -1054,7 +1054,8 @@ step 1: include the idx information into the interval;
 step 2: then sort the intervals based on start time;
 step 3: scan the interval and update res.
 - [0981. Time Based Key-Value Store](Solutions/0981.Time-Based-Key-Value-Store.py) (M) <br>
-
+- [0302. Smallest Rectangle Enclosing Black Pixels](Solutions/0302.Smallest-Rectangle-Enclosing-Black-Pixels.py) (!!H) <br>
+solution 1: simple dfs visit every balck pixel, and update the max_i, max_j, min_i, min_j during dfs. - O(mn). solution 2: 我们需要知道Black出现的最大的i和最小的i, 所以我们可以求出每一行的第一个Black和最后一个Black的idx, 就是我们想求的最大的i和最小的i了，转换成了OOXX问题了. 这题可以用binary search的原因是有且只有一个Black的岛屿，所以每一行都是一个向上后下的mountain array. - O(mlogn+nlogm). 我们在某一行扫binary search的时候范围是start, end = 0, self.min_j 
 
 
 # [Sort](/Sort.py)
@@ -1323,6 +1324,9 @@ Maintian a prefixSum and minPrefixSum, so that maxSubSum = max(maxSubSum, prefix
 新建一个prefixSumDict = {0: 1}, key是prefixSum, val是how many times the prefixSum appears; if prefixSum - k in prefixSumDict: 等价于if prefixSum[j+1]-prefixSum[i] == k
 - [1074. Number of Submatrices That Sum to Target](Solutions/1074.Number-of-Submatrices-That-Sum-to-Target.py) (H) <br>
 也可以先把行处理好，让每一行里面保存上面所有行的和，接下来就是在每一行里面去求560问题了，注意一点不同的是需要遍历upRow和downRow的, 如果不遍历就是solution 3的错误写法举一个反例想明白solution 3为什么行不通，自然就会改成solution 2了O(MMN)
+
+------------- 363. Max Sum of Rectangle No Larger Than K ---------------
+
 - [0523. Continuous Subarray Sum](Solutions/0523.Continuous-Subarray-Sum.py) (M) <br>
 prefixSumMap = {0: -1} # key: prefixSum[j], val: j/position, initial position should be -1; prefixSum += num; prefixSum = prefixSum % k 因为题目要求要能被subArray Sum 要能被k整除
 - [0974. Subarray Sums Divisible by K](Solutions/0974.Subarray-Sums-Divisible-by-K.py) (M) <br>
@@ -1653,7 +1657,7 @@ then memo[(curr_ring, curr_idx)] = min(memo[(curr_ring, curr_idx)], steps + 1 + 
 - [0294. Flip Game II](Solutions/0294.Flip-Game-II.py) (!!M) <br>
 dfs+memo: O(N^2); memo[(curr_s)] = 能稳赢
 
-------------664. Strange Printer----------------546. Remove Boxes---------691. Stickers to Spell Word-------1043. Partition Array for Maximum Sum------------------
+------------664. Strange Printer----------------546. Remove Boxes---------691. Stickers to Spell Word-------1043. Partition Array for Maximum Sum--------887. Super Egg Drop----------
 
 139. word break; 312. Burst Balloons
 
