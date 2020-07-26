@@ -50,7 +50,7 @@ class Solution:
         while i < lens1 and j < lens2:
             if nums1[i] == nums2[j]:
                 res.append(nums1[i])
-                while i + 1 < lens1 and nums1[i] == nums1[i+1]:     # 必须掌握的去重方法
+                while i + 1 < lens1 and nums1[i] == nums1[i+1]:     # 必须掌握的去重方法!!!
                     i += 1
                 while j + 1 < lens2 and nums2[j] == nums2[j + 1]:
                     j += 1
@@ -61,4 +61,3 @@ class Solution:
             else:
                 j += 1
         return res
- 
