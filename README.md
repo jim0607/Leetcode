@@ -443,7 +443,11 @@ Use rolling hash, we can realize O(M+N) solution.
 没明白题目啥意思，大概就是一通左右连接的操作吧
 - [0314. Binary Tree Vertical Order Traversal](Solutions/0314.Binary-Tree-Vertical-Order-Traversal.py) (M) <br>
 step 1: 找到树的深度和宽度; step 2: df每个node并且把node的位置信息存到一个dict中; step 3: sort dictionary得到ans
-
+- [1026. Maximum Difference Between Node and Ancestor](Solutions/1026.Maximum-Difference-Between-Node-and-Ancestor.py) (!!M) <br>
+We pass the minimum and maximum values to the children,
+At the leaf node, we return max - min through the path from the root to the leaf.
+Since DFS works going finished path by finished path, so values are not corrupted between impossible paths.
+这个递归真的需要好好理解
 
 
 ### [BST](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
@@ -534,13 +538,6 @@ Soluiton 1: Linear scan the 2d grid map, if a node contains a '1', then it is a 
 SOlution 2: Union Find: think the grid as a graph, find how may isolated components in the graph, we traversal the whole gird, whenever find a 1, we connect all the 4 adjacent 1s. 方法同lintcode 591.
 - [0305. Number of Islands II](Solutions/0305.Number-of-Islands-II.py) (!!H) <br>
 Union-Find 算法是解决动态连通性（Dynamic Conectivity）问题的一种算法. 这里的island可以看做是一个图. 每放置一个1, 就将其与其上下左右四个点的1连接起来。O(m×n+L), follow up question?
-- [0694. Number of Distinct Islands](Solutions/0694.Number-of-Distinct-Islands.py) (!!M) <br>
-When we start a dfs on the top-left square of some island, the path taken by dfs will be the same if and only if the shape is the same. So path is the signature of shape.
-So we can record the path, and count how many distinct path.
-- [0711. Number of Distinct Islands II](Solutions/0711.Number-of-Distinct-Islands-II.py) (H) <br>
-与上题一样得到shape, 得到之后可以通过定义一个transform(shape)函数得到all the trasformed shape.
-
-
 - [0959. Regions Cut By Slashes](Solutions/0959.Regions-Cut-By-Slashes.py) (M) <br>
 Split a grid into 4 parts, each part is a uf component. Congratulation. Now you have another problem of counting the number of islands.
 - [0547 Friend Circles](Solutions/0547.Friend-Circles.py) (!!M) <br>
@@ -702,7 +699,10 @@ because第二次到达的steps可能还更小，所以我们需要记录所有�
 第二次到达这个a certain pos的时候所用的steps如果比第一次更小，那就更新visited[pos].
 - [0499. The Maze III](Solutions/0499.The-Maze-III.py) (!!H) <br>
 similar iwth 505 solution 2, use Dikstra's algorithm. hq needs to store the path: curr_step, curr_i, curr_j, curr_path = heappop(hq)
-
+- [0854. K-Similar Strings](Solutions/0854.K-Similar-Strings.py) (!!H) <br>
+求一个状态到另一个状态的最短路径: bfs, 想要速度更快？双端 + Prune! How to prune? there are so many swaps, how to make sure we choose swaps that are leading next_node cloaser to B?
+1. while S[i]==B[i], we don't need to swap them, until we found S[i]!=B[i], then ith pos needs to be swapped; 
+2. swapped with whom? we find S[j]==B[i], then swap j and i in S, now B[i]==S[i], and S is getting closer to B!
 
 
 ### [Topological Sort](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
@@ -884,6 +884,13 @@ follow up 是若transform可行，判断是否需要用到中介字符，即判�
 
 
 ## [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+- [0694. Number of Distinct Islands](Solutions/0694.Number-of-Distinct-Islands.py) (!!M) <br>
+When we start a dfs on the top-left square of some island, the path taken by dfs will be the same if and only if the shape is the same. So path is the signature of shape.
+So we can record the path, and count how many distinct path.
+- [0711. Number of Distinct Islands II](Solutions/0711.Number-of-Distinct-Islands-II.py) (H) <br>
+与上题一样得到shape, 得到之后可以通过定义一个transform(shape)函数得到all the trasformed shape. Too hard for an interview.
+- [1254. Number of Closed Islands](Solutions/1254.Number-of-Closed-Islands.py (M) <br>
+dfs just like LC 200, except cnt+=1 only if the island not otuching the boundary.
 - [0339. Nested List Weight Sum](Solutions/0339.Nested-List-Weight-Sum.py) (E) <br>
 simple dfs or bfs is ok.
 - [0364. Nested List Weight Sum II](Solutions/0364.Nested-List-Weight-Sum-II.py) (M) <br>
