@@ -1007,7 +1007,10 @@ This is to implement bisect.bisect_left(nums, target), which returns the positio
 与153类似，只是array里可能有duplicates，采用153的解法三，唯一不同的是：nums[mid] == nums[end]: end -= 1, 注意不能drop掉一半，因为eg: nums=[2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2........], 由于不知道mid是1前面的2还是1后面的2，所以无法确定是drop前面还是drop后面，只能保险地把end往前挪一位，所以154这题in extreme case, 时间复杂度是O(N). 这题mid与end比较能work的原因是end永远不可能出现在最小值的左边。
 - [0039. Recover Rotated Sorted Array](Solutions/0039.Recover-Rotated-Sorted-Array.py) (M LintCode) <br>
 154 相同方法binary search找到minPos, 然后三步反转法recover
-- [0033. Search in Rotated Sorted Array](Solutions/0033.Search-in-Rotated-Sorted-Array.py) (M) 画个图分几个区间讨论就可以了！
+- [0033. Search in Rotated Sorted Array](Solutions/0033.Search-in-Rotated-Sorted-Array.py) (M) 
+画个图分几个区间讨论就可以了, 分target在左边区间和target在右边区间讨论
+- [0081. Search in Rotated Sorted Array II](Solutions/0081.Search-in-Rotated-Sorted-Array-II.py) (M) 
+If nums[0] = nums[-1], the binary search would be very complicated, so we pre-process the nums by remving the nums[-1] if it equals nums[0]. Then we can do LC 33 (分target在左边区间和target在右边区间) + LC 154 (nums[mid] == nums[end]: end -= 1, 注意不能drop掉一半)
 - [0852. Peak Index in a Mountain Array](Solutions/0852.Peak-Index-in-a-Mountain-Array.py) (E)<br>
 mid 与 mid+1 比较
 - [0162. Find Peak Element](Solutions/0162.Find-Peak-Element.py) (M) <br>
@@ -1046,8 +1049,11 @@ Use greedy to check can get - O(N).  Overall: O(NlogM), where N = len(sweetness)
 - [0774. Minimize Max Distance to Gas Station](Solutions/0774.Minimize-Max-Distance-to-Gas-Station.py) (H) <br>
 If we can do it at D, then we can do it at larger than D. This is a OOXX problem to find the minimum D.
 The difficult part is to find if is_valid to place K stations so that every adjacent station has distance smaller than D - using greedy. 注意这一题的start, end都是小数
-
-----------441. Arranging Coins-----------475. Heaters----------911. Online Election-----------349. Intersection of Two Arrays
+- [0436. Find Right Interval](Solutions/0436.Find-Right-Interval.py) (M) <br>
+step 1: include the idx information into the interval;
+step 2: then sort the intervals based on start time;
+step 3: scan the interval and update res.
+- [0981. Time Based Key-Value Store](Solutions/0981.Time-Based-Key-Value-Store.py) (M) <br>
 
 
 
