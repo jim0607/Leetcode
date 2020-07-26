@@ -45,7 +45,9 @@ return: 3
 
 
 
-
+"""
+单端bfs: O(4^L)
+"""
 class Solution:
     def minMutation(self, start: str, end: str, bank: List[str]) -> int:
         lens = len(start)
@@ -91,7 +93,9 @@ class Solution:
         return possible_mutations
         
         
-        
+"""
+双端bfs: O(2*4^(L/2))
+"""
 class Solution:
     def minMutation(self, start: str, end: str, bank: List[str]) -> int:
         lens = len(start)
