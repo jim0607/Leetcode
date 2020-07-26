@@ -75,7 +75,7 @@ step 1: construct a heights list for each row; step 2: calculate the largestRect
 - [0456. 132 Pattern](Solutions/0456.132-Pattern.py) (H) <br>
 solution: 从右往左，维护一个单调递减栈，while loop是为了保证选出一个最接近num的two, 这样num作为three, 下一个进来的num就更容易小于two了！
 
-
+------------- 1526. Minimum Number of Increments on Subarrays to Form a Target Array ---------
 
 
 ### [Deque](/Data-Structure.py) 
@@ -588,6 +588,10 @@ The one in the largest connected component sizee can infect the most nodes, so w
 the difference of this problem is when we remove a node from the list, 
 that node cannot be infected anymore in later malware spread.
 只需要在做bfs/dfs的时候保证next_candidate!=removed_node就可以了
+- [0839. Similar String Groups](Solutions/0839.Similar-String-Groups.py) (!!H) <br>
+can use bfs/dfs/union-find to traverse the graph.
+since we want to output disconnected components, union-find is quite straight forward - O(L* N^2).
+dfs/bfs也可以做，只需要用visited记录遍历过的就可以了
 
 
 ### [Minimum Spanning Tree - Kruskal's and Prim's](/)
@@ -768,10 +772,10 @@ exactly the same as 216.
 与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解。DP解的for循环顺序很重要，由于(1,3)和(3,1)被认为是同一解，所以for coin in coins:是主循环，for num in range(1, amount + 1):是次循环。因为当coin遍历到coin=1的时候，dp[4]+=d[3]此时的dp[3]=0所以dp[4]实际上加的是0；而当coin遍历到coin=3的时候，dp[4]+=d[1]，此时d[1]被更新过一次。所以真个过程dp[4]只被更新一次，不会重复更新。
 - [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (M)<br>
 self.dfs(nums, target - nums[i], 0, curr, res)  # (1, 3)和(3, 1)被认为是不同解，所以让i从0开始; solution 2: dp. DP解的for循环顺序很重要， for m in range(target + 1): 是主循环，for num in nums:是次循环，这么写可以保证(1,3)可以进solution, (3,1)也可以进solution, 所以符合题意。
-- [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (!!!M) <br>
-递归的定义：从s中的start位置开始，挑一些位置切割，判断从start到i的部分是否为回文，如果是就放入curr中，如果i到了string末尾了则说明此事curr是一种组合方式，放入res中 <br>
-- [0332. Reconstruct Itinerary](Solutions/0332.Reconstruct-Itinerary.py) (!!M) <br>
-有向图的遍历问题，LeetCode关于有向图的题只有两道Course Schedule和Course Schedule II，而那两道是关于有向图的顶点的遍历的，而本题是关于有向图的边的遍历。每张机票都是有向图的一条边，我们需要找出一条经过所有边的路径，那么DFS不是我们的不二选择. Recurssive backtracking.  Worst case: O(E^d), where E is # of edges, d is is the maximum number of flights from an airport.  Solution 2: 因为只需要输出一种包含所有边的路径，所以可以用另一种图的解法 Eulerian Path - every edge is visited exactly once. Eulerian path 使用的算法叫做 Hierholzer algorithm. Hierholzer algorithm 不做backtrack, 所以每一条边只访问一次，所以时间复杂度是O(E), where E is the # of edges.
+- [1056. Confusing Number](Solutions/1056.Confusing-Number.py) (E) <br>
+- [1088. Confusing Number II](Solutions/1088.Confusing-Number-II.py) (!!H) <br>
+solution 2: Only 0, 1, 6, 8, 9 are the valid set of digits, do a backtracking to generate all the numbers containing this digits and check they are valid.
+time complexity: O(L*(number of solutions)), where L is avg lens used to check is_confusingNumber.
 
 
 ### [Backtracking - Permutation](/Depth-First-Search.py)
@@ -784,12 +788,16 @@ self.dfs(nums, target - nums[i], 0, curr, res)  # (1, 3)和(3, 1)被认为是不
 - [0052. N Queens II](Solutions/0052.N-Queens-II.py) (!!H) <br>
 排列问题：先打印出数组[0, 1, 2, 3....n]中所有的可能排列：[[0,1,2,3], [1,3,0,2].....]，其中的每一个子数组表示一种可能的方法，子数组中的数字表示在哪个数字的地方放一个Queen，数字对应的下标位置是放那个Queen的行，数字的值是放那个Queen的列。由于Queen可以很冲直撞，所以列是不能相同的，所以需要去重，用visited标记就可以。又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。用三个字典visited_col, visited_sum, visited_diff分别存储列号，横纵坐标之和，横纵坐标之差有没有被用过
 - [0051. N Queens](Solutions/0051.N-Queens.py) (H)<br>
+- [0996. Number of Squareful Arrays](Solutions/0996.Number-of-Squareful-Arrays.py) (!!H)  <br>
+backtracking with constraints solution: O(number of possible solutions).
+需要判断A[i]+A[i-1]合不合格，所以需要把prev_idx传入backtrack function signature
 - [0031. Next Permutation](Solutions/0031.Next-Permutation.py) (M) <br>
 step 1: sweeping from right to left, find the first decreasing element nums[i]; Step 2: sweep from right to left, find the first element larger just than nums[i], then swap nums[i] and nums[j], then swap all the items starting from i+1
 - [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (!!M)  <br>
 step 1: put the characters that have seen two times in the char list; now we have a charList that only holds char that appears even times, eg: "aaaabbc" now becomes "aab", Step 2: we only need to do permutation for this charList, so the time complexity is O((n/2)!), which is quite an improve. Step 3: when return the results, we just use the permuation generated in steps 2 + permuation[::-1]
 - [0060. Permutation Sequence](Solutions/0060.Permutation-Sequence.py) (M)  <br>
 It really is all about pattern finding; https://leetcode.com/problems/permutation-sequence/discuss/22507/%22Explain-like-I'm-five%22-Java-Solution-in-O(n)
+
 
 
 ### [Backtrack](/Depth-First-Search.py)
@@ -826,6 +834,10 @@ Solution 2: similar with 257 and 112, we just find all the possible paths.
 Solution 1: 带backtracking the dfs;
 solution 2: backtracking dfs 的 interative 的写法 by using a stack;
 Solution 3: 不需要打印所有的路径，所以可以用普通的二叉树的divide and conquer方法：helper function return the Longest Consecutive Sequence **started with** root node, 全局变量res进到helper function中去打擂台
+- [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (!!!M) <br>
+递归的定义：从s中的start位置开始，挑一些位置切割，判断从start到i的部分是否为回文，如果是就放入curr中，如果i到了string末尾了则说明此事curr是一种组合方式，放入res中 <br>
+- [0332. Reconstruct Itinerary](Solutions/0332.Reconstruct-Itinerary.py) (!!M) <br>
+有向图的遍历问题，LeetCode关于有向图的题只有两道Course Schedule和Course Schedule II，而那两道是关于有向图的顶点的遍历的，而本题是关于有向图的边的遍历。每张机票都是有向图的一条边，我们需要找出一条经过所有边的路径，那么DFS不是我们的不二选择. Recurssive backtracking.  Worst case: O(E^d), where E is # of edges, d is is the maximum number of flights from an airport.  Solution 2: 因为只需要输出一种包含所有边的路径，所以可以用另一种图的解法 Eulerian Path - every edge is visited exactly once. Eulerian path 使用的算法叫做 Hierholzer algorithm. Hierholzer algorithm 不做backtrack, 所以每一条边只访问一次，所以时间复杂度是O(E), where E is the # of edges.
 - [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (H) <br> 
 dfs + backtracking, time complexity is (9!)^9, which is veyr high.
 
