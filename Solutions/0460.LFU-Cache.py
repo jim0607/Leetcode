@@ -86,7 +86,14 @@ class LFUCache:
         self._freqs[self._cache[key]][key] = value if value != None else val        # 2. update val if neccesarry
 
 
-# Your LFUCache object will be instantiated and called as such:
-# obj = LFUCache(capacity)
-# param_1 = obj.get(key)
-# obj.put(key,value)
+"""
+非常常考的题套路就是先给一个题求Kth largest, 然后follow up是data stream, 这个问题的solution 是LFU - O(1)
+July 2020 的Google 面经就有:
+Given logs from a YouTube service, and an Integer K. Return K most searched strings from the logs. 
+Discussed creating map of unique strings and counts and going over the map to find the K strings with highest counts by sorting the unique strings by their count. 
+Talked about improving the sort from O(NlogN) to O(NlogK) by using a min heap to sort.
+Heap O(NlogK)
+Quick Select O(N)
+Follow ups: How would you change your code for a stream of logs, Interviewer said that my points and solution were acceptable.
+Solution: LFU - O(1)
+"""
