@@ -1065,11 +1065,9 @@ solution 1: simple dfs visit every balck pixel, and update the max_i, max_j, min
 - [0643. Maximum Average Subarray I](Solutions/0643. Maximum Average Subarray I.py) (E) <br>
 - [0644. Maximum Average Subarray II](Solutions/0644.Maximum-Average-Subarray-II.py) (!!H Google) <br>
 二分答案：初始化 left 为原数组的最小值，right 为原数组的最大值 - O(Nlog(max-min)). helper function比较难需要构造 diff_nums = [num - mid for num in nums], 然后构造prefix_diff_sum, 然后check if there is in diff_nums a sum with at least K length that is larger than 0, which we can do in linear time by keeping a min_sum and use it for compare, similar with 121. Best Time to Buy and Sell Stock
-- [0719. Find K-th Smallest Pair Distance](Solutions/0719. Find K-th Smallest Pair Distance.py) (!!H Google) <br>
-二分答案：sort the list, then it becomes [1,1,3,4,8,8,9].
-let helper function return if there is more than k distance smaller than mid.
-we use two pointers to go through the list to check if there is more than k distance smaller than mid.
-The algorithm of helper function is sliding window so it's only O(N)
+- [0719. Find K-th Smallest Pair Distance](Solutions/0719.Find K-th Smallest Pair Distance.py) (!!H Google) <br>
+二分答案：sort the list, then it becomes [1,1,3,4,8,8,9]. let helper function return if there is more than k distance smaller than mid.
+we use two pointers to go through the list to check if there is more than k distance smaller than mid. The algorithm of helper function is sliding window so it's only O(N)
 
 
 
