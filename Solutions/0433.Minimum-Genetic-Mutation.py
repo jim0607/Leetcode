@@ -47,6 +47,9 @@ return: 3
 
 """
 单端bfs: 我觉得是O(4^LM), 大家都认为是O(LM), where L is lens of Gene, M is number of candidates in bank.
+07292020 update: all others are correct and I was wrong. The 4^L comes from the fact that there are L different
+4^L different neighbors for a certain node.  But remember, we don't need to visit most of the neighbors because they
+are not in the gene bank, we only visited LM nodes at most, so the time complexity is O(LM).
 """
 class Solution:
     def minMutation(self, start: str, end: str, bank: List[str]) -> int:
