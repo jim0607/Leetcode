@@ -1156,13 +1156,6 @@ any gaps within the same bucket is not the amount we are looking for,
 so we are safe to look only for the inter-bucket gaps.
 
 
-### [Cyclic Sort](/Sort.py) 
-Find the Missing Number
-Find all Missing Numbers
-Find the Duplicate Number
-Find all Duplicate Numbers
-
-
 ### [Sorted Array](/Sort.py) 
 - [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) (E) <br>
 sort the arr first, then the maximum sum of pairs is the sum of every other num
@@ -1176,6 +1169,8 @@ midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx
 如果需要return一个新的headNode，一般定义一个dummyNode = ListNode(0), curr = dummyNode; 最后return dymmyNode.next
 - [0148. Sort List](Solutions/0148.Sort-List.py) (!!M) <br>
 step1: divide: 先找到mid, 然后在mid处cut成左右half, 再分别sort left and right; step 2: merge, 同21
+- [0086. Partition List](Solutions/0086.Partition-List.py) (!!M) <br>
+注意这里要用两个dummy node, 左边一个，右边一个，将左边和右边分开！！！左右分别用两个指针一个往前跑，另一个留守head的位置
 - [0206. Reverse Linked List](Solutions/0206.Reverse-Linked-List.py) (!!E) 
 需要熟背理解solution 1: interrative: 注意初始化prev, curr = None, head; solution 2: recurssive: 非常容易漏掉 head.next = None
 - [0092. Reverse Linked List II](Solutions/0092.Reverse-Linked-List-II.py) (M) <br>
@@ -1200,12 +1195,10 @@ Solution 1 O(N), O(N): Just iterate the linked list and create copies of the nod
 maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we should override ListNode compare function __ lt __ to make customized compare happens: compare ListNode. Solution 2: divide and conquer, O(NlogK), this is a better solution.
 - [0234. Palindrome Linked List](Solutions/0234.Palindrome-Linked-List.py) (E) <br>
 题目要求O(n) time and O(1) space: 我们只能prev, slow, fast往前走的过程中修改指针指向，将slow反向指给prev.
---------------------------
-Swap Nodes in Pairs
-Reverse Nodes in k-Group
-Rotate List
-Reverse Linked List II
-Reverse Linked List
+- [0061. Rotate List](Solutions/0061.Rotate-List.py) (M) <br>
+- [0143. Reorder List](Solutions/0143.Reorder-List.py) (M) <br>
+step 1: cut the list into two halves; step 2: reverse the 2nd half; step 3: connect the 1st and 2nd half
+
 Odd Even Linked List
 
 
@@ -1230,6 +1223,7 @@ modify nums1 in-place, 由于nums1有足够空间，我们可以从nums1的尾�
 anchor is the first zero element, __anchor keeps all the non-zero numbers on it's left, that is the reason the pointer is called anchor__. while curr runs forward, whenever curr equals a non-zero number, switch it to anchor, and move anchor one step forward.  Solution 2: partition using the method in 31, but not accepted cuz partition changes the original order of non-zero numbers. Beacuase quick sort is a ramdomized sorting algorithm.
 - [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (!!E) <br>
 典型的同向双指针 on the left of anchor (including anchor) are the maintained array without duplicates
+- [0083. Remove Duplicates from Sorted List](Solutions/0083.Remove-Duplicates-from-Sorted-List.py) (!!E) <br>
 - [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) <br>
 同向双指针法，注意题目需要去重，如果碰到符合条件的，把i和j往前挪到不重复的元素去。
 - [0042. Trapping Rain Water](Solutions/0042.Trapping-Rain-Water.py) (!!H) <br>
@@ -1565,7 +1559,7 @@ The robot stays in the circle if (looking at the final vector), it changes direc
 遍历机器人的四个方向即可，唯一需要注意的是每次都需要调整机器人的朝向才能move一下，毕竟是机器人嘛
 
 
-### [把数当坐标用](/)
+### [Cyclic Sort/把数当坐标用](/)
 - [0448. Find All Numbers Disappeared in an Array](Solutions/0448.Find-All-Numbers-Disappeared-in-an-Array.py) (E) <br>
 难就难在题目要求O(1) space. 做法是把数组里的数当坐标用，We use the sign of the index as the indicator. If one number never occur, 
 we know the number corresponding to the idx will never be negative. eg: [4,3,1,3] -- > [-4,3,-1,-3], 2 is missing, so num[2-1] will never be changed to be negative. 1st pass: change numbers to be negative [4,3,1,3] --> [-4,3,-1,-3].  2nd pass: find those numbers that has not been changed negative, there is not num corrsponding to their idx.
@@ -1576,6 +1570,8 @@ we know the second time occurance becasue we flip the sign each time.
 solution 1: 448类似的做法，我们通过nums[i] += 1来change all 0s to be positive number.  solution 2: bit manipulation 所有的idx and num都异或起来. solution 3: 题目确定只有一个missing number. add every num together and compare with n(n+1)/2. O(1).  Follow up: what is there are 2 missing numbers?  How can we solve within O(1). we can calculate the sum of the 2 missing numbers using solutino 3, and also prodct of the 2 missing number, then 用求根公式求出来就可以了
 - [0041. First Missing Positive](Solutions/0041.First-Missing-Positive.py) (H) <br>
 1st pass: change all negtive numbers to be 1, so that there will be no negtive numbers;  2nd pass: change the positive numbers into negative; 3rd pass: find the first positive number, and the corresponding idx is missing
+- [0287. Find the Duplicate Number](Solutions/0287.Find-the-Duplicate-Number.py) (M) <br>
+把这个数组的每一个数num看成这样一个linked list node: num的下标代表.val, num的值代表.next指向下一个node。那么如果存在重复的num，那就表示有两个不同node都指向了同一个公共，也就是成环的地点。这么想这个题目就和142一样了，具体实现过程中对p取一个nums[p]，就相当于取一个p.next
 
 
 ### [Image Process](/)
