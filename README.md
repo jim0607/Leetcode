@@ -1081,6 +1081,9 @@ quick sort, self-define comparing two strings by: if s1 + s2 <= s2 + s1: return 
 for i in range(lens-1, -1, -1 ): Find maxIndex -> flip max to top -> flip max to bottom of the whole arr -> repeat
 - [0280. Wiggle Sort](Solutions/0280.Wiggle-Sort.py) (M) <br>
 O(N): 从左到右扫一遍，不满足条件的交换就好了。定义一个变量prevShouldLessThanCurr, in the for loop, prevShouldLessThanCurr = not prevShouldLessThanCurr every step, and based on prevShouldLessThanCurr is true or not, we swap nums[i-1] with nums[i] or not.
+- [0324. Wiggle Sort II](Solutions/0324.Wiggle-Sort-II.py) (M) <br>
+这题比Wiggle Sort I难在相邻的数不能相等，所以相邻交换法行不通，
+我们可以sort the nums, then 把有序数组从中间分成两部分，然后从前半段的末尾取一个，在从后半的末尾取一个，这样保证了第一个数小于第二个数，然后从前半段取倒数第二个，从后半段取倒数第二个，这保证了第二个数大于第三个数，且第三个数小于第四个数，以此类推。O(nlogn), O(n)
 - [Sort a nearly sorted (or K sorted) array](Solutions/Geeks__Sort-a-nearly-sorted-or-K-sorted-array.py) (Geeks) <br>
 题目要求sort一个长程无序短(k)程有序的数组，solution: 用一个大小为k的heapq存储k个元素，然后i从k开始遍历nums, 遍历的过程中每次都更新nums的最左边: nums[target_idx] = heappop(hq)，同时更新hq: heappush(hq, nums[i]), 这么做成立的原因是i是从k开始遍历的，所以nums[i]一定是大于nums[0]的，而nums[0]>=heappop(hq), 所以nums[i]及其后面的数一定是大于heappop(hq)的，所以可以放心地把heappop(hq)放到target_idx的位置。时间复杂度是O(nlogk). 当k=1: O(0), 当k=n: O(nlogn)
 
@@ -1140,6 +1143,13 @@ Now the list is not sorted, what do we do? We can sort it and then do exactly th
 step 1: 把citation num被引次数放入bucket中作为idx, 而idx上对应的值是cnt of how many papers were cited this much time.
 step 2: bucket size 是 len(citations);
 step 3: O(N) 遍历把相应的(被引次数, how many paper被引了那么多次) pair 放到相应的(idx, val)上, 这样一来high idx上就天然放着high 被引次数了, 就不需要sort了
+- [0164. Maximum Gap](Solutions/0164.Maximum-Gap.py) (!!H) <br>
+遇到这类问题肯定先想到的是要给数组排序，但是题目要求是要线性的时间和空间，那么只能用桶排序Bucket Sort 。
+If we set the bucket size clever(relatively small), 
+we can ensure that the max gap cannot be in same bucket.
+Largest gap can not be smaller than (max-min)/lens + 1, so if we make the buckets smaller than this number, 
+any gaps within the same bucket is not the amount we are looking for, 
+so we are safe to look only for the inter-bucket gaps.
 
 
 ### [Cyclic Sort](/Sort.py) 
