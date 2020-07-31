@@ -86,6 +86,8 @@ heapq的方法是O(NK); deque O(N): Iterate over the array. At each step: I. Cle
 这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
 两个while循环，一个while loop从队首pop, 同时更新res, 另一个while loop 从队尾pop, 对deq进行清理。
 
+---------- 1425. Constrained Subsequence Sum (lee215 solution is good) ----------1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit -------
+
 
 
 
@@ -1285,10 +1287,12 @@ Note that the numbers are positive, so the prefixProd will be an increasing arr.
 - [1248. Count Number of Nice Subarrays](Solutions/1248.Count-Number-of-Nice-Subarrays.py) (!!M) <br>
 Sliding window is great of __at most__ problems.  This problem will be a very typical sliding window, if it asks the number of subarrays with __at most__ K distinct elements.
 Just need one more step to reach the folloing equation: exactly(K) = atMost(K) - atMost(K-1); 
-- [0340. Longest Substring with At Most K Distinct Characters](Solutions/0340.Longest-Substringwith-At-Most-K-Distinct-Characters.py) (H) <br>
+- [0340. Longest Substring with At Most K Distinct Characters](Solutions/0340.Longest-Substringwith-At-Most-K-Distinct-Characters.py) (!!H) <br>
 维护一个charDict, 用来记录i->j中的char的频率，套模板时满足的条件是len(charDict) <= k; 更新j: charDict[s[j]+=1; 更新i: charDict[s[i]] -= 1, if charDict[s[i]] == 0: del charDict[s[i]]
 - [0159. Longest Substring with At Most Two Distinct Characters](Solutions/0159.Longest-Substring-with-At-Most-Two-Distinct-Characters.py) (M) <br>
 Exactly the same as 340.
+- [0424. Longest Repeating Character Replacement](Solutions/0424.Longest-Repeating-Character-Replacement.py) (M) <br>
+340 的变形题 this problem is to find the max_lens of substring so that (length of substring - number of times of the maximum occurring character in the substring) is at most K.
 - [0992. Subarrays with K Different Integers](Solutions/0992.Subarrays-with-K-Different-Integers.py) (!!H) <br>
 exactly(K) = atMost(K) - atMost(K-1). Helper function is exactly the same as 340. Longest Substring with At Most K Distinct Characters
 - [0487. Max Consecutive Ones II](Solutions/0487.Max-Consecutive-Ones-II.py) (!!M) <br>
@@ -1315,7 +1319,6 @@ sliding window可解
 
 ----Lee215推荐---------
 Replace the Substring for Balanced String
-Max Consecutive Ones III
 Binary Subarrays With Sum
 Subarrays with K Different Integers
 Fruit Into Baskets
