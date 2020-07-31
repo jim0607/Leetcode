@@ -20,6 +20,7 @@ Notice K can be larger than the length of S. In this case is not possible to fin
 """
 Brutal force / sliding window with fixed length: O(26N)
 """
+"""
 class Solution:
     def numKLenSubstrNoRepeats(self, S: str, K: int) -> int:
         freq = collections.defaultdict(int)
