@@ -1191,6 +1191,7 @@ Solution 1 O(N), O(N): Just iterate the linked list and create copies of the nod
 两个指针currA, currB; if not currA: currA = headB; if not currB: currB = headA
 - [0002. Add Two Numbers](Solutions/0002.Add-Two-Numbers.py) (!!M) <br>
 本题的考点是关于如何新建一个linked list, 要用someNode.next = ListNode(someVal), 而不是简单的修改value; 还考察了是否细心, 最后很容易漏掉carryBit != 0的判断"
+- [0445. Add Two Numbers II](Solutions/0445.Add-Two-Numbers-II.py) (M) <br>
 - [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!M) <br>
 maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we should override ListNode compare function __ lt __ to make customized compare happens: compare ListNode. Solution 2: divide and conquer, O(NlogK), this is a better solution.
 - [0234. Palindrome Linked List](Solutions/0234.Palindrome-Linked-List.py) (E) <br>
@@ -1198,8 +1199,8 @@ maintain一个heapq，初始化将每个list的head放入，然后每次pop出�
 - [0061. Rotate List](Solutions/0061.Rotate-List.py) (M) <br>
 - [0143. Reorder List](Solutions/0143.Reorder-List.py) (M) <br>
 step 1: cut the list into two halves; step 2: reverse the 2nd half; step 3: connect the 1st and 2nd half
-
-Odd Even Linked List
+- [0328. Odd Even Linked List](Solutions/0328.Odd-Even-Linked-List.py) (!!M) <br>
+把dummy指向head.next的地方，因为一会儿会丢失掉head.next的位置, 害怕什么node的位置会丢掉就拿一个dummy指向那个位置
 
 
 # [Two Pointers](/Two-pointers.py)
@@ -1224,11 +1225,14 @@ anchor is the first zero element, __anchor keeps all the non-zero numbers on it'
 - [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (!!E) <br>
 典型的同向双指针 on the left of anchor (including anchor) are the maintained array without duplicates
 - [0083. Remove Duplicates from Sorted List](Solutions/0083.Remove-Duplicates-from-Sorted-List.py) (!!E) <br>
+- [0082. Remove Duplicates from Sorted List II](Solutions/0082.Remove-Duplicates-from-Sorted-List-II.py) (M) <br>
+要把duplicates都去掉一个不留，anchor stays where on it's left there is only distinct numbers，需要比较prev,curr,curr.next的val来判断一个数是不是合格的
 - [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) <br>
 同向双指针法，注意题目需要去重，如果碰到符合条件的，把i和j往前挪到不重复的元素去。
 - [0042. Trapping Rain Water](Solutions/0042.Trapping-Rain-Water.py) (!!H) <br>
 首先找到最高highestBar的位置。然后从左边往最高的位置扫，同时maintain一个指针记录leftHighest的高度，如果扫到的地方i小于这个leftHighest的高度，
 则说明i这个地方可以蓄水，可蓄水量为leftHighest的高度减去i的高度；如果扫到的地方i大于这个leftHighest的高度，则说明i这个地方不可以蓄水，所以这时候要更新leftHighest为i的高度。同理对右边做同样的操作
+
 
 ### [双指针处理双序列问题](/Two-pointers.py)
 - [0844. Backspace String Compare](Solutions/0844.Backspace-String-Compare.py) (!!E) <br>
@@ -1238,21 +1242,7 @@ anchor is the first zero element, __anchor keeps all the non-zero numbers on it'
 sort the words by lens, and check the word one by one to see if there is a match. How to check if word matches s? use two pointers to traverse word and s, compare as they go.
 
 
---------- Two Sum
-Container With Most Water
-3Sum
-3Sum Closest
-Trapping Rain Water
-Sort Colors
-Minimum Window Substring
-Remove Duplicates from Sorted List
-Subarray Product Less Than K
-Backspace String Compare
-Squares of a Sorted Array ----------
-
-
-
-# [Two Sum]()
+### [Two Sum]()
 - [0001. Two Sum](Solutions/0001.Two-Sum.py) (E) <br>
 九章算法：对于求 2 个变量如何组合的问题可以循环其中一个变量，然后研究另外一个变量如何变化, 普世的方法是：for循环一个变量a，然后看另外一个变量target-a是不是在一个hashmap中
 - [0167. Two Sum II - Input array is sorted](Solutions/0167.Two-Sum-II-Input-array-is-sorted.py) (E) <br>
@@ -1290,15 +1280,24 @@ Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search
 - [0076. Minimum Window Substring](Solutions/0076.Minimum-Window-Substring.py) (!!H) <br>
 维护一个sourceFreqDict, 用来记录i->j中的char的频率，套用模板时满足的条件是sourceFreqDict all included in targetFreqDict; 更新j: sourceDict[s[j]] += 1, 更新i: sourceDict[s[i]] -= 1.  time complexity is O(MN). solution 2: O(N), instead of using self.allIncluded(sourceDict, targetDict) to check matched or not,  we use a int missing to keep track of how many chars are still needed in order to match, this reduce the time from O(M) to O(1). also, instead of using s[i:j] everytime when we renew res, we use start, end to renew the idx, which reduce time from O(N) to O(1)
 It seems there is an O(M+N) solution, same idea of using slideing window, I should understand it later. 山景城一姐有video
+- [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
+Note that the numbers are positive, so the prefixProd will be an increasing arr. 维护一个sums, 用来记录i->j中数的product, 指针j再往前跑，指针i在后面追。
+- [1248. Count Number of Nice Subarrays](Solutions/1248.Count-Number-of-Nice-Subarrays.py) (!!M) <br>
+Sliding window is great of __at most__ problems.  This problem will be a very typical sliding window, if it asks the number of subarrays with __at most__ K distinct elements.
+Just need one more step to reach the folloing equation: exactly(K) = atMost(K) - atMost(K-1); 
 - [0340. Longest Substring with At Most K Distinct Characters](Solutions/0340.Longest-Substringwith-At-Most-K-Distinct-Characters.py) (H) <br>
 维护一个charDict, 用来记录i->j中的char的频率，套模板时满足的条件是len(charDict) <= k; 更新j: charDict[s[j]+=1; 更新i: charDict[s[i]] -= 1, if charDict[s[i]] == 0: del charDict[s[i]]
 - [0159. Longest Substring with At Most Two Distinct Characters](Solutions/0159.Longest-Substring-with-At-Most-Two-Distinct-Characters.py) (M) <br>
 Exactly the same as 340.
-- [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
-Note that the numbers are positive, so the prefixProd will be an increasing arr. 维护一个sums, 用来记录i->j中数的product, 指针j再往前跑，指针i在后面追。
+- [0992. Subarrays with K Different Integers](Solutions/0992.Subarrays-with-K-Different-Integers.py) (!!H) <br>
+exactly(K) = atMost(K) - atMost(K-1). Helper function is exactly the same as 340. Longest Substring with At Most K Distinct Characters
+- [0487. Max Consecutive Ones II](Solutions/0487.Max-Consecutive-Ones-II.py) (!!M) <br>
+sliding window solution: find the longest subarray with at most one 0s. solution 2: record prev_lens and curr_lens for the previous lens of consecutive 1s and curr lens of consecutive 1s. update them we there is a new 0 coming, otherwise curr_lens += 1.
+- [1004. Max Consecutive Ones III](Solutions/1004.Max-Consecutive-Ones-III.py) (H) <br>
+sliding window solution: finding the maximum lens with at most K 0s.
 - [0242. Valid Anagram](Solutions/0242.Valid-Anagram.py) (E) <br>
 string s and t are anagram with each other when all the ch in s have the same count as that in t
-- [567. Permutation in String](Solutions/0567.Permutation-in-String.py) (M) <br>
+- [0567. Permutation in String](Solutions/0567.Permutation-in-String.py) (M) <br>
 sliding window solution 1: 九章模板，use one collections.Counters for p and one for s. sliding window solution 2: keep the window size len(s1), check the tempCntDict == cntDict ? O(M+M*(N-M)). 
 - [0438. Find All Anagrams in a String](Solutions/0438.Find-All-Anagrams-in-a-String.py) (!!M) <br>
 similar with 567, 套用九章模板就可以了
@@ -1309,13 +1308,30 @@ dictionary: key is a tuple keeping track of the cnt of all 26 letters, val is th
 O(len(s)* len(words)* len(words[0]))
 - [0228. Summary Ranges](Solutions/0228.Summary-Ranges.py) (M) <br>
 sliding window可解
-- [163. Missing Ranges](Solutions/0163.Missing-Ranges.py) (M) <br>
+- [0163. Missing Ranges](Solutions/0163.Missing-Ranges.py) (M) <br>
 这题是上一题的延伸，跟sliding window没啥关系
+
+
+
+----Lee215推荐---------
+Replace the Substring for Balanced String
+Max Consecutive Ones III
+Binary Subarrays With Sum
+Subarrays with K Different Integers
+Fruit Into Baskets
+Shortest Subarray with Sum at Least K
+Minimum Size Subarray Sum
+
+------------
+
+
+
+
+
 727. Minimum Window Subsequence - Google onsite for 土拨鼠
 
-------------------- 718. Maximum Length of Repeated Subarray ------------------
-
-------------- Longest Substring Without Repeating Characters
+----------------
+718. Maximum Length of Repeated SubarrayLongest Substring Without Repeating Characters
 Substring with Concatenation of All Words
 Minimum Window Substring
 Minimum Size Subarray Sum
@@ -1332,7 +1348,7 @@ Binary Subarrays With Sum
 Subarrays with K Different Integers
 Fruit Into Baskets
 Shortest Subarray with Sum at Least K
-Minimum Size Subarray Sum----------------
+Minimum Size Subarray Sum ----------------
 
 
 
