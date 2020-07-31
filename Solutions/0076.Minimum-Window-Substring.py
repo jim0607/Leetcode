@@ -86,7 +86,7 @@ class Solution:
                 if end == 0 or j-i < end-start:
                     start, end = i, j   # 也可以定义一个res, 用res = s[i:j]来更新结果，但是takes O(N)时间，所以用start, end来记录就可以了
                     
-            if need[s[i]] == 0:
+            if need[s[i]] >= 0:
                 missing += 1
             need[s[i]] += 1
                 
