@@ -1423,9 +1423,7 @@ sweep line solution: O(N^2logN).
 This is two sweep line problem pieced together. - google高频题，还没完全搞懂，道行不够呀
 - [1353. Maximum Number of Events That Can Be Attended](Solutions/1353.Maximum-Number-of-Events-That-Can-Be-Attended.py) (M) <br>
 Sort events. Priority queue pq keeps the current open events.
-Iterate from the day 1 to day 100000, each day, we 1. add new events starting on day d to the queue pq; 
-2. remove the events that are already closed; 
-3. greedily attend the event that ends soonest, if we can attend a meeting, we increment the res.
+Iterate from the day 1 to day 100000, each day, we 1. add new events starting on day d to the queue pq; 2. remove the events that are already closed; 3. greedily attend the event that ends soonest, if we can attend a meeting, we increment the res.
 - [0729. My Calendar I](Solutions/0729.My-Calendar-I.py) (M) <br>
 solution 1: sweep line just like the airplane in the sky problem - need to sort, so O(nlogn). 
 solution 2: binary search where the interval should be inserted and insert the interval, so O(n + logn)
