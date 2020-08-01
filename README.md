@@ -280,7 +280,8 @@ When we're doing mergesort, original index of elements in left part (smaller sid
 So in addition to the while loop for do merge/conquer, we use a while loop to compare nums[i] and 2* nums[j] to update cnt. - O(nlogn)
 - [0315. Count of Smaller Numbers After Self](Solutions/0315.Count-of-Smaller-Numbers-After-Self.py) (!!H) <br>
 Segment Tree solution: O(NlogN) time and O(N) space. 从右往左遍历add num into the tree one by one， at the same time update the cnt of smaller number after self. Follow up: how to solve Spare Segment Tree problem? - Merge sort. 正解是solution 2: merge sort O(nlogn)
-
+- [0699. Falling Squares](Solutions/0699.Falling-Squares.py) (!!H) <br>
+solution 1: O(N^2). Every time a new square falls down, we check the previous square to see if there is any square beneath the current falling square. If we found that we have squares i intersect with us, which means my current square will go above to that square. Then we should update the max_h. solution 2: segment tree O(NlogN) https://leetcode.com/problems/falling-squares/discuss/409304/Python-Diffenrent-Concise-Solutions
 
 
 
@@ -1384,6 +1385,8 @@ Step 1: 我们分别把所有的start和所有的end放进两个数组，并排�
 - [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
 solution 1: 扫描线；minimum meeting rooms required could be understood us maximum meeting rooms in use
 Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky <br> solution 2: 先把interval进行sort: intervals.sort(key = lambda x: (x[0], x[1])), 然后以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
+- [1094. Car Pooling](Solutions/1094.Car-Pooling.py) (!!M) <br>
+这题可以叫meeting root III. 我们以end pos构造一个heapq, 每次把end pos小于start pos的pop出来. 以前觉得sweep line is better for meeting room II. 现在觉得solution 2 heapq 更具有普适性 for interval problems
 - [0435. Non-overlapping Intervals](Solutions/0435.Non-overlapping-Intervals.py) (!!M) <br>
 This is actually greedy algorithm: always pick the interval with the earliest end time. 
 Then you can get the maximal number of non-overlapping intervals. (or minimal number to remove).
@@ -1413,7 +1416,8 @@ Solution 2: in the addNum method, firstly find the pos of insertion into the int
 双指针法, if min(end1, end2) - max(start1, start2) >= duration: return [max(start1, start2), max(start1, start2) + duration]
 - [0218. The Skyline Problem](Solutions/0218.The-Skyline-Problem.py) (!!H) <br>
 sweep lint + heapq；a maxHeap to store all alive buildings, 存高度和终点. res 里面需要保存的其实是每一次高度发生变化时的终点. 在指针currPos做扫描的时候做三件事情: 1. pop buildings that end before curPos, cuz they are no longer "alive"; 2. push [negative_height, end_point] of all buildings that start before curPos; 3. 更新res: if -maxHeap[0][0] != prevHeight: 说明出现了一个拐点要么上升要么下降，这时候就需要append拐点了
-------- 699. Falling Squares - great analogy to skyline problem!--------
+- [0699. Falling Squares](Solutions/0699.Falling-Squares.py) (!!H) <br>
+solution 1: O(N^2). Every time a new square falls down, we check the previous square to see if there is any square beneath the current falling square. If we found that we have squares i intersect with us, which means my current square will go above to that square. Then we should update the max_h. solution 2: segment tree O(NlogN) https://leetcode.com/problems/falling-squares/discuss/409304/Python-Diffenrent-Concise-Solutions
 - [0850. Rectangle Area II](Solutions/0850.Rectangle-Area-II.py) (!!H Google) <br>
 sweep line solution: O(N^2logN).
 This is two sweep line problem pieced together. - google高频题，还没完全搞懂，道行不够呀
@@ -1434,9 +1438,16 @@ update overlap: find where the overlap is by go through the calendar list, and u
 - [0732. My Calendar III](Solutions/0732.My-Calendar-III.py) (H) <br>
 Maintain a start_time list and end_time list and keep them sorted by using binary search each time we insert a time.
 Do do exactly the same as the airplane in the sky problem. O(N).  Solution 2: we can use a segment tree, each query takes O(logn). Should know but don't need to implement.
+- [1109. Corporate Flight Bookings](Solutions/1109.Corporate-Flight-Bookings.py) (M) <br>
+for each interval [i, j, k], we need k more seats at day i, and we need k less seats at day j.
+so we can update how many more we need on each day. - O(m+n)
+- [1288. Remove Covered Intervals](Solutions/1288.Remove-Covered-Intervals.py) (M) <br>
+sort the intervals by the start time. Then compare each interval with previous intervals,
+to see if curr interval has a smaller end time than any of the previous intervals.
+we only need to compare with the largest end time in previous intervals.
+we can maintain a hq for the end time of the previous intervals 
 
---------------757. Set Intersection Size At Least Two--------------850. Rectangle Area II-------715. Range Module-------------1094. Car Pooling
-1109. Corporate Flight Bookings--------------------------
+--------------757. Set Intersection Size At Least Two--------------850. Rectangle Area II-------715. Range Module---------------
 
 
 
@@ -1607,6 +1618,12 @@ greedy algorithm: use two pointers iterate the s, and s[::-1], if find equal sub
 O(n)* O(string), n is lens of s, string is the average lens of equal string. check two substring equal 的地方应该可以用rolling hash优化成O(1). 但是greedy 已经破天了，面试官还要优化的话我就mmp了
 - [1316. Distinct Echo Substrings](Solutions/1316.Distinct-Echo-Substrings.py) (H) <br>
 先把整个string的hash_code计算出来存在一个数组里面hash_code[i] = the hash code for s[:i] 相当于prefix_hash_code这样后面计算是substring s[i:j]的hash code就是O(1) 了
+
+
+### [Bit Manipulation](/)
+- [0318. Maximum Product of Word Lengths](Solutions/0318.Maximum-Product-of-Word-Lengths.py) (M) <br>
+solution 1: sort and put larger lens in front. O(NlogN + N^2* L)
+
 
 
 # [Random/Sampling](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
