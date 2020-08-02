@@ -31,6 +31,7 @@ Output: 72
 这个因为他的efficiency一定是这k个worker里面最小的。
 可以保持一个k size的heap来存(他之前所有workers), 如果size>k就把min_speed的worker踢出去
 """
+"""
 from heapq import heappush, heappop, heapify
 
 class Solution:
