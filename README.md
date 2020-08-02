@@ -31,6 +31,11 @@ stack存num就可以了
 stack保存string, 处理stack的问题往往需要提前split the path by ("/")
 - [0388. Longest Absolute File Path](Solutions/0388.Longest-Absolute-File-Path.py) (!!M) <br>
 stack存the lens of the dir or file names, everytime we append a dir of file name into the stack, we need to go back to the correct depth where it belongs.
+- [0316. Remove Duplicate Letters](Solutions/0316.Remove-Duplicate-Letters.py) (!!H) <br>
+we use a stack to store the solution we have built as we iterate over the string.
+We remove a ch if two conditions are meet:1. the ch can occur later on; 2. the ch is greater than the curr ch;
+- [1081. Smallest Subsequence of Distinct Characters](Solutions/1081.Smallest-Subsequence-of-Distinct-Characters.py) (M) <br>
+与316. Remove Duplicate Letters出重复了
 
 
 ### [Iterator](/Data-Structure.py)
@@ -87,6 +92,8 @@ heapq的方法是O(NK); deque O(N): Iterate over the array. At each step: I. Cle
 不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
 这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
 两个while循环，一个while loop从队首pop, 同时更新res, 另一个while loop 从队尾pop, 对deq进行清理。
+- [0995. Minimum Number of K Consecutive Bit Flips](Solutions/0995.Minimum-Number-of-K-Consecutive-Bit-Flips.py) (!!H) <br>
+q 记录区间[i-k, i]内被反转了的idx, 遍历过程中把里i很远的idx都pop出来，保持窗口小于等于K, 此时len(q)就是位置i已经被翻转的次数，如果为奇数表示i已经从0翻到1或者从1翻到0了
 
 ---------- 1425. Constrained Subsequence Sum (lee215 solution is good) ----------1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit --------------------1499. Max Value of Equation-------975. Odd Even Jump----------
 
@@ -1457,6 +1464,8 @@ This is two sweep line problem pieced together. - google高频题，还没完全
 
 # [Greedy](/) <br>
 这个视频讲贪心不错：https://www.bilibili.com/video/BV1hJ411v7w4
+- [0455. Assign Cookies](Solutions/0455.Assign-Cookies.py) (!!E) <br>
+greedily 尽量用最少的糖果去优先满足孩子孩子，所以需要先排序
 - [0870. Advantage Shuffle](Solutions/0870.Advantage-Shuffle.py) (M) <br>
 田忌赛马：Greedy algorithm: sort A and B first, and then assign num_a to num_b so that num_a is larger than num_b and num_a as small as possible.
 For each num_a a in sortedA, we will either beat that num_b (put a into assigned[b] map), or throw it out (put a into not_assigned list). 
@@ -1503,9 +1512,11 @@ greedy: 优先让max_freq不动，而去rotate freq比较小的
 这一题与659. Split Array into Consecutive Subsequences解法很类似，需要的是两个hashmap
 一个记录freq, 一个记录how many need, 只是我们update need的方式有一点变化，如果已经拼出了长度为k的substring,
 那就不去update need[num+1]了
+- [0670. Maximum Swap](Solutions/0670.Maximum-Swap.py) (!!M) <br>
+solution 1: sort and compare - O(nlogn); solution 2: one pass from backward - O(N)
 
 
--------0455-assign-cookies（1、升序排序）.py          0435-non-overlapping-intervals（按终点排序）.py                        0316-remove-duplicate-letters（栈、贪心算法）.py                         0310-minimum-height-trees（广度优先遍历）.py                  0012-integer-to-roman（贪心算法）.py-----------------455. Assign Cookies--------------Create Maximum Number----------670. Maximum Swap------------659. Split Array into Consecutive Subsequences-----------------------------------------
+------0012-integer-to-roman（贪心算法）.py--------------------Create Maximum Number----------------
 
 
 
