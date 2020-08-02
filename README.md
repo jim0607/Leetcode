@@ -17,6 +17,8 @@ Solutino 1: just use one list. Since we have to implement popMax method, we have
 In C#, Queue class is by default a deque, with two methods: 1. enqueue, meaning push to the back of the queue; 2. dequeue, meaning pop from the front of the queue. They are all O(1).
 - [0933. Number of Recent Calls](Solutions/0933.Number-of-Recent-Calls.py) (E) <br>
 In C#, Count is a method that gets the number of elements contained in the Queue.
+- [0946. Validate Stack Sequences](Solutions/0946.Validate-Stack-Sequences.py) (!!M Google) <br>
+使用一个栈st来模拟push和pop的过程，用一个指针在popped list里面跑，如果popped[i]==st[-1]那就一直pop, 最后判断st能不能pop为空
 - [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
 定义一个numStack, 一个strStack 存nums和parenthesis. if it's a digit, should use a while loop to add the num in case there are multiple digits; if it's a ch, then put it into strStack; if it's a [, then put the num in numStack and re-initialize the tempNum and tempStr for calculation inside the []; if it's a ], then pop the resStack and signStack and update res.
 - [0224. Basic Calculator](Solutions/0224.Basic-Calculator.py) (!!H) <br>
@@ -141,6 +143,8 @@ Then we push (nums[lst_idx][num_idx+1], lst_idx, num_idx+1) into the heapq and u
 we only need to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
 - [0358. Rearrange String k Distance Apart](Solutions/0358.Rearrange-String-k-Distance-Apart.py) (!!H) <br>
 similar with task schedule, 我们按频率从大到小去坐k个位置，pop出来之后需要将freq-=1然后push回去, pop出来再push回去的思想很重要！！
+- [1405. Longest Happy String](Solutions/1405.Longest-Happy-String.py) (!!M) <br>
+similar with task schedule, 对于这题，我们先判断把最high freq的ch pop出来加入res, 然后freq-1放回hq中
 - [0767. Reorganize String](Solutions/0767.Reorganize-String.py) (!!M) <br>
 I think it is similar with task schedule.  always put the most freq ch adjacent with the 2nd most freq ch.
 We can firstly find the freq, and then put them into a heapq,
@@ -170,6 +174,7 @@ return the first i where dp[i] >= target.
 solution 2: heapq - O(nlogn)
 heapq stores the fuel at the station. 这题的关键是不要考虑到达的那个station的位置，
 我们永远只需要考虑从0出发，中途能加多少油，加的油越多跑得越远. 维护一个possible_coverage变量表示能跑多远
+
 
 -----------------------------
 Course Schedule III------------------------------
@@ -1406,10 +1411,12 @@ if end > interval start time, then we can shot the previously 积累下来的int
 这题是merge interval的变形题，第一步先sort所有的intervals, 然后去找所有非公共的intervals - O(NlogN). solution 2: heapq. O(NlogK)
 - [0057. Insert Interval](Solutions/0057.Insert-Interval.py) (H) <br>
 Solution 1: Append the new interval to the intervals, and then do the merge interval problem. O(~n). Solution 2: add the interval on the run O(~n). If there is overlap, we update the new interval. 画个图会好理解很多。
-- [0352. Data Stream as Disjoint Intervals](Solutions/0352.Data-Stream-as-Disjoint-Intervals.py) (H) <br>
+- [0352. Data Stream as Disjoint Intervals](Solutions/0352.Data-Stream-as-Disjoint-Intervals.py) (!!H) <br>
 Solution 1: merge intervals. In addNum method, we just need to append a new interval [val, val] to the intervals - O(1).
 In the getIntervals method, we do merge interval just lke 56. Merge intervals - O(NlogN)
 Solution 2: in the addNum method, firstly find the pos of insertion into the intervals, then merge with prev interval and next interval - O(n), getIntervals method takes O(1)
+- [0715. Range Module](Solutions/0715.Range-Module.py) (!!H) <br>
+Store intervals in a sorted array. Use bisect_left and bisect_right to locate where the incoming interval should be. addRange and removeRange takes O(N). queryRange can also use bisect to locate where the interval location is, [left, right]必须在某一个且同一个range内才return True - O(logN)
 - [1272. Remove Interval](Solutions/1272.Remove-Interval.py) (M) <br>
 一个interval与另一个interval的位置关系就六种情况，一一讨论就可以了
 - [1229. Meeting Scheduler](Solutions/1229.Meeting-Scheduler.py) (M) <br>
@@ -1418,9 +1425,6 @@ Solution 2: in the addNum method, firstly find the pos of insertion into the int
 sweep lint + heapq；a maxHeap to store all alive buildings, 存高度和终点. res 里面需要保存的其实是每一次高度发生变化时的终点. 在指针currPos做扫描的时候做三件事情: 1. pop buildings that end before curPos, cuz they are no longer "alive"; 2. push [negative_height, end_point] of all buildings that start before curPos; 3. 更新res: if -maxHeap[0][0] != prevHeight: 说明出现了一个拐点要么上升要么下降，这时候就需要append拐点了
 - [0699. Falling Squares](Solutions/0699.Falling-Squares.py) (!!H) <br>
 solution 1: O(N^2). Every time a new square falls down, we check the previous square to see if there is any square beneath the current falling square. If we found that we have squares i intersect with us, which means my current square will go above to that square. Then we should update the max_h. solution 2: segment tree O(NlogN) https://leetcode.com/problems/falling-squares/discuss/409304/Python-Diffenrent-Concise-Solutions
-- [0850. Rectangle Area II](Solutions/0850.Rectangle-Area-II.py) (!!H Google) <br>
-sweep line solution: O(N^2logN).
-This is two sweep line problem pieced together. - google高频题，还没完全搞懂，道行不够呀
 - [1353. Maximum Number of Events That Can Be Attended](Solutions/1353.Maximum-Number-of-Events-That-Can-Be-Attended.py) (M) <br>
 Sort events. Priority queue pq keeps the current open events.
 Iterate from the day 1 to day 100000, each day, we 1. add new events starting on day d to the queue pq; 2. remove the events that are already closed; 3. greedily attend the event that ends soonest, if we can attend a meeting, we increment the res.
@@ -1444,12 +1448,15 @@ sort the intervals by the start time. Then compare each interval with previous i
 to see if curr interval has a smaller end time than any of the previous intervals.
 we only need to compare with the largest end time in previous intervals.
 we can maintain a hq for the end time of the previous intervals 
-
---------------757. Set Intersection Size At Least Two--------------850. Rectangle Area II-------715. Range Module---------------
-
+- [0757. Set Intersection Size At Least Two](Solutions/0757.Set-Intersection-Size-At-Least-Two.py) (!!H) <br>
+Greedy algorithm, 按结束为止排序，当两个结束位置相同时，起始位置大的排前面先处理，这也符合我们先处理小区间的原则, 用个数组v来表示集合S, 遍历intervals, case 1: 当前interval 与v没有任何交集；case 2: 有一个数字的交集；case 3: 已经有两个相同的数字了
+- [0850. Rectangle Area II](Solutions/0850.Rectangle-Area-II.py) (!!H Google) <br>
+sweep line solution: O(N^2logN).
+This is two sweep line problem pieced together. - google高频题，还没完全搞懂，道行不够呀
 
 
 # [Greedy](/) <br>
+这个视频讲贪心不错：https://www.bilibili.com/video/BV1hJ411v7w4
 - [0870. Advantage Shuffle](Solutions/0870.Advantage-Shuffle.py) (M) <br>
 田忌赛马：Greedy algorithm: sort A and B first, and then assign num_a to num_b so that num_a is larger than num_b and num_a as small as possible.
 For each num_a a in sortedA, we will either beat that num_b (put a into assigned[b] map), or throw it out (put a into not_assigned list). 
@@ -1468,6 +1475,8 @@ Greedy算法：第一步可以跳到比如位置10，也就是说0-10我们都�
 We build a list reachable to store the max range it can be watered from each index.
 Then it becomes Jump Game II, where we want to find the minimum steps to jump from 0 to n.
 每跳一步就相当于开一个水龙头. 所以我们可以看到45. Jump Game II, 1024. Video Stitching和这题其实是一个题。
+- [0763. Partition Labels](Solutions/0763.Partition-Labels.py) (!!M) <br>
+Firstly, find the max position of s[0] appears, for all the chars within this max position, search the max postion they appears, so on...
 - [1306. Jump Game III](Solutions/1306.Jump-Game-III.py) (M) <br>
 BFS, if can find arr[idx]==0, then return True.
 - [0134. Gas Station](Solutions/0134.Gas-Station.py) (!!M) <br>
@@ -1476,9 +1485,27 @@ The problem has an assumption: if sum of gas is more than sum of cost, then ther
 And the question guaranteed that the solution is unique(The first one I found is the right one).
 - [0135. Candy](Solutions/0135.Candy.py) (!!H) <br>
 先给每个孩子分配一个糖果，然后从左往右扫，更新向上的child需要的candy, 接着从右往左扫，更新向下的child需要的candy. 需要证明
+- [1167. Minimum Cost to Connect Sticks](Solutions/1167.Minimum-Cost-to-Connect-Sticks.py) (M) <br>
+我们需要实时地保证选出两个数是最小的, heappop可以保证这一点，所以用heapq
+- [0406. Queue Reconstruction by Height](Solutions/0406.Queue-Reconstruction-by-Height.py) (M) <br>
+Greedy: Since short people will not disturb/affect the relative order of taller people so we can start from tallest guy(s). Then for each person [i,j], we insert it into res based on j.
+- [1029. Two City Scheduling](Solutions/1029.Two-City-Scheduling.py) (!!E) <br>
+像这种interval的题一般都需要先排个序，排序标准很重要，排序标准：去city A比去city B多用多少钱，这样一来去排在前面的就是去city A能省下最多钱的人，让前N个人都去A就能省下最多的钱
+- [0991. Broken Calculator](Solutions/0991.Broken-Calculator.py) (M) <br>
+先将y除下来，除到y < x之后再减，出的过程中遇到y为奇数就加一
+- [1007. Minimum Domino Rotations For Equal Row](Solutions/1007.Minimum-Domino-Rotations-For-Equal-Row.py) (M) <br>
+greedy: 优先让max_freq不动，而去rotate freq比较小的
+- [0659. Split Array into Consecutive Subsequences](Solutions/0659.Split-Array-into-Consecutive-Subsequences.py) (!!M Google) <br>
+这道题我们遍历nums的时候只要当前的num被前面的顺子需要，就把num连上去，顺子连得越长越好，这就是greedy所在，
+使用两个 HashMap，第一个 HashMap 用来建立某个数字和其出现次数之间的映射 freq，
+第二个用来建立某个数字被前面顺子所需要的次数之间的映射 need。
+- [1296. Divide Array in Sets of K Consecutive Numbers](Solutions/1296.Divide-Array-in-Sets-of-K-Consecutive-Numbers.py) (!!M Google) <br>
+这一题与659. Split Array into Consecutive Subsequences解法很类似，需要的是两个hashmap
+一个记录freq, 一个记录how many need, 只是我们update need的方式有一点变化，如果已经拼出了长度为k的substring,
+那就不去update need[num+1]了
 
 
-----946. Validate Stack Sequences (google)------0455-assign-cookies（1、升序排序）.py          0435-non-overlapping-intervals（按终点排序）.py                        0316-remove-duplicate-letters（栈、贪心算法）.py                         0310-minimum-height-trees（广度优先遍历）.py                  0012-integer-to-roman（贪心算法）.py-----------------455. Assign Cookies-------------406. Queue Reconstruction by Height------------Create Maximum Number----------670. Maximum Swap------------659. Split Array into Consecutive Subsequences-----------------------------------------
+-------0455-assign-cookies（1、升序排序）.py          0435-non-overlapping-intervals（按终点排序）.py                        0316-remove-duplicate-letters（栈、贪心算法）.py                         0310-minimum-height-trees（广度优先遍历）.py                  0012-integer-to-roman（贪心算法）.py-----------------455. Assign Cookies--------------Create Maximum Number----------670. Maximum Swap------------659. Split Array into Consecutive Subsequences-----------------------------------------
 
 
 
@@ -1871,6 +1898,13 @@ f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B
 
 
 ### [Other DP Problems](https://juejin.im/post/5d556b7ef265da03aa2568d5)
+- [0650. 2 Keys Keyboard](Solutions/0650.2-Keys-Keyboard.py) (!!M) <br>
+与991. Broken Calculator类似单不一样，其实是一个质因数分解的问题(integer factorization); dp[j] = min steps to get j
+- [0651. 4 Keys Keyboard](Solutions/0651.4-Keys-Keyboard.py) (!!M) <br>
+dp[j] = max number pressing j times.
+dp[j] = max(dp[i] * (j-i-1)), eg: i = j - 3; dp[j] = dp[j-3]* 2, 因为把dp[j-3] ctr+V了一次; 
+eg: i = j - 4, dp[j] = dp[j-4]* 3, 因为把dp[j-4] ctr+V了两次
+
 - [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
 - [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (M)
 - [1049. Last Stone Weight II](Solutions/1049.Last-Stone-Weight-II.py) (M)
