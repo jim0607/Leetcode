@@ -1531,9 +1531,6 @@ find the num that is closest to num and num minus it and update res.
 
 
 
-------0012-integer-to-roman（贪心算法）.py-----------------------
-
-
 
 # [Data Stream and Multiple Query]()
 - [0243. Shortest Word Distance](Solutions/0243.Shortest-Word-Distance.py) (E) <br>
@@ -1976,6 +1973,10 @@ How to do it without for-loop: recursion
 ## [Facebook](/)
 - [0008. String to Integer (atoi)](Solutions/0008.String-to-Integer-(atoi).py) (M) <br>
 we only need to handle 3 cases: 1. discards all leading whitespaces - using python str.strip(char). 2. sign of the number - use 正负1来代表符号. 3. overflow
+- [0273. Integer to English Words](Solutions/0273.Integer-to-English-Words.py) (!!H) <br>
+construct 3 lists for the english expressions for numbers less_than_20, tens, thousands.
+the main funciton handle the situation of num >= thousands.
+use a helper funciton to calcuate cases when num <= hundreds.
 
 
 
