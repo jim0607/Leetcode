@@ -1514,9 +1514,24 @@ greedy: 优先让max_freq不动，而去rotate freq比较小的
 那就不去update need[num+1]了
 - [0670. Maximum Swap](Solutions/0670.Maximum-Swap.py) (!!M) <br>
 solution 1: sort and compare - O(nlogn); solution 2: one pass from backward - O(N)
+- [1383. Maximum Performance of a Team](Solutions/1383.Maximum-Performance-of-a-Team.py) (!!H) <br>
+将workers按照efficiency降序排序，这样我们只需要从第k个worker开始，
+取他的efficiency去乘以(他之前所有workers选k个能组成的最大的speed)，
+这个因为他的efficiency一定是这k个worker里面最小的。
+可以保持一个k size的heap来存(他之前所有workers), 如果size>k就把min_speed的worker踢出去
+- [0857. Minimum Cost to Hire K Workers](Solutions/0857.Minimum-Cost-to-Hire-K-Workers.py) (!!H Google) <br>
+generally, a team cost is ∑wi = w/q * ∑qi where w/q is the maximum wage/quality ratio in that team. 我们发现与1383. Maximum Performance of a Team是类似的。
+- [0321. Create Maximum Number](Solutions/0321.Create-Maximum-Number.py) (!!H) <br>
+there're 3 steps: 1. iterate i from 0 to k; 2. find max number from nums1, nums2 by select i , k-i numbers - monostack; 3. merge the max_num1 and max_num2 into one number - two pointers. 非常牛叉的题目呀
+- [0013. Roman to Integer](Solutions/0013.Roman-to-Integer.py) (E) <br>
+use a distionary to store the roman to num pair, warm up for the following problem
+- [0012. Integer to Roman](Solutions/0012.Integer-to-Roman.py) (!!M) <br>
+use a list of tuples to store (num, roman) pair, 
+find the num that is closest to num and num minus it and update res.
 
 
-------0012-integer-to-roman（贪心算法）.py--------------------Create Maximum Number----------------
+
+------0012-integer-to-roman（贪心算法）.py-----------------------
 
 
 
@@ -1956,6 +1971,11 @@ Count Complete Tree Nodes; Longest Increasing Path in a Matrix; Evaluate Divisio
 ## [Amazon](/)
 - [0412. Fizz Buzz](Solutions/0412.Fizz-Buzz.py) (E) <br>
 How to do it without for-loop: recursion
+
+
+## [Facebook](/)
+- [0008. String to Integer (atoi)](Solutions/0008.String-to-Integer-(atoi).py) (M) <br>
+we only need to handle 3 cases: 1. discards all leading whitespaces - using python str.strip(char). 2. sign of the number - use 正负1来代表符号. 3. overflow
 
 
 
