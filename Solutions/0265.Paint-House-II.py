@@ -39,7 +39,10 @@ class Solution:
         return min(dp[-1])
         
         
-"""优化成O(N*K)，因为每次都需要求出最小值，如果我们记录最小值就可以减小计算量了"""
+"""
+优化成O(N*K)，因为每次都需要求出最小值，如果我们记录最小值就可以减小计算量了
+提前计算好的思想非常重要，后面的1289. Minimum Falling Path Sum II也会用到
+"""
 class Solution:
     def minCostII(self, costs: List[List[int]]) -> int:
         if not costs:
