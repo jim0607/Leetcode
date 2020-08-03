@@ -749,7 +749,8 @@ hq 需要 store (cost, stops, airports), 与743相比少了一个currNode in cos
 - [0882. Reachable Nodes In Subdivided Graph](Solutions/0882.Reachable-Nodes-In-Subdivided-Graph.py) (H) <br>
 hq store (how many moves left, node); # seen[i] means that we can arrive at node i and have seen[i] moves left; if movesLeft > insertNumber: heappush
 - [1102. Path With Maximum Minimum Value](Solutions/1102.Path-With-Maximum-Minimum-Value.py) (M) <br>
-Solution 1: Dijkstra's : 每次都把目前为止最小值最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走. maintain a heapq to store (__the minimum value in the path so far till the currPos__, currPos); each time, we push (min(nextVal, currMinVal), nextPos); O(MNlogMN), O(MN). Solution 2: Union-Find, step 1: sort the array by the values descendingly; step 2: union one-by-one, until (0, 0) and (m-1, n-1) is connected; solution 3: dfs + binary search
+Solution 1: Dijkstra's : 每次都把目前为止最小值最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走. maintain a heapq to store (__the minimum value in the path so far till the currPos__, currPos); each time, we push (min(nextVal, currMinVal), nextPos); O(MNlogMN), O(MN). Solution 2: Union-Find, step 1: sort the array by the values descendingly; step 2: union one-by-one, until (0, 0) and (m-1, n-1) is connected; solution 3: dfs + binary search.
+想想174. Dungeon Game那题，其实也是找maximum of minimum value in a path, 不同的是只能往右走和往下走，也就是说不能回头，所以情况更简单可以用DP O(mn)解决
 - [0778. Swim in Rising Water](Solutions/0778.Swim-in-Rising-Water.py) (!!H) <br>
 find a path with the minimum max-height in the path.
 采用Dikstra, 每次pop出来的都是min height就可了 - O(N^2* log(N^2)), where N is the lens of grid.
@@ -1352,6 +1353,9 @@ Brutal force / sliding window with fixed length: O(26N); Sliding window O(N): fi
 sliding window with fixed lens
 - [1151. Minimum Swaps to Group All 1's Together](Solutions/1151.Minimum-Swaps-to-Group-All-1s-Together.py) (M) <br>
 Find the substring with lens=k and minimum 0s in it. use a fix window to find minimum number of 0s.
+- [1423. Maximum Points You Can Obtain from Cards](Solutions/1423.Maximum-Points-You-Can-Obtain-from-Cards.py) (!!M Google) <br>
+sliding window with fix size problem, the only difference is that some part of the window is at the beginning of the list and some are at the end. Google真是滑窗控
+
 
 
 
@@ -1753,16 +1757,13 @@ then memo[(curr_ring, curr_idx)] = min(memo[(curr_ring, curr_idx)], steps + 1 + 
 - [0293. Flip Game](Solutions/0293.Flip-Game.py) (E) <br>
 - [0294. Flip Game II](Solutions/0294.Flip-Game-II.py) (!!M) <br>
 dfs+memo: O(N^2); memo[(curr_s)] = 能稳赢
+- [0312. Burst Balloons](Solutions/0312.Burst-Balloons.py) (!!H) <br>
+带memo的recursion比DP更好懂; left = self.memoSearch(nums, i, k, memo); right=self.memoSearch(nums, k, j, memo); maxCoins = max(maxCoins, left + right + nums[i] * nums[k] * nums[j]). 也可以用dp: https://qoogle.top/leetcode-312-burst-balloons/
+------------664. Strange Printer--------488. Zuma Game--------546. Remove Boxes---------691. Stickers to Spell Word--------887. Super Egg Drop----------
 
-------------664. Strange Printer----------------546. Remove Boxes---------691. Stickers to Spell Word-------1043. Partition Array for Maximum Sum--------887. Super Egg Drop----------
-
-139. word break; 312. Burst Balloons
 
 
 # [Dynamic Programming/bottom up DP](Dynamic-Programming.py)
-
---------------931. Minimum Falling Path Sum ----------174. Dungeon Game------741. Cherry Pickup----------
-
 ### [坐标型DP](/Dynamic-Programming.py)
 - [0062. Unique Paths](Solutions/0062.Unique-Paths.py) (!!M) <br>
 状态: f[i][j]=有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = f[i][j-1]+f[i-1][j]
@@ -1772,6 +1773,17 @@ dfs+memo: O(N^2); memo[(curr_s)] = 能稳赢
 dp[i][j]=the minimum path sum to (i, j); dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j])
 - [0120. Triangle](Solutions/0120.Triangle.py) (M) <br>
 dp[i][j] = min(triangle[i][j] + dp[i-1][j], triangle[i][j] + dp[i-1][j-1]), rolling array to reduce space to O(N)
+- [0931. Minimum Falling Path Sum](Solutions/0931.Minimum-Falling-Path-Sum.py) (M) <br>
+dp[i][j] = min(dp[i-1][j-k] + A[i][j], where k = -1,0,1)
+- [1289. Minimum Falling Path Sum II](Solutions/1289.Minimum-Falling-Path-Sum-II.py) (!!H) <br>
+similar with 265. Paint House II: 将上一行的fisrt_min和second_min提前计算好 - O(MN)
+- [0741. Cherry Pickup](Solutions/0741.Cherry-Pickup.py) (!!H) <br>
+Go from (0, 0) -> (n-1, n-1) -> (0, 0) can be treated as two men go from (0, 0) -> (n-1, n-1) together, dp[x1][y1][x2] to represent the largest ans we can get when first guy (marked as A) at(x1, y2) and second guy(marked as B) at (x2, x1 + y1 - x2)
+- [0174. Dungeon Game](Solutions/0174.Dungeon-Game.py) (!!H) <br>
+find the max of mininum_sum in all the paths.这题不能像1102.Path-With-Maximum-Minimum-Value那样用Dijkstra's (mnlogn)因为这题不是四个方向都能走的，也就是说选择了一个方向就不能回到原来的位置了，所以只能dp -O(mn). 假设我们能到达(m, n)房间，我们需要的最小血量是dp[m][n] = 1 if A[m][n] >= 0 else 1- A[m][n], 这是我们的base case.
+那我们就知道了我们到达(m-1, n)房间所需的最小血量是dp[m-1][n] = 到达(m, n)房间所需要的血量减去在(m-1, n)房间的损耗，
+即dp[m-1][n] =max(dp[m][n] - A[m-1][n], 1); 到达(m, n-1)房间所需的最小血量是dp[m][n-1] = max(dp[m][n] - A[m][n-1], 1).
+所以我们是从终点倒着往起点推。
 - [0221. Maximal Square](Solutions/0221.Maximal-Square.py) (M) <br>
 dp[i][j]=以(i, j)为右下角的最大正方形的边长; dp[i][j]=min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]) + 1 if matrix[i][j]=1 
 - [0403. Frog Jump](Solutions/0403.Frog-Jump.py) (M) <br>
@@ -1785,9 +1797,6 @@ There could be multiple possible steps to reach the stone, so stonesDict[stone] 
 - [0978. Longest Turbulent Subarray](Solutions/0978.Longest-Turbulent-Subarray.py) (M) <br>
 dp: keep track of the lens of current increasing subarray and lens of current decreasing subarray.
 inc = dec + 1 if A[i]>A[i-1]; dec = inc + 1 if A[i]<A[i-1]
-
------------------- 1423. Maximum Points You Can Obtain from Cards (Google onsite) ------------------
-
 - [0256. Paint House](Solutions/0256.Paint-House.py) (E) <br>
 dp[i][j] means the minimum cost to paint house i to be color j; dp[i][0] = costs[i][0] + min(dp[i-1][1], dp[i-1][2])
 - [0265. Paint House II](Solutions/0265.Paint-House-II.py) (H) <br> 
@@ -1842,13 +1851,9 @@ dp = dict, key is word, val is the longest chain lens ended with word; prevWord 
 solution Solution 2: central spread.  从中间c往两边遍历i--, j++，遍历两次：一次是i=c, j=c开始遍历， 一次是i=c, j=c+1开始遍历。
 - [0516. Longest Palindromic Subsequence](Solutions/0516.Longest-Palindromic-Subsequence.py) (!!M) <br>
 题目问subsequence, subsequence不需要连续，题目要求Return the longest length: dp[i][j]=longest palindr from i to j; dp[i][j]=dp[i+1][j-1]+2 if s[i]==s[j] else max(dp[i+1][j], dp[i][j-1]);注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)
-- [0312. Burst Balloons](Solutions/0312.Burst-Balloons.py) (!!H) <br>
-带memo的recursion比DP更好懂; left = self.memoSearch(nums, i, k, memo); right=self.memoSearch(nums, k, j, memo); maxCoins = max(maxCoins, left + right + nums[i] * nums[k] * nums[j]). 
-也可以用dp: https://qoogle.top/leetcode-312-burst-balloons/ <br>
-Lintcode 476. Stone Game <br>
-1011
-410. Split Array Largest Sum
-1444
+-----------Lintcode 476. Stone Game-------------1011-----------410. Split Array Largest Sum---------------------1444
+
+
 ###  [划分型DP](/Dynamic-Programming.py) (状态往往定义为前j个的某种特性，不包括j！！！！，这个思想很重要，相当于给前面做了一层buffer layer)
 - [0139. Word Break](Solutions/0139.Word-Break.py) (!!M) <br>
 solution 1: dp[i]=can partition until ith char?, not including i; dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in wordDict). solution 2: bfs, solution 3: dfs + memorization (top-down dp)
@@ -1861,7 +1866,9 @@ our task is to find a node in the tree, which should meet the conditions or rema
 Time complexity: 比较复杂最后是 O(n^(h/2)), where h is the height of the N-ary tree, h is 0 to 4
 - [0132. Palindrome Partitioning II](Solutions/0132.Palindrome-Partitioning-II.py) (!!H) <br>
 子数组或者子字符串且求极值的题，基本就是 DP 没差了. f[j]=the minimum number of total palindrome till the jth character (not including j); f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome. O(N^3), 划分型的dp的状态一般都not include j, 这样就有一个buffer layer可以用。Solution 2: 优化为O(N^2), 用一个isPalin[i][j]记录s[i:j]是否是palindrome, 更新isPalin[i][j]的方法与leetcode 5 相同，这样就不用每次都用双指针去判断s[i:j]是不是palindrome. 输出所有的可能的partition成palindrome的组合问题只能dfs+backtracking了- 131. Palindrome Partitioning
-
+- [1043. Partition Array for Maximum Sum](Solutions/1043.Partition-Array-for-Maximum-Sum.py) (!!M) <br>
+Suppose you are at position X of the array. What is the maximum possible sum to this point?
+so we go back K-1 steps, we choose the maximum from the following combinations: dp_sum[X - (k-1)] + max(A[X-(k-2)] ..... A[X])* (k-1)
 
 ### [博弈型DP](/Dynamic-Programming.py)
 - [0394. Coins in a Line](Solutions/0394.Coins-in-a-Line.py) (M Lintcode) <br>
@@ -1893,9 +1900,10 @@ f[i][j][s]表示有多少种方法可以在前i个数中选出j个，使得它�
 
 
 ### [位操作型DP](/Dynamic-Programming.py)
----------191. Number of 1 Bits 土拨鼠google onsite ---------
 - [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) <br>
 状态dp[i]=i的二进制中有多少个1; dp[i] = dp[i >> 1] + i % 2
+
+---------191. Number of 1 Bits 土拨鼠google onsite ---------
 
 ### [双序列型DP!!](/Dynamic-Programming.py) 
 - [1143. Longest Common Subsequence](Solutions/1143.Longest-Common-Subsequence.py) (!!M) <br>
@@ -1927,7 +1935,6 @@ f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B
 dp[j] = max number pressing j times.
 dp[j] = max(dp[i] * (j-i-1)), eg: i = j - 3; dp[j] = dp[j-3]* 2, 因为把dp[j-3] ctr+V了一次; 
 eg: i = j - 4, dp[j] = dp[j-4]* 3, 因为把dp[j-4] ctr+V了两次
-
 - [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
 - [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (M)
 - [1049. Last Stone Weight II](Solutions/1049.Last-Stone-Weight-II.py) (M)
