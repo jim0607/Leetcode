@@ -1,0 +1,42 @@
+630. Course Schedule III
+
+There are n different online courses numbered from 1 to n. Each course has some duration(course length) t and closed on dth day. A course should be taken continuously for t days and must be finished before or on the dth day. You will start at the 1st day.
+
+Given n online courses represented by pairs (t,d), your task is to find the maximal number of courses that can be taken.
+
+Example:
+
+Input: [[100, 200], [200, 1300], [1000, 1250], [2000, 3200]]
+Output: 3
+Explanation: 
+There're totally 4 courses, but you can take 3 courses at most:
+First, take the 1st course, it costs 100 days so you will finish it on the 100th day, and ready to take the next course on the 101st day.
+Second, take the 3rd course, it costs 1000 days so you will finish it on the 1100th day, and ready to take the next course on the 1101st day. 
+Third, take the 2nd course, it costs 200 days so you will finish it on the 1300th day. 
+The 4th course cannot be taken now, since you will finish it on the 3300th day, which exceeds the closed date.
+
+
+
+""" Course Schedule 三部曲，前两部都是topological sort, 这一部是heapq贪心处理intervals """
+"""
+find the most number of non-overlapping intervals.
+注意这里的Intervals不是(start_time, end_time)而是(duration, lasted possible end time).
+首先给课程排个序，按照结束时间的顺序来排序，我们维护一个当前的时间，对于每一个遍历到的课程，将该持续时间放入优先数组中,
+然后更新新的结束时间，我们判断如果当新的结束时间大于课程的结束时间，说明这门课程无法被完成，
+此时我们并不是直接选择不去上这门课，而是选择不去上用时最长的一门课，这也make sense，
+因为我们的目标是尽可能的多上课，既然非要去掉一门课，那肯定是去掉耗时最长的课，
+这样省下来的时间说不定能多上几门课呢，遍历完之后返回优先队列中元素的个数就是能完成的课程总数啦
+"""
+from heapq import heappush, heappop
+
+class Solution:
+    def scheduleCourse(self, courses: List[List[int]]) -> int:
+        courses.sort(key = lambda x: (x[1], x[0]))
+        hq = []     # hq stores the max duration of courses
+        curr_endtime = 0
+        for duration, end in courses:
+            heappush(hq, -duration)   # 以duration来维护一个最大堆，这么做可行是因为hq中的intervals是没有overlapping的
+            curr_endtime += duration
+            if curr_endtime > end:
+                curr_endtime += heappop(hq)   # 因为hq中的intervals是没有overlapping的，所以可以放心减去最长的duration来更新curr_endtime
+        return len(hq)
