@@ -183,12 +183,6 @@ heapq stores the fuel at the station. 这题的关键是不要考虑到达的那
 我们永远只需要考虑从0出发，中途能加多少油，加的油越多跑得越远. 维护一个possible_coverage变量表示能跑多远
 
 
------------------------------
-Course Schedule III------------------------------
-
-
-
-
 
 ### [Trie](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0208. Implement Trie (Prefix Tree)](Solutions/0208.Implement-Trie-(Prefix-Tree).py) (!!M) <br>
@@ -1219,6 +1213,7 @@ step 1: cut the list into two halves; step 2: reverse the 2nd half; step 3: conn
 把dummy指向head.next的地方，因为一会儿会丢失掉head.next的位置, 害怕什么node的位置会丢掉就拿一个dummy指向那个位置
 
 
+
 # [Two Pointers](/Two-pointers.py)
 ### [反向双指针](/Two-pointers.py)
 - [0977. Squares of a Sorted Array](Solutions/0977.Squares-of-a-Sorted-Array.py) (E) <br>
@@ -1284,6 +1279,7 @@ solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1
 有四个数组，不好用双指针，所以就使用hashmap，用一个hashmap 保存a + b
 - [0089. k Sum](Solutions/0089.k-Sum.py) (H Lintcode) <br>
 采用动态规划，用dp[i][j][t]表示前i个数里选j个和为t的方案数。dp[i][j][t] = 选A[i-1]: dp[i-1][j-1][t-A[i-1]] + 不选 A[i-1]: dp[i-1][j][t]; initialize: dp[i][0][0] = 1; return dp[lens][k][target]
+
 
 
 
@@ -1355,7 +1351,6 @@ sliding window with fixed lens
 Find the substring with lens=k and minimum 0s in it. use a fix window to find minimum number of 0s.
 - [1423. Maximum Points You Can Obtain from Cards](Solutions/1423.Maximum-Points-You-Can-Obtain-from-Cards.py) (!!M Google) <br>
 sliding window with fix size problem, the only difference is that some part of the window is at the beginning of the list and some are at the end. Google真是滑窗控
-
 
 
 
@@ -1461,9 +1456,12 @@ we only need to compare with the largest end time in previous intervals.
 we can maintain a hq for the end time of the previous intervals 
 - [0757. Set Intersection Size At Least Two](Solutions/0757.Set-Intersection-Size-At-Least-Two.py) (!!H) <br>
 Greedy algorithm, 按结束为止排序，当两个结束位置相同时，起始位置大的排前面先处理，这也符合我们先处理小区间的原则, 用个数组v来表示集合S, 遍历intervals, case 1: 当前interval 与v没有任何交集；case 2: 有一个数字的交集；case 3: 已经有两个相同的数字了
+- [0630. Course Schedule III](Solutions/0630.Course-Schedule-III.py) (!!H) <br>
+Course Schedule 三部曲，前两部都是topological sort, 这一部是heapq贪心处理intervals: 按照结束时间的顺序来排序, 以duration来维护一个最大堆, 如果当新的结束时间大于课程的结束时间，说明这门课程无法被完成，此时我们并不是直接选择不去上这门课，而是选择不去上用时最长的一门课
 - [0850. Rectangle Area II](Solutions/0850.Rectangle-Area-II.py) (!!H Google) <br>
 sweep line solution: O(N^2logN).
 This is two sweep line problem pieced together. - google高频题，还没完全搞懂，道行不够呀
+
 
 
 # [Greedy](/) <br>
@@ -1851,7 +1849,8 @@ dp = dict, key is word, val is the longest chain lens ended with word; prevWord 
 solution Solution 2: central spread.  从中间c往两边遍历i--, j++，遍历两次：一次是i=c, j=c开始遍历， 一次是i=c, j=c+1开始遍历。
 - [0516. Longest Palindromic Subsequence](Solutions/0516.Longest-Palindromic-Subsequence.py) (!!M) <br>
 题目问subsequence, subsequence不需要连续，题目要求Return the longest length: dp[i][j]=longest palindr from i to j; dp[i][j]=dp[i+1][j-1]+2 if s[i]==s[j] else max(dp[i+1][j], dp[i][j-1]);注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)
------------Lintcode 476. Stone Game-------------1011-----------410. Split Array Largest Sum---------------------1444
+
+-----------Lintcode 476. Stone Game-------------1011-----------410. Split Array Largest Sum---------------------1444---------------
 
 
 ###  [划分型DP](/Dynamic-Programming.py) (状态往往定义为前j个的某种特性，不包括j！！！！，这个思想很重要，相当于给前面做了一层buffer layer)
@@ -1895,8 +1894,8 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1
 f[i][j][s]表示有多少种方法可以在前i个数中选出j个，使得它们的和是s; 情况一:（A[i-1]不选入）：需要在前n-1个数中选K个数，使得它们的和是Target: f[i][j][s] += f[i-1][j][s]; 情况二（A[i-1]选入）：需要在前i-1个数中选j-1个数，使得它们的和是Target-A[i-1]: f[i][j][s] += f[i-1][j-1][s-A[i-1]]
 - [0416. Partition Equal Subset Sum](Solutions/0416.Partition-Equal-Subset-Sum.py) (M) <br>
 背包问题：将A中的物品放入容量为target的背包中，问是否存在？一个num不能取多次，所以与322. coin change 不同。所以必须用二维数组。与0092一模一样。 f[i][t]=将前i个物品放入背包中，能否拼出t (背包问题重量一定要入状态); f[i][t]=True if 不放最后一个进背包: f[i-1][t]=True or 放最后一个进背包: f[i-1][t-A[i-1]]=True
---------------------------- 473. Matchsticks to Square -------------------
--------------956. Tallest Billboard---------
+
+--------------------------- 473. Matchsticks to Square ----------------------956. Tallest Billboard---------
 
 
 ### [位操作型DP](/Dynamic-Programming.py)
