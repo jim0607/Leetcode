@@ -82,7 +82,6 @@ step 1: construct a heights list for each row; step 2: calculate the largestRect
 - [0456. 132 Pattern](Solutions/0456.132-Pattern.py) (H) <br>
 solution: 从右往左，维护一个单调递减栈，while loop是为了保证选出一个最接近num的two, 这样num作为three, 下一个进来的num就更容易小于two了！
 
-------------- 1526. Minimum Number of Increments on Subarrays to Form a Target Array ---------
 
 
 ### [Deque](/Data-Structure.py) 
