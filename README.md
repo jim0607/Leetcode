@@ -112,8 +112,11 @@ Map each character in str1 to what it needs to be in str2. If any of these mappi
 we immediately return False since the transformation is impossible.
 - [0895. Maximum Frequency Stack](Solutions/0895.Maximum-Frequency-Stack.py) (H) <br>
 O(1) solution: self.freq = collections.defaultdict(int), # key is num, val is freq of the num; self.mapping = collections.defaultdict(list), key is freq, val is a stack of num of that freq; self.max_freq = 0; we update the 3 global variables in push method and pop method.
-
-
+- [0166. Fraction to Recurring Decimal](Solutions/0166.Fraction-to-Recurring-Decimal.py) (!!M Facebook) <br>
+令人虎躯一震的好题，模拟除法的过程很有意思，Idea is to put every remainder into the hash table as a key, and the position where the remainder appears as val.
+如果remainder重复出现了，就说明找到循环的部分了，循环的部分就是从dict[remainder]到最后的部分
+- [0953. Verifying an Alien Dictionary](Solutions/0953.Verifying-an-Alien-Dictionary.py) (!!M Facebook) <br>
+hashmap存 the position of ch in the list. we traverse the words list and check adjacent word.
 
 
 ### [Heap/Heapq](/Data-Structure.py) 
@@ -660,7 +663,10 @@ Time complexity: 比较复杂最后是 O(n^(h/2)), where h is the height of the 
 简单bfs可破
 - [1242. Web Crawler Multithreaded](Solutions/1242.Web-Crawler-Multithreaded.py) (!!M) <br>
 bfs + multi-thread + MapReduce
-
+- [0773. Sliding Puzzle](Solutions/0773.Sliding-Puzzle.py) (!!H) <br>
+最短路径问题一般都用bfs: 从单源节点出发到终节点的最短路径问题。
+这题的起点是给定的board, 终点是最终想生成的board.
+所以node就是某一个board, node的neighbors就是通过一次交换可以生成的board.
 
 
 ### [BFS in Matrix](/Breadth-First-Search.py) (隐式图搜索问题!!!)
@@ -1846,6 +1852,10 @@ dp = dict, key is word, val is the longest chain lens ended with word; prevWord 
 - [0005. Longest Palindromic Substring](Solutions/0005.Longest-Palindromic-Substring.py) (!!M) <br>
 题目问substring, substring就需要是连续的，题目要求Return the longest substr: dp[i][j]=from i to j (including j), is it a palindr? if s[i]==s[j]: dp[i][j] = dp[i+1][j-1]; 注意初始化对角线和相邻的，因为计算dp[i][j]需要用到dp[i+1][j-1]，所以要先算i+1, 再算i，所以i 是倒序遍历
 solution Solution 2: central spread.  从中间c往两边遍历i--, j++，遍历两次：一次是i=c, j=c开始遍历， 一次是i=c, j=c+1开始遍历。
+- [0647. Palindromic Substrings](Solutions/0647.Palindromic-Substrings.py) (!!M) <br>
+dp[i][j] = is s[i to j including i and j] a palindrome?
+dp[i][j] = True if s[i]==s[j] and (dp[i+1][j-1] or lens <=2).
+if it is True, then number of palindromic substring += 1
 - [0516. Longest Palindromic Subsequence](Solutions/0516.Longest-Palindromic-Subsequence.py) (!!M) <br>
 题目问subsequence, subsequence不需要连续，题目要求Return the longest length: dp[i][j]=longest palindr from i to j; dp[i][j]=dp[i+1][j-1]+2 if s[i]==s[j] else max(dp[i+1][j], dp[i][j-1]);注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)
 
@@ -1985,6 +1995,10 @@ construct 3 lists for the english expressions for numbers less_than_20, tens, th
 the main funciton handle the situation of num >= thousands.
 use a helper funciton to calcuate cases when num <= hundreds.
 
+
+## [Microsoft](/)
+- [0054. Spiral Matrix](Solutions/000054.Spiral-Matrix.py) (!!M) <br>
+dfs helper function 需要传入的参数有，当前的位置，当前的row_range and col_range, 当前的方向
 
 
 # [浪费青春刷了的题](/)
