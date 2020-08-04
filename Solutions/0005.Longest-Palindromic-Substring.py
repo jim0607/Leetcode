@@ -40,7 +40,8 @@ class Solution:
 
 
 """
-If the problem is to ask what isthe longest length
+Follow up quetion: If the problem is to ask what is the longest length?
+
 then the state could be dp[i][j]=longest palindr from i to j
 if s[i] == s[j]: dp[i][j] = dp[i+1][j-1] + 2 else: max(dp[i+1][j], dp[i][j-1])
 """
@@ -57,7 +58,7 @@ class Solution:
         for j in range(1, lens):
             for i in range(j):
                 if s[i] == s[j]:
-                    dp[i][j] = dp[i + 1][j - 1] + 2
+                    dp[i][j] = dp[i + 1][j - 1] + 2     # I don't think this is correct @ 08/03/2020
                 
                 else:
                     dp[i][j] = max(dp[i + 1][j], dp[i][j - 1])
