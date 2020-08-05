@@ -93,17 +93,17 @@ class Solution:
         :rtype: The number of actual characters read (int)
         """
         idx = 0
-        while n > 0:
+        while idx < n:
+            # step 1: read file to buf4
             buf4 = [""] * 4     # Create buffer with enough space to store characters
             lens = read4(buf4)  # buf4[] is destination not source, the results from read4 will be copied to buf4[]
-            
-            if lens == 0:       # if not more char in file, return
+
+            # step 2: write buf4 into buf
+            if lens == 0:   # if not more char in file, return direcitly
                 return idx
-            
-            # else write buf4 into buf directly
-            for i in range(min(lens, n)):
-                buf[idx] = buf4[i]
-                idx += 1
-                n -= 1
+            for i in range(lens):
+                if idx < n:
+                    buf[idx] = buf4[i]
+                    idx += 1
                 
         return idx
