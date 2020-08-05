@@ -12,6 +12,7 @@ Insertion, deletion or replace of any one character are all considered as one ch
 
 
 """
+"""
 分三个区间讨论：
 1. n <= 5: return max(6 - n, missing_types), 用三个小Helper function to calculate three missing_types;
 2. 6 <= n <= 20: just need to return how many replacements are needed to avoid consecutive chars: 
