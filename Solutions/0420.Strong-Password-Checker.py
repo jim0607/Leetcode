@@ -12,14 +12,12 @@ Insertion, deletion or replace of any one character are all considered as one ch
 
 
 """
-"""
 分三个区间讨论：
 1. n <= 5: return max(6 - n, missing_types), 用三个小Helper function to calculate three missing_types;
 2. 6 <= n <= 20: just need to return how many replacements are needed to avoid consecutive chars: 
 number_of_replacements += num_of_consecutives // 3;
 3. n > 20: step 1: calculate how many replacements are neededto avoid consecutive chars; 
 step 2: calculate how many deletions can be used to save replacements - greedy.
-"""
 """
 class Solution:
     def strongPasswordChecker(self, s: str) -> int:
