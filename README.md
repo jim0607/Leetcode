@@ -184,6 +184,7 @@ solution 2: heapq - O(nlogn)
 heapq stores the fuel at the station. 这题的关键是不要考虑到达的那个station的位置，
 我们永远只需要考虑从0出发，中途能加多少油，加的油越多跑得越远. 维护一个possible_coverage变量表示能跑多远
 
+--------- 480. Sliding Window Median ------------
 
 
 ### [Trie](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
@@ -1398,6 +1399,9 @@ O(nlogn), O(1). 题目问一个人能不能参加所有的meeting, 只需要sort
 - [0391. Number of Airplanes in the Sky](Solutions/0391.Number-of-Airplanes-in-the-Sky.py) (M Lintcode) <br>
 扫描线做法：碰到interval的start，也就是起飞一架飞机，当前天上的飞机数++。碰到interval的end，也就是降落一架飞机，当前天上的飞机数--。
 Step 1: 我们分别把所有的start和所有的end放进两个数组，并排序。Step 2: 然后从第一个start开始统计，碰到start较小就加一，碰到end较小就减一。并且同时维护一个最大飞机数的max。
+- [0986. Interval List Intersections](Solutions/0986.Interval-List-Intersections.py) (!!M) <br>
+这题是找两个Interval的overlaps, 和merge interval有点像，we update res as res.append([max_start, min_end]).
+然后两个sweep line的指针，谁的end比较小，谁先往前挪一步
 - [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
 solution 1: 扫描线；minimum meeting rooms required could be understood us maximum meeting rooms in use
 Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky <br> solution 2: 先把interval进行sort: intervals.sort(key = lambda x: (x[0], x[1])), 然后以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
@@ -1463,9 +1467,10 @@ we can maintain a hq for the end time of the previous intervals
 Greedy algorithm, 按结束为止排序，当两个结束位置相同时，起始位置大的排前面先处理，这也符合我们先处理小区间的原则, 用个数组v来表示集合S, 遍历intervals, case 1: 当前interval 与v没有任何交集；case 2: 有一个数字的交集；case 3: 已经有两个相同的数字了
 - [0630. Course Schedule III](Solutions/0630.Course-Schedule-III.py) (!!H) <br>
 Course Schedule 三部曲，前两部都是topological sort, 这一部是heapq贪心处理intervals: 按照结束时间的顺序来排序, 以duration来维护一个最大堆, 如果当新的结束时间大于课程的结束时间，说明这门课程无法被完成，此时我们并不是直接选择不去上这门课，而是选择不去上用时最长的一门课
-- [0850. Rectangle Area II](Solutions/0850.Rectangle-Area-II.py) (!!H Google) <br>
-sweep line solution: O(N^2logN).
+- [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (!!M) <br>
+这种iline solution: O(N^2logN).
 This is two sweep line problem pieced together. - google高频题，还没完全搞懂，道行不够呀
+
 
 
 
@@ -1575,6 +1580,9 @@ Traversal 2: re-mark 2 to 1, -1 to 0.  Follow up: what if the board is infinite 
 Use a sorted list to record the index of seats where people sit, so that we can save tons of space if the seats is sparse;
 seat(): 1. find the biggest distance at the start, at the end and in the middle. 2. insert index of seat into the idx list. 3. return index.
 leave(p): pop out p.
+- [0609. Find Duplicate File in System](Solutions/0609.Find-Duplicate-File-in-System.py) (!!M) <br>
+build a content_to_dir dictionary where key is content in txt file, val is a list of dir holding the content eg: ["root/a/1.txt"];
+需要用到string.split(char), string.index(substring). Super important follow up questions for big data.
 
 
 
@@ -1963,7 +1971,7 @@ eg: i = j - 4, dp[j] = dp[j-4]* 3, 因为把dp[j-4] ctr+V了两次
 
 
 # [Company High Freq](/)
-## [Google](/)
+### [Google](/)
 - [BinarySearchable](Solutions/Google__BinarySearchable.py) (M) <br>
 一个数是binary searchable的必须满足的条件是：前面的数都比他小，后面的数都比他大
 - [Path with Circle Blocks](Solutions/Google__Path-with-Circle-Blocks.py) (M) <br>
@@ -1978,30 +1986,47 @@ O(N), O(N)
 问从a到b被捉概率最小的传递路线。本质上是weighted edge shortest path，因为不是DAG 所以用dijkstra
 - [0766. Toeplitz Matrix](Solutions/0766.Toeplitz-Matrix.py) (E) <br>
 遍历整个matrix, 每次都与其右下角的数进行比较. 遇到这么简单的题，follow up 就不会太简单了, 三个follow up很重要！！
+- [0068. Text Justification](Solutions/0068.Text-Justification.py) (!!H) <br>
+use curr_line = [] to record curr words in curr_line; use curr_width = 0 to record curr total number of chars in curr_line.
+Iterate the word in words, if too many words to fit in one line, we first justify that line and update res, 
+then start over the curr_line = [] and curr_width = 0 for the next line.
+Lastly, we deal with the last line seperately.
+- [0420. Strong Password Checker](Solutions/0420.Strong-Password-Checker.py) (!!H) <br>
+分三个区间讨论：
+1. n <= 5: return max(6 - n, missing_types), 用三个小Helper function to calculate three missing_types;
+2. 6 <= n <= 20: just need to return how many replacements are needed to avoid consecutive chars: 
+number_of_replacements += num_of_consecutives // 3;
+3. n > 20: step 1: calculate how many replacements are neededto avoid consecutive chars; 
+step 2: calculate how many deletions can be used to save replacements - greedy.
 
-Count Complete Tree Nodes; Longest Increasing Path in a Matrix; Evaluate Division; Cracking the Safe; Robot Room Cleaner; Most Stones Removed with Same Row or Column; Flip Equivalent Binary Trees; Word Squares; Count of Smaller Numbers After Self; Peak Index in a Mountain Array; Split Array Largest Sum; Logger Rate Limiter; Insert Delete GetRandom O(1); Design Search Autocomplete System; Reverse Integer; Candy; Isomorphic Strings; Strobogrammatic Number; Bulls and Cows; Range Sum Query 2D - Mutable; My Calendar II; Jewels and Stones; Swap Adjacent in LR String; Guess the Word; Minimum Area Rectangle
 
 
-## [Amazon](/)
+### [Amazon](/)
 - [0412. Fizz Buzz](Solutions/0412.Fizz-Buzz.py) (E) <br>
 How to do it without for-loop: recursion
+- [0819. Most Common Word](Solutions/0819.Most-Common-Word.py) (E) <br>
+String processing in pipline: step 1: pre-process: convert all letters in lower case and replace the punctuations with spaces cuz they are not valid words; step 2: count the freq of the words that are not banned
 
 
-## [Facebook](/)
+### [Facebook](/)
 - [0008. String to Integer (atoi)](Solutions/0008.String-to-Integer-(atoi).py) (M) <br>
 we only need to handle 3 cases: 1. discards all leading whitespaces - using python str.strip(char). 2. sign of the number - use 正负1来代表符号. 3. overflow
 - [0273. Integer to English Words](Solutions/0273.Integer-to-English-Words.py) (!!H) <br>
 construct 3 lists for the english expressions for numbers less_than_20, tens, thousands.
 the main funciton handle the situation of num >= thousands.
 use a helper funciton to calcuate cases when num <= hundreds.
+- [0157. Read N Characters Given Read4](Solutions/0157.Read-N-Characters-Given-Read4.py) (E) <br>
+step 1: read file to buf4; step 2: write buf4 into buf
+- [0158. Read N Characters Given Read4 II - Call multiple times](Solutions/0158.Read-N-Characters-Given-Read4-II-Call-multiple-times.py) (!!H) <br>
+Get data from read4 and store it in a queue. When read data, transfer data from queue to buf.
 
 
-## [Microsoft](/)
+### [Microsoft](/)
 - [0054. Spiral Matrix](Solutions/000054.Spiral-Matrix.py) (!!M) <br>
 dfs helper function 需要传入的参数有，当前的位置，当前的row_range and col_range, 当前的方向
 
 
-# [浪费青春刷了的题](/)
+### [Other companies](/)
 - [0769. Max Chunks To Make Sorted](Solutions/0769.Max-Chunks-To-Make-Sorted.py) (M) <br>
 Iterate the array, if the max(A[0] ~ A[i]) = i, then we can cut it at this index.,
 so that it the chunk ended with i. - just some game about number.
@@ -2009,6 +2034,16 @@ so that it the chunk ended with i. - just some game about number.
 没看懂，也没啥意思，这个Alice Wice喜欢为出题而出题，讨论区有用stack解的O(N)，比他自己给出的solution好多了
 - [0089. Gray Code](Solutions/0089.Gray-Code.py) (M) <br>
 找规律的题
+- [0829. Consecutive Numbers Sum](Solutions/0829.Consecutive-Numbers-Sum.py) (H) <br>
+假设从x开始存在连续有k个加起来等于N, then x+(x+1)+...+(x+k-1) = N, ie: kx + k(k-1)/2 = N.
+kx = N - k(k-1)/2. x = (N - k(k-1)/2) / k.  so the problem becomes: for k in range(1, N),
+is there a number k, such that (N - k(k-1)/2) / k is an integer?
+- [0811. Subdomain Visit Count](Solutions/0811.Subdomain-Visit-Count.py) (E) <br>
+It's all about string processing, 用到了 s.index(char)
+- [0006. ZigZag Conversion](Solutions/0006.ZigZag-Conversion.py) (M) <br>
+
+
+
 
 # [Pramp](/)
 - [070820-Busiest Time in The Mall](Solutions/Pramp__070820-Busiest-Time-in-The-Mall.py) (M) <br>
