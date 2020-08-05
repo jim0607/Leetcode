@@ -19,6 +19,7 @@ number_of_replacements += num_of_consecutives // 3;
 3. n > 20: step 1: calculate how many replacements are neededto avoid consecutive chars; 
 step 2: calculate how many deletions can be used to save replacements - greedy.
 """
+"""
 class Solution:
     def strongPasswordChecker(self, s: str) -> int:
         n = len(s)
