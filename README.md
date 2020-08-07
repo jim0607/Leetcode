@@ -117,6 +117,9 @@ O(1) solution: self.freq = collections.defaultdict(int), # key is num, val is fr
 如果remainder重复出现了，就说明找到循环的部分了，循环的部分就是从dict[remainder]到最后的部分
 - [0953. Verifying an Alien Dictionary](Solutions/0953.Verifying-an-Alien-Dictionary.py) (!!M Facebook) <br>
 hashmap存 the position of ch in the list. we traverse the words list and check adjacent word.
+- [0149. Max Points on a Line](Solutions/0149.Max-Points-on-a-Line.py) (H) <br>
+y = kx + b, points on a line share the same slope k and same intercept b.
+So we can use a dictionary to store the (k, b) as key and points pos as value.
 
 
 ### [Heap/Heapq](/Data-Structure.py) 
