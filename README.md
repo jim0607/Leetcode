@@ -768,7 +768,7 @@ solution 1: 带层序遍历的bfs, if grid[next_x][next_y] == BLOCK 那就contin
 思路：这个题是从源节点到目标节点的最短路径问题，所以想到用bfs, 源节点是对boxPos, 目标节点是targetPos, 从源节点出发做带层序遍历的bfs_1, return 层数即可。注意在判断nextBoxPos是否可以append到q的时候需要兼顾考虑到player能不能到nextBoxPos的相反方向去推box, 所以需要找到从currPlayerPos到oppositeNextBoxPos的可能路径，这是一个从源节点到目标节点的问题，源节点是对currPlayerPos, 目标节点是oppositeNextBoxPos, 需要做bfs_2, 如果能到就返回true. 总体思路就是上述了，需要注意的是bfs_1中由于box每移动一下boxPos会变playerPos也会变，所以要把boxPos和playerPos都入队列。另外易错点：visited里面只装boxPos. 这是不对的, 因为box从不同的方向被推到同一个地方是允许的，因此visited里面应该装入(boxPos, the pos where the boxPos comes from). <br>
 Solution 2: 无权图单源节点的最短路径问题，自然想到A-star search algorithm. use manhatan distance as Heuristic esitimation for A-star algorithm: steps + (abs(nextBoxPos[0]-targetPos[0]) + abs(nextBoxPos[1]-targetPos[1])).  put the heuristic estimation in the hq, together with steps, so the hq stores (heristic estimation of hte minimum steps needed from source to target, steps, boxPos, playerPos).  in A* algorithm, do not do level order bfs, do non-level order bfs.  
 
------------------- 818. Race Car -----------------
+-------843. Guess the Word (Google high freq)----------- 818. Race Car -----------------
 
 
 # [Depth First Search](/Depth-First-Search.py)
@@ -1919,6 +1919,10 @@ f[i][j][s]表示有多少种方法可以在前i个数中选出j个，使得它�
 
 
 ### [位操作型DP](/Dynamic-Programming.py)
+- [0191. Number of 1 Bits](Solutions/0191.Number-of-1-Bits.py) (!!E) <br>
+The way to iterate each bit in an integer is: while n > 0: n = n >> 1
+- [0190. Reverse Bits](Solutions/0190.Reverse-Bits.py) (E) <br>
+- [0371. Sum of Two Integers](Solutions/0371.Sum-of-Two-Integers.py) (M) <br>
 - [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) <br>
 状态dp[i]=i的二进制中有多少个1; dp[i] = dp[i >> 1] + i % 2
 
@@ -2044,7 +2048,8 @@ is there a number k, such that (N - k(k-1)/2) / k is an integer?
 - [0811. Subdomain Visit Count](Solutions/0811.Subdomain-Visit-Count.py) (E) <br>
 It's all about string processing, 用到了 s.index(char)
 - [0006. ZigZag Conversion](Solutions/0006.ZigZag-Conversion.py) (M) <br>
-
+- [0326. Power of Three](Solutions/0326.Power-of-Three.py) (E) <br>
+solution 1: recursion; solution 2: math
 
 
 
