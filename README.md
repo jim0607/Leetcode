@@ -465,6 +465,7 @@ Since DFS works going finished path by finished path, so values are not corrupte
 这个递归真的需要好好理解
 
 
+
 ### [BST](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0669. Trim a Binary Search Tree](Solutions/0669.Trim-a-Binary-Search-Tree.py) (E) <br>
 - [0700. Search in a Binary Search Tree](Solutions/0700.Search-in-a-Binary-Search-Tree.py) (E) <br>
@@ -1360,6 +1361,9 @@ sliding window with fixed lens
 Find the substring with lens=k and minimum 0s in it. use a fix window to find minimum number of 0s.
 - [1423. Maximum Points You Can Obtain from Cards](Solutions/1423.Maximum-Points-You-Can-Obtain-from-Cards.py) (!!M Google) <br>
 sliding window with fix size problem, the only difference is that some part of the window is at the beginning of the list and some are at the end. Google真是滑窗控
+- [0395. Longest Substring with At Least K Repeating Characters](Solutions/0395.Longest-Substring-with-At-Least-K-Repeating-Characters.py) (!!M) <br>
+注意这题不能用滑窗，use those char which counting is smaller than k as a 'wall' to divide the string into two parts and use recursion on the two parts. - O(26N)
+
 
 
 
@@ -2013,6 +2017,9 @@ step 2: calculate how many deletions can be used to save replacements - greedy.
 How to do it without for-loop: recursion
 - [0819. Most Common Word](Solutions/0819.Most-Common-Word.py) (E) <br>
 String processing in pipline: step 1: pre-process: convert all letters in lower case and replace the punctuations with spaces cuz they are not valid words; step 2: count the freq of the words that are not banned
+- [0036. Valid Sudoku](Solutions/0036.Valid-Sudoku.py) (M) <br>
+use a row_dict to record each row, a col_dict to record each col; a block_dict to record each 3x3 block.
+
 
 
 ### [Facebook](/)
@@ -2026,6 +2033,8 @@ use a helper funciton to calcuate cases when num <= hundreds.
 step 1: read file to buf4; step 2: write buf4 into buf
 - [0158. Read N Characters Given Read4 II - Call multiple times](Solutions/0158.Read-N-Characters-Given-Read4-II-Call-multiple-times.py) (!!H) <br>
 Get data from read4 and store it in a queue. When read data, transfer data from queue to buf.
+- [0073. Set Matrix Zeroes](Solutions/0073.Set-Matrix-Zeroes.py) (M) <br>
+solution 1: mark the rows and cols that need to be set to zero - O(mn), O(m+n); solution 2: use the first cell of every row and column as a flag.  This flag would determine whether a row or column has been set to zero. - O(mn), O(1)
 
 
 ### [Microsoft](/)
