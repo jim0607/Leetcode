@@ -1,5 +1,6 @@
-## 三刷：模板总结出来天天拿出来背诵！
-## 每日Review
+## 四刷：每天刷15题, 做好总结！08/15 to 09/30
+## 每天晚上睡前Review做过的题
+#### 08/15
 
 
 # [Data Structure](/Data-Structure.py)
@@ -1135,12 +1136,12 @@ It all about finding median, very similar with 462. Minimum Moves to Equal Array
 
 
 ### [Merge sort](/Sort.py) 
+- [0775. Global and Local Inversions](Solutions/0775.Global-and-Local-Inversions.py) (!!M) <br>
+solution 1: If the number of global inversions is equal to the number of local inversions,  it means that all global inversions in permutations are local inversions. It also means that we can not find A[i] > A[j] with j > i + 1, cuz that will be globa not local. In other words, max(A[i]) < A[i+2].
+Solution 2: mergesort: 这题其实是coursera Algorithms Sorting chapter的一个习题: counting inversions. When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j. So in the merging part of merge_sort, we can update cnt if left_arr[i] > right_arr[j].
 - [0493. Reverse Pairs](Solutions/0493.Reverse-Pairs.py) (!!H) <br>
-solution 1: segment tree. similar with 315. count of smaller number after itself.
-We sweep from left to right, and query range [2* num+1, max_num].
-与count number after itself相比，就只有一行代码不同. solution 2: merge sort. 其实merge sort才是这道题的正解！Count "important reverse pairs" while doing mergesort:
-When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j.
-So in addition to the while loop for do merge/conquer, we use a while loop to compare nums[i] and 2* nums[j] to update cnt. - O(nlogn)
+solution 1: segment tree. similar with 315. count of smaller number after itself. We sweep from left to right, and query range [2* num+1, max_num]. 与count number after itself相比，就只有一行代码不同. 
+solution 2: merge sort. 其实merge sort才是这道题的正解！Count "important reverse pairs" while doing mergesort: When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j. So in addition to the while loop for do merge/conquer, we use a while loop to compare nums[i] and 2* nums[j] to update cnt. - O(nlogn)
 - [0315. Count of Smaller Numbers After Self](Solutions/0315.Count-of-Smaller-Numbers-After-Self.py) (!!H) <br>
 Segment Tree solution: O(NlogN) time and O(N) space. 从右往左遍历add num into the tree one by one， at the same time update the cnt of smaller number after self. Follow up: how to solve Spare Segment Tree problem? - Merge sort. 正解是solution 2: merge sort O(nlogn)
 
@@ -2065,7 +2066,11 @@ solution 1: recursion; solution 2: math
 # [Pramp](/)
 - [070820-Busiest Time in The Mall](Solutions/Pramp__070820-Busiest-Time-in-The-Mall.py) (M) <br>
 居然没做出来呀，太菜了，真的需要练呀！！
-
+- [081420-Island Count](Solutions/Pramp__081420-Island-Count.py) (M) <br>
+两点不好的地方需要改进：
+1. should we ask yourself a question before implementing the code for dfs?
+answer should be: we want to avoid visiting the same node again and again, one way is to use a set to mark the visited nodes, the other way to modify the matrix in-place.
+2. 一定要在代码结束之后主动run test case, 首先需要run test case orally. 然后写一个print()出来打印结果像上面那样！！
 
 
 
