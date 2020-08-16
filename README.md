@@ -1252,10 +1252,6 @@ f[i][j][s]表示有多少种方法可以在前i个数中选出j个，使得它�
 
 
 ### [位操作型DP](/Dynamic-Programming.py)
-- [0191. Number of 1 Bits](Solutions/0191.Number-of-1-Bits.py) (!!E) <br>
-The way to iterate each bit in an integer is: while n > 0: n = n >> 1
-- [0190. Reverse Bits](Solutions/0190.Reverse-Bits.py) (E) <br>
-- [0371. Sum of Two Integers](Solutions/0371.Sum-of-Two-Integers.py) (M) <br>
 - [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) <br>
 状态dp[i]=i的二进制中有多少个1; dp[i] = dp[i >> 1] + i % 2
 
@@ -1535,6 +1531,9 @@ midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx
 
 # [Two Pointers](/Two-pointers.py)
 ### [反向双指针](/Two-pointers.py)
+- [EPI book](Solutions/) (E) <br>
+Question: given an array, move all the even numbers to the left while all the odd numbers to the right.
+Solution: two pointers, the same process of merge part in merge sort.
 - [0977. Squares of a Sorted Array](Solutions/0977.Squares-of-a-Sorted-Array.py) (E) <br>
 three pointers: i starts from beginning of A; j starts from the end of A; k starts from end of res 
 - [0238. Product of Array Except Self](Solutions/0238.Product-of-Array-Except-Self.py) (M) <br>
@@ -1920,6 +1919,10 @@ O(n)* O(string), n is lens of s, string is the average lens of equal string. che
 
 
 ### [Bit Manipulation](/)
+- [0191. Number of 1 Bits](Solutions/0191.Number-of-1-Bits.py) (!!E) <br>
+The way to iterate each bit in an integer is: while n > 0: n = n >> 1
+- [0190. Reverse Bits](Solutions/0190.Reverse-Bits.py) (E) <br>
+- [0371. Sum of Two Integers](Solutions/0371.Sum-of-Two-Integers.py) (M) <br>
 - [0318. Maximum Product of Word Lengths](Solutions/0318.Maximum-Product-of-Word-Lengths.py) (M) <br>
 solution 1: sort and put larger lens in front. O(NlogN + N^2* L)
 
