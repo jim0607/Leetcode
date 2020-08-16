@@ -27,3 +27,15 @@ class Solution:
             res += (n & 1)  # & operator sets each bit to 1 if both bits are 1
             n = n >> 1      # this is how you iterate each bit in an integer
         return res
+
+       
+"""
+Follow up question: Find the parity of a number. The parity of a binary word is 1 if the number of 1s in the word is odd; otherwise, it is 0.
+"""
+class Solution:
+    def find_parity(self, n: int) -> int:
+        res = 0
+        while n > 0:
+            res ^= (n & 1)  # ^ operator is very important, 相异为1, 相同为0
+            n = n >> 1      # this is how you iterate each bit in an integer
+        return res
