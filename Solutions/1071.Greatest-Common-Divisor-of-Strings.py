@@ -31,11 +31,16 @@ the GCD of x and y is the GCD of x and y mod x, i.e., GCD(156, 36) = GCD((156 mo
 GCD(12, 36 mod 12 = 0) = 12.
 """
 def GCD(x, y):
-    while y != 0:   # here we use iterations, we can also use recursion
+    while y != 0:   # iterative implementation
         x, y = y, x % y
     return x
 
+def GCD(x, y):      # recursive implementation
+    return x if y == 0 else GCD(y, x%y)
+
 print(GCD(156, 36))
+
+
 
 
 
