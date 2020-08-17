@@ -1,6 +1,6 @@
-## 四刷：每天刷15题, 做好总结！08/15 to 09/30
+## 四刷：每天刷15题, 做好总结！08/17 to 09/30
 ## 每天晚上睡前Review做过的题
-#### 08/15
+#### 08/17
 
 
 # [Data Structure](/Data-Structure.py)
@@ -1257,7 +1257,9 @@ f[i][j][s]表示有多少种方法可以在前i个数中选出j个，使得它�
 - [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) <br>
 状态dp[i]=i的二进制中有多少个1; dp[i] = dp[i >> 1] + i % 2
 
----------191. Number of 1 Bits 土拨鼠google onsite ---------
+---------191. Number of 1 Bits 土拨鼠google onsite ----
+----------1349. Maximum Students Taking Exam-----
+
 
 ### [双序列型DP!!](/Dynamic-Programming.py) 
 - [1143. Longest Common Subsequence](Solutions/1143.Longest-Common-Subsequence.py) (!!M) <br>
