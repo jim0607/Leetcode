@@ -41,7 +41,7 @@ class LFUCache:
         self._cache = collections.defaultdict(int)   # key is key, val is freq  
         
         # key is freq, val is a list of keys corresponding to the freq.  In order to maintain the list ordered, we use DLL (ordered dictionary)
-        # in the ordered dictionary, key is key, val is value corresponding to the key. We put the LFU key at the beginning of the DLL.
+        # in the ordered dictionary, key is key, val is value corresponding to the key. We put the LRU key at the beginning of the DLL.
         self._freqs = collections.defaultdict(lambda: collections.OrderedDict())    
         self._min_freq = 0      # the smallest freq in the cache 
 
@@ -63,7 +63,9 @@ class LFUCache:
             if len(self._cache) == self.capacity:       # if cache is full, remove the LFU key
                 # del the least used key from the cache, as well as it's coreesponding freq in the ordered dictonary
                 # the leased used num should have min freq
-                del self._cache[self._freqs[self._min_freq].popitem(last = False)[0]]       # ordered dictionary pop a key value pair (key, val) from the beginning of the DLL: .pop(last = False)
+                
+                remove_key = self._freqs[self._min_freq].popitem(last = False)[0]    # ordered dictionary pop a key value pair (key, val) from the beginning of the DLL: .pop(last = False)
+                del self._cache[remove_key]
                 
             # add the new key
             self._min_freq = 1
@@ -82,8 +84,9 @@ class LFUCache:
         if self._min_freq == freq and not self._freqs[freq]:        # 3. update min_freq if neccessarry
             self._min_freq = freq + 1    
             
-        self._cache[key] += 1       # 1. update freq, freq+=1
-        self._freqs[self._cache[key]][key] = value if value != None else val        # 2. update val if neccesarry
+        freq += 1
+        self._cache[key] = freq       # 1. update freq, freq+=1
+        self._freqs[freq][key] = value if value != None else val        # 2. update val if neccesarry
 
 
 """
