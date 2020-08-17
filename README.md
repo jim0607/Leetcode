@@ -25,7 +25,8 @@ hashmap存 the position of ch in the list. we traverse the words list and check 
 - [0149. Max Points on a Line](Solutions/0149.Max-Points-on-a-Line.py) (H) <br>
 y = kx + b, points on a line share the same slope k and same intercept b.
 So we can use a dictionary to store the (k, b) as key and points pos as value.
-
+- [1152. Analyze User Website Visit Pattern](Solutions/1152.Analyze-User-Website-Visit-Pattern.py) (!!M) <br>
+use a dictionary to store user_to_website
 
 
 ### [Stack and Queue](/Data-Structure.py)
@@ -62,6 +63,7 @@ We remove a ch if two conditions are meet:1. the ch can occur later on; 2. the c
 - [1081. Smallest Subsequence of Distinct Characters](Solutions/1081.Smallest-Subsequence-of-Distinct-Characters.py) (M) <br>
 与316. Remove Duplicate Letters出重复了
 
+--------- 636. Exclusive Time of Functions ---------
 
 ### [Iterator](/Data-Structure.py)
 - [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (!!M) <br>
@@ -1899,7 +1901,7 @@ O(N^4), O(N^2)
 
 ### [Rolling Hash/Rabin Karp]()
 - [0128. Hash Function](Solutions/0128.Hash-Function.py) (E Lintcode) <br>
-Rabin Karp Algorithm O(M+N
+Rabin Karp Algorithm O(M+N)
 - [0028. Implement strStr()](Solutions/0028.Implement-strStr().py) (E) <br>
 Rabin Karp Algorithm O(M+N): Rolling hash 的核心就是用一个hash function把一个长度为m的string hash成一个整数，这样就可以避免O(m)的时间复杂度去比较两个string是否相等，而是去比较两个string的hash code 只用O(1)的就可以比较了。A good application of this strStr() problem is that it can be used as an API for solving the problem of check if T2 is subtree of T1 ,both are very large trees.
 https://leetcode.com/discuss/interview-question/738978/Amazon-Onsite-or-check-if-T2-is-subtree-of-T1-both-are-very-large-trees
@@ -1917,14 +1919,30 @@ O(n)* O(string), n is lens of s, string is the average lens of equal string. che
 - [1316. Distinct Echo Substrings](Solutions/1316.Distinct-Echo-Substrings.py) (H) <br>
 先把整个string的hash_code计算出来存在一个数组里面hash_code[i] = the hash code for s[:i] 相当于prefix_hash_code这样后面计算是substring s[i:j]的hash code就是O(1) 了
 
+------------ 187. Repeated DNA Sequences ----------
 
 ### [Bit Manipulation](/)
+- [0136. Single Number](Solutions/0136.Single-Number.py) (!!E) <br>
+Bitwise XOR is the most important in bit manipulation. 要牢记xor的三条定律: If we take XOR of zero and some bit, it will return that bit: a⊕0=a; If we take XOR of two same bits, it will return 0: a⊕a=0; Commutative law for XOR: a⊕b⊕a=(a⊕a)⊕b=0⊕b=b. So we can XOR all bits together to find the unique number.
+- [0137. Single Number II](Solutions/0137.Single-Number-II.py) (M) <br>
+A general solution for dealing with numbers with n-repeating time is to deal with bit by bit, and then take the mod of n.
+- [0260. Single Number III](Solutions/0260.Single-Number-III.py) (M) <br>
+Use a bitmask to record the difference between two numbers (x and y) which were seen only once
 - [0191. Number of 1 Bits](Solutions/0191.Number-of-1-Bits.py) (!!E) <br>
 The way to iterate each bit in an integer is: while n > 0: n = n >> 1
 - [0190. Reverse Bits](Solutions/0190.Reverse-Bits.py) (E) <br>
 - [0371. Sum of Two Integers](Solutions/0371.Sum-of-Two-Integers.py) (M) <br>
+- [0201. Bitwise AND of Numbers Range](Solutions/0201.Bitwise-AND-of-Numbers-Range.py) (M) <br>
+只要写代码找到左边公共的部分即可
 - [0318. Maximum Product of Word Lengths](Solutions/0318.Maximum-Product-of-Word-Lengths.py) (M) <br>
 solution 1: sort and put larger lens in front. O(NlogN + N^2* L)
+- [0393. UTF-8 Validation](Solutions/0393.UTF-8-Validation.py) (M) <br>
+
+
+
+### [Math](/)
+- [1071. Greatest Common Divisor of Strings](Solutions/1071.Greatest-Common-Divisor-of-Strings.py) (!!E) <br>
+The central idea is that if y > x, the GCD of x and y is the GCD of x and y − x. For example, GCD(156, 36) = GCD((156 − 36) = 120, 36). By extension, this implies that the GCD of x and y is the GCD of x and y mod x, i.e., GCD(156, 36) = GCD((156 mod 36) = 12, 36) = GCD(12, 36 mod 12 = 0) = 12.
 
 
 
