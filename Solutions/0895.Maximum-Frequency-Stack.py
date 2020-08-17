@@ -40,7 +40,9 @@ The total number of FreqStack.pop calls will not exceed 10000 in a single test c
 The total number of FreqStack.push and FreqStack.pop calls will not exceed 150000 across all test cases.
 
 
-
+"""
+It should be noted that since we don't 
+"""
 class FreqStack:
 
     def __init__(self):
@@ -51,7 +53,8 @@ class FreqStack:
     def push(self, x: int) -> None:
         self.freq[x] += 1                       # update freq of x
         f = self.freq[x]
-        self.mapping[f].append(x)               # update mapping
+        # It should be noted that since we don't delete the f-1 in mapping (we did that in LC 460. LFU), cuz we want to know the position of x in f-1 lsit 
+        self.mapping[f].append(x)               # update mapping. 
         self.max_freq = max(f, self.max_freq)   # update max_freq if neccessary
 
     def pop(self) -> int:
