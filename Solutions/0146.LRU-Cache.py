@@ -57,11 +57,11 @@ class LRUCache:
 
 
 
-"""solution 2: OrderedDict
+"""
+solution 2: OrderedDict
 python中的orderedDict其实就是solution 3中类似的linkedlist实现的，相当于直接使用封装好的函数了.
-orderedDict直接就存在一个orderedDict.move_to_end(key)操作，和orderedDict.popitem(last = False)操作"""
-# @lc code=start
-
+orderedDict直接就存在一个orderedDict.move_to_end(key)操作，和orderedDict.popitem(last = False)操作
+"""
 class LRUCache:
 
     def __init__(self, capacity: int):
@@ -69,23 +69,16 @@ class LRUCache:
         self.cache = collections.OrderedDict()
 
     def get(self, key: int) -> int:
-        if key not in self.cache.keys():
+        if key not in self.cache:
             return -1
-        
-        self.cache.move_to_end(key) # save the most recent used item at the end
-        
+        self.cache.move_to_end(key)     # move the most recent used item at the end
         return self.cache[key]
 
     def put(self, key: int, value: int) -> None:
-        if key in self.cache.keys():
-            self.cache[key] = value
-            self.cache.move_to_end(key)
-            
-        else:
-            self.cache[key] = value
-            self.cache.move_to_end(key)
-            if len(self.cache) > self.capacity:
-                self.cache.popitem(last = False)
+        self.cache[key] = value
+        self.cache.move_to_end(key)
+        if len(self.cache) > self.capacity:
+            self.cache.popitem(last = False)
 
 
 
@@ -143,8 +136,8 @@ class LRUCache:
             self.insertToTail(newNode)
             if len(self.cache) > self.capacity:
                 eldestNode = self.dummyHead.next
-                self.removeNode(eldestNode)
-                del self.cache[eldestNode.key]
+                self.removeNode(eldestNode)         # remove the node in front cuz it's LRU
+                del self.cache[eldestNode.key]      # don't forget to delete the key
                 
                 
 /*
