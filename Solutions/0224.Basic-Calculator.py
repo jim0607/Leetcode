@@ -34,9 +34,9 @@ class Solution:
         i = 0
         while i < len(s):
             if s[i].isdigit():
-                num = int(s[i])
+                num = ord(s[i]) - ord("0")
                 while i + 1 < len(s) and s[i+1].isdigit():
-                    num = num * 10 + int(s[i+1])
+                    num = num * 10 + ord(s[i+1]) - ord("0")
                     i += 1
                 res += num * sign
 
