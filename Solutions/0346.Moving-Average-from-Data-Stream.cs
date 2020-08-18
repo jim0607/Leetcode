@@ -33,8 +33,26 @@ public class MovingAverage {
     }
 }
 
-/**
- * Your MovingAverage object will be instantiated and called as such:
- * MovingAverage obj = new MovingAverage(size);
- * double param_1 = obj.Next(val);
- */
+
+
+class MovingAverage:
+
+    def __init__(self, size: int):
+        """
+        Initialize your data structure here.
+        """
+        self.q = collections.deque()
+        self.sum = 0
+        self.size = size
+
+    def next(self, val: int) -> float:
+        self.q.append(val)
+        self.sum += val
+        if len(self.q) > self.size:
+            self.sum -= self.q.popleft()
+        return self.sum / len(self.q)
+
+
+# Your MovingAverage object will be instantiated and called as such:
+# obj = MovingAverage(size)
+# param_1 = obj.next(val)
