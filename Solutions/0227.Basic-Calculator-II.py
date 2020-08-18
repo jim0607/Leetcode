@@ -21,8 +21,95 @@ Note:
 You may assume that the given expression is always valid.
 Do not use the eval built-in library function.
 
+
 """
-不用stack, 用四根指针prevNum, prevSign, currNum, currSign
+用一个opt_st存所有的operator, 一个num_st存所有的num.
+1. 如果ch.isdigit()就while loop得到num, 紧接着判断这个num前面的operator是不是"*/", 如果是就不需要等，可以马上计算。
+2. 如果not ch.isdigit()那ch就是operator, 就把operator放进opt_st里。
+这样处理之后到最后opt_st里面装的全是"+-", 我们要左往右计算最后的res.
+"""
+class Solution:
+    def calculate(self, s: str) -> int:
+        opt_st = []
+        num_st = []
+        i = 0
+        while i < len(s):
+            if s[i].isdigit():
+                num = ord(s[i]) - ord("0")
+                while i + 1 < len(s) and s[i + 1].isdigit():
+                    num = 10 * num + ord(s[i + 1]) - ord("0")
+                    i += 1
+                
+                # 判断这个num前面的operator是不是"*/", 如果是就不需要等，可以马上计算
+                if len(opt_st) > 0 and opt_st[-1] == "*":
+                    opt_st.pop()
+                    num_st.append(num_st.pop() * num)   # 计算完了之后要append到num_st中
+                elif len(opt_st) > 0 and opt_st[-1] == "/":
+                    opt_st.pop()
+                    num_st.append(int(num_st.pop() / num))
+                    
+                else:       # 需要将num存入num_st中
+                    num_st.append(num)
+                    
+            # 如果not ch.isdigit()就把operator放进opt_st里
+            elif s[i] in ["+", "-", "*", "/"]:
+                opt_st.append(s[i])
+                
+            i += 1
+
+        # 到最后opt_st里面装的全是"+-", 我们要左往右计算最后的res
+        res = num_st[0]
+        for i in range(len(opt_st)):
+            if opt_st[i] == "+":
+                res += num_st[i+1]
+            else:
+                res -= num_st[i+1]
+                
+        return res
+
+
+"""
+solution 2: 上述方法的变种，我们可以不用opt_st, 只用一个num_st存所有的num.
+1. 如果ch.isdigit()就while loop得到num, 紧接着判断这个num前面的operator, 并进行马上计算。
+2. 如果not ch.isdigit()那ch就是operator, 就把operator放进opt_st里。
+这样处理之后到最后opt_st里面装的全是"+", 我们要左往右计算最后的res.
+"""
+class Solution:
+    def calculate(self, s: str) -> int:
+        prev_sign = "+"
+        num_st = []
+        i = 0
+        while i < len(s):
+            if s[i].isdigit():
+                num = ord(s[i]) - ord("0")
+                while i + 1 < len(s) and s[i + 1].isdigit():
+                    num = 10 * num + ord(s[i + 1]) - ord("0")
+                    i += 1
+                
+                # 紧接着判断这个num前面的operator, 并进行马上计算
+                if prev_sign == "*":
+                    num_st.append(num_st.pop() * num)   # 计算完了之后要append到num_st中
+                elif prev_sign == "/":
+                    num_st.append(int(num_st.pop() / num))
+                elif prev_sign == "+":
+                    num_st.append(num)  
+                elif prev_sign == "-":
+                    num_st.append(-num)
+                    
+            # 如果not ch.isdigit()就把operator放进opt_st里
+            elif s[i] in ["+", "-", "*", "/"]:
+                prev_sign = s[i]
+                
+            i += 1
+
+        # 到最后opt_st里面装的全是"+", 我们要左往右计算最后的res
+        return sum(num_st)
+    
+    
+    
+
+"""
+solution 3: 不用stack, 用三根指针prevNum, prevSign, currNum
 """
 class Solution:
     def calculate(self, s: str) -> int:
@@ -36,23 +123,22 @@ class Solution:
                 while i+1 < len(s) and s[i+1].isdigit():
                     currNum = currNum * 10 + ord(s[i+1]) - ord("0")
                     i += 1
-                print(i, currNum)
+                
                 if prevSign == "+":
                     res += prevNum
-                    print(i, prevNum, res)
                     prevNum = currNum
                 elif prevSign == "-":
                     res += prevNum
                     prevNum = -currNum
-                elif prevSign == "*":   # not update res, combine preVal & curVal and keep loop
+                elif prevSign == "*":       # do not update res, combine preVal & curVal and keep loop
                     prevNum *= currNum
-                    print(prevNum)
                 elif prevSign == "/":
                     prevNum = int(prevNum / currNum) 
-            
-            i += 1
-            if i < len(s) and s[i] in ["+", "-", "*", "/"]:
+                    
+            elif s[i] in ["+", "-", "*", "/"]:
                 prevSign = s[i]
+                     
+            i += 1
                 
         return res + prevNum
     
