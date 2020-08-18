@@ -19,7 +19,6 @@ Output: [null,1,2,3,3]
 class RecentCounter:
 
     def __init__(self):
-        self.cnt = 0
         self.q = collections.deque()
 
     def ping(self, t: int) -> int:
