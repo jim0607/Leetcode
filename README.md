@@ -39,7 +39,7 @@ Solutino 1: just use one list. Since we have to implement popMax method, we have
 - [0346. Moving Average from Data Stream](Solutions/0346.Moving-Average-from-Data-Stream.cs) (E) <br>
 In C#, Queue class is by default a deque, with two methods: 1. enqueue, meaning push to the back of the queue; 2. dequeue, meaning pop from the front of the queue. They are all O(1).
 - [0933. Number of Recent Calls](Solutions/0933.Number-of-Recent-Calls.py) (E) <br>
-In C#, Count is a method that gets the number of elements contained in the Queue.
+use a queue so that we can remove the calls that happens long time ago.
 - [0946. Validate Stack Sequences](Solutions/0946.Validate-Stack-Sequences.py) (!!M Google) <br>
 使用一个栈st来模拟push和pop的过程，用一个指针在popped list里面跑，如果popped[i]==st[-1]那就一直pop, 最后判断st能不能pop为空
 - [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
