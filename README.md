@@ -8,14 +8,11 @@
 - [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!!M youtubed) <br>
 use a double linked list and a dictionary; Double linkedlist: newest node append to tail, eldest node remove from head, so that the operation is O(1); Hashmap: key is key, value is the corresponding double linkedlist node
 - [0460. LFU Cache](Solutions/0460.LFU-Cache.py) (!!!H) <br>
-Use a dictionary to store (key, freq) pair.
-Use another dicitonary to store (freq, list of keys) pair, where list of keys could be OrderedDict like LRU to enable O(1) operations.
-其实是在LRU的基础上加了一个frequency的要求。
-Follow up 变形题snapchat：在一个data stream 中find top K most frequent number用LFU来解，也可以用heapq O(Nk).
+其实是在LRU的基础上加了一个frequency的要求。Use a dictionary to store (key, freq) pair. Use another dicitonary to store (freq, list of keys) pair, where list of keys could be OrderedDict like LRU to enable O(1) operations. Use a self.min_freq to store the min_freq. Follow up 变形题snapchat：在一个data stream 中find top K most frequent number用LFU来解，也可以用heapq O(Nlogk) or quick select O(N).
 - [1153. String Transforms Into Another String](Solutions/1153.String-Transforms-Into-Another-String.py) (!!H Google) <br>
 Map each character in str1 to what it needs to be in str2. If any of these mappings collide (e.g. str1 = "aa", str2 = "bc", "a" needs to become both "b" and "c"),
 we immediately return False since the transformation is impossible.
-- [0895. Maximum Frequency Stack](Solutions/0895.Maximum-Frequency-Stack.py) (H) <br>
+- [0895. Maximum Frequency Stack](Solutions/0895.Maximum-Frequency-Stack.py) (!!H) <br>
 O(1) solution: self.freq = collections.defaultdict(int), # key is num, val is freq of the num; self.mapping = collections.defaultdict(list), key is freq, val is a stack of num of that freq; self.max_freq = 0; we update the 3 global variables in push method and pop method.
 - [0166. Fraction to Recurring Decimal](Solutions/0166.Fraction-to-Recurring-Decimal.py) (!!M Facebook) <br>
 令人虎躯一震的好题，模拟除法的过程很有意思，Idea is to put every remainder into the hash table as a key, and the position where the remainder appears as val.
@@ -26,7 +23,7 @@ hashmap存 the position of ch in the list. we traverse the words list and check 
 y = kx + b, points on a line share the same slope k and same intercept b.
 So we can use a dictionary to store the (k, b) as key and points pos as value.
 - [1152. Analyze User Website Visit Pattern](Solutions/1152.Analyze-User-Website-Visit-Pattern.py) (!!M) <br>
-use a dictionary to store user_to_website
+use a dictionary to store user_to_website, and then for all the possible 3-sequences, we use a counter to record how many times they appeared. Choose the max_cnt one and return.
 
 
 ### [Stack and Queue](/Data-Structure.py)
