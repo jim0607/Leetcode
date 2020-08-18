@@ -48,7 +48,7 @@ class Solution:
                     continue
                 if x1 == x2:
                     continue
-                k = (y2 - y1) / (x2 - x1)
+                k = (y2 - y1) / (x2 - x1)       # 这里做除法可能会导致99999998/99999999 = 99999997/999999999, 所以导致错误，方法是转换成乘法
                 b = (y1 * x2 - y2 * x1) / (x2 - x1)
                 dic[(k, b)].add((x1, y1, i))
                 dic[(k, b)].add((x2, y2, j))
