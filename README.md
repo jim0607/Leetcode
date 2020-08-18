@@ -4,7 +4,7 @@
 
 
 # [Data Structure](/Data-Structure.py)
-### [Hashmap/Dictionary](/Data-Structure.py) 
+## [Hashmap/Dictionary](/Data-Structure.py) 
 - [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!!M youtubed) <br>
 use a double linked list and a dictionary; Double linkedlist: newest node append to tail, eldest node remove from head, so that the operation is O(1); Hashmap: key is key, value is the corresponding double linkedlist node
 - [0460. LFU Cache](Solutions/0460.LFU-Cache.py) (!!!H) <br>
@@ -26,7 +26,7 @@ So we can use a dictionary to store the (k, b) as key and points pos as value.
 use a dictionary to store user_to_website, and then for all the possible 3-sequences, we use a counter to record how many times they appeared. Choose the max_cnt one and return.
 
 
-### [Stack and Queue](/Data-Structure.py)
+## [Stack and Queue](/Data-Structure.py)
 - [0232. Implement Queue using Stacks](Solutions/0232.Implement-Queue-using-Stacks.py) (E) <br>
 use two stack, 要学会写raise IndexError("queue is empty") 的语句
 - [0225. Implement Stack using Queues](Solutions/0225.Implement-Stack-using-Queues.py) (E) <br>
@@ -42,17 +42,50 @@ In C#, Queue class is by default a deque, with two methods: 1. enqueue, meaning 
 use a queue so that we can remove the calls that happens long time ago.
 - [0946. Validate Stack Sequences](Solutions/0946.Validate-Stack-Sequences.py) (!!M Google) <br>
 使用一个栈st来模拟push和pop的过程，用一个指针在popped list里面跑，如果popped[i]==st[-1]那就一直pop, 最后判断st能不能pop为空
+
+
+#### [Parentheses](/)
 - [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
 定义一个numStack, 一个strStack 存nums和parenthesis. if it's a digit, should use a while loop to add the num in case there are multiple digits; if it's a ch, then put it into strStack; if it's a [, then put the num in numStack and re-initialize the tempNum and tempStr for calculation inside the []; if it's a ], then pop the resStack and signStack and update res.
 - [0224. Basic Calculator](Solutions/0224.Basic-Calculator.py) (!!H) <br>
-if it's a digit, should use a while loop to add the num in case there are multiple digits, eg: 322 - 16; if it's a sign, then convert to 1 or -1; if it's a (, then append the previous res and sign into the resStack and signStack, and initialize the sign and num for calculation inside the (); if it's a ), then pop the resStack and signStack and update res.
-- [0227. Basic Calculator II](Solutions/0227.Basic-Calculator-II.py) (M) <br>
-不用stack, 用四根指针prevNum, prevSign, currNum, currSign
-
-----------772. Basic Calculator III-----------
+if it's a digit, should use a while loop to add the num in case there are multiple digits, eg: 322 - 16; if it's a sign, then use 1 or -1 to represent it; if it's a (, then append the previous res and sign into the numStack and signStack, and initialize the sign and num for calculation inside the (); if it's a ), then pop the numStack and signStack and update res.
+- [0227. Basic Calculator II](Solutions/0227.Basic-Calculator-II.py) (!!M) <br>
+用一个opt_st存所有的operator, 一个num_st存所有的num. 1. 如果ch.isdigit()就while loop得到num, 紧接着判断这个num前面的operator是不是"* /", 如果是就不需要等，可以马上计算。 2. 如果not ch.isdigit()那ch就是operator, 就把operator放进opt_st里。
+这样处理之后到最后opt_st里面装的全是"+-", 我们要左往右计算最后的res.
+- [0772. Basic Calculator III](Solutions/0772.Basic-Calculator-III.py) (!!H) <br>
+这道题是基本计算器系列的第三道，前两道分别为 Basic Calculator 和 Basic Calculator II，
+区别是，第一道只有加减法跟括号，第二道只有加减乘除法，而这第三道既有加减乘除法又有括号运算。
+但是好就好在我们可以将括号里的内容当作一个整体调用递归函数来处理。而其他部分，就跟第二道一模一样了。
 
 - [0150. Evaluate Reverse Polish Notation](Solutions/0150.Evaluate-Reverse-Polish-Notation.py) (M) <br>
 stack存num就可以了
+- [0020. Valid Parentheses](Solutions/0020.Valid-Parentheses.py) (!!E) <br>
+不能用简单的用三个counter, 会过不了这种情况: "([)]".
+这题的题眼是a sub-expression of a valid expression should also be a valid expression. 所以用stack.
+- [0022. Generate Parentheses](Solutions/0022.Generate-Parentheses.py) (!!M)  <br>
+Very similar with permutatino problem. if leftCnt == n and rightCnt == n: self.res.append(curr) return; if leftCnt < rightCnt: return  # 这个判断尤为关键！
+- [0301. Remove Invalid Parentheses](Solutions/0301.Remove-Invalid-Parentheses.py) (H)  <br>
+solution: dfs 解法跟22. Generate parentheses是一样的，给你这么多括号，去生成所有的valid parentheses, 然后取其中最长的valid parentheses就可以了；
+只能暴力generate出所有的valid parenthsis，每个括号都有可能加或不加进去，所以是O(2^N).
+- [0678. Valid Parenthesis String](Solutions/0678.Valid-Parenthesis-String.py) (H)  <br>
+Greedy: the whole idea is to check if "(" could be paired. Maintain two variables: cmin and cmax.
+cmin is the minimum number of "(" that MUST be paired later.
+cmax is the maximum number of "(" that COULD possibly be paired later.
+After interate the while s, if cmin == 0 then return True.
+- [0032. Longest Valid Parentheses](Solutions/0032.Longest-Valid-Parentheses.py) (H)  <br>
+Solution 1: stack; solution 2: dp; solution 3: greedy: O(N) O(1): 正向扫一遍，反向扫一遍, 真TM niubi呀
+- [0921. Minimum Add to Make Parentheses Valid](Solutions/0921.Minimum-Add-to-Make-Parentheses-Valid.py) (H)  <br>
+借鉴32. Longest Valid Parentheses的做法：从左往右扫描，记录left和right，
+如果right大于left了,就表明前面需要添加right-left个左括号
+- [1249. Minimum Remove to Make Valid Parentheses](Solutions/1249. Minimum Remove to Make Valid Parentheses) (M)  <br>
+借鉴32. Longest Valid Parentheses的做法：first sweep left to right, and store the ")" that should be deleted, eg: "())", the last ")" should be deleted;
+then sweep right to left, and store "(" that should be deleted, eg: eg: "(()", the first "(" should be deleted; 
+lastly delete the prarentheses that should be deleted.
+- [0856. Score of Parentheses](Solutions/0856.Score-of-Parentheses.py) (M)  <br>
+stack is always good for parentheses
+
+-----1096. Brace Expansion II-----
+
 - [0071. Simplify Path](Solutions/0071.Simplify-Path.py) (!!M) <br>
 stack保存string, 处理stack的问题往往需要提前split the path by ("/")
 - [0388. Longest Absolute File Path](Solutions/0388.Longest-Absolute-File-Path.py) (!!M) <br>
@@ -62,10 +95,11 @@ we use a stack to store the solution we have built as we iterate over the string
 We remove a ch if two conditions are meet:1. the ch can occur later on; 2. the ch is greater than the curr ch;
 - [1081. Smallest Subsequence of Distinct Characters](Solutions/1081.Smallest-Subsequence-of-Distinct-Characters.py) (M) <br>
 与316. Remove Duplicate Letters出重复了
-
 --------- 636. Exclusive Time of Functions ---------
 
-### [Iterator](/Data-Structure.py)
+
+
+## [Iterator](/Data-Structure.py)
 - [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (!!M) <br>
 注意这类问题的主程序一般都写在hasNext里面！if topItem.isInteger(): return True; else: if it is a nestedList, 就展开: self.stack = self.stack[:-1] + topItem.getList()[::-1]
 - [0251. Flatten 2D Vector](Solutions/0251.Flatten-2D-Vector.py) (M) <br>
@@ -78,7 +112,7 @@ saving peeked value in advance
 用stack实现binary search tree的in order traversal的方法类似, 需要额外定义一个 def getLeftMost(self, root)
 
 
-### [Monotonic stack](/Data-Structure.py) （用于向左/向右寻找第一个比自己大/小的数）
+## [Monotonic stack](/Data-Structure.py) （用于向左/向右寻找第一个比自己大/小的数）
 - [0654. Maximum Binary Tree](Solutions/0654.Maximum-Binary-Tree.py) (M) <br>
 solution 1: simple recursionsolution 2: monostack 通过观察发现规律，对于每个node的父亲节点 = min(左边第一个比它大的，右边第一个比它大的), 维护一个降序数组，可以实现对这个min的快速查找, # O(N), O(N)
 - [0496. Next Greater Element I](Solutions/0496.Next-Greater-ElementI.py) (!!M) <br>
@@ -111,7 +145,7 @@ solution: 从右往左，维护一个单调递减栈，while loop是为了保证
 
 
 
-### [Deque](/Data-Structure.py) 
+## [Deque](/Data-Structure.py) 
 - [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (!!H) <br>
 heapq的方法是O(NK); deque O(N): Iterate over the array. At each step: I. Clean the deque: 1. Keep only the indexes of elements from the current sliding window; 2. Remove indexes of all elements smaller than the current one, since they will not be the maximum ones. eg: [1,2,7,3,5,4], k = 3, because of 7, 1 and 2 will never be in res; II. Append the current element to the deque. Append deque[0] to the output.
 - [0862. Shortest Subarray with Sum at Least K](Solutions/0862.Shorteast-Subarray-with-Sum-at-Least-K.py) (!!H) <br>
@@ -126,7 +160,7 @@ q 记录区间[i-k, i]内被反转了的idx, 遍历过程中把里i很远的idx�
 
 
 
-### [Heap/Heapq](/Data-Structure.py) 
+## [Heap/Heapq](/Data-Structure.py) 
 - [Heapq implementation](Solutions/Implement_Heapq.py) (!!M) <br>
 - [0703. Kth Largest Element in a Stream](Solutions/0703.Kth-Largest-Element-in-a-Stream.py) (E) <br>
 heap solution: maintain a hq with size k, the kth largest is always hq[0] - O(klogk)
@@ -946,7 +980,7 @@ Solution 3: 不需要打印所有的路径，所以可以用普通的二叉树�
 - [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (H) <br> 
 dfs + backtracking, time complexity is (9!)^9, which is veyr high.
 
-
+----------1087. Brace Expansion----------
 
 
 
@@ -1826,33 +1860,6 @@ find the num that is closest to num and num minus it and update res.
 
 
 # [系列题](/)
-### [Parentheses](/)
-- [0020. Valid Parentheses](Solutions/0020.Valid-Parentheses.py) (!!E) <br>
-不能用简单的用三个counter, 会过不了这种情况: "([)]".
-这题的题眼是a sub-expression of a valid expression should also be a valid expression. 所以用stack.
-- [0022. Generate Parentheses](Solutions/0022.Generate-Parentheses.py) (!!M)  <br>
-Very similar with permutatino problem. if leftCnt == n and rightCnt == n: self.res.append(curr) return; if leftCnt < rightCnt: return  # 这个判断尤为关键！
-- [0301. Remove Invalid Parentheses](Solutions/0301.Remove-Invalid-Parentheses.py) (H)  <br>
-solution: dfs 解法跟22. Generate parentheses是一样的，给你这么多括号，去生成所有的valid parentheses, 然后取其中最长的valid parentheses就可以了；
-只能暴力generate出所有的valid parenthsis，每个括号都有可能加或不加进去，所以是O(2^N).
-- [0678. Valid Parenthesis String](Solutions/0678.Valid-Parenthesis-String.py) (H)  <br>
-Greedy: the whole idea is to check if "(" could be paired. Maintain two variables: cmin and cmax.
-cmin is the minimum number of "(" that MUST be paired later.
-cmax is the maximum number of "(" that COULD possibly be paired later.
-After interate the while s, if cmin == 0 then return True.
-- [0032. Longest Valid Parentheses](Solutions/0032.Longest-Valid-Parentheses.py) (H)  <br>
-Solution 1: stack; solution 2: dp; solution 3: greedy: O(N) O(1): 正向扫一遍，反向扫一遍, 真TM niubi呀
-- [0921. Minimum Add to Make Parentheses Valid](Solutions/0921.Minimum-Add-to-Make-Parentheses-Valid.py) (H)  <br>
-借鉴32. Longest Valid Parentheses的做法：从左往右扫描，记录left和right，
-如果right大于left了,就表明前面需要添加right-left个左括号
-- [1249. Minimum Remove to Make Valid Parentheses](Solutions/1249. Minimum Remove to Make Valid Parentheses) (M)  <br>
-借鉴32. Longest Valid Parentheses的做法：first sweep left to right, and store the ")" that should be deleted, eg: "())", the last ")" should be deleted;
-then sweep right to left, and store "(" that should be deleted, eg: eg: "(()", the first "(" should be deleted; 
-lastly delete the prarentheses that should be deleted.
-- [0856. Score of Parentheses](Solutions/0856.Score-of-Parentheses.py) (M)  <br>
-stack is always good for parentheses
-
-
 ### [Rectangle几何题](/)
 - [0836. Rectangle Overlap](Solutions/0836.Rectangle-Overlap.py) (E) <br>
 比较点的坐标即可
