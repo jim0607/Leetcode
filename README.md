@@ -48,6 +48,9 @@ use a queue so that we can remove the calls that happens long time ago.
 if it's a digit, should use a while loop to add the num in case there are multiple digits, eg: 322 - 16; if it's a sign, then convert to 1 or -1; if it's a (, then append the previous res and sign into the resStack and signStack, and initialize the sign and num for calculation inside the (); if it's a ), then pop the resStack and signStack and update res.
 - [0227. Basic Calculator II](Solutions/0227.Basic-Calculator-II.py) (M) <br>
 不用stack, 用四根指针prevNum, prevSign, currNum, currSign
+
+----------772. Basic Calculator III-----------
+
 - [0150. Evaluate Reverse Polish Notation](Solutions/0150.Evaluate-Reverse-Polish-Notation.py) (M) <br>
 stack存num就可以了
 - [0071. Simplify Path](Solutions/0071.Simplify-Path.py) (!!M) <br>
