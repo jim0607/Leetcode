@@ -34,34 +34,41 @@ The 3-sequence ("cart", "maps", "home") was visited at least once by 1 user.
 
 class Solution:
     def mostVisitedPattern(self, username: List[str], timestamp: List[int], website: List[str]) -> List[str]:
-        packed_tuple = zip(timestamp, username, website)
-        packed_tuple = sorted(packed_tuple)
+        # step 1: sort the user and websites based on timestamp
+        data = zip(timestamp, username, website)
+        data = sorted(data)
         
+        # step 2: map username and the websites they visited
         user_to_web = collections.defaultdict(list)
-        for time, user, web in packed_tuple:
+        for time, user, web in data:
             user_to_web[user].append(web)
             
+        # step 3: find all the possible 3-sequence and record their appear times
         counter = collections.defaultdict(int)
         for webs in user_to_web.values():
-            self.seqs = set()
-            self._find_sequences(webs, -1, [])
-            for seq in self.seqs:
+            seqs = set()    # 一个user不能拥有重复的seq, 所以这里必须用一个set
+            self._find_seqs(webs, -1, [], seqs)
+            for seq in seqs:
                 counter[seq] += 1
-        
-        res = []
+            
+        # step 4: get the 3-sequence with the max_cnt
         max_cnt = max(cnt for cnt in counter.values())
+        res = []
         for seq, cnt in counter.items():
             if cnt == max_cnt:
                 res.append(seq)
+        
+        # step 5: sortlexicographically smallest such 3-sequence
         res.sort(key = lambda x: (len(x), x))
         return res[0]
     
-    def _find_sequences(self, webs, curr_idx, curr_seq):
-        if len(curr_seq) == 3:
-            self.seqs.add(tuple(curr_seq.copy()))
-            return
-
-        for idx in range(curr_idx + 1, len(webs)):
-            curr_seq.append(webs[idx])
-            self._find_sequences(webs, idx, curr_seq)
-            curr_seq.pop()
+    
+    def _find_seqs(self, webs, curr_idx, curr, seqs):
+        if len(curr) == 3:
+            seqs.add(tuple(curr.copy()))
+            return seqs
+        
+        for next_idx in range(curr_idx + 1, len(webs)):
+            curr.append(webs[next_idx])
+            self._find_seqs(webs, next_idx, curr, seqs)
+            curr.pop()
