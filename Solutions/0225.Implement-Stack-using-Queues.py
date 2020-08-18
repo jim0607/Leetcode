@@ -47,52 +47,51 @@
 # 
 #
 
-# @lc code=start
+"""
+use q1 to represent stack, use q2 to helpe pop from right
+"""
 class MyStack:
 
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        self.qA = collections.deque()
-        self.qB = collections.deque()
+        self.q1 = collections.deque()
+        self.q2 = collections.deque()        
 
     def push(self, x: int) -> None:
         """
         Push element x onto stack.
         """
-        # STEP 1: move all items from A to B
-        while self.qA:
-            self.qB.append(self.qA.popleft())
-        # STEP 2: append x
-        self.qA.append(x)
-        # STEP 3: move all items from B back to A
-        while self.qB:
-            self.qA.append(self.qB.popleft())        
+        # first move all elements from q1 to q2, then append x to q1, then move back
+        while self.q1:
+            self.q2.append(self.q1.popleft())
+        self.q1.append(x)
+        while self.q2:
+            self.q1.append(self.q2.popleft())
 
     def pop(self) -> int:
         """
         Removes the element on top of the stack and returns that element.
         """
-        if self.qA:
-            return self.qA.popleft()
-        else:
-            raise IndexError("stack is empty")
+        if len(self.q1) == 0:
+            raise IndexError("The stack is empty")
+        return self.q1.popleft()
 
     def top(self) -> int:
         """
         Get the top element.
         """
-        if self.qA:
-            return self.qA[0]
-        else:
-            raise IndexError("stack is empty")
+        if len(self.q1) == 0:
+            raise IndexError("The stack is empty")
+        return self.q1[0]
 
     def empty(self) -> bool:
         """
         Returns whether the stack is empty.
         """
-        return not self.qA
+        return len(self.q1) == 0
+
 
 # Your MyStack object will be instantiated and called as such:
 # obj = MyStack()
@@ -100,5 +99,3 @@ class MyStack:
 # param_2 = obj.pop()
 # param_3 = obj.top()
 # param_4 = obj.empty()
-# @lc code=end
-
