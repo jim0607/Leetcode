@@ -18,6 +18,8 @@ we use a stack to store the solution we have built as we iterate over the string
 We delete a ch if two conditions are meet:
 1. the ch can occur later on
 2. the ch is greater than the curr ch;
+Need to use a dictionary to pre-record the last pos a ch appears.  
+Also need a included set to mark the chars that are already in the st.
 """
 class Solution:
     def removeDuplicateLetters(self, s: str) -> str:
