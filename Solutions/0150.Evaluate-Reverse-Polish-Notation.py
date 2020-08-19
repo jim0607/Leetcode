@@ -38,21 +38,16 @@ class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
         num_st = []
         for ch in tokens:
-            if ch not in "+-*/":
+            if ch == "+":
+                num_st.append(num_st.pop() + num_st.pop())
+            elif ch == "-":
+                num_st.append(-num_st.pop() + num_st.pop())
+            elif ch == "*":
+                num_st.append(num_st.pop() * num_st.pop())
+            elif ch == "/":                         
+                num_st.append(int(1 / num_st.pop() * num_st.pop()))   # Division between two integers should truncate toward zero, in python, 
+                                                                      # we should note that 6//8 = 0, but 6/(-8) = -1. So we use int() to take the integer part of the float number. 
+            else:       # if ch is a number
                 num_st.append(int(ch))
-            else:
-                top_num = num_st.pop()
-                num_st[-1] = self.operate(num_st[-1], top_num, ch)
                 
-        return num_st[-1]
-    
-    def operate(self, num_1, num_2, op):
-        if op == "+":
-            return num_1 + num_2
-        if op =="-":
-            return num_1 - num_2
-        if op == "*":
-            return num_1 * num_2
-        if op == "/":
-            return int(num_1 / num_2)  # Division between two integers should truncate toward zero, in python, 
-                                       # we should note that 6//8 = 0, but 6/(-8) = -1. So we use int() to take the integer part of the float number.
+        return num_st[0]
