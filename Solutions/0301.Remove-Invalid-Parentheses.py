@@ -29,6 +29,58 @@ class Solution:
         # idx is the idx in s, left, right are how many "(" and how many ")" are there in curr_path
         # left_remain is how many "(" remaining so that we can take from s to put into curr_path
         # curr_path is the valid parenethes we want to build
+        def dfs(start_idx, left, right, left_remain, right_remain, curr_path):
+            if start_idx == len(s) - 1 and left == right and left_remain == right_remain == 0:
+                res.add(curr_path)
+                return
+
+            if left_remain < 0 or right_remain < 0:
+                return
+            if left < right:    # 借鉴了22. Generate parentheses
+                return
+            
+            for idx in range(start_idx + 1, len(s)):
+                if s[idx] == "(":       
+                    dfs(idx, left + 1, right, left_remain - 1, right_remain, curr_path + "(")   # add "(" to result
+                    dfs(idx, left, right, left_remain - 1, right_remain, curr_path)             # not add "(" to result
+
+                elif s[idx] == ")":
+                    dfs(idx, left, right + 1, left_remain, right_remain - 1, curr_path + ")")   # add ")" to result
+                    dfs(idx, left, right, left_remain, right_remain - 1, curr_path)             # not add ")" to result
+
+                else:                                               # if it is a letter, then simply put it into curr
+                    dfs(idx, left, right, left_remain, right_remain, curr_path + s[idx])        # add "a" to result
+                
+        res = set()
+        
+        left_cnt, right_cnt = 0, 0
+        for ch in s:
+            if ch == "(":
+                left_cnt += 1
+            elif ch == ")":
+                right_cnt += 1
+                
+        dfs(-1, 0, 0, left_cnt, right_cnt, "")
+        
+        max_lens = max(len(s) for s in res)
+        ans = []
+        for s in res:
+            if len(s) == max_lens:
+                ans.append(s)
+                
+        return ans
+
+
+
+"""
+同样是dfs, 下面这种写法就不会TLE
+"""
+class Solution:
+    def removeInvalidParentheses(self, s: str) -> List[str]:
+        
+        # idx is the idx in s, left, right are how many "(" and how many ")" are there in curr_path
+        # left_remain is how many "(" remaining so that we can take from s to put into curr_path
+        # curr_path is the valid parenethes we want to build
         def dfs(idx, left, right, left_remain, right_remain, curr_path):
             if idx == len(s) and left == right and left_remain == right_remain == 0:
                 res.add(curr_path)
@@ -42,16 +94,15 @@ class Solution:
                 return
             
             if s[idx] == "(":       
-                if left_remain > 0:
-                    dfs(idx + 1, left + 1, right, left_remain - 1, right_remain, curr_path + "(")   # add "(" to result
-                dfs(idx + 1, left, right, left_remain - 1, right_remain, curr_path)                 # not add "(" to result
+                dfs(idx + 1, left + 1, right, left_remain - 1, right_remain, curr_path + "(")   # add "(" to result
+                dfs(idx + 1, left, right, left_remain - 1, right_remain, curr_path)             # not add "(" to result
                 
             elif s[idx] == ")":
-                if right_remain > 0:
-                    dfs(idx + 1, left, right + 1, left_remain, right_remain - 1, curr_path + ")")   # add ")" to result
-                dfs(idx + 1, left, right, left_remain, right_remain - 1, curr_path)                 # not add ")" to result
-            else:
-                dfs(idx + 1, left, right, left_remain, right_remain, curr_path + s[idx])            # add "a" to result
+                dfs(idx + 1, left, right + 1, left_remain, right_remain - 1, curr_path + ")")   # add ")" to result
+                dfs(idx + 1, left, right, left_remain, right_remain - 1, curr_path)             # not add ")" to result
+            
+            else:                                                       # if it is a letter, then simply put it into curr
+                dfs(idx + 1, left, right, left_remain, right_remain, curr_path + s[idx])        # add "a" to result
                 
         res = set()
         
