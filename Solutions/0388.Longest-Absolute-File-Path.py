@@ -33,6 +33,26 @@ Time complexity required: O(n) where n is the size of the input string.
 Notice that a/aa/aaa/file1.txt is not the longest file path, if there is another path aaaaaaaaaaaaaaaaaaaaa/sth.png.
 
 
+
+"""
+solution 1: use a hashmap to store the (depth, lens) pair. firstly, find the depth, 
+secondly, update the map[depth]: map[depth] = map[depth - 1] + len(name) - depth.  This is more of a dp way.
+"""
+class Solution:
+    def lengthLongestPath(self, input: str) -> int:
+        maxlen = 0
+        depth_to_lens = collections.defaultdict(int)
+        for name in input.split("\n"):
+            depth = name.count("\t")
+            depth_to_lens[depth] = depth_to_lens[depth - 1] + len(name) - depth     # -depth for "\t" cuz "\t" represents one char
+            if "." in name:
+                maxlen = max(maxlen, depth_to_lens[depth] + depth)  # +depth for putting "\" in the directory
+        return maxlen
+
+
+"""
+solution 2: use a stack
+"""
 class Solution:
     def lengthLongestPath(self, input: str) -> int:
         maxlen, currlen = 0, 0
