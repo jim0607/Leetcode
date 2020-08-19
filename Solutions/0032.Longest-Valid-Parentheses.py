@@ -22,19 +22,19 @@ O(N), O(N)
 """
 class Solution:
     def longestValidParentheses(self, s: str) -> int:
-        st = []
         max_lens = 0
-        start = 0
+        st = []
+        start_idx = 0
         for i, ch in enumerate(s):
             if ch == "(":
                 st.append(i)
-            else:
-                if not st:
-                    start = i + 1
+            elif ch == ")":
+                if len(st) == 0:
+                    start_idx = i + 1
                 else:
                     st.pop()
-                    max_lens = max(max_lens, i - st[-1]) if st else max(max_lens, i - start + 1)
-                    
+                    lens = i - st[-1] if len(st) != 0 else i - start_idx + 1
+                    max_lens = max(max_lens, lens)
         return max_lens
     
 """ run a test case ")()())", then we'll see why start idx is important """
