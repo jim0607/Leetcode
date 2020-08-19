@@ -47,6 +47,31 @@ use a queue so that we can remove the calls that happens long time ago.
 #### [Parentheses](/)
 - [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
 定义一个numStack, 一个strStack 存nums和parenthesis. if it's a digit, should use a while loop to add the num in case there are multiple digits; if it's a ch, then put it into strStack; if it's a [, then put the num in numStack and re-initialize the tempNum and tempStr for calculation inside the []; if it's a ], then pop the resStack and signStack and update res.
+- [0020. Valid Parentheses](Solutions/0020.Valid-Parentheses.py) (!!E) <br>
+不能用简单的用三个counter, 会过不了这种情况: "([)]".
+这题的题眼是a sub-expression of a valid expression should also be a valid expression. 所以用stack. parentheses的题目一般都可以用一个st来存左括号！！！
+- [0678. Valid Parenthesis String](Solutions/0678.Valid-Parenthesis-String.py) (!!M)  <br>
+注意这题不能像20题那样，因为例子"(* )(", 因为出现在()里面的"* "也救不了后面(需要匹配的). 正解Greedy: the whole idea is to check if "(" could be paired. Maintain two variables: cmin and cmax. cmin is the minimum number of "(" that MUST be paired later.
+cmax is the maximum number of "(" that COULD possibly be paired later.
+After interate the while s, if cmin == 0 then return True.
+- [0022. Generate Parentheses](Solutions/0022.Generate-Parentheses.py) (!!M)  <br>
+Very similar with permutation problem. if leftCnt == n and rightCnt == n: self.res.append(curr) return; if leftCnt < rightCnt: return  # 这个判断尤为关键！
+- [0301. Remove Invalid Parentheses](Solutions/0301.Remove-Invalid-Parentheses.py) (H)  <br>
+这题只能brutal force. solution: dfs 解法跟22. Generate parentheses是一样的，给你这么多括号，去生成所有的valid parentheses, 然后取其中最长的valid parentheses就可以了；
+只能暴力generate出所有的valid parenthsis，每个括号都有可能加或不加进去，所以是O(2^N).
+- [0032. Longest Valid Parentheses](Solutions/0032.Longest-Valid-Parentheses.py) (H)  <br>
+solution 1: stack.  use a stack to store the idx, maintain a start idx to record the start idx of a valid parentheses; solution 2: dp; solution 3: greedy: O(N) O(1): 正向扫一遍，反向扫一遍, 真TM niubi呀
+- [0921. Minimum Add to Make Parentheses Valid](Solutions/0921.Minimum-Add-to-Make-Parentheses-Valid.py) (!!M)  <br>
+solution 1: use a st to store the "(". parentheses的题目一般都可以用一个st来存左括号！！！ solution 2: 借鉴32. Longest Valid Parentheses的做法：从左往右扫描，记录left和right，
+如果right大于left了,就表明前面需要添加right-left个左括号
+- [1249. Minimum Remove to Make Valid Parentheses](Solutions/1249.Minimum-Remove-to-Make-Valid-Parentheses) (M)  <br>
+solution 1: use a st to store "(". parentheses的题目一般都可以用一个st来存左括号！！！ solution 2: 借鉴32. Longest Valid Parentheses的做法：first sweep left to right, and store the ")" that should be deleted, eg: "())", the last ")" should be deleted; then sweep right to left, and store "(" that should be deleted, eg: eg: "(()", the first "(" should be deleted;  lastly delete the prarentheses that should be deleted.
+- [0856. Score of Parentheses](Solutions/0856.Score-of-Parentheses.py) (!!M)  <br>
+solution 1: use a ch_st to store left parentheses. use num_st to stores res, num_st初始化一个0进去垫底。
+if ch == "(": num_st.append(0); else: 弹出top of num_st 并更新 num_st[-1].
+通过比较ch与prev_ch来判断是乘以2还是加上1. solution 2: 题目说the string is balanced, so we don't need a ch_st.
+- [0150. Evaluate Reverse Polish Notation](Solutions/0150.Evaluate-Reverse-Polish-Notation.py) (!!M) <br>
+stack存num就可以了
 - [0224. Basic Calculator](Solutions/0224.Basic-Calculator.py) (!!H) <br>
 if it's a digit, should use a while loop to add the num in case there are multiple digits, eg: 322 - 16; if it's a sign, then use 1 or -1 to represent it; if it's a (, then append the previous res and sign into the numStack and signStack, and initialize the sign and num for calculation inside the (); if it's a ), then pop the numStack and signStack and update res.
 - [0227. Basic Calculator II](Solutions/0227.Basic-Calculator-II.py) (!!M) <br>
@@ -56,33 +81,6 @@ if it's a digit, should use a while loop to add the num in case there are multip
 这道题是基本计算器系列的第三道，前两道分别为 Basic Calculator 和 Basic Calculator II，
 区别是，第一道只有加减法跟括号，第二道只有加减乘除法，而这第三道既有加减乘除法又有括号运算。
 但是好就好在我们可以将括号里的内容当作一个整体调用递归函数来处理。而其他部分，就跟第二道一模一样了。
-
-- [0150. Evaluate Reverse Polish Notation](Solutions/0150.Evaluate-Reverse-Polish-Notation.py) (M) <br>
-stack存num就可以了
-- [0020. Valid Parentheses](Solutions/0020.Valid-Parentheses.py) (!!E) <br>
-不能用简单的用三个counter, 会过不了这种情况: "([)]".
-这题的题眼是a sub-expression of a valid expression should also be a valid expression. 所以用stack.
-- [0022. Generate Parentheses](Solutions/0022.Generate-Parentheses.py) (!!M)  <br>
-Very similar with permutatino problem. if leftCnt == n and rightCnt == n: self.res.append(curr) return; if leftCnt < rightCnt: return  # 这个判断尤为关键！
-- [0301. Remove Invalid Parentheses](Solutions/0301.Remove-Invalid-Parentheses.py) (H)  <br>
-solution: dfs 解法跟22. Generate parentheses是一样的，给你这么多括号，去生成所有的valid parentheses, 然后取其中最长的valid parentheses就可以了；
-只能暴力generate出所有的valid parenthsis，每个括号都有可能加或不加进去，所以是O(2^N).
-- [0678. Valid Parenthesis String](Solutions/0678.Valid-Parenthesis-String.py) (H)  <br>
-Greedy: the whole idea is to check if "(" could be paired. Maintain two variables: cmin and cmax.
-cmin is the minimum number of "(" that MUST be paired later.
-cmax is the maximum number of "(" that COULD possibly be paired later.
-After interate the while s, if cmin == 0 then return True.
-- [0032. Longest Valid Parentheses](Solutions/0032.Longest-Valid-Parentheses.py) (H)  <br>
-Solution 1: stack; solution 2: dp; solution 3: greedy: O(N) O(1): 正向扫一遍，反向扫一遍, 真TM niubi呀
-- [0921. Minimum Add to Make Parentheses Valid](Solutions/0921.Minimum-Add-to-Make-Parentheses-Valid.py) (H)  <br>
-借鉴32. Longest Valid Parentheses的做法：从左往右扫描，记录left和right，
-如果right大于left了,就表明前面需要添加right-left个左括号
-- [1249. Minimum Remove to Make Valid Parentheses](Solutions/1249. Minimum Remove to Make Valid Parentheses) (M)  <br>
-借鉴32. Longest Valid Parentheses的做法：first sweep left to right, and store the ")" that should be deleted, eg: "())", the last ")" should be deleted;
-then sweep right to left, and store "(" that should be deleted, eg: eg: "(()", the first "(" should be deleted; 
-lastly delete the prarentheses that should be deleted.
-- [0856. Score of Parentheses](Solutions/0856.Score-of-Parentheses.py) (M)  <br>
-stack is always good for parentheses
 
 -----1096. Brace Expansion II-----
 
@@ -95,6 +93,7 @@ we use a stack to store the solution we have built as we iterate over the string
 We remove a ch if two conditions are meet:1. the ch can occur later on; 2. the ch is greater than the curr ch;
 - [1081. Smallest Subsequence of Distinct Characters](Solutions/1081.Smallest-Subsequence-of-Distinct-Characters.py) (M) <br>
 与316. Remove Duplicate Letters出重复了
+
 --------- 636. Exclusive Time of Functions ---------
 
 
