@@ -70,19 +70,15 @@ class Solution:
             
         return sum(num_st)
     
-    def _close_parentheses(self, s, open_pos):
+    def _find_close(self, s, pos):
         """
-        find the corresponding close parenthses 这个算法也很有意思！
+        cool algorithm to find the position of corresponding close parenethes
         """
         cnt = 0
-        i = open_pos
-        while i < len(s):
+        for i in range(pos, len(s)):
             if s[i] == "(":
                 cnt += 1
             elif s[i] == ")":
                 cnt -= 1
-                
             if cnt == 0:
                 return i
-            
-            i += 1
