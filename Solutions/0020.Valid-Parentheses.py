@@ -37,24 +37,13 @@ Output: true
 class Solution:
     def isValid(self, s: str) -> bool:
         st = []
+        mapping = {")": "(", "]": "[", "}": "{"}
         for ch in s:
-            if ch == "(":
+            if ch in ["(", "[", "{"]:
                 st.append(ch)
-            if ch == "[":
-                st.append(ch)
-            if ch == "{":
-                st.append(ch)
-            if ch == ")":
-                if not st or st[-1] != "(":
-                    return False
-                st.pop()
-            if ch == "]":
-                if not st or st[-1] != "[":
-                    return False
-                st.pop()
-            if ch == "}":
-                if not st or st[-1] != "{":
+            else:
+                if len(st) == 0 or mapping[ch] != st[-1]:
                     return False
                 st.pop()
                 
-        return not st
+        return len(st) == 0
