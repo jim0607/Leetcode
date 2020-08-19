@@ -43,6 +43,8 @@ use a queue so that we can remove the calls that happens long time ago.
 - [0946. Validate Stack Sequences](Solutions/0946.Validate-Stack-Sequences.py) (!!M Google) <br>
 使用一个栈st来模拟push和pop的过程，用一个指针在popped list里面跑，如果popped[i]==st[-1]那就一直pop, 最后判断st能不能pop为空
 
+------------735. Asteroid Collision-------------
+
 
 #### [Parentheses](/)
 - [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
@@ -64,7 +66,7 @@ solution 1: stack.  use a stack to store the idx, maintain a start idx to record
 - [0921. Minimum Add to Make Parentheses Valid](Solutions/0921.Minimum-Add-to-Make-Parentheses-Valid.py) (!!M)  <br>
 solution 1: use a st to store the "(". parentheses的题目一般都可以用一个st来存左括号！！！ solution 2: 借鉴32. Longest Valid Parentheses的做法：从左往右扫描，记录left和right，
 如果right大于left了,就表明前面需要添加right-left个左括号
-- [1249. Minimum Remove to Make Valid Parentheses](Solutions/1249.Minimum-Remove-to-Make-Valid-Parentheses) (M)  <br>
+- [1249. Minimum Remove to Make Valid Parentheses](Solutions/1249.Minimum-Remove-to-Make-Valid-Parentheses.py) (M)  <br>
 solution 1: use a st to store "(". parentheses的题目一般都可以用一个st来存左括号！！！ solution 2: 借鉴32. Longest Valid Parentheses的做法：first sweep left to right, and store the ")" that should be deleted, eg: "())", the last ")" should be deleted; then sweep right to left, and store "(" that should be deleted, eg: eg: "(()", the first "(" should be deleted;  lastly delete the prarentheses that should be deleted.
 - [0856. Score of Parentheses](Solutions/0856.Score-of-Parentheses.py) (!!M)  <br>
 solution 1: use a ch_st to store left parentheses. use num_st to stores res, num_st初始化一个0进去垫底。
@@ -81,20 +83,17 @@ if it's a digit, should use a while loop to add the num in case there are multip
 这道题是基本计算器系列的第三道，前两道分别为 Basic Calculator 和 Basic Calculator II，
 区别是，第一道只有加减法跟括号，第二道只有加减乘除法，而这第三道既有加减乘除法又有括号运算。
 但是好就好在我们可以将括号里的内容当作一个整体调用递归函数来处理。而其他部分，就跟第二道一模一样了。
-
------1096. Brace Expansion II-----
-
+- [1096. Brace Expansion II](Solutions/1096.Brace-Expansion-II.py) (!!H) <br>
+solution: Use stack to store calculated results.  Maintain two lists: 1. the previous list before ","; 2. the current list that is still growing. 有点难，没弄明白
 - [0071. Simplify Path](Solutions/0071.Simplify-Path.py) (!!M) <br>
-stack保存string, 处理stack的问题往往需要提前split the path by ("/")
+stack保存string, 处理stack的问题往往需要提前split the path by ("/"): path = path.split("/"), 这个很重要，一般处理path都需要提前split一下
 - [0388. Longest Absolute File Path](Solutions/0388.Longest-Absolute-File-Path.py) (!!M) <br>
-stack存the lens of the dir or file names, everytime we append a dir of file name into the stack, we need to go back to the correct depth where it belongs.
-- [0316. Remove Duplicate Letters](Solutions/0316.Remove-Duplicate-Letters.py) (!!H) <br>
-we use a stack to store the solution we have built as we iterate over the string.
-We remove a ch if two conditions are meet:1. the ch can occur later on; 2. the ch is greater than the curr ch;
-- [1081. Smallest Subsequence of Distinct Characters](Solutions/1081.Smallest-Subsequence-of-Distinct-Characters.py) (M) <br>
-与316. Remove Duplicate Letters出重复了
-
---------- 636. Exclusive Time of Functions ---------
+solution 1: use a hashmap to store the (depth, lens) pair. firstly, find the depth, 
+secondly, update the map[depth]: map[depth] = map[depth - 1] + len(name) - depth.  This is more of a dp way.  solution 2: stack存the lens of the dir or file names, everytime we append a dir of file name into the stack, we need to go back to the correct depth where it belongs.
+- [0636. Exclusive Time of Functions](Solutions/0636.Exclusive-Time-of-Functions.py) (!!M) <br>
+use a stack to store the id of start funciton, and a prev_time to keep track of the prev_time.
+if type is "start", then we should update the res[st[-1]], and st.append(id), and update pre_time;
+if type is "start", then we should update the res[st[-1]], and st.pop(), and update pre_time.
 
 
 
@@ -141,7 +140,12 @@ step 1: construct a heights list for each row; step 2: calculate the largestRect
 单调递增栈存idx
 - [0456. 132 Pattern](Solutions/0456.132-Pattern.py) (H) <br>
 solution: 从右往左，维护一个单调递减栈，while loop是为了保证选出一个最接近num的two, 这样num作为three, 下一个进来的num就更容易小于two了！
-
+- [0316. Remove Duplicate Letters](Solutions/0316.Remove-Duplicate-Letters.py) (!!H) <br>
+we use a stack to store the solution we have built as we iterate over the string.
+We remove a ch if two conditions are meet:1. the ch can occur later on; 2. the ch is greater than the curr ch;
+Need to use a dictionary to pre-record the last pos a ch appears.  Also need a included set to mark the chars that are already in the st.
+- [1081. Smallest Subsequence of Distinct Characters](Solutions/1081.Smallest-Subsequence-of-Distinct-Characters.py) (M) <br>
+与316. Remove Duplicate Letters出重复了
 
 
 ## [Deque](/Data-Structure.py) 
