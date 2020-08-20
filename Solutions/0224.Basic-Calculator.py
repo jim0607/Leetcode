@@ -56,3 +56,56 @@ class Solution:
             i += 1
                 
         return res
+
+    
+"""
+solution 2: recurssively calculate the nums in the ().
+Even though this solution got TLE, it's very easy to understand and good to get ready for 772. Basic Calculator III.
+"""
+class Solution:
+    def calculate(self, s: str) -> int:
+        st = []
+        prev_sign = "+"
+        i = 0
+        while i < len(s):
+            if s[i].isdigit():
+                num = ord(s[i]) - ord("0")
+                while i + 1 < len(s) and s[i + 1].isdigit():
+                    num = 10 * num + ord(s[i + 1]) - ord("0")
+                    i += 1
+                
+                if prev_sign == "+":
+                    st.append(num)
+                elif prev_sign == "-":
+                    st.append(-num)
+                    
+            elif s[i] in "+-":
+                prev_sign = s[i]
+                
+            elif s[i] == "(":
+                j = self._find_close(s, i)
+                num = self.calculate(s[i + 1: j])
+                
+                if prev_sign == "+":
+                    st.append(num)
+                elif prev_sign == "-":
+                    st.append(-num)
+                    
+                i = j
+                
+            i += 1
+            
+        return sum(st)
+    
+    def _find_close(self, s, pos):
+        """
+        cool algorithm to find the position of corresponding close parenethes
+        """
+        cnt = 0
+        for i in range(pos, len(s)):
+            if s[i] == "(":
+                cnt += 1
+            elif s[i] == ")":
+                cnt -= 1
+            if cnt == 0:
+                return i
