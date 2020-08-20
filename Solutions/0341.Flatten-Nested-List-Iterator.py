@@ -63,7 +63,7 @@ class NestedIterator:
 
             
 
-""" Implement using dq """
+""" Implement using q """
 
 class NestedIterator:
     def __init__(self, nestedList: [NestedInteger]):
