@@ -53,36 +53,33 @@
 # 
 #
 
-# @lc code=start
 class Vector2D:
 
     def __init__(self, v: List[List[int]]):
         self.row = 0
         self.col = 0
-        self.v = v      # v is not really a stack, cuz it's not self.v = v[::-1]
+        self.v = v
 
     def next(self) -> int:
-        self.hasNext()      # by call self.hasNext(), we skip all the empty rows and reset the row and col to the right position where v[row][col] returns an integer
-        topItem = self.v[self.row][self.col]
-        self.col += 1
-        
-        return topItem
+        if self.hasNext():
+            res = self.v[self.row][self.col]
+            self.col += 1
+            return res
 
     def hasNext(self) -> bool:
+        """
+        1. skip all the empty rows; 
+        2. return True if has next
+        """
         while self.row < len(self.v):
-            if self.col < len(self.v[self.row]):
+            if self.col < len(self.v[self.row]):    # if self.col is not at the end of this row and this row is not empty
                 return True
-            self.row += 1
+            self.row += 1       # elif self.col comes to the end of this row or this row is empty
             self.col = 0
-
+            
         return False
-
-# Your Vector2D object will be instantiated and called as such:
-# obj = Vector2D(v)
-# param_1 = obj.next()
-# param_2 = obj.hasNext()
-# @lc code=end
-
+    
+    
 
 """Solution 2: using a queue"""
 
