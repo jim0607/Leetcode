@@ -51,20 +51,23 @@ class Solution:
 # stack = [6], 所以3是6的右儿子， push 3
 # stack = [6, 3], push 1, 因为1 < 3，所以1是3的右儿子
 
+"""每个node的父亲节点 = min(左边第一个比它大的，右边第一个比它大的)
+# 维护一个降序数组，可以实现对这个min的快速查找"""
 class Solution:
     def constructMaximumBinaryTree(self, nums: List[int]) -> TreeNode:
-        if not nums:
+        if len(nums) == 0:
             return None
         
-        monoStack = []      # maintain a mono decreasing stack
+        st = []     # maintain a mono decreasing stack, the items in the stack are nodes
         for num in nums:
-            node = TreeNode(num)
-            while len(monoStack) != 0 and num > monoStack[-1].val:
-                node.left = monoStack.pop()
-                
-            if len(monoStack) != 0:
-                monoStack[-1].right = node
-                
-            monoStack.append(node)
+            node = TreeNode(num)    # fisrtly make it a node
             
-        return monoStack[0]
+            while len(st) > 0 and st[-1].val < num:
+                node.left = st.pop()
+            
+            if len(st) > 0:
+                st[-1].right = node
+                
+            st.append(node)
+        
+        return st[0]
