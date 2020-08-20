@@ -42,8 +42,8 @@ In C#, Queue class is by default a deque, with two methods: 1. enqueue, meaning 
 use a queue so that we can remove the calls that happens long time ago.
 - [0946. Validate Stack Sequences](Solutions/0946.Validate-Stack-Sequences.py) (!!M Google) <br>
 使用一个栈st来模拟push和pop的过程，用一个指针在popped list里面跑，如果popped[i]==st[-1]那就一直pop, 最后判断st能不能pop为空
-
-------------735. Asteroid Collision-------------
+- [0735. Asteroid Collision](Solutions/0735.Asteroid-Collision.py) (M) <br>
+stack store the number after collision as we iterate the list
 
 
 #### [Parentheses](/)
@@ -99,15 +99,16 @@ if type is "start", then we should update the res[st[-1]], and st.pop(), and upd
 
 ## [Iterator](/Data-Structure.py)
 - [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (!!M) <br>
-注意这类问题的主程序一般都写在hasNext里面！if topItem.isInteger(): return True; else: if it is a nestedList, 就展开: self.stack = self.stack[:-1] + topItem.getList()[::-1]
-- [0251. Flatten 2D Vector](Solutions/0251.Flatten-2D-Vector.py) (M) <br>
-Solution 1: use a queue to flatten the 2D vector first. Solution 2: use two pointers, one for row, one for col. O(1) space
-- [0281. Zigzag Iterator](Solutions/0281.Zigzag-Iterator.py) (M) <br>
-use two pointers and a flag. What if you are given k 1d vectors? How well can your code be extended to such cases? Solution: We append all the list into one deque. Every time we call next(), we pop a list first, then pop the first num from the list, and then re-add it to the end to deque so that we can call it again after k next calls.
-- [0284. Peeking Iterator](Solutions/0284.Peeking-Iterator.py) (!M) <br>
-saving peeked value in advance
+solution 1: 用一个辅助函数把nested_list flatten掉存到一个q中就可以了，用递归去flatten既可以了. Solution 2: use a q to partially flatten the list in hasnext function.
+- [0251. Flatten 2D Vector](Solutions/0251.Flatten-2D-Vector.py) (!!M) <br>
+Solution 1: use a queue to flatten the 2D vector first. Solution 2: use two pointers, one for row, one for col. O(1) space.  In the hasNext function, we need to do two things: 1. skip all the empty rows; 2. return True if has next
+- [0281. Zigzag Iterator](Solutions/0281.Zigzag-Iterator.py) (!!M) <br>
+use two pointers and a flag. What if you are given k 1d vectors? How well can your code be extended to such cases? Solution: We append all the list into one queue. Every time we call next(), we pop a list first, then pop the first num from the list, and then re-add it to the end to deque so that we can call it again after k next calls.
+- [0284. Peeking Iterator](Solutions/0284.Peeking-Iterator.py) (!!M) <br>
+ddefine a self.iterator, and a self.peek_item to record the top item of the iterator.
 - [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (!!M) <br>
-用stack实现binary search tree的in order traversal的方法类似, 需要额外定义一个 def getLeftMost(self, root)
+用stack实现binary search tree的in order traversal的方法类似, 用一个stack存最小的node, 需要额外定义一个 def getLeftMost(self, root)
+
 
 
 ## [Monotonic stack](/Data-Structure.py) （用于向左/向右寻找第一个比自己大/小的数）
@@ -2098,7 +2099,8 @@ It's all about string processing, 用到了 s.index(char)
 - [0006. ZigZag Conversion](Solutions/0006.ZigZag-Conversion.py) (M) <br>
 - [0326. Power of Three](Solutions/0326.Power-of-Three.py) (E) <br>
 solution 1: recursion; solution 2: math
-
+- [0605. Can Place Flowers](Solutions/0605.Can-Place-Flowers.py) (E) <br>
+把arr进行预处理：把arr的头部和尾部各加上0
 
 
 # [Pramp](/)
