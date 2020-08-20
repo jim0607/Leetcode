@@ -35,26 +35,31 @@ Explanation: By calling next repeatedly until hasNext returns false,
 #        Return None if this NestedInteger holds a single integer
 #        """
 
+
+
+"""
+用一个辅助函数把nested_list flatten掉存到一个q中就可以了，用递归去flatten既可以了
+"""
 class NestedIterator:
     def __init__(self, nestedList: [NestedInteger]):
-        self.stack = []
-        # put every item in the nestedList into a stack with reversed order
-        for item in nestedList[::-1]:
-            self.stack.append(item)
-    
+        self.q = collections.deque()
+        self._flatten(nestedList)
+        
+    def _flatten(self, nested_lst):
+        for lst in nested_lst:
+            if lst.isInteger():
+                self.q.append(lst.getInteger())
+            else:
+                self._flatten(lst.getList())
+        
     def next(self) -> int:
-        return self.stack.pop().getInteger()
+        if self.hasNext:
+            return self.q.popleft()
     
-    # 注意这类问题的主程序一般都写在hasNext里面！
     def hasNext(self) -> bool:
-        while self.stack:
-            topItem = self.stack[-1]
-            if topItem.isInteger():
-                return True
-            else:            # if it is a nestedList, 就展开。
-                self.stack = self.stack[:-1] + topItem.getList()[::-1]
-                
-        return False
+         return len(self.q) > 0
+
+
             
 
 """ Implement using dq """
@@ -81,9 +86,31 @@ class NestedIterator:
             for lst in topItem.getList()[::-1]:
                 self.dq.appendleft(lst)
 
-# Your NestedIterator object will be instantiated and called as such:
-# i, v = NestedIterator(nestedList), []
-# while i.hasNext(): v.append(i.next())
+
+                
+"""
+solution 3: use a stack
+"""
+class NestedIterator:
+    def __init__(self, nestedList: [NestedInteger]):
+        self.stack = []
+        # put every item in the nestedList into a stack with reversed order
+        for item in nestedList[::-1]:
+            self.stack.append(item)
+    
+    def next(self) -> int:
+        return self.stack.pop().getInteger()
+    
+    # 注意这类问题的主程序一般都写在hasNext里面！
+    def hasNext(self) -> bool:
+        while self.stack:
+            topItem = self.stack[-1]
+            if topItem.isInteger():
+                return True
+            else:            # if it is a nestedList, 就展开。
+                self.stack = self.stack[:-1] + topItem.getList()[::-1]
+                
+        return False
 
 
 
