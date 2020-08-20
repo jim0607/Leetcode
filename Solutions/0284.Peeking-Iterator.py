@@ -38,29 +38,28 @@ class PeekingIterator:
         :type iterator: Iterator
         """
         self.iterator = iterator
-        self.peekItem = self.iterator.next() if self.iterator.hasNext else None
+        self.peek_item = self.iterator.next() if self.iterator.hasNext() else None
 
     def peek(self):
         """
         Returns the next element in the iteration without advancing the iterator.
         :rtype: int
         """
-        return self.peekItem
+        return self.peek_item
 
     def next(self):
         """
         :rtype: int
         """
-        temp = self.peekItem
-        self.peekItem = self.iterator.next() if self.iterator.hasNext() else None
-        
-        return temp
+        res = self.peek_item
+        self.peek_item = self.iterator.next() if self.iterator.hasNext() else None
+        return res
 
     def hasNext(self):
         """
         :rtype: bool
         """
-        return self.peekItem is not None
+        return self.peek_item != None
         
 
 # Your PeekingIterator object will be instantiated and called as such:
