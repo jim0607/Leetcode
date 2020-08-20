@@ -15,38 +15,47 @@ Output: -1
 
 
 
+"""
+124354 -> 124453 -> 1244 35
+"""
 class Solution:
     def nextGreaterElement(self, n: int) -> int:
-        nums = str(n)
-        lens = len(nums)
-        res = [int(num) for num in nums]
+        # 通过取余数的方法将n转换成bits存到数组中
+        bits = []
+        while n > 0:
+            bits.append(n % 10)
+            n //= 10
+        bits = bits[::-1]
         
-        # step 1: 从右至左找到第一个降序的
-        found_decreasing = False
-        for i in range(lens-2, -1, -1):
-            if res[i+1] > res[i]:
-                found_decreasing = True
+        # step 1: 从右至左找第一个降序的idx
+        idx = -1
+        for i in range(len(bits)-1, 0, -1):
+            if bits[i] > bits[i-1]:
+                idx = i - 1
                 break
-        if not found_decreasing:
+        if idx == -1:
             return -1
-        
-        idx = i
-        # step 2: swap the nums[idx] with the num just larger then it
-        diff = float("inf")
-        idx_just_larger = 0
-        for j in range(idx, lens):
-            if res[j] > res[idx] and res[j] - res[idx] < diff:
-                idx_just_larger = j
                 
-        # step 3: swap idx and idx_just_larger
-        res[idx], res[idx_just_larger] = res[idx_just_larger], res[idx]
+        # step 2: 找到右边just larger than bits[idx]的数的idx
+        idx_gt = idx + 1
+        for i in range(idx + 1, len(bits)):
+            if bits[i] > bits[idx]:
+                idx_gt = i      # 由于右边是递增的，所以可以这样直接更新
         
-        # step 3: reverse the rest of the list
-        i, j = idx + 1, lens - 1
+        # step 3: swap the idx with the idx_gt
+        bits[idx], bits[idx_gt] = bits[idx_gt], bits[idx]
+        
+        # step 4: 再将idx之后的数升序排列
+        # bits = bits[:idx+1] + sorted(bits[idx+1:])
+        # 由于idx之后的数是递增的，所以只需要交换即可
+        i, j = idx + 1, len(bits) - 1
         while i < j:
-            res[i], res[j] = res[j], res[i]
+            bits[i], bits[j] = bits[j], bits[i]
             i += 1
             j -= 1
-            
-        res = int("".join(map(str, res))) 
+        
+        # step 5: 将bits还原成数字
+        res = 0
+        for bit in bits:
+            res = 10 * res + bit
         return res if res <= 2**31 - 1 else -1
