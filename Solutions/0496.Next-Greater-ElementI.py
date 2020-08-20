@@ -22,7 +22,34 @@ All elements in nums1 and nums2 are unique.
 The length of both nums1 and nums2 would not exceed 1000.
 
 
+"""
+soution 1: 从左往右扫
+"""
+"""
+maitain a moono decreasing st. whenever we found a smaller element, we append.
+whenever we found a larger element, we pop, and this curr element is the next greater element of the popped element.
+"""
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        mapping = collections.defaultdict(int)
+        st = []
+        for num in nums2:
+            while len(st) > 0 and st[-1] < num:
+                mapping[st.pop()] = num
+            st.append(num)
+            
+        for i in range(len(nums1)):
+            if nums1[i] in mapping:
+                nums1[i] = mapping[nums1[i]]
+            else:
+                nums1[i] = -1
+                
+        return nums1            
 
+
+"""
+solution 2: 从右往左扫
+"""
 """
 单调栈的模板！
 scan nums2 from right to left:
