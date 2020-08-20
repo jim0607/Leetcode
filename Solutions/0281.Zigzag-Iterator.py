@@ -57,28 +57,25 @@ Maybe we can use a list = [True] * k to represent whether or not the kth list ha
 
 """
 To answer follow up question:
-We append all the list into one deque. Every time we call next(), we pop a list first, then pop the first num from the list, 
+We append all the list into one q. Every time we call next(), we pop a list first, then pop the first num from the list, 
 and then re-add it to the end to deque so that we can call it again after k next calls.
 """
 class ZigzagIterator:
     def __init__(self, v1: List[int], v2: List[int]):
-        self.dq = collections.deque()
-        if v1:
-            self.dq.append(v1)
-        if v2:
-            self.dq.append(v2)
-
+        self.q = collections.deque()
+        if len(v1) > 0: self.q.append(v1[::-1])
+        if len(v2) > 0: self.q.append(v2[::-1])
+        
     def next(self) -> int:
-        if self.hasNext:
-            topLst = self.dq.popleft()
-            topNum = topLst.pop(0)
-            if topLst:
-                self.dq.append(topLst)
-                
-            return topNum
-
+        if self.hasNext():
+            lst = self.q.popleft()
+            res = lst.pop()
+            if len(lst) > 0:
+                self.q.append(lst)
+            return res
+        
     def hasNext(self) -> bool:
-        return len(self.dq) != 0
+        return len(self.q) > 0
 
 # Your ZigzagIterator object will be instantiated and called as such:
 # i, v = ZigzagIterator(v1, v2), []
