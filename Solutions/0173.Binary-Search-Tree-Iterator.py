@@ -25,35 +25,43 @@ You may assume that next() call will always be valid, that is, there will be at 
 """
 """solution 2: use a stack with controlled recursion, some part of the algorithm is similar with the in order traversal of a tree using a stack
 this algorithm has space complexity of O(h)"""
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class BSTIterator:
 
     def __init__(self, root: TreeNode):
-        self.stack = []
-        self.root = root
+        self.st = []
+        self._get_leftmost(root)
         
-        self.getLeftMost(self.root)
-        
-    def getLeftMost(self, root):
+    def _get_leftmost(self, root):
         while root:
-            self.stack.append(root)
+            self.st.append(root)
             root = root.left
 
     def next(self) -> int:
         """
         @return the next smallest number
         """
-        smallestNode = self.stack.pop()
-        if smallestNode.right:
-            self.getLeftMost(smallestNode.right)
-            
-        return smallestNode.val
+        if self.hasNext():
+            next_node = self.st.pop()
+            self._get_leftmost(next_node.right)
+            return next_node.val
 
     def hasNext(self) -> bool:
         """
         @return whether we have a next smallest number
         """
-        return len(self.stack) != 0
+        return len(self.st) > 0
 
+
+# Your BSTIterator object will be instantiated and called as such:
+# obj = BSTIterator(root)
+# param_1 = obj.next()
+# param_2 = obj.hasNext()
 
 
 
