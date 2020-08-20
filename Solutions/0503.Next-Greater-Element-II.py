@@ -10,6 +10,44 @@ The number 2 can't find next greater number;
 The second 1's next greater number needs to search circularly, which is also 2.
 
 
+
+"""
+double the nums, then iterate the nums and maintain a mono decreasing stack.
+if the item is less or equal than st[-1], just append.
+else we pop st, and the curr item is the next greater of the popped item.
+"""
+class Solution:
+    def nextGreaterElements(self, nums: List[int]) -> List[int]:
+        nums2 = nums + nums     # 处理circle的问题，一般都需要先把arr double一下
+        
+        st = []     # st store the (num, idx) pair so that we can easily update res
+        res = [-1 for _ in range(len(nums2))]
+        for i, num in enumerate(nums2):
+            while len(st) > 0 and st[-1][0] < num:
+                res[st.pop()[1]] = num
+            st.append((num, i))
+            
+        return res[:len(nums)]
+
+
+"""
+solution 2: should also know the soution that don't need to double the nums. 
+方法是for idx in range(2* lens): 对长度lens取模，i = idx % lens 
+"""
+class Solution:
+    def nextGreaterElements(self, nums: List[int]) -> List[int]:
+        lens = len(nums)
+        st = []     
+        res = [-1 for _ in range(2*lens)]
+        for idx in range(2*lens):
+            i = idx % lens 
+            while len(st) > 0 and st[-1][0] < nums[i]:
+                res[st.pop()[1]] = nums[i]
+            st.append((nums[i], idx))
+            
+        return res[:len(nums)]   
+    
+
 """
 Double the nums first, then do the same thing as 496.
 """
