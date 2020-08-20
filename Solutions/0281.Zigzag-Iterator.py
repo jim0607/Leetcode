@@ -23,33 +23,29 @@ Output: [1,4,8,2,5,9,3,6,7].
 """Solution: two pointers"""
 class ZigzagIterator:
     def __init__(self, v1: List[int], v2: List[int]):
-        self.index1 = 0
-        self.index2 = 0
-        self.bool = True       # True means we can call v1 now
+        self.idx1 = 0
+        self.idx2 = 0
+        self.flag = True    # flag = True means take from v1
         self.v1 = v1
         self.v2 = v2
 
     def next(self) -> int:
-        if not self.hasNext:
-            return None
-        
-        if (self.bool and self.index1 < len(self.v1)) or self.index2 == len(self.v2):
-            item = self.v1[self.index1]
-            self.index1 += 1
-            self.bool = not self.bool
-        
-        else:
-            item = self.v2[self.index2]
-            self.index2 += 1
-            self.bool = not self.bool
+        if self.hasNext():
+            if self.idx2 >= len(self.v2) or (self.flag and self.idx1 < len(self.v1)):
+                res = self.v1[self.idx1]
+                self.idx1 += 1
+                self.flag = not self.flag
+            elif self.idx1 >= len(self.v1) or (not self.flag and self.idx2 < len(self.v2)):
+                res = self.v2[self.idx2]
+                self.idx2 += 1
+                self.flag = not self.flag
             
-        return item            
+            return res
 
     def hasNext(self) -> bool:
-        if self.index1 < len(self.v1) or self.index2 < len(self.v2):
-            return True
-        
-        return False
+        if self.idx1 >= len(self.v1) and self.idx2 >= len(self.v2):
+            return False        
+        return True
         
 
 Follow up:
