@@ -40,6 +40,7 @@ Explanation: By calling next repeatedly until hasNext returns false,
 """
 用一个辅助函数把nested_list flatten掉存到一个q中就可以了，用递归去flatten既可以了
 """
+"""
 class NestedIterator:
     def __init__(self, nestedList: [NestedInteger]):
         self.q = collections.deque()
