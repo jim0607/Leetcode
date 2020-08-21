@@ -31,17 +31,16 @@ solution: 从右往左，维护一个单调递减栈，while loop是为了保证
 """
 class Solution:
     def find132pattern(self, nums: List[int]) -> bool:
-        if not nums: return False
-        
+        two = -float("inf")
         st = []
-        two = -float("inf")     # 这样初始化避免[1,2,3]这种情况输出True
         for num in nums[::-1]:
-            if num < two: return True
+            if num < two:       # 进来一个num就把他当做是one用, 如果小于two的话那就return True
+                return True     # 如果大于two, 那就当three用，用while loop里找比他小但尽量大的two
             
             # 这个while loop是为了保证选出一个最接近num的two, 这样num作为three, 下一个进来的num就更容易小于two了
-            while st and num > st[-1]:  
-                two = st.pop()
-            
+            while len(st) > 0 and num > st[-1]:
+                two = st.pop()      # 让two尽可能大同时不超过three
+                
             st.append(num)
-            
+                
         return False
