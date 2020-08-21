@@ -150,6 +150,10 @@ step 1: construct a heights list for each row; step 2: calculate the largestRect
 遍历A, 更新 dp[i] = dp[idx] + A[i] * (i-idx)，其中idx是往左寻找第一个比当前A[i]小的数的idx，
 最终的结果 res 就是将 dp 数组累加起来即可.
 为了更快速得到往左寻找第一个比当前A[i]小的数的 idx, 我们可以提前算好存起来，怎样算：monostack
+- [0975. Odd Even Jump](Solutions/0975.Odd-Even-Jump.py) (!!H Google) <br>
+In order to reach the end, We need to jump higher and lower alternately. solution monostack + dp
+We can use st to find the next_higher and next_lower for each pos - using mono stack, like 496. Next Greater Element
+Then we tarverse the nums and update using dp.
 - [0456. 132 Pattern](Solutions/0456.132-Pattern.py) (!!H) <br>
 solution: 从右往左，维护一个单调递减栈，iterate the arr, 来一个num就把他当做是one用, 如果小于two的话那就return True, 如果大于two, 那就当three用，用while loop里找比他小但尽量大的数作为two, 这样下一个进来的num就更容易小于two了
 - [0316. Remove Duplicate Letters](Solutions/0316.Remove-Duplicate-Letters.py) (!!H) <br>
@@ -166,15 +170,19 @@ solution 1: simple recursion - O(n^2); solution 2: monostack 通过观察发现�
 ## [Deque](/Data-Structure.py) 
 - [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (!!H) <br>
 heapq的方法是O(NK)因为需要从前面remove; monostack O(N): Iterate over the array. At each step: I. Clean the deque: 1. Remove the items that are outside the curr window and keep only the indexes of elements from the current sliding window; 2. Remove indexes of all elements smaller than the current one, since they will not be the maximum ones. eg: [1,2,7,3,5,4], k = 3, because of 7, 1 and 2 will never be in res; II. Append the current element to the deque. Append deque[0] to the output.
+我们回头看看这题其实就是mono st多了一步保持窗口大小的步骤，而这个保持窗口大小的步骤需要从前面pop, 这就是为什么不直接用st, 而是用dq的原因. 总结：如果题目需要我们在window里更新最大值或最小值，我们往往需要maintian一个mono increasing or mono decreasing deque.
 - [0862. Shortest Subarray with Sum at Least K](Solutions/0862.Shorteast-Subarray-with-Sum-at-Least-K.py) (!!H) <br>
 不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
 这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
-两个while循环，一个while loop从队首pop, 同时更新res, 另一个while loop 从队尾pop, 对deq进行清理。
+两个while循环，一个while loop do sliding window to update res, 从队首pop, 同时更新res, 
+另一个while loop do monostack to maintain an increasing dq, 从队尾pop, 对deq进行清理。
 - [0995. Minimum Number of K Consecutive Bit Flips](Solutions/0995.Minimum-Number-of-K-Consecutive-Bit-Flips.py) (!!H) <br>
 q 记录区间[i-k, i]内被反转了的idx, 遍历过程中把里i很远的idx都pop出来，保持窗口小于等于K, 此时len(q)就是位置i已经被翻转的次数，如果为奇数表示i已经从0翻到1或者从1翻到0了
+- [1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](Solutions/1438.Longest-Continuous-Subarray-With-Absolute-Diff-Less-Than-or-Equal-to-Limit.py) (!!!M Google) <br>
+总结：如果题目需要我们在window里更新最大值或最小值，我们往往需要maintian一个mono increasing or mono decreasing deque.
+这个题目我们maintain an increasing dq and a decreasing dq. step 1: 更新maxdq, just like what we did for monostack; step 2: 更新mindq, 套用mono stack模板; step 3: sliding window to update res - 套用sliding window模板
 
----------- 1425. Constrained Subsequence Sum (lee215 solution is good) ----------1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit --------------------1499. Max Value of Equation-------975. Odd Even Jump----------
-
+---------- 1425. Constrained Subsequence Sum (lee215 solution is good) --------1499. Max Value of Equation-------
 
 
 
@@ -1774,6 +1782,11 @@ Find the substring with lens=k and minimum 0s in it. use a fix window to find mi
 sliding window with fix size problem, the only difference is that some part of the window is at the beginning of the list and some are at the end. Google真是滑窗控
 - [0395. Longest Substring with At Least K Repeating Characters](Solutions/0395.Longest-Substring-with-At-Least-K-Repeating-Characters.py) (!!M) <br>
 注意这题不能用滑窗，use those char which counting is smaller than k as a 'wall' to divide the string into two parts and use recursion on the two parts. - O(26N)
+- [0862. Shortest Subarray with Sum at Least K](Solutions/0862.Shorteast-Subarray-with-Sum-at-Least-K.py) (!!H) <br>
+不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
+这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
+两个while循环，一个while loop do sliding window to update res, 从队首pop, 同时更新res, 
+另一个while loop do monostack to maintain an increasing dq, 从队尾pop, 对deq进行清理。
 
 -------- 1358. Number of Substrings Containing All Three Characters ------------
 
