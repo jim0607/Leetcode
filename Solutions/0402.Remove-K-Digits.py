@@ -25,22 +25,28 @@ Explanation: Remove all the digits from the number and it is left with nothing w
 """
 维护一个递增栈，这样排在前面的就都是最小的了
 """
+"""
+maintain an increasing st. we iterate the num,
+if num < st[-1], then keep popping.
+"""
 class Solution:
-    def removeKdigits(self, num: str, k: int) -> str:
-        if k >= len(num):
-            return "0"
-        
+    def removeKdigits(self, nums: str, k: int) -> str:
         st = []
-        num += "0"  # 在最后补个0，如果k没用完的话可以用这个零把没用完的k用掉
-        for ch in num:
-            while k > 0 and st and int(st[-1]) > int(ch):
+        for i, num in enumerate(nums):           
+            while len(st) > 0 and st[-1] > num:
+                if k == 0:
+                    break
                 st.pop()
                 k -= 1
-            st.append(ch)
-            
-        st.pop()
+            st.append(num)
+
+        while len(st) > 0 and k > 0:    # 如果k有多的，那就删后面的
+            st.pop()
+            k -= 1
+
+        # deal with "0"开头的数字
         i = 0
-        while i < len(st) and st[i] == "0":
+        while i < len(st) and st[i] == "0":  # deal with "0"开头的数字
             i += 1
-            
+
         return "0" if i == len(st) else "".join(st[i:])
