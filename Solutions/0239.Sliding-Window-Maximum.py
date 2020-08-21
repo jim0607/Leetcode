@@ -67,7 +67,43 @@ Append the current element to the deque.
 Append deque[0] to the output.
 Return the output array.
 """
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        # step 1: put the first window into the dq, maintain dq a decreasing order
+        # whenever we find the coming num is larger than dq[-1], we pop out cuz they WON'T be used anymore.
+        dq = collections.deque()
+        for i, num in enumerate(nums[:k]):
+            # below code is the 模板 of mono stack
+            while len(dq) > 0 and dq[-1][0] <= num:
+                dq.pop()        # pop out the nums that are garanteed won't be used anymore
+            dq.append((num, i))
+            
+        # step 2: do the following windows
+        res = [dq[0][0]]   # since we are maintaining a decreasing st, dq[0] is the max_num in the window
+        i = k
+        while i < len(nums):
+            # remove items that are outside the windoe, make sure the window size no larger than k
+            # 注意这里必须比较idx来得到距离，而不能去比较len(dq) < k!!!
+            # 这是因为len(dq) CANNOT represent window size. 这就是为什么需要在dq里存idx
+            while len(dq) > 0 and i - dq[0][1] >= k:    
+                dq.popleft()    # this is why we need to use a dq - to enable fast pop from left 
+            
+            # below code is the 模板 of mono stack
+            while len(dq) > 0 and dq[-1][0] <= nums[i]:
+                dq.pop()
+            dq.append((nums[i], i))
+            
+            res.append(dq[0][0])
+            
+            i += 1
+            
+        return res
 
+
+       
+"""
+另一种写法
+"""
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         # Process the first k elements separately to initiate the deque
