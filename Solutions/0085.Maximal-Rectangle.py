@@ -22,7 +22,7 @@ class Solution:
             return 0
         
         m, n = len(matrix), len(matrix[0])
-        heights = [0 for col in range(n)]
+        heights = [0 for _ in range(n)]
         res = 0
         
         for i in range(m):
@@ -33,19 +33,5 @@ class Solution:
                     heights[j] += 1
                     
             res = max(res, self.largestRectangularHistogram(heights))
-            
-        return res
-    
-    def largestRectangularHistogram(self, heights):
-        monoStack = [-1]
-        heights.append(-1)
-        res = 0
-        
-        for idx, val in enumerate(heights):
-            while heights[monoStack[-1]] > val:
-                height = heights[monoStack.pop()]
-                res = max(res, height * (idx - monoStack[-1] - 1))
-                
-            monoStack.append(idx)
             
         return res
