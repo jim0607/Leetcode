@@ -1460,7 +1460,7 @@ solution 1: simple dfs visit every balck pixel, and update the max_i, max_j, min
 - [0719. Find K-th Smallest Pair Distance](Solutions/0719.Find-K-th-Smallest-Pair-Distance.py) (!!H Google) <br>
 二分答案：sort the list, then it becomes [1,1,3,4,8,8,9]. let helper function return if there is more than k distance smaller than mid.
 we use two pointers to go through the list to check if there is more than k distance smaller than mid. The algorithm of helper function is sliding window so it's only O(N)
-
+----------1552. Magnetic Force Between Two Balls--------------
 
 
 
