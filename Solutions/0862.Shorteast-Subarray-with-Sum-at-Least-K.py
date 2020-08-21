@@ -20,30 +20,31 @@ Output: 3
 """
 不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
 这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
-两个while循环，一个while loop从队首pop, 同时更新res, 另一个while loop 从队尾pop, 对deq进行清理。
+两个while循环，一个while loop do sliding window to update res, 从队首pop, 同时更新res, 
+另一个while loop do monostack to maintain an increasing dq, 从队尾pop, 对deq进行清理。
 """
 class Solution:
     def shortestSubarray(self, A: List[int], K: int) -> int:
-        # step 1: 构造一个presum list
+        # step 1: construct a presum list
         lens = len(A)
-        presum = [0 for _ in range(lens + 1)]
+        presum = [0 for _ in range(lens+1)]
         for i, num in enumerate(A):
             presum[i+1] = presum[i] + num
-            
-        res = float("inf")
-        deq = collections.deque()   # deq store the idx in the presum
+        
+        # step 2: use the presum to do sliding window on a mono increasing dq
+        dq = collections.deque()     # maintain a mono increasing dq, dq存(val, idx) pair
+        min_len = float("inf")
         for i, pre in enumerate(presum):
-            # 一个while loop从队首pop, 同时更新res
-            while deq and pre - presum[deq[0]] >= K:    # 注意这里是pop出deq[0]队首的presum
-                idx = deq.popleft()
-                res = min(res, i - idx)
+            # firstly, we pop from left to update res just like sliding window
+            while len(dq) > 0 and pre - dq[0][0] >= K:
+                idx = dq.popleft()[1]
+                min_len = min(min_len, i - idx)
                 
-            # 另一个while loop 从队尾pop, 对deq进行清理
-            # 把现在这个pre push进deq之前，把deq尾部的比现在这个pre要大的presum给pop出来，因为由于这个pre的存在，这些尾部的都用上了, 
-            # 这里跟上一题是一样的，都是从队尾进行pop的
-            while deq and presum[deq[-1]] >= pre:
-                deq.pop()
-                
-            deq.append(i)
+            # secondly, we pop from right to maintain a mono increasing dq just like monostack
+            # 把现在这个pre push进deq之前，把deq尾部的比现在这个pre要大的presum给pop出来，
+            # 因为由于这个pre的存在，这些尾部的都再也用不上了, 因为后面的计算中这些尾部的值又大离后面的数又远 
+            while len(dq) > 0 and pre <= dq[-1][0]:
+                dq.pop()
+            dq.append((pre, i))
             
-        return res if res != float("inf") else -1
+        return min_len if min_len != float("inf") else -1
