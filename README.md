@@ -167,7 +167,7 @@ solution 1: simple recursion - O(n^2); solution 2: monostack 通过观察发现�
 
 
 
-## [Deque](/Data-Structure.py) 
+## [Deque](/Data-Structure.py) (右端作为stack or monostack, 左端作为sliding window去限定window size)
 - [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (!!H) <br>
 heapq的方法是O(NK)因为需要从前面remove; monostack O(N): Iterate over the array. At each step: I. Clean the deque: 1. Remove the items that are outside the curr window and keep only the indexes of elements from the current sliding window; 2. Remove indexes of all elements smaller than the current one, since they will not be the maximum ones. eg: [1,2,7,3,5,4], k = 3, because of 7, 1 and 2 will never be in res; II. Append the current element to the deque. Append deque[0] to the output.
 我们回头看看这题其实就是mono st多了一步保持窗口大小的步骤，而这个保持窗口大小的步骤需要从前面pop, 这就是为什么不直接用st, 而是用dq的原因. 总结：如果题目需要我们在window里更新最大值或最小值，我们往往需要maintian一个mono increasing or mono decreasing deque.
