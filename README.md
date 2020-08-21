@@ -1,6 +1,6 @@
 ## 四刷：每天刷15-20题, 做好总结！08/17 to 09/30
 ## 每天晚上睡前Review做过的题
-##### 08/17: 394; 08/18: 772; 08/19: 173
+##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239
 
 
 # [Data Structure](/Data-Structure.py)
@@ -165,7 +165,7 @@ solution 1: simple recursion - O(n^2); solution 2: monostack 通过观察发现�
 
 ## [Deque](/Data-Structure.py) 
 - [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (!!H) <br>
-heapq的方法是O(NK); deque O(N): Iterate over the array. At each step: I. Clean the deque: 1. Keep only the indexes of elements from the current sliding window; 2. Remove indexes of all elements smaller than the current one, since they will not be the maximum ones. eg: [1,2,7,3,5,4], k = 3, because of 7, 1 and 2 will never be in res; II. Append the current element to the deque. Append deque[0] to the output.
+heapq的方法是O(NK)因为需要从前面remove; monostack O(N): Iterate over the array. At each step: I. Clean the deque: 1. Remove the items that are outside the curr window and keep only the indexes of elements from the current sliding window; 2. Remove indexes of all elements smaller than the current one, since they will not be the maximum ones. eg: [1,2,7,3,5,4], k = 3, because of 7, 1 and 2 will never be in res; II. Append the current element to the deque. Append deque[0] to the output.
 - [0862. Shortest Subarray with Sum at Least K](Solutions/0862.Shorteast-Subarray-with-Sum-at-Least-K.py) (!!H) <br>
 不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
 这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
