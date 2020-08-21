@@ -49,6 +49,12 @@ stack store the number after collision as we iterate the list
 #### [Parentheses](/)
 - [0394. Decode String](Solutions/0394.Decode-String.py) (!!M) <br>
 定义一个numStack, 一个strStack 存nums和parenthesis. if it's a digit, should use a while loop to add the num in case there are multiple digits; if it's a ch, then put it into strStack; if it's a [, then put the num in numStack and re-initialize the tempNum and tempStr for calculation inside the []; if it's a ], then pop the resStack and signStack and update res.
+- [1047. Remove All Adjacent Duplicates In String](Solutions/1047.Remove-All-Adjacent-Duplicates-In-String.py) (!!E) <br>
+use a st to store 左边等待消掉的chars. loop the string s, if s[i] == st[-1], then pop. else append.
+- [1209. Remove All Adjacent Duplicates in String II](Solutions/1209.Remove-All-Adjacent-Duplicates-in-String-II.py) (M) <br>
+use a st to store 左边等待消掉的k-1 个chars. loop the string s.
+if s[i] == st最上面k-1个char, then pop all k-1 个 char. 
+To make it more efficient, use a pair to store the value and the count of each character.
 - [0020. Valid Parentheses](Solutions/0020.Valid-Parentheses.py) (!!E) <br>
 不能用简单的用三个counter, 会过不了这种情况: "([)]".
 这题的题眼是a sub-expression of a valid expression should also be a valid expression. 所以用stack. parentheses的题目一般都可以用一个st来存左括号！！！
@@ -112,41 +118,49 @@ ddefine a self.iterator, and a self.peek_item to record the top item of the iter
 
 
 ## [Monotonic stack](/Data-Structure.py) （用于向左/向右寻找第一个比自己大/小的数）
-- [0654. Maximum Binary Tree](Solutions/0654.Maximum-Binary-Tree.py) (M) <br>
-solution 1: simple recursionsolution 2: monostack 通过观察发现规律，对于每个node的父亲节点 = min(左边第一个比它大的，右边第一个比它大的), 维护一个降序数组，可以实现对这个min的快速查找, # O(N), O(N)
 - [0496. Next Greater Element I](Solutions/0496.Next-Greater-ElementI.py) (!!M) <br>
-scan nums2 from right to left: <br>
-for a new scanning item i:  while nums2[i] >= stack[-1]: we pop, until we got a nums2[i]<stack[-1], then this stack[-1] is the next great number we are looking for for nums2[i].  背诵模板！
+maitain a moono decreasing st. whenever we found a smaller element, we append.
+whenever we found a larger element, we pop, and this curr element is the next greater element of the popped element.
 - [0503. Next Greater Element II](Solutions/0503.Next-Greater-Element-II.py) (!!M ByteDance) <br>
-Double the nums first, then do the same thing as 496.
-- [0556. Next Greater Element III](Solutions/0556.Next-Greater-Element-III.py) (M) <br>
-very similar with 31. Next Permutation. # step 1: 从右至左找到第一个降序的； # step 2: swap the nums[idx] with the num just larger then it; # step 3: reverse the rest of the list
+solution 1: Double the nums first, then maintian a decreasing st. st store the (num, idx) pair so that we can easily update res. solution 2: should also know the soution that don't need to double the nums. 方法是for idx in range(2* lens): 对长度lens取模，i = idx % lens 
+- [0556. Next Greater Element III](Solutions/0556.Next-Greater-Element-III.py) (!!M) <br>
+very similar with 31. Next Permutation. # step 1: 从右至左找到第一个降序的； # step 2: swap the nums[idx] with the num just larger than it; # step 3: reverse/sort the rest of the list
 - [0739. Daily Temperatures](Solutions/0739.Daily-Temperatures.py) (!!M) <br>
 维护一个单调递减栈即可, stack里面存(temperature, idx)
-- [0901. Online Stock Span](Solutions/0901.Online-Stock-Span.py) (!!M) <br>
-维护一个单调递减栈即可, __init__ 函数中需要用到的有self.st = [], store the price and idx, mono-decreasing; self.res = collections.defaultdict(lambda: 1), store the res; self.idx = -1.
-- [1130. Minimum Cost Tree From Leaf Values](Solutions/1130.Minimum-Cost-Tree-From-Leaf-Values.py) (M) <br>
+- [0901. Online Stock Span](Solutions/0901.Online-Stock-Span.py) (!!!M) <br>
+维护一个单调递减栈即可, __init__ 函数中需要用到的有self.idx = 0, self.st = [], store the price and idx, mono-decreasing; self.res = collections.defaultdict(lambda: 1), store the res at each idx; we update the res by res = self.mapping[top_idx] + self.idx - top_idx 
+- [1130. Minimum Cost Tree From Leaf Values](Solutions/1130.Minimum-Cost-Tree-From-Leaf-Values.py) (!!M) <br>
 维护一个单调递减栈 The main idea is that you want to use the two smallest as leaf nodes to construct a root node. 
 So, here we loop through the entire array, whenever we find stack[-1] <= currNum, 
 which means that this top element stack[-1] is a local minimum. 
-So we use this element with its left or right to construct a root node. (res += min(drop * currNum, drop * stack[-1])). You can think this is a greedy algorithm.
-- [0402. Remove K Digits](Solutions/0402.Remove-K-Digits.py) (M) <br>
-维护一个递增栈，这样排在前面的就都是最小的了
+So we use this element with its left or right to construct a root node. (res += min(drop * currNum, drop * stack[-1])). You can think this is a greedy algorithm. 真尼玛难理解，操！
+- [0402. Remove K Digits](Solutions/0402.Remove-K-Digits.py) (!!M) <br>
+维护一个递增栈，碰到更小的就把前面的删掉，这样排在前面的就都是最小的了
 - [0084. Largest Rectangle in Histogram](Solutions/0084.Largest-Rectangle-in-Histogram.py) (!!H) <br>
 非单调栈算法：从左向右遍历数组，然后每遍历到一个高度h，向左边找第一个比自己小的的高度在位置i，向右边找第一个比自己小的的高度在位置j，
-那此时的面积就是h*(j-i). 这个算法需要向左向右找第一个比自己小的元素，这类问题就要想到用monostack. 通过maintain a monostack,可以很快找到第一个比i小的元素，就是栈中排在i前面的元素，我们需要做的只是向右找了，所以我们向右遍历，每当遇到大于栈顶的值时，直接入栈保持递增stack，如果遇到小于栈顶的值，这时候说明找到了第一个比i（栈顶）小的元素，这时候我们回头且慢莫慌，栈内各个元素依次出栈并回头计算一下面积。
-- [0085. Maximal Rectangle](Solutions/0085.Maximal-Rectangle.py) (!!H) <br>
+那此时的面积就是h*(j-i). 这个算法需要向左向右找第一个比自己小的元素，这类问题就要想到用monostack. 
+step 1: 寻找左边第一个比自己小的idx并存起来;
+step 2: 寻找右边第一个比自己小的idx并存起来;
+step 3: calculate the area
+- [0085. Maximal Rectangle](Solutions/0085.Maximal-Rectangle.py) (H) <br>
 step 1: construct a heights list for each row; step 2: calculate the largestRectangularHistogram of each height using the same method in 84; Should think about dynamic programming solution also.
-- [0907. Sum of Subarray Minimums](Solutions/0907.Sum-of-Subarray-Minimums.py) (M) <br>
-单调递增栈存idx
-- [0456. 132 Pattern](Solutions/0456.132-Pattern.py) (H) <br>
-solution: 从右往左，维护一个单调递减栈，while loop是为了保证选出一个最接近num的two, 这样num作为three, 下一个进来的num就更容易小于two了！
+- [0907. Sum of Subarray Minimums](Solutions/0907.Sum-of-Subarray-Minimums.py) (!!M) <br>
+我们其实关心的是以某个数字结尾时的子数组最小值之和，
+可以用一个一维数组 dp，其中 dp[i] 表示以数字 A[i] 结尾的所有子数组最小值之和，
+遍历A, 更新 dp[i] = dp[idx] + A[i] * (i-idx)，其中idx是往左寻找第一个比当前A[i]小的数的idx，
+最终的结果 res 就是将 dp 数组累加起来即可.
+为了更快速得到往左寻找第一个比当前A[i]小的数的 idx, 我们可以提前算好存起来，怎样算：monostack
+- [0456. 132 Pattern](Solutions/0456.132-Pattern.py) (!!H) <br>
+solution: 从右往左，维护一个单调递减栈，iterate the arr, 来一个num就把他当做是one用, 如果小于two的话那就return True, 如果大于two, 那就当three用，用while loop里找比他小但尽量大的数作为two, 这样下一个进来的num就更容易小于two了
 - [0316. Remove Duplicate Letters](Solutions/0316.Remove-Duplicate-Letters.py) (!!H) <br>
 we use a stack to store the solution we have built as we iterate over the string.
 We remove a ch if two conditions are meet:1. the ch can occur later on; 2. the ch is greater than the curr ch;
 Need to use a dictionary to pre-record the last pos a ch appears.  Also need a included set to mark the chars that are already in the st.
 - [1081. Smallest Subsequence of Distinct Characters](Solutions/1081.Smallest-Subsequence-of-Distinct-Characters.py) (M) <br>
 与316. Remove Duplicate Letters出重复了
+- [0654. Maximum Binary Tree](Solutions/0654.Maximum-Binary-Tree.py) (!!M) <br>
+solution 1: simple recursion - O(n^2); solution 2: monostack 通过观察发现规律，对于每个node的父亲节点 = min(左边第一个比它大的，右边第一个比它大的), 维护一个降序数组，可以实现对这个min的快速查找,maintain a mono decreasing stack, the items in the stack are nodes - O(N)
+
 
 
 ## [Deque](/Data-Structure.py) 
@@ -1230,6 +1244,13 @@ dp[i]=dictionary{key: last num of the fib; val: the lens of the fib ended with i
 Similiar with 300. LIS; dp[j] = max(dp[i] + 1 for i<j and nums[i]<nums[j]); if dp[j]>=3 return True；  how to solve it in O(N), O(1); min_1, min_2 and are the most min and the second min in the arr, if min_1 and min_2 are renewed twice already and there is a num>min_2 later, then return True.
 - [1048. Longest String Chain](Solutions/1048.Longest-String-Chain.py) (M) <br>
 dp = dict, key is word, val is the longest chain lens ended with word; prevWord = word[:i]+word[i+1:]; if prevWord in dp: dp[word] = max(dp[redesessor]+1)
+programming solution also.
+- [0907. Sum of Subarray Minimums](Solutions/0907.Sum-of-Subarray-Minimums.py) (!!M) <br>
+我们其实关心的是以某个数字结尾时的子数组最小值之和，
+可以用一个一维数组 dp，其中 dp[i] 表示以数字 A[i] 结尾的所有子数组最小值之和，
+遍历A, 更新 dp[i] = dp[idx] + A[i] * (i-idx)，其中idx是往左寻找第一个比当前A[i]小的数的idx，
+最终的结果 res 就是将 dp 数组累加起来即可.
+为了更快速得到往左寻找第一个比当前A[i]小的数的 idx, 我们可以提前算好存起来，怎样算：monostack
 
 
 ### [区间型DP](/Dynamic-Programming.py) 自然而然将状态定义为f[i][j]表示面对子区间[i, j]时的最佳性质
@@ -1754,7 +1775,7 @@ sliding window with fix size problem, the only difference is that some part of t
 - [0395. Longest Substring with At Least K Repeating Characters](Solutions/0395.Longest-Substring-with-At-Least-K-Repeating-Characters.py) (!!M) <br>
 注意这题不能用滑窗，use those char which counting is smaller than k as a 'wall' to divide the string into two parts and use recursion on the two parts. - O(26N)
 
-
+-------- 1358. Number of Substrings Containing All Three Characters ------------
 
 
 # [SubArray/Prefix Sum](/SubArray.py)
