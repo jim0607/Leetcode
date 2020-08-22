@@ -21,32 +21,50 @@ You may assume k is always valid, 1 ≤ k ≤ n2.
         
 """
 利用sorted matrix的性质，从左上角第一个元素开始，添加进heap，然后heap当然自动排序了，然后pop出最小的，然后把最小的那个数的右边和下边的元素分别入heap，这样可以保证每次pop出来的都是最小的。
-O(Klog(min(2K, N)), O(min(2K, N)), 2K的原因是每次最多放两个数，所以heap最多放入2K个数。
+O(Klog(K) 
 """
 
-import heapq
-
+from heapq import *
 class Solution:
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
-        if not matrix:
-            return None
+        hq = []
+        added = set()       # store the idx that has already been added into hq
+        heappush(hq, (matrix[0][0], (0, 0))) # (i, j) 也要放进hq
+        added.add((0, 0))   # 注意这里的visited不能存储matrix[i][j]，因为不同的地方可能存在相同的数
+         
+        m, n = len(matrix), len(matrix[0])
+        res = matrix[0][0]
+        for _ in range(k):              # O(klogk)
+            res, idx = heappop(hq)
+            i, j = idx[0], idx[1]
+            if i + 1 < m and (i+1, j) not in added:
+                heappush(hq, (matrix[i+1][j], (i+1, j)))
+                added.add((i+1, j))
+            if j + 1 < n and (i, j+1) not in added:
+                heappush(hq, (matrix[i][j+1], (i, j+1)))
+                added.add((i, j+1))
+        return res
 
-        n = len(matrix)
-        heap = []
-        heapq.heappush(heap, (matrix[0][0], 0, 0))
-        visited = set((0, 0))       # 注意这里的visited不能存储matrix[i][j]，因为不同的地方可能存在相同的数
-        
-        for _ in range(k):
-            currMin, row, col = heapq.heappop(heap)
-            if 0 <= row + 1 < n and (row + 1, col) not in visited:
-                heapq.heappush(heap, (matrix[row + 1][col], row + 1, col))
-                visited.add((row + 1, col))
-            if 0 <= col + 1 < n and (row, col + 1) not in visited:
-                heapq.heappush(heap, (matrix[row][col + 1], row, col + 1))
-                visited.add((row, col + 1))
+   
+"""
+soution 2: 传统解法：把每个num都放进hq, 然后heapify, 然后pop k次就是了
+"""
+from heapq import *
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        hq = []
+        added = set()   # store the idx that has already been added into hq
+        m, n = len(matrix), len(matrix[0])
+        for i in range(m):          # O(n^2)
+            for j in range(n):
+                heappush(hq, matrix[i][j])
                 
-        return currMin
-
+        heapify(hq)                 # O(n^2)
+        
+        res = hq[0]
+        for _ in range(k):          # O(2klogN)
+            res = heappop(hq)
+        return res
    
 
 """利用heapq，heapq中存储lens - k + 1个数，那还有k-1个数都被pop出来了，最后留在最上面的肯定是第k小的
