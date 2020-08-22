@@ -13,42 +13,48 @@ Example 2:
 Input: S = "aaab"
 Output: ""
 
-
+    
 
 """
-I think it is similar with task schedule.  always put the most freq ch adjacent with the 2nd most freq ch.
-We can firstly find the freq, and then put them into a heapq,
-then each time we pop the most freq one, and also pop to get the second most freq one.
-after using them, their freq-=1 and we push them back.
-O(Nlogk), where N is total number of ch, K is total number of distinct number.
+这种间隔k个位置安排座位的问题，都是task schedule的做法！这一题k=1.
+用一个hq保存最大的freq, 然后按要求排座位，注意add_back.
+突然觉得task schdule每次都优先排最大的freq这个做法非常greedy. 
+heapq 本身就是greedy, 每次都有选择性地pop出来，Dijkstra就是一个例子，
+对于这题，我们先判断把最high freq的ch pop出来加入res, 然后freq-1放回hq中
 """
-import heapq
-
 class Solution:
-    def reorganizeString(self, S: str) -> str:
-        freq = collections.Counter(S)
+    def reorganizeString(self, s: str) -> str:
+        freqs = collections.Counter(s)
         hq = []
-        for ch, cnt in freq.items():
-            heapq.heappush(hq, (-cnt, ch))
+        for ch, freq in freqs.items():
+            if freq > (len(s) + 1) // 2:
+                return ""
+            heappush(hq, ((-freq, ch)))
             
         res = ""
-        while hq:
-            most_freq_cnt, most_freq_ch = heapq.heappop(hq)
-            most_freq_cnt *= -1
-            if not hq:
-                return res + most_freq_ch * most_freq_cnt if most_freq_cnt <= 1 else ""
+        while len(hq) > 0:
+            freq, ch = heappop(hq)
             
-            second_most_freq_cnt, second_most_freq_ch = heapq.heappop(hq)
-            second_most_freq_cnt *= -1
-            
-            res += most_freq_ch + second_most_freq_ch
-            
-            most_freq_cnt -= 1
-            second_most_freq_cnt -= 1
-            
-            if most_freq_cnt != 0:
-                heapq.heappush(hq, (-most_freq_cnt, most_freq_ch))
-            if second_most_freq_cnt != 0:
-                heapq.heappush(hq, (-second_most_freq_cnt, second_most_freq_ch))
+            # case 1: if there is already to same ch on top of res
+            # then we cannot seat the 1st_freq ch, instead, we seat the 2nd highest freq
+            if len(res) > 0 and ch == res[-1]:
+                if len(hq) == 0:   # 养成好习惯，在heappop之前判断不为空
+                    return ""      # 在case 1中只能加入second_freq ch, 但是有没有second_freq可加了
+                                   # 那就表示1st_freq ch 加不进去了, return impossible
+                second_freq, second_ch = heappop(hq)
+                res += second_ch
+                second_freq = -second_freq
+                second_freq -= 1
+                if second_freq > 0:         # 不要忘了addback
+                    heappush(hq, (-second_freq, second_ch))
+                heappush(hq, (freq, ch))    # 不要忘了addback 没有用上的the 1st freq, ch
                 
+            # case 2: if we can put seat ch into res, then go ahead and seat it it
+            else:
+                res += ch
+                freq = -freq
+                freq -= 1
+                if freq > 0:
+                    heappush(hq, (-freq, ch))
+                    
         return res
