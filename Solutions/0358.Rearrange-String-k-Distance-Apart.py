@@ -25,33 +25,39 @@ Explanation: The same letters are at least distance 2 from each other.
 """
 similar with task schedule, 我们按频率从大到小去坐k个位置，pop出来之后需要将freq-=1然后push回去
 """
-from heapq import heappush, heappop
+"""
+we always want to seat the high freq char first, so we maintain a max hq to enable fast abtain of maxfreq.
+we seat the high freq first, then the 2nd highest freq.... 
+if at some point, we need to seat a char to maintain k distance, 
+but hq is empty meaning cannot seat any more chars, we return False 
+"""
+from heapq import *
 
 class Solution:
     def rearrangeString(self, s: str, k: int) -> str:
         if k <= 0: return s     # edge case
         
-        freq = collections.Counter(s)        
+        freqs = collections.Counter(s)
         hq = []
-        for ch, cnt in freq.items():
-            heappush(hq, (-cnt, ch))
+        for ch, freq in freqs.items():
+            heappush(hq, (-freq, ch))
             
         res = ""
-        while hq:
-            add_back = []
-            for _ in range(k):
-                if hq:      # pop 之前要确定不为空
-                    cnt, ch = heappop(hq)
-                    res += ch
-                    cnt *= -1
-                    cnt -= 1
-                    if cnt > 0:
-                        add_back.append((cnt, ch))
-                        
-                else:
-                    return res if not add_back else ""
-   
-            for cnt, ch in add_back:
-                heappush(hq, (-cnt, ch))
+        addback = []
+        while len(hq) > 0:  # len(hq) means there are still chars needed to be located
+            for _ in range(k):      # let chars sit on k seats one by one
+                if len(hq) == 0:    # 没有char可放了
+                    return res if len(addback) == 0 else ""  # addback也为空的话表示所有的char已经安放完了
+                                                             # 这时候就可以提前退出了
+                freq, ch = heappop(hq)
+                freq = -freq
+                freq -= 1
+                if freq > 0:
+                    addback.append((-freq, ch))
                     
+                res += ch
+                
+            while len(addback) > 0:
+                heappush(hq, addback.pop())
+                
         return res
