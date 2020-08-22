@@ -41,15 +41,15 @@ class Solution:
         included = set()
         included.add(1)
         for _ in range(n - 1):
-            num = heappop(hq)
-            if 2 * num not in included:
-                heappush(hq, 2 * num)
-                included.add(2 * num)
-            if 3 * num not in included:
-                heappush(hq, 3 * num)
-                included.add(3 * num)
-            if 5 * num not in included:
-                heappush(hq, 5 * num)
-                included.add(5 * num)
+            currmin = heappop(hq)
+            if 2 * currmin not in included:
+                heappush(hq, 2 * currmin)
+                included.add(2 * currmin)
+            if 3 * currmin not in included:
+                heappush(hq, 3 * currmin)
+                included.add(3 * currmin)
+            if 5 * currmin not in included:
+                heappush(hq, 5 * currmin)
+                included.add(5 * currmin)
             
         return heappop(hq)
