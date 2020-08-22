@@ -13,22 +13,21 @@ Explanation: [1,2,4,7,8,13,14,16,19,26,28,32] is the sequence of the first 12
 
 
 """
-heap solution: O(NlogN)
+heap solution: O(nlog(kn)) where k is the lens of primes list
 """
-
-import heapq
 
 class Solution:
     def nthSuperUglyNumber(self, n: int, primes: List[int]) -> int:
         hq = [1]
-        seen = set()
-        for _ in range(n):
-            curr_ugly = heapq.heappop(hq)
-            
+        included = set()
+        included.add(1)
+        
+        for _ in range(n - 1):
+            currmin = heappop(hq)
             for prime in primes:
-                next_ugly = curr_ugly * prime
-                if next_ugly not in seen:
-                    heapq.heappush(hq, next_ugly)
-                    seen.add(next_ugly)
+                nextnum = currmin * prime
+                if nextnum not in included:
+                    heappush(hq, nextnum)
+                    included.add(nextnum)
                     
-        return curr_ugly
+        return heappop(hq)
