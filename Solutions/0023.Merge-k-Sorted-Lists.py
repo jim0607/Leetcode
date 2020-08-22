@@ -16,36 +16,36 @@ Output: 1->1->2->3->4->4->5->6
 solution 1: heapq
 O(NlogK), O(K)
 
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+from heapq import *
+
 class Solution:
     # first, we should overriding ListNode compare function __lt__ to make customized compare happens: compare ListNode
-    def __lt__(self, other):
+    def __lt__(self, other):        # re-define the __lt__ function
         return self.val < other.val
     
-    ListNode.__lt__ = __lt__
-  
+    ListNode.__lt__ = __lt__        # overide the __lt__ function for ListNode
+    
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
-        if lists == [None]:
-            return None
-        
-        dummyNode = ListNode(0)
-        curr = dummyNode
-        
-        import heapq
-        
         hq = []
         for head in lists:
             if head:
-                heapq.heappush(hq, head)
- 
-        while hq:
-            minNode = heappop(hq)
-            curr.next = minNode
-            curr = curr.next
+                heappush(hq, head)
             
-            if minNode.next:
-                heapq.heappush(hq, minNode.next)
+        dummynode = ListNode(0)
+        curr = dummynode
+        while len(hq) > 0:
+            curr.next = heappop(hq)
+            curr = curr.next
+            if curr.next:
+                heappush(hq, (curr.next))
                 
-        return dummyNode.next
+        return dummynode.next
       
       
 """
@@ -54,29 +54,29 @@ time complexity: each merge takes N operations and we divide/merge logk times, s
 """
 class Solution:
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
-        if not lists:
+        if len(lists) == 0:
             return None
         if len(lists) == 1:
             return lists[0]
         
         # divide
         mid = len(lists) // 2
-        leftHead = self.mergeKLists(lists[:mid])
-        rightHead = self.mergeKLists(lists[mid:])
+        lefthead = self.mergeKLists(lists[:mid])
+        righthead = self.mergeKLists(lists[mid:])
         
         # conquer/merge
         dummy = ListNode(0)
         curr = dummy
-        leftCurr, rightCurr = leftHead, rightHead
-        while leftCurr and rightCurr:
-            if leftCurr.val < rightCurr.val:
-                curr.next = leftCurr
-                leftCurr = leftCurr.next
+        leftcurr, rightcurr = lefthead, righthead
+        while leftcurr and rightcurr:
+            if leftcurr.val < rightcurr.val:
+                curr.next = leftcurr
                 curr = curr.next
+                leftcurr = leftcurr.next
             else:
-                curr.next = rightCurr
-                rightCurr = rightCurr.next
+                curr.next = rightcurr
                 curr = curr.next
-        curr.next = leftCurr if leftCurr else rightCurr
+                rightcurr = rightcurr.next
+        curr.next = leftcurr if leftcurr else rightcurr
         
         return dummy.next
