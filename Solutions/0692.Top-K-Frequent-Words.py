@@ -23,6 +23,7 @@ Try to solve it in O(n log k) time and O(n) extra space.
 """
 heapq solution: O(N + klogN)
 """
+"""
 from heapq import *
 class Solution:
     def topKFrequent(self, words: List[str], k: int) -> List[str]:
