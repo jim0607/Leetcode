@@ -27,34 +27,31 @@ class Solution:
         # 于是总的任务数就是上图的
         # I have to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap.
         
-        freqDict = collections.Counter(tasks)
-            
+        freqs = collections.Counter(tasks)
         hq = []
-        for task, freq in freqDict.items():
-            heapq.heappush(hq, (-freq, task))   # get the most frequent items to heap top, by using negative freq, 维护一个最大堆
+        for task, freq in freqs.items():
+            heappush(hq, (-freq, task))     # 以freq维护一个最大堆
             
-        res = 0
-        while hq:
-            addBack = []
+        cnt = 0         # record how many seats were taken
+        addback = []    # 没执行完的任务需要重新放回hq里面去
+        while len(hq) > 0:
             
             # 先预设有n + 1个座位，eg: n = 3， 那就先预设四个座位: _ _ _ _
             # 每进一次循环代表占领一个座位的位置，让高频的去占领那4个座位
             # 同时将高频的那四个的freq分别减1
             for _ in range(n + 1):
-                res += 1  
+                cnt += 1            # update cnt wheather or not(idle) a task is seated
                 
-                if hq:      # 遍历一遍hq的所有元素，这些元素分别freq分别减1
-                    freq, task = heapq.heappop(hq)
-                    freq *= -1
+                if len(hq) > 0:     # 遍历一遍hq的所有元素，这些元素分别freq分别减1
+                    freq, task = heappop(hq)
+                    freq = -freq
                     freq -= 1
-                    if freq > 0:  # if more than one char remains, then should add the char back to heap
-                        addBack.append((freq, task))
-
-                if not hq and not addBack:  # if not heap, and no additon to heap, 需要提前出来！
-                    return res
-                
-            # add back to heap
-            for freq, task in addBack:
-                heapq.heappush(hq, (-freq, task))
-                    
-        return res
+                    if freq > 0:    # 没执行完的任务需要重新放回hq里面去
+                        addback.append((-freq, task))
+                        
+                if len(hq) == 0 and len(addback) == 0:
+                    return cnt      # if all tasks are seated, 就不要再继续cnt+1了，必须在这个for loop里面停止
+            
+            # 没执行完的任务现在不在hq里面，把他们放到hq里去
+            while len(addback) > 0:
+                heappush(hq, addback.pop())
