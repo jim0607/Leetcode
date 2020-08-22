@@ -29,29 +29,27 @@ Explanation: All possible pairs are returned from the sequence: [1,3],[2,3]
 heap solution: klogk
 """
 
-from heapq import heappush, heappop
+from heapq import *
 
 class Solution:
     def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:
-        if not nums1 or not nums2:
+        m, n = len(nums1), len(nums2)
+        if m == 0 or n == 0:
             return []
         
+        hq = []
+        heappush(hq, (nums1[0] + nums2[0], (0, 0)))
+        added = set()
+        added.add((0, 0))
         res = []
-        hq = [(nums1[0] + nums2[0], (0, 0))]
-        seen = set()
-        seen.add((0, 0))
-        for _ in range(k):
-            if not hq:
-                return res
-            
-            min_sum, (min_i, min_j) = heappop(hq)
-            res.append([nums1[min_i], nums2[min_j]])
-            
-            if min_i + 1 < len(nums1) and (min_i + 1, min_j) not in seen:
-                heappush(hq, (nums1[min_i + 1] + nums2[min_j], (min_i + 1, min_j)))
-                seen.add((min_i + 1, min_j))
-            if min_j + 1 < len(nums2) and (min_i, min_j + 1) not in seen:
-                heappush(hq, (nums1[min_i] + nums2[min_j + 1], (min_i, min_j + 1)))
-                seen.add((min_i, min_j + 1))
+        for _ in range(min(m*n, k)):
+            num, (i, j) = heappop(hq)
+            res.append([nums1[i], nums2[j]])
+            if i + 1 < m and (i+1, j) not in added:
+                heappush(hq, (nums1[i+1] + nums2[j], (i+1, j)))
+                added.add((i+1, j))
+            if j + 1 < n and (i, j+1) not in added:
+                heappush(hq, (nums1[i] + nums2[j+1], (i, j + 1)))
+                added.add((i, j+1))
                 
         return res
