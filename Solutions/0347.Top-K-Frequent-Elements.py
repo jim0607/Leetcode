@@ -20,26 +20,21 @@ Your algorithm's time complexity must be better than O(n log n), where n is the 
 heapq, heapq中放入的是(freq, key)对
 需要一个cntDict来记录cnt先"""
 
-import heapq
+from heapq import heappush, heappop, heapify
 
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        freqDict = collections.defaultdict(int)
-        for num in nums:        # O(N)
-            freqDict[num] += 1
-            
-        # algorithm is the same as 215: Kth largest element in array
-        freqHeapq = []
-        for num, freq in freqDict.items():          # # O(C), C is the size of cntDict
-            heapq.heappush(freqHeapq, (freq, num))  #把freq放在num前面是为了用freq作为标准来做heap的排序, O(K), K is the size of heap
-            if len(freqHeapq) > k:
-                heapq.heappop(freqHeapq)
+        counter = collections.Counter(nums)
         
-        res = []
-        for (freq, num) in freqHeapq:
-            res.append(num)
-            
-        return res[::-1]        # O(K)
+        # algorithm is the same as 215: Kth largest element in array
+        hq = []
+        for num, cnt in counter.items():
+            heappush(hq, (cnt, num))    #把freq放在num前面是为了用freq作为标准来做heap的排序, O(logK), K is the size of heap
+            if len(hq) > k:
+                heappop(hq)
+                
+        return [num for cnt, num in hq]
+        
     
     
 """"use heapify to realize O(N) solution"""
