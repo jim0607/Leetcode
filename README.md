@@ -189,29 +189,23 @@ q 记录区间[i-k, i]内被反转了的idx, 遍历过程中把里i很远的idx�
 ## [Heap/Heapq](/Data-Structure.py) 
 - [Heapq implementation](Solutions/Implement_Heapq.py) (!!M) <br>
 - [0703. Kth Largest Element in a Stream](Solutions/0703.Kth-Largest-Element-in-a-Stream.py) (E) <br>
-heap solution: maintain a hq with size k, the kth largest is always hq[0] - O(klogk)
-Maybe we can do log time complexity for add method using a red–black tree, 
-red-black tree is a type of self-balancing binary search tree, Google requires at least talk about it.
+heap solution: maintain a hq with size k, the kth largest is always hq[0] - O(logk) for add function.
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!M) <br>
-time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的push 和pop都是logK; heapq适合做第K大，第K小，前K大，前K小问题; solution 2: quick select: O(n)
-- [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (M) <br>
+time: O(NlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的push 和pop都是logK; heapq适合做第K大，第K小，前K大，前K小问题; solution 2: quick select: O(N)
+- [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (!!M) <br>
 需要一个freqDict来记录每个数出现的freq， heapq, heapq中放入的是(freq, key)对; 按照freq来做heapq，这样就保证了可以筛选出most freqent k item; solution 2: quick select should implement; solution 3: bucket sort O(N) faster then solution 2, cuz solution 2 is O(N^2) in worst case.
 - [0692. Top K Frequent Words](Solutions/0692.Top-K-Frequent-Words.py) (!!M) <br>
 heapq solution: O(N + klogN); quick select solution: O(N + klogk)
-- [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
-solution 1: 扫描线；solution 2: 以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
 - [0973. K Closest Points to Origin](Solutions/0973.K-Closest-Points-to-Origin.py) (M) <br>
 （以squre来构建heap就可以了，heap中的元素是(square, point)） quick select is only O(N), I guess all the kth largest problem can use quick select.
 - [0658. Find K Closest Elements](Solutions/0658.Find-K-Closest-Elements.py) (M) <br>
 step 1: binary search to find the idx where x should be; step 2: put the closest k elements in a hq - O(klogk); step 3: output - O(klogk)
 - [0378. Kth Smallest Element in a Sorted Matrix](Solutions/0378.Kth-Smallest-Element-in-a-Sorted-Matrix.py) (!!M) <br>
-利用sorted matrix的性质，从左上角第一个元素开始，添加进heap，然后heap当然自动排序了，然后pop出最小的，然后把最小的那个数的右边和下边的元素分别入heap，这样可以保证每次pop出来的都是最小的。1. use a heap to store (num, row, col); 2. use a set to check if row + 1, col + 1 visited already before push into the heap; Solution 2: binary search 了解一下。<br>
-- [0465 Kth Smallest Sum in Two Sorted Arrays](Solutions/0465.Kth-Smallest-Sum-in-Two-Sorted-Arrays.py) (M Lintcode) <br>
-将两个list各挑一个数出来的加和做成一个2D Array, 由于两个list都是sorted, 那么这个2D array就是与378同样sorted array了。
-- [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!M) <br>
-maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we should overriding ListNode compare function __lt__ to make customized compare happens: compare ListNodeSolution 2: divide and conquer, the same as merge sort. O(NlogK)
+利用sorted matrix的性质，从左上角第一个元素开始，添加进heap，然后heap当然自动排序了，然后pop出最小的，然后把最小的那个数的右边和下边的元素分别入heap，这样可以保证每次pop出来的都是最小的。1. use a heap to store (num, (row, col)); 2. use a set to check if row + 1, col + 1 visited already before push into the heap; Solution 2: binary search 了解一下。<br>
+- [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!H) <br>
+maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we should overriding ListNode compare function ____ lt__ to make customized compare happens: compare ListNodeSolution 2: divide and conquer, the same as merge sort. O(NlogK) 如果不记得override ____ lt__ 怎么写的话就乖乖写merge sort 吧
 - [0373. Find K Pairs with Smallest Sums](Solutions/0373.Find-K-Pairs-with-Smallest-Sums.py) (M) <br>
-heap solution: klogk, very simlilar with merge k sorted list.
+heap solution: klogk, very simlilar with merge k sorted list. 方法二：将两个list各挑一个数出来的加和做成一个2D Array, 由于两个list都是sorted, 那么这个2D array就是与378同样sorted array了, 然后按照378那样解就可以了。
 - [0632. Smallest Range Covering Elements from K Lists](Solutions/0632.Smallest-Range-Covering-Elements-from-K-Lists.py) (!!H) <br>
 heapq solution: O(m+nlogm) where m is len(nums), n is len(lst). hq stores (the item in the lst, the lst_idx of where lst is in the nums, the num_idx where the num is in the lst). whenver a min_val is popped, we compare the max_val-min_val with the previous diff. 
 Then we push (nums[lst_idx][num_idx+1], lst_idx, num_idx+1) into the heapq and update max_val in the heapq.
@@ -1530,6 +1524,8 @@ O(N): 从左到右扫一遍，不满足条件的交换就好了。定义一个�
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!!M Youtubed)  <br>
 solution 1: quick select O(N) in average!!!!; solution 2: heap O(NlogK): heapq.heappush(numsHeap, num); heapq.heappop(numsHeap)
 <br> 一个follow up: find the median in a un-sorted array.  solution: this is to find the Kth largest in an array, where K=len(arr)//2
+- [0692. Top K Frequent Words](Solutions/0692.Top-K-Frequent-Words.py) (!!M) <br>
+heapq solution: O(N + klogN); quick select solution: O(N + klogk)
 - [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E) <br>
 solution 1: 同向双指针； solution 2: 反向双指针同上题
 - [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
