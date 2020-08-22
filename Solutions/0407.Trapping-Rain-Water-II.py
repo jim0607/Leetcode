@@ -35,8 +35,44 @@ Step3: in this way, we start from out liners to inside. do step 2 until heapq is
 O(MNlogMN)
 """
 
-import heapq
+"""
+下面的写法稍微易懂一点
+"""
+class Solution:
+    def trapRainWater(self, matrix: List[List[int]]) -> int:
+        hq = []
+        visited = set()
+        m, n = len(matrix), len(matrix[0])
+        for i in range(1, m-1):
+            heappush(hq, (matrix[i][0], (i, 0)))
+            visited.add((i, 0))
+            heappush(hq, (matrix[i][n-1], (i, n-1)))
+            visited.add((i, n-1))
+        for j in range(1, n-1):
+            heappush(hq, (matrix[0][j], (0, j)))
+            visited.add((0, j))
+            heappush(hq, (matrix[m-1][j], (m-1, j)))
+            visited.add((m-1, j))
+            
+        res = 0
+        while len(hq) > 0:
+            leaking_h, (i, j) = heappop(hq)
+            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                next_i, next_j = i + delta_i, j + delta_j
+                if 0 < next_i < m - 1 and 0 < next_j < n - 1:
+                    if (next_i, next_j) not in visited:
+                        if matrix[next_i][next_j] < leaking_h:
+                            res += leaking_h - matrix[next_i][next_j]
+                            visited.add((next_i, next_j))
+                            heappush(hq, (leaking_h, (next_i, next_j)))     # 注意这里是push进去(next_i, next_j)
+                        else:
+                            heappush(hq, (matrix[next_i][next_j], (next_i, next_j)))
+                            visited.add((next_i, next_j))
+        return res
 
+"""
+稍微简洁一点的写法
+"""
 class Solution:
     MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
     
