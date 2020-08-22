@@ -44,20 +44,24 @@ We made 2 refueling stops along the way, so we return 2.
 dp[i+1] = max(dp[i] + stations[j][1] among all the station that dp[i] can reach) - O(n^2);
 return the first i where dp[i] >= target.
 """
+"""
+dp[i] = the furthest location we can reach if refuled i times.
+dp[0] = startFuel
+dp[i+1] = max(dp[i]+the station that are within dp[i])
+"""
 class Solution:
     def minRefuelStops(self, target: int, startFuel: int, stations: List[List[int]]) -> int:
-        dp = [startFuel] + [0] * len(stations)
-        for j, (location, capacity) in enumerate(stations):
+        dp = [0 for _ in range(len(stations)+1)]
+        dp[0] = startFuel
+        for j, (location, fuel) in enumerate(stations):
             for i in range(j, -1, -1):
                 if dp[i] >= location:
-                    dp[i+1] = max(dp[i+1], dp[i] + capacity)
-                    
+                    dp[i+1] = max(dp[i+1], dp[i] + fuel)
+        
         for i, loc in enumerate(dp):
             if loc >= target:
                 return i
         return -1
-        
-        
         
         
         
