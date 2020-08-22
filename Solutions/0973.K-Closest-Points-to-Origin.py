@@ -20,18 +20,19 @@ We only want the closest K = 1 points from the origin, so the answer is just [[-
 
 """以squre来构建heap就可以了，heap中的元素是(square, point)
  Use heapify to reach O(N+klogN) time complexity """
+from heapq import *
 class Solution:
     def kClosest(self, points: List[List[int]], K: int) -> List[List[int]]:
-        closestToOrigin = []
-        for point in points:
-            distance_sq = point[0] * point[0] + point[1] * point[1]
-            closestToOrigin.append((distance_sq, point))
+        hq = []
+        for i, point in enumerate(points):
+            x, y = point[0], point[1]
+            hq.append((x*x+y*y, i))
             
-        import heapq
-        heapq.heapify(closestToOrigin)
+        heapify(hq)
         
         res = []
         for _ in range(K):
-            res.append(heapq.heappop(closestToOrigin)[1])
+            res.append(points[heappop(hq)[1]])
+        return res
             
         return res
