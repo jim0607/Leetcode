@@ -28,10 +28,8 @@ Explanation: It's the only correct answer in this case.
 
 
 """
-有点像621. Task Schedule. 用一个hq保存最大的freq, 然后按要求排座位，注意add_back.
-突然觉得task schdule每次都优先排最大的freq这个做法非常greedy. 
-heapq 本身就是greedy, 每次都有选择性地pop出来，Dijkstra就是一个例子，
-对于这题，我们先判断把最high freq的ch pop出来加入res, 然后freq-1放回hq中
+这种间隔k个位置安排座位的问题，都是task schedule的做法！
+与767. Reorganize String是同一题，只是767不能连续两个相同，这个题不能连续三个相同，
 """
 class Solution:
     def longestDiverseString(self, a: int, b: int, c: int) -> str:
@@ -46,10 +44,11 @@ class Solution:
             freq, ch = heappop(hq)
             
             # case 1: if there are already to same ch on top of res
-            # then we cannot seat this ch, instead, we seat the 2nd highest freq
+            # then we cannot seat the 1st_freq ch, instead, we seat the 2nd highest freq
             if len(res) >= 2 and res[-1] == ch and res[-2] == ch:
                 if len(hq) == 0:    # 养成好习惯，在heappop之前判断不为空
-                    return res
+                    return res      # 在case 1中只能加入second_freq ch, 但是有没有second_freq可加了
+                                    # 那就表示1st_freq ch 加不进去了，直接return res
                 second_freq, second_ch = heappop(hq)
                 res += second_ch
                 second_freq = -second_freq
