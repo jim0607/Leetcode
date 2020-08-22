@@ -33,36 +33,37 @@ Explanation: It's the only correct answer in this case.
 heapq 本身就是greedy, 每次都有选择性地pop出来，Dijkstra就是一个例子，
 对于这题，我们先判断把最high freq的ch pop出来加入res, 然后freq-1放回hq中
 """
-from heapq import heappush, heappop
-
 class Solution:
     def longestDiverseString(self, a: int, b: int, c: int) -> str:
         hq = []
-        if a > 0:
-            heappush(hq, (-a, "a"))
-        if b > 0:
-            heappush(hq, (-b, "b"))
-        if c > 0:
-            heappush(hq, (-c, "c"))
+        if a > 0: heappush(hq, (-a, "a"))
+        if b > 0: heappush(hq, (-b, "b"))
+        if c > 0: heappush(hq, (-c, "c"))
         
         res = ""
-        while hq:
+        addback = []
+        while len(hq) > 0:
             freq, ch = heappop(hq)
             
-            # case 1: in case there is already two same ch, cannot continue put it into res
-            if len(res) >= 2 and res[-1] == ch and res[-2] == ch:   
-                if not hq:
+            # case 1: if there are already to same ch on top of res
+            # then we cannot seat this ch, instead, we seat the 2nd highest freq
+            if len(res) >= 2 and res[-1] == ch and res[-2] == ch:
+                if len(hq) == 0:    # 养成好习惯，在heappop之前判断不为空
                     return res
                 second_freq, second_ch = heappop(hq)
                 res += second_ch
-                if second_freq != -1:
-                    heappush(hq, (second_freq + 1, second_ch))  # don't forget to add back
-                heappush(hq, (freq, ch))
-                    
-            # case 2: if we can continue to put the same ch into res
+                second_freq = -second_freq
+                second_freq -= 1
+                if second_freq > 0:         # 不要忘了addback
+                    heappush(hq, (-second_freq, second_ch))
+                heappush(hq, (freq, ch))    # 不要忘了addback 没有用上的the 1st freq, ch
+                
+            # case 2: if we can put seat ch into res, then go ahead and seat it it
             else:
                 res += ch
-                if freq != -1:
-                    heappush(hq, (freq + 1, ch))        # don't forget to add back
+                freq = -freq
+                freq -= 1
+                if freq > 0:
+                    heappush(hq, (-freq, ch))
                     
         return res
