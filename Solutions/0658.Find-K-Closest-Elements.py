@@ -12,6 +12,29 @@ Input: arr = [1,2,3,4,5], k = 4, x = -1
 Output: [1,2,3,4]
 
 
+    
+class Solution:
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        hq = []
+        for num in arr:
+            hq.append((abs(num - x), num))
+        
+        heapify(hq)
+        
+        res = []
+        for _ in range(k):      # KlogN
+            res.append(heappop(hq)[1])
+            
+        return sorted(res)      # KlogK
+    
+    
+"""
+solution 2: 由于这题给的arr是已经sorted的，我们可以binary search寻找x在num中的位置-O(logN)，
+然后从那个位置出发向两边寻找最接近x的值 - O(k).  总的时间复杂度是O(k+N). 比heapq要好一些，因为
+heapq没有用到arr already soted的特性
+"""
+    
+    
 
 import heapq
 
