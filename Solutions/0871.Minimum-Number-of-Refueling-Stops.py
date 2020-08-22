@@ -10,7 +10,8 @@ When the car reaches a gas station, it may stop and refuel, transferring all the
 
 What is the least number of refueling stops the car must make in order to reach its destination?  If it cannot reach the destination, return -1.
 
-Note that if the car reaches a gas station with 0 fuel left, the car can still refuel there.  If the car reaches the destination with 0 fuel left, it is still considered to have arrived.
+Note that if the car reaches a gas station with 0 fuel left, the car can still refuel there.  
+If the car reaches the destination with 0 fuel left, it is still considered to have arrived.
 
  
 
@@ -71,10 +72,12 @@ class Solution:
         
 """
 solution 2: greedy - O(nlogn). 类似jump game II的想法
-sort the stations based on the location; first, see where we can get using the startFuel, say we can get to [10, 40] and [20, 50], then we choose the station that can give us the most possible_coverage, 
+sort the stations based on the location; first, see where we can get using the startFuel, say we can get to [10, 40] and [20, 50], 
+then we choose the station that can give us the most possible_coverage, 
 the left_fuel = last_fuel - (curr_stataion[0]-last_loc) + curr_station[1], 
 the next possible_coverage = left_fuel + curr_station[0],
-say, we choose [20, 50] and largest next possible_coverge is 75, then we choose the station within 20-75 range, and do the same thing, until our next_possible_coverage >= target.
+say, we choose [20, 50] and largest next possible_coverge is 75, then we choose the station within 20-75 range, and do the same thing, 
+until our next_possible_coverage >= target.
 """
 class Solution:
     def minRefuelStops(self, target: int, startFuel: int, stations: List[List[int]]) -> int:
@@ -124,7 +127,8 @@ so that if the leargest_possible_coverage doesn't work, we can still pop our the
 """
 solution 2: heapq - O(nlogn)
 heapq stores the fuel at the station. 这题的关键是不要考虑到达的那个station的位置，
-我们永远只需要考虑从0出发，中途能加多少油，加的油越多跑得越远. 维护一个possible_coverage变量表示能跑多远
+我们永远只需要考虑从0出发，中途能加多少油，加的油越多跑得越远. 维护一个possible_coverage变量表示能跑多远.
+这个题目用hq的方式跟Dikstra's有点像，都是要贪心地pop出最优解！
 """
 from heapq import heappush, heappop
 
