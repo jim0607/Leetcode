@@ -19,6 +19,43 @@ The output list must be sorted by the x position.
 There must be no consecutive horizontal lines of equal height in the output skyline. For instance, [...[2 3], [4 5], [7 5], [11 5], [12 7]...] is not acceptable; the three lines of height 5 should be merged into one in the final output as such: [...[2 3], [4 5], [12 7], ...]
 
 
+    
+"""
+不难发现这些关键点的特征是：竖直线上轮廓升高或者降低的终点,
+所以核心思路是：从左至右遍历建筑物，记录当前的最高轮廓，如果产生变化则记录一个关键点       
+"""
+class Solution:
+    def getSkyline(self, buildings: List[List[int]]) -> List[List[int]]:
+        # 首先记录构造一个建筑物的两种关键事件
+        # 第一种是轮廓升高事件(L, -H)、第二种是轮廓降低事件(R, 0)
+        # 轮廓升高事件(L, -H, R)中的R用于后面的最小堆
+        events = [(left, height, right) for left, right, height in buildings]
+        events += [(right, 0, 0) for _, right, _ in buildings]
+        
+        # 先根据L从小到大排序、再根据H从大到小排序
+        # 这是因为我们要维护一个堆保存当前最高的轮廓
+        events.sort(key = lambda x: (x[0], -x[1], x[2]))
+        
+        hq = [(0, float("inf"))]  # 保存当前最高的轮廓(-H, R)
+        
+        res = [[0, 0]]
+        for left, height, right in events:
+            # 如果是轮廓升高事件则记录到最大堆中
+            if height != 0:
+                heappush(hq, (-height, right))
+            
+            # 根据当前遍历的位置L，判断最高轮廓是否有效，无效则剔除
+            # pop buildings that end before curPos, cuz they are no longer "alive"
+            while hq[0][1] <= left:
+                heappop(hq)
+                
+            # 如果当前的最高轮廓发生了变化，则记录一个关键点
+            if res[-1][1] != -hq[0][0]:
+                res.append([left, -hq[0][0]])
+                
+        return res[1:]
+    
+    
 
 """https://leetcode.com/problems/the-skyline-problem/discuss/61210/14-line-python-code-straightforward-and-easy-to-understand"""
 from heapq import *
@@ -62,7 +99,7 @@ class Solution:
                 if currHeight != prevHeight:    # 说明出现了一个拐点要么上升要么下降，这时候就需要append拐点了
                     res.append([currPos, currHeight])
                     prevHeight = currHeight
-            else:       # no building, horizontal
+            else:       # no building, horizontal line
                 res.append([currPos, 0])
                 
         # 简单给res去个重, anchor keep all the non-duplicate on it's left
