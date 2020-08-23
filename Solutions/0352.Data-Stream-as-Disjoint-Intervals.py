@@ -21,9 +21,6 @@ What if there are lots of merges and the number of disjoint intervals are small 
 In addNum method, we just need to append a new interval [val, val] to the intervals - O(1)
 In the getIntervals method, we do merge interval just lke 56. Merge intervals - O(NlogN)
 """
-
-import heapq
-
 class SummaryRanges:
 
     def __init__(self):
@@ -51,7 +48,8 @@ class SummaryRanges:
             else:
                 res.append([start, end])
                 
-        self.intervals = res
+        self.intervals = res    # 这次的赋值很重要，因为这个merged res是sort好了的，所以把self.intervals sort好了之后
+                                # 以后再去self.intervals.sort()的时候就是sort a nearly sorted list, which takes about O(n) using insertion sort. 
         return res
 
 
