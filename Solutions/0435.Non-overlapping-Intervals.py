@@ -32,9 +32,9 @@ This is actually greedy algorithm: always pick the interval with the earliest en
 Then you can get the maximal number of non-overlapping intervals. (or minimal number to remove).
 Implemented using sweep line: 
 Step 1: sort the list based on the end time of the intervals, cuz we want to pick up the earliest end time.
-step 2: use a pointer (represent end time) to sweep over the intervals. each time, we compare the pointer with the start time.
-if the interval has an start time larger than the pointer, then renew the pointer to be the new end time;
-else then we will have to remove the interval in order to to keep the end time as small as possible,  removed_cnt += 1
+step 2: maintain a pointer (represent end time) as we sweep over the intervals. each time, we compare the start time with the pointer.
+if the current start time is larger than the pointer, then renew the pointer to be the new end time;
+else then we will have to remove the current interval in order to to keep the end time as small as possible,  removed_cnt += 1
 """
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
@@ -49,6 +49,6 @@ class Solution:
             if interval[0] >= end:
                 end = interval[1]
             else:   # if interval[0] < end, then we should remove this interval
-                removed_cnt += 1
+                removed_cnt += 1   # because we want to keep the end time as small as possible
                 
         return removed_cnt
