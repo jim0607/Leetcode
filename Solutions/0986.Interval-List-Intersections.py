@@ -17,19 +17,20 @@ Output: [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]]
 
 """
 这题是找两个Interval的overlaps, 和merge interval有点像，we update res as res.append([max_start, min_end]).
-然后两个sweep line的指针，谁的end比较小，谁先往前挪一步
+这题遍历两个interval的方法是难点: 两个sweep line的指针放在两个interval上，谁的end比较小，谁先往前挪一步
 """
+
 class Solution:
     def intervalIntersection(self, A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
-        res = []
         i, j = 0, 0
+        res = []
         while i < len(A) and j < len(B):
             max_start = max(A[i][0], B[j][0])
             min_end = min(A[i][1], B[j][1])
             if max_start <= min_end:
                 res.append([max_start, min_end])
             
-            if A[i][1] < B[j][1]:   # 主要是这里没想出来，两个sweep line的指针，谁的end比较小，谁先往前挪一步
+            if A[i][1] < B[j][1]:
                 i += 1
             else:
                 j += 1
