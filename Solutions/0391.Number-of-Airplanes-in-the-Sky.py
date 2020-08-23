@@ -41,32 +41,25 @@ class Interval(object):
 """
 
 class Solution:
-    """
-    @param airplanes: An interval array
-    @return: Count of airplanes are in the sky.
-    """
     def countOfAirplanes(self, airplanes):
-        departure, arrival = [], []
+        departure = []
+        arrival = []
         for airplane in airplanes:
             departure.append(airplane.start)
             arrival.append(airplane.end)
         
-        departure.sort()       # O(NlogN)
+        departure.sort()
         arrival.sort()
-        
-        currAirplane, maxAirplane = 0, 0
+
         i, j = 0, 0
+        cnt = 0
+        maxcnt = 0
         while i < len(departure) and j < len(arrival):
             if departure[i] < arrival[j]:
-                currAirplane += 1
+                cnt += 1
                 i += 1
-            elif departure[i] > arrival[j]:
-                currAirplane -= 1
-                j += 1
             else:
-                i += 1
+                cnt -= 1
                 j += 1
-                
-            maxAirplane = max(maxAirplane, currAirplane)
-        
-        return maxAirplane
+            maxcnt = max(maxcnt, cnt)
+        return maxcnt
