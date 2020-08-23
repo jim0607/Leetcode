@@ -42,6 +42,7 @@ class Solution:
             return 0
         
         # in order to make this algorithm work, we need to sort based on the end time of the intervals
+        # 因为我们想要maintain the minimum end_time, 所以将end_time排序
         intervals.sort(key = lambda interval: (interval[1], interval[0]))
         removed_cnt = 0
         end = float("-inf")
