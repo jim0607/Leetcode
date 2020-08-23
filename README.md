@@ -1,6 +1,6 @@
 ## 四刷：每天刷15-20题, 做好总结！08/17 to 09/30
 ## 每天晚上睡前Review做过的题
-##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239
+##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373
 
 
 # [Data Structure](/Data-Structure.py)
@@ -212,16 +212,12 @@ Then we push (nums[lst_idx][num_idx+1], lst_idx, num_idx+1) into the heapq and u
 - [0621. Task Scheduler](Solutions/0621.Task-Scheduler.py) (!!M) <br>
 we only need to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
 - [0358. Rearrange String k Distance Apart](Solutions/0358.Rearrange-String-k-Distance-Apart.py) (!!H) <br>
-similar with task schedule, 我们按频率从大到小去坐k个位置，pop出来之后需要将freq-=1然后push回去, pop出来再push回去的思想很重要！！
-- [1405. Longest Happy String](Solutions/1405.Longest-Happy-String.py) (!!M) <br>
-similar with task schedule, 对于这题，我们先判断把最high freq的ch pop出来加入res, 然后freq-1放回hq中
+这种间隔k个位置安排座位的问题，都是task schedule的做法！similar with task schedule, 我们按频率从大到小去坐k个位置，pop出来之后需要将freq-=1然后push回去, pop出来再push回去的思想很重要！！
 - [0767. Reorganize String](Solutions/0767.Reorganize-String.py) (!!M) <br>
-I think it is similar with task schedule.  always put the most freq ch adjacent with the 2nd most freq ch.
-We can firstly find the freq, and then put them into a heapq,
-then each time we pop the most freq one, and also pop to get the second most freq one.
-after using them, their freq-=1 and we push them back.
-O(Nlogk), where N is total number of ch, K is total number of distinct number.
-- [0263. Ugly Number](Solutions/0263.Ugly-Number.py) (M) <br>
+这种间隔k个位置安排座位的问题，都是task schedule的做法！这一题k=1. 用一个hq保存最大的freq, 然后按要求排座位，注意add_back. # case 1: if we can put seat ch into res, then go ahead and seat it it; # case 2: if there is already to same ch on top of res, then we cannot seat the 1st_freq ch, instead, we seat the 2nd highest freq
+- [1405. Longest Happy String](Solutions/1405.Longest-Happy-String.py) (!!M) <br>
+这种间隔k个位置安排座位的问题，都是task schedule的做法！similar with task schedule, 对于这题，我们先判断把最high freq的ch pop出来加入res, 然后freq-1放回hq中. # case 1: if we can put seat ch into res, then go ahead and seat it it; # case 2: if there is already to same ch on top of res, then we cannot seat the 1st_freq ch, instead, we seat the 2nd highest freq
+- [0263. Ugly Number](Solutions/0263.Ugly-Number.py) (E) <br>
 warm up for the next question.
 - [0264. Ugly Number II](Solutions/0264.Ugly-Number-II.py) (M) <br>
 维护一个heapq，让它记录从小到大的ugly number, 每次pop出一个currMin，然后生成三个数2* currMin, 3*currMin, 5*currMin, 如果not in seen, 就push进heapq
@@ -233,8 +229,13 @@ Similar with 42. 1D trapping rain water. 1D trapping rain water 是用双指针�
 定义两个heap: self.leftHq as a maxheap to store the nums that are smaller than median; and self.rightHq as a minheap store the nums that are larger then median.  每次新增一个数num的时候，先根据比 maxheap 中最后一个数大还是小丢到对应的 heap 里。丢完以后，再处理左右两边的平衡性:如果左边太少了，就从右边拿出一个最小的丢到左边。如果右边太少了，从左边拿出一个最大的丢到右边。时间复杂度是O(logN). Follow up questions are important. 
 Follow up: leetcode 1093
 - [0480. Sliding Window Median](Solutions/0480.Sliding-Window-Median.py) (!!H) <br>
-Solution 1: maitain a sorted window.  We can use binary search for remove and indert. the overall time complexity is O(NK).
-similar with 295, we need to maintain two heaps in the window, leftHq and rightHq. To slide one step is actually to do two things: step 1. add a number, which is exactly the same as that in 295. add a number in heapq could be heapq.heappush() which is O(logn) step 2. remove the number that is outside the window; there is not a remmove method in heapq.
+Solution 1: maitain a sorted window.  We can use binary search for remove and insert. 
+the overall time complexity is O(nk), because insert takes O(k).
+Solution 2: similar with LC 295, we need to maintain two heaps in the window, leftHq and rightHq. 
+To slide one step is actually to do two things: step 1. add a number, which is exactly the same as that in LC 295, which is O(logk)
+step 2. remove the number that is outside the window; there is not a remove method in heapq, so it takes O(k).
+Solution 3: use a SortedList structure, which was implemented using self-balanced tree.  
+SortedList enables O(logk) add and remove.  So the total time complexity is O(nlogk) 
 - [0871. Minimum Number of Refueling Stops](Solutions/0871.Minimum-Number-of-Refueling-Stops.py) (!!H Google) <br>
 像这种求极值的问题，十有八九要用动态规划 Dynamic Programming 来做，
 但是这道题的 dp 定义式并不是直接来定义需要的最少加油站的个数，那样定义的话不太好推导出状态转移方程。
@@ -243,49 +244,50 @@ dp[i+1] = max(dp[i] + stations[j][1] among all the station that dp[i] can reach)
 return the first i where dp[i] >= target. 
 solution 2: heapq - O(nlogn)
 heapq stores the fuel at the station. 这题的关键是不要考虑到达的那个station的位置，
-我们永远只需要考虑从0出发，中途能加多少油，加的油越多跑得越远. 维护一个possible_coverage变量表示能跑多远
+我们永远只需要考虑从0出发，中途能加多少油，加的油越多跑得越远. 维护一个possible_coverage变量表示能跑多远. 这个题目用hq的方式跟Dikstra's有点像，都是要贪心地pop出最优解！
 
---------- 480. Sliding Window Median ------------
 
 
 
 # [Intervals/Sweep-Line](/Sweep-Line.py) <br>
 - [0252. Meeting Rooms](Solutions/0252.Meeting-Rooms.py) (E) <br>
-O(nlogn), O(1). 题目问一个人能不能参加所有的meeting, 只需要sort the intervals, if intervals[i][0] < intervals[i - 1][1] then return False
+O(nlogn). 题目问一个人能不能参加所有的meeting, a person could attaned all meetings if there is not intervals overlapping, 只需要sort the intervals比较前一个end time与后一个start time即可
 - [0391. Number of Airplanes in the Sky](Solutions/0391.Number-of-Airplanes-in-the-Sky.py) (M Lintcode) <br>
 扫描线做法：碰到interval的start，也就是起飞一架飞机，当前天上的飞机数++。碰到interval的end，也就是降落一架飞机，当前天上的飞机数--。
 Step 1: 我们分别把所有的start和所有的end放进两个数组，并排序。Step 2: 然后从第一个start开始统计，碰到start较小就加一，碰到end较小就减一。并且同时维护一个最大飞机数的max。
 - [0986. Interval List Intersections](Solutions/0986.Interval-List-Intersections.py) (!!M) <br>
 这题是找两个Interval的overlaps, 和merge interval有点像，we update res as res.append([max_start, min_end]).
 然后两个sweep line的指针，谁的end比较小，谁先往前挪一步
+- [1094. Car Pooling](Solutions/1094.Car-Pooling.py) (!!M) <br>
+这题可以叫meeting root III. 我们以end pos构造一个heapq, 每次把end pos小于start pos的pop出来. 以前觉得sweep line is better for meeting room II. 现在觉得solution 2 heapq 更具有普适性 for interval problems
 - [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
 solution 1: 扫描线；minimum meeting rooms required could be understood us maximum meeting rooms in use
 Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky <br> solution 2: 先把interval进行sort: intervals.sort(key = lambda x: (x[0], x[1])), 然后以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
-- [1094. Car Pooling](Solutions/1094.Car-Pooling.py) (!!M) <br>
-这题可以叫meeting root III. 我们以end pos构造一个heapq, 每次把end pos小于start pos的pop出来. 以前觉得sweep line is better for meeting room II. 现在觉得solution 2 heapq 更具有普适性 for interval problems
 - [0435. Non-overlapping Intervals](Solutions/0435.Non-overlapping-Intervals.py) (!!M) <br>
 This is actually greedy algorithm: always pick the interval with the earliest end time. 
 Then you can get the maximal number of non-overlapping intervals. (or minimal number to remove).
 Implemented using sweep line: 
 Step 1: sort the list based on the end time of the intervals, cuz we want to pick up the earliest end time.
-step 2: use a pointer (represent end time) to sweep over the intervals. each time, we compare the pointer with the start time.
-if the interval has an start time larger than the pointer, then renew the pointer to be the new end time;
-else then we will have to remove the interval in order to to keep the end time as small as possible,  removed_cnt += 1.
+step 2: maintain a pointer (represent end time) as we sweep over the intervals. each time, we compare the start time with the pointer.
+if the current start time is larger than the pointer, then renew the pointer to be the new end time;
+else then we will have to remove the current interval in order to to keep the end time as small as possible,  removed_cnt += 1
 - [0452. Minimum Number of Arrows to Burst Balloons](Solutions/0452.Minimum-Number-of-Arrows-to-Burst-Balloons.py) (!!M) <br>
 Step 1: sort the intervals by end time;
 Step 2: sweep line: use a pointer representing the end time, at each interval, we compare the pointer with the interval start time.
 if end >= interval start time: then there is overlap and we should wait so that later we can shot them together;
-if end > interval start time, then we can shot the previously 积累下来的interveals, shots += 1, and move the end to the new interval end time
+if end < interval start time, then we can shot the previously 积累下来的interveals, shots += 1, and move the end to the new interval end time
 - [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (!!M) <br>
 这种interval的题目首先都需要sort, 因为我们总不可能一会处理前面的，一会处理后面的区间。 so sort the intervals first, res = []; for interval in intervals: if the interval start time is larger than the largest end time in res, then the interval cannot be merged; If cannot be merged, then res.append(interval), else then res[-1][1] = max(res[-1][1], interval[1]). merge interval的算法非常重要，后面的题经常用到！
 - [0759. Employee Free Time](Solutions/0759.Employee-Free-Time.py) (!!H) <br>
-这题是merge interval的变形题，第一步先sort所有的intervals, 然后去找所有非公共的intervals - O(NlogN). solution 2: heapq. O(NlogK)
-- [0057. Insert Interval](Solutions/0057.Insert-Interval.py) (H) <br>
-Solution 1: Append the new interval to the intervals, and then do the merge interval problem. O(~n). Solution 2: add the interval on the run O(~n). If there is overlap, we update the new interval. 画个图会好理解很多。
+这题是merge interval的变形题: 
+step 1: obtain all intervals of all employees;
+step 2: sort the intervals by start time;  
+step 3: do 56. merge intervals, to update free time.
+- [0057. Insert Interval](Solutions/0057.Insert-Interval.py) (!!H) <br>
+Solution 1: Append the new interval to the intervals, and then do the merge interval problem. O(nlogn). Solution 2: add the interval as we run. If there is overlap, we update the new interval. 画个图会好理解很多。
 - [0352. Data Stream as Disjoint Intervals](Solutions/0352.Data-Stream-as-Disjoint-Intervals.py) (!!H) <br>
 Solution 1: merge intervals. In addNum method, we just need to append a new interval [val, val] to the intervals - O(1).
-In the getIntervals method, we do merge interval just lke 56. Merge intervals - O(NlogN)
-Solution 2: in the addNum method, firstly find the pos of insertion into the intervals, then merge with prev interval and next interval - O(n), getIntervals method takes O(1)
+In the getIntervals method, we do merge interval just lke 56. Merge intervals - almost O(n) to sort an almost sorted list using insertion sort.
 - [0715. Range Module](Solutions/0715.Range-Module.py) (!!H) <br>
 Store intervals in a sorted array. Use bisect_left and bisect_right to locate where the incoming interval should be. addRange and removeRange takes O(N). queryRange can also use bisect to locate where the interval location is, [left, right]必须在某一个且同一个range内才return True - O(logN)
 - [1272. Remove Interval](Solutions/1272.Remove-Interval.py) (M) <br>
