@@ -25,7 +25,8 @@ Constraints:
 
 
 """
-一个interval与另一个interval的位置关系就六种情况，一一讨论就可以了
+loop over the intervals, and compare each interval with the to_be_removed interval and update res.
+一个interval与另一个interval的位置关系就三种情况(1. 没有交集; 2. 一个包含了另一个; 3. 有交集但是没有谁能完全包含谁)
 """
 
 class Solution:
