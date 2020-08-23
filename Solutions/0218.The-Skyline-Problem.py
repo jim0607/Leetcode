@@ -24,6 +24,7 @@ There must be no consecutive horizontal lines of equal height in the output skyl
 不难发现这些关键点的特征是：竖直线上轮廓升高或者降低的终点,
 所以核心思路是：从左至右遍历建筑物，记录当前的最高轮廓，如果产生变化则记录一个关键点       
 """
+"""
 class Solution:
     def getSkyline(self, buildings: List[List[int]]) -> List[List[int]]:
         # 首先记录构造一个建筑物的两种关键事件
