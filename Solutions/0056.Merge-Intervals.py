@@ -38,9 +38,11 @@ Inspired by https://leetcode.com/problems/merge-intervals/discuss/21452/Share-my
 We need to have two functions for the tree (add interval and query tree).
 
 Implementation Details
-TreeNode - On top of the left child, right child, start boundary, and end boundary, we have a middle field that determines whether a new interval goes to the left child, right right or merged with the current node.
+TreeNode - On top of the left child, right child, start boundary, and end boundary, 
+we have a middle field that determines whether a new interval goes to the left child, right right or merged with the current node.
 
-add - If the new interval touches or crosses the middle of the current node, we update the current node. Otherwise, we put the new interval into the left subtree or right subtree.
+add - If the new interval touches or crosses the middle of the current node, we update the current node. 
+      Otherwise, we put the new interval into the left subtree or right subtree.
 
 Why do we use middle for comparison and not start or end boundaries?
 The reason is that we can use merge-sort technique to query the merged intervals result when the left subtree does not overlap with the right subtree.
