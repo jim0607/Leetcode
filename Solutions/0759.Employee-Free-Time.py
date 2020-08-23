@@ -25,6 +25,13 @@ Output: [[5,6],[7,9]]
 
 
 """
+这题是merge interval的变形题: 
+step 1: obtain all intervals of all employees;
+step 2: sort the intervals by start time;  
+step 3: do 56. merge intervals, to update free time.
+"""
+
+"""
 # Definition for an Interval.
 class Interval:
     def __init__(self, start: int = None, end: int = None):
@@ -32,30 +39,28 @@ class Interval:
         self.end = end
 """
 
-
-"""
-这题是merge interval的变形题，第一步先sort所有的intervals, 然后去找所有非公共的intervals.
-"""
 class Solution:
     def employeeFreeTime(self, schedule: '[[Interval]]') -> '[Interval]':
-        event = []
+        # step 1: obtain all intervals of all employees
+        intervals = []
         for employee in schedule:
             for interval in employee:
-                event.append((interval.start, interval.end))
-                
-        event.sort(key = lambda interval: (interval[0], interval[1]))   # O(NlogN), where N is number of total intervals
+                intervals.append((interval.start, interval.end))
         
-        res = []
-        end_time = event[0][0]
-        for interval in event:
-            if interval[0] > end_time:
-                res.append([end_time, interval[0]])
-                end_time = interval[1]
+        # step 2: sort the intervals by start time
+        intervals.sort()
+        
+        # step 3: do 56. merge intervals, to update free time. how to do?
+        # maintain an end_time as we loop over intervals.
+        # if curr start time > end_time, update free time and end_time
+        # if curr start <= end_time, update end_time
+        free = []
+        end_time = intervals[0][1]
+        for start, end in intervals:
+            if start > end_time:
+                free.append([end_time, start])
+                end_time = end
             else:
-                end_time = max(end_time, interval[1])
-         
-        ans = []
-        for interval in res:
-            ans.append(Interval(interval[0], interval[1]))  # 把list转换成Interval Obj
-            
-        return ans
+                end_time = max(end_time, end)
+                
+        return [Interval(start, end) for start, end in free]    # 把list转换成Interval Obj
