@@ -41,11 +41,39 @@ class Solution:
     
  
 Solutoin 2: heapq
+
+"""
+maintian a min heap based on end time.
+"""
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        if not intervals or not intervals[0]:
+            return 0
+        
+        intervals.sort(key = lambda x: (x[0], x[1]))
+        
+        end_hq = []         # a min hq based on end time
+        curr_in_use = 0     
+        max_in_use = 0      
+        for start, end in intervals:
+            heappush(end_hq, (end, start))
+            curr_in_use += 1        # 新来的meeting肯定是要一个房间的
+            
+            # 如果end time < start的都可以pop出来了，
+            # 因为他们不会再与这个meeting room以及以后的meeting room有任何交集
+            # pop出来之后他们的房间就空出来了，所以curr_in_use -= 1
+            while len(end_hq) > 0 and start >= end_hq[0][0]:
+                heappop(end_hq)
+                curr_in_use -= 1
+            
+            max_in_use = max(max_in_use, curr_in_use)
+            
+        return max_in_use
+    
+    
 """
 put an interval into heap, if the end of the interval is less then the min-end of the heap, then cnt += 1, else just push in and pop the min end
 O(NlogN), O(N)"""
-
-import heapq
 
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
