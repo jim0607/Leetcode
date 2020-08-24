@@ -35,39 +35,36 @@ Input: events = [[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7]]
 Output: 7
 
 
-"""
-Sort events. Priority queue pq keeps the current open events.
-Iterate from the day 1 to day 100000, each day, we 1. add new events starting on day d to the queue pq; 
-2. remove the events that are already closed; 
-3. greedily attend the event that ends soonest, if we can attend a meeting, we increment the res.
-"""
-from heapq import heappush, heappop
 
+"""
+Sort events. use a min hq stores the end time of events cuz we want to pop the min end time first.
+loop over the curr_time from 1 to max day 100000, each day, we do:
+1. add new events that start before curr_time to hq so that we can attend the event; 
+2. remove the events that are already ended before curr_time; 
+3. greedily attend the event that ends soonest by popping from the hq, and update cnt += 1.
+"""
 class Solution:
     def maxEvents(self, events: List[List[int]]) -> int:
-        events.sort(key = lambda event: (event[0], event[1]))
+        events.sort(key = lambda x: (x[0], x[1]))
         
-        hq = []     # hq stores the event end time that are avaliable to attend
         cnt = 0
+        hq = []     # min heapq to store the the end time
+        min_day = min(event[0] for event in events)
+        max_day = max(event[1] for event in events)
         event_idx = 0
-        day = min(event[0] for event in events)
-        total_days = max(event[1] for event in events)
-        
-        while day <= total_days:
-            # step 1: add those events that are candidates to attend
-            while event_idx < len(events) and events[event_idx][0] <= day:
+        for curr_day in range(min_day, max_day + 1):
+            # 1. add new events that start before curr_time to hq so that we can attend the event
+            while event_idx < len(events) and events[event_idx][0] <= curr_day:
                 heappush(hq, events[event_idx][1])
                 event_idx += 1
-            
-            # step 2: remove those events that already outdated
-            while hq and hq[0] < day:
+                
+            # 2. remove the events that are already ended before curr_time
+            while len(hq) > 0 and hq[0] < curr_day:
                 heappop(hq)
                 
-            # step 3: attend the events that ended earliest - Greedy
-            if hq:
+            # greedily attend the event that ends soonest by popping from the hq, and update cnt += 1
+            if len(hq) > 0:
                 heappop(hq)
                 cnt += 1
-                
-            day += 1
-                
-        return cnt
+            
+        return cnt 
