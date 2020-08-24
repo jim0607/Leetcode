@@ -46,7 +46,7 @@ At most 50000 calls will be made to search, add, and erase.
 """
 Each node has 2 pointers: "next" targets to the next node in the same level, "down" targets the "next" level node.
 """
-class Node:
+class ListNode:
     
     def __init__(self, val):
         self.val = val
@@ -58,62 +58,71 @@ class Skiplist:
 
     def __init__(self):
         self.levels = []
-        prev = None
         
         # Because the number of calls is <50000, and 2^16>60000, which is enough to handle all calls.
         # Otherwise we need to consider the situation new level need to be added when level not being enough.
+        vertical = None
         for _ in range(16):
-            node = Node(float("-inf"))  # initialize each level head as -inf
-            self.levels.append(node)
-            if prev:
-                prev.down = node
-            prev = node
+            head = ListNode(float("-inf"))  # 新建一些dummyhead放到每一层的头部
+            self.levels.append(head)        # 处理each level - horizontal
+            if vertical:                        # 处理verticals
+                vertical.down = head
+            vertical = head
             
-    def _find_just_smaller(self, target):
+    def _find_smaller(self, target):
         """
-        helper function to find the largest node that is smaller than search target in all levels
+        helper function to find the largest node that is smaller than search target in EACH levels
+        and store them in a list, return the list
         """
         res = []
-        node = self.levels[0]
-        while node:
-            while node.next and node.next.val < target:
-                node = node.next
-            res.append(node)
-            node = node.down        
+        
+        curr = self.levels[0]
+        while curr:
+            while curr.next and curr.next.val < target:
+                curr = curr.next
+            res.append(curr)    # on each level, just append the largest node that is smaller than target
+            
+            curr = curr.down
+            
         return res
 
     def search(self, target: int) -> bool:
-        last = self._find_just_smaller(target)[-1]
-        return last.next and last.next.val == target
+        last = self._find_smaller(target)[-1]   # last is just smaller node on the last level
+        if last.next and last.next.val == target:
+            return True
+        return False
 
     def add(self, num: int) -> None:
-        res = self._find_just_smaller(num)
-        prev = None
-        for i in range(len(res)-1, -1, -1):  # If you add a node in a level, all levels after that also need to be added
-            node = Node(num)
-            node.next = res[i].next
-            node.down = prev        # "down" pointer must target to their next level counterpart
-            res[i].next = node
-            prev = node
+        smaller = self._find_smaller(num) # the idea is to insert a new_node at the right place, we find the right place at each level first
+        vertical = None
+        for node in smaller[::-1]:      # If we add a node in a level, all levels after that also need to be added, so loop reversely
+            new_node = ListNode(num)    # the idea is to insert a new_node at the right place, we create a new node first
             
+            # firstly, insert the new_node to the level - horizontal
+            new_node.next = node.next
+            node.next = new_node
+            
+            # then, point the new_node.down to it's corresponding down node - vertical
+            new_node.down = vertical
+            vertical = node
+            
+            # we don't insert the new_node to every level, we only inser the new_node to some levesl on the bottom
+            # how to we decide which levels to insert? we use coin toss
             # The purpose of coin toss is to ensure that each node at current level will be 
             # duplicated to its upper level with a probability of 0.5, 
             # so the number of nodes at the upper level is roughly half of the current level.
             # So in the extreme case, SkipList is equivalent to a balanced binary search tree.
             # that is why add, erase and search can be O(logn)
-            rand = random.randrange(0, 10)  
-            if rand >= 5:
+            rand = random.randrange(0, 10)
+            if rand >= 5:   # half of the possibility that we stop inserting the new_node to any upper levels
                 break
 
     def erase(self, num: int) -> bool:
-        """
-        locate where the node is, then remove the node
-        """
+        smaller = self._find_smaller(num)
         found = False
-        res = self._find_just_smaller(num)
-        for i in range(len(res)):
-            if res[i].next and res[i].next.val == num:
-                res[i].next = res[i].next.next      # remove the node
+        for node in smaller[::-1]:
+            if node.next and node.next.val == num:
+                node.next = node.next.next  # remove the node
                 found = True
         return found
 
