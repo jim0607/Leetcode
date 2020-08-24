@@ -1799,7 +1799,7 @@ sliding window with fix size problem, the only difference is that some part of t
 两个while循环，一个while loop do sliding window to update res, 从队首pop, 同时更新res, 
 另一个while loop do monostack to maintain an increasing dq, 从队尾pop, 对deq进行清理。
 
--------- 1358. Number of Substrings Containing All Three Characters ------------
+-------- 1358. Number of Substrings Containing All Three Characters ----------1124. Longest Well-Performing Interval--------
 
 
 # [SubArray/Prefix Sum](/SubArray.py)
