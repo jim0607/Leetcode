@@ -19,26 +19,23 @@ The 4th course cannot be taken now, since you will finish it on the 3300th day, 
 
 """ Course Schedule 三部曲，前两部都是topological sort, 这一部是heapq贪心处理intervals """
 """
-find the most number of non-overlapping intervals.
-注意这里的Intervals不是(start_time, end_time)而是(duration, lasted possible end time).
-首先给课程排个序，按照结束时间的顺序来排序，我们维护一个当前的时间，对于每一个遍历到的课程，将该持续时间放入优先数组中,
-然后更新新的结束时间，我们判断如果当新的结束时间大于课程的结束时间，说明这门课程无法被完成，
-If it exceeds deadline, we can swap current course with current courses that has biggest duration.
-此时我们并不是直接选择不去上这门课，而是选择不去上用时最长的一门课，这也make sense，
-因为我们的目标是尽可能的多上课，既然非要去掉一门课，那肯定是去掉耗时最长的课，
-这样省下来的时间说不定能多上几门课呢，遍历完之后返回优先队列中元素的个数就是能完成的课程总数啦
+首先给课程排个序，按照结束时间的顺序来排序，我们维护一个当前的时间，对于每一个遍历到的课程，将该课程持续时间放入优先数组中,
+并选择参加这个课程：更新结束时间，然后我们判断更新后的结束时间是否大于该课程的结束时间，如果大于，说明这门课程无法被如期完成，
+此时我们要选择一门课gvie up掉，那么问题是我们该gvie up掉哪门课呢？
+注意我们并不是直接gvie up掉这门课，而是选择gvie up掉用时最长的一门课，这也make sense，
+因为我们的目标是尽可能的多上课，既然非要去gvie up掉一门课，那肯定是去掉耗时最长的课，
+这样省下来的时间说不定能多上几门课呢
 """
-"""
-from heapq import heappush, heappop
-
 class Solution:
     def scheduleCourse(self, courses: List[List[int]]) -> int:
         courses.sort(key = lambda x: (x[1], x[0]))
-        hq = []     # hq stores the max duration of courses
-        curr_endtime = 0
-        for duration, end in courses:
-            heappush(hq, -duration)   # 以duration来维护一个最大堆，这么做可行是因为hq中的intervals是没有overlapping的
-            curr_endtime += duration
-            if curr_endtime > end:
-                curr_endtime += heappop(hq)   # 因为hq中的intervals是没有overlapping的，所以可以放心减去最长的duration来更新curr_endtime
+        
+        hq = []     # max heap for duration
+        curr_time = 0
+        for duration, end_time in courses:
+            heappush(hq, -duration)         # 以duration来维护一个最大堆，这么做可行是因为hq中的intervals是没有overlapping的
+            curr_time += duration           # 更新参加这个course之后的结束时间
+            if curr_time > end_time:        # this means that curr course cannot be taken in time
+                curr_time -= -heappop(hq)   # so we need to give up one class, which course should we give up?
+                                            # the one that can make curr_time as small as possible: the one with largest duration
         return len(hq)
