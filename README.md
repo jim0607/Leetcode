@@ -323,9 +323,6 @@ loop over the curr_time from 1 to max day 100000, each day, we do: 1. add new ev
 注意我们并不是直接gvie up掉这门课，而是选择gvie up掉用时最长的一门课，这也make sense，
 因为我们的目标是尽可能的多上课，既然非要去gvie up掉一门课，那肯定是去掉耗时最长的课，
 这样省下来的时间说不定能多上几门课呢
-- [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (!!M) <br>
-这种iline solution: O(N^2logN).
-This is two sweep line problem pieced together. - google高频题，还没完全搞懂，道行不够呀
 - [0218. The Skyline Problem](Solutions/0218.The-Skyline-Problem.py) (!!H) <br>
 不难发现这些关键点的特征是：竖直线上轮廓升高或者降低的终点, 所以核心思路是：从左至右遍历建筑物，记录当前的最高轮廓，如果产生变化则记录一个关键点  
 - [0699. Falling Squares](Solutions/0699.Falling-Squares.py) (!!H) <br>
@@ -340,20 +337,23 @@ dp[i]=how man yseats booked on day i. dp[i]=dp[i-1]+need[i]
 
 
 ###  [Desgin](/)
+#### [Linked List](/)
 - [0622. Design Circular Queue](Solutions/0622.Design-Circular-Queue.py) (!!M) <br>
 we can use a Singly-Linked List. 也可以用double-linked-list这把宰牛刀也非常快
 enqueue: we append the value to the tail; dequeue: we remove node from head.
 front: the head; rear: the tail; isempty: cnt=0; isFull: cnt = k
-- [0641. Design Circular Deque](Solutions/0641.Design-Circular-Deque) (!!M) <br>
-we can use a double-linked list. 1. create a dummy head and a dummy tail; For insertFront mehtod, 注意insert到dummy head后面而不是前面
-- [0706. Design HashMap](Solutions/0706.Design-HashMap.py) (!!E) <br>
-Resolve hash collision: approach 1: Seperate chaining; approach 2: Open addressing.  We implement seperate chaining: we use an arr of linked list to sore the keys: self.hashmap = [ListNode(-1, -1) for _ in range(self.SIZE)], store linked list head in the arr,ListNode(-1, -1)是一个dummy node, 方便后续操作. Time complexity for seach/put/get is O(n/m) where m is the talbe size, n is number of keys in the table.
+- [0641. Design Circular Deque](Solutions/0641.Design-Circular-Deque.py) (!!M) <br>
+queue就用singly-linked list, deque就用doubly-linked list. 1. create a dummy head and a dummy tail; For insertFront mehtod, 注意insert到dummy head后面而不是前面
+- [0706. Design HashMap](Solutions/0706.Design-HashMap.py) (!!M) <br>
+Resolve hash collision: approach 1: Seperate chaining; approach 2: Open addressing.  We implement seperate chaining: we use an arr of linked list to sore the keys: self.hashmap = [ListNode(-1, -1) for _ in range(self.SIZE)], store linked list head in the arr,ListNode(-1, -1)是一个dummy node, 方便后续操作. Time complexity for seach/put/get is O(n/m) on average, where m is the talbe size, n is number of keys in the table.
 - [0705. Design HashSet](Solutions/0705.Design-HashSet.py) (E) <br>
 similar with design hashmap, we use seperate chaining to resovle collision.
-- [1206. Design Skiplist](Solutions/1206.Design-Skiplist.py) (H) <br>
+- [1206. Design Skiplist](Solutions/1206.Design-Skiplist.py) (!!H) <br>
 Each node has 2 pointers: "next" targets to the next node in the same level, "down" targets the "next" level node. We need to define a helper function to find the largest node that is smaller than search target in all levels. If you add a node in a level, all levels after that also need to be added.  In add mehtod, we need to use random function to randomly choose if we want to add the node into upper levels.
 - [0432. All O(1) Data Structure](Solutions/0432.All-O`one-Data-Structure.py) (H) <br>
 use a Double Linked list, a hashmap to store (key, cnt) pair, use a hashmap to store (cnt, node) pair.  node is a DLL node, there is a node.key_set = set() which stores all the keys with that cnt.  The rest is to update the dll, the two hashmaps in each method call. similar with LRU.
+
+#### [Hashmap](/)
 - [0359. Logger Rate Limiter](Solutions/0359.Logger-Rate-Limiter.py) (E) <br>
 很简单，用一个dictionary存(message, last timestamp when message was printed)就可以了。Google followup: input在K长度内无序的，但是时间t+K之后的输入一定出现在t之后。比如K是5，
 [4, foo], [1, foo], [0, bar], [6, bar] => 在[4, foo], [1, foo], [0, bar]内是无序的，但是[6, bar]一定出现在[0, bar]之后，因为6>0+5.
