@@ -23,9 +23,8 @@ hashSet.contains(2);    // returns false (already removed)
 
 
 """
-There are two key questions that one should address, in order to implement the HashSet data structure, 
-namely hash function and collision handling.
-Here, we use seperate chaining for resolve hash collision.
+Seperate chaining to resolve hash collision. 
+Time complexity for seach/put/get is O(n/m) where m is the talbe size, n is number of keys in the table.
 """
 class ListNode:
     
@@ -36,7 +35,9 @@ class ListNode:
 
 class MyHashSet:
 
-    SIZE = 10007   # 为什么改成1007就不行呢？
+    # (Robert Sedgewick) In seperate-chaining, our goal is to choose the table size to be suffciently small so that we do not waste too much memory,
+    # but sufficiently large so that we do not waste time searching through along hte chains.
+    SIZE = 100007   # 如果改成10007就会有test case TLE. 这是因为如果size太小，collision就会很多，time complexity就会增加
     
     def __init__(self):
         """
@@ -45,44 +46,32 @@ class MyHashSet:
         self.hashset = [ListNode(-1) for _ in range(self.SIZE)]
 
     def add(self, key: int) -> None:
-        idx = key % self.SIZE
-        head = self.hashset[idx]
-        curr = head.next
-        if not curr:
-            head.next = ListNode(key)       # 注意只有.next才能成功新建一个ListNode到linked list中
-        else:
-            if curr.key == key:
-                return
-            while curr.next:
-                if curr.key == key:
-                    return
-                curr = curr.next
-            curr.next = ListNode(key)
+        head = self.hashset[key % self.SIZE]
+        curr = head
+        while curr.next:
+            if curr.next.key == key:    # search hit
+                break
+            curr = curr.next
+        curr.next = ListNode(key)       # seach miss
 
     def remove(self, key: int) -> None:
-        idx = key % self.SIZE
-        head = self.hashset[idx]
-        prev, curr = head, head.next
-        while curr:
-            if curr.key == key:
-                prev.next = curr.next
+        head = self.hashset[key % self.SIZE]
+        curr = head
+        while curr.next:
+            if curr.next.key == key:    # search hit
+                curr.next = curr.next.next
                 break
-            prev = curr
-            curr = curr.next
 
     def contains(self, key: int) -> bool:
         """
         Returns true if this set contains the specified element
         """
-        idx = key % self.SIZE
-        head = self.hashset[idx]
-        curr = head.next
-        while curr:
-            if curr.key == key:
+        head = self.hashset[key % self.SIZE]
+        curr = head
+        while curr.next:
+            if curr.next.key == key:    # search hit
                 return True
-            curr = curr.next
-        return False
-
+        return False    # search miss
 
 # Your MyHashSet object will be instantiated and called as such:
 # obj = MyHashSet()
