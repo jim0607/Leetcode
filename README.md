@@ -315,10 +315,7 @@ update overlap: find where the overlap is by go through the calendar list, and u
 Do do exactly the same as the airplane in the sky problem to count how many overlapping are there - O(N). Maintain a start_time list and end_time list and keep them sorted by using binary search each time we insert a time. Solution 2: we can use a segment tree, each query takes O(logn). Should know but don't need to implement.
 - [1353. Maximum Number of Events That Can Be Attended](Solutions/1353.Maximum-Number-of-Events-That-Can-Be-Attended.py) (!!M) <br>
 Sort events. use a min hq stores the end time of events cuz we want to pop the min end time first.
-loop over the curr_time from 1 to max day 100000, each day, we do:
-1. add new events that start before curr_time to hq so that we can attend the event; 
-2. remove the events that are already ended before curr_time; 
-3. greedily attend the event that ends soonest by popping from the hq, and update cnt += 1.
+loop over the curr_time from 1 to max day 100000, each day, we do: 1. add new events that start before curr_time to hq so that we can attend the event;  2. remove the events that are already ended before curr_time; 3. greedily attend the event that ends soonest by popping from the hq, and update cnt += 1.
 - [0630. Course Schedule III](Solutions/0630.Course-Schedule-III.py) (!!H) <br>
 首先给课程排个序，按照结束时间的顺序来排序，我们维护一个当前的时间，对于每一个遍历到的课程，将该课程持续时间放入优先数组中,
 并选择参加这个课程：更新结束时间，然后我们判断更新后的结束时间是否大于该课程的结束时间，如果大于，说明这门课程无法被如期完成，
