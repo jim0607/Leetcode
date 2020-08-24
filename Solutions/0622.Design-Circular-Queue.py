@@ -41,8 +41,8 @@ class ListNode:
     def __init__(self, val):
         self.val = val
         self.next = None
-        
-        
+
+      
 class MyCircularQueue:
 
     def __init__(self, k: int):
@@ -58,58 +58,69 @@ class MyCircularQueue:
         """
         Insert an element into the circular queue. Return true if the operation is successful.
         """
-        if self.cnt == self.capacity:
+        if self.isFull():
             return False
         
         new_node = ListNode(value)
-        if self.cnt == 0:               # 注意这里用易出错
+        if self.cnt == 0:           # 注意这里用易出错
             self.head = new_node
             self.tail = self.head
         else:
-            self.tail.next = new_node   # 注意这里insert new_node的方法是append到tail后面，然后tail移到后面
+            self.tail.next = new_node
             self.tail = self.tail.next
             
         self.cnt += 1
+        
         return True
 
     def deQueue(self) -> bool:
         """
         Delete an element from the circular queue. Return true if the operation is successful.
         """
-        if self.cnt == 0:
+        if self.isEmpty():
             return False
         
-        if self.head == self.tail:
+        val = self.head.val
+        if self.cnt == 1:       # 这时候self.head == self.tail
             self.head = None
             self.tail = None
         else:
-            self.head = self.head.next
+            new_head = self.head.next
+            self.head = new_head
+            
         self.cnt -= 1
+        
         return True
 
     def Front(self) -> int:
         """
         Get the front item from the queue.
         """
-        return -1 if self.cnt == 0 else self.head.val 
+        if self.isEmpty():
+            return -1
+        
+        return self.head.val
 
     def Rear(self) -> int:
         """
         Get the last item from the queue.
         """
-        return -1 if self.cnt == 0 else self.tail.val
+        if self.isEmpty():
+            return -1
+        
+        return self.tail.val
 
     def isEmpty(self) -> bool:
         """
         Checks whether the circular queue is empty or not.
         """
-        return self.cnt == 0
+        return self.cnt == 0        
 
     def isFull(self) -> bool:
         """
         Checks whether the circular queue is full or not.
         """
-        return self.cnt == self.capacity
+        return self.cnt == self.capacity        
 
 
 # Your MyCircularQueue object will be instantiated and called as such:
