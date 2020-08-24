@@ -35,7 +35,8 @@ class Logger:
         """
         Initialize your data structure here.
         """
-        self.printDict = collections.defaultdict(int)  # key is time when a message is printed
+        # maintain a message_to_time dict, where val is time when a message is last printed
+        self.message_to_time = collections.defaultdict(int)
 
     def shouldPrintMessage(self, timestamp: int, message: str) -> bool:
         """
@@ -43,11 +44,10 @@ class Logger:
         If this method returns false, the message will not be printed.
         The timestamp is in seconds granularity.
         """
-        if message not in self.printDict or timestamp >= self.printDict[message] + 10:
-            self.printDict[message] = timestamp
+        if message not in self.message_to_time or self.message_to_time[message] + 10 <= timestamp:
+            self.message_to_time[message] = timestamp
             return True
         return False
-
 
 # Your Logger object will be instantiated and called as such:
 # obj = Logger()
@@ -86,15 +86,15 @@ def sort_k(nums, k):
 
     heapify(hq)
 
-    target_idx = 0
+    idx = 0
     for i in range(k, len(nums)):
-        nums[target_idx] = heappop(hq)
-        target_idx += 1
+        nums[idx] = heappop(hq)     # idx放入的永远是目前最小的那个数,
+        idx += 1                    # 这是因为nums是k程有序的，所以最小值永远在[idx, idx+k]范围内，所以只需要保证hq size为k就可以了
         heappush(hq, nums[i])
 
     while hq:
-        nums[target_idx] = heappop(hq)
-        target_idx += 1
+        nums[idx] = heappop(hq)
+        idx += 1
 
 if __name__ == "__main__":
     k = 3
