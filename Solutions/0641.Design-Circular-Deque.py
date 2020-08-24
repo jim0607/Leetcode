@@ -33,12 +33,13 @@ circularDeque.getFront();			// return 4
 """
 代码看上去很长，但是逻辑很简单
 """
-class DLLNode:
+class DoubleListNode:
     
     def __init__(self, val):
         self.val = val
         self.prev = None
         self.next = None
+
 
 class MyCircularDeque:
 
@@ -46,90 +47,87 @@ class MyCircularDeque:
         """
         Initialize your data structure here. Set the size of the deque to be k.
         """
+        self.dummyhead = DoubleListNode(-1)
+        self.dummytail = DoubleListNode(-1)
         self.cnt = 0
         self.capacity = k
-        self.head = DLLNode(-1)     # create a dummy head and a dummy tail
-        self.tail = DLLNode(-1)
-        self.head.next = self.tail
-        self.tail.prev = self.head
+        
+        self.dummyhead.next = self.dummytail
+        self.dummytail.prev = self.dummyhead
 
     def insertFront(self, value: int) -> bool:
         """
         Adds an item at the front of Deque. Return true if the operation is successful.
         """
-        if self.cnt == self.capacity:
+        if self.isFull():
             return False
         
-        new_node = DLLNode(value)
-        
-        # below we will insert the new_node right after the dummy head,注意事项insert到dummy head后面而不是前面
-        next_node = self.head.next
-        new_node.next = next_node
-        next_node.prev = new_node
-        self.head.next = new_node
-        new_node.prev = self.head
+        # below we insert the new_node right after the dummy head,注意事项insert到dummy head后面而不是前面
+        new_node = DoubleListNode(value)
+        self.dummyhead.next.prev = new_node
+        new_node.next = self.dummyhead.next
+        self.dummyhead.next = new_node
+        new_node.prev = self.dummyhead
         
         self.cnt += 1
-        return True
 
+        return True
+    
     def insertLast(self, value: int) -> bool:
         """
         Adds an item at the rear of Deque. Return true if the operation is successful.
         """
-        if self.cnt == self.capacity:
+        if self.isFull():
             return False
         
-        new_node = DLLNode(value)
-        prev_node = self.tail.prev
-        prev_node.next = new_node
-        new_node.prev = prev_node
-        new_node.next = self.tail
-        self.tail.prev = new_node
-        
-        self.cnt += 1
-        return True
+        new_node = DoubleListNode(value)
+        self.dummytail.prev.next = new_node
+        new_node.prev = self.dummytail.prev
+        self.dummytail.prev = new_node
+        new_node.next = self.dummytail        
 
+        self.cnt += 1
+        
+        return True
     def deleteFront(self) -> bool:
         """
         Deletes an item from the front of Deque. Return true if the operation is successful.
         """
-        if self.cnt == 0:
+        if self.isEmpty():
             return False
         
-        next_node = self.head.next
-        next_next_node = next_node.next
-        self.head.next = next_next_node
-        next_next_node.prev = self.head
+        self.dummyhead.next = self.dummyhead.next.next
+        self.dummyhead.next.prev = self.dummyhead
         
         self.cnt -= 1
+        
         return True
 
     def deleteLast(self) -> bool:
         """
         Deletes an item from the rear of Deque. Return true if the operation is successful.
         """
-        if self.cnt == 0:
+        if self.isEmpty():
             return False
         
-        prev_node = self.tail.prev
-        prev_prev_node = prev_node.prev
-        prev_prev_node.next = self.tail
-        self.tail.prev = prev_prev_node
+        self.dummytail.prev = self.dummytail.prev.prev
+        self.dummytail.prev.next = self.dummytail
         
         self.cnt -= 1
+        
         return True
 
     def getFront(self) -> int:
         """
         Get the front item from the deque.
         """
-        return -1 if self.cnt == 0 else self.head.next.val
+        return -1 if self.isEmpty() else self.dummyhead.next.val 
 
     def getRear(self) -> int:
         """
         Get the last item from the deque.
         """
-        return -1 if self.cnt == 0 else self.tail.prev.val
+        return -1 if self.isEmpty() else self.dummytail.prev.val
 
     def isEmpty(self) -> bool:
         """
