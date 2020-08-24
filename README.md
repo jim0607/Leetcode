@@ -276,6 +276,11 @@ Step 1: sort the intervals by end time;
 Step 2: sweep line: use a pointer representing the end time, at each interval, we compare the pointer with the interval start time.
 if end >= interval start time: then there is overlap and we should wait so that later we can shot them together;
 if end < interval start time, then we can shot the previously 积累下来的interveals, shots += 1, and move the end to the new interval end time
+- [1288. Remove Covered Intervals](Solutions/1288.Remove-Covered-Intervals.py) (M) <br>
+sort the intervals by the start time. Then compare each interval with previous intervals,
+to see if curr interval has a smaller end time than any of the previous intervals.
+we only need to compare with the largest end time in previous intervals.
+we can maintain a hq for the end time of the previous intervals 
 - [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (!!M) <br>
 这种interval的题目首先都需要sort, 因为我们总不可能一会处理前面的，一会处理后面的区间。 so sort the intervals first, res = []; for interval in intervals: if the interval start time is larger than the largest end time in res, then the interval cannot be merged; If cannot be merged, then res.append(interval), else then res[-1][1] = max(res[-1][1], interval[1]). merge interval的算法非常重要，后面的题经常用到！
 - [0759. Employee Free Time](Solutions/0759.Employee-Free-Time.py) (!!H) <br>
@@ -289,45 +294,51 @@ Solution 1: Append the new interval to the intervals, and then do the merge inte
 Solution 1: merge intervals. In addNum method, we just need to append a new interval [val, val] to the intervals - O(1).
 In the getIntervals method, we do merge interval just lke 56. Merge intervals - almost O(n) to sort an almost sorted list using insertion sort.
 - [0715. Range Module](Solutions/0715.Range-Module.py) (!!H) <br>
-Store intervals in a sorted array. Use bisect_left and bisect_right to locate where the incoming interval should be. addRange and removeRange takes O(N). queryRange can also use bisect to locate where the interval location is, [left, right]必须在某一个且同一个range内才return True - O(logN)
+Store intervals in a 1D sorted array. Use bisect_left and bisect_right to locate where the incoming interval should be. addRange and removeRange takes O(N). queryRange can also use bisect to locate where the interval location is, [left, right]必须在某一个且同一个range内才return True - O(logN),  这题需要很细致，没有完全弄明白。
 - [1272. Remove Interval](Solutions/1272.Remove-Interval.py) (M) <br>
-一个interval与另一个interval的位置关系就六种情况，一一讨论就可以了
+loop over the intervals, and compare each interval with the to_be_removed interval and update res.
+一个interval与另一个interval的位置关系就三种情况(1. 没有交集; 2. 一个包含了另一个; 3. 有交集但是没有谁能完全包含谁)
 - [1229. Meeting Scheduler](Solutions/1229.Meeting-Scheduler.py) (M) <br>
-双指针法, if min(end1, end2) - max(start1, start2) >= duration: return [max(start1, start2), max(start1, start2) + duration]
-- [0218. The Skyline Problem](Solutions/0218.The-Skyline-Problem.py) (!!H) <br>
-sweep lint + heapq；a maxHeap to store all alive buildings, 存高度和终点. res 里面需要保存的其实是每一次高度发生变化时的终点. 在指针currPos做扫描的时候做三件事情: 1. pop buildings that end before curPos, cuz they are no longer "alive"; 2. push [negative_height, end_point] of all buildings that start before curPos; 3. 更新res: if -maxHeap[0][0] != prevHeight: 说明出现了一个拐点要么上升要么下降，这时候就需要append拐点了
-- [0699. Falling Squares](Solutions/0699.Falling-Squares.py) (!!H) <br>
-solution 1: O(N^2). Every time a new square falls down, we check the previous square to see if there is any square beneath the current falling square. If we found that we have squares i intersect with us, which means my current square will go above to that square. Then we should update the max_h. solution 2: segment tree O(NlogN) https://leetcode.com/problems/falling-squares/discuss/409304/Python-Diffenrent-Concise-Solutions
-- [1353. Maximum Number of Events That Can Be Attended](Solutions/1353.Maximum-Number-of-Events-That-Can-Be-Attended.py) (M) <br>
-Sort events. Priority queue pq keeps the current open events.
-Iterate from the day 1 to day 100000, each day, we 1. add new events starting on day d to the queue pq; 2. remove the events that are already closed; 3. greedily attend the event that ends soonest, if we can attend a meeting, we increment the res.
+to find the overlap of two intervals. We loop over the two intervals. 
+一个interval与另一个interval的位置关系就三种情况(1. 没有交集; 2. 一个包含了另一个; 3. 有交集但是没有谁能完全包含谁).
 - [0729. My Calendar I](Solutions/0729.My-Calendar-I.py) (M) <br>
-solution 1: sweep line just like the airplane in the sky problem - need to sort, so O(nlogn). 
-solution 2: binary search where the interval should be inserted and insert the interval, so O(n + logn)
+Maitian a intervals list. The problem is to find the overlap of two intervals. We loop over the intervals. 
+一个interval与另一个interval的位置关系就三种情况(1. 没有交集; 2. 一个包含了另一个; 3. 有交集但是没有谁能完全包含谁). 
+这里我们只要遇到case 2 or case 3, then there is an overlap, return False
 - [0731. My Calendar II](Solutions/0731.My-Calendar-II.py) (M) <br>
-We maintain a calendar list and a overlap list. In book method, we first check if [start, end] is in an overlap,
+We maintain two interval lists: a calendar list and a overlap list. In book method, we first check if [start, end] is in an overlap,
 if it is, then we return False directly.
 If it's not, then we return True, before return true, we should update the calendar list and overlap list accordingly.
 update calendar: just append [start, end] cuz we don't need the calendar be sorted.
 update overlap: find where the overlap is by go through the calendar list, and update it.
 - [0732. My Calendar III](Solutions/0732.My-Calendar-III.py) (H) <br>
-Maintain a start_time list and end_time list and keep them sorted by using binary search each time we insert a time.
-Do do exactly the same as the airplane in the sky problem. O(N).  Solution 2: we can use a segment tree, each query takes O(logn). Should know but don't need to implement.
-- [1109. Corporate Flight Bookings](Solutions/1109.Corporate-Flight-Bookings.py) (M) <br>
-for each interval [i, j, k], we need k more seats at day i, and we need k less seats at day j.
-so we can update how many more we need on each day. - O(m+n)
-- [1288. Remove Covered Intervals](Solutions/1288.Remove-Covered-Intervals.py) (M) <br>
-sort the intervals by the start time. Then compare each interval with previous intervals,
-to see if curr interval has a smaller end time than any of the previous intervals.
-we only need to compare with the largest end time in previous intervals.
-we can maintain a hq for the end time of the previous intervals 
-- [0757. Set Intersection Size At Least Two](Solutions/0757.Set-Intersection-Size-At-Least-Two.py) (!!H) <br>
-Greedy algorithm, 按结束为止排序，当两个结束位置相同时，起始位置大的排前面先处理，这也符合我们先处理小区间的原则, 用个数组v来表示集合S, 遍历intervals, case 1: 当前interval 与v没有任何交集；case 2: 有一个数字的交集；case 3: 已经有两个相同的数字了
+Do do exactly the same as the airplane in the sky problem to count how many overlapping are there - O(N). Maintain a start_time list and end_time list and keep them sorted by using binary search each time we insert a time. Solution 2: we can use a segment tree, each query takes O(logn). Should know but don't need to implement.
+- [1353. Maximum Number of Events That Can Be Attended](Solutions/1353.Maximum-Number-of-Events-That-Can-Be-Attended.py) (!!M) <br>
+Sort events. use a min hq stores the end time of events cuz we want to pop the min end time first.
+loop over the curr_time from 1 to max day 100000, each day, we do:
+1. add new events that start before curr_time to hq so that we can attend the event; 
+2. remove the events that are already ended before curr_time; 
+3. greedily attend the event that ends soonest by popping from the hq, and update cnt += 1.
 - [0630. Course Schedule III](Solutions/0630.Course-Schedule-III.py) (!!H) <br>
-Course Schedule 三部曲，前两部都是topological sort, 这一部是heapq贪心处理intervals: 按照结束时间的顺序来排序, 以duration来维护一个最大堆, 如果当新的结束时间大于课程的结束时间，说明这门课程无法被完成，此时我们并不是直接选择不去上这门课，而是选择不去上用时最长的一门课
+首先给课程排个序，按照结束时间的顺序来排序，我们维护一个当前的时间，对于每一个遍历到的课程，将该课程持续时间放入优先数组中,
+并选择参加这个课程：更新结束时间，然后我们判断更新后的结束时间是否大于该课程的结束时间，如果大于，说明这门课程无法被如期完成，
+此时我们要选择一门课gvie up掉，那么问题是我们该gvie up掉哪门课呢？
+注意我们并不是直接gvie up掉这门课，而是选择gvie up掉用时最长的一门课，这也make sense，
+因为我们的目标是尽可能的多上课，既然非要去gvie up掉一门课，那肯定是去掉耗时最长的课，
+这样省下来的时间说不定能多上几门课呢
 - [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (!!M) <br>
 这种iline solution: O(N^2logN).
 This is two sweep line problem pieced together. - google高频题，还没完全搞懂，道行不够呀
+- [0218. The Skyline Problem](Solutions/0218.The-Skyline-Problem.py) (!!H) <br>
+不难发现这些关键点的特征是：竖直线上轮廓升高或者降低的终点, 所以核心思路是：从左至右遍历建筑物，记录当前的最高轮廓，如果产生变化则记录一个关键点  
+- [0699. Falling Squares](Solutions/0699.Falling-Squares.py) (!!H) <br>
+solution 1: O(N^2). Every time a new square falls down, we check all the previous squares to see if there is any square beneath the current falling square. If we found that we have squares i intersect with the current falling one, which means my current square will go above to that square. Then we should update the max_h. solution 2: segment tree O(NlogN) https://leetcode.com/problems/falling-squares/discuss/409304/Python-Diffenrent-Concise-Solutions
+- [0757. Set Intersection Size At Least Two](Solutions/0757.Set-Intersection-Size-At-Least-Two.py) (!!H) <br>
+Greedy algorithm, 按结束为止排序，当两个结束位置相同时，起始位置大的排前面先处理，这也符合我们先处理小区间的原则, 用个数组v来表示集合S, 遍历intervals, case 1: 当前interval 与v没有任何交集；case 2: 有一个数字的交集；case 3: 已经有两个相同的数字了
+- [1109. Corporate Flight Bookings](Solutions/1109.Corporate-Flight-Bookings.py) (!!M) <br>
+solution 1: brutal force O(MN). solution 2: DP: O(m+n). for each interval [i, j, k], we need k more seats at day i, and we need k less seats at day j.
+so we can pre-calculate how many more we need on each day and store in a list need.
+dp[i]=how man yseats booked on day i. dp[i]=dp[i-1]+need[i]
 
 
 
@@ -1164,6 +1175,8 @@ then memo[(curr_ring, curr_idx)] = min(memo[(curr_ring, curr_idx)], steps + 1 + 
 dfs+memo: O(N^2); memo[(curr_s)] = 能稳赢
 - [0312. Burst Balloons](Solutions/0312.Burst-Balloons.py) (!!H) <br>
 带memo的recursion比DP更好懂; left = self.memoSearch(nums, i, k, memo); right=self.memoSearch(nums, k, j, memo); maxCoins = max(maxCoins, left + right + nums[i] * nums[k] * nums[j]). 也可以用dp: https://qoogle.top/leetcode-312-burst-balloons/
+
+----------1376. Time Needed to Inform All Employees Google Onsite----------
 ------------664. Strange Printer--------488. Zuma Game--------546. Remove Boxes---------691. Stickers to Spell Word--------887. Super Egg Drop----------
 
 
