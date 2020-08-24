@@ -39,27 +39,25 @@ beneath the current falling square. If we found that we have squares i intersect
 which means my current square will go above to that square. Then we should update the max_h.
 """
 class Solution:
-    def fallingSquares(self, squares: List[List[int]]) -> List[int]:
-        intervals = []      # intervals keep all the already fallen squares
-        max_h = 0           # curr max height
+    def fallingSquares(self, positions: List[List[int]]) -> List[int]:
         res = []
-        for square in squares:
-            start, end, height = square[0], square[0] + square[1] - 1, square[1]
+        intervals = []      # store the intervals already fallen
+        max_h = 0
+        for left, lens in positions:
+            left, right, curr_h = left, left + lens, lens
             
             # updating prev_max_h by checking all the previous fallen squares to see if 
             # there is previous fallen squares intersect with (or beneath) the curr falling square
-            prev_max_h = 0
-            for interval in intervals:    
-                if start > interval[1]:
-                    continue
-                if end < interval[0]:
+            prev_max_h = 0      # record the max lens that will intersect with the falling ones
+            for interval in intervals:
+                if left >= interval[1] or right <= interval[0]:  # 如果interval与falling sqaure不相交
                     continue
                 prev_max_h = max(prev_max_h, interval[2])
-
-            max_h = max(max_h, prev_max_h + height)     # update max_h
-            res.append(max_h)           
+                
+            max_h = max(max_h, prev_max_h + lens)   # update max_h after this square falls
+            res.append(max_h)
             
-            intervals.append((start, end, prev_max_h + height))   # construct the previous already fallend saures
+            intervals.append([left, right, prev_max_h + lens])  # store the intervals already fallen
             
         return res
         
