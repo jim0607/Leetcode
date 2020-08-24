@@ -38,24 +38,28 @@ update overlap: find where the overlap is by go through the calendar list, and u
 class MyCalendarTwo:
 
     def __init__(self):
-        self.calendar = []
+        self.intervals = []
         self.overlaps = []
 
     def book(self, start: int, end: int) -> bool:
-        # first check if [start, end] is in an overlap
-        for overlap_start, overlap_end in self.overlaps:
-            if start < overlap_end and end > overlap_start:
+        # check if there is an overlap of [start, end] in the overlaps list
+        for interval in self.overlaps:
+            if not (interval[0] >= end or interval[1] <= start):    # if there is an overlap
                 return False
-            
-        # if not in an overlap, meaing it can either form a 2-fold overlap with others or form no overlap with others
-        for start_time, end_time in self.calendar:  # update overlaps list
-            if start < end_time and end > start_time:
-                self.overlaps.append([max(start, start_time), min(end, end_time)])  # append the overlap part
+        
+        # find the overlap of [start, end] with intervals and update the overlaps list
+        for interval in self.intervals:
+            if not (interval[0] >= end or interval[1] <= start):    # if there is an overlap
+                self.overlaps.append([max(interval[0], start), min(interval[1], end)])  # update the overlaps list
                 
-        self.calendar.append([start, end])          # update calendar list
+        self.intervals.append([start, end])     # update the intervals list
         
         return True
 
+
+# Your MyCalendarTwo object will be instantiated and called as such:
+# obj = MyCalendarTwo()
+# param_1 = obj.book(start,end)
 
 # Your MyCalendarTwo object will be instantiated and called as such:
 # obj = MyCalendarTwo()
