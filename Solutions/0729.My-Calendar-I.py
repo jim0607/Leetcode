@@ -20,46 +20,26 @@ The first event can be booked.  The second can't because time 15 is already book
 The third event can be booked, as the first event takes every time less than 20, but not including 20.
 
 
-
 """
-solution 1: sweep line just like the airplane in the sky problem - need to sort, so O(nlogn) - TLE
+solution 1:一个interval与另一个interval的位置关系就三种情况(1. 没有交集; 2. 一个包含了另一个; 3. 有交集但是没有谁能完全包含谁). 
+这里我们只要遇到case 2 or case 3, then there is an overlap, return False
 """
 class MyCalendar:
 
     def __init__(self):
-        self.calendar = []
+        self.intervals = [[-1, -1]]
 
     def book(self, start: int, end: int) -> bool:
-        if not self.calendar:
-            self.calendar.append([start, end])
-            return True
-        
-        start_lst = [event[0] for event in self.calendar]
-        start_lst.append(start)
-        start_lst.sort()
-        end_lst = [event[1] for event in self.calendar]
-        end_lst.append(end)
-        end_lst.sort()
-        
-        i, j = 0, 0
-        cnt = 0
-        while i < len(start_lst) and j < len(end_lst):
-            if start_lst[i] < end_lst[j]:
-                cnt += 1
-                i += 1
-            else:
-                cnt -= 1
-                j += 1
-                
-            if cnt >= 2:
+        for interval in self.intervals:
+            # 一个interval与另一个interval的位置关系就三种情况(1. 没有交集; 2. 一个包含了另一个; 3. 有交集但是没有谁能完全包含谁)
+            # 这里我们只要遇到case 2 or case 3, then there is an overlap, return False
+            if not (interval[0] >= end or interval[1] <= start):
                 return False
+                
+        self.intervals.append([start, end])
             
-        if cnt >= 2:
-            return False
-        
-        self.calendar.append([start, end])
-        
         return True
+
 
 
                                                                                                                           
