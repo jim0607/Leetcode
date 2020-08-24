@@ -33,6 +33,43 @@ Do do exactly the same as the airplane in the sky problem. O(N)
 class MyCalendarThree:
 
     def __init__(self):
+        self.left = []
+        self.right = []
+
+    def book(self, start: int, end: int) -> int:
+        # binary search to find where the time should be inserted and insert into the left and right list - O(N)
+        left_idx = bisect.bisect_left(self.left, start)
+        right_idx = bisect.bisect_right(self.right, end)
+        self.left.insert(left_idx, start)
+        self.right.insert(right_idx, end)
+        
+        i, j = 0, 0
+        cnt = 0
+        max_cnt = 0
+        while i < len(self.left) and j < len(self.right):
+            if self.left[i] < self.right[j]:
+                cnt += 1
+                i += 1
+            else:
+                cnt -= 1
+                j += 1
+            max_cnt = max(max_cnt, cnt)
+            
+        return max_cnt
+
+
+# Your MyCalendarThree object will be instantiated and called as such:
+# obj = MyCalendarThree()
+# param_1 = obj.book(start,end)                         
+             
+                             
+                             
+"""
+另一种写法把binary search 写出来了
+"""
+class MyCalendarThree:
+
+    def __init__(self):
         self.start_time = []
         self.end_time = []
 
