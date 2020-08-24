@@ -73,3 +73,4 @@ What if the number of hits per second could be very large? Does your design scal
 这里不是用deque吗？deque里面默认是每一个时间戳hit了一次，如果需要记录每秒钟有几次hit，我们需要用到dictionary, 但是同时有需要deque一样的有序，
 所以自然而然想到OrderedDict. 这样可以保证最多使用O(300)的空间, 还是要熟悉OrderedDict的方法的。
 OrderedDict是deque的增强版，这一点在LRU那题中已经体现。
+当然这一题也可以在q里面存(timestamp, how many hits are there in this timestamp)
