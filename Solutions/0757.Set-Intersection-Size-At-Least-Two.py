@@ -36,7 +36,10 @@ case 1: 否则如果区间的起始位置大于数组的最后一个位置，说
 """
 class Solution:
     def intersectionSizeTwo(self, intervals: List[List[int]]) -> int:
-        intervals.sort(key = lambda x: (x[1], -x[0]))       # 当两个结束位置相同时，起始位置大的排前面先处理
+        # need to sort increasingly by end time and decreasingly by start time.
+        # why decreasingly by start time? run an example: [[16,18],[11,18],[18,20],[10,11]]
+        # 我们总是优先处理小区间，如果先处理大空间的话会造成混乱
+        intervals.sort(key = lambda x: (x[1], -x[0]))      
         v = []
         for start, end in intervals:
             if not v or v[-1] < start:  # case 1: 没有任何交集
