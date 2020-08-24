@@ -64,61 +64,54 @@ Seperate chaining to resolve hash collision. Time complexity for seach/put/get i
 """
 class ListNode:
     
-    def __init__(self, key, val):
+    def __init__(self, key, value):
         self.key = key
-        self.val = val
-        self.next = None        
+        self.val = value    # ******注意定义的ListNode既有key, 也有val
+        self.next = None
         
-        
+
 class MyHashMap:
     
     # (Robert Sedgewick) In seperate-chaining, our goal is to choose the table size to be suffciently small so that we do not waste too much memory,
     # but sufficiently large so that we do not waste time searching through along hte chains.
-    SIZE = 100007   # 不知道为什么改成10007就过不了某个test case
+    SIZE = 100007   # need to define the size of hashtable.
 
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        self.hashmap = [ListNode(-1, -1) for _ in range(self.SIZE)]     # store linked list head in the arr,ListNode(-1, -1)是一个dummy node, 方便后续操作
+        # store linked list head in the arr,ListNode(-1, -1)是一个dummy node, 方便后续操作
+        self.map = [ListNode(-1, -1) for _ in range(self.SIZE)]
 
     def put(self, key: int, value: int) -> None:
         """
         value will always be non-negative.
         """
         idx = key % self.SIZE
-        head = self.hashmap[idx]
-        if not head.next:
-            head.next = ListNode(key, value)
+        head = self.map[idx]
+        curr = head
+        while curr.next:
+            if curr.next.key == key:
+                curr.next.val = value    # update the value if search hit
+                break
+            curr = curr.next
             
-        else:
-            curr = head.next
-            if curr.key == key:
-                curr.val = value
-                return
+        if not curr.next:       # if search miss, we append the new key-value pair to the tail
+            curr.next = ListNode(key, value)
             
-            while curr.next:
-                if curr.key == key:
-                    curr.val = value    # update the (key-val) pair
-                    return
-                curr = curr.next
-        
-            curr.next = ListNode(key, value)  # if search miss, create a new node at the end            
 
     def get(self, key: int) -> int:
         """
         Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
         """
         idx = key % self.SIZE
-        head = self.hashmap[idx]
-        if not head.next:
-            return -1
-        
-        curr = head.next
-        while curr:
-            if curr.key == key:
-                return curr.val
+        head = self.map[idx]
+        curr = head
+        while curr.next:
+            if curr.next.key == key:    # search hit
+                return curr.next.val    
             curr = curr.next
+            
         return -1
 
     def remove(self, key: int) -> None:
@@ -126,59 +119,14 @@ class MyHashMap:
         Removes the mapping of the specified value key if this map contains a mapping for the key
         """
         idx = key % self.SIZE
-        head = self.hashmap[idx]
-        if not head.next:
-            return
-
-        prev, curr = head, head.next    # constructor里面初始化一些dummy head是为了这里更方便remove
-        while curr:
-            if curr.key == key:
-                prev.next = curr.next
+        head = self.map[idx]
+        curr = head
+        while curr.next:
+            if curr.next.key == key:
+                curr.next = curr.next.next  # if search hit, then remove
                 break
-            prev = curr
             curr = curr.next
-
-
-# Your MyHashMap object will be instantiated and called as such:
-# obj = MyHashMap()
-# obj.put(key,value)
-# param_2 = obj.get(key)
-# obj.remove(key)
-
-
-"""
-由于题目说明了keys are in range [0, 1000000], so the below array method works. But don't do that in an interview.
-Because we are supposed to use seperate chaining or open addressing for hashing collision resolution.
-"""
-class MyHashMap:
-
-    def __init__(self):
-        """
-        Initialize your data structure here.
-        """
-        self.SIZE = 1000001
-        self.hashmap = [None for _ in range(self.SIZE)]
-
-    def put(self, key: int, value: int) -> None:
-        """
-        value will always be non-negative.
-        """
-        self.hashmap[key % self.SIZE] = value
-
-    def get(self, key: int) -> int:
-        """
-        Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
-        """
-        if self.hashmap[key % self.SIZE] == None:   # 不能用not self.hashmap[key % self.SIZE], 因为self.hashmap[key % self.SIZE]有可能等于0
-            return -1
-        return self.hashmap[key % self.SIZE]
-
-    def remove(self, key: int) -> None:
-        """
-        Removes the mapping of the specified value key if this map contains a mapping for the key
-        """
-        self.hashmap[key % self.SIZE] = None
-
+        
 
 # Your MyHashMap object will be instantiated and called as such:
 # obj = MyHashMap()
