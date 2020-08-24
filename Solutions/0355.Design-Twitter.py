@@ -35,8 +35,6 @@ twitter.getNewsFeed(1);
 
 
 
-from heapq import heappush, heappop, heapify
-
 class Twitter:
 
     def __init__(self):
@@ -44,35 +42,35 @@ class Twitter:
         Initialize your data structure here.
         """
         self.time = 0
-        self.follows = collections.defaultdict(set)  # key is user, val is a set of users that this use follows
-        self.tweets = collections.defaultdict(collections.deque)   # key is user, val is a deque of (time, tweetsId)
+        self.follows = collections.defaultdict(set)     # (id, and the ids he/she follows)
+        self.tweets = collections.defaultdict(lambda: collections.deque())  # (id, and tweetsId he/she posts)
 
     def postTweet(self, userId: int, tweetId: int) -> None:
         """
         Compose a new tweet.
         """
-        self.follows[userId].add(userId)    # 每次来一个人我们都让他follow自己
-        self.tweets[userId].append((self.time, tweetId))
-        while len(self.tweets[userId]) > 10:    # pop the least recent post, to save space in a real system
-            self.tweets[userId].popleft()
+        self.tweets[userId].append((self.time, tweetId))    
+        if len(self.tweets[userId]) > 10:   # pop the least recent post, to save space in a real system
+            self.tweets[userId].popleft()   # 这就是为什么用deque的原因
         self.time += 1
 
     def getNewsFeed(self, userId: int) -> List[int]:
         """
-        Retrieve the 10 most recent tweet ids in the user's news feed. 
-        Each item in the news feed must be posted by users who the user followed or by the user herself. 
-        Tweets must be ordered from most recent to least recent.
+        Retrieve the 10 most recent tweet ids in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user herself. Tweets must be ordered from most recent to least recent.
         """
-        self.follows[userId].add(userId)
+        # we need to find top 10 most recent posts, ie, top 10 smallest self.time
+        # top K problem, the first reaction is heapq
         hq = []
+        self.follows[userId].add(userId)    
         for user in self.follows[userId]:   # The two for loops are O(Σt_i) - the sum of all tweets posted by user's followers 
-            for time, tweetId in self.tweets[user]: 
-                hq.append((-time, tweetId))
+            for time, tweet in self.tweets[user]:
+                hq.append((-time, tweet))
         
-        heapify(hq)     # O(N)
+        heapify(hq)
+
         res = []
         for _ in range(10):     # use a hq, so that the time is O(10logN)
-            if hq:
+            if len(hq) > 0:
                 res.append(heappop(hq)[1])
         return res
 
@@ -80,17 +78,15 @@ class Twitter:
         """
         Follower follows a followee. If the operation is invalid, it should be a no-op.
         """
-        self.follows[followerId].add(followerId)
-        self.follows[followeeId].add(followeeId)
         self.follows[followerId].add(followeeId)
-        
+
     def unfollow(self, followerId: int, followeeId: int) -> None:
         """
         Follower unfollows a followee. If the operation is invalid, it should be a no-op.
         """
         if followeeId in self.follows[followerId]:
             self.follows[followerId].remove(followeeId)
-
+        
 
 # Your Twitter object will be instantiated and called as such:
 # obj = Twitter()
