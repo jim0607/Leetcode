@@ -9,6 +9,8 @@
 use a double linked list and a dictionary; Double linkedlist: newest node append to tail, eldest node remove from head, so that the operation is O(1); Hashmap: key is key, value is the corresponding double linkedlist node
 - [0460. LFU Cache](Solutions/0460.LFU-Cache.py) (!!!H) <br>
 其实是在LRU的基础上加了一个frequency的要求。Use a dictionary to store (key, freq) pair. Use another dicitonary to store (freq, list of keys) pair, where list of keys could be OrderedDict like LRU to enable O(1) operations. Use a self.min_freq to store the min_freq. Follow up 变形题snapchat：在一个data stream 中find top K most frequent number用LFU来解，也可以用heapq O(Nlogk) or quick select O(N).
+- [0432. All O(1) Data Structure](Solutions/0432.All-O`one-Data-Structure.py) (H) <br>
+use a Double Linked list, a hashmap to store (key, cnt) pair, use a hashmap to store (cnt, node) pair.  node is a DLL node, there is a node.key_set = set() which stores all the keys with that cnt.  The rest is to update the dll, the two hashmaps in each method call. similar with LRU.
 - [1153. String Transforms Into Another String](Solutions/1153.String-Transforms-Into-Another-String.py) (!!H Google) <br>
 Map each character in str1 to what it needs to be in str2. If any of these mappings collide (e.g. str1 = "aa", str2 = "bc", "a" needs to become both "b" and "c"),
 we immediately return False since the transformation is impossible.
@@ -337,7 +339,49 @@ dp[i]=how man yseats booked on day i. dp[i]=dp[i-1]+need[i]
 
 
 ###  [Desgin](/)
-#### [Linked List](/)
+- [0359. Logger Rate Limiter](Solutions/0359.Logger-Rate-Limiter.py) (E) <br>
+很简单，用一个dictionary存(message, last timestamp when message was printed)就可以了。Google followup: input在K长度内无序的，但是时间t+K之后的输入一定出现在t之后。比如K是5，
+[4, foo], [1, foo], [0, bar], [6, bar] => 在[4, foo], [1, foo], [0, bar]内是无序的，但是[6, bar]一定出现在[0, bar]之后，因为6>0+5.
+也就是短程无序，长程有序。这时候该怎么print输出呢？
+用一个heapq, heapq里面存(timestamp, message), 用一个deque里面也存(timestamp, message), 当发现下一个时间大于当前最小时间+K，就pop出当前的最小的放入到deque里面去, 这样deque里面存的就是长短程都有序的了
+- [0362. Design Hit Counter](Solutions/0362.Design-Hit-Counter.py) (M) <br>
+很简单，用一个queue存hit的timestamp就可以了, 这种拿分题一定要细心，这里容易漏掉self.q是否为空的判断，导致扣分，要养成好习惯，用q[0]之前一定要判断q是否为空。Follow up:
+What if the number of hits per second could be very large? Does your design scale?
+这里不是用deque吗？deque里面默认是每一个时间戳hit了一次，如果需要记录每秒钟有几次hit，我们需要用到dictionary, 但是同时有需要deque一样的有序，
+所以自然而然想到OrderedDict. 这样可以保证最多使用O(300)的空间, 还是要熟悉OrderedDict的方法的。
+OrderedDict是deque的增强版，这一点在LRU那题中已经体现。
+当然这一题也可以在q里面存(timestamp, how many hits are there in this timestamp)
+- [0355. Design Twitter](Solutions/0355.Design-Twitter.py) (!!M) <br>
+self.time = 0; self.follows = collections.defaultdict(set)  # key is user, val is a set of users that this use follows; self.tweets = collections.defaultdict(collections.deque)   # key is user, val is a deque of (time, tweetsId). 题目要求求top 10 recent posted tweetsId, 所以我们需要一个self.time记录时间，然后用heapq来求解top K问题
+- [0353. Design Snake Game](Solutions/0353.Design-Snake-Game.py) (M) <br>
+为了考虑到蛇太长转太多弯会咬到自己的情况，我们需要记录蛇的尾巴的位置，所以需要用一个deque.
+Each time we eat a food, we update the head pos as new head pos, and update the tail pos as stay the same pos, 
+if not eating a food, then update the head pos as new head pos, and update the tail pos by simply popping it out of the deque. 
+- [0379. Design Phone Directory](Solutions/0379.Design-Phone-Directory.py) (M) <br>
+self.available_pool = set(i for i in range(maxNumbers)), set除了可以set.remove(item)之外，还可以set.pop() a random item.
+- [0676. Implement Magic Dictionary](Solutions/0676.Implement-Magi-Dictionary.py) (M) <br>
+find all combination of input word, and search if one of them is in the word_set.
+O(26L^2), where L is the lens of word that we want to serach. 也可以用Trie来解，但是比较麻烦不推荐。
+- [0348. Design Tic-Tac-Toe](Solutions/0348.DesignTic-Tac-Toe.py) (M) <br>
+use a hashmap for player1: key is row/col/dia, val is how many taken by player1 at row/col/dia; use another hashmap for player 2. 
+then each time we place a position, we update the hashmap, which takes O(1)
+- [1396. Design Underground System](Solutions/1396.Design-Underground-System.py) (M) <br>
+one hashmap to store the checkin info: id -> (start station, start time).
+another hashmap to store the travel info: (start station, end station) -> (total travel cnt, total time)
+- [0635. Design Log Storage System](Solutions/0635.Design-Log-Storage-System.py) (M) <br>
+use an arr self.log = [] to store the (id, timestamp) information. put method just append a new (id, timestamp) to list, retrieve method just O(N) travel the list.
+Follow up: can we do better for retrieve method?
+In put mehod, we can maitain a sorted list, using binary search to find where we should insert the new timestamp - O(N) (if use sotedList in Python, then O(logN)).
+In retrive method, we can use binary search to find where the start time locates and where the end time locates. It takes O(logN)
+- [1472. Design Browser History](Solutions/1472.Design-Browser-History.py) (M) <br>
+one list store the browse history, one pointer point at where we are at the list.
+- [1244. Design A Leaderboard](Solutions/1244.Design-A-Leaderboard.py) (M) <br>
+use a dictionary for fast addscore and reset. use a heapq to find top K elements
+- [1286. Iterator for Combination](Solutions/1286.Iterator-for-Combination.py) (M) <br>
+use backtrack to find all the possible combinations, then put them in a deque so that we can output in lexicographical order.
+- [1172. Dinner Plate Stacks](Solutions/1172.Dinner-Plate-Stacks.py) (!!H) <br>
+use a stack to store all the stacks.  
+Use a heapq to store all the leftmost available-to-push stack, by storing their idx.
 - [0622. Design Circular Queue](Solutions/0622.Design-Circular-Queue.py) (!!M) <br>
 we can use a Singly-Linked List. 也可以用double-linked-list这把宰牛刀也非常快
 enqueue: we append the value to the tail; dequeue: we remove node from head.
@@ -350,52 +394,6 @@ Resolve hash collision: approach 1: Seperate chaining; approach 2: Open addressi
 similar with design hashmap, we use seperate chaining to resovle collision.
 - [1206. Design Skiplist](Solutions/1206.Design-Skiplist.py) (!!H) <br>
 Each node has 2 pointers: "next" targets to the next node in the same level, "down" targets the "next" level node. We need to define a helper function to find the largest node that is smaller than search target in all levels. If you add a node in a level, all levels after that also need to be added.  In add mehtod, we need to use random function to randomly choose if we want to add the node into upper levels.
-- [0432. All O(1) Data Structure](Solutions/0432.All-O`one-Data-Structure.py) (H) <br>
-use a Double Linked list, a hashmap to store (key, cnt) pair, use a hashmap to store (cnt, node) pair.  node is a DLL node, there is a node.key_set = set() which stores all the keys with that cnt.  The rest is to update the dll, the two hashmaps in each method call. similar with LRU.
-
-#### [Hashmap](/)
-- [0359. Logger Rate Limiter](Solutions/0359.Logger-Rate-Limiter.py) (E) <br>
-很简单，用一个dictionary存(message, last timestamp when message was printed)就可以了。Google followup: input在K长度内无序的，但是时间t+K之后的输入一定出现在t之后。比如K是5，
-[4, foo], [1, foo], [0, bar], [6, bar] => 在[4, foo], [1, foo], [0, bar]内是无序的，但是[6, bar]一定出现在[0, bar]之后，因为6>0+5.
-也就是短程无序，长程有序。这时候该怎么print输出呢？
-用一个heapq, heapq里面存(timestamp, message), 用一个deque里面也存(timestamp, message), 当发现下一个时间大于当前最小时间+K，就pop出当前的最小的放入到deque里面去, 这样deque里面存的就是长短程都有序的了
-- [0362. Design Hit Counter](Solutions/0362.Design-Hit-Counter.py) (M) <br>
-很简单，用一个deque存hit的timestamp就可以了, 这种拿分题一定要细心，这里容易漏掉self.counter是否为空的判断，导致扣分。Follow up:
-What if the number of hits per second could be very large? Does your design scale?
-deque里面默认是每一个时间戳hit了一次，如果需要记录每秒钟有几次hit，我们需要用到dictionary, 但是同时有需要deque一样的有序，
-所以自然而然想到OrderedDict. 这样可以保证最多使用O(300)的空间, 还是要熟悉OrderedDict的方法的。
-OrderedDict是deque的增强版，这一点在LRU那题中已经体现。
-- [0355. Design Twitter](Solutions/0355.Design-Twitter.py) (M) <br>
-self.time = 0; self.follows = collections.defaultdict(set)  # key is user, val is a set of users that this use follows; self.tweets = collections.defaultdict(collections.deque)   # key is user, val is a deque of (time, tweetsId)
-- [0353. Design Snake Game](Solutions/0353.Design-Snake-Game.py) (M) <br>
-为了考虑到蛇太长转太多弯会咬到自己的情况，我们需要记录蛇的尾巴的位置，所以需要用一个deque.
-Each time we eat a food, we update the head pos as new head pos, and update the tail pos as stay the same pos, 
-if not eating a food, then update the head pos as new head pos, and update the tail pos by simply popping it out of the deque. 
-- [0379. Design Phone Directory](Solutions/0379.Design-Phone-Directory.py) (M) <br>
-self.available_pool = set(i for i in range(maxNumbers))
-- [0676. Implement Magic Dictionary](Solutions/0676.Implement-Magi-Dictionary.py) (M) <br>
-find all combination of input word, and search if one of them is in the word_set.
-O(26L^2), where L is the lens of word that we want to serach. 也可以用Trie来解，但是比较麻烦不推荐。
-- [0348. Design Tic-Tac-Toe](Solutions/0348.DesignTic-Tac-Toe.py) (M) <br>
-use a hashmap for player1: key is row/col/dia, val is how many taken by player1 at row/col/dia; use another hashmap for player 2. 
-then each time we place a position, we update the hashmap, which takes O(1)
-- [1396. Design Underground System](Solutions/1396.Design-Underground-System.py) (M) <br>
-checkInData = a new HashMap (id -> [startStation, checkInTime])
-journeyData = a new HashMap ((startStation, endStation) -> [total time, count of trips from startStation to endStation])
-- [0635. Design Log Storage System](Solutions/0635.Design-Log-Storage-System.py) (M) <br>
-use an arr self.log = [] to store the (id, timestamp) information. put method just append a new (id, timestamp) to list, retrieve method just O(N) travel the list.
-Follow up: can we do better for retrieve method?
-In put mehod, we can maitain a sorted list, using binary search to find where we should insert the new timestamp.
-In retrive method, we can use binary search to find where the start time locates and where the end time locates. It takes O(logN)
-- [1472. Design Browser History](Solutions/1472.Design-Browser-History.py) (M) <br>
-solution 1: two stacks. Solution 2: one arr and two pointers.
-- [1244. Design A Leaderboard](Solutions/1244.Design-A-Leaderboard.py) (M) <br>
-use a dictionary for fast addscore and reset. use a heapq to find top K elements
-- [1286. Iterator for Combination](Solutions/1286.Iterator-for-Combination.py) (M) <br>
-use backtrack to find all the possible combinations, then put them in a deque so that we can output in lexicographical order.
-- [1172. Dinner Plate Stacks](Solutions/1172.Dinner-Plate-Stacks.py) (H) <br>
-use a stack to store all the stacks.  
-Use a heapq to store all the leftmost available-to-push stack, by storing their idx.
 
 
 
