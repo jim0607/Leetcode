@@ -23,32 +23,33 @@ The average of subtree of 11 is 4.3333, is the maximun.
 class Solution:
     def findSubtree2(self, root):
         if not root:
-            return
+            return None
+            
+        self.max_avg = float("-inf")
+        self.max_root = root
+        self._helper(root)
         
-        self.maxAvg = -float("inf")
-        self.maxAvgNode = None
+        return self.max_root
         
-        self.helper(root, 0)
-        
-        return self.maxAvgNode
-        
-    def helper(self, root, nodeNum):
-        # return the subSum of the tree root as its root, and also return the nodeNum
+    def _helper(self, root):
+        """
+        return the how many nodes are there for the subtree and the subree sum
+        """
         if not root:
             return 0, 0
-            
+        
         # divide
-        leftSum, leftNum = self.helper(root.left, nodeNum)
-        rightSum, rightNum = self.helper(root.right, nodeNum)
+        left_cnt, left_sum = self._helper(root.left)
+        right_cnt, right_sum = self._helper(root.right)
         
         # conquer
-        subSum = leftSum + rightSum + root.val
-        subNodeNum = leftNum + rightNum + 1
+        cnt = left_cnt + right_cnt + 1
+        sum = left_sum + right_sum + root.val
+        avg = sum / cnt
         
         # traverse to conpare, 打擂台
-        subAvg = subSum / subNodeNum
-        if subAvg > self.maxAvg:
-            self.maxAvg = subAvg
-            self.maxAvgNode = root
+        if avg > self.max_avg:
+            self.max_avg = avg
+            self.max_root = root
             
-        return subSum, subNodeNum
+        return cnt, sum
