@@ -25,51 +25,60 @@ Return 3. The paths that sum to 8 are:
 3. -3 -> 11
 
 
+"""
+solution: dfs every node in the tree. at each node, do a backtrack to find how many root-to-any_node paths are there.
+"""
 class Solution:
     def pathSum(self, root: TreeNode, sum: int) -> int:
         if not root:
             return 0
         
         res = 0
-        res += self.helper(root, sum)
+        res += self._backtrack(root, sum - root.val)
         res += self.pathSum(root.left, sum)
         res += self.pathSum(root.right, sum)
         
         return res
     
-    # return the cnt for path starting from root that sums up to target
-    def helper(self, root, sum):
-        if not root:
-            return 0
-        
+    def _backtrack(self, root, curr_sum):
+        """
+        return the how many root-to-any_node paths are there 
+        """
         cnt = 0
-        if root.val == sum:
-            cnt += 1
-        
-        cnt += self.helper(root.left, sum - root.val)
-        cnt += self.helper(root.right, sum - root.val)     
-        
+        if curr_sum == 0:   # 从root起点出发，在任意节点都可以停 
+            cnt += 1        # 注意这里curr_sum = 0之后不能return, 因为沿着curr_sum=0这条路径往下可能还会有合格的路径
+
+        for next_node in (root.left, root.right):
+            if not next_node:
+                continue
+            cnt += self._backtrack(next_node, curr_sum - next_node.val)
+            
         return cnt
+
+"""
+solution 2: the above solution is easy to understand, but it takes O(N^2)
+"""
+
+死活写不出来，都到现在了，必须必须写出来呀！！
 
 
 
 
 Why this solution does not work?
 
-def pathSum(self, root: TreeNode, sum: int) -> int:
-    if not root:
-        return 0
-    
-    if not root.left and not root.right:
-        if root.val == sum:
-            return 1
-        else:
+class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -> int:
+        if not root:
             return 0
-    
-    leftCnt_withoutRoot = self.pathSum(root.left, sum)
-    rightCnt_withoutRoot = self.pathSum(root.right, sum)
-    
-    leftCnt_withRoot = self.pathSum(root.left, sum - root.val)
-    rightCnt_withRoot = self.pathSum(root.right, sum - root.val)
-    
-    return leftCnt_withoutRoot + rightCnt_withoutRoot + leftCnt_withRoot + rightCnt_withRoot
+
+        cnt = 0
+        if sum == 0:
+            cnt += 1
+
+        cnt += self.pathSum(root.left, sum)             # left cnt without root
+        cnt += self.pathSum(root.right, sum)            # right cnt without root
+
+        cnt += self.pathSum(root.left, sum - root.val)  # left cnt with root
+        cnt += self.pathSum(root.right, sum - root.val) # riight cnt with root
+
+        return cnt
