@@ -98,36 +98,42 @@ class DinnerPlates:
 use a stack to store all the stacks.  
 Use a heapq to store all the leftmost available-to-push stack, by storing their idx.
 """
-import heapq
 class DinnerPlates:
 
     def __init__(self, capacity: int):
         self.capacity = capacity
-        self.hq = []
-        self.stacks = []
+        self.stack = []
+        self.available_to_push = []   # min heap to store the idx of available-to-push stack
 
-    def push(self, val: int) -> None:   # O(logn)
-        while self.hq and self.hq[0] < len(self.stacks) and len(self.stacks[self.hq[0]]) == self.capacity:
-            heapq.heappop(self.hq)
+    def push(self, val: int) -> None:       # O(logn)
+        # step 1: pop out all the left stacks that are not avaliable to push, 
+        # so that after the while loop, we will know the leftmost stack that is available to push
+        while len(self.available_to_push) > 0 and self.available_to_push[0] < len(self.stack) and len(self.stack[self.available_to_push[0]]) == self.capacity:
+            heappop(self.available_to_push)
             
-        if not self.hq:         # if the q is empty, meaning there are no more available stacks
-            heapq.heappush(self.hq, len(self.stacks))       # open up a new stack to insert
-        if self.hq[0] == len(self.stacks):      #  for the newly added stack, add a new stack to self.stacks accordingly
-            self.stacks.append([])      
-        
-        self.stacks[self.hq[0]].append(val)     # append the value to the leftmost available stack
+        # if the q is empty, meaning there are no more available stacks
+        if len(self.available_to_push) == 0:        
+            heappush(self.available_to_push, len(self.stack))
+        if self.available_to_push[0] == len(self.stack):
+            self.stack.append([])
+            
+        # finally, we can push our val into the leftmost available stack
+        self.stack[self.available_to_push[0]].append(val)
 
-    def pop(self) -> int:   # O(1)
-        while self.stacks and not self.stacks[-1]:
-            self.stacks.pop()
-        return self.popAtStack(len(self.stacks)-1)
+    def pop(self) -> int:       # O(1)
+        # step 1: pop out all the empty stacks on the right, cuz they are not available to pop
+        while len(self.stack) > 0 and len(self.stack[-1]) == 0:
+            self.stack.pop()
+            
+        return self.popAtStack(len(self.stack) - 1)
 
-    def popAtStack(self, index: int) -> int:    # O(logn)
-        if 0 <= index < len(self.stacks) and self.stacks[index]:
-            heapq.heappush(self.hq, index)    # we add the index into the available stack
-            return self.stacks[index].pop()
+    def popAtStack(self, index: int) -> int:        # O(logn)
+        # check if it is available to pop
+        if 0 <= index < len(self.stack) and len(self.stack[index]) > 0:
+            heappush(self.available_to_push, index)     # add this index to the available-to-push heap
+            return self.stack[index].pop()
         return -1
-
+        
 
 """
 Solution 3: use a stack to store all the stacks.  
