@@ -53,7 +53,92 @@ Could you do better than O(n2) per move() operation?
 Follow up:
 Could you do better than O(n2) per move() operation?
 
+
+
+
 """
+just use a two lists to record how many are needed at each row and each col for player1.
+same for player 2. 
+"""
+class TicTacToe:
+
+    def __init__(self, n: int):
+        """
+        Initialize your data structure here.
+        """
+        self.col_need1 = [n for _ in range(n)]
+        self.row_need1 = [n for _ in range(n)]
+        self.left_diag_need1 = n
+        self.right_diag_need1 = n
+        self.col_need2 = [n for _ in range(n)]
+        self.row_need2 = [n for _ in range(n)]
+        self.left_diag_need2 = n
+        self.right_diag_need2 = n
+        
+        self.finished = False
+        self.n = n
+
+    def move(self, row: int, col: int, player: int) -> int:
+        """
+        Player {player} makes a move at ({row}, {col}).
+        @param row The row of the board.
+        @param col The column of the board.
+        @param player The player, can be either 1 or 2.
+        @return The current winning condition, can be either:
+                0: No one wins.
+                1: Player 1 wins.
+                2: Player 2 wins.
+        """
+        if self.finished:
+            return -1
+        
+        if player == 1:
+            self.row_need1[row] -= 1
+            if self.row_need1[row] == 0:
+                self.finished = True
+                return 1
+            self.col_need1[col] -= 1
+            if self.col_need1[col] == 0:
+                self.finished = True
+                return 1
+            if row == col:
+                self.left_diag_need1 -= 1
+                if self.left_diag_need1 == 0:
+                    self.finished = True
+                    return 1
+            if row + col == self.n - 1:
+                self.right_diag_need1 -= 1
+                if self.right_diag_need1 == 0:
+                    self.finished = True
+                    return 1
+                    
+        if player == 2:
+            self.row_need2[row] -= 1
+            if self.row_need2[row] == 0:
+                self.finished = True
+                return 2
+            self.col_need2[col] -= 1
+            if self.col_need2[col] == 0:
+                self.finished = True
+                return 2
+            if row == col:
+                self.left_diag_need2 -= 1
+                if self.left_diag_need2 == 0:
+                    self.finished = True
+                    return 2
+            if row + col == self.n - 1:
+                self.right_diag_need2 -= 1
+                if self.right_diag_need2 == 0:
+                    self.finished = True
+                    return 2
+                
+        return 0
+
+
+
+
+"""
+same idea as above, different implementation.
 use a hashmap for player1: key is row/col/dia, val is how many taken by player1 at row/col/dia; use another hashmap for player 2. 
 then each time we place a position, we update the hashmap, which takes O(1)
 """
