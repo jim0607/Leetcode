@@ -22,7 +22,7 @@ class Solution:
         self.minSum = float("inf")      # python 这样定义全局变量
         self.minNode = root
         
-        self.helper(root)
+        self.helper(root)               # 因为用了全局变量，我们一个Helper function其实遍历了所有子树的情况
         
         return self.minNode
         
