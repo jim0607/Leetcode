@@ -17,21 +17,33 @@ Output: ["1->2->5", "1->3"]
 Explanation: All root-to-leaf paths are: 1->2->5, 1->3
 
 
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+"""
+solution 1: dfs
+"""
+class Solution:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        if not root:
+            return []
+        
+        def dfs(curr_node, curr_path, res):
+            if not curr_node.left and not curr_node.right:
+                res.append(curr_path)
+                return 
+            
+            if curr_node.left:
+                dfs(curr_node.left, curr_path + "->" + str(curr_node.left.val), res)
+            if curr_node.right:
+                dfs(curr_node.right, curr_path + "->" + str(curr_node.right.val), res)
+                
+        res = []
+        dfs(root, str(root.val), res)
+        
+        return res
 
-# recursion, divide and conquer
-# 1. 递归的定义，返回二叉树根节点的路径
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+      
+"""
+solution 2: divide and conquer
+"""
 class Solution:
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
         """
