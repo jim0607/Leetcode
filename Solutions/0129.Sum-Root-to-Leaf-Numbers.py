@@ -42,25 +42,48 @@ class Solution:
         if not root:
             return 0
         
-        self.res = 0
-        self.backtrack(root, root.val)
+        return self._backtrack(root, root.val)
         
-        return self.res
-    
-    def backtrack(self, root, pathSum):
-        if not root:
-            return
+    def _backtrack(self, root, curr_path_sum):
+        """
+        这里定义_backtrack函数是注意，由于我们想要的res是一个int是immutable的，
+        所以不能像113. Path Sum II那样传到backtrack里面去，否则值是传不回来的，
+        有两种方法：1. 用一个全局变量self.res; 2. 直接把res return回来
+        """
         if not root.left and not root.right:
-            self.res += pathSum
-            return
+            return curr_path_sum
         
-        for currNode in (root.left, root.right):
-            if not currNode:
+        res = 0        
+        for next_node in (root.left, root.right):
+            if not next_node:
                 continue
-            temp = pathSum  # 记录一下一会儿好backtrack回来
-            pathSum = 10 * pathSum + currNode.val
-            self.backtrack(currNode, pathSum)
-            pathSum = temp
+            res += self._backtrack(next_node, curr_path_sum * 10 + next_node.val)
             
+        return res
+
+
+class Solution:
+    def sumNumbers(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        
+        self.res = 0
+        self._backtrack(root, root.val)
+        return self.res
+        
+    def _backtrack(self, root, curr_path_sum):
+        """
+        这里定义_backtrack函数是注意，由于我们想要的res是一个int是immutable的，
+        所以不能像113. Path Sum II那样传到backtrack里面去，否则值是传不回来的，
+        有两种方法：1. 用一个全局变量self.res; 2. 直接把res return回来
+        """
+        if not root.left and not root.right:
+            self.res += curr_path_sum
+            return
+      
+        for next_node in (root.left, root.right):
+            if not next_node:
+                continue
+            self._backtrack(next_node, curr_path_sum * 10 + next_node.val)
             
 """ solution 2: Morris Preorder Traversal  O(N), O(1)"""
