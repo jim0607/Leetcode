@@ -74,26 +74,25 @@ Answers within 10^-5 of the actual value will be accepted as correct.
 
 
 """
-checkInData = a new HashMap (id -> [startStation, checkInTime])
-journeyData = a new HashMap ((startStation, endStation) -> [total time, count of trips from startStation to endStation])
+one hashmap to store the checkin info: id -> (start station, start time).
+another hashmap to store the travel info: (start station, end station) -> (total travel cnt, total time)
 """
 class UndergroundSystem:
 
     def __init__(self):
-        self.check_in_data = collections.defaultdict(str)
-        self.trips_data = collections.defaultdict(lambda: [0, 0])
+        self.travel = collections.defaultdict(lambda: (0, 0))  # key is tuple of (start station, end station), val is tuple of (total travel cnt, total time)
+        self.checkin = collections.defaultdict(list)           # store id -> (start station, start time)
 
-    def checkIn(self, id: int, stationName: str, t: int) -> None:           # O(1)
-        self.check_in_data[id] = [stationName, t]
+    def checkIn(self, id: int, stationName: str, t: int) -> None:
+        self.checkin[id].append([stationName, t])
 
-    def checkOut(self, id: int, end_station: str, t: int) -> None:          # O(1)
-        start_station, start_time = self.check_in_data.pop(id)
-        self.trips_data[(start_station, end_station)][0] += t - start_time
-        self.trips_data[(start_station, end_station)][1] += 1
+    def checkOut(self, id: int, stationName: str, t: int) -> None:
+        start_station, start_time = self.checkin[id].pop()
+        self.travel[(start_station, stationName)] = (self.travel[(start_station, stationName)][0] + 1, self.travel[(start_station, stationName)][1] + t - start_time)
 
-    def getAverageTime(self, startStation: str, endStation: str) -> float:  # O(1)
-        total_time, total_trips = self.trips_data[(startStation, endStation)]
-        return total_time / total_trips
+    def getAverageTime(self, startStation: str, endStation: str) -> float:
+        travel_cnt, total_time = self.travel[(startStation, endStation)]
+        return total_time / travel_cnt
 
 
 # Your UndergroundSystem object will be instantiated and called as such:
