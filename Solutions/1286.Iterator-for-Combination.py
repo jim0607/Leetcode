@@ -27,25 +27,22 @@ class CombinationIterator:
 
     def __init__(self, characters: str, combinationLength: int):
         self.combinations = collections.deque()
-        self._backtrack(characters, combinationLength, "", -1, 0)       
-
-    # O(solution), ie: O(pick k from N, ie: C_N_k)
-    def _backtrack(self, chars, lens, curr_chars, curr_idx, curr_lens):
-        if curr_lens == lens:
-            self.combinations.append(curr_chars)
-            return
+        self._backtrack(characters, combinationLength, -1, "")
         
-        for next_idx in range(curr_idx + 1, len(chars)):
-            self._backtrack(chars, lens, curr_chars + chars[next_idx], next_idx, curr_lens + 1)
+    # O(solution), ie: O(pick k from N, ie: C_N_k)
+    def _backtrack(self, s, n, curr_idx, curr):
+        if len(curr) == n:
+            self.combinations.append(curr)
+            return
+        for next_idx in range(curr_idx + 1, len(s)):
+            self._backtrack(s, n, next_idx, curr + s[next_idx])
 
     def next(self) -> str:
         if self.hasNext():
             return self.combinations.popleft()
-        return -1
 
     def hasNext(self) -> bool:
         return len(self.combinations) > 0
-
 
 # Your CombinationIterator object will be instantiated and called as such:
 # obj = CombinationIterator(characters, combinationLength)
