@@ -46,14 +46,9 @@ class Solution:
             return []
         
         res = []
-        
-        leftRes = self.inorderTraversal(root.left)
-        res += leftRes
-        
+        res += self.inorderTraversal(root.left)
         res.append(root.val)
-        
-        rightRes = self.inorderTraversal(root.right)
-        res += rightRes
+        res += self.inorderTraversal(root.right)
         
         return res
         
