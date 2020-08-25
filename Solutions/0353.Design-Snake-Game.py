@@ -106,14 +106,12 @@ class SnakeGame:
         @param food - A list of food positions
         E.g food = [[1,1], [1,0]] means the first food is positioned at [1,1], the second is at [1,0].
         """
-        self.n = width      # width 宽度是列数而不是行数
-        self.m = height
+        self.pos = collections.deque()  # pos is a queue for which snake's head is on the left of the q
+        self.pos.append([0, 0])         # and the snake's tail is on the right of the q 
+        self.food_id = 0                # idx in food list to get the position of food
         self.food = food
-        self.food_id = 0
-        self.pos = collections.deque()
-        self.pos.append([0, 0])
-        self.lens = 0
-        self.moves = {"U": (-1, 0), "D": (+1, 0), "L": (0, -1), "R": (0, +1)}
+        self.n = width
+        self.m = height
 
     def move(self, direction: str) -> int:
         """
@@ -122,32 +120,29 @@ class SnakeGame:
         @return The game's score after the move. Return -1 if game over. 
         Game over when snake crosses the screen boundary or bites its body.
         """
-        head_pos = self.pos[0]
-        newhead_pos = [0, 0]
-        newhead_pos[0] = head_pos[0] + self.moves[direction][0]
-        newhead_pos[1] = head_pos[1] + self.moves[direction][1]
-        
-        if not (0 <= newhead_pos[0] < self.m and 0 <= newhead_pos[1] < self.n):   # 如果蛇撞到边界
+        new_head = self.pos[0].copy()   # list assignment一定要copy不然会出错，在这里debug了一个小时！！！!!!!!!!!!
+        if direction == "U":
+            new_head[0] -= 1
+        elif direction == "D":
+            new_head[0] += 1
+        elif direction == "L":
+            new_head[1] -= 1
+        elif direction == "R":
+            new_head[1] += 1
+
+        if not (0 <= new_head[0] < self.m and 0 <= new_head[1] < self.n):   # 如果蛇撞到边界
             return -1
-        if newhead_pos in self.pos and newhead_pos != self.pos[-1]:        # 如果蛇吃到自己身体
+        if new_head in self.pos and new_head != self.pos[-1]:   # 如果蛇吃到自己身体
             return -1
         
-        self.pos.appendleft(newhead_pos)      # update the head pos
-        
-        if self.food_id < len(self.food) and newhead_pos == self.food[self.food_id]:   # 吃到了食物更新lens
+        # 如果这次move吃到了food, 那就把头往前挪一步, 且food_id往前挪一步
+        if self.food_id < len(self.food) and new_head == self.food[self.food_id]:
+            self.pos.appendleft(new_head)
             self.food_id += 1
-            self.lens += 1
-        else:           # 没有吃到食物update tail pos by popping the tail
+
+        # 如果这次move没有吃到了food, 那就把头往前挪一步，且把尾巴pop出来
+        else:     
+            self.pos.appendleft(new_head)
             self.pos.pop()
-            
-        return self.lens
 
-
-# Your SnakeGame object will be instantiated and called as such:
-# obj = SnakeGame(width, height, food)
-# param_1 = obj.move(direction)
-
-
-# Your SnakeGame object will be instantiated and called as such:
-# obj = SnakeGame(width, height, food)
-# param_1 = obj.move(direction)
+        return len(self.pos) - 1
