@@ -17,7 +17,32 @@ return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 
 
 """
-Solution 1: similar with 257, find all the paths and put all the pathSums in a set. 
+solution 1: dfs is perfect for finding the path problem 
+"""
+class Solution:
+    def hasPathSum(self, root: TreeNode, sum: int) -> bool:
+        if not root:
+            return False
+        
+        def dfs(curr_node, curr_sum):
+            if not curr_node.left and not curr_node.right:
+                if curr_sum == sum:
+                    return True
+                return False
+            
+            if curr_node.left:
+                if dfs(curr_node.left, curr_sum + curr_node.left.val):
+                    return True
+            if curr_node.right:
+                if dfs(curr_node.right, curr_sum + curr_node.right.val):
+                    return True
+        
+        return dfs(root, root.val)
+
+
+
+"""
+Solution 2: similar with 257, find all the paths and put all the pathSums in a set. 
 """
 class Solution:
     def hasPathSum(self, root: TreeNode, sum: int) -> bool:
