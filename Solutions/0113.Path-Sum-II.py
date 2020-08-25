@@ -27,28 +27,27 @@ class Solution:
         if not root:
             return []
         
-        self.res = []
-        self.backtrack(root, sum-root.val, [root.val])    # path必须从root出发所以就初始化为sum-root.val, [root.val]
-        return self.res
+        res = []
+        self._backtrack(root, sum - root.val, [root.val], res)
+        return res
     
-    def backtrack(self, root, sum, curr):   # dfs takes O(N) cuz need to traverse every node
-        """
-        return the path for root that can sum to sum
-        """
-        if not root.left and not root.right and sum == 0:
-            self.res.append(curr.copy())        # ************ 每次都把.copy忘记了 **********
-            return
-        
-        if not root:
-            return
-        
-        for node in (root.left, root.right):
-            if not node:
+    def _backtrack(self, root, curr_sum, curr_path, res):   # dfs takes O(N) cuz need to traverse every node
+        if not root.left and not root.right:
+            if curr_sum == 0:
+                res.append(curr_path.copy())    # # ************ 每次都把.copy忘记了 **********
+                return
+            
+        for next_node in (root.left, root.right):
+            if not next_node:
                 continue
-                
-            curr.append(node.val)
-            self.backtrack(node, sum - node.val, curr)   
-            curr.pop()
+            curr_path.append(next_node.val)
+            # curr_sum += next_node.val， 为什么不在这里对curr_sum做backtrack呢？
+            # 因为int是immutable的，所以后面调用backtrack函数是不会改变curr_sum的值的
+            # 而curr_path就不一样了，curr_path是一个list, 所以后面调用backtrack函数会改变curr_path的值
+            # 这就是为什么我们需要对curr_path做append和pop的操作了
+            self._backtrack(next_node, curr_sum - next_node.val, curr_path, res)
+            # curr_sum -= next_node.val
+            curr_path.pop()
             
  
 """
