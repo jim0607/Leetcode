@@ -26,28 +26,35 @@ to_delete contains distinct values between 1 and 1000.
 
 
 """
-what we need to append into res is the nodes that are roots and not in to_delete list.
-we need to pass is_root bool into the helper function to determine whether of not 
-we should append it into res.  If it is root and not in to_delete_set, then we should append into res.
+we update res as we traverse the tree. we append a node into res if two conditions are satisfied:
+1. the node should not be deleted; 2. the node has not parent (meaning it's the root of a forest).
+In order to check if a node has parent or not, we need to pass has_parent bool into dfs arguments.
+if a node is in to_delete list, then the node should pass the information to it's children that it has been
+deleted and it's children has no parent now.
 """
 class Solution:
     def delNodes(self, root: TreeNode, to_delete: List[int]) -> List[TreeNode]:
-        def helper(root, is_root):
+        def helper(root, has_parent):
+            """
+            Return root
+            """
             if not root:
                 return None
-
-            should_delete = root.val in to_delete_set
             
-            if is_root and not should_delete:
-                res.append(root)
+            if root.val in to_delete:
+                root.left = helper(root.left, False)
+                root.right = helper(root.right, False)
+                return None
+            else:
+                if not has_parent:    # if a node has no parent, then it is a root for a seperate forest
+                    res.append(root)
+                root.left = helper(root.left, True)
+                root.right = helper(root.right, True)
+                return root
             
-            root.left = helper(root.left, should_delete)  # if the root should be deleted, then root.left becomes a new root of a forest
-            root.right = helper(root.right, should_delete)
             
-            return root if not should_delete else None
-            
-            
-        to_delete_set = set(to_delete)
+        to_delete = set(to_delete)
         res = []
-        helper(root, True)
+        helper(root, False)
+
         return res
