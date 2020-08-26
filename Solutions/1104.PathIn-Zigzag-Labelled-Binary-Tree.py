@@ -30,9 +30,8 @@ class Solution:
         res = []
         res.append(label)
         while level > 0:
-            label = label // 2
             level -= 1
-            label = 2 ** (level + 1) - 1 + 2 ** level - label
+            label = 2 ** (level + 1) - 1 + 2 ** level - label // 2
             res.append(label)
             
         return res[::-1]
