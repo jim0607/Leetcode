@@ -76,3 +76,19 @@ class Solution:
             return None
         
         return root
+
+"""
+08/26/2020 4:20 pm PST. 写出了和lee神一样的答案
+"""
+class Solution:
+    def pruneTree(self, root: TreeNode) -> TreeNode:
+        if not root:
+            return None
+        
+        root.left = self.pruneTree(root.left)
+        root.right = self.pruneTree(root.right)
+        
+        if not root.left and not root.right and root.val == 0:
+            root = None
+        
+        return root
