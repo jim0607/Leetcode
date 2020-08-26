@@ -86,7 +86,7 @@ class Solution:
             return None
         
         leftmost = root
-        while leftmost.left:        #从上往下一层一层遍历
+        while leftmost.left:        #从上往下一层一层遍历, 注意我们是去连left_most下一层的Nodes, 所以这里判断leftmost.left不为空
             head = leftmost
             while head:     # 从leftmost node开始从左往右连接
                 head.left.next = head.right     # 连接head.left和head.right
