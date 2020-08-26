@@ -13,7 +13,8 @@ Output: [1,2,3,4,5,6,7]
 
 
 """
-solution 1: O(N^2)
+solution 1: O(N^2).
+把这棵树画出来pre = [1,2,4,5,3,6,7], post = [4,5,2,6,7,3,1] 自然就明白了代码怎么写了！
 """
 class Solution:
     def constructFromPrePost(self, pre: List[int], post: List[int]) -> TreeNode:
@@ -41,33 +42,27 @@ class Solution:
     def constructFromPrePost(self, pre: List[int], post: List[int]) -> TreeNode:
         if not pre or not post:
             return None
-
-        pre_dq = collections.deque(pre)
-        post_idxmap = collections.defaultdict(int)
+    
+        post_idxmap = collections.defaultdict(int)  # use a hashmap to store num->idx in post
         for i, num in enumerate(post):
             post_idxmap[num] = i
-        
-        def helper(pre_dq, preL, preR, postL, postR):
-            if not pre_dq or not post:
+    
+        def helper(pre_left, pre_right, post_left, post_right):
+            if pre_left >= pre_right or post_left >= post_right:
                 return None
-            if preL >= preR or postL >= postR:
-                return None
-                
-            root = TreeNode(pre_dq.popleft())
-            # post.pop()
-            preL += 1
-            postR -= 1
-            if preL >= preR or postL >= postR:
+            
+            root = TreeNode(pre[pre_left])
+            pre_left += 1
+            post_right -= 1
+            
+            if pre_left >= pre_right or post_left >= post_right:
                 return root
-
-            if not pre_dq: return root
-            idx = post_idxmap[pre_dq[0]]        
-            lens = idx - postL + 1          # 左子树区间长度为
-
-            root.left = helper(pre_dq, preL, preL+lens, postL, idx+1)
-            root.right = helper(pre_dq, preL+lens, preR, idx+1, postR)
-
+            idx = post_idxmap[pre[pre_left]]
+            lens = idx + 1 - post_left      # 左子树区间长度为
+            
+            root.left = helper(pre_left, pre_left + lens, post_left, idx+1)
+            root.right = helper(pre_left + lens, pre_right, idx+1, post_right)
+            
             return root
         
-        
-        return helper(pre_dq, 0, len(pre), 0, len(post))
+        return helper(0, len(pre), 0, len(post))
