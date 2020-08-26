@@ -23,26 +23,26 @@ p and q are different and both values will exist in the binary tree.
 
 
 # Time complexity O(N) 
-
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         if not root:
             return None
         
-        if root == p or root == q:
-            return root
+        if root == p:
+            return p
+        if root == q:
+            return q
         
-        # divide 
         leftLCA = self.lowestCommonAncestor(root.left, p, q)
         rightLCA = self.lowestCommonAncestor(root.right, p, q)
         
-        # conquer
-        if leftLCA is not None and rightLCA is not None:    # meaning find one node in the left and the other node in the right
+        # 如果左边有一个node等于p或q, and右边有一个node等于q或p
+        if leftLCA and rightLCA:    
             return root
-        elif leftLCA is not None:
-            return leftLCA
-        elif rightLCA is not None:
+        if not leftLCA:     # 左边没有node等于p或q 
             return rightLCA
+        if not rightLCA:    # 右边没有node等于p或q 
+            return leftLCA
         
         
 
