@@ -27,14 +27,15 @@ class Solution:
     def countNodes(self, root: TreeNode) -> int:
         def dfs(root):
             if not root:
-                return
-            self.cnt += 1
-            dfs(root.left)
-            dfs(root.right)
+                return 0
+            
+            cnt = 1
+            cnt += dfs(root.left)
+            cnt += dfs(root.right)
+            
+            return cnt
         
-        self.cnt = 0
-        dfs(root)
-        return self.cnt
+        return dfs(root)
         
         
 """
@@ -63,13 +64,13 @@ class Solution:
         left_depth = self._depth(root.left)
         right_depth = self._depth(root.right)
         
-        if left_depth == right_depth:       # left subtree is a perfect binary tree, but right subtree may or may not
-            return 2 ** self._depth(root.left) + self.countNodes(root.right)
-        elif left_depth > right_depth:      # right subtree is a perfect binary tree, but left subTree may or may not
-            return 2 ** self._depth(root.right) + self.countNodes(root.left)
+        if left_depth == right_depth:   # left subtree is a perfect binary tree, but right subtree may or may not
+            return 2**left_depth + self.countNodes(root.right)
+        elif left_depth > right_depth:  # right subtree is a perfect binary tree, but left subTree may or may not
+            return 2**right_depth + self.countNodes(root.left)
         
-    def _depth(self, root):
+    def _depth(self, root):     # O(logN)
         if not root:
             return 0
         
-        return 1 + self._depth(root.left)  
+        return max(self._depth(root.left), self._depth(root.right)) + 1
