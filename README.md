@@ -452,13 +452,13 @@ BFS solution using q
 DFS, pass the depth and pos into the dfs arguments.
 - [0987. Vertical Order Traversal of a Binary Tree](Solutions/0987.Vertical-Order-Traversal-of-a-Binary-Tree.py) (M) <br>
 record the position of each node as we dfs to traverse the tree 
-- [0404. Sum of Left Leaves](Solutions/0404.Sum-of-Left-Leaves.py) (E) <br>
-dfs to traverse the tree, 当我们遇到leaf节点的时候，我们需要判断其是不是上一个节点的left节点，如果是就更新cnt.
-为了判断是不是上一个节点的left节点，我们需要把上一个节点prev_node传到dfs函数arguments中，这种将prev_node传到dfs中的思想非常重要！
 - [1104. Path In Zigzag Labelled Binary Tree](Solutions/1104.PathIn-Zigzag-Labelled-Binary-Tree.py) (M) <br>
 完全一个数学找规律的题，没啥意思
 - [0637. Average of Levels in Binary Tree](Solutions/0637.Average-of-Levels-in-Binary-Tree.py) (M) <br>
 level order traversal using a q.
+- [0404. Sum of Left Leaves](Solutions/0404.Sum-of-Left-Leaves.py) (E) <br>
+dfs to traverse the tree, 当我们遇到leaf节点的时候，我们需要判断其是不是上一个节点的left节点，如果是就更新cnt.
+为了判断是不是上一个节点的left节点，我们需要把上一个节点prev_node传到dfs函数arguments中，这种将prev_node传到dfs中的思想非常重要！
 - [1110. Delete Nodes And Return Forest](Solutions/1110.Delete-Nodes-And-Return-Forest.py) (!!!M Google) <br>
 we update res as we traverse the tree. we append a node into res if two conditions are satisfied:
 1. the node should not be deleted; 2. the node has not parent (meaning it's the root of a forest).
@@ -475,24 +475,16 @@ in order traversal to find the leaves of the tree and put them into a list
 - [0366. Find Leaves of Binary Tree](Solutions/0366.Find-Leaves-of-Binary-Tree.py) (!!M) <br>
 我们将leaf node的level定义为0, 那么紧紧邻接leaf node的level定义为1；
 那么我们只需要将level相同的nodes存在一起就可以了；所以用dict存level-nodes pair, key is level, val is nodes that in that level.
-- [1028. Recover a Tree From Preorder Traversal](Solutions/1028.Recover-a-Tree-From-Preorder-Traversal.py) (!!H) <br>
-since we need the position information of node 6, and disctionary doesnot maitain the position order.
-we choose to use a list to store (level, node) information, the pos at the list stores the information
 of porisiton order.
 - [1145. Binary Tree Coloring Game](Solutions/1145.Binary-Tree-Coloring-Game.py) (M) <br>
 check the 3 nodes that are adjacent to node x, find the number of nodes each of the 3 subtree has. If there exist one subtree that has more nodes than other two subtrees add together, then the second player can color that node.
 - [0971. Flip Binary Tree To Match Preorder Traversal](Solutions/0971.Flip-Binary-Tree-To-Match-Preorder-Traversal.py) (M) <br>
-dfs solution:
-Global integer i indicates next index in voyage v.mIf current node == null, it's fine, we return true; If current node.val != v[i], doesn't match wanted value, return false; If left child exist but don't have wanted value, flip it with right child.
+dfs solution: Global integer i indicates next index in voyage v.mIf current node == null, it's fine, we return true; If current node.val != v[i], doesn't match wanted value, return false; If left child exist but don't have wanted value, flip it with right child.
 - [0572. Subtree of Another Tree](Solutions/0572.Subtree-of-Another-Tree.py) (!!E) <br>
 solution 1: brutal force: dfs to visit every node, at each node, stop and check if the subtree rooted
 as that node is the same as t - O(MN); solution 2: O(M+N).  we can in order traversal the two trees and turn them into two strings s and t. 
 Then the problem becomes exactly the same as finding a substring in s that equals t, which is 28. Implement strStr().
 Use rolling hash, we can realize O(M+N) solution.
-- [0109. Convert Sorted List to Binary Search Tree](Solutions/0109.Convert-Sorted-List-to-Binary-Search-Tree.py) (!!M) <br>
-先分为左中右三个部分，然后divide and conquer - O(NlogN); 上述方法需要 O(NlogN)的原因是每次寻找中间点mid的时间都是O(N), 我们可以把linked list转化为arr,
-这样我们找mid就只需要O(1)了, 这时候再根据Master's theorem: 我们通过O(1)的时间将T(N)的任务变成了2T(N/2)的任务，
-所以总的时间复杂度是O(N)
 - [0156. Binary Tree Upside Down](Solutions/0156.Binary-Tree-Upside-Down.py) (M) <br>
 没明白题目啥意思，大概就是一通左右连接的操作吧
 - [0314. Binary Tree Vertical Order Traversal](Solutions/0314.Binary-Tree-Vertical-Order-Traversal.py) (M) <br>
@@ -502,6 +494,9 @@ We pass the minimum and maximum values to the children,
 At the leaf node, we return max - min through the path from the root to the leaf.
 Since DFS works going finished path by finished path, so values are not corrupted between impossible paths.
 这个递归真的需要好好理解
+- [1028. Recover a Tree From Preorder Traversal](Solutions/1028.Recover-a-Tree-From-Preorder-Traversal.py) (!!H) <br>
+since we need the position information of node 6, and disctionary doesnot maitain the position order.
+we choose to use a list to store (level, node) information, the pos at the list stores the information
 
 
 
@@ -517,6 +512,10 @@ STEP 1. divide 先局部有序; STEP 2. conquer 再整体有序
 - [0617. Merge Two Binary Trees](Solutions/0617.Merge-Two-Binary-Trees.py) (E) <br>
 - [0108. Convert Sorted Array to Binary Search Tree](Solutions/0108.Convert-Sorted-Array-to-Binary-Search-Tree.py) (!!E) <br>
 we can always choose the left middle number as root, or always choose right middle number as root, or sometimes left sometimes right as root. That is why the answer is not unique
+- [0109. Convert Sorted List to Binary Search Tree](Solutions/0109.Convert-Sorted-List-to-Binary-Search-Tree.py) (!!M) <br>
+先分为左中右三个部分，然后divide and conquer - O(NlogN); 上述方法需要 O(NlogN)的原因是每次寻找中间点mid的时间都是O(N), 我们可以把linked list转化为arr,
+这样我们找mid就只需要O(1)了, 这时候再根据Master's theorem: 我们通过O(1)的时间将T(N)的任务变成了2T(N/2)的任务，
+所以总的时间复杂度是O(N)
 - [0098. Validate Binary Search Tree](Solutions/0098.Validate-Binary-Search-Tree.py) (M) <br>
 注意判断条件不仅仅是left.val<root.val<right.val而是max of left < root < min of right; helper函数返回以root为根的树(是不是BST，max and min value in the tree); if (isLeftBST and isRightBST and maxLeft < root.val < minRight): return True
 - [0426. Convert Binary Search Tree to Sorted Doubly Linked List](Solutions/0426.Convert-Binary-Search-Tree-to-Sorted-Doubly-Linked-List.py) (!!M)  <br>
