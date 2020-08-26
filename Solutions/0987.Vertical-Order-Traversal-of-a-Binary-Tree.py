@@ -35,32 +35,33 @@ The node with value 5 and the node with value 6 have the same position according
 However, in the report "[1,5,6]", the node value of 5 comes first since 5 is smaller than 6.
 
 """
-solution: in order traversal of the tree and record the x-pos
+solution: record the position of each node as we dfs to traverse the tree  
 """
-class Solution:
     def verticalTraversal(self, root: TreeNode) -> List[List[int]]:
-        in_order = self._in_order(root, 0, 0)
-        in_order.sort(key = lambda x: (x[0], x[1], x[2]))
-        
-        i = 0
-        res = []
-        while i < len(in_order):
-            temp = []
-            pos = in_order[i][0]
-            while i < len(in_order) and in_order[i][0] == pos:
-                temp.append(in_order[i][2])
-                i += 1
-            res.append(temp)
-                
-        return res
-        
-    def _in_order(self, root, pos, level):
         if not root:
             return []
-
-        res = []
-        res += self._in_order(root.left, pos-1, level+1)
-        res.append((pos, level, root.val))
-        res += self._in_order(root.right, pos+1, level+1)
+              
+            
+        def dfs(root, level, pos):
+            if not root:
+                return
+            
+            position.append((level, pos, root.val))
+            dfs(root.left, level + 1, pos - 1)
+            dfs(root.right, level + 1, pos + 1)            
+            
+            
+        position = []
+        dfs(root, 0, 0)
+        position.sort(key = lambda x: (x[1], x[0], x[2]))
         
+        res = []
+        i = 0
+        while i < len(position):
+            pos = position[i][1]
+            temp = []
+            while i < len(position) and position[i][1] == pos:
+                temp.append(position[i][2])
+                i += 1
+            res.append(temp)
         return res
