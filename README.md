@@ -445,26 +445,26 @@ the root is the arr[0], root.left = [1: idx] and root.right = [idx:], where idx 
 solution 1: dfs to visit every node; solution 2: use the property of complete Tree: 通过比较left sub tree height and right sub tree height 可以之直接算出左边或者右边nodes的个数 - O(logN* logN)
 - [0116. Populating Next Right Pointers in Each Node](Solutions/0116.Populating-Next-Right-Pointers-in-Each-Node.py) (M) <br>
 BFS solution using q is trivial. Follow up: what if only use constant extra space?
-我们可以设立两个指针，一根leftmost一直往下走，一根head在一层之中一直往右走，边走边连
+我们可以设立两个指针，一根leftmost一直往下走，一根head在一层之中一直往右走，边走边连，zu以每次都是去连left_most下一层的Nodes
 - [0117. Populating Next Right Pointers in Each Node II](Solutions/0117.Populating-Next-Right-Pointers-in-Each-Node-II.py) (M) <br>
 BFS solution using q
 - [0655. Print Binary Tree](Solutions/0655.Print-Binary-Tree.py) (M) <br>
 DFS, pass the depth and pos into the dfs arguments.
 - [0987. Vertical Order Traversal of a Binary Tree](Solutions/0987.Vertical-Order-Traversal-of-a-Binary-Tree.py) (M) <br>
-solution: in order traversal of the tree and record the x-pos
+record the position of each node as we dfs to traverse the tree 
 - [0404. Sum of Left Leaves](Solutions/0404.Sum-of-Left-Leaves.py) (E) <br>
-simple dfs to visit every node, use a global variable to recorde the left leaf sum
+dfs to traverse the tree, 当我们遇到leaf节点的时候，我们需要判断其是不是上一个节点的left节点，如果是就更新cnt.
+为了判断是不是上一个节点的left节点，我们需要把上一个节点prev_node传到dfs函数arguments中，这种将prev_node传到dfs中的思想非常重要！
 - [1104. Path In Zigzag Labelled Binary Tree](Solutions/1104.PathIn-Zigzag-Labelled-Binary-Tree.py) (M) <br>
 完全一个数学找规律的题，没啥意思
 - [0637. Average of Levels in Binary Tree](Solutions/0637.Average-of-Levels-in-Binary-Tree.py) (M) <br>
 level order traversal using a q.
-- [0897. Increasing Order Search Tree](Solutions/0897.Increasing-Order-Search-Tree.py) (E) <br>
-step 1: in order traversal to get a list of node vals;
-step 2: construct the tree based on the in_order list
-- [1110. Delete Nodes And Return Forest](Solutions/1110.Delete-Nodes-And-Return-Forest.py) (!!M) <br>
-what we need to append into res is the nodes that are roots and not in to_delete list.
-we need to pass is_root bool into the helper function to determine whether of not 
-we should append it into res.  If it is root and not in to_delete_set, then we should append into res.
+- [1110. Delete Nodes And Return Forest](Solutions/1110.Delete-Nodes-And-Return-Forest.py) (!!!M Google) <br>
+we update res as we traverse the tree. we append a node into res if two conditions are satisfied:
+1. the node should not be deleted; 2. the node has not parent (meaning it's the root of a forest).
+In order to check if a node has parent or not, we need to pass has_parent bool into dfs arguments.
+if a node is in to_delete list, then the node should pass the information to it's children that it has been
+deleted and it's children has no parent now.
 - [0814. Binary Tree Pruning](Solutions/0814.Binary-Tree-Pruning.py) (M) <br>
 solution 1: my own solution: dfs visit each node, at each node, use a should_delete(node) function to tell
 if this node should be deleted.
@@ -554,6 +554,10 @@ Similar with the previous mode problem, we need to use a global prev_node, so th
 跟上题一模一样，solution 2: do a in order traversal (reversed version: go all the way to the right) to keep track the addValues
 - [0530. Minimum Absolute Difference in BST](Solutions/0530.Minimum-Absolute-Difference-in-BST.py) (E) <br>
 just in order traversal to turn the tree into a list, and then compare the adjacent elements in a list.
+- [0897. Increasing Order Search Tree](Solutions/0897.Increasing-Order-Search-Tree.py) (E) <br>
+step 1: in order traversal to get a list of node vals;
+step 2: construct the tree based on the in_order list
+
 
 
 ### [Nary Tree](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
