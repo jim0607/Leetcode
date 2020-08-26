@@ -18,6 +18,31 @@ Tilt of node 3 : 0
 Tilt of node 1 : |2-3| = 1
 Tilt of binary tree : 0 + 0 + 1 = 1
 
+         
+class Solution:
+    def findTilt(self, root: TreeNode) -> int:
+        def helper(root):
+            """
+            Return the sum of subtree, and the tilt of the subtree
+            """
+            if not root:
+                return 0, 0
+            
+            left_sum, left_tilt = helper(root.left)
+            right_sum, right_tilt = helper(root.right)
+            
+            root_sum = left_sum + right_sum + root.val
+            root_tilt = abs(left_sum - right_sum)
+            
+            self.total_tilt += root_tilt
+            
+            return root_sum, root_tilt
+        
+        self.total_tilt = 0
+        helper(root)
+        return self.total_tilt
+
+         
 
 class Solution:
     def findTilt(self, root: TreeNode) -> int:
