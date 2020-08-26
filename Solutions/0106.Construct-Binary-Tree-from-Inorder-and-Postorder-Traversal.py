@@ -34,9 +34,9 @@ class Solution:
             if num == root.val:
                 idx = i
                 break
-                
-        root.right = self.buildTree(inorder[idx+1:], postorder)  # 注意right要放到left前面更新
-        root.left = self.buildTree(inorder[:idx], postorder)
+        
+        root.right = self.buildTree(inorder[idx+1:], postorder) # 注意要先更新right, 这是因为我们需要对postorder做pop
+        root.left = self.buildTree(inorder[:idx], postorder)    # 只有先把后面的pop出来才能去pop前面的，而postorder后面的对应的是right部分
         
         return root
         
@@ -70,5 +70,6 @@ class Solution:
             root.left = helper(postorder, left, idx)
 
             return root
-        
+       
+    
         return helper(postorder, 0, len(inorder))
