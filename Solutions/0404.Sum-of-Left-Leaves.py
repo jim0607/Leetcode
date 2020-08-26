@@ -13,21 +13,23 @@ Example:
 There are two left leaves in the binary tree, with values 9 and 15 respectively. Return 24.
 
 
+"""
+dfs to traverse the tree, 当我们遇到leaf节点的时候，我们需要判断其是不是上一个节点的left节点，如果是就更新cnt.
+为了判断是不是上一个节点的left节点，我们需要把上一个节点prev_node传到dfs函数arguments中，
+这种将prev_node传到dfs中的思想非常重要！
+"""
 class Solution:
     def sumOfLeftLeaves(self, root: TreeNode) -> int:
-        self.sums = 0
-        self._helper(root)
-        return self.sums
-    
-    def _helper(self, root):
-        if not root:
-            return
+        def helper(root, prev_node):
+            if not root:
+                return 0
+            if not root.left and not root.right and prev_node and root == prev_node.left:
+                return root.val
+
+            cnt = 0
+            cnt += helper(root.left, root)
+            cnt += helper(root.right, root)
+
+            return cnt
         
-        if root.left:
-            left_node = root.left
-            if not left_node.left and not left_node.right:
-                self.sums += root.left.val
-            self._helper(root.left)
-            
-        if root.right:
-            self._helper(root.right)
+        return helper(root, None)
