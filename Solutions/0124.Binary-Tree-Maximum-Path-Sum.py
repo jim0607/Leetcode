@@ -25,6 +25,9 @@ Output: 42
 
 
 """这个题目对于path的定义描述的不好，题意应该是任何path都可以，只要点和点连接在一起就算一个path，起点和终点doesn't matter"""
+"""
+用一个self.max_sum去打擂台as we traverse the tree.
+"""
 class Solution:
     def maxPathSum(self, root: TreeNode) -> int:
         self.maxSum = root.val
@@ -81,3 +84,32 @@ class Solution:
         self.maxSum = max(rootMaxSum, rootMaxSum_pass_root, self.maxSum)
         
         return rootMaxSum
+
+
+"""
+O(N^2) - 在binary tree里求longest path问题，如果任何path都算数的话，那么我们在divide and conquer的时候要分成两种情况讨论：
+1. path ended with root; 2: path not ended with root. 我们往往需要在helper函数中返回end_w和end_wo两种情况的值, 
+有时候也可以将case 2细分为: I. path pass the root, and II. path without the root.
+"""
+class Solution:
+    def maxPathSum(self, root: TreeNode) -> int:
+        if not root:
+            return float("-inf")
+        
+        start_w_root = self._max_path_sum_started_w(root)
+        pass_root = root.val + self._max_path_sum_started_w(root.left) + self._max_path_sum_started_w(root.right)
+        wo_root = max(self.maxPathSum(root.left), self.maxPathSum(root.right))
+        
+        return max(start_w_root, pass_root, wo_root)
+        
+    def _max_path_sum_started_w(self, root):
+        """
+        Return the max path sum started with root
+        """
+        if not root:
+            return float("-inf")
+        
+        left = self._max_path_sum_started_w(root.left)
+        right = self._max_path_sum_started_w(root.right)
+        
+        return max(left + root.val, right + root.val, root.val)
