@@ -15,68 +15,47 @@ Note: The length of path between two nodes is represented by the number of edges
 
 
 
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
-        self.maxDmtr = 0
+        if not root:
+            return 0
         
-        def maxDepth(root):
-            """
-            return the maxDepth of tree rooted as root
-            """
-            if not root:
-                return 0
-            
-            leftDepth = maxDepth(root.left)
-            rightDepth = maxDepth(root.right)
-            
-            self.maxDmtr = max(self.maxDmtr, leftDepth + rightDepth)    # 打个擂台吧
-            
-            rootDepth = max(leftDepth, rightDepth) + 1
-            
-            return rootDepth
+        self.max_dia = 0
+        self._get_depth(root)
         
-                
-        maxDepth(root)
+        return self.max_dia
+    
+    def _get_depth(self, root):
+        if not root:
+            return 0
         
-        return self.maxDmtr
+        left_depth = self._get_depth(root.left)
+        right_depth = self._get_depth(root.right)
+        
+        self.max_dia = max(self.max_dia, left_depth + right_depth)  # 打个擂台吧
+        
+        return max(left_depth, right_depth) + 1
 
 
 
 """
 Can somone tell me why this doesn't work?  
 It doesn't work because the path may or may not pass through the root.
+把这个例子放到leetcode中用Tree Visualizer看一看就知道为什么了[4,-7,-3,null,null,-9,-3,9,-7,-4,null,6,null,-6,-6,null,null,0,6,5,null,9,null,null,-1,-4,null,null,null,-2]
+因为可能root.left只有一个节点，而root.right有很多节点，这很多个节点中可能有很多左节点，所以max_diameter只发生在root的右半边
 """
 class Solution:
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
-        """
-        return the diameter of tree rooted as root
-        """
-        if not root:
-            return 0
-
-        return self.maxDepth(root.left) + self.maxDepth(root.right)
-        
-    def maxDepth(self, root):
-        """
-        return the max depth of the tree rooted as root
-        """
         if not root:
             return 0
         
-        if not root.left and not root.right:
-            return 1
+        return self._get_depth(root.left) + self._get_depth(root.right)
+    
+    def _get_depth(self, root):
+        if not root:
+            return 0
         
-        # divide
-        leftDepth = self.maxDepth(root.left)
-        rightDepth = self.maxDepth(root.right)
+        left_depth = self._get_depth(root.left)
+        right_depth = self._get_depth(root.right)
         
-        # merge
-        depth = max(leftDepth, rightDepth) + 1
-        
-        return depth
+        return max(left_depth, right_depth) + 1
