@@ -53,7 +53,7 @@ solution: record the position of each node as we dfs to traverse the tree
             
         position = []
         dfs(root, 0, 0)
-        position.sort(key = lambda x: (x[1], x[0], x[2]))
+        position.sort(key = lambda x: (x[1], x[0], x[2]))  # only difference with 314 is sort should include node.val
         
         res = []
         i = 0
