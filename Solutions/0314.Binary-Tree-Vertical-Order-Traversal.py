@@ -71,8 +71,45 @@ Output:
 ]
 
 
+"""
+solution: record the position of each node as we dfs to traverse the tree 
+"""
+class Solution:
+    def verticalOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root:
+            return []
+              
+            
+        def dfs(root, level, pos):
+            if not root:
+                return
+            
+            position.append((level, pos, root.val))
+            dfs(root.left, level + 1, pos - 1)
+            dfs(root.right, level + 1, pos + 1)            
+            
+            
+        position = []
+        dfs(root, 0, 0)
+        position.sort(key = lambda x: (x[1], x[0]))   
+        
+        res = []
+        i = 0
+        while i < len(position):
+            pos = position[i][1]
+            temp = []
+            while i < len(position) and position[i][1] == pos:
+                temp.append(position[i][2])
+                i += 1
+            res.append(temp)
+        return res
 
 
+
+
+"""
+Previous solution
+"""
 class Solution:
     def verticalOrder(self, root: TreeNode) -> List[List[int]]:
         if not root:
