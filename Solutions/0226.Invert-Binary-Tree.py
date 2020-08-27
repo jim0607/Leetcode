@@ -37,3 +37,19 @@ class Solution:
         root.right = leftRoot
         
         return root
+     
+     
+"""
+也可以先整体有序，再局部有序
+"""
+class Solution:
+    def invertTree(self, root: TreeNode) -> TreeNode:
+        if not root:
+            return None
+        
+        root.left, root.right = root.right, root.left
+        
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+               
+        return root
