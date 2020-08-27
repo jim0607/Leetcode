@@ -1,6 +1,6 @@
 ## 四刷：每天刷15-20题, 做好总结！08/17 to 09/30
 ## 每天晚上睡前Review做过的题
-##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222
+##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669;
 
 
 # [Data Structure](/Data-Structure.py)
@@ -499,9 +499,11 @@ step 1: store the (depth, node_val) information in a list; step 2: use that list
 
 
 ### [BST](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-- [0669. Trim a Binary Search Tree](Solutions/0669.Trim-a-Binary-Search-Tree.py) (E) <br>
 - [0700. Search in a Binary Search Tree](Solutions/0700.Search-in-a-Binary-Search-Tree.py) (E) <br>
-- [0230. Kth Smallest Element in a BST](Solutions/0230.Kth-Smallest-Element-in-a-BST.py) (M) <br>
+- [0669. Trim a Binary Search Tree](Solutions/0669.Trim-a-Binary-Search-Tree.py) (E) <br>
+
+
+
 - [0270. Closest Binary Search Tree Value](Solutions/0270.Closest-Binary-Search-Tree-Value.py) (E) <br>
 iterative vs. recursion. 我们可以直观地看到: BST这种树结构的search一般都是O(h)的, 因为我们是一路往下search的
 - [0938. Range Sum of BST](Solutions/0938.Range-Sum-of-BST.py) (E) <br>
@@ -510,6 +512,7 @@ STEP 1. divide 先局部有序; STEP 2. conquer 再整体有序
 - [0617. Merge Two Binary Trees](Solutions/0617.Merge-Two-Binary-Trees.py) (E) <br>
 - [0108. Convert Sorted Array to Binary Search Tree](Solutions/0108.Convert-Sorted-Array-to-Binary-Search-Tree.py) (!!E) <br>
 we can always choose the left middle number as root, or always choose right middle number as root, or sometimes left sometimes right as root. That is why the answer is not unique
+- [0230. Kth Smallest Element in a BST](Solutions/0230.Kth-Smallest-Element-in-a-BST.py) (M) <br>
 - [0109. Convert Sorted List to Binary Search Tree](Solutions/0109.Convert-Sorted-List-to-Binary-Search-Tree.py) (!!M) <br>
 先分为左中右三个部分，然后divide and conquer - O(NlogN); 上述方法需要 O(NlogN)的原因是每次寻找中间点mid的时间都是O(N), 我们可以把linked list转化为arr,
 这样我们找mid就只需要O(1)了, 这时候再根据Master's theorem: 我们通过O(1)的时间将T(N)的任务变成了2T(N/2)的任务，
