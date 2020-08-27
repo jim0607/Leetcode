@@ -28,13 +28,13 @@ class Solution:
     def closestValue(self, root: TreeNode, target: float) -> int:
         closest = root.val
         while root:
-            closest = min(root.val, closest, key = lambda x: abs(x - target))   # 这写法新奇！
+            if abs(root.val - target) < abs(closest - target):  # 打擂台
+                closest = root.val
             if target < root.val:
                 root = root.left
             else:
                 root = root.right
         return closest
-        
         
 """
 recursion版本
@@ -42,16 +42,15 @@ recursion版本
 class Solution:
     def closestValue(self, root: TreeNode, target: float) -> int:
         self.closest = root.val
-        self._dfs(root, target)
+        self._helper(root, target)
         return self.closest
-        
-    def _dfs(self, root, target):
+    
+    def _helper(self, root, target):
         if not root:
             return
-
-        self.closest = min(root.val, self.closest, key = lambda x: abs(x - target))   # 这写法新奇！
-        
+        if abs(root.val - target) < abs(self.closest - target):     # 打擂台
+            self.closest = root.val
         if target < root.val:
-            self._dfs(root.left, target)
+            self._helper(root.left, target)
         else:
-            self._dfs(root.right, target)
+            self._helper(root.right, target)
