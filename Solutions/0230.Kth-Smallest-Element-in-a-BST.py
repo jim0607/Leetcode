@@ -37,18 +37,17 @@ You may assume k is always valid, 1 ≤ k ≤ BST's total elements.
 
 """
 solution 2: in order traversal of BST (iteratively) - O(k+H) where H is height of tree.
+要闭着眼睛都会默写in order traversal的interative版本
 """
 class Solution:
     def kthSmallest(self, root: TreeNode, k: int) -> int:
-        return self._inorder(root, k)
-        
-    def _inorder(self, root, k):
         curr = root
         st = []
-        while st or curr:
+        while curr or len(st) > 0:
             while curr:
                 st.append(curr)
                 curr = curr.left
+                
             curr = st.pop()
             
             k -= 1
@@ -57,6 +56,28 @@ class Solution:
             
             curr = curr.right
 
+"""
+iterative version
+"""
+class Solution:
+    def kthSmallest(self, root: TreeNode, k: int) -> int:
+        self.k = k
+        self.kthsmallest = root.val
+        self._inorder(root)
+        return self.kthsmallest
+    
+    def _inorder(self, root):
+        if root.left:
+            self._inorder(root.left)
+            
+        self.k -= 1
+        if self.k == 0:
+            self.kthsmallest = root.val
+            return
+        
+        if root.right:
+            self._inorder(root.right)
+            
 
 """
 solution 1: in order traversal of BST - O(N), O(N).
