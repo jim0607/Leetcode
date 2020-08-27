@@ -404,6 +404,8 @@ Each node has 2 pointers: "next" targets to the next node in the same level, "do
 solution 2: in order traversal of BST (iteratively) - O(k+H) where H is height of tree. solution 1: trivial - in order traversal of BST - O(N), O(N).
 - [0104. Maximum Depth of Binary Tree](Solutions/0104.Maximum-Depth-of-Binary-Tree.py) (E) <br>
 rootDepth = max(leftDepth, rightDepth) + 1
+- [0226. Invert Binary Tree](Solutions/0226.Invert-Binary-Tree.py) (E) <br>
+- [0617. Merge Two Binary Trees](Solutions/0617.Merge-Two-Binary-Trees.py) (E) <br>
 - [0257. Binary Tree Paths](Solutions/0257.Binary-Tree-Paths.py) (!!E) <br>
 求path, 第一反应当然是dfs了
 - [0112. Path Sum](Solutions/0112.Path-Sum.py) (E) <br>
@@ -500,25 +502,23 @@ step 1: store the (depth, node_val) information in a list; step 2: use that list
 
 ### [BST](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0700. Search in a Binary Search Tree](Solutions/0700.Search-in-a-Binary-Search-Tree.py) (E) <br>
-- [0669. Trim a Binary Search Tree](Solutions/0669.Trim-a-Binary-Search-Tree.py) (E) <br>
-
-
-
+- [0669. Trim a Binary Search Tree](Solutions/0669.Trim-a-Binary-Search-Tree.py) (!!E) <br>
 - [0270. Closest Binary Search Tree Value](Solutions/0270.Closest-Binary-Search-Tree-Value.py) (E) <br>
 iterative vs. recursion. 我们可以直观地看到: BST这种树结构的search一般都是O(h)的, 因为我们是一路往下search的
 - [0938. Range Sum of BST](Solutions/0938.Range-Sum-of-BST.py) (E) <br>
-- [0226. Invert Binary Tree](Solutions/0226.Invert-Binary-Tree.py) (E) <br>
-STEP 1. divide 先局部有序; STEP 2. conquer 再整体有序
-- [0617. Merge Two Binary Trees](Solutions/0617.Merge-Two-Binary-Trees.py) (E) <br>
 - [0108. Convert Sorted Array to Binary Search Tree](Solutions/0108.Convert-Sorted-Array-to-Binary-Search-Tree.py) (!!E) <br>
 we can always choose the left middle number as root, or always choose right middle number as root, or sometimes left sometimes right as root. That is why the answer is not unique
-- [0230. Kth Smallest Element in a BST](Solutions/0230.Kth-Smallest-Element-in-a-BST.py) (M) <br>
 - [0109. Convert Sorted List to Binary Search Tree](Solutions/0109.Convert-Sorted-List-to-Binary-Search-Tree.py) (!!M) <br>
-先分为左中右三个部分，然后divide and conquer - O(NlogN); 上述方法需要 O(NlogN)的原因是每次寻找中间点mid的时间都是O(N), 我们可以把linked list转化为arr,
+这题是Linkedlist. 先分为左中右三个部分，然后divide and conquer - O(NlogN); 上述方法需要 O(NlogN)的原因是每次寻找中间点mid的时间都是O(N), 我们可以把linked list转化为arr,
 这样我们找mid就只需要O(1)了, 这时候再根据Master's theorem: 我们通过O(1)的时间将T(N)的任务变成了2T(N/2)的任务，
 所以总的时间复杂度是O(N)
+- [0230. Kth Smallest Element in a BST](Solutions/0230.Kth-Smallest-Element-in-a-BST.py) (M) <br>
+要会默写iterative version of in-order-traversal
 - [0098. Validate Binary Search Tree](Solutions/0098.Validate-Binary-Search-Tree.py) (M) <br>
 注意判断条件不仅仅是left.val<root.val<right.val而是max of left < root < min of right; helper函数返回以root为根的树(是不是BST，max and min value in the tree); if (isLeftBST and isRightBST and maxLeft < root.val < minRight): return True
+
+
+
 - [0426. Convert Binary Search Tree to Sorted Doubly Linked List](Solutions/0426.Convert-Binary-Search-Tree-to-Sorted-Doubly-Linked-List.py) (!!M)  <br>
 solution 1: 定义两个全局变量self.head, self.curr，进行in order traversal的过程中不断更新curr的位置并hook up nodes
 - [0114. Flatten Binary Tree to Linked List](Solutions/0114.Flatten-Binary-Tree-to-Linked-List.py) (M) <br>
