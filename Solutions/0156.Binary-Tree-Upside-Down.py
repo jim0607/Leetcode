@@ -38,17 +38,22 @@ The above binary tree is serialized as [1,2,3,#,#,4,#,#,5].
 
 
 """
-没明白题目啥意思，大概就是一通左右连接的操作吧，题目描述真差劲哦
+没明白题目啥意思，大概就是一通左右连接的操作吧，题目描述真差劲哦.
+还好下面这高人画了一张很好的图
 https://leetcode.com/problems/binary-tree-upside-down/discuss/468607/Clarification-of-the-problem-description
 """
 class Solution:
     def upsideDownBinaryTree(self, root: TreeNode) -> TreeNode:
-        if not root or (not root.left and not root.right):
+        if not root:
+            return None
+        if not root.left and not root.right:
             return root
         
-        new_root = self.upsideDownBinaryTree(root.left)
+        # 不停的对左子节点调用递归函数，直到到达最左子节点开始翻转，翻转好最左子节点后，开始回到上一个左子节点继续翻转
+        new_root = self.upsideDownBinaryTree(root.left) 
+                                        
         root.left.left = root.right
         root.left.right = root
-        root.right, root.left = None, None
+        root.left, root.right = None, None
         
         return new_root
