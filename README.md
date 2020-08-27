@@ -435,12 +435,6 @@ LCS都求不出来的话就别说自己会二叉树
 - [0250. Count Univalue Subtrees](Solutions/0250.Count-Univalue-Subtrees.py) (M) <br>
 root is a univalue subtree if left is and right is and root.val = left.val = right.val;
 heper function returns (is root a univalue subtree, cnt of univalue subtrees for root)
-- [0106. Construct Binary Tree from Inorder and Postorder Traversal](Solutions/0106.Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal.py) (!!M) <br>
-solution 1 takes O(N^2) because each time we find idx in inorder, it takes O(N). 算法：root = postorder.pop(), root.right = 处理inorder idx的右边, root.left = 处理inorder idx的左边. We can use a hash table to store the num-to-idx pair in advance. This leads to solution 2, which is O(N) instead of O(N^2).
-- [0889. Construct Binary Tree from Preorder and Postorder Traversal](Solutions/0889.Construct-Binary-Tree-from-Preorder-and-Postorder-Traversal.py) (!!M) <br>
-把这棵树画出来pre = [1,2,4,5,3,6,7], post = [4,5,2,6,7,3,1] 自然就明白了代码怎么写了. O(N^2) solution and O(N) solution by storing idx in a hashmap in advance. 
-- [1008. Construct Binary Search Tree from Preorder Traversal](Solutions/1008.Construct-Binary-Search-Tree-from-Preorder-Traversal.py) (!!M) <br>
-the root is the arr[0], root.left = [1: idx] and root.right = [idx:], where idx is the first num that is larger than arr[0].
 - [0222. Count Complete Tree Nodes](Solutions/0222.Count-Complete-Tree-Nodes.py) (!!M) <br>
 solution 1: dfs to visit every node; solution 2: use the property of complete Tree: 通过比较left sub tree height and right sub tree height 可以之直接算出左边或者右边nodes的个数 - O(logN* logN)
 - [0116. Populating Next Right Pointers in Each Node](Solutions/0116.Populating-Next-Right-Pointers-in-Each-Node.py) (M) <br>
@@ -448,10 +442,10 @@ BFS solution using q is trivial. Follow up: what if only use constant extra spac
 我们可以设立两个指针，一根leftmost一直往下走，一根head在一层之中一直往右走，边走边连，zu以每次都是去连left_most下一层的Nodes
 - [0117. Populating Next Right Pointers in Each Node II](Solutions/0117.Populating-Next-Right-Pointers-in-Each-Node-II.py) (M) <br>
 BFS solution using q
+- [0662. Maximum Width of Binary Tree](Solutions/0662.Maximum-Width-of-Binary-Tree.py) (M) <br>
+涉及到处理level的信息，就用bfs, q里面存放(node, the postion of the node), 注意这里的pos到下一层的转换关系: q.append((node.left, 2* pos))
 - [0655. Print Binary Tree](Solutions/0655.Print-Binary-Tree.py) (M) <br>
 DFS, pass the depth and pos into the dfs arguments.
-- [0987. Vertical Order Traversal of a Binary Tree](Solutions/0987.Vertical-Order-Traversal-of-a-Binary-Tree.py) (M) <br>
-record the position of each node as we dfs to traverse the tree 
 - [1104. Path In Zigzag Labelled Binary Tree](Solutions/1104.PathIn-Zigzag-Labelled-Binary-Tree.py) (M) <br>
 完全一个数学找规律的题，没啥意思
 - [0637. Average of Levels in Binary Tree](Solutions/0637.Average-of-Levels-in-Binary-Tree.py) (M) <br>
@@ -460,43 +454,47 @@ level order traversal using a q.
 dfs to traverse the tree, 当我们遇到leaf节点的时候，我们需要判断其是不是上一个节点的left节点，如果是就更新cnt.
 为了判断是不是上一个节点的left节点，我们需要把上一个节点prev_node传到dfs函数arguments中，这种将prev_node传到dfs中的思想非常重要！
 - [1110. Delete Nodes And Return Forest](Solutions/1110.Delete-Nodes-And-Return-Forest.py) (!!!M Google) <br>
-we update res as we traverse the tree. we append a node into res if two conditions are satisfied:
-1. the node should not be deleted; 2. the node has not parent (meaning it's the root of a forest).
-In order to check if a node has parent or not, we need to pass has_parent bool into dfs arguments.
-if a node is in to_delete list, then the node should pass the information to it's children that it has been
-deleted and it's children has no parent now.
+we update res as we traverse the tree. we append a node into res if two conditions are satisfied: 1. the node should not be deleted; 2. the node has not parent (meaning it's the root of a forest). In order to check if a node has parent or not, we need to pass has_parent bool into dfs arguments. If a node is in to_delete list, then the node should pass the information to it's children that it has been deleted and it's children has no parent now.
 - [0814. Binary Tree Pruning](Solutions/0814.Binary-Tree-Pruning.py) (M) <br>
 solution 1: my own solution: dfs visit each node, at each node, use a should_delete(node) function to tell
-if this node should be deleted.
+if this node should be deleted. - O(N^2).  solution 2: my own solution: divide and conquer, conquer: if not root.left and not root.right and root.val == 0: root = None
 - [0563. Binary Tree Tilt](Solutions/0563.Binary-Tree-Tilt.py) (!!E) <br>
-helper function 需要 return the tilt and the sum
+helper function return the sum of subtree, and the tilt of the subtree
 - [0872. Leaf-Similar Trees](Solutions/0872.Leaf-Similar-Trees.py) (E) <br>
 in order traversal to find the leaves of the tree and put them into a list
 - [0366. Find Leaves of Binary Tree](Solutions/0366.Find-Leaves-of-Binary-Tree.py) (!!M) <br>
 我们将leaf node的level定义为0, 那么紧紧邻接leaf node的level定义为1；
-那么我们只需要将level相同的nodes存在一起就可以了；所以用dict存level-nodes pair, key is level, val is nodes that in that level.
-of porisiton order.
+那么我们只需要将level相同的nodes存在一起就可以了；所以选用dict, key is level, val is a list of nodes on the level.
+helper function returns the current level.
 - [1145. Binary Tree Coloring Game](Solutions/1145.Binary-Tree-Coloring-Game.py) (M) <br>
-check the 3 nodes that are adjacent to node x, find the number of nodes each of the 3 subtree has. If there exist one subtree that has more nodes than other two subtrees add together, then the second player can color that node.
-- [0971. Flip Binary Tree To Match Preorder Traversal](Solutions/0971.Flip-Binary-Tree-To-Match-Preorder-Traversal.py) (M) <br>
-dfs solution: Global integer i indicates next index in voyage v.mIf current node == null, it's fine, we return true; If current node.val != v[i], doesn't match wanted value, return false; If left child exist but don't have wanted value, flip it with right child.
+The best move y must be immediately adjacent to x, since it locks out that subtree. check the 3 nodes that are adjacent to node x, find the number of nodes each subtree has.
+Then check if palcing ynode at the 3 nodes adjacent to x will end up with more subtree nodes for y.
+- [0971. Flip Binary Tree To Match Preorder Traversal](Solutions/0971.Flip-Binary-Tree-To-Match-Preorder-Traversal.py) (!!M) <br>
+Return whether or not it matches to voyage. as we traverse the tree, use an index to in voyage v.
+If current node == null, it's fine, we return true; If current node.val != arr[i], doesn't match wanted value, return false; If node.val != arr[i+1], flip left and right child.
 - [0572. Subtree of Another Tree](Solutions/0572.Subtree-of-Another-Tree.py) (!!E) <br>
 solution 1: brutal force: dfs to visit every node, at each node, stop and check if the subtree rooted
 as that node is the same as t - O(MN); solution 2: O(M+N).  we can in order traversal the two trees and turn them into two strings s and t. 
 Then the problem becomes exactly the same as finding a substring in s that equals t, which is 28. Implement strStr().
 Use rolling hash, we can realize O(M+N) solution.
 - [0156. Binary Tree Upside Down](Solutions/0156.Binary-Tree-Upside-Down.py) (M) <br>
-没明白题目啥意思，大概就是一通左右连接的操作吧
+不停的对左子节点调用递归函数，直到到达最左子节点开始翻转，翻转好最左子节点后，开始回到上一个左子节点继续翻转
 - [0314. Binary Tree Vertical Order Traversal](Solutions/0314.Binary-Tree-Vertical-Order-Traversal.py) (M) <br>
-step 1: 找到树的深度和宽度; step 2: df每个node并且把node的位置信息存到一个dict中; step 3: sort dictionary得到ans
+record the position of each node as we dfs to traverse the tree. 记录在遍历过程中记录node位置的思想非常重要！
+- [0987. Vertical Order Traversal of a Binary Tree](Solutions/0987.Vertical-Order-Traversal-of-a-Binary-Tree.py) (M) <br>
+same as 314. in 314, left nodes output first, in 987, smaller value comes first. So the only difference is at sort
 - [1026. Maximum Difference Between Node and Ancestor](Solutions/1026.Maximum-Difference-Between-Node-and-Ancestor.py) (!!M) <br>
-We pass the minimum and maximum values to the children,
-At the leaf node, we return max - min through the path from the root to the leaf.
-Since DFS works going finished path by finished path, so values are not corrupted between impossible paths.
-这个递归真的需要好好理解
+solution 1: dfs visit every node, at each node, stop there and find the max and min of its subtree to get its max_diff.
+since finding max and min of subtee takes O(N), so the overall time comlexity is O(N^2).
+- [0106. Construct Binary Tree from Inorder and Postorder Traversal](Solutions/0106.Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal.py) (!!M) <br>
+solution 1 takes O(N^2) because each time we find idx in inorder, it takes O(N). 算法：root = postorder.pop(), root.right = 处理inorder idx的右边, root.left = 处理inorder idx的左边. We can use a hash table to store the num-to-idx pair in advance. This leads to solution 2, which is O(N) instead of O(N^2).
+- [0889. Construct Binary Tree from Preorder and Postorder Traversal](Solutions/0889.Construct-Binary-Tree-from-Preorder-and-Postorder-Traversal.py) (!!M) <br>
+把这棵树画出来pre = [1,2,4,5,3,6,7], post = [4,5,2,6,7,3,1] 自然就明白了代码怎么写了. O(N^2) solution and O(N) solution by storing idx in a hashmap in advance. 
+- [1008. Construct Binary Search Tree from Preorder Traversal](Solutions/1008.Construct-Binary-Search-Tree-from-Preorder-Traversal.py) (!!M) <br>
+the root is the arr[0], root.left = [1: idx] and root.right = [idx:], where idx is the first num that is larger than arr[0].
 - [1028. Recover a Tree From Preorder Traversal](Solutions/1028.Recover-a-Tree-From-Preorder-Traversal.py) (!!H) <br>
-since we need the position information of node 6, and disctionary doesnot maitain the position order.
-we choose to use a list to store (level, node) information, the pos at the list stores the information
+step 1: store the (depth, node_val) information in a list; step 2: use that list to construct a Tree.
+
 
 
 
@@ -526,6 +524,7 @@ divide and conquer: root.right = leftHead; root.left = None; 找到tail并让tai
 use a stack with controlled recursion, some part of the algorithm is similar with the in order traversal of a tree using a stack; define a getLeftMost function, each time we call next function, we pop the smallestNode from stack and run getLeftMost function for the smallestNode.right if smallestNode.right exist.  this algorithm has space complexity of O(h)
 - [0285. Inorder Successor in BST](Solutions/0285.Inorder-Successor-in-BST.py) (!!M) <br>
 Divide and conquer: if p.val < root.val: return left if left else root; else: return right
+-----------510. Inorder Successor in BST II--------
 - [0701. Insert into a Binary Search Tree](Solutions/0701.Insert-into-a-Binary-Search-Tree.py) (M) <br>
 if val > root.val则更新root.right: root.right = self.insertIntoBST(root.right, val); else: root.left = self.insertIntoBST(root.left, val); return root.  这题的recursion exist should be: if not rot: return TreeNode(val). 另外, Time complexity: O(H), where H is a tree height. That results in O(logN) in the average case. So it takes O(logN) to insert an element into a BST.
 - [0450. Delete Node in a BST](Solutions/0450.Delete-Node-in-a-BST.py) (!!M) <br>
