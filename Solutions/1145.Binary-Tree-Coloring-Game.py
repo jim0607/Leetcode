@@ -22,35 +22,45 @@ Explanation: The second player can choose the node with value 2.
 
 
 """
-check the 3 nodes that are adjacent to node x,
-find the number of nodes each subtree has.
-If there exist one subtree that has more nodes than other two subtrees add together,
-then the second player can color that node.
+The best move y must be immediately adjacent to x, since it locks out that subtree.
+check the 3 nodes that are adjacent to node x, find the number of nodes each subtree has.
+Then check if palcing ynode at the 3 nodes adjacent to x will end up with more subtree nodes for y.
 """
 class Solution:
-    def btreeGameWinningMove(self, root: TreeNode, n: int, num_x: int) -> bool:
-        x = self._locate_node(root, num_x)
-        left_nodes = self._find_nodes(x.left)
-        right_nodes = self._find_nodes(x.right)
-        parent_nodes = self._find_nodes(root) - left_nodes - right_nodes - 1
+    def btreeGameWinningMove(self, root: TreeNode, n: int, x: int) -> bool:
+        if n == 1:
+            return False
         
-        if left_nodes > (right_nodes + parent_nodes) or \
-        right_nodes > (left_nodes + parent_nodes) or \
-        parent_nodes > (left_nodes + right_nodes):
+        xnode = self._findx(root, x)
+        
+        total_cnt = self._cnt_nodes(root)
+        left_cnt = self._cnt_nodes(xnode.left)
+        right_cnt = self._cnt_nodes(xnode.right)
+        x_cnt = left_cnt + right_cnt + 1
+        
+        if total_cnt - x_cnt > x_cnt:  # case 1: choose the parent of xnode
             return True
+        if left_cnt > total_cnt - left_cnt:          # case 2: choose the left node of xnode as ynode
+            return True
+        if right_cnt > total_cnt - right_cnt:        # case 3: choose the right node of xnode as ynode
+            return True
+        
         return False
     
-    def _find_nodes(self, root):
+    def _findx(self, root, x):
+        if not root:
+            return None
+        if root.val == x:
+            return root
+        
+        return self._findx(root.left, x) or self._findx(root.right, x)
+        
+    def _cnt_nodes(self, root):
         if not root:
             return 0
         
-        return 1 + self._find_nodes(root.left) + self._find_nodes(root.right)
-    
-    def _locate_node(self, root, num_x):
-        if not root:
-            return None
+        cnt = 1
+        cnt += self._cnt_nodes(root.left)
+        cnt += self._cnt_nodes(root.right)
         
-        if root.val == num_x:
-            return root
-        
-        return self._locate_node(root.left, num_x) or self._locate_node(root.right, num_x)
+        return cnt
