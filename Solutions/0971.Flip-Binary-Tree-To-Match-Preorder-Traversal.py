@@ -33,18 +33,17 @@ Output: []
 注意construct the tree using the voyage list的方法行不通因为仅通过一个list是没办法重构一个Tree的
 
 """
-dfs solution:
-Global integer i indicates next index in voyage v.
+Return whether or not it matches to voyage. as we traverse the tree, use an index to in voyage v.
 If current node == null, it's fine, we return true
-If current node.val != v[i], doesn't match wanted value, return false
-If left child exist but don't have wanted value, flip it with right child.
+If current node.val != arr[i], doesn't match wanted value, return false
+If node.val != arr[i+1], flip left and right child.
 """
 class Solution:
     def flipMatchVoyage(self, root: TreeNode, voyage: List[int]) -> List[int]:
-        res = []
-        self.idx = 0
-        
         def dfs(root):
+            """
+            Return whether or not it matches to voyage
+            """
             if not root:
                 return True
             if root.val != voyage[self.idx]:
@@ -56,5 +55,10 @@ class Solution:
                 root.left, root.right = root.right, root.left
                 
             return dfs(root.left) and dfs(root.right)
+            
+            
+        self.idx = 0    # 这里必须用self.idx因为int是immutable的，如果是是List就不需要self了
+        res = []        # 这里就不需要self了，因为List is mutable
+        match = dfs(root)
         
-        return res if dfs(root) else [-1]
+        return res if match else [-1]
