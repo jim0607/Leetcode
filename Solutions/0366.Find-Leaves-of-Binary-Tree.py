@@ -39,22 +39,30 @@ Explanation:
 
 """
 我们将leaf node的level定义为0, 那么紧紧邻接leaf node的level定义为1；
-那么我们只需要将level相同的nodes存在一起就可以了；所以选用dict, key is level, val is nodes that in that level.
+那么我们只需要将level相同的nodes存在一起就可以了；所以选用dict, key is level, val is a list of nodes on the level.
+helper function returns the current level.
 """
 class Solution:
     def findLeaves(self, root: TreeNode) -> List[List[int]]:
-        self.level_to_nodes = collections.defaultdict(list)
-        self._level(root)
-        return [lst for lst in self.level_to_nodes.values()]
-    
-    def _level(self, root):
         if not root:
-            return 0
+            return []
         
-        left_level = self._level(root.left)
-        right_level = self._level(root.right)
+        def helper(root):
+            if not root:
+                return 0
+            
+            left_level = helper(root.left)
+            right_level = helper(root.right)
+            
+            root_level = max(left_level, right_level) + 1
+            levels[root_level].append(root.val)
+            
+            return root_level
         
-        root_level = max(left_level, right_level) + 1
-        self.level_to_nodes[root_level].append(root.val)
+        levels = collections.defaultdict(list)  # key is level, val is a list of nodes on the level
+        helper(root)
         
-        return root_level
+        res = []
+        for level in sorted(levels):
+            res.append(levels[level])
+        return res
