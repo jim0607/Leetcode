@@ -41,6 +41,34 @@ Each node will have a unique integer value from 0 to 1000.
 
 
 """
+divide and conquer is good - O(N), O(1)
+"""
+class Solution:
+    def increasingBST(self, root: TreeNode) -> TreeNode:
+        if not root:
+            return None
+        
+        left_tree = self.increasingBST(root.left)
+        right_tree = self.increasingBST(root.right)
+        
+        if not left_tree:
+            root.left = None        # 注意容易漏掉
+            root.right = right_tree
+            return root
+        
+        else:
+            curr = left_tree
+            while curr.right:
+                curr = curr.right
+                
+            curr.right = root
+            root.left = None         # 注意容易漏掉
+            root.right = right_tree
+            return left_tree
+
+
+
+"""
 step 1: in order traversal to get a list of node vals;
 step 2: construct the tree based on the in_order list
 """
