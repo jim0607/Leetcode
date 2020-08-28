@@ -58,13 +58,6 @@
 # 
 #
 
-# @lc code=start
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
 
 # this is definetely a hard problem
 # https://leetcode.com/problems/delete-node-in-a-bst/solution/
@@ -72,56 +65,50 @@
 O(height), O(height)
 """
 class Solution:
-    def successor(self, root: TreeNode) -> int:     # O(height), 因为一直都在往下走
-        """
-        return the successor of the root by taking one step right and always left, cuz the 
-        successor is the node just larger than the root
-        """
-        root = root.right
-        while root.left:
-            root = root.left
-            
-        return root.val
-    
-    def predecessor(self, root: TreeNode) -> int:   # O(height), 因为一直都在往下走
-        """
-        return the predecessor of the root by taking one step left and then always right
-        """
-        root = root.left
-        while root.right:
-            root = root.right
-            
-        return root.val
-
-    def deleteNode(self, root: TreeNode, key: int) -> TreeNode:  # O(height), 因为一直都在往下走
+    def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
         if not root:
             return None
         
-        if key > root.val:
-            root.right = self.deleteNode(root.right, key)
-
-        elif key < root.val:
+        if root.val > key:
             root.left = self.deleteNode(root.left, key)
-        
-        # delete the root
+        elif root.val < key:
+            root.right = self.deleteNode(root.right, key)
         else:
-            # if node is a leaf, simply delete it
+            # case 1: if root is leaf node - just delete it
             if not root.left and not root.right:
                 root = None
-            # If the node is not a leaf and has the right child, then replace the node value by a successor value root.val = successor.v
-            # and then delete the successor in the right subtree root.right = deleteNode(root.right, root.val).
+            
+            # case 2: if root has right node - replace the root by the successor,
+            # and then delete the successor in the right subtree root.right = deleteNode(root.right, root.val)
             elif root.right:
-                root.val = self.successor(root)
+                root.val = self._successor(root)
                 root.right = self.deleteNode(root.right, root.val)
-            # If the node is not a leaf and has only the left child, then replace the node value by a predecessor value root.val = predecessor.val, 
-            # and then delete the predecessor in the left subtree root.left = deleteNode(root.left, root.val).
+            
+            # case 3: if root has no right node - replace the root by the predessor
+            # and then delete the predecessor in the left subtree root.left = deleteNode(root.left, root.val)
             else:
-                root.val = self.predecessor(root)
+                root.val = self._predessor(root)
                 root.left = self.deleteNode(root.left, root.val)
-
+        
         return root
         
-# @lc code=end
+    def _successor(self, root):     # O(height), 因为一直都在往下走
+        """
+        Return the successor of the root by taking one step right and always left, cuz the successor is the node just larger than the root
+        """
+        curr = root.right
+        while curr.left:
+            curr = curr.left
+        return curr.val
+    
+    def _predessor(self, root):
+        """
+        Return the predecessor of the root by taking one step left and then always right
+        """
+        curr = root.left
+        while curr.right:
+            curr = curr.right
+        return curr.val
 
 
 
