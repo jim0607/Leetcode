@@ -94,11 +94,12 @@ class Solution:
         self.in_order(root.left)
         
         if self.prev_node and root.val < self.prev_node.val:
-            self.wrong_node_2 = root
             if not self.wrong_node_1:
                 self.wrong_node_1 = self.prev_node
+                self.wrong_node_2 = root    # 这里要赋值second_swapped是因为如果是相邻的情况就不一样了
             else:
-                return
+                self.wrong_node_2 = root
+                
         self.prev_node = root
             
         self.in_order(root.right)
