@@ -71,3 +71,19 @@ class Solution:
         res += self.in_order_trav(root.right)
         
         return res
+
+    
+    
+"""
+Brutal force - O(MN) TLE
+"""
+class Solution:
+    def twoSumBSTs(self, root1: TreeNode, root2: TreeNode, target: int) -> bool:
+        if not root1 or not root2:
+            return False
+        if root1.val + root2.val > target:
+            return self.twoSumBSTs(root1.left, root2, target) or self.twoSumBSTs(root1, root2.left, target)
+        elif root1.val + root2.val < target:
+            return self.twoSumBSTs(root1.right, root2, target) or self.twoSumBSTs(root1, root2.right, target)
+        else:
+            return True
