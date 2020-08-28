@@ -34,7 +34,7 @@ class Solution:
             return all the path of trees for numbers from start to end
             """
             if start > end:
-                return [None, ]
+                return [None]
             
             allTrees = []
             for i in range(start, end + 1):
