@@ -16,28 +16,43 @@ Output: The root of a Greater Tree like this:
 Note: This question is the same as 1038: https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/
 
 
+      
 """
-由于visit某一个节点的时候需要用到右边的节点,所以可以做reveerse_order traversal. 
-这题跟上面两题有一个相同的特征就是论keep a prev node有多方便
+use a global self.pre_sum as we reverse_in_order traversal the tree - recurssively
 """
 class Solution:
     def convertBST(self, root: TreeNode) -> TreeNode:
-        if not root:
-            return root
-        
-        self.prev = None      # 论keep a prev node有多方便
-        return self._reverse_order(root)
+        self.pre_sum = 0
+        self._reverse_order(root)
+        return root
     
     def _reverse_order(self, root):
         if not root:
-            return None
+            return
         
-        self._reverse_order(root.right)
-        
-        if self.prev:
-            root.val += self.prev.val
-        self.prev = root    # 论keep a prev node有多方便
-        
+        self._reverse_order(root.right)   # do root.right first 因为是reversed_in_order
+        root.val += self.pre_sum
+        self.pre_sum = root.val
         self._reverse_order(root.left)
+      
+      
+"""
+use a global self.pre_sum as we reverse_in_order traversal the tree - iteratively
+"""
+class Solution:
+    def convertBST(self, root: TreeNode) -> TreeNode:
+        pre_sum = 0
+        st = []
+        curr = root
+        while curr or len(st) > 0:
+            while curr:
+                st.append(curr)
+                curr = curr.right   # 注意这里是curr = curr.right因为是reversed_in_order
+            
+            curr = st.pop()
+            curr.val += pre_sum
+            pre_sum = curr.val
+            
+            curr = curr.left
         
         return root
