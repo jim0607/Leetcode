@@ -27,6 +27,7 @@ Note: If a tree has more than one mode, you can return them in any order.
 """
 solution 1: dfs to visit every node and put their freq in a dict - O(N), O(N)
 """
+"""
 class Solution:
     def findMode(self, root: TreeNode) -> List[int]:
         if not root:
@@ -118,3 +119,39 @@ class Solution:
         self.prev = root.val
         
         self.dfs(root.right)
+        
+"""
+特别注意下面写法是不对的，不能把prev_node传进去
+""
+class Solution:
+    def findMode(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        
+        def helper(root, prev):
+            if not root:
+                return
+            
+            helper(root.left, root)   
+            
+            if prev and root.val == prev.val:
+                self.curr_cnt += 1
+            else:
+                self.curr_cnt == 1
+                
+            if self.curr_cnt == self.max_cnt:    
+                self.res.append(root.val)
+            elif self.curr_cnt > self.max_cnt:
+                self.res = [root.val]
+                self.max_cnt = self.curr_cnt
+            
+            helper(root.right, root)    # 这里是不对的
+
+            
+        self.curr_cnt = 1
+        self.max_cnt = 1
+        self.res = []
+        
+        helper(root, None)
+        
+        return self.res
