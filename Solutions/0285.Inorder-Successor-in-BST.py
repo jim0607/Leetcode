@@ -57,15 +57,12 @@ class Solution:
         if not root:
             return None
         
-        # divide
-        left = self.inorderSuccessor(root.left, p)
-        right = self.inorderSuccessor(root.right, p)
-
-        # conquer (or to find how left and right relates to the results)
-        if p.val < root.val:
-            return left if left else root
-        else:         
-            return right
+        if root.val > p.val:
+            left = self.inorderSuccessor(root.left, p)
+            return left if left else root   # if not left, that means p is the largest node on the left
+        
+        else:
+            return self.inorderSuccessor(root.right, p)
         
 
 """solution 1: in-order traverse"""
