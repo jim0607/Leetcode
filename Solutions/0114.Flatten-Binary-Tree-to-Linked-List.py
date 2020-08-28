@@ -30,20 +30,20 @@ class Solution:
         """
         if not root:
             return None
+
+        left_root = self.flatten(root.left)
+        right_root = self.flatten(root.right)
         
-        leftHead = self.flatten(root.left)
-        rightHead = self.flatten(root.right)
-        
-        temp = rightHead
-        root.right = leftHead
         root.left = None
+        root.right = left_root
         
-        tail = root
-        while tail.right:
-            tail = tail.right
+        # 下面这个找出left_tail没想出来
+        left_tail = root        
+        while left_tail.right:
+            left_tail = left_tail.right
             
-        tail.right = temp
-        
+        left_tail.right = right_root
+            
         return root
 
             
