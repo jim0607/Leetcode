@@ -101,14 +101,14 @@ class Solution:
         self.curr_cnt = 1
         self.res = []
         
-        self.dfs(root)
+        self.inorder(root)
         return self.res
         
-    def dfs(self, root):    # in order traversal the BST and update the res, just like doing everything in a sorted arr
+    def inorder(self, root):    # in order traversal the BST and update the res, just like doing everything in a sorted arr
         if not root:
             return 
         
-        self.dfs(root.left)
+        self.inorder(root.left)
         
         self.curr_cnt = self.curr_cnt + 1 if root.val == self.prev else 1   # 如果不相等就reset curr_cnt=1
         if self.curr_cnt == self.max_cnt:
@@ -118,7 +118,7 @@ class Solution:
             self.max_cnt = self.curr_cnt
         self.prev = root.val
         
-        self.dfs(root.right)
+        self.inorder(root.right)
         
 """
 特别注意下面写法是不对的，不能把prev_node传进去
