@@ -64,11 +64,11 @@ class Codec:
             level = []
             for _ in range(lens):
                 curr_node = q.popleft()
-                if curr_node != "*":
+                if curr_node != "end_of_this_parent":
                     level.append(str(curr_node.val))
                     for child in curr_node.children:
                         q.append(child)
-                    q.append("*")           # use "*" to represnet the end of a level, meaning we should switch to another parent
+                    q.append("end_of_this_parent")  # use "end_of_this_parent" to represnet the end of a level, meaning we should switch to another parent
                 else:
                     level.append("#")       # use "#" to represent should switch to another parent in the represented string
              
