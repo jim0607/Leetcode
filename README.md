@@ -489,9 +489,7 @@ same as 314. in 314, left nodes output first, in 987, smaller value comes first.
 solution 1: dfs visit every node, at each node, stop there and find the max and min of its subtree to get its max_diff.
 since finding max and min of subtee takes O(N), so the overall time comlexity is O(N^2).
 - [0105. Construct Binary Tree from Preorder and Inorder Traversal](Solutions/0105.Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal.py) (!!M) <br>
-solution 1中需要O(N^2)的原因是1. preorder.pop(0) takes O(N). We can convert preorder into a deque and popleft.
-2. finding the idx in inorder list takes O(N). We can use a hash table to store num-to-idx pair in advance.
-This leads to solution 2, which takes O(N) instead of O(N^2).
+solution 1中需要O(N^2)的原因是1. preorder.pop(0) takes O(N). We can convert preorder into a deque and popleft. 2. finding the idx in inorder list takes O(N). We can use a hash table to store num-to-idx pair in advance. This leads to solution 2, which takes O(N) instead of O(N^2).
 - [0106. Construct Binary Tree from Inorder and Postorder Traversal](Solutions/0106.Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal.py) (!!M) <br>
 solution 1 takes O(N^2) because each time we find idx in inorder, it takes O(N). 算法：root = postorder.pop(), root.right = 处理inorder idx的右边, root.left = 处理inorder idx的左边. We can use a hash table to store the num-to-idx pair in advance. This leads to solution 2, which is O(N) instead of O(N^2).
 - [0889. Construct Binary Tree from Preorder and Postorder Traversal](Solutions/0889.Construct-Binary-Tree-from-Preorder-and-Postorder-Traversal.py) (!!M) <br>
@@ -574,11 +572,7 @@ Solution 1: bfs using q; Solution 2: dfs using recursion
 Step 1). Link all siblings together, like a singly-linked list.
 Step 2). Link the head of the obtained list of siblings with its parent node.
 - [0428. Serialize and Deserialize N-ary Tree](Solutions/0428.Serialize-and-Deserialize-N-ary-Tree.py) (H) <br>
-solution 1: level order bfs.  This is very similar with serialize and deserialze a binary tree, except we need to do 
-some trick to mark the end of a level. in binary tree, we know after visit left and right of a node, we can move to another node,
-but in Nary tree, we don't know when to finish visiting a node cuz there could be multiple children for a node.
-The trick is, when we do bfs to serialze, we append "* " into a q when we finish traversal the node's children, and also append "#" to res to mark the output string.
-In deserialize, while res[idx] != "#" 就说明还要继续给curr_node添加child，因为res[idx] == "#"意味着要换node append child了
+solution: level order bfs.  This is very similar with serialize and deserialze a binary tree. In binary tree, we know after visit left and right of a node, we can move to another node, but in Nary tree, we don't know when to finish visiting a node cuz there could be multiple children for a node. So we need to do  some trick to mark the end of a level.  The trick is, when we do bfs to serialze, we append "#" into a res when we switch from one parent to another parent. In deserialize, while res[idx] != "#" 就说明还要继续给curr_node添加child，而res[idx] == "#"意味着要换node append child了, idx += 1
 
 
 
@@ -587,14 +581,14 @@ In deserialize, while res[idx] != "#" 就说明还要继续给curr_node添加chi
 Firstly we need to define a TrieNode class, a TrieNode class hs two properties: 1. self.child = collections.defaultdict(TrieNode), use a defaultdict, key is char, value is TrieNode corresponding to the char.  2. self.isEnd = False   # return True if reached the end of the Trie.  Then implement 3 methods: insert(word), search(word), startWith(prefix); 注意currNode往下遍历时currNode = currNode.child[char]
 - [0211. Add and Search Word - Data structure design](Solutions/0211.Add-and-Search-Word-Data-structure-design.py) (!!M) <br>
 addWord mehtod is the same as 208 insert method. But search mehtod is a little different than search method in 208, cuz "." is a wildcard that can represent any char. So we use a queue to store (currNode, idx), then append layer by layer.
-- [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!M) <br>
-The capability of finding matching prefix is where the data structure called Trie would shine, comparing the hashset data structure. Not only can Trie tell the membership of a word, but also it can instantly find the words that share a given prefix. 打印所有路径所以用Trie + Backtracking DFS. 非常经典的题呀！
 - [0677. Map Sum Pairs](Solutions/0677.Map-Sum-Pairs.py) (!!M) <br>
 In TrieNode, define a self.sums 代表所有的子node所代表的string的val的和。
-在class MapSum中用一个dictionary记录之前出现的key-val pair, 如果key出现过，就通过delta=val-self.dict[key]来update node.sums的值。
 - [1233. Remove Sub-Folders from the Filesystem](Solutions/1233.Remove-Sub-Folders-from-the-Filesystem.py) (!!M) <br>
-find the folder names with common prefix using a Trie, 
-we only keep the shortest folder name among all the words that share the same prefix.
+define has_prefix function in the Trie class, which returns whether or not there is already a string in the Trie that is the prefix of the word. step 1: sort the strings by lens. step 2: loop over all the words and check the has_prefix(word).
+
+
+
+
 - [1166. Design File System](Solutions/1166.Design-File-System.py) (!!M) <br>
 经典的trie来处理文件夹的问题，在遍历for i, name in enumerate(path)中如果 i == len(path) - 1 这时候要create a new TrieNode 
 - [0588. Design In-Memory File System](Solutions/0588.Design-In-Memory-File-System.py) (!!H) <br>
@@ -635,6 +629,8 @@ a method to search for all the possible autocomplete words of a given input stri
 找到其所有能到达的endNode, 显然是backtrack来做，第三步是对所有能达到的endNode.hotness排个序，取前三作为输出。
 - [0425. Word Squares](Solutions/0425.Word-Squares.py) (!!H Google) <br>
 Trie的解法怎样一步一步来的很重要！！把这题多写几遍backtrack+Trie+hashmap就都有更深的理解！
+- [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!H) <br>
+The capability of finding matching prefix is where the data structure called Trie would shine, comparing the hashset data structure. Not only can Trie tell the membership of a word, but also it can instantly find the words that share a given prefix. 打印所有路径所以用Trie + Backtracking DFS. 非常经典的题呀！
 
 
 
