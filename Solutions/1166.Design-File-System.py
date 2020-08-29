@@ -39,14 +39,69 @@ fileSystem.createPath("/c/d", 1); // return false because the parent path "/c" d
 fileSystem.get("/c"); // return -1 because this path doesn't exist.
 
 
-
+"""
+solution 1: In TrieNode class 定义一个self.val in TrieNode, 这样可以记录the value at the end of a word. 
+In Trie class, 定义一个self.get(word)函数，返回这个word对应的val.
+"""
 class TrieNode:
     
-    def __init__(self, val):
+    def __init__(self):
         self.child = collections.defaultdict(TrieNode)
-        self.val = val
+        self.val = -1     # set the value at the end of a word
+        
+        
+class Trie:
+    
+    def __init__(self):
+        self.root = TrieNode()
+        
+    def search(self, word):     # return True if word is already in the trie
+        curr = self.root
+        for ch in word:
+            if ch not in curr.child:
+                return False
+            curr = curr.child[ch]
+        return curr.val != -1
+    
+    def insert(self, word, val):    # insert a word with value in the trie
+        curr = self.root
+        for ch in word:
+            curr = curr.child[ch]
+        curr.val = val
+        
+    def get(self, word):            # get the value of the word
+        curr = self.root
+        for ch in word:
+            if ch not in curr.child:
+                return -1
+            curr = curr.child[ch]
+        return curr.val
+
+class FileSystem:
+
+    def __init__(self):
+        self.trie = Trie()
+
+    def createPath(self, path: str, value: int) -> bool:
+        path = path[1:].split("/")
+        
+        # if parent path does exist  and  the path does not already exist
+        if (len(path) == 1 or self.trie.search(path[:-1])) and not self.trie.search(path):
+            self.trie.insert(path, value)
+            return True
+        return False
+
+    def get(self, path: str) -> int:
+        path = path[1:].split("/")
+        return self.trie.get(path)
 
 
+
+    
+
+"""
+solution 2: 换一种写法，把Trie的函数直接写进去
+"""
 class TrieNode:
     
     def __init__(self, val):
