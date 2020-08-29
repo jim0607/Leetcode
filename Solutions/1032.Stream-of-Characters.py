@@ -29,7 +29,6 @@ streamChecker.query('l');          // return true, because 'kl' is in the wordli
 If we really think about it, this is a suffix problem: 
 each time we query, we go back to the previous queried letters and check if they can form a word.
 Construct a Trie takes O(∑w_i) where w_i is the the lens of word in words.
-Query takes O(L) where L is the word in the trie, so it is really constant time for query.
 """
 class TrieNode:
     
@@ -54,11 +53,59 @@ class StreamChecker:
     def query(self, letter: str) -> bool:
         self.letters.append(letter)
         curr = self.root
-        for ch in self.letters[::-1]: # 注意letters这里也要reverse来遍历
+        for ch in self.letters[::-1]: # 注意letters这里也要reverse来遍历, 这里的reverse会导致query的时间复杂度非常高，尤其在query很频繁的情况下
             if curr.is_end:
                 return True
-            if ch not in curr.child:  # 因为这句话，所以及时self.letters非常长，query的时间复杂度也不会超过O(max lens of word for word in words)
+            if ch not in curr.child:  
                 return False
             curr = curr.child[ch]
             
         return curr.is_end
+       
+       
+"""
+上面的解法非常staight forward, 但是query的时间复杂度非常高，尤其在query很频繁的情况下，所以第二次再提交的时候就TLE了
+一个小小的改进可以是，如果letters长度超过了the max_lens of word for word in words, 那就不用看max_lens之前的了。
+所以我们可以Maintain a fixed window for letter. so that the time complexity is the max_lens of word for word in words
+"""
+class TrieNode:
+    
+    def __init__(self):
+        self.child = collections.defaultdict(TrieNode)
+        self.is_end = False
+        
+        
+class StreamChecker:
+
+    def __init__(self, words: List[str]):
+        self.root = TrieNode()
+        self.last_k = collections.deque()    # maintain a deque with size k for letters in query
+        self.k = max(len(word) for word in words)
+        
+        for word in words:
+            self._insert(word[::-1])
+            
+    def _insert(self, word):
+        curr = self.root
+        for ch in word:
+            curr = curr.child[ch]
+        curr.is_end = True        
+
+    def query(self, letter: str) -> bool:
+        self.last_k.appendleft(letter)      
+        if len(self.last_k) > self.k:   # maintain a window size of k, this is why we can limit 
+            self.last_k.pop()           # the time complesity of query to be O(max lens of word for word in words)
+        
+        curr = self.root
+        for ch in self.last_k:
+            if ch not in curr.child:
+                return False
+            curr = curr.child[ch]
+            if curr.is_end:
+                return True
+        return curr.is_end
+        
+
+# Your StreamChecker object will be instantiated and called as such:
+# obj = StreamChecker(words)
+# param_1 = obj.query(letter)
