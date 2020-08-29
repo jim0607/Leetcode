@@ -42,6 +42,21 @@ class TreeNode:
         self.right = None
 """
 
+"""
+把n-ary tree encode成一个binary tree:
+n-ary的第一个child作为binary tree的左节点，后面同一层所有的child(又叫sibling)作为这个左节点的右子树。
+          1                                  1
+       /  |  \                              /   
+      3   2   4          ----->            3    
+     / \  |    \                          /  \
+    5   6 7     8                        5    2 
+                                          \    \
+                                           6    4
+                                            \
+                                             7
+                                              \
+                                               8
+"""
 class Codec:
     # Encodes an n-ary tree to a binary tree.
     def encode(self, n_root: 'Node') -> TreeNode:
@@ -111,7 +126,7 @@ class Codec:
         if not n_root.children:
             return b_root
         
-        b_root.left = self.encode(n_root.children[0])      # the left of b_root is the fisrt child of n_root
+        b_root.left = self.encode(n_root.children[0])      # the left of b_root is the fisrt child of n_root, 注意在这里容易忘掉去递归调用encode函数
         b_curr = b_root.left
         for n_child in n_root.children[1:]:
             b_curr.right = self.encode(n_child)
@@ -119,7 +134,7 @@ class Codec:
             
         return b_root
 	
-	# Decodes your binary tree to an n-ary tree.
+    # Decodes your binary tree to an n-ary tree.
     def decode(self, b_root: TreeNode) -> 'Node':
         if not b_root:
             return None
