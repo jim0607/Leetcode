@@ -43,6 +43,7 @@ class Node(object):
         self.val = val
         self.children = children
 """
+"""
 
 class Codec:
     def serialize(self, root: 'Node') -> str:
