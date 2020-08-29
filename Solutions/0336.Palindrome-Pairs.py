@@ -32,7 +32,7 @@ we remove the front (the prefix) of the word1, until the front "rar" is a palind
 Algorithm: 
 since we need to constantly checking if the prefix and suffix of a word is a palindrome, 
 we can store all the valid prefix of a word in a dictionary and all the valid suffix in a dictionary.
-Time complexity is O(N*N*k) where N is the number of words, k is the length of the longest word
+Time complexity is O(N*k*k) where N is the number of words, k is the length of the longest word
 """
 class Solution:
     def palindromePairs(self, words: List[str]) -> List[List[int]]:
