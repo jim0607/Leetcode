@@ -34,7 +34,8 @@ You can assume that all directory names and file names only contain lower-case l
 
 
 """
-Trie solution: search/add/insert都是O(L)的时间复杂度，L是filePath的长度
+Trie solution: search/add/insert都是O(L)的时间复杂度，L是filePath的长度. 
+像这种method里面函数很多的情况，不需要额外写一些helper funciton, 最好直接把Trie的实现在已经给定的class里面
 """
 class TrieNode:
     
