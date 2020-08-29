@@ -42,6 +42,7 @@ fileSystem.get("/c"); // return -1 because this path doesn't exist.
 """
 solution 1: In TrieNode class 定义一个self.val in TrieNode, 这样可以记录the value at the end of a word. 
 In Trie class, 定义一个self.get(word)函数，返回这个word对应的val.
+像这种method里面函数很少的情况，需要额外写一些helper funciton, 还不如开一个Trie class 出来
 """
 class TrieNode:
     
