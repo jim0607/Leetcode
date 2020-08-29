@@ -54,10 +54,10 @@ class StreamChecker:
     def query(self, letter: str) -> bool:
         self.letters.append(letter)
         curr = self.root
-        for ch in self.letters[::-1]:       # 注意letters这里也要reverse来遍历
+        for ch in self.letters[::-1]: # 注意letters这里也要reverse来遍历
             if curr.is_end:
                 return True
-            if ch not in curr.child:
+            if ch not in curr.child:  # 因为这句话，所以及时self.letters非常长，query的时间复杂度也不会超过O(max lens of word for word in words)
                 return False
             curr = curr.child[ch]
             
