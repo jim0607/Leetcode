@@ -36,18 +36,19 @@ Time complexity is O(N*k*k) where N is the number of words, k is the length of t
 """
 class Solution:
     def palindromePairs(self, words: List[str]) -> List[List[int]]:
-        reversed_word = collections.defaultdict(int)
-        for idx, word in enumerate(words):
-            reversed_word[word[::-1]] = idx
-        
+        reversed_words = collections.defaultdict(int)
+        for i, word in enumerate(words):
+            reversed_words[word[::-1]] = i
+            
         res = []
         for idx, word in enumerate(words):
-            for j in range(len(word) + 1):
-                prefix, suffix = word[:j], word[j:]
-                if prefix in reversed_word and reversed_word[prefix] != idx and suffix == suffix[::-1]:
-                    res.append([idx, reversed_word[prefix]])
-                if j > 0 and suffix in reversed_word and reversed_word[suffix] != idx and prefix == prefix[::-1]:   # 必须check j > 0不然当"ab", "ba"的例子中会有重复的输出
-                    res.append([reversed_word[suffix], idx])
+            for i in range(len(word) + 1):
+                left, right= word[:i], word[i:]
+                if left in reversed_words and reversed_words[left] != idx and right == right[::-1]:
+                    res.append([idx, reversed_words[left]])
+                if i > 0 and right in reversed_words and reversed_words[right] != idx and left == left[::-1]:
+                    res.append([reversed_words[right], idx])
         return res
+    
         
-Follow up: 也许可以用trie来做
+Follow up: 也可以用trie来做， 但是没有这个简洁
