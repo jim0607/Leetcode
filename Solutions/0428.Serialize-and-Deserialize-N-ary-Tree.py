@@ -28,14 +28,12 @@ Do not use class member/global/static variables to store states. Your encode and
 
 
 """
-solution 1: level order bfs.  This is very similar with serialize and deserialze a binary tree, except we need to do 
-some trick to mark the end of a level. in binary tree, we know after visit left and right of a node, we can move to another node,
-but in Nary tree, we don't know when to finish visiting a node cuz there could be multiple children for a node.
-The trick is, when we do bfs to serialze, we append "*" into a q when we finish traversal the node's children, and also append "#" to res to mark the output string.
-In deserialize, while res[idx] != "#" 就说明还要继续给curr_node添加child，因为res[idx] == "#"意味着要换node append child了
-"""
-
-
+solution: level order bfs.  This is very similar with serialize and deserialze a binary tree. 
+In binary tree, we know after visit left and right of a node, we can move to another node, 
+but in Nary tree, we don't know when to finish visiting a node cuz there could be multiple children for a node. 
+So we need to do  some trick to mark the end of a level.  
+The trick is, when we do bfs to serialze, we append "#" into a res when we switch from one parent to another parent. 
+In deserialize, while res[idx] != "#" 就说明还要继续给curr_node添加child，而res[idx] == "#"意味着要换node append child了, idx += 1
 """
 # Definition for a Node.
 class Node(object):
