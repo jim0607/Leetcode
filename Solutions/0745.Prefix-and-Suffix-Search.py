@@ -13,6 +13,31 @@ WordFilter.f("b", "") // returns -1
 
 
 
+"""
+pre-calculate the all the possible combination of prefix+"#"+suffix --> idx and store them in a dictionary.
+so that each query only takes O(1).
+This takes more space than the Trie solution, but much faster.
+"""
+class WordFilter:
+
+    def __init__(self, words: List[str]):
+        self.pre_suf_fix_to_idx = collections.defaultdict(lambda: -1)
+        
+        for idx, word in enumerate(words):
+            for i in range(len(word) + 1):
+                prefix = word[:i]
+                for j in range(len(word) + 1):
+                    suffix = word[j:]
+                    self.pre_suf_fix_to_idx[prefix + "#" + suffix] = idx
+
+    def f(self, prefix: str, suffix: str) -> int:       # O(1) for query
+        return self.pre_suf_fix_to_idx[prefix + "#" + suffix]
+
+
+# Your WordFilter object will be instantiated and called as such:
+# obj = WordFilter(words)
+# param_1 = obj.f(prefix,suffix)
+
 
 """
 construct a pref-trie and a suff-trie. In the trie node, we should indlude the idx.
@@ -96,8 +121,4 @@ class WordFilter:
     
 """ 
 The above solution is TLE
-solution 2, tricky, not going to be in an interview, 抓大放小，熟练最重要。    
-Consider the word 'apple'. For each suffix of the word, we could insert that suffix, followed by '#', followed by the word, all into the trie.
-For example, we will insert '#apple', 'e#apple', 'le#apple', 'ple#apple', 'pple#apple', 'apple#apple' into the trie. 
-Then for a query like prefix = "ap", suffix = "le", we can find it by querying our trie for le#ap.
 """
