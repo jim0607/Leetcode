@@ -16,6 +16,51 @@ Output: "apple"
 Explanation: 
 Both "apply" and "apple" can be built from other words in the dictionary. However, "apple" is lexicographically smaller than "apply".
 
+"""
+首先insert所有的word进Trie, 然后再将words list按照长度反向sort, 
+最后遍历words, 如果发现有一个word can_be_built, then return the word.
+需要在Trie class里面写一个can_be_built(word)函数
+"""
+class TrieNode:
+    
+    def __init__(self):
+        self.child = collections.defaultdict(TrieNode)
+        self.is_end = False
+        
+    
+class Trie:
+    
+    def __init__(self, words):
+        self.root = TrieNode()
+        for word in words:
+            self._insert(word)
+            
+    def _insert(self, word):
+        curr = self.root
+        for ch in word:
+            curr = curr.child[ch]
+        curr.is_end = True
+            
+    def can_be_built(self, word):
+        curr = self.root
+        for ch in word:
+            curr = curr.child[ch]
+            if not curr.is_end:
+                return False
+        return True
+    
+
+class Solution:
+    def longestWord(self, words: List[str]) -> str:
+        trie = Trie(words)
+        words.sort(key = lambda x:(-len(x), x))     # sort这样我们第一个can_be_built的数就是想return的了
+        for word in words:
+            if trie.can_be_built(word):
+                return word
+        return ""
+
+
+
 
 """
 Trie + bfs: 首先insert所有的word进Trie, 然后再从root出发对所有的nodes进行bfs, 只要next_node.is_end=True就可以append到q中；
