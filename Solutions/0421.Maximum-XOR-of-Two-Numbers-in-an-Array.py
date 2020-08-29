@@ -25,6 +25,54 @@ Python provides format(num, '') function to convert an Integer number to binary 
 尽可能的与 x 的反码匹配，这样当走到叶子节点时，叶子节点对应的数就是 y。然后遍历一遍数组，求出 max(x ^ y), solution 写的很差，但是图画的很好！
 O(32N), where N is len(nums), 32 is the height of the trie using format(num, '032b') to convert to 32 bit
 """
+
+
+class TrieNode:
+    
+    def __init__(self):
+        self.child = collections.defaultdict(TrieNode)
+        self.val = 0
+        
+        
+class Trie:
+    
+    def __init__(self, nums):
+        self.root = TrieNode()
+        for num in nums:
+            self._insert(num)
+            
+    def _insert(self, num):
+        curr = self.root
+        for bit in format(num, "032b"):
+            curr = curr.child[bit]
+        curr.val = num
+        
+    def get_max(self, num):     # return the max(num XOR all nums in trie) - O(32)
+        curr = self.root
+        for bit in format(num, "032b"):
+            if bit == "0":
+                curr = curr.child["1"] if "1" in curr.child else curr.child["0"]
+            elif bit == "1":
+                curr = curr.child["0"] if "0" in curr.child else curr.child["1"]
+        return curr.val ^ num
+
+
+class Solution:
+    def findMaximumXOR(self, nums: List[int]) -> int:
+        trie = Trie(nums)
+        max_XOR = 0
+        for num in nums:    # O(32N) since trie.get_max takes at most O(32)
+            max_XOR = max(global_max, trie.get_max(num))
+        return max_XOR
+
+
+
+
+
+
+"""
+也可以不在constructor里面把nums加到Trie里去，没有加进去简洁！ 
+"""
 class TrieNode:
     
     def __init__(self):
