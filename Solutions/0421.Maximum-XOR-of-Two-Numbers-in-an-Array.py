@@ -25,8 +25,6 @@ Python provides format(num, '') function to convert an Integer number to binary 
 尽可能的与 x 的反码匹配，这样当走到叶子节点时，叶子节点对应的数就是 y。然后遍历一遍数组，求出 max(x ^ y), solution 写的很差，但是图画的很好！
 O(32N), where N is len(nums), 32 is the height of the trie using format(num, '032b') to convert to 32 bit
 """
-
-
 class TrieNode:
     
     def __init__(self):
@@ -50,7 +48,7 @@ class Trie:
     def get_max(self, num):     # return the max(num XOR all nums in trie) - O(32)
         curr = self.root
         for bit in format(num, "032b"):
-            if bit == "0":
+            if bit == "0":   # 这一句是题眼，不是curr=curr.child[ch]而是curr=curr.child[inverse of ch], 这样才能得到最大的XOR
                 curr = curr.child["1"] if "1" in curr.child else curr.child["0"]
             elif bit == "1":
                 curr = curr.child["0"] if "0" in curr.child else curr.child["1"]
