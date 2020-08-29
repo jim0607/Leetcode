@@ -57,7 +57,7 @@ class Solution:
     def replaceWords(self, prefixs: List[str], sentence: str) -> str:
         # step 1: put all prefix into the trie
         trie = Trie()
-        for prefix in prefixs:
+        for prefix in prefixs:     # 也可以把这个写到Trie class的constructor里面去
             trie.insert(prefix)
             
         # step 2: find the prefix for each word in sentence
