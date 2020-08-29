@@ -66,3 +66,53 @@ class Solution:
             res.append(trie.find(word))
             
         return " ".join(res)                    
+
+       
+"""
+08/29 version稍微有一点改进就是sort the words by lens first. The reason we sort by lens is: 
+If a successor can be replaced by more than one root, replace it with the root with the shortest length.
+另外我们把Trie 初始化写到了constructor里面了
+"""
+class TrieNode:
+    
+    def __init__(self):
+        self.child = collections.defaultdict(TrieNode)
+        self.end_word = ""
+        
+        
+class Trie:
+    
+    def __init__(self, words):
+        self.root = TrieNode()
+        words.sort(key = lambda x: len(x))  # The reason we sort by lens is: If a successor can be replaced by more than one root, replace it with the root with the shortest length.
+        for word in words:
+            self._insert(word)
+
+    def _insert(self, word):
+        curr = self.root
+        for ch in word:
+            curr = curr.child[ch]
+            if curr.end_word != "":
+                return
+        curr.end_word = word
+        
+    def start_with(self, word):     # return the prefix that the word starts with
+        curr = self.root
+        for ch in word:
+            if ch not in curr.child:
+                return word
+            curr = curr.child[ch]
+            if curr.end_word != "":
+                return curr.end_word
+        return word
+
+
+class Solution:
+    def replaceWords(self, dictionary: List[str], sentence: str) -> str:
+        trie = Trie(dictionary)
+        words = sentence.split(" ")
+        res = []
+        for word in words:
+            res.append(trie.start_with(word))
+        return " ".join(res)
+    
