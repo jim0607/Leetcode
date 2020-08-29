@@ -33,6 +33,57 @@ Each folder name is unique.
 
 
 """
+define has_prefix function in the Trie class, which returns whether or not there is already a string in the Trie that is the prefix of the word. 
+step 1: sort the strings by lens. step 2: loop over all the words and check the has_prefix(word).
+"""
+class TrieNode:
+    
+    def __init__(self):
+        self.child = collections.defaultdict(TrieNode)
+        self.is_end = False
+        
+
+class Trie:
+    
+    def __init__(self):
+        self.root = TrieNode()
+        
+    def insert(self, word):     # here input is a list of chars
+        curr = self.root
+        for ch in word:
+            curr = curr.child[ch]
+        curr.is_end = True
+        
+    def has_prefix(self, word):    # we defind a has_prefix function to return whether or not
+        curr = self.root           # there is already a string in the Trie that is the prefix of the word
+        for ch in word:
+            curr = curr.child[ch]
+            if curr.is_end:        # if curr.is_end, then there is already a string in the Trie that is a prefix of the word
+                return True
+        return False
+
+class Solution:
+    def removeSubfolders(self, folder: List[str]) -> List[str]:
+        trie = Trie()
+        
+        folders = []
+        for f in folder:
+            folders.append(f[1:].split("/"))
+        folders.sort(key = lambda x: len(x))    # we sort the folders by lens, so that we can use has_prefix function                                                                                                 # as we go over the folders cuz longer word might have a prefix that exist in the Trie
+        res = []
+        for word in folders:
+            if not trie.has_prefix(word):       # if doesn't have prefix in the trie, then it is a stand-alone word
+                res.append("/" + "/".join(word))    # should append this stand-alone word into es
+                trie.insert(word)                   # and also insert it into the trie cuz it might be the prefix of some words later on
+        return res
+        
+
+
+
+
+
+"""
+solution 2
 find the folder names with common prefix using a Trie, 
 we only keep the shortest folder name among all the words that share the same prefix.
 """
