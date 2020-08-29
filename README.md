@@ -488,6 +488,10 @@ same as 314. in 314, left nodes output first, in 987, smaller value comes first.
 - [1026. Maximum Difference Between Node and Ancestor](Solutions/1026.Maximum-Difference-Between-Node-and-Ancestor.py) (!!M) <br>
 solution 1: dfs visit every node, at each node, stop there and find the max and min of its subtree to get its max_diff.
 since finding max and min of subtee takes O(N), so the overall time comlexity is O(N^2).
+- [0105. Construct Binary Tree from Preorder and Inorder Traversal](Solutions/0105.Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal.py) (!!M) <br>
+solution 1中需要O(N^2)的原因是1. preorder.pop(0) takes O(N). We can convert preorder into a deque and popleft.
+2. finding the idx in inorder list takes O(N). We can use a hash table to store num-to-idx pair in advance.
+This leads to solution 2, which takes O(N) instead of O(N^2).
 - [0106. Construct Binary Tree from Inorder and Postorder Traversal](Solutions/0106.Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal.py) (!!M) <br>
 solution 1 takes O(N^2) because each time we find idx in inorder, it takes O(N). 算法：root = postorder.pop(), root.right = 处理inorder idx的右边, root.left = 处理inorder idx的左边. We can use a hash table to store the num-to-idx pair in advance. This leads to solution 2, which is O(N) instead of O(N^2).
 - [0889. Construct Binary Tree from Preorder and Postorder Traversal](Solutions/0889.Construct-Binary-Tree-from-Preorder-and-Postorder-Traversal.py) (!!M) <br>
@@ -516,48 +520,42 @@ we can always choose the left middle number as root, or always choose right midd
 要会默写iterative version of in-order-traversal
 - [0098. Validate Binary Search Tree](Solutions/0098.Validate-Binary-Search-Tree.py) (M) <br>
 注意判断条件不仅仅是left.val<root.val<right.val而是max of left < root < min of right; helper函数返回以root为根的树(是不是BST，max and min value in the tree); if (isLeftBST and isRightBST and maxLeft < root.val < minRight): return True
+- [0897. Increasing Order Search Tree](Solutions/0897.Increasing-Order-Search-Tree.py) (E) <br>
+divide and conquer is good - O(N), O(1) 左连右连而已，很简单
 - [0114. Flatten Binary Tree to Linked List](Solutions/0114.Flatten-Binary-Tree-to-Linked-List.py) (!!M) <br>
 divide and conquer: root.right = leftHead; root.left = None; 找到tail并让tail.right = rightHead
 - [0426. Convert Binary Search Tree to Sorted Doubly Linked List](Solutions/0426.Convert-Binary-Search-Tree-to-Sorted-Doubly-Linked-List.py) (!!M)  <br>
 solution 1: 定义两个全局变量self.head, self.curr，进行in order traversal的过程中不断更新curr的位置并hook up nodes
 - [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (!!M) <br>
 use a stack to store the left path nodes, some part of the algorithm is similar with the in order traversal of a tree using a stack; define a getLeftMost function, each time we call next function, we pop the smallestNode from stack and run getLeftMost function for the smallestNode.right if smallestNode.right exist.  this algorithm has space complexity of O(h)
-
-
-
 - [0285. Inorder Successor in BST](Solutions/0285.Inorder-Successor-in-BST.py) (!!M) <br>
 Divide and conquer: if p.val < root.val: return left if left else root; else: return right
------------510. Inorder Successor in BST II--------
+- [0510. Inorder Successor in BST II](Solutions/0510.Inorder-Successor-in-BST-II.py) (!!M) <br>
+Intersting problem, 题目input没有给Tree, 只给了node, 然后去找node's successor. 方法是找right_node, if not right_node就找parent_node.
 - [0701. Insert into a Binary Search Tree](Solutions/0701.Insert-into-a-Binary-Search-Tree.py) (M) <br>
 if val > root.val则更新root.right: root.right = self.insertIntoBST(root.right, val); else: root.left = self.insertIntoBST(root.left, val); return root.  这题的recursion exist should be: if not rot: return TreeNode(val). 另外, Time complexity: O(H), where H is a tree height. That results in O(logN) in the average case. So it takes O(logN) to insert an element into a BST.
 - [0450. Delete Node in a BST](Solutions/0450.Delete-Node-in-a-BST.py) (!!M) <br>
 Case 1: if node is a leaf, simply delete it Case 2: If the node is not a leaf and has the right child, then replace the node value by a successor value root.val = successor.val, and then delete the successor in the right subtree root.right = deleteNode(root.right, root.val). Case 3: If the node is not a leaf and has only the left child, then replace the node value by a predecessor value root.val = predecessor.val, and then delete the predecessor in the left subtree root.left = deleteNode(root.left, root.val). define a function to find successor: find the successor of the root by taking one step right and always left, cuz the successor is the node just larger than the root. define a function to find predecessor: find the predecessor of the root by taking one step left and then always right. Delete a node in BST takes O(logN).
-- [1214. Two Sum BSTs](Solutions/1214.Two-Sum-BSTs.py) (M) <br>
+- [1214. Two Sum BSTs](Solutions/1214.Two-Sum-BSTs.py) (!!M) <br>
 Iteratively do an inorder traversal for root1, and store the val in a hashSet; then itteratively do an inorder traversal for root2, and at the same time check if a target-val is in the hashSet. time complexity: O(M + N). 算法跟two sum是一样的，如果闭着眼睛能写要会iterative in-order traversal的哈！
 - [0095. Unique Binary Search Trees II](Solutions/0095.Unique-Binary-Search-Trees-II.py) (!!M) <br>
 helper(start, end): return the trees from start to end.  Finally return helper(1, n). Time complexity: The main computations are to construct all possible trees with a given root, that is actually Catalan number Gn (超纲).
+- [0096. Unique Binary Search Trees](Solutions/0096.Unique-Binary-Search-Trees.py) (!!M) <br>
+solution 1: brutal force, same as 95, return len(helper(1, n)). If we defind dp[i] = how many trees possible in a range with width == i, then we have
+dp[j] = sum for (dp[i] * dp[j - i - 1] for all i < j)
 - [0241. Different Ways to Add Parentheses](Solutions/0241.Different-Ways-to-Add-Parentheses.py) (!!M) <br>
-similar with 95, in helper function, return all the different results to add parentheses for input, for i in range(len(input): divide into leftResults and rightResults. Optimization: use a memo dictionary in the helper function to memorize the input that has already been calculated.
-- [0096. Unique Binary Search Trees](Solutions/0096.Unique-Binary-Search-Trees.py) (M) <br>
-same as 95, return len(helper(1, n)).
-- [0105. Construct Binary Tree from Preorder and Inorder Traversal](Solutions/0105.Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal.py) (!!M) <br>
-solution 1中需要O(N^2)的原因是1. preorder.pop(0) takes O(N). We can convert preorder into a deque and popleft.
-2. finding the idx in inorder list takes O(N). We can use a hash table to store num-to-idx pair in advance.
-This leads to solution 2, which takes O(N) instead of O(N^2).
-- [0501. Find Mode in Binary Search Tree](Solutions/0501.Find-Mode-in-Binary-Search-Tree.py) (!!E) <br>
-Trivial solution: dfs to visit every node and put their freq in a dict - O(N), O(N); Follow up: Could you do that without using any extra space? (Assume that the implicit stack space incurred due to recursion does not count). solving BST problems is very similar with solving sorted arr problems, we just need to do in order traversal of the tree - O(N), O(1).
-- [0099. Recover Binary Search Tree](Solutions/0099.Recover-Binary-Search-Tree.py) (!!H) <br>
-Similar with the previous mode problem, we need to use a global prev_node, so that we can compare the adjacent nodes in the sorted arr.
-- [0538. Convert BST to Greater Tree](Solutions/0538.Convert-BST-to-Greater-Tree.py) (M) <br>
-由于visit某一个节点的时候需要用到右边的节点,所以可以做reveerse_order traversal. 
-这题跟上面两题有一个相同的特征就是论keep a prev node有多方便
-- [1038. Binary Search Tree to Greater Sum Tree](Solutions/1038.Binary-Search-Tree-to-Greater-Sum-Tree.py) (M) <br>
-跟上题一模一样，solution 2: do a in order traversal (reversed version: go all the way to the right) to keep track the addValues
+similar with 95, in helper function, return all the different results to add parentheses for input, for i in range(len(s)): divide into leftResults and rightResults. Optimization: use a memo dictionary in the helper function to memorize the input that has already been calculated.
 - [0530. Minimum Absolute Difference in BST](Solutions/0530.Minimum-Absolute-Difference-in-BST.py) (E) <br>
-just in order traversal to turn the tree into a list, and then compare the adjacent elements in a list.
-- [0897. Increasing Order Search Tree](Solutions/0897.Increasing-Order-Search-Tree.py) (E) <br>
-step 1: in order traversal to get a list of node vals;
-step 2: construct the tree based on the in_order list
+solution 1: in order traversal the BST and compare the prev_node and curr_node as we go. 
+Need to use a global prev_node while doing in_order traversal. maintain a global prev_node的思想非常重要
+- [0501. Find Mode in Binary Search Tree](Solutions/0501.Find-Mode-in-Binary-Search-Tree.py) (!!E) <br>
+Trivial solution: dfs to visit every node and put their freq in a dict - O(N), O(N); Follow up: Could you do that without using any extra space? (Assume that the implicit stack space incurred due to recursion does not count). solving BST problems is very similar with solving sorted arr problems, we just need to do in order traversal of the tree - O(N), O(1). 我们需要记录全局变量self.prev_node, self.curr_cnt, self.max_cnt.
+- [0099. Recover Binary Search Tree](Solutions/0099.Recover-Binary-Search-Tree.py) (!!H) <br>
+想想我们有一个sorted list, 里面有两个num被调换了，我们怎么恢复，当然是先遍历一遍list找到两个被调换的num, 然后调换过来。做BST的题目就是在做sorted list的题目，我们先in order traversal the list找到被调换了的list, 然后调换过来就可以了，Similar with the previous mode problem, we need to use a global prev_node, so that we can compare the adjacent nodes in the sorted arr. And we need self.first_swapped_node and self.second_swapped_node as global variable too.
+- [0538. Convert BST to Greater Tree](Solutions/0538.Convert-BST-to-Greater-Tree.py) (E) <br>
+use a global self.pre_sum as we reverse_in_order traversal the tree recurssively or iteratively.
+- [1038. Binary Search Tree to Greater Sum Tree](Solutions/1038.Binary-Search-Tree-to-Greater-Sum-Tree.py) (M) <br>
+和上一题出重复了
 
 
 
