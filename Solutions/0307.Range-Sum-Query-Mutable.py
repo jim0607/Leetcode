@@ -37,46 +37,44 @@ class SegmentTree:
         mid = start + (end - start) // 2
         root.left = self.build(start, mid, arr)
         root.right = self.build(mid + 1, end, arr)
-        root.range_sum = root.left.range_sum + root.right.range_sum
+        root.range_sum = root.left.range_sum + root.right.range_sum      
         
         return root
+
+    def query(self, root, start, end):
+        if end < root.start or start > root.end:
+            return 0
+        if start <= root.start and end >= root.end:
+            return root.range_sum
+        
+        return self.query(root.left, start, end) + self.query(root.right, start, end)
     
     def update(self, root, idx, val):
         if not root:
-            return 0
-        
+            return
         if root.start == root.end:
             root.range_sum = val
             return
-            
-        if idx <= root.left.end:
+        
+        if root.left.end >= idx:
             self.update(root.left, idx, val)
         else:
             self.update(root.right, idx, val)
         
         root.range_sum = root.left.range_sum + root.right.range_sum
-        
-    def query(self, root, start, end):
-        if start > root.end or end < root.start:
-            return 0
-        
-        if start <= root.start and end >= root.end:
-            return root.range_sum
-        
-        return self.query(root.left, start, end) + self.query(root.right, start, end)
 
 
 class NumArray:
 
-    def __init__(self, nums: List[int]):
-        self.segment_tree = SegmentTree(0, len(nums) - 1, 0)
-        self.root = self.segment_tree.build(0, len(nums) - 1, nums)
+    def __init__(self, arr: List[int]):
+        self.sgtree = SegmentTree(0, len(arr) - 1, 0)
+        self.root = self.sgtree.build(0, len(arr) - 1, arr)
 
     def update(self, i: int, val: int) -> None:
-        self.segment_tree.update(self.root, i, val)
+        self.sgtree.update(self.root, i, val)
 
     def sumRange(self, i: int, j: int) -> int:
-        return self.segment_tree.query(self.root, i, j)
+        return self.sgtree.query(self.root, i, j)
 
 
 # Your NumArray object will be instantiated and called as such:
