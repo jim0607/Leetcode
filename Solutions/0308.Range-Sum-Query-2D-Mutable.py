@@ -20,6 +20,11 @@ sumRegion(2, 1, 4, 3) -> 10
 
 
 
+"""
+Even though the below code is O(logM+logN) in total, it is highly recommended to use
+prefix sum to enable O(1) query and O(MN) update.
+"""
+
 class SegmentTreeNode:
     
     def __init__(self, u, d, l, r):
@@ -58,6 +63,7 @@ class SegmentTree:
             node.sum += node.uprightChild.sum if node.uprightChild else 0
             node.sum += node.downleftChild.sum if node.downleftChild else 0
             node.sum += node.downrightChild.sum if node.downrightChild else 0
+            
         return node
 
     def update(self, node, row, col, val):
@@ -76,14 +82,15 @@ class SegmentTree:
             self.update(node.downleftChild, row, col, val) 
         else:
             self.update(node.downrightChild, row, col, val) 
-        # update the changes after recursive :
-        node.sum = 0   #reset first!
+            
+        # update the changes after recursion
+        node.sum = 0   # reset first!
         node.sum += node.upleftChild.sum if node.upleftChild else 0
         node.sum += node.uprightChild.sum if node.uprightChild else 0
         node.sum += node.downleftChild.sum if node.downleftChild else 0
         node.sum += node.downrightChild.sum if node.downrightChild else 0
 
-    # 9 cases total...
+    # 9 cases int total...
     def querySum(self, node, u, d, l, r):
         if not node:
             return 0
