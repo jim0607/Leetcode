@@ -26,6 +26,9 @@ class SegmentTree:
         self.right = None
         
     def build(self, start, end, nums):
+        """
+        Return the root of the built tree
+        """
         if start > end:
             return None
         
@@ -41,6 +44,9 @@ class SegmentTree:
         return root
         
     def query(self, root, start, end):
+        """
+        Return the sum in range [start, end]
+        """
         if start > root.end or end < root.start:
             return 0
             
