@@ -19,64 +19,61 @@ Output: ["eat","oath"]
 
 
   
+"""
+Solution 1: we put the board into a trie. Then we loop over the words list to check if the word is in the trie.
+This solution is hard to implement and it's also very costy, especially when board is huge and len(words) is small.
+Solution 2: we put the words into a trie. Then we loop over the board, whenever we found a letter==word[0], we trigger a backtrak.
+Backtrack 的结束条件是if curr_node.is_end.
+"""
 class TrieNode:
-    def __init__(self):
-        self.child = defaultdict(TrieNode)  # child is another TrieNode
-        self.isEnd = False
     
-class Trie:
     def __init__(self):
-        self.root = TrieNode()
+        self.child = collections.defaultdict(TrieNode)
+        self.is_end = False
         
-    def insert(self, word):
-        currNode = self.root
+
+class Trie:
+    
+    def __init__(self, words):
+        self.root = TrieNode()
+        for word in words:
+            self._insert(word)
+    
+    def _insert(self, word):
+        curr = self.root
         for ch in word:
-            currNode = currNode.child[ch]       # currNode往前遍历
-            
-        currNode.isEnd = True
+            curr = curr.child[ch]
+        curr.is_end = True
+
 
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-        self.board = board
-        self.MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-        self.res = set()
+        trie = Trie(words)      # instantiate a Trie
+        root = trie.root
         
-        wordTrie = Trie()   # instantiate a Trie
-        for word in words:
-            wordTrie.insert(word)
-            
-        root = wordTrie.root
-        
-        for i in range(len(self.board)):
-            for j in range(len(self.board[0])):
-                if self.board[i][j] in root.child:    # trigger a dfs whenever we find a char in root.child 
-                    self.visited = set()
-                    self.visited.add((i, j))
-                    self.backtrack(i, j, root.child[self.board[i][j]], self.board[i][j])
-                    
-        return list(self.res)
+        res = []
+        m, n = len(board), len(board[0])
+        for i in range(m):
+            for j in range(n):
+                ch = board[i][j]
+                if ch in root.child:    # trigger a dfs whenever we find a char in root.child
+                    visited = set()
+                    visited.add((i, j))
+                    self._backtrack(board, i, j, visited, root.child[ch], ch, res)
+        return list(set(res))
     
     # 其实下面就是dfs的模板
-    def backtrack(self, i, j, currNode, currPath):
-        if currNode.isEnd:
-            self.res.add(currPath)
-            currNode.isEnd = False          # 注意千万不要return, 不然单词health找到之后就不再继续找单词healthy了，为了还能找到healty, 只能把currNode.isEnd设置为False
-
-        for delta_x, delta_y in self.MOVES:
-            next_x, next_y = i + delta_x, j + delta_y
-
-            if next_x < 0 or next_x >= len(self.board) or next_y < 0 or next_y >= len(self.board[0]):
-                continue
-            if (next_x, next_y) in self.visited:
-                continue
-            if self.board[next_x][next_y] not in currNode.child:
-                continue
-                
-            temp = currNode     # 记录一下，一会儿好在backtracking的时候回退回来
-            currNode = currNode.child[self.board[next_x][next_y]]     # currNode往前遍历
-            self.visited.add((next_x, next_y))
-            
-            self.backtrack(next_x, next_y, currNode, currPath + self.board[next_x][next_y])
-            
-            currNode = temp     # backtrack 
-            self.visited.remove((next_x, next_y))
+    def _backtrack(self, board, i, j, visited, curr_node, curr_word, res):
+        if curr_node.is_end:
+            res.append(curr_word)   # 注意千万不要return, 不然单词health找到之后就不再继续找单词healthy了，
+            curr_node.is_end = False    # 为了还能找到healty, 只能把currNode.isEnd设置为False
+        
+        for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+            next_i, next_j = i + delta_i, j + delta_j
+            if 0 <= next_i < len(board) and 0 <= next_j < len(board[0]):
+                if (next_i, next_j) not in visited:
+                    ch = board[next_i][next_j]
+                    if ch in curr_node.child:       # 注意这里要check if ch is in curr_node.child
+                        visited.add((next_i, next_j))
+                        self._backtrack(board, next_i, next_j, visited, curr_node.child[ch], curr_word + ch, res)
+                        visited.remove((next_i, next_j))
