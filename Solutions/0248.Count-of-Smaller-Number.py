@@ -19,9 +19,24 @@ Just loop
 Sort and binary search
 Build Segment Tree and Search.
 
-
 """
 solution 1: binary search, need to sort the arr first which takes O(NlogN)
+"""
+
+import bisect
+
+class Solution:
+    def countOfSmallerNumber(self, arr, queries):
+        arr.sort()      # O(NlogN)
+        res = []
+        for q in queries:       # O(klogN)
+            idx = bisect.bisect_left(arr, q)
+            res.append(idx)
+        return res
+
+
+
+"""
 solution 2: Segment Tree, which takes O(N) to build the tree and O(logN) to query. To find how many numbers are less than num, 
 is actually to find how many numbers are there in range [0, num-1], since the minimum number is 0 given by the description of the problem.
 since we add num into the tree one by one, each update takes O(logN), so the whole updating takes O(NlogN).
