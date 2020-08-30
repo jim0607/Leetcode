@@ -585,41 +585,31 @@ addWord mehtod is the same as 208 insert method. But search mehtod is a little d
 In TrieNode, define a self.sums 代表所有的子node所代表的string的val的和。
 - [1233. Remove Sub-Folders from the Filesystem](Solutions/1233.Remove-Sub-Folders-from-the-Filesystem.py) (!!M) <br>
 define has_prefix function in the Trie class, which returns whether or not there is already a string in the Trie that is the prefix of the word. step 1: sort the strings by lens. step 2: loop over all the words and check the has_prefix(word).
-
-
-
-
 - [1166. Design File System](Solutions/1166.Design-File-System.py) (!!M) <br>
-经典的trie来处理文件夹的问题，在遍历for i, name in enumerate(path)中如果 i == len(path) - 1 这时候要create a new TrieNode 
+solution 1: In TrieNode class 定义一个self.val in TrieNode, 这样可以记录the value at the end of a word.  In Trie class, 定义一个self.get(word)函数，返回这个word对应的val. 像这种method里面函数很少的情况，需要额外写一些helper funciton, 还不如开一个Trie class 出来
 - [0588. Design In-Memory File System](Solutions/0588.Design-In-Memory-File-System.py) (!!H) <br>
-Trie solution: search/add/insert都是O(L)的时间复杂度，L是filePath的长度
-- [0820. Short Encoding of Words](Solutions/0820.Short-Encoding-of-Words.py) (M) <br>
-find the words with common suffix using a Trie, 
-we only keep the longest word among all the words that share the same suffix, and put a "#" behind it.
-- [0745. Prefix and Suffix Search](Solutions/0745.Prefix-and-Suffix-Search.py) (H) <br>
-construct a pref-trie and a suff-trie. In the trie node, we should indlude the idx.
-node.idx is a list consist of the idx of word in words
+Trie solution: search/add/insert都是O(L)的时间复杂度，L是filePath的长度. 像这种method里面函数很多的情况，不需要额外写一些helper funciton, 最好直接把Trie的实现在已经给定的class里面
+- [0820. Short Encoding of Words](Solutions/0820.Short-Encoding-of-Words.py) (!!M) <br>
+find the words with common suffix using a Trie, we only keep the longest word among all the words that share the same suffix, so we need to sort the input words reversely by lens.
+- [0745. Prefix and Suffix Search](Solutions/0745.Prefix-and-Suffix-Search.py) (!!H) <br>
+solution 1: Trie. construct a pref-trie and a suff-trie. In the trie node, we should indlude the idx.  node.idx is a list consist of the idx of word in words.  solution 2: hashmap. pre-calculate the all the possible combination of prefix+"#"+suffix --> idx and store them in a dictionary. so that each query only takes O(1). This takes more space than the Trie solution, but much faster. 这一题体现了trade-off in performance between Trie solution and Hashmap solution. 像这种multiple query的题，由于query很频繁，所以hashmap就更有优势了
 - [1032. Stream of Characters](Solutions/1032.Stream-of-Characters.py) (!!H) <br>
-If we really think about it, this is a suffix problem: 
-each time we query, we go back to the previous queried letters and check if they can form a word.
-Construct a Trie takes O(∑w_i) where w_i is the the lens of word in words.
-Query takes O(L) where L is the word in the trie, so it is really constant time for query.
+If we really think about it, this is a suffix problem: each time we query, we go back to the previous queried letters and check if they can form a word. Construct a Trie takes O(∑w_i) where w_i is the the lens of word in words.
+- [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!H) <br>
+we put the words into a trie. Then we loop over the board, whenever we found a letter==word[0], we trigger a backtrak. Backtrack 的结束条件是if curr_node.is_end. 打印所有路径所以用Trie + Backtracking DFS. 非常经典的题呀！
+- [0425. Word Squares](Solutions/0425.Word-Squares.py) (!!H Google) <br>
+Trie的解法怎样一步一步来的很重要！！把这题多写几遍backtrack+Trie+hashmap就都有更深的理解！
 - [0648. Replace Words](Solutions/0648.Replace-Words.py) (M) <br>
-这题是用prefix build一个Trie, 而通过这个Trie来query输入word的prefix
+这题是用prefix build一个Trie, 而通过这个Trie来query输入word的prefix. 因为需要输出prefix. 所以在TrieNode calss里面不是简单地用self.is_end来存是不是end, 而是需要self.word来存下这个word
 - [0421. Maximum XOR of Two Numbers in an Array](Solutions/0421.Maximum-XOR-of-Two-Numbers-in-an-Array.py) (M) <br>
-首先把所有的数的二进制存到 Trie 里面去，然后对于数组中的每个数 x，和 x 一起异或结果最大的 y 就是用 x 的二进制的反码在Trie 里面搜索，尽可能的与 x 的反码匹配，这样当走到叶子节点时，叶子节点对应的数就是 y。然后遍历一遍数组，求出 max(x ^ y), solution 写的很差，但是图画的很好！
+在TrieNode里面要定义一个self.val保存这个number的值，首先把所有的数的二进制存到 Trie 里面去，然后对于数组中的每个数 x，和 x 一起异或结果最大的 y 就是用 x 的二进制的反码在Trie 里面搜索，尽可能的与 x 的反码匹配，这样当走到叶子节点时，叶子节点对应的数就是 y。然后遍历一遍数组，求出 max(x ^ y), solution 写的很差，但是图画的很好！
 O(32N), where N is len(nums), 32 is the height of the trie using format(num, '032b') to convert to 32 bit
-- [0720. Longest Word in Dictionary](Solutions/0720.Longest-Word-in-Dictionary.py) (M) <br>
-Trie + bfs: 首先insert所有的word进Trie, 然后再从root出发对所有的nodes进行bfs, 只要next_node.is_end=True就可以append到q中；
-O(∑wi) to insert all words into Trie where wi is the lens of ith word, same for search longest word.
-- [0336. Palindrome Pairs](Solutions/0336.Palindrome-Pairs.py) (H) <br>
-不用trie的解法更好做一些，有点动态规划的意思。
+- [0720. Longest Word in Dictionary](Solutions/0720.Longest-Word-in-Dictionary.py) (E) <br>
+首先insert所有的word进Trie, 然后再将words list按照长度反向sort, 最后遍历words, 如果发现有一个word can_be_built, then return the word. 需要在Trie class里面写一个can_be_built(word)函数
+- [0336. Palindrome Pairs](Solutions/0336.Palindrome-Pairs.py) (!!H) <br>
+不用trie的解法更好做一些，有点动态规划的意思。遍历words, 对于某一个word1, 分成左右两部分left and right, 如果left等于另一个word2[::-1], 并且right is palindrome, then word1+word2可以组成一个panlindrome pair.
 - [1268. Search Suggestions System](Solutions/1268.Search-Suggestions-System.py) (!!M) <br>
-In TrieNode, there should be self.child, self.is_end, self.word;
-In Trie, there should be a method to insert a word into the trie; there should also be 
-a method to search for all the possible autocomplete words of a given input string;
-这个search mehtod分三步，第一步是遍历Trie找到需要search的input_str在trie中所在的node, 第二步是从这个node出发，
-找到其所有能到达的endNode, 显然是backtrack来做，第三步是对所有能达到的endNode排个序，取前三作为输出。
+In TrieNode, there should be self.words = [], which stores a list of words that pass curr node.
 - [0642. Design Search Autocomplete System](Solutions/0642.Design-Search-Autocomplete-System.py) (!!H) <br>
 与1268很像，只不过输入input_str是流数据，需要不断更新hotness.
 In TrieNode, there should be self.child, self.is_end, self.sentence, self.hotness.
@@ -627,10 +617,7 @@ In Trie, there should be a method to insert a sentence into the trie; there shou
 a method to search for all the possible autocomplete words of a given input string;
 这个search mehtod分三步，第一步是遍历找到需要search的input_str在trie中所在的node, 第二步是从这个node出发，
 找到其所有能到达的endNode, 显然是backtrack来做，第三步是对所有能达到的endNode.hotness排个序，取前三作为输出。
-- [0425. Word Squares](Solutions/0425.Word-Squares.py) (!!H Google) <br>
-Trie的解法怎样一步一步来的很重要！！把这题多写几遍backtrack+Trie+hashmap就都有更深的理解！
-- [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!H) <br>
-The capability of finding matching prefix is where the data structure called Trie would shine, comparing the hashset data structure. Not only can Trie tell the membership of a word, but also it can instantly find the words that share a given prefix. 打印所有路径所以用Trie + Backtracking DFS. 非常经典的题呀！
+
 
 
 
@@ -1005,6 +992,10 @@ Solution 3: 不需要打印所有的路径，所以可以用普通的二叉树�
 递归的定义：从s中的start位置开始，挑一些位置切割，判断从start到i的部分是否为回文，如果是就放入curr中，如果i到了string末尾了则说明此事curr是一种组合方式，放入res中 <br>
 - [0332. Reconstruct Itinerary](Solutions/0332.Reconstruct-Itinerary.py) (!!M) <br>
 有向图的遍历问题，LeetCode关于有向图的题只有两道Course Schedule和Course Schedule II，而那两道是关于有向图的顶点的遍历的，而本题是关于有向图的边的遍历。每张机票都是有向图的一条边，我们需要找出一条经过所有边的路径，那么DFS不是我们的不二选择. Recurssive backtracking.  Worst case: O(E^d), where E is # of edges, d is is the maximum number of flights from an airport.  Solution 2: 因为只需要输出一种包含所有边的路径，所以可以用另一种图的解法 Eulerian Path - every edge is visited exactly once. Eulerian path 使用的算法叫做 Hierholzer algorithm. Hierholzer algorithm 不做backtrack, 所以每一条边只访问一次，所以时间复杂度是O(E), where E is the # of edges.
+- [0425. Word Squares](Solutions/0425.Word-Squares.py) (!!H Google) <br>
+Trie的解法怎样一步一步来的很重要！！把这题多写几遍backtrack+Trie+hashmap就都有更深的理解！
+- [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!H) <br>
+we put the words into a trie. Then we loop over the board, whenever we found a letter==word[0], we trigger a backtrak. Backtrack 的结束条件是if curr_node.is_end. 打印所有路径所以用Trie + Backtracking DFS. 非常经典的题呀！
 - [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (H) <br> 
 dfs + backtracking, time complexity is (9!)^9, which is veyr high.
 
@@ -1147,6 +1138,7 @@ dfs pass prev_node, curr_node in the parameters, dfs return the tail of the curr
 固定两个开头的idx, 然后做dfs
 - [0842. Split Array into Fibonacci Sequence](Solutions/0842.Split-Array into-Fibonacci-Sequence.py) (!!M) <br>
 与上一题相比要求输出所有Fibonacci组合，所以用backtrack: pass curr as signature to record the curr path/res
+
 
 
 
