@@ -60,11 +60,10 @@ class Solution:
         if start > end:
             return None
             
-        if start == end:
-            return SegmentTreeNode(start, end)
-            
         root = SegmentTreeNode(start, end)
-        
+        if start == end:
+            return root
+            
         mid = start + (end - start) // 2
         root.left = self.build(start, mid)
         root.right = self.build(mid + 1, end)
