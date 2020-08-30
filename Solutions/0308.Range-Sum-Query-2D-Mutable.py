@@ -21,8 +21,8 @@ sumRegion(2, 1, 4, 3) -> 10
 
 
 """
-Even though the below code is O(logM+logN) in total, it is highly recommended to use
-prefix sum to enable O(1) query and O(MN) update.
+Even though the below code is O(logM+logN) for update and query, 
+it is still highly recommended to use prefix sum to implement O(1) query and O(MN) update.
 """
 
 class SegmentTreeNode:
