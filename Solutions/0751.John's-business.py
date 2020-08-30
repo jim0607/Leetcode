@@ -67,3 +67,8 @@ class Solution:
             res.append(profit)
 
         return res
+
+    
+"""
+Solution 2: sliding window minimum - use a mono deque - O(n)
+"""
