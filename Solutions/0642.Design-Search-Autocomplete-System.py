@@ -127,6 +127,64 @@ class AutocompleteSystem:
             self.input_str = ""
 
 
+
+
+"""
+Another solution that somehow dones't work, but don't know why
+"""
+class TrieNode:
+    
+    def __init__(self):
+        self.child = collections.defaultdict(TrieNode)
+        self.sentences = collections.defaultdict(int)
+
+        
+class Trie:
+    
+    def __init__(self, sentences, times):
+        self.root = TrieNode()
+        for i, sentence in enumerate(sentences):
+            self._insert(sentence, times[i])
+               
+    def _insert(self, sentence, time):
+        curr = self.root
+        for ch in sentence:
+            curr = curr.child[ch]
+            curr.sentences[sentence] += time
+        
+    def search(self, sentence): # Return a list of sentences that start with the sentence
+        curr = self.root
+        for ch in sentence:
+            if ch not in curr.child:
+                return collections.defaultdict(int)
+            curr = curr.child[ch]
+        return curr.sentences
+        
+        
+class AutocompleteSystem:
+
+    def __init__(self, sentences: List[str], times: List[int]):
+        self.stc = ""
+        self.map = collections.defaultdict(int)
+        for i in range(len(sentences)):
+            self.map[sentences[i]] = times[i]
+            
+        self.trie = Trie(sentences, times)
+
+    def input(self, ch: str) -> List[str]:
+        if ch.isalpha() or ch == " ":
+            self.stc += ch
+            res = [(sentence, time) for sentence, time in self.trie.search(self.stc).items()]
+            res.sort(key = lambda x: (-x[1], x[0]))
+            return [sentence for sentence, _ in res[:3]]
+            
+        elif ch == "#":
+            self.map[self.stc] += 1
+            self.trie._insert(self.stc, self.map[self.stc])     
+            self.stc = ""
+            return []
+            
+
 # Your AutocompleteSystem object will be instantiated and called as such:
 # obj = AutocompleteSystem(sentences, times)
 # param_1 = obj.input(c)
