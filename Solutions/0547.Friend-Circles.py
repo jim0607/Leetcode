@@ -22,17 +22,27 @@ Explanation:The 0th and 1st students are direct friends, the 1st and 2nd student
 so the 0th and 2nd students are indirect friends. All of them are in the same friend circle, so return 1.
 
 
+
+
+
+
+
 """
-Solution 1: Union-Find O(MN)
+Solution 1: Union-Find O(MN). 
+与LC 200 Nubmer of islands其实是同一题，只是这题给的是adjcency matrix representaion of a graph.
 """
 class UnionFind:
-    def __init__(self, size):
-        self.father = collections.defaultdict()
-        self.disjoint_cnt = 0
+    
+    def __init__(self, n):
+        self.father = collections.defaultdict(int)
+        self.cnt = 0
         
-        for i in range(size):
-            self.father[i] = i
-            self.disjoint_cnt += 1
+        for i in range(n):
+            self.add(i)
+            
+    def add(self, x):
+        self.father[x] = x
+        self.cnt += 1
         
     def find(self, x):
         if self.father[x] == x:
@@ -43,18 +53,54 @@ class UnionFind:
     def union(self, a, b):
         root_a, root_b = self.find(a), self.find(b)
         if root_a != root_b:
-            self.father[root_a] = self.father[root_b]
-            self.disjoint_cnt -= 1
-    
-    
+            self.father[root_a] = root_b
+            self.cnt -= 1
+
+
 class Solution:
-    def findCircleNum(self, M: List[List[int]]) -> int:
-        moves = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-        m, n = len(M), len(M[0])
-        uf = UnionFind(m)
-        for i in range(m):
-            for j in range(i + 1, n):   # 只需要遍历adjacency matrix一半就可以了，因为如果1和3是朋友那么3和1也一定是朋友
-                if M[i][j] == 1:
+    def findCircleNum(self, matrix: List[List[int]]) -> int:
+        n = len(matrix)
+        
+        uf = UnionFind(n)
+        
+        for i in range(n):
+            for j in range(i, n):   # 题目给的是adjancency matrix, 只需要遍历adjacency matrix一半就可以了，因为如果1和3是朋友那么3和1也一定是朋友
+                if matrix[i][j] == 1:
                     uf.union(i, j)
-                    
-        return uf.disjoint_cnt
+        
+        return uf.cnt
+       
+       
+       
+       
+       
+"""
+solution 2: dfs
+"""
+class Solution:
+    def findCircleNum(self, matrix: List[List[int]]) -> int:
+        # step 1: change the graph representation to be dictionary of adjacency list
+        graph = collections.defaultdict(list)
+        n = len(matrix)        
+        for i in range(n):
+            for j in range(i, n):  
+                if matrix[i][j] == 1:
+                    graph[i].append(j)
+                    graph[j].append(i)
+        
+        
+        def dfs(curr_i):
+            visited.add(curr_i)
+            for next_i in graph[curr_i]:
+                if next_i not in visited:
+                    dfs(next_i)        
+        
+        # step 2: dfs to visit each node
+        cnt = 0
+        visited = set()
+        for i in range(n):
+            if i not in visited:
+                dfs(i)
+                cnt += 1
+                
+        return cnt
