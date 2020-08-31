@@ -60,54 +60,56 @@ class Solution:
 """
 Solution 2: Union-Find
 step 1: sort the array by the values descendingly
-step 2: union one-by-one, until (0, 0) and (m-1, n-1) is connected
+step 2: union one-by-one, until (0, 0) and (m-1, n-1) are connected
+算法其实有一点点类似Krusal求MST
 """
 class Solution:
     def maximumMinimumPath(self, A: List[List[int]]) -> int:
-        moves = [(1, 0), (-1, 0), (0, 1), (0, -1)]
         m, n = len(A), len(A[0])
+        positions = [(i, j) for i in range(m) for j in range(n)]    # 定义一个一维数组， 注意python是怎么写的
+        positions.sort(key = lambda x: -A[x[0]][x[1]])      # O(MNlogMN)
         
-        points = [(x, y) for x in range(m) for y in range(n)]   # 定义一个一维数组， 注意python是怎么写的
-        points.sort(key = lambda point: -A[point[0]][point[1]])     # O(MNlogMN)
-        
-        graph = UnionFind(points)
+        uf = UnionFind(positions)
         
         visited = set()
-        for point in points:        # O(MN)
-            visited.add(point)
+        for pos in positions:
+            visited.add(pos)
             
-            for move in moves:
-                nextPoint = (point[0] + move[0], point[1] + move[1])
-                if nextPoint[0] < 0 or nextPoint[0] >= m or nextPoint[1] < 0 or nextPoint[1] >= n:
-                    continue
-                # 注意nextPoint一定要in visited才能将其连上currPoint!! 这是UnionFind的定义决定的
-                # 只有visited过了才可以连接起来，因为visited过的一定是比现在point大的，我们只连大的
-                # 如果没有visited过的就去连上，那么会连上很多小的，比如例子中7会连上1
-                if nextPoint in visited:   
-                    graph.union(point, nextPoint)
-                
-            if graph.find((0, 0)) == graph.find((m-1, n-1)):    # check if (0, 0) and (m-1, n-1) are connected
-                return A[point[0]][point[1]]
-
+            i, j = pos[0], pos[1]
+            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                adj_i, adj_j = i + delta_i, j + delta_j
+                if 0 <= adj_i < m and 0 <= adj_j < n:       # 这里要判断不要out of bound
+                    # 注意nextPoint一定要in visited才能将其连上currPoint!! 这是UnionFind的定义决定的
+                    # 只有visited过了才可以连接起来，因为visited过的一定是比现在point大的，我们只连大的
+                    # 如果没有visited过的就去连上，那么会连上很多小的，比如例子中7会连上1
+                    if (adj_i, adj_j) in visited:
+                        uf.union((i, j), (adj_i, adj_j))
+                    
+            if uf.connected((0, 0), (m-1, n-1)):     # check if (0, 0) and (m-1, n-1) are connected
+                return A[i][j]    # if connected, then return current position cuz it is the minimum in the path
+            
 
 class UnionFind:
-    def __init__(self, points):
-        self.father = collections.defaultdict()
-        for point in points:
-            self.father[point] = point
+    
+    def __init__(self, positions):
+        self.father = collections.defaultdict(tuple)
         
-    def add(self, item):
-        self.father[item] = item
+        for pos in positions:
+            self.add(pos)
+                
+    def add(self, x):
+        self.father[x] = x
         
-    def find(self, item):
-        if self.father[item] == item:
-            return item
-        
-        self.father[item] = self.find(self.father[item])
-        
-        return self.father[item]
-        
-    def union(self, item1, item2):
-        root1, root2 = self.find(item1), self.find(item2)
-        if root1 != root2:
-            self.father[root1] = root2
+    def find(self, x):
+        if self.father[x] == x:
+            return x
+        self.father[x] = self.find(self.father[x])
+        return self.father[x]
+    
+    def connected(self, a, b):
+        return self.find(a) == self.find(b)
+    
+    def union(self, a, b):
+        root_a, root_b = self.find(a), self.find(b)
+        if root_a != root_b:
+            self.father[root_a] = root_b
