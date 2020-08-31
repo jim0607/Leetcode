@@ -622,6 +622,7 @@ a method to search for all the possible autocomplete words of a given input stri
 
 
 ###  [Segment Tree](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+##### build, update, query三个函数都是用递归(divide and conquer)的方式实现的
 - [0201. Segment Tree Build](Solutions/0201.Segment-Tree-Build.py) (M Lintcode) <br>
 Segment tree build takes O(N), where lens of the input arr
 - [0439. Segment Tree Build II](Solutions/0439.Segment-Tree-Build-II.py) (M Lintcode) <br>
@@ -632,43 +633,36 @@ Segment tree update takes O(h) or O(logN)
 Segment tree query takes O(h) or O(logN). This problem is to query the max number in a range.
 - [0247. Segment Tree Query II](Solutions/0247.Segment-Tree-Query-II.py) (M Lintcode) <br>
 Segment tree query takes O(h) or O(logN). This problem is to query the count in a range.
-- [0205. Interval Minimum Number](Solutions/0205.Interval-Minimum-Number.py) (M Lintcode) <br>
-Maintain a self.min_num in building the SegmentTree
-- [0751. John's business](Solutions/0751.John's-business.py) (M Lintcode) <br>
-Maintain a self.min_num in building the SegmentTree
+- [0205. Interval Minimum Number](Solutions/0205.Interval-Minimum-Number.py) (!!M Lintcode) <br>
+Maintain a self.min_num in building the SegmentTree. 
+- [0751. John's business](Solutions/0751.John's-business.py) (!!M Lintcode) <br>
+Maintain a self.min_num in building the SegmentTree. - O(nlogk)  Solution 2: sliding window minimum - use a mono deque - O(n)
 - [0206. Interval Sum](Solutions/0206.Interval-Sum.py) (M Lintcode) <br>
 Maintain a self.range_sum in buildign the SegmentTree
 - [0207. Interval Sum II](Solutions/0207.Interval-Sum-II.py) (!!M Lintcode) <br>
 Segment tree is good for 需要动态更新数组和query range sum的情况，O(logN) update and O(logN) range sum query
-- [0303. Range Sum Query - Immutable](Solutions/0303.Range-Sum-Query-Immutable.py) (E) <br>
+- [0303. Range Sum Query - Immutable](Solutions/0303.Range-Sum-Query-Immutable.py) (!!E) <br>
 输入数组是immutable的，因此用不着segment tree, 用一个prefix_sum数组做cache就可以实现O(1) query 了
 - [0307. Range Sum Query - Mutable](Solutions/0307.Range-Sum-Query-Mutable.py) (!!M) <br>
 输入数组是mutable, 需要快速的update, 所以可以用segment tree来实现O(logn) update and O(logn) query.
-- [0304. Range Sum Query 2D - Immutable](Solutions/0304.Range-Sum-Query-2D-Immutable.py) (M) <br>
+- [0304. Range Sum Query 2D - Immutable](Solutions/0304.Range-Sum-Query-2D-Immutable.py) (!!M) <br>
 a 2D version prefix sum. O(1) for query.
 - [0308. Range Sum Query 2D - Mutable](Solutions/0308.Range-Sum-Query-2D-Mutable.py) (H) <br>
-solution: segment tree. 代码裸长115行，我去NMLGB!
-- [0248. Count of Smaller Number](Solutions/0248.Count-of-Smaller-Number.py) (M) <br>
-solution 1: binary search, need to sort the arr first which takes O(NlogN)
+solution: segment tree. 代码裸长115行，我去NMLGB! 放弃这题算了
+- [0248. Count of Smaller Number](Solutions/0248.Count-of-Smaller-Number.py) (M Lintcode) <br>
+solution 1: binary search, need to sort the arr first which takes O(NlogN). This solution is better for an interview.
 solution 2: Segment Tree, which takes O(N) to build the tree and O(logN) to query. To find how many numbers are less than num, 
 is actually to find how many numbers are there in range [0, num-1], since the minimum number is 0 given by the description of the problem. 这样就相当于转化成了类似range_sum的问题了，since we add num into the tree one by one, each update takes O(logN), so the whole updating takes O(NlogN).
 这题的self.start, self.end represent the num, not idx.  sel.cnt is how many numbers are there in range [start, end], and again start, end are not idx, they are actual vals.
-- [0327. Count of Range Sum](Solutions/0327.Count-of-Range-Sum.py) (H) <br>
-Firstly, create a list to store all the prefix sum; then sort the prefix sum list
-Secondly, use the sorted prefix sum list to build a segment tree, the tree node has an attribute self.cnt representing the cnt
-of how many prefix sums are in a certain range. 
-Finally, we traverse the prefix sum list and query how many prefix sums are there in range [prefix-upper, prefix-lower].
-eg if there is one prefix_1 in range [prefix-upper, prefix-lower], then prefix - prefix_1 in range [lower, upper]
 - [0493. Reverse Pairs](Solutions/0493.Reverse-Pairs.py) (!!H) <br>
-solution 1: segment tree. similar with 315. count of smaller number after itself.
-We sweep from left to right, and query range [2* num+1, max_num].
-与count number after itself相比，就只有一行代码不同. solution 2: merge sort. 其实merge sort才是这道题的正解！Count "important reverse pairs" while doing mergesort:
-When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j.
-So in addition to the while loop for do merge/conquer, we use a while loop to compare nums[i] and 2* nums[j] to update cnt. - O(nlogn)
+merge sort才是这道题的正解！Count "important reverse pairs" while doing mergesort: When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j.  So in addition to the while loop for do merge/conquer,我们在conquer那个while loop之前额外加一个 while loop to compare nums[i] and 2* nums[j] to update cnt. - O(nlogn)
 - [0315. Count of Smaller Numbers After Self](Solutions/0315.Count-of-Smaller-Numbers-After-Self.py) (!!H) <br>
-Segment Tree solution: O(NlogN) time and O(N) space. 从右往左遍历add num into the tree one by one， at the same time update the cnt of smaller number after self. Follow up: how to solve Spare Segment Tree problem? - Merge sort. 正解是solution 2: merge sort O(nlogn)
+正解是solution 2: merge sort O(nlogn). 注意因为self.res是要更新没有个idx的cnt, 所以要把idx带在nums里面去sort nums. 在conquer 的 while loop之前，我们用一个while loop to compare nums[i] and nums[j] to update self.res
+- [0327. Count of Range Sum](Solutions/0327.Count-of-Range-Sum.py) (!!H) <br>
+Solution 1: prefix_sum + hashmap.  construct a prefix_sum. Then do the LC 0001. Two Sum problem. The presum_dict stores (presum --> how many times the presum occurs). O(NW), where N is len(nums) and W is the width of the range we want to query. 面试第一反应就应该是solution 1, 如果面试官说[lower, upper] range is very large much larger than N, 
+then we might consider the following solution prefix_sum + merge_sort. solution 2: prefix_sum + merge_sort 在conquer 的 while loop之前，我们用一个while loop to compare lower <= (right[j] - left[i]) <= upper to update self.res. update self.res 的方法可以是暴力也可以是sliding window来实现
 - [0699. Falling Squares](Solutions/0699.Falling-Squares.py) (!!H) <br>
-solution 1: O(N^2). Every time a new square falls down, we check the previous square to see if there is any square beneath the current falling square. If we found that we have squares i intersect with us, which means my current square will go above to that square. Then we should update the max_h. solution 2: segment tree O(NlogN) https://leetcode.com/problems/falling-squares/discuss/409304/Python-Diffenrent-Concise-Solutions
+solution 1: O(N^2). Every time a new square falls down, we check the previous square to see if there is any square beneath the current falling square. If we found that we have squares i intersect with us, which means my current square will go above to that square. Then we should update the max_h. solution 2: 因为每进来一个squre我们都需要query 在这个interval里的max_num, 所以我们segement tree to enable O(logN) query. - O(NlogN)
 
 
 
