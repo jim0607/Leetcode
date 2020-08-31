@@ -97,52 +97,46 @@ think the grid as a graph, find how may isolated components in the graph
 we traversal the whole gird, whenever find a 1, we connect all the 4 adjacent 1s. 
 """
 class UnionFind:
+    
     def __init__(self, grid):
-        self.father = collections.defaultdict()
+        self.father = collections.defaultdict(tuple)
         self.cnt = 0        # total # of isolated components in the graph
         
         for i in range(len(grid)):
             for j in range(len(grid[0])):
-                if grid[i][j] == "1":       # 注意这里要判断一下
-                    self.father[(i, j)] = (i, j)    # 特别注意这里连通的是坐标而不是grid[i][j]，因为grid[i][j]都是"1", 最后就全都指向"1"了
+                if grid[i][j] == "1":           # ******注意这里容易漏掉
+                    self.father[(i, j)] = (i, j)   # 特别注意这里连通的是坐标而不是grid[i][j]，因为grid[i][j]都是"1", 最后就全都指向"1"了
                     self.cnt += 1
                 
     def find(self, x):
         if self.father[x] == x:
             return x
-
         self.father[x] = self.find(self.father[x])
-            
         return self.father[x]
-    
-    def connect(self, a, b):
+        
+    def union(self, a, b):
         root_a, root_b = self.find(a), self.find(b)
         if root_a != root_b:
             self.father[root_a] = root_b
             self.cnt -= 1
-        
-        
-class Solution:    
-    
-    MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-    
+
+
+class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         if not grid or not grid[0]:
             return 0
         
+        uf = UnionFind(grid)        # instantiate a UnionFind object
+        
         m, n = len(grid), len(grid[0])
-        
-        graph = UnionFind(grid)     # instantiate a UnionFind object
-        
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == "1":
-                    for move in self.MOVES:
-                        row, col = i + move[0], j + move[1]
-                        if 0 <= row < m and 0 <= col < n and grid[row][col] == "1":
-                            graph.connect((i, j), (row, col))   # connect method include: 1. find the root of a and b; 2. connect a and b; 3. reduce cnt
-                            
-        return graph.cnt
+                    for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                        adj_i, adj_j = i + delta_i, j + delta_j
+                        if 0 <= adj_i < m and 0 <= adj_j < n and grid[adj_i][adj_j] == "1":
+                            uf.union((i, j), (adj_i, adj_j))    # union method include: 1. find the root of a and b; 2. connect a and b; 3. reduce cnt
+        return uf.cnt
 
     
  
