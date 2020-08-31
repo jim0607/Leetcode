@@ -27,15 +27,15 @@ You can assume that no duplicate edges will appear in edges. Since all edges are
 
 """
 Union Find: With path compression, it takes ~O(1) to find and union. So the time complexity for Union Find is O(V+E).
-O(V) comes from construct the graph, O(E) comes from visiting each edge in edges.
+O(V) comes from constructing the graph, O(E) comes from connecting each edge
 """
 class UnionFind:
     
     def __init__(self, n):
-        self.father = collections.defaultdict()
+        self.father = collections.defaultdict(int)
         self.disjoint_cnt = 0
         
-        for i in range(n):
+        for i in range(n):      # O(V) comes from constructing the graph
             self.father[i] = i
             self.disjoint_cnt += 1
         
@@ -58,7 +58,7 @@ class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
         uf = UnionFind(n)
         
-        for edge in edges:
+        for edge in edges:         # O(E) comes from connecting each edge
             uf.union(edge[0], edge[1])
             
         return uf.disjoint_cnt
