@@ -26,52 +26,53 @@ The length of accounts[i][j] will be in the range [1, 30].
 union find: if email under the same name, then connect emails, or if email under name_1 equals to email under name_2, connect emails.
 In this way, we build a graph, then we map each disjoint_component into one name.
 Step 1: use a dictionary to store email_to_name map. Step 2: iterate the edges to connect them. 
-Step 2: use the email_to_name map and the graph to generage a new list where each name corresponding to a disjoint_component
+Step 3: use the email_to_name map and the graph to generage a new list where each name corresponding to a disjoint_component
 """
-
+class Solution:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        uf = UnionFind(accounts)    # 初始化uf图 by using vertex in accounts
+        
+        # connect the edges in the uf图
+        email_to_name = collections.defaultdict(str)
+        for account in accounts:
+            name = account[0]
+            for email in account[1:]:
+                uf.union(account[1], email)
+                email_to_name[email] = name
+                
+        # 接下来的部分是得到图里面连到一起的emails. 这里没有想出来
+        # 建立root_email to emails dictionary as we go over uf.father.
+        root_to_email = collections.defaultdict(list)
+        for email in uf.father:
+            root = uf.find(email)
+            root_to_email[root].append(email)
+            
+        # 最后输出结果
+        res = []
+        for root, emails in root_to_email.items():
+            account = []
+            account.append(email_to_name[root])
+            account += sorted(emails)
+            res.append(account)
+        return res
+    
+    
 class UnionFind:
-
+    
     def __init__(self, accounts):
-        self.father = collections.defaultdict()
+        self.father = collections.defaultdict(str)
+        
         for account in accounts:
             for email in account[1:]:
                 self.father[email] = email
-
+    
     def find(self, x):
         if self.father[x] == x:
             return x
         self.father[x] = self.find(self.father[x])
         return self.father[x]
-
+    
     def union(self, a, b):
         root_a, root_b = self.find(a), self.find(b)
         if root_a != root_b:
             self.father[root_a] = root_b
-
-
-class Solution:
-    def accountsMerge(self, accounts):
-        uf = UnionFind(accounts)
-
-        email_to_name = collections.defaultdict()
-        for account in accounts:
-            name = account[0]
-            for email in account[1:]:
-                email_to_name[email] = name
-                uf.union(account[1], email)
-                
-        # 完成了union find建图之后，所有的相同的email就connect在一起了，接下来只需要把email和name对应起来就可以了
-        # key is the father of one disjoint component, val is a list of all the email in the disjoint component
-        connected_emails = collections.defaultdict(list)     
-        for email in email_to_name:
-            root = uf.find(email)
-            connected_emails[root].append(email)
-
-        res = []
-        for root_email in connected_emails:
-            account = []
-            account.append(email_to_name[root_email])
-            account += sorted(connected_emails[root_email])
-            res.append(account)
-
-        return res
