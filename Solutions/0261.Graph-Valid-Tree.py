@@ -34,10 +34,64 @@
 # together in edges.
 # 
 #
-"""判断图是不是一棵树（不一定非要是二叉树）需要满足两点：
+
+
+
+
+"""
+Solution 1: union find: 两个判断标准: 1. 无环, if uf.connected(i, j): return False. 
+2. 整张图只有一个disjoint_cnt, return self.disjoint_cnt == 1.
+"""
+class UnionFind:
+    
+    def __init__(self, n):
+        self.father = collections.defaultdict(int)
+        self.cnt = 0
+        
+        for i in range(n):      # 把n个节点都放进图中
+            self.add(i)
+            
+    def add(self, x):
+        self.father[x] = x
+        self.cnt += 1
+    
+    def find(self, x):
+        if self.father[x] == x:
+            return x
+        self.father[x] = self.find(self.father[x])
+        return self.father[x]
+    
+    def connected(self, a, b):
+        return self.find(a) == self.find(b)
+    
+    def union(self, a, b):
+        root_a, root_b = self.find(a), self.find(b)
+        if root_a != root_b:
+            self.father[root_a] = root_b
+            self.cnt -= 1
+
+
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        uf = UnionFind(n)
+        
+        for i, j in edges:
+            if uf.connected(i, j):      # 如果i和j节点已经connected, 现在还要连接他们就会形成环
+                return False
+            
+            uf.union(i, j)
+            
+        return uf.cnt == 1
+
+
+
+
+"""
+判断图是不是一棵树（不一定非要是二叉树）需要满足两点：
 1. 首先点的数目一定比边的数目多一个
 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，
-也就是visited的数目要等于节点数目"""
+也就是visited的数目要等于节点数目
+"""
 class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
         if n == 0:
@@ -69,7 +123,12 @@ class Solution:
         return len(visited) == n    # 每个节点都被访问过且都被访问过一次
     
     
-    
+ 
+
+
+"""
+另一种按照bfs的判断标准来写的 Union Find, 非常不简洁
+"""
 class UnionFind:
     def __init__(self):
         self.father = collections.defaultdict()
@@ -102,9 +161,7 @@ class UnionFind:
             self.father[root_a] = root_b
             self.cnt -= 1
     
-"""
-Solution 2: Dynamic connection problem: Union Find
-"""
+
 class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
         
