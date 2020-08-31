@@ -22,31 +22,25 @@ Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefor
 """
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        lens = len(nums)
-        if lens <= 1:
-            return lens
-        
-        numsSet = set()
+        numset = set(nums)
+        max_cnt = 0
         for num in nums:
-            numsSet.add(num)
-        
-        res = 0
-        for num in nums:
-            if num in numsSet:
+            if num in numset:
+                numset.remove(num)
                 cnt = 1
-                numsSet.remove(num)     # O(1)
                 
-                prev, next = num - 1, num + 1
-                while prev in numsSet:
+                prev = num - 1
+                while prev in numset:
+                    numset.remove(prev)
                     cnt += 1
-                    numsSet.remove(prev)
                     prev -= 1
                 
-                while next in numsSet:
+                next = num + 1
+                while next in numset:
+                    numset.remove(next)
                     cnt += 1
-                    numsSet.remove(next)
                     next += 1
                     
-            res = max(res, cnt)
-            
-        return res
+                max_cnt = max(max_cnt, cnt)
+                
+        return max_cnt
