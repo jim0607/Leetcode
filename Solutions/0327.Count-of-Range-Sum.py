@@ -14,12 +14,25 @@ Explanation: The three ranges are : [0,0], [2,2], [0,2] and their respective sum
 
 
 
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 """
 Firstly, create a list to store all the prefix sum; then sort the prefix sum list
 Secondly, use the sorted prefix sum list to build a segment tree, the tree node has an attribute self.cnt representing the cnt
 of how many prefix sums are in a certain range. 
 Finally, we traverse the prefix sum list and query how many prefix sums are there in range [prefix-upper, prefix-lower].
-eg if there is one prefix_1 in range [prefix-upper, prefix-lower], then prefix - prefix_1 in range [lower, upper]
+eg if there is one prefix_1 in range [prefix-upper, prefix-lower], then prefix - prefix_1 is in range [lower, upper]
 """
 class SegmentTree:
     
