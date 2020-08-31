@@ -22,6 +22,7 @@ Build Segment Tree and Search.
 """
 solution 1: binary search, need to sort the arr first which takes O(NlogN)
 """
+"""
 
 import bisect
 
