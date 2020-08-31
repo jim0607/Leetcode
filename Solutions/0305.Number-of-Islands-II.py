@@ -44,8 +44,9 @@ Can you do it in time complexity O(k log mn), where k is the length of the posit
 # O(4k), where k is the length of the positions
 
 class UnionFind:
+    
     def __init__(self):
-        self.father = collections.defaultdict()
+        self.father = collections.defaultdict(tuple)
         self.cnt = 0
         
     def add(self, x):
@@ -60,38 +61,30 @@ class UnionFind:
         
         return self.father[x]
     
-    def connect(self, a, b):
+    def union(self, a, b):
         root_a, root_b = self.find(a), self.find(b)
         if root_a != root_b:
             self.father[root_a] = root_b
-            self.cnt -= 1        
-            
-        
+            self.cnt -= 1
+
+
 class Solution:
-    
-    MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-    
     def numIslands2(self, m: int, n: int, positions: List[List[int]]) -> List[int]:
-        
-        graph = UnionFind()        # instantiate the UnionFind class to get a graph
+        uf = UnionFind()
         
         res = []
-        for pos in positions:
-            pos = (pos[0], pos[1])   # change it to tuple because Dictionary keys must be immutable types. 
-            if (pos[0], pos[1]) in graph.father:     # pos already in father, meaning it's been connected, append the cnt ot res
-                res.append(graph.cnt)
+        for i, j in positions:
+            if (i, j) in uf.father:
+                res.append(uf.cnt)  # pos already in father, meaning it's been connected, append the cnt to res
                 continue
 
-            graph.add(pos)      # if pos not in father, then we should add it to father first, note that cnt++ at his time
+            uf.add((i, j))  # if pos not in father, then we should add it to father first, note that cnt++ at this time
 
-            for move in self.MOVES:    
-                new_pos = (pos[0] + move[0], pos[1] + move[1])
+            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                adj_i, adj_j = i + delta_i, j + delta_j
+                if (adj_i, adj_j) in uf.father:
+                    uf.union((i, j), (adj_i, adj_j))   # note that cnt -= 1 here, because there is one less isolated islands after connection
 
-                # if new_idx in graph.father, meaning the new_idx place already has a 1, 
-                # then we should connect idx and new_idx on the graph and cnt -= 1, because there is one less isolated islands after connection
-                if 0 <= new_pos[0] < m and 0 <= new_pos[1] < n and new_pos in graph.father:
-                    graph.connect(pos, new_pos)
-
-            res.append(graph.cnt)
-                            
+            res.append(uf.cnt)
+                
         return res
