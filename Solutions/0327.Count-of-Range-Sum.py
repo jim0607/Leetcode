@@ -13,21 +13,154 @@ Output: 3
 Explanation: The three ranges are : [0,0], [2,2], [0,2] and their respective sums are: -2, -1, 2.
 
 
-
+"""
+Solution 1: prefix_sum + hashmap.  construct a prefix_sum. Then do the LC 0001. Two Sum problem.
+The presum_dict stores (presum --> how many times the presum occurs).
+O(NW), where N is len(nums) and W is the width of the range we want to query.
+"""
+class Solution:
+    def countRangeSum(self, nums: List[int], lower: int, upper: int) -> int:
+        presums = [0 for _ in range(len(nums) + 1)]
+        for i in range(len(nums)):
+            presums[i+1] = presums[i] + nums[i]
+        
+        presum_dict = collections.defaultdict(int)   # key is presum, val is how many times the presum occurs
+        cnt = 0
+        for presum in presums:
+            for target in range(lower, upper + 1):
+                cnt += presum_dict[presum - target]
+            presum_dict[presum] += 1
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+        return cnt
             
             
 """
+面试第一反应就应该是solution 1, 如果面试官说[lower, upper] range is very large much larger than N, 
+then we might consider the following solution prefix_sum + merge_sort.
+"""
+            
+"""
+solution 2: prefix_sum + merge_sort
+在conquer 的 while loop之前，我们用一个while loop to compare lower <= (right[j] - left[i]) <= upper to update self.res
+"""
+class Solution:
+    def countRangeSum(self, nums: List[int], lower: int, upper: int) -> int:
+        presum = [0 for _ in range(len(nums) + 1)]
+        for i in range(len(nums)):
+            presum[i+1] = presum[i] + nums[i]
+        
+        self.cnt = 0
+        self.lower = lower
+        self.upper = upper
+        self._merge_sort(presum)
+        return self.cnt
+    
+    def _merge_sort(self, presum):
+        if len(presum) == 0:
+            return presum
+        if len(presum) == 1:
+            return presum
+        
+        # divide
+        mid = len(presum) // 2
+        left = self._merge_sort(presum[:mid])
+        right = self._merge_sort(presum[mid:])
+        
+        # conquer 之前用一个while loop去更新res
+        # 由于我们想要 right[j] - left[i] 在一个范围内，i 和 j 都在变的话就不太好比较, 我们固定i, 移动j来看多少right[j] - left[i]落在想要的范围内
+        for i in range(len(left)):
+            for j in range(len(right)):
+                self.cnt += 1 if self.lower <= right[j] - left[i] <= self.upper else 0
+        
+        # conquer
+        i, j, k = 0, 0, 0
+        while i < len(left) and j < len(right):
+            if left[i] < right[j]:
+                presum[k] = left[i]
+                i += 1
+                k += 1
+            else:
+                presum[k] = right[j]
+                j += 1
+                k += 1
+        while i < len(left):
+            presum[k] = left[i]
+            i += 1
+            k += 1
+        while j < len(right):
+            presum[k] = right[j]
+            j += 1
+            k +=1
+            
+        return presum
+            
+          
+
+"""
+跟solution 2一样，我们把update cnt的函数优化成sliding window, 这样更快一些
+"""
+class Solution:
+    def countRangeSum(self, nums: List[int], lower: int, upper: int) -> int:
+        presum = [0 for _ in range(len(nums) + 1)]
+        for i in range(len(nums)):
+            presum[i+1] = presum[i] + nums[i]
+        
+        self.cnt = 0
+        self.lower = lower
+        self.upper = upper
+        self._merge_sort(presum)
+        return self.cnt
+    
+    def _merge_sort(self, presum):
+        if len(presum) == 0:
+            return presum
+        if len(presum) == 1:
+            return presum
+        
+        # divide
+        mid = len(presum) // 2
+        left = self._merge_sort(presum[:mid])
+        right = self._merge_sort(presum[mid:])
+        
+        # conquer 之前用一个while loop去更新res
+        # 由于我们想要 right[j] - left[i] 在一个范围内，i 和 j 都在变的话就不太好比较
+        # 我们固定i, 移动j来看多少right[j] - left[i]落在想要的范围内
+        p, q = 0, 0
+        for i in range(len(left)):
+            # 我们固定i, 移动两根指针p, q来形成sliding window
+            while p < len(right) and right[p] - left[i] < self.lower:
+                p += 1
+            while q < len(right) and right[q] - left[i] <= self.upper:
+                q += 1
+            self.cnt += q - p
+        
+        # conquer
+        i, j, k = 0, 0, 0
+        while i < len(left) and j < len(right):
+            if left[i] < right[j]:
+                presum[k] = left[i]
+                i += 1
+                k += 1
+            else:
+                presum[k] = right[j]
+                j += 1
+                k += 1
+        while i < len(left):
+            presum[k] = left[i]
+            i += 1
+            k += 1
+        while j < len(right):
+            presum[k] = right[j]
+            j += 1
+            k +=1
+            
+        return presum
+
+
+
+
+"""
+solution 3: prefix_sum + segment_tree
 Firstly, create a list to store all the prefix sum; then sort the prefix sum list
 Secondly, use the sorted prefix sum list to build a segment tree, the tree node has an attribute self.cnt representing the cnt
 of how many prefix sums are in a certain range. 
