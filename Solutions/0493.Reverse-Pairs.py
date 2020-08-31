@@ -123,7 +123,7 @@ class Solution:
             while i < len(left) and j < len(right):
                 if left[i] > 2 * right[j]:      # 这里只需要比较数值不需要比较idx是因为left属于nums[:mid], 而right属于num[mid:].
                     self.cnt += len(left) - i   # 因为left已经sort好了，所以如果left[i]>2*right[j], 那么i后面的都会>2*right[j]
-                    j += 1
+                    j += 1                      # 上面self.cnt用的是i更新的，所以这里j往前挪一位. j 要奔着结束这个if判断条件而去. 
                 else:
                     i += 1
                     
