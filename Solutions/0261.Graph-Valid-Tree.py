@@ -48,7 +48,7 @@ class UnionFind:
         self.father = collections.defaultdict(int)
         self.cnt = 0
         
-        for i in range(n):      # 把n个节点都放进图中
+        for i in range(n):      # 把n个节点都放进图中 O(V)
             self.add(i)
             
     def add(self, x):
@@ -75,8 +75,8 @@ class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
         uf = UnionFind(n)
         
-        for i, j in edges:
-            if uf.connected(i, j):      # 如果i和j节点已经connected, 现在还要连接他们就会形成环
+        for i, j in edges:          # O(E)
+            if uf.connected(i, j):  # 如果i和j节点已经connected, 现在还要连接他们就会形成环
                 return False
             
             uf.union(i, j)
