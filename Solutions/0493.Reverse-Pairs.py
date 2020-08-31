@@ -13,6 +13,63 @@ Example2:
 Input: [2,4,3,5,1]
 Output: 3
 
+    
+
+"""
+Count "important reverse pairs" while doing mergesort:
+When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j.
+So in addition to the while loop for do merge/conquer, we use a while loop to compare nums[i] and 2*nums[j] to update cnt.  
+This while loop is for every left_sublist and right_sublist.
+其实merge sort 才是这道题的正解 - O(nlogn)
+"""
+class Solution:
+    def reversePairs(self, nums: List[int]) -> int:
+        def merge_sort(nums):
+            if len(nums) <= 1:
+                return nums
+            
+            # divide
+            mid = len(nums) // 2
+            left = merge_sort(nums[:mid])
+            right = merge_sort(nums[mid:])
+            
+            # before the conquer while loop, we update our cnt for this sorted left_sublist and right_sublist
+            i, j = 0, 0
+            while i < len(left) and j < len(right):
+                if left[i] > 2 * right[j]:      # 这里只需要比较数值不需要比较idx是因为left属于nums[:mid], 而right属于num[mid:].
+                    self.cnt += len(left) - i   # 因为left已经sort好了，所以如果left[i]>2*right[j], 那么i后面的都会>2*right[j]
+                    j += 1                      # 上面self.cnt用的是i更新的，所以这里j往前挪一位. j 要奔着结束这个if判断条件而去. 
+                else:                           # 所以逻辑是我们想更新self.cnt based on j, 所以必须用i去更新, 更新完之后j要往后挪一位, j又要奔着结束if判断条件去
+                    i += 1
+                    
+            # now we do conquer/merge for merge sort
+            i, j, k = 0, 0, 0
+            while i < len(left) and j < len(right):
+                if left[i] < right[j]:
+                    nums[k] = left[i]
+                    i += 1
+                    k += 1
+                else:
+                    nums[k] = right[j]
+                    j += 1
+                    k += 1
+            while i < len(left):
+                nums[k] = left[i]
+                i += 1
+                k += 1
+            while j < len(right):
+                nums[k] = right[j]
+                j += 1
+                k += 1
+            
+            return nums
+        
+        self.cnt = 0
+        merge_sort(nums)
+        return self.cnt
+
+    
+    
 
 """
 solution 1: segment tree. similar with 315. count of smaller number after itself.
@@ -97,58 +154,3 @@ Follow up: what is the time complexity if it is a Spare Segment Tree?
 The smaller numbers on the right of a number are exactly those that jump from its right to its left during a stable sort. 
 So we can do mergesort with added tracking of those right-to-left jumps.
 """
-
-
-"""
-Count "important reverse pairs" while doing mergesort:
-When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j.
-So in addition to the while loop for do merge/conquer, we use a while loop to compare nums[i] and 2*nums[j] to update cnt.  
-This while loop is for every left_sublist and right_sublist.
-其实merge sort 才是这道题的正解 - O(nlogn)
-"""
-class Solution:
-    def reversePairs(self, nums: List[int]) -> int:
-        def merge_sort(nums):
-            if len(nums) <= 1:
-                return nums
-            
-            # divide
-            mid = len(nums) // 2
-            left = merge_sort(nums[:mid])
-            right = merge_sort(nums[mid:])
-            
-            # conquer/merge
-            # before the conquer while loop, we update our cnt for this sorted left_sublist and right_sublist
-            i, j = 0, 0
-            while i < len(left) and j < len(right):
-                if left[i] > 2 * right[j]:      # 这里只需要比较数值不需要比较idx是因为left属于nums[:mid], 而right属于num[mid:].
-                    self.cnt += len(left) - i   # 因为left已经sort好了，所以如果left[i]>2*right[j], 那么i后面的都会>2*right[j]
-                    j += 1                      # 上面self.cnt用的是i更新的，所以这里j往前挪一位. j 要奔着结束这个if判断条件而去. 
-                else:
-                    i += 1
-                    
-            # now we do conquer/merge for merge sort
-            i, j, k = 0, 0, 0
-            while i < len(left) and j < len(right):
-                if left[i] < right[j]:
-                    nums[k] = left[i]
-                    i += 1
-                    k += 1
-                else:
-                    nums[k] = right[j]
-                    j += 1
-                    k += 1
-            while i < len(left):
-                nums[k] = left[i]
-                i += 1
-                k += 1
-            while j < len(right):
-                nums[k] = right[j]
-                j += 1
-                k += 1
-            
-            return nums
-        
-        self.cnt = 0
-        merge_sort(nums)
-        return self.cnt
