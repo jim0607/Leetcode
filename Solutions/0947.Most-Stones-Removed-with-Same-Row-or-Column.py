@@ -24,19 +24,28 @@ Output: 0
 
 
 """
-each time there is a union, we set cnt+=1
+Use two for loops to compare each pos with another pos in the list, if two positions share same row or col,
+then we should union them, each time there is a union, it means we can do one removal, then we set cnt+=1
 """
+class Solution:
+    def removeStones(self, stones: List[List[int]]) -> int:
+        uf = UnionFind(stones)
+        for i in range(len(stones)-1):
+            for j in range(i+1, len(stones)):
+                if stones[i][0] == stones[j][0] or stones[i][1] == stones[j][1]:
+                    uf.union(tuple(stones[i]), tuple(stones[j]))
+        return uf.cnt
+    
+    
 class UnionFind:
     
     def __init__(self, stones):
-        self.father = collections.defaultdict()
+        self.father = collections.defaultdict(tuple)
         self.cnt = 0
-        for x, y in stones:
-            self.add((x, y))
         
-    def add(self, x):
-        self.father[x] = x
-        
+        for stone in stones:
+            self.father[tuple(stone)] = tuple(stone)
+            
     def find(self, x):
         if self.father[x] == x:
             return x
@@ -48,18 +57,6 @@ class UnionFind:
         if root_a != root_b:
             self.father[root_a] = root_b
             self.cnt += 1
-            
-
-class Solution:
-    def removeStones(self, stones: List[List[int]]) -> int:
-        uf = UnionFind(stones)
-        for i in range(len(stones)-1):
-            for j in range(i+1, len(stones)):
-                if stones[i][0] == stones[j][0] or stones[i][1] == stones[j][1]:
-                    uf.union(tuple(stones[i]), tuple(stones[j]))
-                    
-        return uf.cnt
-        
         
         
 
@@ -74,35 +71,11 @@ next time we see a new stone, just union it with its parent, which stores in the
 thus we can do it in one pass.
 Very cool!!
 """
-class UnionFind:
-    
-    def __init__(self, stones):
-        self.father = collections.defaultdict()
-        self.cnt = 0
-        for x, y in stones:
-            self.add((x, y))
-        
-    def add(self, x):
-        self.father[x] = x
-        
-    def find(self, x):
-        if self.father[x] == x:
-            return x
-        self.father[x] = self.find(self.father[x])
-        return self.father[x]
-    
-    def union(self, a, b):
-        root_a, root_b = self.find(a), self.find(b)
-        if root_a != root_b:
-            self.father[root_a] = root_b
-            self.cnt += 1
-            
-
 class Solution:
     def removeStones(self, stones: List[List[int]]) -> int:
         uf = UnionFind(stones)
-        rowmap = collections.defaultdict(tuple)
-        colmap = collections.defaultdict(tuple)
+        rowmap = collections.defaultdict(int)
+        colmap = collections.defaultdict(int)
         for x, y in stones:
             if x not in rowmap:
                 rowmap[x] = (x, y)
@@ -110,5 +83,9 @@ class Solution:
                 colmap[y] = (x, y)
             uf.union((x, y), rowmap[x])
             uf.union((x, y), colmap[y])
-                    
         return uf.cnt
+
+       
+class UnionFind:
+    The same as above O(N^2) solution
+  
