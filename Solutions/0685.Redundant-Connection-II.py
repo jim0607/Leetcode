@@ -57,10 +57,10 @@ Here we return [4, 1]
  /  ^
 v    \
 2 -->3
+Here we return [3, 1].
 If there is a cycle and cand1, cand2 are found, then cand1 must be already in the cycle and it is the bad edge. 不懂！
 尼玛cand1, cand2是哪一个不是根据你的遍历的顺序决定的么? 08/31理解：这里跟我们算法里ignore cand_edge2 as we go through the edges有关，
 当遇到case 1的时候我们想要输出的是[2,3], 而不是[1,3]
-Here we return [3, 1]. 
 
 First, go through the edges and detect if any node has two parents, i.e., if there exist two edges pointing to the same node. 
 If there exists such two edges, record them as cand1 and cand2, because we know one of them must be the answer. 
