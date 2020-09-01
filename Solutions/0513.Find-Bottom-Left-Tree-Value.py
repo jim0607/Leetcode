@@ -27,23 +27,16 @@ Output:
 Note: You may assume the tree (i.e., the given root node) is not NULL.
 
 
-"""
-right to left bfs
-"""
 class Solution:
     def findBottomLeftValue(self, root: TreeNode) -> int:
-        if not root:
-            return None
-        
+        bottom_left = root.val
         q = collections.deque()
         q.append(root)
-        while q:
-            lens = len(q)
-            for _ in range(lens):
-                curr = q.popleft()
-                if curr.right:      # right first, then left
-                    q.append(curr.right)
-                if curr.left:
-                    q.append(curr.left)
-                    
-        return curr.val
+        while len(q) > 0:
+            curr_node = q.popleft()
+            bottom_left = curr_node.val
+            if curr_node.right:         # right first, then left
+                q.append(curr_node.right)
+            if curr_node.left:
+                q.append(curr_node.left)
+        return bottom_left
