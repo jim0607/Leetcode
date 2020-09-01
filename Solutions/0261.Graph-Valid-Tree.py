@@ -106,8 +106,7 @@ class Solution:
             graph[u].append(v)
             graph[v].append(u)
         
-        from collections import deque
-        q = deque()
+        q = collections.deque()
         visited = set()      # 与二叉树的BFS相比多加了一行visited
         q.append(0)
         visited.add(0)  # visited and q are twin brothers, whenever q append something, visited add something
