@@ -25,43 +25,82 @@ Therefore, you need to return above trees' root in the form of a list.
 
 
 
+
 """
-solution: serialize the binary tree using pre-order traversal. O(N^2)
+solution 1: serialize the every subtree using bfs, and put (string presentation of subtree --> subtree node) into a hashmap.
+Since serialization takes O(N), so the overall algorithm takes O(N^2)
 """
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
     def findDuplicateSubtrees(self, root: TreeNode) -> List[TreeNode]:
-        def serialize(root):
-            """
-            return the serialized str of the tree
-            """
-            if not root:
-                return "None"
+        if not root:
+            return []
+
+        mapping = collections.defaultdict(list) # key is string representation of sub-root, val is the a list of sub-root
+        self.dfs(root, mapping)                 # dfs to serialize the tree and update mapping
+        return [mapping[key][0] for key, lst in mapping.items() if len(lst) > 1]
+        
+    def dfs(self, root, mapping):
+        if not root:
+            return []
+
+        serialized = self.serialize(root)  # this takes O(N), so overall algorithm O(N^2)
+        mapping[serialized].append(root)
             
-            left = serialize(root.left)
-            right = serialize(root.right)
-            
-            serialized_str = (str(root.val), left, right)  # O(N), so overall algorithm O(N^2)
-            serialized_dict[serialized_str].append(root)
-            
-            return serialized_str           
+        self.dfs(root.left, mapping)
+        self.dfs(root.right, mapping)
         
-        # key is str constructed from the root, val is a list of root that can construct into the root
-        serialized_dict = collections.defaultdict(list)
-        
-        serialize(root)
-        
-        return [serialized_dict[serialized_str][0] for serialized_str in serialized_dict if len(serialized_dict[serialized_str]) >= 2]
-        
+    # 下面的serialize函数与297. Serialize and Deserialize Binary Tree是一模一样的
+    def serialize(self, root):
+        res = []
+        q = collections.deque()
+        q.append(root)
+        while len(q) > 0:
+            level = []
+            lens = len(q)
+            for _ in range(lens):
+                curr_node = q.popleft()
+                if curr_node:
+                    level.append(str(curr_node.val))
+                    q.append(curr_node.left)
+                    q.append(curr_node.right)
+                else:
+                    level.append("#")       # we use "#" to represent None
+            res += level
+
+        return ",".join(res)
+
 
 
 """
-postOrder traversal with memorization.  still O(N^2)
+solution 2: serialize the binary tree using post-order traversal. 
+Since we can update the mapping during the traversal, the whole algorith takes O(N)
+"""
+class Solution:
+    def findDuplicateSubtrees(self, root: TreeNode) -> List[TreeNode]:
+        mapping = collections.defaultdict(list)
+        self._postorder(root, mapping)
+        return [mapping[key][0] for key, lst in mapping.items() if len(lst) > 1]
+    
+    def _postorder(self, root, mapping):
+        """
+        Return serialized string representation of subtree rooted as root
+        """
+        if not root:
+            return "#"      # we use "#" to represent None
+        
+        left_serialized = self._postorder(root.left, mapping)
+        right_serialized = self._postorder(root.right, mapping)
+        
+        root_serialized = str(root.val) + "," + left_serialized + "," + right_serialized  # 注意这里如果直接相加就不对, 必须要加逗号将root, left, right分隔开来，不然就从string representation就不能唯一得到subtree了
+        mapping[root_serialized].append(root)
+        
+        return root_serialized
+        
+
+
+        
+"""
+solution 3: similar with solution 2 postOrder traversal with memorization.   Note that in-order traversal never works for serialization!
 """
 class Solution:
     def findDuplicateSubtrees(self, root: TreeNode) -> List[TreeNode]:
