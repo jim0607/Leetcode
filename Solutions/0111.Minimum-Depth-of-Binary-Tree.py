@@ -69,9 +69,10 @@ class Solution:
         
 
 """solution 2: recursion"""
+
 class Solution:
     def minDepth(self, root: TreeNode) -> int:
-        """return the min depth of Binary Tree rooted as root"""
+        """ return the min depth of Binary Tree rooted as root """
         if not root:
             return 0
         
@@ -85,6 +86,4 @@ class Solution:
             return self.minDepth(root.left) + 1
         
         else:
-            leftMin = self.minDepth(root.left)
-            rightMin = self.minDepth(root.right)
-            return min(leftMin, rightMin) + 1
+            return 1 + min(self.minDepth(root.left), self.minDepth(root.right))
