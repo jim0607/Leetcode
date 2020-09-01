@@ -32,7 +32,7 @@ class Solution:
         if lens1 != lens2:
             return False
         
-        mapping = collections.defaultdict(lambda: set())
+        mapping = collections.defaultdict(set)
         for pair in pairs:
             mapping[pair[0]].add(pair[0])   # word与自己也是similar的
             mapping[pair[0]].add(pair[1])
