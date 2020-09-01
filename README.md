@@ -729,7 +729,7 @@ dfs/bfs也可以做，只需要用visited记录遍历过的就可以了
 
 ### [Minimum Spanning Tree - Kruskal's and Prim's](/)
 ----------Lintcode 629 ------------
-- [1135. Connecting Cities With Minimum Cost](Solutions/1135.Connecting-Cities-With-Minimum-Cost.py) (M) <br>
+- [1135. Connecting Cities With Minimum Cost](Solutions/1135.Connecting-Cities-With-Minimum-Cost.py) (!!M) <br>
 This problem is to find the minimum path to connect all nodes, so it is a minimum spanning tree (MST) problem.
 There are two defferent algorithms to solve MST problem, one is Prim's, the other is Kruskal's.
 The Kruskul's algorithm is easy to implement using Union-Find, with O(ElogE) time and O(V) space.
@@ -738,9 +738,11 @@ Step 2: sort the graph by edge weights;
 Step 3: add the smallest edge into the MST if adding the edge do not form a cycle;
 (if the two vertices of the edge was already connected, then adding the edge will form a cycle);
 Step 4: keep step 3 until all the edges are collected (E = V-1 or only one disjoint_cnt = 1)
-- [1168. Optimize Water Distribution in a Village](Solutions/1168.Optimize-Water-Distribution-in-a-Village.py) (H) <br>
+- [1168. Optimize Water Distribution in a Village](Solutions/1168.Optimize-Water-Distribution-in-a-Village.py) (!!H) <br>
 这个题目比较tricky的地方是需要想像有一个虚拟的house_0, house_0是出水的house, 这样house_1自己打井需要的cost就相当于从house_0连接到house_1所需的cost了.  Other than hte tricky part, everything is exactly the same as 1135.
-
+- [Amazon 2019. Min Cost to Repair Edges](Solutions/Amazon_Min_Cost_to_Repair_Edges.py) (!!H) <br>
+Apply Kruskal's algorithm: Just take existing edges to have 0 cost and broken edges have their given cost.
+And find minimum spanning tree cost will be the answer.
 
 
 # [Breadth First Search](/Breadth-First-Search.py)
@@ -750,21 +752,21 @@ BFS的铁律就是用queue, 在while q: 循环里做两件事 1. 处理这一层
 - [0103. Binary Tree Zigzag Level Order Traversal](Solutions/0103.Binary-Tree-Zigzag-Level-Order-Traversal.py) (M) <br>
 same as 102, 在res.append(level)的时候间隔性选择res.append(level) or res.append(level[::-1])
 - [0107. Binary Tree Level Order Traversal II](Solutions/0107.Binary-Tree-Level-Order-Traversal-II.py) (E) <br>
-same as 102，只是题目要求从下至上输出，只需要return res[::-1]即可
+same as 102，只是题目要求从下至上输出，只需要return res[::-1]即可, or use a deque to appendleft
 - [0199. Binary Tree Right Side View](Solutions/0199.Binary-Tree-Right-Side-View.py) (M) <br>
 same as 102，只需要res.append(level[-1])即可
 - [0513. Find Bottom Left Tree Value](Solutions/0513.Find-Bottom-Left-Tree-Value.py) (M) <br>
-right to left bfs
+首先想到的是要求bottom的node, 所以用bfs渠道最下面一层，然后要求left_most, 所以我们可以在bfs append下一层的时候先append right, then append left, 这样最后一个node就是botoom left node了
 - [0515. Find Largest Value in Each Tree Row](Solutions/0515.Find-Largest-Value-in-Each-Tree-Row.py) (M) <br>
 - [1161. Maximum Level Sum of a Binary Tree](Solutions/1161.Maximum-Level-Sum-of-a-Binary-Tree.py) (M) <br>
-- [0111. Minimum Depth of Binary Tree](Solutions/0111.Minimum-Depth-of-Binary-Tree.py) (E) <br>
+- [0111. Minimum Depth of Binary Tree](Solutions/0111.Minimum-Depth-of-Binary-Tree.py) (!!!E) <br>
 solution 1: recursion; soluiton 2: BFS; for _ in range(lens): if not node.left and not node.right: return depth
 - [0297. Serialize and Deserialize Binary Tree](Solutions/0297.Serialize-and-Deserialize-Binary-Tree.py) (!!H) <br>
-serialize: just do a bfs to put ch level by level.  deserialize: do a bfs, use an idx to keep track of where have we reached in the input list. 注意前序遍历是可以serialize然后重新返回的最常用遍历方法！
+Serialize: just do a bfs to put ch level by level. Note that we use "#" to represent None. Deserialize: do a bfs, use an idx to keep track of where have we reached in the input list. deserialize不要层序遍历 
 - [0449. Serialize and Deserialize BST](Solutions/0449.Serialize-and-Deserialize-BST.py) (!!H) <br>
-Same as 297.  Solution says since BST, the answer could be as compact as possible.  Don't know shy?
-- [0652. Find Duplicate Subtrees](Solutions/0652.Find-Duplicate-Subtrees.py) (M) <br>
-serialize every root and put into a dictionary, with key is str constructed from the root, val is a list of root that can construct into the root.  Note that in-order traversal never works for serialization!
+Same as 297.  Solution says since BST, the answer could be as compact as possible.  Don't know how?
+- [0652. Find Duplicate Subtrees](Solutions/0652.Find-Duplicate-Subtrees.py) (!!M) <br>
+solution 1: serialize the every subtree using bfs, and put (string presentation of subtree --> subtree node) into a hashmap. Since serialization takes O(N), so the overall algorithm takes O(N^2). solution 2: serialize the binary tree using post-order traversal.  Since we can update the mapping during the traversal, the whole algorith takes O(N)
 
 
 
