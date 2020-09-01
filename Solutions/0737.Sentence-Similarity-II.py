@@ -27,66 +27,42 @@ So we can use union find to connect all the similar words.
 Using path compression, the time complexity is almost O(1) for find method and union mehtod. 
 So the overall complexity is ~O(N) where N is the lens of words1.
 """
+class Solution:
+    def areSentencesSimilarTwo(self, words1: List[str], words2: List[str], pairs: List[List[str]]) -> bool:
+        if len(words1) != len(words2):
+            return False
+        
+        uf = UnionFind(pairs)
+        
+        for i in range(len(words1)):
+            if not uf.connected(words1[i], words2[i]):
+                return False
+            
+        return True
+    
+    
 class UnionFind:
     
-    def __init__(self):
-        self.father = collections.defaultdict()
-        
-    def add(self, x):
-        if x not in self.father:   # 注意这里要加一句判断，不然重复加入x的时候会改变father的值
-            self.father[x] = x
-        
+    def __init__(self, pairs):
+        self.father = collections.defaultdict(str)
+        for u, v in pairs:
+            if u not in self.father:    # 注意将word add到图中之前要判断其是否已经在图中了，
+                self.father[u] = u      # 不然重复加入x的时候会改变father的值，而导致father出错！！
+            if v not in self.father:
+                self.father[v] = v
+                
+            self.union(u, v)
+            
     def find(self, x):
-        """
-        Find the father of node x
-        """
         if self.father[x] == x:
             return x
-        
         self.father[x] = self.find(self.father[x])
-        
         return self.father[x]
-        
+    
     def connected(self, a, b):
-        """
-        Check if node a and node b are connected
-        """
-        return self.find(a) == self.find(b)        
-        
+        return self.find(a) == self.find(b)
+    
     def union(self, a, b):
-        """
-        Union node a and node b
-        """
         root_a, root_b = self.find(a), self.find(b)
         if root_a != root_b:
             self.father[root_a] = root_b
-        
-        
-class Solution:
-    def areSentencesSimilarTwo(self, words1: List[str], words2: List[str], pairs: List[List[str]]) -> bool:
-        if not pairs:
-            return words1 == words2
-        
-        lens1, lens2 = len(words1), len(words2)
-        if lens1 != lens2:
-            return False
-        
-        uf = UnionFind()
-        for pair in pairs:
-            uf.add(pair[0])
-            uf.add(pair[1])
-            uf.union(pair[0], pair[1])
-        
-        for i in range(lens1):
-            if words1[i] not in uf.father and words2[i] not in uf.father:
-                if words1[i] != words2[i]:
-                    return False
-            elif words1[i] in uf.father and words2[i] not in uf.father:
-                return False
-            elif words1[i] not in uf.father and words2[i] in uf.father:
-                return False
-            elif words1[i] in uf.father and words2[i] in uf.father:
-                if not uf.connected(words1[i], words2[i]):
-                    return False
-                
-        return True
