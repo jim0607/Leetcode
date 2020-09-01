@@ -1,3 +1,4 @@
+"""
 652. Find Duplicate Subtrees
 
 Given a binary tree, return all duplicate subtrees. For each kind of duplicate subtrees, you only need to return the root node of any one of them.
@@ -22,7 +23,7 @@ and
 
     4
 Therefore, you need to return above trees' root in the form of a list.
-
+"""
 
 
 
