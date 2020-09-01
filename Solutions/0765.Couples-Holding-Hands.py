@@ -46,18 +46,24 @@ step 1: initialize by connecting 0-1, 2-3, 4-5....
 step 2: we traverse the row, and union row[i] and row[i+1],
 if needs to be unioned, then that means needs one swap to make it row[i] and row[i+1] a couple.
 """
+class Solution:
+    def minSwapsCouples(self, row: List[int]) -> int:
+        n = len(row)
+        uf = UnionFind(n)
+        for i in range(0, n, 2):
+            uf.union(row[i], row[i+1])
+        return uf.cnt - n // 2
+    
+    
 class UnionFind:
     
     def __init__(self, n):
-        self.father = collections.defaultdict()
-        self.cnt = 0
-        for i in range(0, n, 2):    # step 1: initialize
-            self.add(i)
-            self.add(i+1)
-            self.union(i, i+1)
-    
-    def add(self, x):
-        self.father[x] = x
+        self.father = collections.defaultdict(int)
+        self.cnt = 0     # cnt表示进行了多少次union
+        for i in range(0, n, 2):        # step 1: initialize a uf graph
+            self.father[i] = i
+            self.father[i+1] = i + 1
+            self.union(i, i+1)          # connect 0-1, 2-3, 4-5.....
     
     def find(self, x):
         if self.father[x] == x:
@@ -65,17 +71,8 @@ class UnionFind:
         self.father[x] = self.find(self.father[x])
         return self.father[x]
     
-    def union(self, x, y):
-        rootx, rooty = self.find(x), self.find(y)
-        if rootx != rooty:
-            self.father[rootx] = rooty
-            self.cnt += 1   # if needs to be unioned, then that means needs one swap to make it row[i] and row[i+1] a couple.         
-
-
-class Solution:
-    def minSwapsCouples(self, row: List[int]) -> int:
-        uf = UnionFind(len(row))
-        for i in range(0, len(row), 2):
-            x, y = row[i], row[i+1]
-            uf.union(x, y)
-        return uf.cnt - len(row)//2       # 减去len(row)//2是因为uf object在initialize的时候就已经有len(row)//2个components了
+    def union(self, a, b):
+        root_a, root_b = self.find(a), self.find(b)
+        if root_a != root_b:
+            self.father[root_a] = root_b
+            self.cnt += 1   # if needs to be unioned, then that means needs one swap to make it row[i] and row[i+1] a couple.  
