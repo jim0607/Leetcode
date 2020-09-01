@@ -100,7 +100,7 @@ class Solution:
         if len(edges) != n - 1:  # 首先点的数目一定比边的数目多一个
             return False
 
-        # 图的实现方法是使用hashmap，key是int表示节点, value是set(int)表示该节点所连接的相邻节点。
+        # 图的实现方法是使用a dictionary of adjacency nodes，key是int表示节点, value是set(int)表示该节点所连接的相邻节点。
         neighbors = collections.defaultdict(list)       # 这里必须声明是一个list, 否则后面append会报错
         for u, v in edges:
             neighbors[u].append(v)
