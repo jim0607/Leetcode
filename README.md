@@ -1,6 +1,6 @@
 ## 四刷：每天刷15-20题, 做好总结！08/17 to 09/30
 ## 每天晚上睡前Review做过的题
-##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233
+##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327
 
 
 # [Data Structure](/Data-Structure.py)
@@ -649,6 +649,8 @@ Segment tree is good for 需要动态更新数组和query range sum的情况，O
 a 2D version prefix sum. O(1) for query.
 - [0308. Range Sum Query 2D - Mutable](Solutions/0308.Range-Sum-Query-2D-Mutable.py) (H) <br>
 solution: segment tree. 代码裸长115行，我去NMLGB! 放弃这题算了
+- [0699. Falling Squares](Solutions/0699.Falling-Squares.py) (!!H) <br>
+solution 1: O(N^2). Every time a new square falls down, we check the previous square to see if there is any square beneath the current falling square. If we found that we have squares i intersect with us, which means my current square will go above to that square. Then we should update the max_h. solution 2: 因为每进来一个squre我们都需要query 在这个interval里的max_num, 所以我们segement tree to enable O(logN) query. - O(NlogN)
 - [0248. Count of Smaller Number](Solutions/0248.Count-of-Smaller-Number.py) (M Lintcode) <br>
 solution 1: binary search, need to sort the arr first which takes O(NlogN). This solution is better for an interview.
 solution 2: Segment Tree, which takes O(N) to build the tree and O(logN) to query. To find how many numbers are less than num, 
@@ -661,8 +663,7 @@ merge sort才是这道题的正解！Count "important reverse pairs" while doing
 - [0327. Count of Range Sum](Solutions/0327.Count-of-Range-Sum.py) (!!H) <br>
 Solution 1: prefix_sum + hashmap.  construct a prefix_sum. Then do the LC 0001. Two Sum problem. The presum_dict stores (presum --> how many times the presum occurs). O(NW), where N is len(nums) and W is the width of the range we want to query. 面试第一反应就应该是solution 1, 如果面试官说[lower, upper] range is very large much larger than N, 
 then we might consider the following solution prefix_sum + merge_sort. solution 2: prefix_sum + merge_sort 在conquer 的 while loop之前，我们用一个while loop to compare lower <= (right[j] - left[i]) <= upper to update self.res. update self.res 的方法可以是暴力也可以是sliding window来实现
-- [0699. Falling Squares](Solutions/0699.Falling-Squares.py) (!!H) <br>
-solution 1: O(N^2). Every time a new square falls down, we check the previous square to see if there is any square beneath the current falling square. If we found that we have squares i intersect with us, which means my current square will go above to that square. Then we should update the max_h. solution 2: 因为每进来一个squre我们都需要query 在这个interval里的max_num, 所以我们segement tree to enable O(logN) query. - O(NlogN)
+
 
 
 
@@ -671,71 +672,63 @@ solution 1: O(N^2). Every time a new square falls down, we check the previous sq
 - [0589. Connecting Graph](Solutions/0589.connecting-graph.java) (!!M Lintcode) <br>
 将a和b connect: 只需要将a和b的father connect就好；query a和b有没有连接:其实就是判断a和b在不在同一个集合里面，只需要判断find(a) == find(b)
 - [0590 Connecting Graph II](Solutions/0590.Connecting-Graph-II.java) (!!M Lintcode) <br>
-需要query 点a所在集合的元素个数，所以需要一个list size, 用来记录每个father节点所在集合的点的个数，在union i 和 j 的时候: father[i] = j, sz[j] += sz[i];
+需要query 点a所在集合的元素个数，所以需要用一个list or dictionary self.sz 用来记录每个father节点所在集合的点的个数，在union i 和 j 的时候: father[i] = j, sz[j] += sz[i]; 在query点a所在集合的元素个数的时候: return self.sz[root of a]
 - [0591. Connecting Graph III](Solutions/0591.Connecting-Graph-III.py) (!!M Lintcode) <br>
-需要query 整个图中有多少个集合，所以需要一个counter, 用来记录图中集合的个数，初始化为n, 在union i 和 j 的时候: father[i] = j, counter--;
+需要query 整个图中有多少个集合，所以需要一个self.counter, 用来记录图中集合的个数，在add(i)进图的时候, self.counter+=1, 在union i 和 j 的时候: father[i] = j, self.counter-=1;
 - [0323. Number of Connected Components in an Undirected Graph](Solutions/0323.Number-of-Connected-Components-in-an-Undirected-Graph.py) (M) <br>
 Union Find: With path compression, it takes ~O(1) to find and union. So the time complexity for Union Find is O(V+E).
-O(V) comes from construct the graph, O(E) comes from visiting each edge in edges.
+O(V) comes from constructing the graph, O(E) comes from connecting each edge
 - [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (!!M, youtubed) <br>
-Soluiton 1: Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a Breadth First Search. <br>
-SOlution 2: Union Find: think the grid as a graph, find how may isolated components in the graph, we traversal the whole gird, whenever find a 1, we connect all the 4 adjacent 1s. 方法同lintcode 591.
+Solution 1: Union Find: think the grid as a graph, find how may isolated components in the graph, 注意uf连接的是坐标，而不是数，we traversal the whole gird, whenever find a 1, we connect all the 4 adjacent 1s. 方法同LC 323.
 - [0305. Number of Islands II](Solutions/0305.Number-of-Islands-II.py) (!!H) <br>
-Union-Find 算法是解决动态连通性（Dynamic Conectivity）问题的一种算法. 这里的island可以看做是一个图. 每放置一个1, 就将其与其上下左右四个点的1连接起来。O(m×n+L), follow up question?
-- [0959. Regions Cut By Slashes](Solutions/0959.Regions-Cut-By-Slashes.py) (M) <br>
-Split a grid into 4 parts, each part is a uf component. Congratulation. Now you have another problem of counting the number of islands.
+Union-Find 算法是解决动态连通性（Dynamic Conectivity）问题的一种算法. 这里的island可以看做是一个图. 每放置一个1, 就将其与其上下左右四个点的1连接起来。
 - [0547 Friend Circles](Solutions/0547.Friend-Circles.py) (!!M) <br>
-Solution 1: Union-Find, 题目的表述有问题，看上去像是和200一模一样，其实不是的
-https://leetcode.com/problems/friend-circles/discuss/228414/Wrong-problem-statement-made-me-waste-half-an-hour-looking-for-a-solution-for-a-complex-problem  bfs and dfs solutions should also be implemented.
-- [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
-Solution 2: Union find: O(N); Solution 1: BFS O(N)判断图是不是一棵树（不一定非要是二叉树）需要满足两点:1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树
-- [0128. Longest Consecutive Sequence](Solutions/0128.Longest-Consecutive-Sequence.py) (!!H) <br>
-Solution 1: Greedy O(N) 使用一个集合HashSet存入所有的数字，然后遍历数组中的每个数字，如果其在集合中存在，那么将其移除，然后分别用两个变量pre和next算出其前一个数跟后一个数，然后在集合中循环查找，如果pre在集合中，那么将pre移除集合，然后pre再自减1，直至pre不在集合之中，对next采用同样的方法，那么next-pre-1就是当前数字的最长连续序列，更新res即可; Solution 2: Union find: O(N)
-- [1102. Path With Maximum Minimum Value](Solutions/1102.Path-With-Maximum-Minimum-Value.py) (M) <br>
-Solution 1: Dijkstra's : 每次都把目前为止最小值最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走. maintain a heapq to store (the minimum value in the path so far till the currPos, currPos); each time, we push (min(nextVal, currMinVal), nextPos); O(MNlogMN), O(MN). Solution 2: Union-Find, step 1: sort the array by the values descendingly; step 2: union one-by-one, until (0, 0) and (m-1, n-1) is connected
-- [0721. Accounts Merge](Solutions/0721.Accounts-Merge.py) (M) <br>
-union find: if email under the same name, then connect emails, or if email under name_1 equals to email under name_2, connect emails.
-In this way, we build a graph, then we map each disjoint_component into one name.
-Step 1: use a dictionary to store email_to_name map. Step 2: iterate the edges to connect them. 
-Step 2: use the email_to_name map and the graph to generage a new list where each name corresponding to a disjoint_component
-- [0684. Redundant Connection](Solutions/0684.Redundant-Connection.py) (M) <br>
-union find: if uf.connected(edge[0], edge[1]), there edge is redundant.
-- [0685. Redundant Connection II](Solutions/0685.Redundant-Connection-II.py) (H) <br>
-undirected graph 变成了 directed graph - 这时需要分三种情况，有点麻烦, 算了了解一下思路就好了
+Solution 1: Union-Find, 与LC 200 Nubmer of islands其实是同一题，只是这题给的是adjcency matrix representaion of a graph.
 - [0734. Sentence Similarity](Solutions/0734.Sentence-Similarity.py) (E) <br>
 用dictionary map similar words即可, warm up for 737. Sentence Similarity II
 - [0737. Sentence Similarity II](Solutions/0737.Sentence-Similarity-II.py) (M) <br>
-Different from Sentence SImilarity I, similarity relation is transitive. 
-Two words are similar if they are the same, or are in the same connected component of this graph.  
-So we can use union find to connect all the similar words. 
-Using path compression, the time complexity is almost O(1) for find method and union mehtod. 
-So the overall complexity is ~O(N) where N is the lens of words1.
-- [0947. Most Stones Removed with Same Row or Column](Solutions/0947.Most-Stones-Removed-with-Same-Row-or-Column.py) (!!M) <br>
-we compare each pos with another pos in the list, each time there is a union, we set cnt+=1 - O(n^2); The improved DSU solution creates a map of all the nodes with a certain X coordinate and a second map with all the nodes with a Y coordinate. 
-This allows us to quickly join all of a node's neighbour into a set. 
-This improves the naïve DSU implementation from O(n^2) to O(n)!!
-- [0765. Couples Holding Hands](Solutions/0765.Couples-Holding-Hands.py) (!!M) <br>
-solution 1 暴力法：从左至右依次配对好 - O(N^2); solution 2: union find - O(N). 
-step 1: initialize by connecting 0-1, 2-3, 4-5....
-step 2: we traverse the row, and union row[i] and row[i+1],
-if needs to be unioned, then that means needs one swap to make it row[i] and row[i+1] a couple.
+Different from Sentence SImilarity I, similarity relation is transitive. Two words are similar if they are the same, or are in the same connected component of this graph.  So we can use union find to connect all the similar words. 注意将word add到图中之前要判断其是否已经在图中了，不然重复加入x的时候会改变father的值，而导致father出错！！
+- [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
+union find O(V+E): 两个判断标准: 1. 无环, if uf.connected(i, j): return False. 2. 整张图只有一个disjoint_cnt, return self.disjoint_cnt == 1.; Solution 2: BFS  判断图是不是一棵树（不一定非要是二叉树）需要满足两点: 1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树
+- [0684. Redundant Connection](Solutions/0684.Redundant-Connection.py) (M) <br>
+和261. Graph Valid Tree类似，union find: if uf.connected(edge[0], edge[1]), there edge is redundant.
+- [0685. Redundant Connection II](Solutions/0685.Redundant-Connection-II.py) (!!H) <br>
+undirected graph 变成了 directed graph - 这时需要分三种情况，第一种：无环，但是有结点入度为2的结点; 第二种：有环，没有入度为2的结点; 第三种：有环，且有入度为2的结点. 算法：step 1: construct an uf graph; step 2: 找出入度为2的点所对应的边cand_edge1, cand_edge2; step 3: 找环, 判断出三种情况
+- [0721. Accounts Merge](Solutions/0721.Accounts-Merge.py) (M) <br>
+union find: if email under the same name, then connect emails, or if email under name_1 equals to email under name_2, connect emails.
+In this way, we build a graph, then we map each disjoint_component into one name.
+Step 1: use a dictionary to store email_to_name map. Step 2: iterate the edges to connect them. Step 3: use the email_to_name map and the graph to generage a new list where each name corresponding to a disjoint_component. 如何从已经连接好的uf图中得到连在一起的nodes没有想到，其实就是建立root_email to emails dictionary as we go over uf.father.
+- [0959. Regions Cut By Slashes](Solutions/0959.Regions-Cut-By-Slashes.py) (!!M) <br>
+把一个小格子斜刀分成四部分，把这四部分分别加到图中, each part is a uf component. 如果遇到"/", 我们就把上部分和左部分连接起来, also把下部分和右部分连接起来
+- [0128. Longest Consecutive Sequence](Solutions/0128.Longest-Consecutive-Sequence.py) (!!!H) <br>
+Solution 1: Greedy O(N) 使用一个集合HashSet存入所有的数字，然后遍历数组中的每个数字，如果其在集合中存在，那么将其移除，然后分别用两个变量pre和next算出其前一个数跟后一个数，然后在集合中循环查找，如果pre在集合中，那么将pre移除集合，然后pre再自减1，直至pre不在集合之中，对next采用同样的方法，那么next-pre-1就是当前数字的最长连续序列，更新res即可; Follow up question: what if we can add a number into the nums list, and each time we add a number, we need to query the longest consecutive seqence? Answer: we need to realize dynamic connection.  We can choose UnionFind. Solution 2: Union find: O(N). 需要query 点a所在集合的元素个数，所以需要用一个dictionary self.size 用来记录每个father节点所在集合的点的个数，在union i 和 j 的时候: father[i] = j, sz[j] += sz[i].  算法是我们遍历nums, 对于每一个num, 我们connect num and num - 1, also connect num and num + 1
 - [0924. Minimize Malware Spread](Solutions/0924.Minimize-Malware-Spread.py) (!!H) <br>
 实际上这道题的本质还是遍历这个无向图，遍历的方法就有 DFS 和 BFS 两种。方法是先尝试去掉一个node，然后看有多少可以感染；
 然后尝试去掉另一个node，看看多少可以感染；比较去掉哪一个node能使得感染的最少。O(M* N^2). solution 3: union find.
 step 1: connect the original graph, so that we have multiple connected components and we keep track of size of each component.
 step 2: traverse the initial infected list, and check which node in the list has the largest connected component size.
-The one in the largest connected component sizee can infect the most nodes, so we should delete it.
+The one in the largest connected component size can infect the most nodes, so we should delete it.
 - [0928. Minimize Malware Spread II](Solutions/0928.Minimize-Malware-Spread-II.py) (!!H) <br>
-the difference of this problem is when we remove a node from the list, 
-that node cannot be infected anymore in later malware spread.
-只需要在做bfs/dfs的时候保证next_candidate!=removed_node就可以了
+the difference of this problem is when we remove a node from the list, that node cannot be infected anymore in later malware spread. 需要从一个图中完全remove掉某个node, 只需要在做bfs/dfs的时候保证next_node != removed_node就可以了 - O(M^2N^2)
+- [1102. Path With Maximum Minimum Value](Solutions/1102.Path-With-Maximum-Minimum-Value.py) (!!!M) <br>
+Solution 2: Union-Find, step 1: sort the array by the values descendingly; step 2: union one-by-one, until (0, 0) and (m-1, n-1) are connected. 算法其实有一点点类似Krusal求MST.  Solution 1: Dijkstra's : 每次都把目前为止最小值最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走. maintain a heapq to store (the negative of the minimum value in the path so far till the currPos, currPos); each time, we push (-min(nextVal, currMinVal), nextPos); O(MNlogMN), O(MN). 
+- [0947. Most Stones Removed with Same Row or Column](Solutions/0947.Most-Stones-Removed-with-Same-Row-or-Column.py) (!!M) <br>
+Use two for loops to compare each pos with another pos in the list, if two positions share same row or col,
+then we should union them, each time there is a union, it means we can do one removal, then we set cnt+=1. This takes O(n^2).  Solution 2: improved Union Find which takes O(N):  when we see a stone that appears in a row or a column at the first time, we define this stone as the parent of this row and column, next time we see a new stone, just union it with its parent, which stores in the hashmap, thus we can do it in one pass.
+- [0765. Couples Holding Hands](Solutions/0765.Couples-Holding-Hands.py) (!!H) <br>
+solution 1 暴力法：从左至右依次配对好 - O(N^2); solution 2: union find - O(N). 
+step 1: initialize by connecting 0-1, 2-3, 4-5....
+step 2: we traverse the row, and union row[i] and row[i+1],
+if needs to be unioned, then that means needs one swap to make it row[i] and row[i+1] a couple.
 - [0839. Similar String Groups](Solutions/0839.Similar-String-Groups.py) (!!H) <br>
 can use bfs/dfs/union-find to traverse the graph.
 since we want to output disconnected components, union-find is quite straight forward - O(L* N^2).
 dfs/bfs也可以做，只需要用visited记录遍历过的就可以了
 
 
+
 ### [Minimum Spanning Tree - Kruskal's and Prim's](/)
+----------Lintcode 629 ------------
 - [1135. Connecting Cities With Minimum Cost](Solutions/1135.Connecting-Cities-With-Minimum-Cost.py) (M) <br>
 This problem is to find the minimum path to connect all nodes, so it is a minimum spanning tree (MST) problem.
 There are two defferent algorithms to solve MST problem, one is Prim's, the other is Kruskal's.
@@ -2143,6 +2136,6 @@ answer should be: we want to avoid visiting the same node again and again, one w
 
 
 
-
+### Lintcode解锁后需要看的专题：1. Union Find专题ladder; 2. Minimum Spanning Tree专题ladder
 ### 还是要多刷新题，见过和没见过真的很不一样！
 ### Jeff Jeff Erickson's Algorithms https://jeffe.cs.illinois.edu/teaching/algorithms/
