@@ -58,7 +58,6 @@ class UnionFind:
             self.father[root_a] = root_b
             self.cnt += 1
         
-        
 
 """
 The improved DSU solution creates a map of all the nodes with a certain X coordinate
@@ -71,6 +70,7 @@ next time we see a new stone, just union it with its parent, which stores in the
 thus we can do it in one pass.
 Very cool!!
 """
+
 class Solution:
     def removeStones(self, stones: List[List[int]]) -> int:
         uf = UnionFind(stones)
