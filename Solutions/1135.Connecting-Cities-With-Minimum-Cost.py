@@ -25,15 +25,13 @@ There is no way to connect all cities even if all edges are used.
 This problem is to find the minimum path to connect all nodes, so it is a minimum spanning tree (MST) problem.
 There are two defferent algorithms to solve MST problem, one is Prim's, the other is Kruskal's.
 The Kruskul's algorithm is easy to implement using Union-Find, with O(ElogE) time and O(V) space.
-Step 1: add all vertices to UnionFind obj.
-Step 2: sort the graph by edge weights;
-Step 3: add the smallest edge into the MST if adding the edge do not form a cycle;
-(if the two vertices of the edge was already connected, then adding the edge will form a cycle);
-Step 4: keep step 3 until all the edges are collected (E = V-1 or only one disjoint_cnt = 1)
+step 1: put all vertices into the uf graph;
+step 2: sort the edges;
+step 3: put each edge into the graph if not forming cycle;
+(if the two vertices of the edge was already connected, then adding this edge will form a cycle);
+step 4: keep doing step 3 until all vertices connected (self.disjoint_cnt = 1)
 """
 """
-            
-from heapq import heappush, heappop
 
 class UnionFind:
     def __init__(self, N):
@@ -68,10 +66,10 @@ class Solution:
         uf = UnionFind(N)                                           # add all the vertices into the union-find obj
         connections.sort(key = lambda connection: connection[2])    # sort the graph as that we always add the smallest edge
         total_cost = 0
-        for city_1, city_2, cost in connections:
-            if uf.connected(city_1, city_2):                        # continue so that there will be no cycle
+        for u, v, cost in connections:
+            if uf.connected(u, v):                                  # continue so that there will be no cycle
                 continue
-            uf.union(city_1, city_2)
+            uf.union(u, v)
             total_cost += cost
             
         return total_cost if uf.disjoint_cnt == 1 else -1           # if uf.disjoint_cnt > 1, meaning we are not able to connect all cities.
