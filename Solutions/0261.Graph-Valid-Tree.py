@@ -101,10 +101,10 @@ class Solution:
             return False
 
         # 图的实现方法是使用a dictionary of adjacency nodes，key是int表示节点, value是set(int)表示该节点所连接的相邻节点。
-        neighbors = collections.defaultdict(list)       # 这里必须声明是一个list, 否则后面append会报错
+        graph = collections.defaultdict(list)       # 这里必须声明是一个list, 否则后面append会报错
         for u, v in edges:
-            neighbors[u].append(v)
-            neighbors[v].append(u)
+            graph[u].append(v)
+            graph[v].append(u)
         
         from collections import deque
         q = deque()
@@ -112,13 +112,12 @@ class Solution:
         q.append(0)
         visited.add(0)  # visited and q are twin brothers, whenever q append something, visited add something
         
-        while q:
+        while len(q) > 0:
             currNode = q.popleft()
-            for node in neighbors[currNode]:  # 这里体现BFS，首先访问currNode节点的所有邻居节点
-                # 如果已经访问过就不再访问了，这样可以保证每个节点都被访问过一次
-                if node not in visited:     # 没访问过就加入队列
+            for node in graph[currNode]:  # 这里体现BFS，首先访问currNode节点的所有邻居节点
+                if node not in visited:   # 如果已经访问过就不再访问了，这样可以保证每个节点都被访问过一次, 没访问过就加入队列
                     q.append(node)
-                    visited.add(node)       # twin brothers
+                    visited.add(node)     # twin brothers
         
         return len(visited) == n    # 每个节点都被访问过且都被访问过一次
     
