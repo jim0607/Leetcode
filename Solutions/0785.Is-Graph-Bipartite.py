@@ -32,66 +32,72 @@ We cannot find a way to divide the set of nodes into two independent subsets.
 solution 1: bfs, visit every node and label their color every other step. O(V+E)
 """
 class Solution:
-    def isBipartite(self, graph: List[List[int]]) -> bool:
-        colorDict = collections.defaultdict(int)   # key is the node, value is the color, -1 is red, 1 is blue
+    def isBipartite(self, lists: List[List[int]]) -> bool:
+        graph = collections.defaultdict(list)
+        for i, lst in enumerate(lists):
+            graph[i] = lst
+            
+        colormap = collections.defaultdict(str)   # key is the node, value is the color
         
         # have to do bfs for every node cuz it could be a biparitite even if there are lots of dis-connected components in the graph
-        for i in range(len(graph)):     # have to visit every node exactly once O(V)
-            if i not in colorDict:
-                if not self.bfs(graph, i, colorDict):
+        for node in range(len(graph)):  # have to visit every node exactly once O(V)
+            if node not in colormap:    # colormap 相当于visited
+                if not self._bfs(node, graph, colormap):
                     return False
-        
         return True
-            
-    def bfs(self, graph, i, colorDict):
+         
+    def _bfs(self, node, graph, colormap):
         q = collections.deque()
-        q.append(i)
-        red = True      # boolean should be labeled red?
-        while q:
+        q.append(node)
+        colormap[node] = "red"
+        red = True          # boolean should be labeled red?
+        while len(q) > 0:
             red = not red
             lens = len(q)
-            for _ in range(lens):
-                currNode = q.popleft()
-                colorDict[currNode] = -1 if red else 1
-                for nextNode in graph[currNode]:    # have to visite evry edge exactly once O(E)
-                    if nextNode in colorDict:
-                        if colorDict[nextNode] == colorDict[currNode]:
-                            return False
+            for _ in range(lens):   # 这里必须要层序遍历
+                curr_node = q.popleft()
+                for next_node in graph[curr_node]:  # have to visite evry edge exactly once O(E)
+                    if next_node in colormap:
+                        if colormap[next_node] == colormap[curr_node]:
+                            return False    # 如果next_node已经在colormap里了，现在又必须要换一种颜色，那么说明next_node 涂成red也不行blue也不行, return False
                         continue
-                    q.append(nextNode)
-                    
-        return True       
+                    q.append(next_node)
+                    colormap[next_node] = "red" if red else "blue"
+        return True
         
         
 """
 solution 2: dfs, mark the color of nodes as we go.  O(V+E)
 """
 class Solution:
-    def isBipartite(self, graph: List[List[int]]) -> bool:
-        colorDict = collections.defaultdict(int)   # key is the node, value is the color, -1 is red, 1 is blue
+    def isBipartite(self, lists: List[List[int]]) -> bool:
+        graph = collections.defaultdict(list)
+        for i, lst in enumerate(lists):
+            graph[i] = lst
+            
+        colormap = collections.defaultdict(str)   # key is the node, value is the color
         
         # have to do dfs for every node cuz it could be a biparitite even if there are lots of dis-connected components in the graph
-        for i in range(len(graph)):     # have to visit every node exactly once O(V)
-            if i not in colorDict:
-                red = False
-                if not self.dfs(graph, i, colorDict, red):
+        for node in range(len(graph)):  # have to visit every node exactly once O(V)
+            if node not in colormap:    # colormap 相当于visited
+                if not self._dfs(node, graph, colormap, True):
                     return False
-        
         return True
-        
-    def dfs(self, graph, currNode, colorDict, red):
+         
+    def _dfs(self, curr_node, graph, colormap, red):
         """
-        dfs the graph starting from i, mark the color on the way
+        dfs the graph starting from curr_node, mark the color on the way
         return whether or not there is a color violation on the way
         """
         red = not red
-        colorDict[currNode] = -1 if red else 1
-        for nextNode in graph[currNode]:
-            if nextNode in colorDict:
-                if colorDict[nextNode] == colorDict[currNode]:
+        colormap[curr_node] = "red" if red else "blue"
+        
+        for next_node in graph[curr_node]:
+            if next_node in colormap:
+                if colormap[next_node] == colormap[curr_node]:
                     return False
                 continue
-            if not self.dfs(graph, nextNode, colorDict, red):   # 在这里调用dfs是模板的分内之事，这题return True/False, 所以在这里check
+            if not self._dfs(next_node, graph, colormap, red):  # 在这里调用dfs是模板的分内之事，这题return True/False, 所以在这里check
                 return False
             
         return True
