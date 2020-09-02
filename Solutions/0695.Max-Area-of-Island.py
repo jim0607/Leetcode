@@ -16,7 +16,38 @@ Example 1:
  [0,0,0,0,0,0,0,1,1,0,0,0,0]]
 Given the above grid, return 6. Note the answer is not 11, because the island must be connected 4-directionally.
 
+"""
+dfs version
+"""
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        max_cnt = 0
+        visited = set()     # 也可以不用visited, 而是就地修改grid
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    if (i, j) in visited:
+                        continue
+                    cnt = self._dfs(grid, i, j, visited)
+                    max_cnt = max(max_cnt, cnt)
+        return max_cnt
+    
+    def _dfs(self, grid, i, j, visited):
+        visited.add((i, j))
+        cnt = 1
+        for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+            next_i, next_j = i + delta_i, j + delta_j
+            if 0 <= next_i < len(grid) and 0 <= next_j < len(grid[0]):
+                if grid[next_i][next_j] == 1:
+                    if (next_i, next_j) not in visited:
+                        cnt += self._dfs(grid, next_i, next_j, visited)
+        return cnt
 
+
+"""
+bfs version
+"""
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         self.MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
