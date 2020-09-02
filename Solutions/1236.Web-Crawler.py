@@ -104,3 +104,23 @@ class Solution:
                 visited.add(nextUrl)
 
         return list(visited)
+      
+      
+      
+"""
+dfs is more concise
+"""
+class Solution:
+    def crawl(self, startUrl: str, htmlParser: 'HtmlParser') -> List[str]:
+        domain = startUrl.split("http://")[1].split("/")[0]
+        visited = set()
+        self._dfs(startUrl, domain, htmlParser, visited)
+        return list(visited)
+    
+    def _dfs(self, currUrl, domain, htmlParser, visited):
+        visited.add(currUrl)
+        for nextUrl in htmlParser.getUrls(currUrl):
+            next_domain = nextUrl.split("http://")[1].split("/")[0]
+            if next_domain == domain:
+                if nextUrl not in visited:
+                    self._dfs(nextUrl, domain, htmlParser, visited)
