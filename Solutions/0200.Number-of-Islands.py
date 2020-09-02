@@ -43,52 +43,7 @@
 # 
 #
 
-"""
-Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a Breadth First Search.
-"""
-class Solution:
-    
-    MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-    
-    def numIslands(self, grid: List[List[str]]) -> int:
-        if not grid:
-            return 0
-        
-        m, n = len(grid), len(grid[0])
-        
-        visited = set()
-        cnt = 0
-        for i in range(m):      # 矩阵的BFS必然先来两个for循环，遍历所有的节点，然后选某些节点作为起点做BFS
-            for j in range(n):
-                if grid[i][j] == "1" and (i, j) not in visited:
-                    self.bfs(grid, i, j, visited)
-                    cnt += 1
-                    
-        return cnt
-    
-    def bfs(self, grid, x, y, visited):
-        """bfs to find all the possible neighbors and put them into visited"""
-        
-        q = collections.deque()
-        q.append((x, y))
-        visited.add((x, y))     # visited最好与append同时出现，像一对孪生兄弟
-        
-        while q:
-            (x, y) = q.popleft()
-            for delta_x, delta_y in self.MOVES:     # 这一步相当于之前图里面的for neighbor in neighbors
-                neighbor_x, neighbor_y = x + delta_x, y + delta_y
-                if self.inBound(grid, neighbor_x, neighbor_y) and grid[neighbor_x][neighbor_y] == "1" and (neighbor_x, neighbor_y) not in visited:
-                    q.append((neighbor_x, neighbor_y))
-                    visited.add((neighbor_x, neighbor_y))       # visited最好与append同事出现，像一对孪生兄弟
-                    
-    def inBound(self, grid, x, y):
-        m, n = len(grid), len(grid[0])
-        if 0 <= x < m and 0 <= y < n:
-            return True
-        else:
-            return False
-
-        
+       
         
 Solution 2: Union Find
 
@@ -167,3 +122,50 @@ class Solution:
         for move in self.MOVES:
             next_x, next_y = x + move[0], y + move[1]
             self.dfs(grid, next_x, next_y)
+
+            
+            
+"""
+Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a Breadth First Search.
+"""
+class Solution:
+    
+    MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+    
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not grid:
+            return 0
+        
+        m, n = len(grid), len(grid[0])
+        
+        visited = set()
+        cnt = 0
+        for i in range(m):      # 矩阵的BFS必然先来两个for循环，遍历所有的节点，然后选某些节点作为起点做BFS
+            for j in range(n):
+                if grid[i][j] == "1" and (i, j) not in visited:
+                    self.bfs(grid, i, j, visited)
+                    cnt += 1
+                    
+        return cnt
+    
+    def bfs(self, grid, x, y, visited):
+        """bfs to find all the possible neighbors and put them into visited"""
+        
+        q = collections.deque()
+        q.append((x, y))
+        visited.add((x, y))     # visited最好与append同时出现，像一对孪生兄弟
+        
+        while q:
+            (x, y) = q.popleft()
+            for delta_x, delta_y in self.MOVES:     # 这一步相当于之前图里面的for neighbor in neighbors
+                neighbor_x, neighbor_y = x + delta_x, y + delta_y
+                if self.inBound(grid, neighbor_x, neighbor_y) and grid[neighbor_x][neighbor_y] == "1" and (neighbor_x, neighbor_y) not in visited:
+                    q.append((neighbor_x, neighbor_y))
+                    visited.add((neighbor_x, neighbor_y))       # visited最好与append同事出现，像一对孪生兄弟
+                    
+    def inBound(self, grid, x, y):
+        m, n = len(grid), len(grid[0])
+        if 0 <= x < m and 0 <= y < n:
+            return True
+        else:
+            return False
