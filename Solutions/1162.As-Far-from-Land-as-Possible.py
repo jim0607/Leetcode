@@ -24,14 +24,16 @@ Note:
 grid[i][j] is 0 or 1
 
 
-
+"""
+solution 1: Time: O(MN)
+"""
 class Solution:
     WATER = 0
     LAND = 1
     def maxDistance(self, grid: List[List[int]]) -> int:
         """
         The max distance is the max steps to change all WATER to LAND. So we firslty put all land in a q,
-        than do bfs layer by layer to change WATER to LAND in-place
+        than do bfs layer by layer to change WATER to LAND in-place. Time: O(MN)
         """
         m, n = len(grid), len(grid[0])
         q = collections.deque()
@@ -56,7 +58,7 @@ class Solution:
        
        
 """
-The below solution is trigger a bfs at each WATER - TLE cuz the LAND is sparse while there are lots of WATER.
+The below solution is trigger a bfs at each WATER - TLE cuz Time: O(M^2N^2)
 """
 class Solution:
     WATER = 0
