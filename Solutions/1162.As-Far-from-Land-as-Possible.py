@@ -35,12 +35,16 @@ class Solution:
         The max distance is the max steps to change all WATER to LAND. So we firslty put all land in a q,
         than do bfs layer by layer to change WATER to LAND in-place. Time: O(MN)
         """
+      
+        # step 1: initialize q by putting all LAND into q
         m, n = len(grid), len(grid[0])
         q = collections.deque()
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == self.LAND:
                     q.append((i, j))
+              
+        # step 2: bfs to change all WATER to LAND
         dist = -1
         while len(q) > 0:
             dist += 1
