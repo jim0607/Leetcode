@@ -24,42 +24,32 @@ After running your function, the 2D grid should be:
 class Solution:
     WALL = -1
     GATE = 0
-    EMPTY = 2147483647
-    MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-    
-    def wallsAndGates(self, rooms: List[List[int]]) -> None:
-        if not rooms or not rooms[0]:
-            return rooms
+    EMPTY = 2**31 - 1
+    def wallsAndGates(self, grid: List[List[int]]) -> None:
+        """
+        Do not return anything, modify grid in-place instead.
+        """
+        if not grid or not grid[0]:
+            return grid
         
-        self.bfs(rooms)
-        
-    def bfs(self, rooms):
-        """change all the "INF" to a value that equals the layer number"""
-        
-        m, n = len(rooms), len(rooms[0])
+        # step 1: add the first layer to q
+        m, n = len(grid), len(grid[0])
         q = collections.deque()
-        visited = set()
-        for i in range(m):      # add the first layer to the q
+        for i in range(m):
             for j in range(n):
-                if rooms[i][j] == self.GATE:
+                if grid[i][j] == self.GATE:
                     q.append((i, j))
-                    visited.add((i, j))     # 一对孪生兄弟
-        
-        distance = 0
-        while q:
-            distance += 1
+      
+        # step 2: bfs layer by layer and update grid in-place
+        dist = 0
+        while len(q) > 0:
+            dist += 1
             lens = len(q)
-            for _ in range(lens):       # 必须要层序遍历，否则就不对，一定要理解为什么层序遍历才能保证每次INF都能变成最小距离
-                (x, y) = q.popleft()
-                for delta_x, delta_y in self.MOVES:
-                    neighbor_x, neighbor_y = x + delta_x, y + delta_y
-                    if self.inBound(rooms, neighbor_x, neighbor_y) and rooms[neighbor_x][neighbor_y] == self.EMPTY and (neighbor_x, neighbor_y) not in visited:
-                        rooms[neighbor_x][neighbor_y] = distance
-                        q.append((neighbor_x, neighbor_y))
-                    
-    def inBound(self, rooms, x, y):
-        m, n = len(rooms), len(rooms[0])
-        if 0 <= x < m and 0 <= y < n:
-            return True
-
-        return False
+            for _ in range(lens):
+                curr_i, curr_j = q.popleft()
+                for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                    next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                    if 0 <= next_i < m and 0 <= next_j < n:
+                        if grid[next_i][next_j] == self.EMPTY:
+                            q.append((next_i, next_j))
+                            grid[next_i][next_j] = dist
