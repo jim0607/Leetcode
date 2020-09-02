@@ -131,8 +131,11 @@ class Solution:
                         
                         
 """DP solution / recurssion with memorization: so brilliant
-The basic idea is that doesn't mater where the destination is, we can always "rotate" the board in such a way that the knight only needs to make (1,2) or (2,1) move to approach the destination. 
-In other words, the destination is always in the first quadrant. Except (0, 0), all other initial values in cache are the points that we have to temporarily "step out" of the first quadrant and then come back in order to reach them. 
+The basic idea is that doesn't mater where the destination is, we can always "rotate" the board in such 
+a way that the knight only needs to make (1,2) or (2,1) move to approach the destination. 
+In other words, the destination is always in the first quadrant. 
+Except (0, 0), all other initial values in cache are the points that we have to temporarily "step out" 
+of the first quadrant and then come back in order to reach them. 
 Therefore, they have to be manually added at the beginning."""
 
 class Solution:
