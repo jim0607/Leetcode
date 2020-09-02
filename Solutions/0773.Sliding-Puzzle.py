@@ -38,52 +38,47 @@ There are O((R∗C)!) possible board states.
 """
 class Solution:
     def slidingPuzzle(self, board: List[List[int]]) -> int:
-        des = [[1,2,3],[4,5,0]]
+        destination = [[1,2,3],[4,5,0]]
         m, n = len(board), len(board[0])
         q = collections.deque()
         visited = set()
         q.append(board)
-        visited.add(tuple(num for row in board for num in row))   # list is mutable, so it's not hashable, we need to convert the board into tuples
-        
-        step = -1
-        while q:
-            step += 1
+        visited.add(tuple([board[i][j] for i in range(m) for j in range(n)]))   # list is mutable, so it's not hashable, we need to convert the board into tuples
+        # print(visited)
+        steps = -1
+        while len(q) > 0:
+            steps += 1
             lens = len(q)
             for _ in range(lens):
                 curr_node = q.popleft()
-                if curr_node == des:
-                    return step
-                
-                for next_node in self._next_board(curr_node):
-                    if tuple(num for row in next_node for num in row) not in visited:
+                if curr_node == destination:
+                    return steps
+                for next_node in self._get_next(curr_node):
+                    if tuple([next_node[i][j] for i in range(m) for j in range(n)]) not in visited:
                         q.append(next_node)
-                        visited.add(tuple(num for row in next_node for num in row))
-                    
-        return -1                
-                
-    def _next_board(self, board):
-        """
-        find the neighbor board that can be trasformed from curr board using one swap with 0
-        """
+                        visited.add(tuple([next_node[i][j] for i in range(m) for j in range(n)]))
+        return -1
+                        
+    def _get_next(self, board):
         m, n = len(board), len(board[0])
-        res = []
+        next_board = []
         for i in range(m):
             for j in range(n):
-                if board[i][j] == 0:        # 与相邻的0进行交换
-                    if i - 1 >= 0:
-                        board[i][j], board[i-1][j] = board[i-1][j], board[i][j]
-                        res.append([[board[i][j] for j in range(n)] for i in range(m)])  # has to be a deep copy for 2D case
-                        board[i][j], board[i-1][j] = board[i-1][j], board[i][j]     # 再换回来，以免改变了原有的borad
-                    if i + 1 < m:
-                        board[i][j], board[i+1][j] = board[i+1][j], board[i][j]
-                        res.append([[board[i][j] for j in range(n)] for i in range(m)])  # has to be a deep copy for 2D case
-                        board[i][j], board[i+1][j] = board[i+1][j], board[i][j]     # 再换回来，以免改变了原有的borad
-                    if j - 1 >= 0:
-                        board[i][j], board[i][j-1] = board[i][j-1], board[i][j]
-                        res.append([[board[i][j] for j in range(n)] for i in range(m)])  # has to be a deep copy for 2D case
-                        board[i][j], board[i][j-1] = board[i][j-1], board[i][j]     # 再换回来，以免改变了原有的borad
-                    if j + 1 < n:
-                        board[i][j], board[i][j+1] = board[i][j+1], board[i][j]
-                        res.append([[board[i][j] for j in range(n)] for i in range(m)])  # has to be a deep copy for 2D case
-                        board[i][j], board[i][j+1] = board[i][j+1], board[i][j]     # 再换回来，以免改变了原有的borad
-        return res
+                if board[i][j] == 0:    # 0 可以与相邻的数交换位置
+                    if i - 1 >= 0:      # 与上面的数字调换位置
+                        board[i-1][j], board[i][j] = board[i][j], board[i-1][j]
+                        next_board.append([[board[i][j] for j in range(n)] for i in range(m)])  # has to be a deep copy for 2D case
+                        board[i-1][j], board[i][j] = board[i][j], board[i-1][j]     # 再换回来，以免改变了原有的borad
+                    if i + 1 < m:       # 与下面的数字调换位置
+                        board[i+1][j], board[i][j] = board[i][j], board[i+1][j]
+                        next_board.append([[board[i][j] for j in range(n)] for i in range(m)])  
+                        board[i+1][j], board[i][j] = board[i][j], board[i+1][j]        
+                    if j - 1 >= 0:      # 与左边的数字调换位置
+                        board[i][j-1], board[i][j] = board[i][j], board[i][j-1]
+                        next_board.append([[board[i][j] for j in range(n)] for i in range(m)])  
+                        board[i][j-1], board[i][j] = board[i][j], board[i][j-1]
+                    if j + 1 < n:       # 与左边的数字调换位置
+                        board[i][j+1], board[i][j] = board[i][j], board[i][j+1]
+                        next_board.append([[board[i][j] for j in range(n)] for i in range(m)])  
+                        board[i][j+1], board[i][j] = board[i][j], board[i][j+1]
+        return next_board
