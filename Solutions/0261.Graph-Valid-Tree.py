@@ -92,7 +92,7 @@ class Solution:
 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，
 也就是visited的数目要等于节点数目
 """
-class Solution:
+cclass Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
         if n == 0:
             return Ture
@@ -105,9 +105,14 @@ class Solution:
         for u, v in edges:
             graph[u].append(v)
             graph[v].append(u)
+            
+        visited = set()     # 与二叉树的BFS相比多加了一行visited
+        self._bfs(graph, visited)
         
+        return len(visited) == n    # 每个节点都被访问过且都被访问过一次
+        
+    def _bfs(self, graph, visited):
         q = collections.deque()
-        visited = set()      # 与二叉树的BFS相比多加了一行visited
         q.append(0)
         visited.add(0)  # visited and q are twin brothers, whenever q append something, visited add something
         
@@ -117,76 +122,31 @@ class Solution:
                 if node not in visited:   # 如果已经访问过就不再访问了，这样可以保证每个节点都被访问过一次, 没访问过就加入队列
                     q.append(node)
                     visited.add(node)     # twin brothers
-        
-        return len(visited) == n    # 每个节点都被访问过且都被访问过一次
     
     
- 
-
-
 """
-另一种按照bfs的判断标准来写的 Union Find, 非常不简洁
+dfs 写法更简洁
 """
-class UnionFind:
-    def __init__(self):
-        self.father = collections.defaultdict()
-        self.cnt = 0    # the total number of isolated components in the graph
-        
-    def add(self, x):
-        """
-        add node x in the graph
-        """
-        self.father[x] = x
-        self.cnt += 1
-        
-    def find(self, x):
-        """
-        find the root of x in the graph using path compression
-        """
-        if self.father[x] == x:
-            return x
-        
-        self.father[x] = self.find(self.father[x])
-        
-        return self.father[x]
-    
-    def connect(self, a, b):
-        """
-        connect node a and node b
-        """
-        root_a, root_b = self.find(a), self.find(b)
-        if root_a != root_b:
-            self.father[root_a] = root_b
-            self.cnt -= 1
-    
-
 class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
-        
-        if len(edges) != n - 1:     # 边数必须比点数少1
+        if n == 0:
+            return Ture
+        if len(edges) != n - 1:  # 首先点的数目一定比边的数目多一个
             return False
-        if n == 1:
-            return True
+
+        graph = collections.defaultdict(list) 
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+            
+        visited = set() 
+        self._dfs(graph, 0, visited)
         
-        graph = UnionFind()
+        return len(visited) == n    # 每个节点都被访问过且都被访问过一次
         
-        for edge in edges:
-            if edge[0] not in graph.father and edge[1] not in graph.father:
-                graph.add(edge[0])
-                graph.add(edge[1])
-                graph.connect(edge[0], edge[1])
-            
-            elif edge[0] in graph.father and edge[1] not in graph.father:
-                graph.add(edge[1])
-                graph.connect(edge[0], edge[1])
-            
-            elif edge[1] in graph.father and edge[0] not in graph.father:
-                graph.add(edge[0])
-                graph.connect(edge[0], edge[1])
-                
-            elif edge[0] in graph.father and edge[1] in graph.father:
-                if graph.cnt == 1:      # 本来edge[0]和edge[1]都已经连好了，还要再连一下，那就不对了
-                    return False
-                graph.connect(edge[0], edge[1])
-            
-        return graph.cnt == 1
+    def _dfs(self, graph, curr_node, visited):
+        visited.add(curr_node)
+        
+        for next_node in graph[curr_node]:
+            if next_node not in visited:
+                self._dfs(graph, next_node, visited)
