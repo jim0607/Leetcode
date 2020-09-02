@@ -25,47 +25,69 @@ grid[i][j] is 0 or 1
 
 
 
-"""bfs: the maximum distance is steps needed to change all water to be land """
 class Solution:
-    
     WATER = 0
     LAND = 1
-    MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-    
     def maxDistance(self, grid: List[List[int]]) -> int:
         """
-        the max distance is the max steps to change all water to land
-        so we firslty put all land in a q
-        than pop them out one by one and at hte same time change adjacent water into land, append into q
+        The max distance is the max steps to change all WATER to LAND. So we firslty put all land in a q,
+        than do bfs layer by layer to change WATER to LAND in-place
         """
-        if not grid or not grid[0]:
-            return -1
-        
         m, n = len(grid), len(grid[0])
         q = collections.deque()
-        visited = set()
-        
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == self.LAND:
                     q.append((i, j))
-                    visited.add((i, j))
-            
-        steps = -1
-        while q:
+        dist = -1
+        while len(q) > 0:
+            dist += 1
             lens = len(q)
-            steps += 1
-            
             for _ in range(lens):
-                curr_x, curr_y = q.popleft()
-                
-                for move in self.MOVES:
-                    next_x, next_y = curr_x + move[0], curr_y + move[1]
-                    if 0 <= next_x < m and 0 <= next_y < n and \
-                    grid[next_x][next_y] == self.WATER and \
-                    (next_x, next_y) not in visited:
-                        grid[next_x][next_y] = self.LAND
-                        q.append((next_x, next_y))
-                        visited.add((next_x, next_y))
-                        
-        return steps if steps > 0 else -1
+                curr_i, curr_j = q.popleft()
+                for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                    next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                    if 0 <= next_i < m and 0 <= next_j < n:
+                        if grid[next_i][next_j] == self.WATER:
+                            q.append((next_i, next_j))
+                            grid[next_i][next_j] = self.LAND   # 直接in-place修改，就不需要visited了
+                            
+        return dist if dist > 0 else -1
+       
+       
+"""
+The below solution is trigger a bfs at each WATER - TLE cuz the LAND is sparse while there are lots of WATER.
+"""
+class Solution:
+    WATER = 0
+    LAND = 1
+    def maxDistance(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        max_dist = -1
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == self.WATER:
+                    max_dist = max(max_dist, self._bfs(grid, i, j))
+        return max_dist
+    
+    def _bfs(self, grid, i, j):
+        q = collections.deque()
+        visited = set()
+        q.append((i, j))
+        visited.add((i, j))
+        
+        dist = -1
+        while len(q) > 0:
+            dist += 1
+            lens = len(q)
+            for _ in range(lens):
+                curr_i, curr_j = q.popleft()
+                if grid[curr_i][curr_j] == self.LAND:
+                    return dist
+                for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                    next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                    if 0 <= next_i < len(grid) and 0 <= next_j < len(grid[0]):
+                        if (next_i, next_j) not in visited:
+                            q.append((next_i, next_j))
+                            visited.add((next_i, next_j))
+        return -1
