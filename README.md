@@ -728,7 +728,6 @@ dfs/bfs也可以做，只需要用visited记录遍历过的就可以了
 
 
 ### [Minimum Spanning Tree - Kruskal's and Prim's](/)
-----------Lintcode 629 ------------
 - [1135. Connecting Cities With Minimum Cost](Solutions/1135.Connecting-Cities-With-Minimum-Cost.py) (!!M) <br>
 This problem is to find the minimum path to connect all nodes, so it is a minimum spanning tree (MST) problem.
 There are two defferent algorithms to solve MST problem, one is Prim's, the other is Kruskal's.
@@ -762,54 +761,28 @@ same as 102，只需要res.append(level[-1])即可
 - [0111. Minimum Depth of Binary Tree](Solutions/0111.Minimum-Depth-of-Binary-Tree.py) (!!!E) <br>
 solution 1: recursion; soluiton 2: BFS; for _ in range(lens): if not node.left and not node.right: return depth
 - [0297. Serialize and Deserialize Binary Tree](Solutions/0297.Serialize-and-Deserialize-Binary-Tree.py) (!!H) <br>
-Serialize: just do a bfs to put ch level by level. Note that we use "#" to represent None. Deserialize: do a bfs, use an idx to keep track of where have we reached in the input list. deserialize不要层序遍历 
+Serialize: just do a bfs to put ch level by level. Note that we use "#" to represent None. Deserialize: do a bfs, use an idx to keep track of where have we reached in the input list. deserialize不要层序遍历. 注意pre_order (dfs), post_order (dfs), level_order(bfs) 都可以做，但是in_order不可以！
 - [0449. Serialize and Deserialize BST](Solutions/0449.Serialize-and-Deserialize-BST.py) (!!H) <br>
 Same as 297.  Solution says since BST, the answer could be as compact as possible.  Don't know how?
 - [0652. Find Duplicate Subtrees](Solutions/0652.Find-Duplicate-Subtrees.py) (!!M) <br>
-solution 1: serialize the every subtree using bfs, and put (string presentation of subtree --> subtree node) into a hashmap. Since serialization takes O(N), so the overall algorithm takes O(N^2). solution 2: serialize the binary tree using post-order traversal.  Since we can update the mapping during the traversal, the whole algorith takes O(N)
+If two subtrees have the same string representation, then they are duplicated subtress.  solution 1: serialize the every subtree using bfs, and put (string presentation of subtree --> subtree node) into a hashmap. Since serialization takes O(N), so the overall algorithm takes O(N^2). solution 2: serialize the binary tree using post-order traversal.  Since we can update the mapping during the traversal, the whole algorith takes O(N)
 
 
 
 ### [BFS in Graphs](/Breadth-First-Search.py)
-- [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
-判断图是不是一棵树（不一定非要是二叉树）需要满足两点:1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树
-- [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (M) <br>
-Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现; Step 2: 复制所有原有的node，存到mapping中，这样就建立了一个new_node和original_node的一一映射; Step 3: 复制所有original_node对应的neighbors 到 new_node里面
-- [0785. Is Graph Bipartite?](Solutions/0785.Is-Graph-Bipartite.py) (M)  <br>
-solution 1: bfs, visit every node and label their color every other step. O(V+E); 
-solution 2: dfs, mark the color of nodes as we go.  O(V+E)
-- [0399. Evaluate Division](Solutions/0399.Evaluate-Division.py) (!!M) <br>
-Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hashmap构建邻接表 graph = collections.defaultdict(dict), in graph, key is node1, val is a dict of (key: node2, val: node1/node2), 然后每次query其实就是从单源节点出发寻求不带权值最短路径问题。  Soltution 2: Union Find;
+###### 两种情况必须用bfs: 1. 需要层序遍历(Topo sort); 2. 求最短路径问题(Dijkstra, A*). 其余情况都用dfs.
 - [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (!!M) <br>
-f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i^2]+1) for i^2<=j; Time complexity: j is from 0 to n, i is from 0 to j^0.5, so O(N^1.5); solution 2: level order BFS.
-Given a N-ary tree, where each node represents a __remainder__ of the number n subtracting a combination of square numbers, 
-our task is to find a node in the tree, which should meet the conditions or remainder=0.
-Time complexity: 比较复杂最后是 O(n^(h/2)), where h is the height of the N-ary tree, h is 0 to 4
-- [1236. Web Crawler](Solutions/1236.Web-Crawler.py) (!!M) <br>
-简单bfs可破
-- [1242. Web Crawler Multithreaded](Solutions/1242.Web-Crawler-Multithreaded.py) (!!M) <br>
-bfs + multi-thread + MapReduce
+f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i^2]+1) for i^2<=j; Time complexity: j is from 0 to n, i is from 0 to j^0.5, so O(N^1.5); solution 2: level order BFS. Given a N-ary tree, where each node represents a __remainder__ of the number n subtracting a square number, our task is to find a node in the tree, which should meet the conditions or remainder=0.  bfs的层数就代表了所需要perfect squares的个数. Time complexity: 比较复杂最后是 O(n^(h/2)), where h is the height of the N-ary tree, h is 0 to 4.
 - [0773. Sliding Puzzle](Solutions/0773.Sliding-Puzzle.py) (!!H) <br>
-最短路径问题一般都用bfs: 从单源节点出发到终节点的最短路径问题。
-这题的起点是给定的board, 终点是最终想生成的board.
-所以node就是某一个board, node的neighbors就是通过一次交换可以生成的board.
-
-
-### [BFS in Matrix](/Breadth-First-Search.py) (隐式图搜索问题!!!)
-- [0200. Number of Islands](Solutions/0200.Number-of-Islands.py) (!!M, youtubed) <br>
-Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a Breadth First Search.
-Solution 2: dynamic connection problem, Union Find.
-Follow up: 如何找到这些岛屿有多少种不同的形状，union find就做不了了，只能dfs
-- [0695. Max Area of Island](Solutions/0695.Max-Area-of-Island.py) (M) <br>
-Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a Breadth First Search.
+最短路径问题用bfs: 从单源节点出发到终节点的最短路径问题。这题的起点是给定的board, 终点是最终想生成的board. 所以node就是某一个board, node的neighbors就是通过一次交换可以生成的board.
 - [0994. Rotting Oranges](Solutions/0994.Rotting-Oranges.py) (M) <br>
-Step 1. append the rotten ones to the first level, Step 2: 层序遍历的bfs to turn the adjacent fresh ones into rotten ones. 必须层序遍历才能保证最少时间make all fresh ones rotten 在class solution(): 后面定义全局变量 EMPTY = 0; FRESH = 1; MOVES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-- [286. Walls and Gates](Solutions/0286.Walls-and-Gates.py) (M) <br>
-Step 1: append all the gates into the queue; Step 2: change all the "INF" to a value that equals the layer number, 必须层序遍历才可以保证每次INF都能变成最小距离
+求最短路径问题，必须用bfs. Step 1. append the rotten ones to the first level（多源节点）, Step 2: 层序遍历的bfs to turn the adjacent fresh ones into rotten ones. 必须层序遍历才能保证最少时间make all fresh ones rotten 在class solution(): 后面定义全局变量 EMPTY = 0; FRESH = 1;
+- [0286. Walls and Gates](Solutions/0286.Walls-and-Gates.py) (M) <br>
+求最小距离问题，必须用bfs. Step 1: append all the gates into the queue; Step 2: change all the EMPTY rooms to a value that equals the layer number, 必须层序遍历才可以保证每次都能变成最小距离
 - [1197. Minimum Knight Moves](Solutions/1197.Minimum-Knight-Moves.py) (!!M) <br>
 solution 1: 利用对称性质: x,y=abs(x),abs(y); q.append(neighbor) only if (-2 <= next_x <= x + 2 and -2 <= next_y <= y + 2); 1816 ms<br>
 solution 2!!!: 从source和destination两端同时进行bfs!!!!注意双端bfs传进去的参数包含q and visited, bfs返回值是updated q and visited. cnt+=1的操作在主函数中进行. while true的结束条件: if visited_src & visited_des: return cnt_src + cnt_des; 452 ms <br>
-solution 3: recurrsion with memorization: cache[(x, y)] = min(dp(abs(x-1), abs(y-2)), dp(abs(x-2), abs(y-1))) + 1; 60 ms<br>
+solution 3 dp才是正解: recurrsion with memorization: cache[(x, y)] = min(dp(abs(x-1), abs(y-2)), dp(abs(x-2), abs(y-1))) + 1; 60 ms
 - [0127. Word Ladder](Solutions/0127.Word-Ladder.py) (!!M) <br>
 利用双端BFS大大提高速度，注意双端bfs传进去的参数包含q and visited, bfs返回值是updated q and visited. 双端bfs是src/des每走一步判断一下if visited_src & visited_des: return step; 在双端BFS的过程中判断if not q_src or not q_des: 则说明q_src或q_des里面的所有possible neighbor都不在wordList里面，也就是没有必要继续进行了; The idea behind bidirectional search is to run two simultaneous searches: one forward from the initial state and the other backward from the destination state — hoping that the two searches meet in the middle. The motivation is that b^(d/2) + b^(d/2) is much less than b^d. b is branch number, d is depth. 这题最好定义一个wordSet = set(wordList)来降低时间寻找下一个neighborWord的复杂度到O(26L); 
 - [0433. Minimum Genetic Mutation](Solutions/0433.Minimum-Genetic-Mutation.py) (!!M) <br>
@@ -894,6 +867,24 @@ Solution 2: 无权图单源节点的最短路径问题，自然想到A-star sear
 
 
 # [Depth First Search](/Depth-First-Search.py)
+### [Already done](/Depth-First-Search.py)
+#### 凡是能用bfs和dfs解的题，一律都用dfs解
+- [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
+判断图是不是一棵树（不一定非要是二叉树）需要满足两点:1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树. 遍历节点的方法可以是dfs/bfs. solution 2: Union Find
+- [0785. Is Graph Bipartite?](Solutions/0785.Is-Graph-Bipartite.py) (!!M)  <br>
+solution 1: bfs, use a colormap in which key is the node, value is the color.  visit every node layer by layer and label their color every other step. O(V+E); 
+solution 2: dfs.  dfs is better for this problem. O(V+E)
+- [0399. Evaluate Division](Solutions/0399.Evaluate-Division.py) (!!M) <br>
+Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hashmap构建邻接表 graph = collections.defaultdict(dict), in graph, key is node1, val is a dict of (key: node2, val: node1/node2), 然后每次query其实就是从单源节点出发寻求不带权值最短路径问题。  Soltution 2: DFS;
+- [1236. Web Crawler](Solutions/1236.Web-Crawler.py) (!!M) <br>
+简单bfs/dfs可破，nextUrl必须与currUrl在同一个domain里
+- [1242. Web Crawler Multithreaded](Solutions/1242.Web-Crawler-Multithreaded.py) (!!M) <br>
+bfs + multi-thread + MapReduce, use ThreadPoolExecutor with 10 worker threads
+- [0695. Max Area of Island](Solutions/0695.Max-Area-of-Island.py) (M) <br>
+Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a dfs/bfs.
+
+
+
 ### [Backtrack - Combination](/Depth-First-Search.py)
 - [0078. Subsets](Solutions/0078.Subsets.py) (!!M) <br>
 C(m, n)：m个里面找出n个的组合问题; 模板的DFS + back tracking求combination问题 O(NS), S是solution的个数，这里S=2^N; 注意两点：1.res.append(curr.copy()); has to be a deep copy; 2. self.dfs(nums, i + 1, curr, res) 要从i+1开始cuz不能回头找会重复
@@ -1018,6 +1009,8 @@ then it means it is not covered by it's children, then we must place a camera he
 
 # [图的遍历](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 ## [基础图问题](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+- [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (!!!M) <br>
+Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现; Step 2: 复制所有原有的node，存到mapping中，这样就建立了一个new_node和original_node的一一映射; Step 3: 复制所有original_node对应的neighbors 到 new_node里面
 - [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (E) <br>
 one dict to store the inDegree (beingTrusted), one dict to store the outDegree (trustOthers). there exsit a town judge only if there is a node with inDegree==N-1(beiing trusted by all others), and at the same time the node should have outDegree==0(not trust anyone)
 - [0277. Find the Celebrity](Solutions/0277.Find-the-Celebrity.py) (!!M) <br>
