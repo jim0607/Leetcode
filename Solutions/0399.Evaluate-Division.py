@@ -67,6 +67,43 @@ class Solution:
 
 
 """
+dfs is also veyr concise
+"""
+class Solution:
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        graph = collections.defaultdict(list)
+        for i, lst in enumerate(equations):
+            val = values[i]
+            graph[lst[0]].append((lst[1], val))
+            graph[lst[1]].append((lst[0], 1/val))
+            
+        res = []
+        for u, v in queries:
+            if u not in graph or v not in graph:
+                res.append(-1.0)
+            elif u == v:
+                res.append(1.0)
+            else:
+                if not self._dfs(graph, u, v, 1.0, {u}, res):
+                    res.append(-1.0)        # if not found, append -1
+        return res
+    
+    def _dfs(self, graph, curr_node, target, curr_res, visited, res):
+        if curr_node == target:
+            res.append(curr_res)
+            return True
+        for next_node, val in graph[curr_node]:
+            if next_node not in visited:
+                visited.add(next_node)
+                if self._dfs(graph, next_node, target, curr_res * val, visited, res):
+                    return True
+                visited.remove(next_node)
+        return False
+
+
+
+
+"""
 solution 2: Union Find
 since we need to use paths compression to enable efficient query, we can use union find.
 """
