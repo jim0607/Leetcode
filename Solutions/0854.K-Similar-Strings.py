@@ -97,7 +97,9 @@ class Solution:
         # if S[i]==B[i], we don't need to swap them - strong prune to makes sure swapped string always get more and more similar with B
         while i < len(curr) and curr[i] == end[i]:    
             i += 1
-        for j in range(i+1, len(curr)):     # 找到第一个不相同的ch后, 我们需要在curr后面找等于那个ch的位置进行交换，这样就把curr[i]那个位置的ch换成与end[i]一样了，这样就离end又更近了一步
+        # 找到第一个不相同的ch后, 我们需要在curr后面找等于那个ch的位置进行交换，
+        # 这样就把curr[i]那个位置的ch换成与end[i]一样了，这样就离end又更近了一步
+        for j in range(i+1, len(curr)):     
             if curr[j] == end[i]:
                 yield curr[:i] + curr[j] + curr[i+1:j] + curr[i] + curr[j+1:]
 
