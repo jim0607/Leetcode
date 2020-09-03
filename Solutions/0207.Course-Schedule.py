@@ -59,6 +59,9 @@ step II: keep adding in_degree = 0 node into q and pop out while updating res
 """
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        if len(prerequisites) == 0:
+            return [i for i in range(numCourses)]
+        
         # 1. construct a dictoinary of adjacency list for the graph
         graph = collections.defaultdict(list)
         for u, v in prerequisites:
@@ -66,9 +69,9 @@ class Solution:
             
         # 2. get in_degree information for all nodes
         in_degrees = collections.defaultdict(int)
+        for n in range(numCourses):
+            in_degrees[n] = 0
         for u, v in prerequisites:
-            if v not in in_degrees:
-                in_degrees[v] = 0
             in_degrees[u] += 1
             
         # 3. topological sort - bfs
