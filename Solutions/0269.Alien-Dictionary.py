@@ -48,39 +48,41 @@ There may be multiple valid order of letters, return any one of them is fine.
 """
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
-        
-        inDegrees = collections.defaultdict(int)
-        for word in words:          # initialize inDegrees for all chars to 0
+        # 1. construct the adjacency list representation
+        # 2. get the in_degrees information
+        graph = collections.defaultdict(list)
+        in_degrees = collections.defaultdict(int)
+        for word in words:
             for ch in word:
-                inDegrees[ch] = 0
-
-        neighbors = collections.defaultdict(list)
-        for i in range(len(words) - 1):
-            w1, w2 = words[i], words[i + 1]     # since dictionary given in lex. order, just need to compare one string to next
-            for j in range(min(len(w1), len(w2))):
-                parent, child = w1[j], w2[j]
+                in_degrees[ch] = 0
+                
+        for i in range(len(words)-1):
+            prev, curr = words[i], words[i+1]
+            for j in range(min(len(prev), len(curr))):
+                parent, child = prev[j], curr[j]
                 if parent != child:
-                    neighbors[parent].append(child)
-                    inDegrees[child] += 1
-                    break          # we can only learn from one char difference at a time, so break
-        
-        q = collections.deque()
-        res = []
-        for node, inDegree in inDegrees.items():
-            if inDegree == 0:
-                q.append(node)
-                res.append(node)
-            
-        while q:
-            currNode = q.popleft()
-            for neighbor in neighbors[currNode]:
-                inDegrees[neighbor] -= 1
-                if inDegrees[neighbor] == 0:
-                    q.append(neighbor)
-                    res.append(neighbor)
-                    
-        return "".join(res) if len(res) == len(neighbors) else ""  # 注意len(res) 的比较对象是inDegrees，因为前面初始化了inDegrees[所有的 ch] = 0
+                    graph[parent].append(child)
+                    in_degrees[child] += 1
+                    break
 
+        # 3. bfs I. initialize q by putting in_degree = 0 nodes into q
+        q = collections.deque()
+        for node, in_degree in in_degrees.items():
+            if in_degree == 0:
+                q.append(node)
+                
+        # 4. bfs II. keep appending in_degree = 0 nodes and popping while updating res
+        res = ""
+        while len(q) > 0:
+            curr_node = q.popleft()
+            res += curr_node
+            for next_node in graph[curr_node]:
+                in_degrees[next_node] -= 1
+                if in_degrees[next_node] == 0:
+                    q.append(next_node)
+                    
+        return res if len(res) == len(graph) else ""
+        
  
 # leetcode变坏了，现在成功提交需要加一个self.abc_ab_Check(prevWord, currWord):
 class Solution:
