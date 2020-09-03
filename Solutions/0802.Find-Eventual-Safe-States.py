@@ -32,28 +32,28 @@ Each graph[i] will be a sorted list of different integers, chosen within the ran
 所以这里其实就是topological sort for out_degree!
 """
 class Solution:
-    def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
-        neighbors = collections.defaultdict(list)
-        out_degree = collections.defaultdict(int)
-        for u, lst in enumerate(graph):
-            out_degree[u] = 0
-            for v in lst:
-                neighbors[v].append(u)
-                out_degree[u] += 1
-        
+    def eventualSafeNodes(self, edges: List[List[int]]) -> List[int]:
+        graph = collections.defaultdict(list)
+        for i, edge in enumerate(edges):
+            for node in edge:       # 注意这里append顺序，我们需要反着箭头走
+                graph[node].append(i)
+            
+        out_degrees = collections.defaultdict(int)
+        for i, edge in enumerate(edges):
+            out_degrees[i] += len(edge)
+            
         q = collections.deque()
+        for node, out_deg in out_degrees.items():
+            if out_deg == 0:
+                q.append(node)
+                
         res = []
-        for key, val in out_degree.items():
-            if val == 0:
-                q.append(key)
-                res.append(key)
-        
-        while q:
-            curr = q.popleft()
-            for next in neighbors[curr]:
-                out_degree[next] -= 1
-                if out_degree[next] == 0:
-                    q.append(next)
-                    res.append(next)
+        while len(q) > 0:
+            curr_node = q.popleft()
+            res.append(curr_node)
+            for next_node in graph[curr_node]:
+                out_degrees[next_node] -= 1
+                if out_degrees[next_node] == 0:
+                    q.append(next_node)
                     
         return sorted(res)
