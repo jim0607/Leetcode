@@ -24,36 +24,34 @@ Output: 3
 
 
 """
-Solution 1: Dijkstra's : 每次都把目前为止最小值最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走
+Solution 1: Dijkstra's : 
+我们要的是path里面的最大的最小值, 所以我们把每个path里面的最小值放入max heap, 这样我们每次pop出来的都是path里面最大的那个最小值
+每次都把目前为止最小值最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走
 maintain a heapq to store (the minimum value in the path so far till the currPos, currPos)
 each time, we push (min(nextVal, currMinVal), nextPos)
 O(MNlogMN), O(MN)
 """
-from heapq import *
 class Solution:
-    def maximumMinimumPath(self, A: List[List[int]]) -> int:
-        moves = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-        m, n = len(A), len(A[0])
-        
-        hq = []
-        heappush(hq, (-A[0][0], (0, 0)))
+    def maximumMinimumPath(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        hq = [(-grid[0][0], 0, 0)]
         visited = set()
         visited.add((0, 0))
-        
-        while hq:
-            currMin, currPos = heappop(hq)
-            if currPos == (m-1, n-1):
-                return -currMin
+        while len(hq) > 0:
+            curr_min_val, curr_i, curr_j = heappop(hq)      # 每次pop出来的都是path里面最大的那个最小值
+            curr_min_val = -curr_min_val    # curr_min_val stands for the curr max score of path so far
             
-            for move in moves:
-                nextPos = (currPos[0] + move[0], currPos[1] + move[1])
-                if nextPos[0] < 0 or nextPos[0] >= m or nextPos[1] < 0 or nextPos[1] >= n:
-                    continue
-                if nextPos in visited:
-                    continue
-                    
-                heappush(hq, (-min(-currMin, A[nextPos[0]][nextPos[1]]), nextPos))
-                visited.add(nextPos)
+            if (curr_i, curr_j) == (m-1, n-1):
+                return curr_min_val
+            
+            for delta_i, delta_j in [(0, 1), (-1, 0), (0, -1), (1, 0)]:
+                next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                if 0 <= next_i < m and 0 <= next_j < n:
+                    if (next_i, next_j) not in visited:
+                        next_val = grid[next_i][next_j]
+                        heappush(hq, (-min(next_val, curr_min_val), next_i, next_j))    # ***** 注意这里很容易错，
+                        visited.add((next_i, next_j))       # 我们要的是path里面的最大的最小值, 所以我们把每个path里面的最小值放入max heap,              
+                                                            # 这样我们每次pop出来的都是path里面最大的那个最小值
 
                 
                 
