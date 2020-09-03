@@ -49,46 +49,43 @@
 # 
 # 
 #
-"""分三步：1. collect the inDegree of each node
-2. collect the neighbors information
-3. topological sort - BFS"""
+"""
+分三步：
+1. construct a dictoinary of adjacency list for the graph
+2. get in_degree information for all nodes
+3. topological sort - bfs
+step I: initialze q by putting all in_degree = 0 into q
+step II: keep adding in_degree = 0 node into q and pop out while updating res
+"""
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        if numCourses == 0 or not prerequisites:
-            return True
-        
-        inDegrees = collections.defaultdict(int)
-        inDegrees = self.getInDegrees(numCourses, prerequisites)
-        print(inDegrees)
-        
-        # 用一个hashmap来存储相邻节点
-        neighbors = collections.defaultdict(list)
+        # 1. construct a dictoinary of adjacency list for the graph
+        graph = collections.defaultdict(list)
         for u, v in prerequisites:
-            neighbors[v].append(u)    # topological sorting 针对有向图, so do not append v to u!!
+            graph[v].append(u)      # topological sorting 针对有向图, so do not append v to u!!
             
+        # 2. get in_degree information for all nodes
+        in_degrees = collections.defaultdict(int)
+        for u, v in prerequisites:
+            if v not in in_degrees:
+                in_degrees[v] = 0
+            in_degrees[u] += 1
+            
+        # 3. topological sort - bfs
+        # step I: initialze q by putting all in_degree = 0 into q
         q = collections.deque()
-        visited = set()
-        for node, inDegree in inDegrees.items():
-            if inDegree == 0:
+        for node, in_degree in in_degrees.items():
+            if in_degree == 0:
                 q.append(node)
-                visited.add(node)       # 孪生兄弟
-                
-        while q:
-            currNode = q.popleft()
-            for neighbor in neighbors[currNode]:
-                inDegrees[neighbor] -= 1
-                if inDegrees[neighbor] == 0:
-                    q.append(neighbor)
-                    visited.add(neighbor)       # 孪生兄弟
-                    
-        return len(visited) == numCourses
-    
-    def getInDegrees(self, numCourses, prerequisites):
-        inDegrees = collections.defaultdict(int)
-        for node in range(numCourses):      # initialize
-            inDegrees[node] = 0
         
-        for u, v in prerequisites:
-            inDegrees[u] += 1
-            
-        return inDegrees
+        # step II: keep adding in_degree = 0 node into q and pop out while updating res
+        res = []
+        while len(q) > 0:
+            curr_node = q.popleft()
+            res.append(curr_node)       # update res after each pop
+            for next_node in graph[curr_node]:
+                in_degrees[next_node] -= 1
+                if in_degrees[next_node] == 0:  # **Always append all the inDegree=0 items in the queue
+                    q.append(next_node)
+                    
+        return len(res) == len(graph)
