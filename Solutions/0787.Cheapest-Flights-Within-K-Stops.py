@@ -39,7 +39,7 @@ There will not be any duplicated flights or self cycles.
 与743相比少了一个currNode in costs: continue因为次好路径也可能是最后的结果，这是由于最好路径可能不满足stops<K
 所以需要加一个 if currStops >= K: continue
 """
-from heapq import *
+
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, K: int) -> int:
         graph = collections.defaultdict(list)
@@ -50,9 +50,9 @@ class Solution:
         costs = collections.defaultdict(int)    # key is airpot, val is the cost to reach that airport
         while hq:       # O(NlogN)
             currCost, currStops, currNode = heappop(hq)
-            # if currNode in costs:     # 这一句不能要，因为如果最便宜的路径不满足 <= K stops的话，我们还要回来找次便宜的路径，次便宜的路径可能也需要用到这个node, 所以不能continue掉
-            #     continue
-            costs[currNode] = currCost
+            # if currNode in costs:   # 这一句不能要，因为如果最便宜的路径不满足 <= K stops的话，
+            #     continue        # 我们还要回来找次便宜的路径，次便宜的路径可能也需要用到这个node, 所以不能continue掉
+            # costs[currNode] = currCost
             
             if currNode == dst:
                 return currCost
@@ -62,5 +62,31 @@ class Solution:
                 
             for nextNode, nextCost in graph[currNode]:      # Dijkstra算法里：neighbor这一层只干一件事：那就是把这个nextNode push到hq中
                 heappush(hq, (currCost + nextCost, currStops + 1, nextNode))
+                
+        return -1
+
+    
+    
+    
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, K: int) -> int:
+        # 1. construct the graph
+        graph = collections.defaultdict(list)
+        for u, v, cost in flights:
+            graph[u].append((v, cost))
+            
+        # 2. bfs using hq
+        hq = [(0, -1, src)]     # (curr_cost, curr_stops, curr_city)
+        while len(hq) > 0:
+            curr_cost, curr_stops, curr_city = heappop(hq)
+            
+            if curr_city == dst:
+                return curr_cost
+            
+            if curr_stops >= K:
+                continue
+                
+            for next_city, next_cost in graph[curr_city]:
+                heappush(hq, (curr_cost + next_cost, curr_stops + 1, next_city))
                 
         return -1
