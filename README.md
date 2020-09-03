@@ -786,9 +786,7 @@ node是某个单词，_get_next(curr_node)是这一题的难点，构造一个di
 - [0433. Minimum Genetic Mutation](Solutions/0433.Minimum-Genetic-Mutation.py) (!!M) <br>
 same as 127. Word Ladder. O(4NL^2)
 - [0854. K-Similar Strings](Solutions/0854.K-Similar-Strings.py) (!!H) <br>
-求一个状态到另一个状态的最短路径: bfs, 想要速度更快？双端 + Prune! How to prune? there are so many swaps, how to make sure we choose swaps that are leading next_node cloaser to B?
-1. while S[i]==B[i], we don't need to swap them, until we found S[i]!=B[i], then ith pos needs to be swapped; 
-2. swapped with whom? we find S[j]==B[i], then swap j and i in S, now B[i]==S[i], and S is getting closer to B!
+求一个状态到另一个状态的最短路径: bfs, 想要速度更快？双端 + Prune! How to prune? there are so many swaps, how to make sure we choose swaps that are leading next_node cloaser to B?1. while S[i]==B[i], we don't need to swap them, until we found S[i]!=B[i], then ith pos needs to be swapped; 2. swapped with whom? we find S[j]==B[i], then swap j and i in S, now B[i]==S[i], and S is getting closer to B!
 - [0815. Bus Routes](Solutions/0815.Bus-Routes.py) (!!H) <br>
 Shortest path problem: bfs. 与word ladder那题类似，word ladder是one-to-one的bfs, 这个是多源节点出发的bfs
 - [0752. Open the Lock](Solutions/0752.Open-the-Lock.py) (!!M) <br>
