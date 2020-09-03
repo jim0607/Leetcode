@@ -75,3 +75,42 @@ class Solution:
             res = level
             
         return res
+
+
+
+class Solution:
+    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
+        if n == 1:
+            return [0]
+        
+        # 1. construct the graph
+        graph = collections.defaultdict(list)
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+            
+        # 2. get in_degrees
+        in_degrees = collections.defaultdict(int)
+        for u, v in edges:
+            in_degrees[u] += 1
+            in_degrees[v] += 1
+            
+        # 3. bfs I - put all in_degree = 1 nodes into q
+        q = collections.deque()
+        for node, in_degree in in_degrees.items():
+            if in_degree == 1:
+                q.append(node)
+                
+        # 3. bfs II - keep appending in_degree=1 nodes into q, and popping, until the last layer 
+        while len(q) > 0:
+            level = []
+            lens = len(q)
+            for _ in range(lens):   # 这题要求最后一层的nodes, 所以需要层序遍历
+                curr_node = q.popleft()
+                level.append(curr_node)
+                for next_node in graph[curr_node]:
+                    in_degrees[next_node] -= 1
+                    if in_degrees[next_node] == 1:
+                        q.append(next_node)
+
+        return level
