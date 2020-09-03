@@ -88,52 +88,50 @@ Reconstruction means building a shortest common supersequence of the sequences i
 2. 然后 BFS"""
 
 
-"""这个题目要做三个判断：
-1. 判断seqs的拓扑排序是否存在，只需判断len(res) 是否等于len(neighbors) or len(inDegrees), 如果小于说明有孤立节点，如果大于说明有环，两者都不存在拓扑排序
+"""
+这个题目要做三个判断：
+1. 判断seqs的拓扑排序是否存在，只需判断len(res) 是否等于len(graph) or len(inDegrees), 如果小于说明有孤立节点，如果大于说明有环，两者都不存在拓扑排序
 2. 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素, 即每一层只有一个选择: if len(q)>1: return False
-3. 最后判断这个唯一的拓扑排序res是否等于org"""
+3. 最后判断这个唯一的拓扑排序res是否等于org
+"""
 
 class Solution:
     def sequenceReconstruction(self, org: List[int], seqs: List[List[int]]) -> bool:
-        
-        # 求出inDegree的值
-        inDegrees = collections.defaultdict(int)
-        inDegrees = self.getInDegrees(seqs)
-        
-        # 求出neighbors
-        neighbors = collections.defaultdict(list)
+        # 1. construct the graph
+        graph = collections.defaultdict(list)
         for seq in seqs:
-            for i in range(len(seq) - 1):
-                neighbors[seq[i]].append(seq[i + 1])
-        
-        res = []
-        q = collections.deque()
-        for node, inDegree in inDegrees.items():
-            if inDegree == 0:
-                q.append(node)
-                res.append(node)
+            for i in range(len(seq)-1):
+                curr, next = seq[i], seq[i+1]
+                graph[curr].append(next)
                 
-        while q:
+        # 2. get in_degrees
+        in_degrees = collections.defaultdict(int)
+        for seq in seqs:
+            for node in seq:
+                in_degrees[node] = 0    # 注意这一步的初始化很重要，不然in_degrees里就没有in_degree=0的node了
+        for seq in seqs:
+            for node in seq[1:]:
+                in_degrees[node] += 1   # 注意一个node的in_degree值代表的是有多少node指向它
+                
+        # 3. bfs: I. put all in_degree = 0 nodes into q
+        q = collections.deque()
+        for node, in_degree in in_degrees.items():
+            if in_degree == 0:
+                q.append(node)
+                
+        # 3. bfs: II. keep appending the in_degree = 0 and pop wile updating res
+        res = []
+        while len(q) > 0:
             if len(q) > 1:   # 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素，即每一层只有一个选择
                 return False
             
-            currNode = q.popleft()
-            for neighbor in neighbors[currNode]:
-                inDegrees[neighbor] -= 1
-                if inDegrees[neighbor] == 0:
-                    q.append(neighbor)
-                    res.append(neighbor)
-                    
-        return len(res) == len(neighbors) and res == org       # 首先判断seqs的拓扑排序是否存在，然后判断这个唯一的拓扑排序是否等于org
-    
-    def getInDegrees(self, seqs):
-        inDegrees = collections.defaultdict(int)
-        for seq in seqs:
-            for node in seq:
-                inDegrees[node] = 0
-                
-        for seq in seqs:
-            for node in seq[1:]:
-                inDegrees[node] += 1
-                
-        return inDegrees
+            curr_node = q.popleft()
+            res.append(curr_node)       # 不要忘了update res every time we pop
+            
+            for next_node in graph[curr_node]:
+                in_degrees[next_node] -= 1
+                if in_degrees[next_node] == 0:
+                    q.append(next_node)
+
+        # 首先判断seqs的拓扑排序是否存在，然后判断这个唯一的拓扑排序是否等于org
+        return len(res) == len(graph) and res == org
