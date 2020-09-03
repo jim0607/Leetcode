@@ -770,7 +770,7 @@ If two subtrees have the same string representation, then they are duplicated su
 
 
 ### [BFS in Graphs](/Breadth-First-Search.py)
-###### 两种情况必须用bfs: 1. 需要层序遍历(Topo sort); 2. 求最短路径问题(Dijkstra, A*). 其余情况都用dfs.
+###### 只有一种情况必须用bfs: 需要层序遍历求最短路径问题(find min steps/time/swaps/moves, or Topo sort, or Dijkstra, A*). 其余情况都用dfs.
 - [0994. Rotting Oranges](Solutions/0994.Rotting-Oranges.py) (M) <br>
 求最短路径问题，必须用bfs. Step 1. append the rotten ones to the first level（多源节点）, Step 2: 层序遍历的bfs to turn the adjacent fresh ones into rotten ones. 必须层序遍历才能保证最少时间make all fresh ones rotten 在class solution(): 后面定义全局变量 EMPTY = 0; FRESH = 1;
 - [0286. Walls and Gates](Solutions/0286.Walls-and-Gates.py) (M) <br>
@@ -781,47 +781,35 @@ The max distance is the max steps to change all WATER to LAND. So we firslty put
 方法是先把所有0放入q的第一层，然后一层层遍历，同时更新遇到的1为当前的层数，层数就是1离0的距离 - O(MN); solution 2: DP same as 542. 01 matrix
 - [0317. Shortest Distance from All Buildings](Solutions/0317.Shortest-Distance-from-All-Buildings.py) (!!H) <br>
 Use reachable_cnt[i][j] to record how many times a 0 grid has been reached and use dist[][] to record the sum of distance from all 1 grids to this 0 grid. Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a BFS. in the bfs, we do level bfs and update the reachable_cnt matrix and dist matrix. 遇到obstacle不放进q就可以了. each bfs, all position are visited, so O(MNk) where k is how many building are there or how many bfs are triggered. Finnaly return the min of dist[i][j] if reachable_cnt[i][j] = total number of buildings. Strong Prune: if if starting from building (i, j), can reach all other building? if not, that means at least one building is isolated and can not be reached, then return -1 directly: in each BFS we use reachableBuildings to count how many 1s we reached. If reachableBuldings != totalBuildings - 1 then we know not all 1s are connected are we can return -1 immediately, which greatly improved speed.
-- [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (!!M) <br>
-f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i^2]+1) for i^2<=j; Time complexity: j is from 0 to n, i is from 0 to j^0.5, so O(N^1.5); solution 2: level order BFS. Given a N-ary tree, where each node represents a __remainder__ of the number n subtracting a square number, our task is to find a node in the tree, which should meet the conditions or remainder=0.  bfs的层数就代表了所需要perfect squares的个数. Time complexity: 比较复杂最后是 O(n^(h/2)), where h is the height of the N-ary tree, h is 0 to 4.
-- [1197. Minimum Knight Moves](Solutions/1197.Minimum-Knight-Moves.py) (!!M) <br>
-solution 1: 利用对称性质: x,y=abs(x),abs(y); q.append(neighbor) only if (-2 <= next_x <= x + 2 and -2 <= next_y <= y + 2); 1816 ms<br>
-solution 2!!!: 从source和destination两端同时进行bfs!!!!注意双端bfs传进去的参数包含q and visited, bfs返回值是updated q and visited. cnt+=1的操作在主函数中进行. while true的结束条件: if visited_src & visited_des: return cnt_src + cnt_des; 452 ms <br>
-solution 3 dp才是正解: recurrsion with memorization: cache[(x, y)] = min(dp(abs(x-1), abs(y-2)), dp(abs(x-2), abs(y-1))) + 1; 60 ms
 - [0127. Word Ladder](Solutions/0127.Word-Ladder.py) (!!M) <br>
 node是某个单词，_get_next(curr_node)是这一题的难点，构造一个dictionary, key is all possible combination of the word, value is the word, 这样就可以快速查询了。Time complexity: O(NL^2), where N is the number of words in word_set, and L is avg length of words
 - [0433. Minimum Genetic Mutation](Solutions/0433.Minimum-Genetic-Mutation.py) (!!M) <br>
 same as 127. Word Ladder. O(4NL^2)
-- [0815. Bus Routes](Solutions/0815.Bus-Routes.py) (!!H) <br>
-Shortest path problem: bfs. 与word ladder那题类似，word ladder是one-to-one的bfs, 这个是多源节点出发的bfs
-- [0773. Sliding Puzzle](Solutions/0773.Sliding-Puzzle.py) (!!H) <br>
-最短路径问题用bfs: 从单源节点出发到终节点的最短路径问题。这题的起点是给定的board, 终点是最终想生成的board. 所以node就是某一个board, node的neighbors就是通过一次交换可以生成的board. 这个题就是_get_next(curr_node)比较不容易想到
-
-
-
-
-- [0752. Open the Lock](Solutions/0752.Open-the-Lock.py) (!!M) <br>
-题目蛮有意思的, 带层序遍历的bfs, 遇到currNode in deadends 就不再去访问其neighbor了, find neighbor 函数比较有意思，这里第一次学到了yield;
-- [1129. Shortest Path with Alternating Colors](Solutions/1129.Shortest-Path-with-Alternating-Colors.py) (!!M) <br>
-这一题的题眼是visiting the same node with same color is not allowed, with same color is not.
-所以color信息要放到adjacency list 里，也要放到q里，还要放到visited里
-- [0864. Shortest Path to Get All Keys](Solutions/0864.Shortest-Path-to-Get-All-Keys.py) (H) <br>
-BFS algorithm can be used to solve a lot of problems of finding shortest distance.
-In this problem, we may visit a point more than one times, simply storing visited position is not enough.
-We need to save (pos, keys_collected) in the visited set, because visiting the same pos without getting new key is not allowed,
-but in order to get a new key, we may visit a certain pos, after getting the key, we may go back and visit the pos again.
-- [0490. The Maze](Solutions/0490.The-Maze.py) (!!M) <br>
-the tricky part is from the curr_stoppable position, find the next_stoppable position: use a while loop to find where is the next stop position. 
-- [0505. The Maze II](Solutions/0505.The-Maze-II.py) (!!M) <br>
-solution 1: just use a bfs, every time we reach the destination, we cannot return directly,
-because第二次到达的steps可能还更小，所以我们需要记录所有达到destination所用的步数. solution 2: use dikstra to make sure always pop the smallest steps.  
-重点是use a dictionary for visited, key is the pos visited, val is the steps to reach there.
-第二次到达这个a certain pos的时候所用的steps如果比第一次更小，那就更新visited[pos].
-- [0499. The Maze III](Solutions/0499.The-Maze-III.py) (!!H) <br>
-similar iwth 505 solution 2, use Dikstra's algorithm. hq needs to store the path: curr_step, curr_i, curr_j, curr_path = heappop(hq)
 - [0854. K-Similar Strings](Solutions/0854.K-Similar-Strings.py) (!!H) <br>
 求一个状态到另一个状态的最短路径: bfs, 想要速度更快？双端 + Prune! How to prune? there are so many swaps, how to make sure we choose swaps that are leading next_node cloaser to B?
 1. while S[i]==B[i], we don't need to swap them, until we found S[i]!=B[i], then ith pos needs to be swapped; 
 2. swapped with whom? we find S[j]==B[i], then swap j and i in S, now B[i]==S[i], and S is getting closer to B!
+- [0815. Bus Routes](Solutions/0815.Bus-Routes.py) (!!H) <br>
+Shortest path problem: bfs. 与word ladder那题类似，word ladder是one-to-one的bfs, 这个是多源节点出发的bfs
+- [0752. Open the Lock](Solutions/0752.Open-the-Lock.py) (!!M) <br>
+题目蛮有意思的, 带层序遍历的bfs, If next_node is deadend, then we don't put it into q, find neighbor 函数比较有意思，这里第一次学到了yield;
+- [1129. Shortest Path with Alternating Colors](Solutions/1129.Shortest-Path-with-Alternating-Colors.py) (!!M) <br>
+这一题的题眼是visiting the same node with same color is not allowed, with same color is not. 所以color信息要放到adjacency list 里，也要放到q里，还要放到visited里
+- [0773. Sliding Puzzle](Solutions/0773.Sliding-Puzzle.py) (!!H) <br>
+最短路径问题用bfs: 从单源节点出发到终节点的最短路径问题。这题的起点是给定的board, 终点是最终想生成的board. 所以node就是某一个board, node的neighbors就是通过一次交换可以生成的board. 这个题就是_get_next(curr_node)比较不容易想到
+- [1197. Minimum Knight Moves](Solutions/1197.Minimum-Knight-Moves.py) (!!M) <br>
+solution 1: 利用对称性质: x,y=abs(x),abs(y); q.append(neighbor) only if (-2 <= next_x <= x + 2 and -2 <= next_y <= y + 2); 1816 ms<br>
+solution 2!!!: 从source和destination两端同时进行bfs!!!!注意双端bfs传进去的参数包含q and visited, bfs返回值是updated q and visited. cnt+=1的操作在主函数中进行. while true的结束条件: if visited_src & visited_des: return cnt_src + cnt_des; 452 ms <br>
+solution 3 dp才是正解: recurrsion with memorization: cache[(x, y)] = min(dp(abs(x-1), abs(y-2)), dp(abs(x-2), abs(y-1))) + 1; 60 ms
+- [0864. Shortest Path to Get All Keys](Solutions/0864.Shortest-Path-to-Get-All-Keys.py) (!!H) <br>
+BFS algorithm can be used to solve a lot of problems of finding shortest distance.
+In this problem, we may visit a point more than one times, simply storing visited position is not enough.
+We need to save (pos, keys_collected) in the visited set, because visiting the same pos without getting new key is not allowed,
+but in order to get a new key, we may visit a certain pos, after getting the key, we may go back and visit the pos again.
+这是bfs最难的一题了
+- [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (!!M) <br>
+f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i^2]+1) for i^2<=j; Time complexity: j is from 0 to n, i is from 0 to j^0.5, so O(N^1.5); solution 2: level order BFS. Given a N-ary tree, where each node represents a __remainder__ of the number n subtracting a square number, our task is to find a node in the tree, which should meet the conditions or remainder=0.  bfs的层数就代表了所需要perfect squares的个数. Time complexity: 比较复杂最后是 O(n^(h/2)), where h is the height of the N-ary tree, h is 0 to 4.
+
 
 
 ### [Topological Sort](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
@@ -858,6 +846,15 @@ find a path with the minimum max-height in the path.
 采用Dikstra, 每次pop出来的都是min height就可了 - O(N^2* log(N^2)), where N is the lens of grid.
 Google 面经：有一个nxn矩阵，信使从(0, 0)出发，想走到(n-1, n-1)去报信，
 中途会有一些狮子/敌营，我们离狮子的距离越远越安全，问为了尽可能到达目的地，离狮子最大的最近距离是多少？
+- [0490. The Maze](Solutions/0490.The-Maze.py) (!!M) <br>
+the tricky part is from the curr_stoppable position, find the next_stoppable position: use a while loop to find where is the next stop position. 
+- [0505. The Maze II](Solutions/0505.The-Maze-II.py) (!!M) <br>
+solution 1: just use a bfs, every time we reach the destination, we cannot return directly,
+because第二次到达的steps可能还更小，所以我们需要记录所有达到destination所用的步数. solution 2: use dikstra to make sure always pop the smallest steps.  
+重点是use a dictionary for visited, key is the pos visited, val is the steps to reach there.
+第二次到达这个a certain pos的时候所用的steps如果比第一次更小，那就更新visited[pos].
+- [0499. The Maze III](Solutions/0499.The-Maze-III.py) (!!H) <br>
+similar iwth 505 solution 2, use Dikstra's algorithm. hq needs to store the path: curr_step, curr_i, curr_j, curr_path = heappop(hq)
 
 
 ### [A*](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
