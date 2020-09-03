@@ -823,10 +823,13 @@ f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i
 这个题目要做三个判断：1. 判断seqs的拓扑排序是否存在，只需判断len(res) 是否等于len(graph) or len(inDegrees), 如果小于说明有孤立节点，如果大于说明有环，两者都不存在拓扑排序; 2. 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素, 即每一层只有一个选择: if len(q)>1: return False; 3. 最后判断这个唯一的拓扑排序res是否等于org
 - [0269. Alien Dictionary](Solutions/0269.Alien-Dictionary.py) (!!H) <br>
 只需要比较word[i]与word[i+1]中每个char，即可得到inDegree的关系以及neighbors的关系
-- [0310. Minimum Height Trees](Solutions/0310.Minimum-Height-Trees.py) (M) <br>
+- [0310. Minimum Height Trees](Solutions/0310.Minimum-Height-Trees.py) (!!M) <br>
 想想如果是一个很大的图，那minimum height trees的root就应该是这个图的最中心，所以我们就去找图的最中心就可以了，采用从外围(inDegree=1的node)往中间走的方法，解法类似topological sort, 走到最后留下的顶点就是最中心的顶点，也就是距离所有外围顶点最小的顶点。
 - [0802. Find Eventual Safe States](Solutions/0802.Find-Eventual-Safe-States.py) (M) <br>
-寻找不在环里的node, 其实就是其实就是topological sort for out_degree!
+在环内的node可能永远都跳不出环，所以这一题是寻找不在环里的nodes, 其实就是其实就是topological sort for out_degree!
+- [1203. Sort Items by Groups Respecting Dependencies](Solutions/1203.Sort-Items-by-Groups-Respecting-Dependencies.py) (H Google) <br>
+Step 1: topo sort for all groups -> return topo sorted list of group id topo_sorted_groups;
+Step 2: topo sort inside each group in topo_sorted_groups -> return topo sorted list for each group.
 
 
 
@@ -1153,7 +1156,8 @@ dfs+memo: O(N^2); memo[(curr_s)] = 能稳赢
 
 ----------1376. Time Needed to Inform All Employees Google Onsite----------
 ------------664. Strange Printer--------488. Zuma Game--------546. Remove Boxes---------691. Stickers to Spell Word--------887. Super Egg Drop----------
-
+----------- - [0727. Minimum Window Subsequence](Solutions/0727.Minimum-Window-Subsequence.py) (!!H Google) <br>
+solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题只需要freq都满足了就行，这题不仅如此，而且还是讲究顺序的，; solution 2: dp ------------
 
 
 # [Dynamic Programming/bottom up DP](Dynamic-Programming.py)
@@ -1587,6 +1591,7 @@ midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx
 
 
 # [Two Pointers](/Two-pointers.py)
+---------- 809. Expressive Words Google !!!!!!! ------------
 ### [反向双指针](/Two-pointers.py)
 - [EPI book](Solutions/) (E) <br>
 Question: given an array, move all the even numbers to the left while all the odd numbers to the right.
