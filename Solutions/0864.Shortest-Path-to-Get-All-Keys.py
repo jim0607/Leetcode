@@ -31,7 +31,7 @@ class Solution:
     def shortestPathAllKeys(self, grid: List[str]) -> int:
         m, n = len(grid), len(grid[0])
         q = collections.deque()
-        keys_collected = ()     # cannot use mutable data types like set or list, because they are unhashable and thus cannot add into visited set, so here we use a tuple instead
+        keys_collected = tuple()  # cannot use mutable data types like set or list, because they are unhashable and thus cannot add into visited set, so here we use a tuple instead
         visited = set()
         total_keys = 0
         for i in range(m):
@@ -42,42 +42,37 @@ class Solution:
                 if grid[i][j].islower():
                     total_keys += 1
                     
-        moves = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-        steps = 0 
-        while q:
+        steps = -1 
+        while len(q) > 0:
             steps += 1
             lens = len(q)
             for _ in range(lens):
                 curr_i, curr_j, curr_keys_collected = q.popleft()
-                for delta_i, delta_j in moves:
+                if len(curr_keys_collected) == total_keys:          # 如果collect all keys, then return
+                    return steps
+                
+                for delta_i, delta_j in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
                     next_i, next_j = curr_i + delta_i, curr_j + delta_j
                     if 0 <= next_i < m and 0 <= next_j < n:
-                        if grid[next_i][next_j] == '#':
+                        if grid[next_i][next_j] == '#':         # if it's a WALL, then we can not go through
                             continue
                             
-                        if grid[next_i][next_j] == ".":
+                        if grid[next_i][next_j] == "." or grid[next_i][next_j] == "@":
                             if (next_i, next_j, curr_keys_collected) not in visited:
                                 q.append((next_i, next_j, curr_keys_collected))
                                 visited.add((next_i, next_j, curr_keys_collected))
                                 
-                        if grid[next_i][next_j] == "@":
-                            if (next_i, next_j, curr_keys_collected) not in visited:
-                                q.append((next_i, next_j, curr_keys_collected))
-                                visited.add((next_i, next_j, curr_keys_collected))
-                                
-                        if grid[next_i][next_j].isupper():                              
-                            if grid[next_i][next_j].lower() not in curr_keys_collected:
+                        if grid[next_i][next_j].isupper():      # if it's a lock, we can go though it only if we have the key collected already       
+                            if grid[next_i][next_j].lower() not in curr_keys_collected:     # if the key is not collected already, we cannot go through
                                 continue
                             if (next_i, next_j, curr_keys_collected) not in visited:
                                 q.append((next_i, next_j, curr_keys_collected))
                                 visited.add((next_i, next_j, curr_keys_collected))                                
                                 
-                        if grid[next_i][next_j].islower():
-                            if (next_i, next_j, curr_keys_collected) not in visited:    # 在这一步要更新key_collected
-                                next_keys_collected_set = set(curr_keys_collected)
+                        if grid[next_i][next_j].islower():      # if it's a key, then we need to update the key_collected 
+                            if (next_i, next_j, curr_keys_collected) not in visited: 
+                                next_keys_collected_set = set(curr_keys_collected)      # 注意我们需要用tuple cuz set is mutable, so not hashable
                                 next_keys_collected_set.add(grid[next_i][next_j])
-                                if len(next_keys_collected_set) == total_keys:          # 如果collect all keys, then return steps
-                                    return steps
                                 next_keys_collected = tuple(next_keys_collected_set)
                                 q.append((next_i, next_j, next_keys_collected))
                                 visited.add((next_i, next_j, next_keys_collected))
