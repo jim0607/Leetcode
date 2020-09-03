@@ -56,51 +56,38 @@
 #
 
 
-”“”所有的topological sort 都是两步：
-1. 从数字关系求出 indegrees 和 neighbors
-2. 然后 BFS“”“
-
-
 class Solution:
-    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        if numCourses == 0:
-            return []
-        if not prerequisites:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        if len(prerequisites) == 0:
             return [i for i in range(numCourses)]
         
-        # 找到所有节点的inDegree值
-        inDegrees = collections.defaultdict(int)
-        inDegrees = self.getInDegrees(numCourses, prerequisites)
-        
-        # 用一个hashmap存储边/邻居
-        neighbors = collections.defaultdict(list)
+        # 1. construct a dictoinary of adjacency list for the graph
+        graph = collections.defaultdict(list)
         for u, v in prerequisites:
-            neighbors[v].append(u)
+            graph[v].append(u)      # topological sorting 针对有向图, so do not append v to u!!
             
-        # BFS
-        res = []
-        q = collections.deque()
-        for node, inDegree in inDegrees.items():
-            if inDegree == 0:
-                q.append(node)
-                res.append(node)
-                
-        while q:
-            currNode = q.popleft()
-            for neighbor in neighbors[currNode]:
-                inDegrees[neighbor] -= 1
-                if inDegrees[neighbor] == 0:
-                    q.append(neighbor)
-                    res.append(neighbor)
-                    
-        return res if len(res) == numCourses else []
-    
-    def getInDegrees(self, numCourses, prerequisites):
-        inDegrees = collections.defaultdict(int)
+        # 2. get in_degree information for all nodes
+        in_degrees = collections.defaultdict(int)
         for n in range(numCourses):
-            inDegrees[n] = 0
-            
+            in_degrees[n] = 0
         for u, v in prerequisites:
-            inDegrees[u] += 1
+            in_degrees[u] += 1
             
-        return inDegrees
+        # 3. topological sort - bfs
+        # step I: initialze q by putting all in_degree = 0 into q
+        q = collections.deque()
+        for node, in_degree in in_degrees.items():
+            if in_degree == 0:
+                q.append(node)
+        
+        # step II: keep adding in_degree = 0 node into q and pop out while updating res
+        res = []
+        while len(q) > 0:
+            curr_node = q.popleft()
+            res.append(curr_node)       # update res after each pop
+            for next_node in graph[curr_node]:
+                in_degrees[next_node] -= 1
+                if in_degrees[next_node] == 0:  # **Always append all the inDegree=0 items in the queue
+                    q.append(next_node)
+                    
+        return res if len(res) == len(graph) else []
