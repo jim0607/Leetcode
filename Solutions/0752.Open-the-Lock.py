@@ -42,36 +42,35 @@ space: O(10^4 + N)
 """
 class Solution:
     def openLock(self, deadends: List[str], target: str) -> int:
-        source = "0000"
-        deadendsSet = set(deadends)
+        deadset = set(deadends)
+        if "0000" in deadset:
+            return -1
         
         q = collections.deque()
-        q.append(source)
         visited = set()
-        visited.add(source)
+        q.append("0000")
+        visited.add("0000")     # 其实在初始化的时候也可以把deadends都add进去
+        
         steps = -1
-        while q:
+        while len(q) > 0:
             steps += 1
             lens = len(q)
             for _ in range(lens):
-                currNode = q.popleft()
-                if currNode == target:
+                curr_node = q.popleft()
+                if curr_node == target:
                     return steps
-                if currNode in deadendsSet:     # If currNode is deadend, then we don't go to it's neighbor
-                    continue
-                for nextNode in self.neighbors(currNode):
-                    if nextNode in visited:
+                for next_node in self._get_next(curr_node):
+                    if next_node in deadset or next_node in visited:  # If next_node is deadend, then we don't put it into q
                         continue
-                    q.append(nextNode)
-                    visited.add(nextNode)
-                    
-        return -1
+                    q.append(next_node)
+                    visited.add(next_node)
         
-    def neighbors(self, node):
-        for i in range(4):  # 注意neighbor不止两个，而是每个digit都可能有两个，一个有4个可能的neighbor
-            x = int(node[i])
+        return -1
+    
+    def _get_next(self, curr_node):
+        for i in range(len(curr_node)):     # 注意neighbor不止两个，而是每个digit都可能有两个
+            curr_num = int(curr_node[i])
             for delta in [-1, 1]:
-                next_x = x + delta
-                next_x = next_x % 10
-                next_node = node[:i] + str(next_x) + node[i+1:]
+                next_num = (curr_num + delta) % 10
+                next_node = curr_node[:i] + str(next_num) + curr_node[i+1:]
                 yield next_node
