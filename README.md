@@ -745,7 +745,8 @@ And find minimum spanning tree cost will be the answer.
 
 
 # [Breadth First Search](/Breadth-First-Search.py)
-### [BFS in Trees](/Breadth-First-Search.py) (总结：Tree中需要一层一层输出的都用BFS)
+### [BFS in Trees](/Breadth-First-Search.py) 
+##### 总结：Tree中需要一层一层输出的都用BFS
 - [0102. Binary Tree Level Order Traversal](Solutions/0102.Binary-Tree-Level-Order-Traversal.py) (!!M, youtubed) <br>
 BFS的铁律就是用queue, 在while q: 循环里做两件事 1. 处理这一层。那就需要把这一层的node逐个pop出，然后append到res里，有时候需要用for循环for _ in range(len(q))来遍历这一层所有的node; 2. append下一层进q。BFS is O(N) since each node is processed exactly once
 - [0103. Binary Tree Zigzag Level Order Traversal](Solutions/0103.Binary-Tree-Zigzag-Level-Order-Traversal.py) (M) <br>
@@ -770,7 +771,7 @@ If two subtrees have the same string representation, then they are duplicated su
 
 
 ### [BFS in Graphs](/Breadth-First-Search.py)
-###### 只有一种情况必须用bfs: 需要层序遍历求最短路径问题(find min steps/time/swaps/moves, or Topo sort, or Dijkstra, A*). 其余情况都用dfs.
+##### 只有一种情况必须用bfs: 需要层序遍历求最短路径问题(find min steps/time/swaps/moves, or Topo sort, or Dijkstra, A*). 其余情况都用dfs.
 - [0994. Rotting Oranges](Solutions/0994.Rotting-Oranges.py) (M) <br>
 求最短路径问题，必须用bfs. Step 1. append the rotten ones to the first level（多源节点）, Step 2: 层序遍历的bfs to turn the adjacent fresh ones into rotten ones. 必须层序遍历才能保证最少时间make all fresh ones rotten 在class solution(): 后面定义全局变量 EMPTY = 0; FRESH = 1;
 - [0286. Walls and Gates](Solutions/0286.Walls-and-Gates.py) (M) <br>
@@ -810,21 +811,23 @@ f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i
 
 
 
+
 ### [Topological Sort](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0127. Topological Sorting](Solutions/0127.Topological-Sorting.py) (!!LintCode) <br>
 有向图的问题，可以检测有向图是否有环！必考，其实也非常模板化，一定要记住。Three steps: 1. 从数字关系求出每个节点的inDegrees（就是找节点与相邻节点的依赖关系） (inDegrees = collections.defaultdict(int))，key是node, val是这个node的indegree值; 2. 和每个节点的neighbors （neighbors = collections.defaultdict(list)), key是node, val是装有这个node的neighbor的list; 3. 然后 BFS，背诵模板就可以了。
 - [0207. Course Schedule](Solutions/0207.Course-Schedule.py) (!!M) <br>
-套用模板分三步：1. collect the inDegree of each node; 2. collect the neighbors information; 3. topological sort - BFS
+套用模板分三步：1. construct a dictoinary of adjacency list for the graph; 2. get in_degree information for all nodes; 3. topological sort - bfs: step I: initialze q by putting all in_degree = 0 into q; step II: keep adding in_degree = 0 node into q and pop out while updating res
 - [0210. Course Schedule II](Solutions/0210.Course-Schedule-II.py) (!!M) <br>
 套用模板 return res if len(res) == numCourses else [].  Google follow up: 打印出所有可能的选课组合，感觉有点像word ladder I and II.
 - [0444. Sequence Reconstruction](Solutions/0444.Sequence-Reconstruction.py) (!!M) <br>
-这个题目要做三个判断：1. 判断seqs的拓扑排序是否存在，只需判断len(res) 是否等于len(neighbors) or len(inDegrees), 如果小于说明有孤立节点，如果大于说明有环，两者都不存在拓扑排序; 2. 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素, 即每一层只有一个选择: if len(q)>1: return False; 3. 最后判断这个唯一的拓扑排序res是否等于org
+这个题目要做三个判断：1. 判断seqs的拓扑排序是否存在，只需判断len(res) 是否等于len(graph) or len(inDegrees), 如果小于说明有孤立节点，如果大于说明有环，两者都不存在拓扑排序; 2. 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素, 即每一层只有一个选择: if len(q)>1: return False; 3. 最后判断这个唯一的拓扑排序res是否等于org
 - [0269. Alien Dictionary](Solutions/0269.Alien-Dictionary.py) (!!H) <br>
 只需要比较word[i]与word[i+1]中每个char，即可得到inDegree的关系以及neighbors的关系
 - [0310. Minimum Height Trees](Solutions/0310.Minimum-Height-Trees.py) (M) <br>
 想想如果是一个很大的图，那minimum height trees的root就应该是这个图的最中心，所以我们就去找图的最中心就可以了，采用从外围(inDegree=1的node)往中间走的方法，解法类似topological sort, 走到最后留下的顶点就是最中心的顶点，也就是距离所有外围顶点最小的顶点。
 - [0802. Find Eventual Safe States](Solutions/0802.Find-Eventual-Safe-States.py) (M) <br>
 寻找不在环里的node, 其实就是其实就是topological sort for out_degree!
+
 
 
 ### [Dijkstra](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
@@ -1048,6 +1051,7 @@ Solution 1: Union Find.  Step 1: Union all the "O" that are neighborign with eac
 - [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (!!H) 打印/输出所有满足条件的路径必用DFS
 Step 1. 从end到start做BFS，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
 Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近(if self.distance[nextWord] >= self.distance[currWord]: continue)。最后将路径都存入到res里
+想想210题的Google follow up.
 - [0980.Unique-Paths-III.py](Solutions/0980.Unique-Paths-III.py) (!!M youtube with path-I and II) <br>
 Solution 2: since we don't need to print the actual paths, DP or dfs with memorization is good.
 Total ime complexity for this DP = No. of sub-problems * Time taken per sub-problem = O(n * 2^n) * O(1) = O(n * 2^n).
