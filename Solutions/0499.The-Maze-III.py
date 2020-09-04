@@ -55,38 +55,34 @@ The given maze does not contain border (like the red rectangle in the example pi
 The maze contains at least 2 empty spaces, and the width and the height of the maze won't exceed 30.
 
 
-
 class Solution:
     EMPTY = 0
     WALL = 1
-    def findShortestWay(self, maze: List[List[int]], src: List[int], des: List[int]) -> str:
-        m, n = len(maze), len(maze[0])
-        hq = []
-        heappush(hq, (0, src[0], src[1], ""))
-        visited = collections.defaultdict(tuple)
-        visited[(src[0], src[1])] = 0, ""   # key is the pos visited, val is (the steps to reach there, the path to reach there)
-        
-        while hq:
-            curr_step, curr_i, curr_j, curr_path = heappop(hq)
+    def findShortestWay(self, grid: List[List[int]], src: List[int], destination: List[int]) -> str:
+        m, n = len(grid), len(grid[0])
+        hq = [(0, src[0], src[1], "")]
+        distance = collections.defaultdict(tuple)
+        distance[(src[0], src[1])] = (0, "")    # key is the pos visited, val is (the dist to reach there, the path to reach there)
+        while len(hq) > 0:
+            curr_dist, curr_i, curr_j, curr_path = heappop(hq)
+            if [curr_i, curr_j] == destination:
+                return curr_path        # garanteed to return the minimum step if using heapq, otherwise, not garanteed
             
-            if [curr_i, curr_j] == des:
-                return curr_path    # garanteed to return the minimum step if using heapq, otherwise, not garanteed
-            
-            for i, j, direction in ((1,0,"d"), (-1,0,"u"), (0,1,"r"), (0,-1,"l")):
-                # find the next position that the ball can stop
-                next_i, next_j, next_step, next_path = curr_i, curr_j, curr_step, curr_path
-                next_path += direction
-                while 0 <= next_i + i < m and 0 <= next_j + j < n and maze[next_i+i][next_j+j] == self.EMPTY:
-                    next_i += i
-                    next_j += j
-                    next_step += 1
-                    if [next_i, next_j] == des:
-                        break       # 注意这时不能return哦，这时not guaranted the minimum step
-                                    # 因为可能这里加了很多步才到des的，只有heappop出来的才guaranteed to be minimum step
-                # 这里是重点，由于bfs "一步"实际上可以走很多steps, 所以对于某个点，
-                # 可能第二次到达这个点的时候所用的steps比第一次更小（甚至在第二次到达的enter方向第一次相同的情况下）
-                # 所以我们不能因为第一次visited了，第二次就不去visited了，而是谁的steps少就用谁的steps
-                if (next_i, next_j) not in visited or (next_step, next_path) < visited[(next_i, next_j)]:   # smallest step first, then lexicographical order
-                    visited[(next_i, next_j)] = next_step, next_path
-                    heappush(hq, (next_step, next_i, next_j, next_path))
+            for delta_i, delta_j, direction in [(0, 1, "r"), (1, 0, "d"), (-1, 0, "u"), (0, -1, "l")]:
+                next_i, next_j = curr_i, curr_j
+                next_steps = 0
+                while 0 <= next_i + delta_i < m and 0 <= next_j + delta_j < n and grid[next_i + delta_i][next_j + delta_j] == self.EMPTY:
+                    next_i += delta_i
+                    next_j += delta_j
+                    next_steps += 1
+                    if [next_i, next_j] == destination:  # 注意跟maze II不一样的是足球可以在半路掉进洞的, 即destination is not a stoppable node
+                        break   # 注意这时不能return哦，这时not guaranted the minimum step, 因为可能这里加了很多很多步才到des的，
+                                # 只有heappop出来的才guaranteed to be minimum step
+                       
+                next_dist = curr_dist + next_steps
+                next_path = curr_path + direction
+                if (next_i, next_j) not in distance or (next_dist, next_path) < distance[(next_i, next_j)]: # smallest step first, then lexicographical order
+                    distance[(next_i, next_j)] = (next_dist, next_path)
+                    heappush(hq, (next_dist, next_i, next_j, next_path))
+                    
         return "impossible"
