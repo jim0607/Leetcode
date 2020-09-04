@@ -1,3 +1,4 @@
+"""
 505. The Maze II
 
 There is a ball in a maze with empty spaces and walls. The ball can go through empty spaces by rolling up, down, left or right, but it won't stop rolling until hitting a wall. When the ball stops, it could choose the next direction.
@@ -55,11 +56,12 @@ The maze contains at least 2 empty spaces, and both the width and height of the 
 
 
 """
+"""
 Each stoppable pos is the node, while the steps needed from one stoppable pos to another stoppable pos is the weight in the graph.
 We use Dijkstra's to find path from source to destination.
 这个题比普通的Dijkstra's就只是多了一步找下一个node的步骤
 """
-"""
+
 class Solution:
     EMPTY = 0
     WALL = 1
