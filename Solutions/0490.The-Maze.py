@@ -41,7 +41,7 @@ Output: false
 
     
 ""
-soltution 1: dfs
+soltution 1: dfs - 这题充分体现dfs比bfs简洁太多
 """
 """
 class Solution:
