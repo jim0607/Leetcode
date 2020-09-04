@@ -78,7 +78,7 @@ class Solution:
             for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
                 next_i, next_j = curr_i, curr_j
                 next_steps = 0      # next_steps其实就是权值from one node to another
-                while 0 <= next_i + delta_i < m and 0 <= next_j + delta_j < n and grid[next_i + delta_i][next_j + delta_j] != self.WALL:
+                while 0 <= next_i + delta_i < m and 0 <= next_j + delta_j < n and grid[next_i + delta_i][next_j + delta_j] == self.EMPTY:
                     next_i += delta_i
                     next_j += delta_j
                     next_steps += 1
