@@ -54,7 +54,7 @@ class Solution:
             
             for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
                 next_i, next_j = curr_i, curr_j
-                while 0 <= next_i + delta_i < m and 0 <= next_j + delta_j < n and grid[next_i + delta_i][next_j + delta_j] != self.WALL:
+                while 0 <= next_i + delta_i < m and 0 <= next_j + delta_j < n and grid[next_i + delta_i][next_j + delta_j] == self.EMPTY:
                     next_i += delta_i                                             # cannot stop at an empty place, must stop at wall
                     next_j += delta_j
                     
