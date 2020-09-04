@@ -36,7 +36,7 @@ class Solution:
         m, n = len(grid), len(grid[0])
         hq = [(-grid[0][0], 0, 0)]
         visited = set()
-        visited.add((0, 0))
+        visited.add((0, 0))      # 注意做Min of maximum or max of minimum的题目都需要visited set的
         while len(hq) > 0:
             curr_min_val, curr_i, curr_j = heappop(hq)      # 每次pop出来的都是path里面最大的那个最小值
             curr_min_val = -curr_min_val    # curr_min_val stands for the curr max score of path so far
