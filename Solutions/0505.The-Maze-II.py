@@ -59,6 +59,7 @@ Each stoppable pos is the node, while the steps needed from one stoppable pos to
 We use Dijkstra's to find path from source to destination.
 这个题比普通的Dijkstra's就只是多了一步找下一个node的步骤
 """
+"""
 class Solution:
     EMPTY = 0
     WALL = 1
