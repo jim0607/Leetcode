@@ -43,6 +43,7 @@ Output: false
 ""
 soltution 1: dfs
 """
+"""
 class Solution:
     EMPTY = 0
     WALL = 1
