@@ -130,5 +130,5 @@ class Solution:
                 if (next_i, next_j) not in visited or next_step < visited[(next_i, next_j)]:
                     visited[(next_i, next_j)] = next_step
                     hq.append((next_step, next_i, next_j))
-                    
+
         return -1 if min_step == float("inf") else min_step
