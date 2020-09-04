@@ -56,7 +56,7 @@ The maze contains at least 2 empty spaces, and both the width and height of the 
 
 
 """
-solution 1: just use a bfs, every time we reach the destination, we cannot return directly,
+solution 2: just use a bfs, every time we reach the destination, we cannot return directly,
 because第二次到达的steps可能还更小，所以我们需要记录所有达到destination所用的步数
 """
 """
@@ -96,41 +96,37 @@ class Solution:
 
 
 
-"""
-solution 2: use dikstra to make sure always pop the smallest steps.  
-重点是use a dictionary for visited, key is the pos visited, val is the steps to reach there.
-第二次到达这个a certain pos的时候所用的steps如果比第一次更小，那就更新visited[pos].
-"""
-from heapq import heappush, heappop
 
+"""
+Each stoppable pos is the node, while the steps needed from one stoppable pos to another stoppable pos is the weight in the graph.
+这个题比普通的Dijkstra's就只是多了一步找下一个node的步骤
+"""
 class Solution:
     EMPTY = 0
     WALL = 1
-    def shortestDistance(self, maze: List[List[int]], src: List[int], des: List[int]) -> int:
-        m, n = len(maze), len(maze[0])
-        hq = []
-        heappush(hq, (0, src[0], src[1]))
-        visited = collections.defaultdict(int)
-        visited[(src[0], src[1])] = 0   # key is the pos visited, val is the steps to reach there
-        
-        while hq:
-            curr_step, curr_i, curr_j = heappop(hq)
-            
-            if [curr_i, curr_j] == des: # garanteed to return the minimum step if using heapq, otherwise, not garanteed
-                return curr_step        # since we can return directly when we first reach the des, we don't need to get to the des multipule times
-                                        # so using Dikstra is faster than using normal bfs                                    
-            for i, j in ((1,0), (-1,0), (0,1), (0,-1)):
-                # find the next position that the ball can stop
-                next_i, next_j, next_step = curr_i, curr_j, curr_step
-                while 0 <= next_i + i < m and 0 <= next_j + j < n and maze[next_i+i][next_j+j] == self.EMPTY:
-                    next_i += i
-                    next_j += j
-                    next_step += 1
-                    
+    def shortestDistance(self, grid: List[List[int]], start: List[int], destination: List[int]) -> int:
+        m, n = len(grid), len(grid[0])
+        hq = [(0, start[0], start[1])]
+        distance = collections.defaultdict(int)     # store the dist at each stoppable pos 
+        while len(hq) > 0:
+            curr_dist, curr_i, curr_j = heappop(hq)
+            if [curr_i, curr_j] == destination:     # garanteed to return the minimum step if using heapq, otherwise, not garanteed
+                return curr_dist            # since we can return directly when we first reach the des, we don't need to get to the des multipule times
+                                            # so using Dikstra is faster than using normal bfs  
+            for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                next_i, next_j = curr_i, curr_j
+                next_steps = 0      # next_steps其实就是权值from one node to another
+                while 0 <= next_i + delta_i < m and 0 <= next_j + delta_j < n and grid[next_i + delta_i][next_j + delta_j] != self.WALL:
+                    next_i += delta_i
+                    next_j += delta_j
+                    next_steps += 1
+                
                 # 这里是重点，由于bfs "一步"实际上可以走很多steps, 所以对于某个点，
                 # 可能第二次到达这个点的时候所用的steps比第一次更小（甚至在第二次到达的enter方向第一次相同的情况下）
-                # 所以我们不能因为第一次visited了，第二次就不去visited了，而是谁的steps少就用谁的steps
-                if (next_i, next_j) not in visited or next_step < visited[(next_i, next_j)]:
-                    visited[(next_i, next_j)] = next_step
-                    heappush(hq, (next_step, next_i, next_j))
+                # 所以我们不能因为第一次visited了，第二次就不去visit了，而是谁的steps少就用谁的steps
+                # 这种带限制的图遍历问题很有可能一个点被visit不止一次. eg: 787. Cheapest Flights Within K Stops
+                next_dist = curr_dist + next_steps
+                if (next_i, next_j) not in distance or next_dist < distance[(next_i, next_j)]:
+                    distance[(next_i, next_j)] = next_dist
+                    heappush(hq, (next_dist, next_i, next_j))
         return -1
