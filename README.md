@@ -861,7 +861,7 @@ Google 面经：有一个nxn矩阵，信使从(0, 0)出发，想走到(n-1, n-1)
 - [0778. Swim in Rising Water](Solutions/0778.Swim-in-Rising-Water.py) (!!H) <br>
 find a path with the minimum max-height in the path. 采用Dikstra, 每次pop出来的都是min height就可了 - O(N^2* log(N^2)), where N is the lens of grid. solution 2: union find is also quite straigt-forward
 
-
+-------------------1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance-------1514. Path with Maximum Probability---------
 
 
 
@@ -1132,7 +1132,7 @@ dfs pass prev_node, curr_node in the parameters, dfs return the tail of the curr
 - [0842. Split Array into Fibonacci Sequence](Solutions/0842.Split-Array into-Fibonacci-Sequence.py) (!!M) <br>
 与上一题相比要求输出所有Fibonacci组合，所以用backtrack: pass curr as signature to record the curr path/res
 
---------------- 698. Partition to K Equal Sum Subsets -------------
+--------------- 698. Partition to K Equal Sum Subsets ------465. Optimal Account Balancing-------
 
 
 
