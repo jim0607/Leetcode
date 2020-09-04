@@ -215,6 +215,7 @@ Then we push (nums[lst_idx][num_idx+1], lst_idx, num_idx+1) into the heapq and u
 we only need to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
 - [0358. Rearrange String k Distance Apart](Solutions/0358.Rearrange-String-k-Distance-Apart.py) (!!H) <br>
 这种间隔k个位置安排座位的问题，都是task schedule的做法！similar with task schedule, 我们按频率从大到小去坐k个位置，pop出来之后需要将freq-=1然后push回去, pop出来再push回去的思想很重要！！
+-----------1054. Distant Barcodes-----------
 - [0767. Reorganize String](Solutions/0767.Reorganize-String.py) (!!M) <br>
 这种间隔k个位置安排座位的问题，都是task schedule的做法！这一题k=1. 用一个hq保存最大的freq, 然后按要求排座位，注意add_back. # case 1: if we can put seat ch into res, then go ahead and seat it it; # case 2: if there is already to same ch on top of res, then we cannot seat the 1st_freq ch, instead, we seat the 2nd highest freq
 - [1405. Longest Happy String](Solutions/1405.Longest-Happy-String.py) (!!M) <br>
@@ -796,6 +797,8 @@ Shortest path problem: bfs. 与word ladder那题类似，word ladder是one-to-on
 这一题的题眼是visiting the same node with same color is not allowed, with same color is not. 所以color信息要放到adjacency list 里，也要放到q里，还要放到visited里
 - [0773. Sliding Puzzle](Solutions/0773.Sliding-Puzzle.py) (!!H) <br>
 最短路径问题用bfs: 从单源节点出发到终节点的最短路径问题。这题的起点是给定的board, 终点是最终想生成的board. 所以node就是某一个board, node的neighbors就是通过一次交换可以生成的board. 这个题就是_get_next(curr_node)比较不容易想到
+- [0818. Race Car](Solutions/0818.Race-Car.py) (!!H) <br>
+层序遍历的bfs. 这个graph的nodes比较特殊，nodes是(curr_pos, curr_speed). strong pruning that is 100 times faster: 我们是有条件的回退，只有在超过了target的情况下我们才回退
 - [1197. Minimum Knight Moves](Solutions/1197.Minimum-Knight-Moves.py) (!!M) <br>
 solution 1: 利用对称性质: x,y=abs(x),abs(y); q.append(neighbor) only if (-2 <= next_x <= x + 2 and -2 <= next_y <= y + 2); 1816 ms<br>
 solution 2!!!: 从source和destination两端同时进行bfs!!!!注意双端bfs传进去的参数包含q and visited, bfs返回值是updated q and visited. cnt+=1的操作在主函数中进行. while true的结束条件: if visited_src & visited_des: return cnt_src + cnt_des; 452 ms <br>
@@ -834,31 +837,33 @@ Step 2: topo sort inside each group in topo_sorted_groups -> return topo sorted 
 
 
 ### [Dijkstra](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+#### 有权图最值路径问题，最值分两种：1. 最大/最小 sum of the path; 2. 最大/最小 min/max in the path. <br>
+#### 第一种需要在heapq中存放(curr_sum, curr_node); 第二种需要在heapq中存放(-curr_min_val, curr_node) or (curr_max_val, curr_node). 第二种也可以用UnionFind来做
 - [0743. Network Delay Time](Solutions/0743.Network-Delay-Time.py) (!!M) <br>
-**带权值**的**有向图**求**单源节点**出发的最短路径问题马上就想到Dijkstra, **O(NlogN + E)** N is # nodes, E is # edges <br>
+**带权值**的**有向图**求**单源节点**出发的最短路径问题马上就想到Dijkstra, **O(VlogV + E)** N is # nodes, E is # edges <br>
 Dijkstra就是贪心版的bfs, bfs是勤勤恳恳一层一层推进，一层没访问完绝不访问下一层。Dijkstra就很贪心了，才不一层一层地走呢，他每次都想走最low cost的。如何实现每次走最low cost的呢？用一个heapq来store a pair: (currCost to reach the node, node), 这样每次pop出来的就都最low cost的node了，再去访问这个node的neighbors，把这些neighbors都加到hq中，代码比较短。思路其实与23. Merge k Sorted Lists非常类似，把23里的linked list加上一个虚拟头节点连接所有的头节点，然后把Linked list node的val改成边的权值，那就变成了单源节点出发求访问到所有节点的最短路径。
 - [0787. Cheapest Flights Within K Stops](Solutions/0787.Cheapest-Flights-Within-K-Stops.py) (!!M) <br>
-有向图，带权值，找从单源出发最佳路径问题：Dijkstra's algorithm O(NlogN + E) <br> 
-hq 需要 store (cost, stops, airports), 与743相比少了一个currNode in costs: continue因为次好路径也可能是最后的结果，这是由于最好路径可能不满足stops < K; 这题需要加一个 if currStops >= K: continue
-- [0882. Reachable Nodes In Subdivided Graph](Solutions/0882.Reachable-Nodes-In-Subdivided-Graph.py) (H) <br>
-hq store (how many moves left, node); # seen[i] means that we can arrive at node i and have seen[i] moves left; if movesLeft > insertNumber: heappush
-- [1102. Path With Maximum Minimum Value](Solutions/1102.Path-With-Maximum-Minimum-Value.py) (M) <br>
-Solution 1: Dijkstra's : 每次都把目前为止最小值最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走. maintain a heapq to store (__the minimum value in the path so far till the currPos__, currPos); each time, we push (min(nextVal, currMinVal), nextPos); O(MNlogMN), O(MN). Solution 2: Union-Find, step 1: sort the array by the values descendingly; step 2: union one-by-one, until (0, 0) and (m-1, n-1) is connected; solution 3: dfs + binary search.
-想想174. Dungeon Game那题，其实也是找maximum of minimum value in a path, 不同的是只能往右走和往下走，也就是说不能回头，所以情况更简单可以用DP O(mn)解决
-- [0778. Swim in Rising Water](Solutions/0778.Swim-in-Rising-Water.py) (!!H) <br>
-find a path with the minimum max-height in the path.
-采用Dikstra, 每次pop出来的都是min height就可了 - O(N^2* log(N^2)), where N is the lens of grid.
-Google 面经：有一个nxn矩阵，信使从(0, 0)出发，想走到(n-1, n-1)去报信，
-中途会有一些狮子/敌营，我们离狮子的距离越远越安全，问为了尽可能到达目的地，离狮子最大的最近距离是多少？
+有向图，带权值，找从单源出发最佳路径问题：Dijkstra's algorithm <br> 
+hq 需要 store (curr_cost, curr_stops, curr_city), 与743相比少了一个currNode in costs: continue 因为次好路径也可能是最后的结果，这是由于最好(low cost)路径可能不满足stops < K; 这题需要加一个 if currStops >= K: continue
 - [0490. The Maze](Solutions/0490.The-Maze.py) (!!M) <br>
-the tricky part is from the curr_stoppable position, find the next_stoppable position: use a while loop to find where is the next stop position. 
+since the ball cannot stop at an empty place, must stop at wall, the tricky part is from the curr_stoppable position, find the next_stoppable position: use a while loop to find where is the next stop position. 
 - [0505. The Maze II](Solutions/0505.The-Maze-II.py) (!!M) <br>
-solution 1: just use a bfs, every time we reach the destination, we cannot return directly,
-because第二次到达的steps可能还更小，所以我们需要记录所有达到destination所用的步数. solution 2: use dikstra to make sure always pop the smallest steps.  
-重点是use a dictionary for visited, key is the pos visited, val is the steps to reach there.
-第二次到达这个a certain pos的时候所用的steps如果比第一次更小，那就更新visited[pos].
+need to find the shortest path to reach destination. So dfs won't work. solution 1: Each stoppable pos is the node, while the steps needed from one stoppable pos to another stoppable pos is the weight in the graph. We use Dijkstra's to find path from source to destination. 这个题比普通的Dijkstra's就只是多了一步找下一个node的步骤. 特别注意可能第二次到达这个点的时候所用的steps比第一次更小, 所以我们要用 一个dictionary distance to store the dist at each stoppable pos. if next_node not in distance or next_dist < distance[next_node] 我们都把next_node append进hq.   solution 2: just use a bfs, every time we reach the destination, we cannot return directly, because第二次到达的steps可能还更小，所以我们需要记录所有达到destination所用的步数. 
 - [0499. The Maze III](Solutions/0499.The-Maze-III.py) (!!H) <br>
-similar iwth 505 solution 2, use Dikstra's algorithm. hq needs to store the path: curr_step, curr_i, curr_j, curr_path = heappop(hq)
+similar iwth 505 solution 2, use Dikstra's algorithm. hq needs to store the path: (curr_dist, curr_pos, curr_path). So when curr_pos == destination: instead of return curr_dist, we return curr_path.
+- [0882. Reachable Nodes In Subdivided Graph](Solutions/0882.Reachable-Nodes-In-Subdivided-Graph.py) (H) <br>
+每次pop出来的都是剩余步数最多（即离soure node最近）的node. hq stores (currently how many moves left, curr_node); use a dictionary to store node--->how many moves left.
+- [1102. Path With Maximum Minimum Value](Solutions/1102.Path-With-Maximum-Minimum-Value.py) (!!M) <br>
+Solution 1: Dijkstra's : 我们要的是path里面的最大的最小值, 所以我们把每个path里面的最小值放入max heap, 这样我们每次pop出来的都是path里面最大的那个最小值. maintain a heapq to store (__negative of the minimum value in the path so far till the currPos__, currPos); each time, we push (-min(nextVal, currMinVal), nextPos); O(MNlogMN), O(MN). Solution 2: Union-Find, step 1: sort the array by the values descendingly; step 2: union one-by-one, until (0, 0) and (m-1, n-1) is connected; solution 3: dfs + binary search. <br>
+想想174. Dungeon Game那题，其实也是找maximum of minimum value in a path, 不同的是只能往右走和往下走，也就是说不能回头，所以情况更简单可以用DP O(mn)解决 <br>
+- [Google. Maximum Safty for the Soldier](Solutions/Google.Maximum-Safty-for-the-Soldier.py) (!!M) <br>
+Google 面经：有一个nxn矩阵，信使从(0, 0)出发，想走到(n-1, n-1)去报信，中途会有一些狮子/敌营，我们离狮子的距离越远越安全，问为了尽可能到达目的地，离狮子最大的最近距离是多少？
+- [0778. Swim in Rising Water](Solutions/0778.Swim-in-Rising-Water.py) (!!H) <br>
+find a path with the minimum max-height in the path. 采用Dikstra, 每次pop出来的都是min height就可了 - O(N^2* log(N^2)), where N is the lens of grid. solution 2: union find is also quite straigt-forward
+
+
+
+
 
 
 ### [A*](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
@@ -1127,6 +1132,7 @@ dfs pass prev_node, curr_node in the parameters, dfs return the tail of the curr
 - [0842. Split Array into Fibonacci Sequence](Solutions/0842.Split-Array into-Fibonacci-Sequence.py) (!!M) <br>
 与上一题相比要求输出所有Fibonacci组合，所以用backtrack: pass curr as signature to record the curr path/res
 
+--------------- 698. Partition to K Equal Sum Subsets -------------
 
 
 
@@ -1158,6 +1164,7 @@ dfs+memo: O(N^2); memo[(curr_s)] = 能稳赢
 ------------664. Strange Printer--------488. Zuma Game--------546. Remove Boxes---------691. Stickers to Spell Word--------887. Super Egg Drop----------
 ----------- - [0727. Minimum Window Subsequence](Solutions/0727.Minimum-Window-Subsequence.py) (!!H Google) <br>
 solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题只需要freq都满足了就行，这题不仅如此，而且还是讲究顺序的，; solution 2: dp ------------
+---------1547. Minimum Cost to Cut a Stick----------
 
 
 # [Dynamic Programming/bottom up DP](Dynamic-Programming.py)
