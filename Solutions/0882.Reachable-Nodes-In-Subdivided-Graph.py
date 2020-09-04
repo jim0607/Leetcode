@@ -47,24 +47,27 @@ Time Complexity: Dijkstra + Heap is O(ElogE)
 class Solution:
     def reachableNodes(self, edges: List[List[int]], M: int, N: int) -> int:
         graph = collections.defaultdict(list)
-        for u, v, insertNumber in edges:
-            graph[u].append((v, insertNumber))
-            graph[v].append((u, insertNumber))
+        for u, v, insert_cnt in edges:
+            graph[u].append((v, insert_cnt))
+            graph[v].append((u, insert_cnt))
             
-        hq = [(-M, 0)]      #  store (how many moves left, node)
-        seen = collections.defaultdict(int)     # seen[i] means that we can arrive at node i and have seen[i] moves left
-        while hq:
-            movesLeft, currNode = heappop(hq)   # 贪心就贪在这，每次pop出来的都是剩余步数最多（即离soure node最近）的node
-            movesLeft = -movesLeft
-            if currNode in seen:    # if we have already reached this node with less steps, then just skip it
+        hq = [(-M, 0)]          # (currently how many moves left, curr_node)
+        moves_left = collections.defaultdict(int)
+        
+        while len(hq) > 0:
+            curr_moves_left, curr_node = heappop(hq)  # 贪心就贪在这，每次pop出来的都是剩余步数最多（即离soure node最近）的node
+            curr_moves_left = -curr_moves_left
+            
+            if curr_node in moves_left:     # if we have already reached this node with less steps, then just skip it
                 continue
-            seen[currNode] = movesLeft
-            for nextNode, insertNumber in graph[currNode]:
-                if movesLeft > insertNumber:   # movesLeft > insertNumber is to make sure we can reach the nextNode
-                    heappush(hq, (-( movesLeft - (insertNumber+1) ), nextNode)) # currNode和nextNode中间有10个node，我得跨11步才能到达nextNode
-                    
-        result = len(seen)
-        for u, v, insertNumber in edges:
-            # seen[u]=from u there are this much moves left in respect to M steps
-            result += min(seen[u] + seen[v], insertNumber)
-        return result
+            moves_left[curr_node] = curr_moves_left
+            
+            for next_node, insert_cnt in graph[curr_node]:
+                if insert_cnt >= curr_moves_left:   # we cannot reach the nextNode if there is not enough moves left
+                    continue
+                heappush(hq, (-(curr_moves_left - insert_cnt - 1), next_node))
+                
+        res = len(moves_left)
+        for u, v, insert_cnt in edges:
+            res += min(moves_left[u] + moves_left[v], insert_cnt)
+        return res
