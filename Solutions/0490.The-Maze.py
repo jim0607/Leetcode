@@ -40,9 +40,40 @@ Input 3: destination coordinate (rowDest, colDest) = (3, 2)
 Output: false
 
     
+""
+soltution 1: dfs
 """
-像1263. Minimum Moves to Move a Box to Their Target Location那道题一样, 
-bfs need to pass direction into the q, so that we know where the ball is coming from
+class Solution:
+    EMPTY = 0
+    WALL = 1
+    def hasPath(self, grid: List[List[int]], start: List[int], destination: List[int]) -> bool:
+        def dfs(curr_i, curr_j):
+            if [curr_i, curr_j] == destination:
+                return True
+            
+            for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                next_i, next_j = curr_i, curr_j
+                while 0 <= next_i + delta_i < m and 0 <= next_j + delta_j < n and grid[next_i + delta_i][next_j + delta_j] != self.WALL:
+                    next_i += delta_i                                             # cannot stop at an empty place, must stop at wall
+                    next_j += delta_j
+                    
+                # after the while loop, now (next_i, next_j) is stopped at the wall
+                if (next_i, next_j) not in visited:
+                    visited.add((next_i, next_j))
+                    if dfs(next_i, next_j):
+                        return True
+                    
+            return False
+        
+        
+        m, n = len(grid), len(grid[0])
+        visited = set()
+        return dfs(start[0], start[1])
+        
+
+    
+"""
+solution 2: bfs
 """
 class Solution:
     EMPTY = 0
