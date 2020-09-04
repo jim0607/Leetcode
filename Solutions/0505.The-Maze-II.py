@@ -69,6 +69,7 @@ class Solution:
         m, n = len(grid), len(grid[0])
         hq = [(0, start[0], start[1])]
         distance = collections.defaultdict(int)     # store the dist at each stoppable pos 
+        distance[(start[0], start[1])] = 0
         while len(hq) > 0:
             curr_dist, curr_i, curr_j = heappop(hq)
             if [curr_i, curr_j] == destination:     # garanteed to return the minimum step if using heapq, otherwise, not garanteed
