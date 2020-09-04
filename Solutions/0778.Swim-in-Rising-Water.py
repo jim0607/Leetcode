@@ -34,41 +34,77 @@ We need to wait until time 16 so that (0, 0) and (4, 4) are connected.
 
 """
 find a path with the minimum max-height in the path.
-采用Dikstra, 每次pop出来的都是min height就可了 - O(N^2*log(N^2)), where N is the lens of grid.
+采用Dikstra, heapq中存放(curr_max_val, curr_node). 每次pop出来的都是min height就可了 - O(N^2*log(N^2)), where N is the lens of grid.
 """
-from heapq import heappush, heappop
 
 class Solution:
     def swimInWater(self, grid: List[List[int]]) -> int:
-        n = len(grid)
-        moves = [(1, 0), (0, 1), (0, -1), (-1, 0)]
-        hq = []
+        m, n = len(grid), len(grid[0])
+        hq = [(grid[0][0], 0, 0)]
         visited = set()
-        heappush(hq, (grid[0][0], (0, 0)))
-        visited.add((0, 0))
-        max_height = 0
-        while hq:
-            curr_height, curr_pos = heappop(hq)
-            max_height = max(max_height, curr_height)
-            if curr_pos == (n-1, n-1):
-                return max_height
+        visited.add((0, 0))   # 注意做Min of maximum or max of minimum的题目都需要visited set的
+       
+        while len(hq) > 0:
+            curr_max_val, curr_i, curr_j = heappop(hq)   # 每次pop出来的都是最小的max_val
             
-            for move in moves:
-                next_x = curr_pos[0] + move[0]
-                next_y = curr_pos[1] + move[1]
-                if 0 <= next_x < n and 0 <= next_y < n and (next_x, next_y) not in visited:
-                    heappush(hq, (grid[next_x][next_y], (next_x, next_y)))
-                    visited.add((next_x, next_y))
+            if (curr_i, curr_j) == (m-1, n-1):
+                return curr_max_val
+            
+            for delta_i, delta_j in [(-1, 0), (0, -1), (1, 0), (0, 1)]:
+                next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                if 0 <= next_i < m and 0 <= next_j < n:
+                    if (next_i, next_j) not in visited:
+                        next_val = grid[next_i][next_j]
+                        heappush(hq, (max(curr_max_val, next_val), next_i, next_j))
+                        visited.add((next_i, next_j))       # 别忘了一对孪生兄弟
+    
+    
+
+"""
+Solution 2: Union-Find
+step 1: sort the array by the values asccendingly
+step 2: union one-by-one, until (0, 0) and (m-1, n-1) are connected
+算法其实有一点点类似Krusal求MST
+"""
+class Solution:
+    def swimInWater(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        position = [(i, j) for i in range(m) for j in range(n)]
+        position.sort(key = lambda x: grid[x[0]][x[1]])     # step 1: sort the position list by the values asccendingly
+        
+        uf = UnionFind(position)
+        
+        visited = set()
+        for i, j in position:     # step 2: union one-by-one, until (0, 0) and (m-1, n-1) are connected
+            visited.add((i, j))
+            
+            for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                adj_i, adj_j = i + delta_i, j + delta_j
+                if (adj_i, adj_j) in visited:   # ****注意nextPoint一定要in visited才能将其连上currPoint!!
+                    uf.union((i, j), (adj_i, adj_j))
                     
-        return max_height
+            if uf.connected((0, 0), (m-1, n-1)):    # check if (0, 0) and (m-1, n-1) are connected
+                return grid[i][j]      # if connected, then return current position cuz it is the maximum in the path  
+        
+        
+class UnionFind:
     
+    def __init__(self, position):
+        self.father = collections.defaultdict(tuple)
+        
+        for pos in position:
+            self.father[pos] = pos
+            
+    def find(self, x):
+        if self.father[x] == x:
+            return x
+        self.father[x] = self.find(self.father[x])
+        return self.father[x]    
     
-"""
-Google 面经：有一个nxn矩阵，信使从(0, 0)出发，想走到(n-1, n-1)去报信，
-中途会有一些狮子/敌营，我们离狮子的距离越远越安全，问为了尽可能到达目的地，离狮子最大的最近距离是多少？
-step 1: calculate the distance of each position to the nearest lions,
-put the distance information into the grid matrix.
-step 2: do dikstra to find the maximum min-distance in the path,
-hq stores (negative distance to lions at that pos, pos), so that each time we pop,
-we pop the largest distance first, so that we keep as far as from lions as poosible.
-"""
+    def union(self, a, b):
+        root_a, root_b = self.find(a), self.find(b)
+        if root_a != root_b:
+            self.father[root_a] = root_b
+    
+    def connected(self, a, b):
+        return self.find(a) == self.find(b)
