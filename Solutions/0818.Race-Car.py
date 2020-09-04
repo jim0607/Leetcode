@@ -68,7 +68,8 @@ class Solution:
                         
                         
 """
-solution 2: 层序遍历的bfs with strong pruning that is 100 times faster: 我们是有条件的回退，只有在超过了target的情况下我们才回退
+solution 2: 层序遍历的bfs with strong pruning that is 100 times faster: 我们是有条件的回退，
+只有在超过了target的情况下我们才回退, 不然的话每次都往回退一下会产生很多没用的分支
 """
 class Solution:
     def racecar(self, target: int) -> int:
