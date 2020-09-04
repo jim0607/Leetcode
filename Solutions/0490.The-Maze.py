@@ -74,7 +74,42 @@ class Solution:
 
     
 """
-solution 2: bfs
+solution 2: bfs -我们可以看到，在找next_node的部分，bfs和dfs是一模一样的
+"""
+class Solution:
+    EMPTY = 0
+    WALL = 1
+    def hasPath(self, grid: List[List[int]], start: List[int], destination: List[int]) -> bool:
+        m, n = len(grid), len(grid[0])
+        
+        q = collections.deque()
+        visited = set()
+        q.append((start[0], start[1]))
+        visited.add((start[0], start[1]))
+        
+        while len(q) > 0:
+            curr_i, curr_j = q.popleft()
+            if [curr_i, curr_j] == destination:
+                return True
+            
+            for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                next_i, next_j = curr_i, curr_j
+                while 0 <= next_i + delta_i < m and 0 <= next_j + delta_j < n and grid[next_i + delta_i][next_j + delta_j] != self.WALL:
+                    next_i += delta_i                                             # cannot stop at an empty place, must stop at wall
+                    next_j += delta_j
+                    
+                # after the while loop, now (next_i, next_j) is stopped at the wall
+                if (next_i, next_j) not in visited:
+                    q.append((next_i, next_j))
+                    visited.add((next_i, next_j))
+                    
+        return False
+
+
+
+
+"""
+another version of bfs
 """
 class Solution:
     EMPTY = 0
