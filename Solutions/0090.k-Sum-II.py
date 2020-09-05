@@ -15,6 +15,34 @@ Output:  [[1,3,4]]
 
 
 """要求输出所有组合，只能用dfs"""
+
+class Solution:
+    def kSumII(self, nums, k, target):
+        def backtrack(curr_idx, curr_sum, curr_comb):
+            if curr_sum == target and len(curr_comb) == k:
+                res.append(curr_comb.copy())
+                return
+            
+            if curr_sum > target or len(curr_comb) >= k:
+                return
+            
+            for next_idx in range(curr_idx + 1, len(nums)):
+                if nums[next_idx] > target:
+                    continue
+                curr_comb.append(nums[next_idx])
+                backtrack(next_idx, curr_sum + nums[next_idx], curr_comb)
+                curr_comb.pop()
+                
+            
+        res = []
+        backtrack(-1, 0, [])
+        return res
+
+
+
+
+
+
 class Solution:
     def kSumII(self, A, k, target):
         res = []
