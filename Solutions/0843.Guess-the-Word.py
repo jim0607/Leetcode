@@ -38,9 +38,9 @@ We made 5 calls to master.guess and one of them was the secret, so we pass the t
 """
 Repeatedly choose a word to guess, and then eliminate all words that do not have the same number of matches as the guessed word. 
 In this way, the wordlist is narrowed down each time we do a guess.
-How to choose a word: solution 1: random guess; 2. choose the guess word wisely
+How to choose a word: solution 1: random guess; 2. choose the guess word wisely (Heuristically)
 """
-""" solution 1 """
+""" solution 1: random guess word """
 import random
 
 class Solution:
