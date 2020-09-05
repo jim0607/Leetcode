@@ -1,4 +1,4 @@
-130. Surrounded Regions
+"""130. Surrounded Regions
 
 Given a 2D board containing 'X' and 'O' (the letter O), capture all regions surrounded by 'X'.
 
@@ -21,6 +21,51 @@ Explanation:
 Surrounded regions shouldn’t be on the border, which means that any 'O' on the border of the board are not flipped to 'X'. 
 Any 'O' that is not on the border and it is not connected to an 'O' on the border will be flipped to 'X'. 
 Two cells are connected if they are adjacent cells connected horizontally or vertically.
+"""
+
+
+
+"""
+We do dfs for all "O" on the boarder. And store them in visited.  Every node in visited 
+is not surrounded by "X" because it is connected to the boarder.
+"""
+class Solution:
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        if not board or not board[0]:
+            return board
+        
+        # step 1: put all "O" connected with board into a set
+        m, n = len(board), len(board[0])
+        visited = set()     # store all the "O" that are connected with board
+        for i in range(m):
+            if board[i][0] == "O" and (i, 0) not in visited:
+                self._dfs(board, i, 0, visited)
+            if board[i][n-1] == "O" and (i, n-1) not in visited:
+                self._dfs(board, i, n-1, visited)
+        for j in range(n):
+            if board[0][j] == "O" and (0, j) not in visited:
+                self._dfs(board, 0, j, visited)
+            if board[m-1][j] == "O" and (m-1, j) not in visited:
+                self._dfs(board, m-1, j, visited)
+               
+        # step 2: traverse the matrix again to switch "O" that are not connected with board
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == "O" and (i, j) not in visited:
+                    board[i][j] = "X"                
+    
+    def _dfs(self, board, curr_i, curr_j, visited):
+        visited.add((curr_i, curr_j))
+        for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+            next_i, next_j = curr_i + delta_i, curr_j + delta_j
+            if 0 <= next_i < len(board) and 0 <= next_j < len(board[0]):
+                if board[next_i][next_j] == "O":
+                    if (next_i, next_j) not in visited:
+                        self._dfs(board, next_i, next_j, visited)
+
 
 
 """
@@ -189,46 +234,4 @@ class Solution:
                 grid[next_i][next_j] == "O" and (next_i, next_j) not in self.visited:
                     q.append((next_i, next_j))
                     self.visited.add((next_i, next_j))
-                    
-                    
-"""
-Solution 4: dfs - recurssive
-Step 1: Start from border, do a dfs for "O", mark all the "O" that can be reached from the border.
-We can either mark by putting them into a visited set, or just change it to some symbol "#".
-Step 2: 2nd pass, we change to "X" tha "O" that could not be visited from the border.
-"""
-class Solution:
-    def solve(self, grid) -> None:
-        if not grid or not grid[0]:
-            return grid
-        
-        m, n = len(grid), len(grid[0])
-        
-        self.visited = set()
-        for i in range(m):
-            for j in range(n):
-                if 0 < i < m - 1 and 0 < j < n - 1:     # if not on border, we skip. we only do bfs for "O" on border
-                    continue
-                if grid[i][j] != "O":
-                    continue
-                if (i, j) in self.visited:
-                    continue
-                    
-                self.dfs(grid, i, j)
-                
-        for i in range(1, m - 1):
-            for j in range(1, n -1):
-                if grid[i][j] == "O" and (i, j) not in self.visited:
-                    grid[i][j] = "X"
-                    
-    def dfs(self, grid, curr_i, curr_j):        # 套dfs模板就可以了
-        self.visited.add((curr_i, curr_j))
-        
-        moves = [(1, 0), (0, 1), (-1, 0), (0, -1)]
-        m, n = len(grid), len(grid[0])
-        
-        for delta_i, delta_j in moves:
-            next_i, next_j = curr_i + delta_i, curr_j + delta_j
-            if 0 <= next_i < m and 0 <= next_j < n and \
-            grid[next_i][next_j] == "O" and (next_i, next_j) not in self.visited:
-                self.dfs(grid, next_i, next_j)
+                  
