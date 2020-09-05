@@ -40,7 +40,23 @@
 模板的DFS + back tracking求combination问题
 O(N*S), S是solution的个数，这里S=2^N
 O(N*S) to generate all subsets and then copy them into output list."""
-# @lc code=start
+
+
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        def backtrack(curr_idx, curr_subsets):
+            res.append(curr_subsets.copy())
+            for next_idx in range(curr_idx + 1, len(nums)):
+                curr_subsets.append(nums[next_idx])
+                backtrack(next_idx, curr_subsets)
+                curr_subsets.pop()
+                     
+        res = []
+        backtrack(-1, [])
+        return res
+
+
+
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         res = []
@@ -79,37 +95,4 @@ class Solution:
             self.dfs(nums, i + 1, curr)
             curr.pop()
         
-        
-        
-        
-        
-        
-
-            
-模板二：花花的模板，更加通用化，可以通过比较输出结果的数组排列顺序直到区别。
-上面程序的输出是[[],[1],[1,2],[1,2,3],[1,3],[2],[2,3],[3]]
-下面程序的输出是[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
-"""模板的DFS + back tracking求combination问题"""
-# @lc code=start
-class Solution:
-    def subsets(self, nums: List[int]) -> List[List[int]]:
-        res = []
-        n = len(nums)
-        for length in range(n + 1):
-            self.dfs(nums, length, 0, [], res)
-        
-        return res
-
-    def dfs(self, nums, length, index, curr, res):
-        if len(curr) == length:
-            res.append(curr.copy())
-            return
-        
-        for i in range(index, len(nums)):
-            curr.append(nums[i])
-            self.dfs(nums, length, i + 1, curr, res)
-            curr.pop()
-
-
-# @lc code=end
-
+      
