@@ -56,8 +56,39 @@
 """
 Combination Sum 限制了组合中的数之和
 Subsets 一个数只能选一次，Combination Sum 一个数可以选很多次
-• 搜索时从 index 开始而不是从 index + 1
+搜索时从 index 开始而不是从 index + 1
 """
+
+class Solution:
+    def combinationSum(self, nums: List[int], target: int) -> List[List[int]]:
+        def backtrack(curr_idx, curr_comb, curr_sum):
+            if curr_sum == target:
+                res.append(curr_comb.copy())
+                return
+            
+            if curr_sum > target:
+                return
+            
+            # 这里从curr_idx开始的，而不是subsets里面的curr_idx+1, 这是因为Subsets同一个数只能选一次，这里同一个数可以选很多次
+            for next_idx in range(curr_idx, len(nums)):     
+                if nums[next_idx] > target:     # strong prune
+                    continue
+                curr_comb.append(nums[next_idx])
+                backtrack(next_idx, curr_comb, curr_sum + nums[next_idx])
+                curr_comb.pop()
+                
+        
+        res = []
+        backtrack(0, [], 0)
+        return res
+
+
+
+
+
+
+
+
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
