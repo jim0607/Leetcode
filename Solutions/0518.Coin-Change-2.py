@@ -65,6 +65,31 @@
 # 
 #
 
+"""
+solution 1: just print all combinations - O(N*2^N)
+"""
+class Solution:
+    def change(self, target: int, nums: List[int]) -> int:
+        def backtrack(curr_idx, curr_comb, curr_sum):
+            if curr_sum == target:
+                res.append(curr_comb.copy())
+                return
+            
+            if curr_sum > target:
+                return
+            
+            for next_idx in range(curr_idx, len(nums)):     # 同一个数可以重复出现，所以可以从curr_idx开始
+                if nums[next_idx] > target:
+                    continue
+                curr_comb.append(nums[next_idx])
+                backtrack(next_idx, curr_comb, curr_sum + nums[next_idx])
+                curr_comb.pop()
+                
+                
+        res = []
+        backtrack(0, [], 0)
+        return len(res)
+
 
 
 
@@ -77,7 +102,7 @@ class Solution:
         # 这样会有一个问题，那就是(1,3)可以进solution, (3,1)也可以进solution
         # 想想num=4的时候, 当coin遍历到coin=1时dp[4]+=dp[1]
         # coin遍历到coin=3时dp[4]+=dp[3]，此时dp[3]已经被更新过一次了，里面就带有dp[1]的信息了
-        for num in range(1, amount +3 1):
+        for num in range(1, amount + 1):
             for coin in coins:      
                 if num - coin >= 0:   # 这里会导致(1,3)可以进solution, (3,1)也可以进solution
                     dp[num] += dp[num - coin]
@@ -100,73 +125,12 @@ class Solution:
         return dp[amount]    
 
 
-
-
-
-class Solution:
-    def change(self, target: int, nums: List[int]) -> int:
-        self.res = 0
-        
-        self.dfs(target, nums, 0)       # 这里其实可以不用把res传进去，直接定义一个全局变量self.res, 可以简化dfs的传入参数！
-        
-        return self.res
-    
-    def dfs(self, target, nums, startIdx):
-        if target < 0:
-            return
-        if target == 0:
-            self.res += 1
-            return
-        
-        for i in range(startIdx, len(nums)):
-            if nums[i] > target:
-                continue
-            
-            self.dfs(target - nums[i], nums, i)     # 允许在出现重复的硬币，所以从i开始！
-
-
-
-
-
-"""
-与Combination Sum类似
-"""
-# @lc code=start
-class Solution:
-    def change(self, amount: int, coins: List[int]) -> int:
-        res = []
-        if amount == 0 and not coins:
-            return 1
-        if amount < 0:
-            return len(res)
-        if not coins:
-            return len(res)
-        
-        self.dfs(amount, coins, 0, [], res)
-
-        return len(res)
-
-    def dfs(self, amount: int, 
-            coins: List[int], 
-            start: int, 
-            curr: List[int], 
-            res: List[List[int]]):
-        if amount < 0:
-            return 
-        if amount == 0:
-            res.append(curr.copy())
-            return
-
-        for i in range(start, len(coins)):
-            curr.append(coins[i])
-            self.dfs(amount - coins[i], coins, i, curr, res)    # 同一种硬币可以出现多次，所以从i开始，而不是i+1开始
-            curr.pop()
         
 
 """another dfs version"""     
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
-        self.cnt = 0        # 为什么这里如果不定义全局变量就不行呢？
+        self.cnt = 0        # 为什么这里如果不定义全局变量就不行呢？因为int is immutable
         self.dfs(coins, amount, 0, [])
         return self.cnt
     
