@@ -50,6 +50,32 @@
 #
 
 
+"""
+solution 1: dfs to find all combinations
+"""
+class Solution:
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        def backtrack(curr_idx, curr_comb, curr_sum):
+            if curr_sum == target:
+                res.append(curr_comb.copy())
+                return
+            
+            if curr_sum > target:
+                return 
+            
+            for next_idx in range(len(nums)):       # (1,3)和(3,1)都可以算到答案里，所以是Permutation problem, next_idx 从0开始
+                if nums[next_idx] > target:
+                    continue
+                curr_comb.append(nums[curr_idx])
+                backtrack(next_idx, curr_comb, curr_sum + nums[next_idx])
+                curr_comb.pop()
+                
+                
+        res = []
+        backtrack(0, [], 0)
+        return len(res)
+
+
 
 """
 不要求输出所有的combination，所以除了dfs，还有更快的方法：背包问题。
@@ -58,7 +84,7 @@ f[i]=how many ways to combine to number i  背包问题一定要把总承重放�
 f[i]=f[i-A1]+f[i-A2]+f[i-A3]....
 f[0] = 1
 return f[target]
-这个题其实和coin change那题是一样的。
+注意和coin change II那题进行对比，我们发现for 循环的顺序是不一样的，这是因为这一题(1,3)和(3,1)都可以算到答案里, 而coin change II那题则不可以。
 """
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
@@ -69,7 +95,7 @@ class Solution:
         
         lens = len(nums)
         dp = [0] * (target + 1)
-        dp[0] = 1
+        dp[0] = 1       # 注意这里初始化为1
         
         for m in range(target + 1):
             for num in nums:    # 这里会导致(1,3)可以进solution, (3,1)也可以进solution, 所以符合题意。
