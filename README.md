@@ -1,6 +1,6 @@
 ## 四刷：每天刷15-20题, 做好总结！08/17 to 09/30
 ## 每天晚上睡前Review做过的题
-##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778
+##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778; 09/05: 364
 
 
 # [Data Structure](/Data-Structure.py)
@@ -896,6 +896,28 @@ Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hash
 bfs + multi-thread + MapReduce, use ThreadPoolExecutor with 10 worker threads
 - [0695. Max Area of Island](Solutions/0695.Max-Area-of-Island.py) (M) <br>
 Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a dfs/bfs.
+- [0339. Nested List Weight Sum](Solutions/0339.Nested-List-Weight-Sum.py) (E) <br>
+simple dfs or bfs is ok.
+- [0364. Nested List Weight Sum II](Solutions/0364.Nested-List-Weight-Sum-II.py) (M) <br>
+do a dfs to find the depth first, then another dfs to do 339. Nested List Weight Sum I
+
+
+
+
+- [0690. Employee Importance](Solutions/0690.Employee-Importance.py) (E) <br>
+simple dfs 可破
+- [0733. Flood Fill](Solutions/0733.Flood-Fill.py) (!!E) <br>
+Solution 1: Union Find; Solution 2: bfs; Solution 3: dfs iteratively; Solution 4: dfs recurssively
+- [0841. Keys and Rooms](Solutions/0841.Keys-and-Rooms.py) (!!M) <br>
+dfs. 这题不能用union find来解
+- [0130. Surrounded Regions](Solutions/0130.Surrounded-Regions.py) (!!M) <br>
+Solution 1: Union Find.  Step 1: Union all the "O" that are neighborign with each other. We do a weighted union, meaning when we union, we also choose to point to the one that is on the border. Step 2: 2nd pass, we change to "X" tha "O" that has a root not on border.  Solution 2: bfs: Step 1: Start from border, do a bfs for "O", mark all the "O" that can be reached from the border. We can either mark by putting them into a visited set, or just change it to some symbol "#". Step 2: 2nd pass, we change to "X" tha "O" that could not be visited from the border. bfs只从border出发做bfs, 很中间的"O"就不用管了，而Union Find中间的也需要union, 所以bfs 比union find 更快。Solution 3: dfs interatively, only change one line in the bfs solution. Solution 4: dfs recurssively.
+
+
+
+
+
+
 
 
 
@@ -1052,18 +1074,6 @@ So we can record the path, and count how many distinct path.
 与上题一样得到shape, 得到之后可以通过定义一个transform(shape)函数得到all the trasformed shape. Too hard for an interview.
 - [1254. Number of Closed Islands](Solutions/1254.Number-of-Closed-Islands.py (M) <br>
 dfs just like LC 200, except cnt+=1 only if the island not otuching the boundary.
-- [0339. Nested List Weight Sum](Solutions/0339.Nested-List-Weight-Sum.py) (E) <br>
-simple dfs or bfs is ok.
-- [0364. Nested List Weight Sum II](Solutions/0364.Nested-List-Weight-Sum-II.py) (M) <br>
-do a dfs to find the depth first, then another dfs to do 339. Nested List Weight Sum I
-- [0690. Employee Importance](Solutions/0690.Employee-Importance.py) (E) <br>
-simple dfs 可破
-- [0733. Flood Fill](Solutions/0733.Flood-Fill.py) (!!E) <br>
-Solution 1: Union Find; Solution 2: bfs; Solution 3: dfs iteratively; Solution 4: dfs recurssively
-- [0841. Keys and Rooms](Solutions/0841.Keys-and-Rooms.py) (!!M) <br>
-dfs. 这题不能用union find来解
-- [0130. Surrounded Regions](Solutions/0130.Surrounded-Regions.py) (!!M) <br>
-Solution 1: Union Find.  Step 1: Union all the "O" that are neighborign with each other. We do a weighted union, meaning when we union, we also choose to point to the one that is on the border. Step 2: 2nd pass, we change to "X" tha "O" that has a root not on border.  Solution 2: bfs: Step 1: Start from border, do a bfs for "O", mark all the "O" that can be reached from the border. We can either mark by putting them into a visited set, or just change it to some symbol "#". Step 2: 2nd pass, we change to "X" tha "O" that could not be visited from the border. bfs只从border出发做bfs, 很中间的"O"就不用管了，而Union Find中间的也需要union, 所以bfs 比union find 更快。Solution 3: dfs interatively, only change one line in the bfs solution. Solution 4: dfs recurssively.
 - [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (!!H) 打印/输出所有满足条件的路径必用DFS
 Step 1. 从end到start做BFS，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
 Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近(if self.distance[nextWord] >= self.distance[currWord]: continue)。最后将路径都存入到res里
