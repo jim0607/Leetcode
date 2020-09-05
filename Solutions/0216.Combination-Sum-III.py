@@ -1,4 +1,6 @@
-Find all possible combinations of k numbers that add up to a number n, given that only numbers from 1 to 9 can be used and each combination should be a unique set of numbers.
+"""
+Find all possible combinations of k numbers that add up to a number n, given that only numbers 
+from 1 to 9 can be used and each combination should be a unique set of numbers.
 
 Note:
 
@@ -12,7 +14,41 @@ Example 2:
 
 Input: k = 3, n = 9
 Output: [[1,2,6], [1,3,5], [2,3,4]]
-
+"""
+    
+    
+"""
+一个数只能选一次，所以从curr_idx + 1开始
+"""    
+class Solution:
+    def combinationSum3(self, k: int, target: int) -> List[List[int]]:
+        def backtrack(curr_idx, curr_sum, curr_comb):
+            if curr_sum == target and len(curr_comb) == k:
+                res.append(curr_comb.copy())
+                return
+            
+            if curr_sum > target or len(curr_comb) >= k:
+                return
+            
+            for next_idx in range(curr_idx + 1, len(nums)):     # 一个数只能选一次，所以从curr_idx + 1开始
+                if nums[next_idx] > target:
+                    continue
+                curr_comb.append(nums[next_idx])
+                backtrack(next_idx, curr_sum + nums[next_idx], curr_comb)
+                curr_comb.pop()
+        
+        
+        if k <= 0 or k > 9 or target > 55 or target < 1:
+            return[[]]
+        
+        nums = [i for i in range(1, 10)]
+        res = []
+        backtrack(-1, 0, [])
+        return res  
+    
+    
+    
+    
 class Solution:
     def combinationSum3(self, k: int, n: int) -> List[List[int]]:
         nums = [i for i in range(1, 10)]
