@@ -108,6 +108,7 @@ class Solution:
         # curr_heuristic_estimation = curr_steps + heuristic estimation of minimum distance from curr_pos to desitination.
         hq = [(max(m, n), 1, (0, 0))]   
         steps = collections.defaultdict(int)   # position --> steps from source to curr_node. 用一个dictionary记录curr_steps是很有必要的!!
+        steps[(0, 0)] = 1
         
         while len(hq) > 0:
             curr_heuristic_estimation, curr_steps, (curr_i, curr_j)  = heappop(hq)
