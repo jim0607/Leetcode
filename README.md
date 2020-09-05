@@ -837,8 +837,8 @@ Step 2: topo sort inside each group in topo_sorted_groups -> return topo sorted 
 
 
 ### [Dijkstra](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-#### 有权图最值路径问题，最值分两种：1. 最大/最小 sum of the path; 2. 最大/最小 min/max in the path. <br>
-#### 第一种需要在heapq中存放(curr_sum, curr_node); 第二种需要在heapq中存放(-curr_min_val, curr_node) or (curr_max_val, curr_node). 第二种也可以用UnionFind来做
+##### 有权图最值路径问题，最值分两种：1. 最大/最小 sum of the path; 2. 最大/最小 min/max in the path. <br>
+##### 第一种需要在heapq中存放(curr_sum, curr_node); 第二种需要在heapq中存放(-curr_min_val, curr_node) or (curr_max_val, curr_node). 第二种也可以用UnionFind来做
 - [0743. Network Delay Time](Solutions/0743.Network-Delay-Time.py) (!!M) <br>
 **带权值**的**有向图**求**单源节点**出发的最短路径问题马上就想到Dijkstra, **O(VlogV + E)** N is # nodes, E is # edges <br>
 Dijkstra就是贪心版的bfs, bfs是勤勤恳恳一层一层推进，一层没访问完绝不访问下一层。Dijkstra就很贪心了，才不一层一层地走呢，他每次都想走最low cost的。如何实现每次走最low cost的呢？用一个heapq来store a pair: (currCost to reach the node, node), 这样每次pop出来的就都最low cost的node了，再去访问这个node的neighbors，把这些neighbors都加到hq中，代码比较短。思路其实与23. Merge k Sorted Lists非常类似，把23里的linked list加上一个虚拟头节点连接所有的头节点，然后把Linked list node的val改成边的权值，那就变成了单源节点出发求访问到所有节点的最短路径。
@@ -881,8 +881,8 @@ How to choose a word: solution 1: random guess; 2. choose the guess word wisely 
 
 
 # [Depth First Search](/Depth-First-Search.py)
-### [Already done](/Depth-First-Search.py)
-#### 凡是能用bfs和dfs解的题，一律都用dfs解
+### [dfs/bfs](/Depth-First-Search.py)
+##### 凡是能用bfs和dfs解的题，一律都用dfs解
 - [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
 判断图是不是一棵树（不一定非要是二叉树）需要满足两点:1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树. 遍历节点的方法可以是dfs/bfs. solution 2: Union Find
 - [0785. Is Graph Bipartite?](Solutions/0785.Is-Graph-Bipartite.py) (!!M)  <br>
@@ -896,6 +896,10 @@ Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hash
 bfs + multi-thread + MapReduce, use ThreadPoolExecutor with 10 worker threads
 - [0695. Max Area of Island](Solutions/0695.Max-Area-of-Island.py) (M) <br>
 Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a dfs/bfs.
+
+
+
+
 
 
 
