@@ -35,7 +35,26 @@
 # 
 #
 
-# @lc code=start
+
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        def backtrack(curr_idx, curr_subsets):
+            res.append(curr_subsets.copy())
+            
+            for next_idx in range(curr_idx + 1, len(nums)):
+                if next_idx > 0 and nums[next_idx] == nums[next_idx - 1] and next_idx - 1 != curr_idx:
+                    continue
+                curr_subsets.append(nums[next_idx])
+                backtrack(next_idx, curr_subsets)
+                curr_subsets.pop()        
+        
+        nums.sort()     # step 1: sort the nums
+        res = []
+        backtrack(-1, [])
+        return res
+
+
+
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         nums = sorted(nums)  # 先排序，后面才可以进行比较nums[i] == nums[i-1]去重
