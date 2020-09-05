@@ -1,4 +1,4 @@
-690. Employee Importance
+"""690. Employee Importance
 
 You are given a data structure of employee information, which includes the employee's unique id, their importance value and their direct subordinates' id.
 
@@ -17,7 +17,7 @@ Employee 1 has importance value 5, and he has two direct subordinates: employee 
 Note:
 
 One employee has at most one direct leader and may have several subordinates.
-The maximum number of employees won't exceed 2000.
+The maximum number of employees won't exceed 2000."""
 
 
 
@@ -32,13 +32,28 @@ class Employee:
 
 class Solution:
     def getImportance(self, employees: List['Employee'], id: int) -> int:
-        employees_dict = {}
+        importance = 0
+        for employee in employees:    # Finding the employee by id takes O(N), so overall takes O(N^2)
+            if employee.id == id:
+                importance = employee.importance
+            for subordinate_id in employee.subordinates:
+                importance += self.getImportance(employees, subordinate_id)
+        return importance
+
+
+"""
+solution 2: use a dictionary to map employee_id with employee, so that looking for employee by id takes O(1)
+"""
+class Solution:
+    def getImportance(self, employees: List['Employee'], id: int) -> int:
+        employee_dict = collections.defaultdict(tuple)
         for employee in employees:
-            employees_dict[employee.id] = [employee.importance, tuple(employee.subordinates)]
-        return self._dfs(employees_dict, id)
+            employee_dict[employee.id] = (employee.importance, employee.subordinates)
+            
+        return self._dfs(employee_dict, id)
     
-    def _dfs(self, employees_dict, curr_id):
-        total_importance = employees_dict[curr_id][0]
-        for next_id in employees_dict[curr_id][1]:
-            total_importance += self._dfs(employees_dict, next_id)
-        return total_importance
+    def _dfs(self, employee_dict, id):
+        importance = employee_dict[id][0]
+        for subordinate_id in employee_dict[id][1]:
+            importance += self._dfs(employee_dict, subordinate_id)
+        return importance
