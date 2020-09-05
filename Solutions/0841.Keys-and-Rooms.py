@@ -1,4 +1,4 @@
-841. Keys and Rooms
+"""841. Keys and Rooms
 
 There are N rooms and you start in room 0.  Each room has a distinct number in 0, 1, 2, ..., N-1, and each room may have some keys to access the next room. 
 
@@ -24,34 +24,23 @@ Example 2:
 Input: [[1,3],[3,0,1],[2],[0]]
 Output: false
 Explanation: We can't enter the room with number 2.
-
-
+"""
 
 """
-solution 1: dfs - 用global variable的写法 不推荐
+solution 1: dfs - O(N)
 """
 class Solution:
     def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
         def dfs(curr_room):
-            if len(visited) == lens:
-                self.valid = True
-                return
-            
             for next_room in rooms[curr_room]:
-                if next_room in visited:
-                    continue
-                visited.add(next_room)      # 注意visited.add(next_room)与dfs(next_room)的先后顺序不能变！
-                dfs(next_room)
-                
-        lens = len(rooms)
+                if next_room not in visited:
+                    visited.add(next_room)
+                    dfs(next_room)
+            
         visited = set()
         visited.add(0)
-        
-        self.valid = False
-        
         dfs(0)
-        
-        return self.valid
+        return len(visited) == len(rooms)
         
         
         
