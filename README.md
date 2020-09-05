@@ -1,6 +1,6 @@
 ## 四刷：每天刷15-20题, 做好总结！08/17 to 09/30
 ## 每天晚上睡前Review做过的题
-##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444
+##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778
 
 
 # [Data Structure](/Data-Structure.py)
@@ -845,6 +845,10 @@ Dijkstra就是贪心版的bfs, bfs是勤勤恳恳一层一层推进，一层没�
 - [0787. Cheapest Flights Within K Stops](Solutions/0787.Cheapest-Flights-Within-K-Stops.py) (!!M) <br>
 有向图，带权值，找从单源出发最佳路径问题：Dijkstra's algorithm <br> 
 hq 需要 store (curr_cost, curr_stops, curr_city), 与743相比少了一个currNode in costs: continue 因为次好路径也可能是最后的结果，这是由于最好(low cost)路径可能不满足stops < K; 这题需要加一个 if currStops >= K: continue
+- [1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance](Solutions/1334.Find-the-City-With-the-Smallest-Number-of-Neighbors-at-a-Threshold-Distance.py) (!!M) <br>
+从每一个节点单独出发做一个Dijkstra, 比较每一个节点出发能到达的neighbors node的个数即可
+- [1514. Path with Maximum Probability](Solutions/1514.Path-with-Maximum-Probability.py) (!!M) <br>
+把probability换成log表示就变第一种情况最大/最小 sum of the path
 - [0490. The Maze](Solutions/0490.The-Maze.py) (!!M) <br>
 since the ball cannot stop at an empty place, must stop at wall, the tricky part is from the curr_stoppable position, find the next_stoppable position: use a while loop to find where is the next stop position. 
 - [0505. The Maze II](Solutions/0505.The-Maze-II.py) (!!M) <br>
@@ -861,19 +865,19 @@ Google 面经：有一个nxn矩阵，信使从(0, 0)出发，想走到(n-1, n-1)
 - [0778. Swim in Rising Water](Solutions/0778.Swim-in-Rising-Water.py) (!!H) <br>
 find a path with the minimum max-height in the path. 采用Dikstra, 每次pop出来的都是min height就可了 - O(N^2* log(N^2)), where N is the lens of grid. solution 2: union find is also quite straigt-forward
 
--------------------1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance-------1514. Path with Maximum Probability---------
 
 
-
-
-### [A*](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-- [1091. Shortest Path in Binary Matrix](Solutions/1091.Shortest-Path-in-Binary-Matrix.py) (M) <br>
-solution 1: 带层序遍历的bfs, if grid[next_x][next_y] == BLOCK 那就continue掉不放进q; solution 2: bi-directional bfs; solution 3: A*, **A* is better than bfs in finding the shorted path from source node to end node.** 这是一道经典的A* 题，很有启发性，以后做完一道bfs求最短路径的题，都可以想想能不能用A-star的方法求解，只要可以想到可行的heuristic estimation的方法，都可以尝试将bfs改成更快的A* . bfs 需要visit every node. but A* only greedily choose the best route to go. The best route is estimated by heuristic estimation. 在A* 算法中，heuristic estimation 一定要入队列进行排序，而且当前的steps也要入队列，heapq stores (1. heuristic estimation of min # of steps from source to target if 经过currNode, 2. currNode_pos, 3. steps from source to currNode)
+### [A*  /Heuristic](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+- [1091. Shortest Path in Binary Matrix](Solutions/1091.Shortest-Path-in-Binary-Matrix.py) (!!M) <br>
+solution 1: 带层序遍历的bfs, if grid[next_x][next_y] == BLOCK 那就continue掉不放进q; solution 2: bi-directional bfs; solution 3: A*, __A* is better than bfs in finding the shorted path from source node to end node.__ 在A* 算法中，需要两个数据结构：**I. A heapq; II. A dictionary.** I. heapq stores (1. curr_heuristic_estimation of min # of steps from source to target if 经过currNode; 2. curr_steps from source to curr_node; 3. curr_pos)), where curr_heuristic_estimation = curr_steps + heuristic estimation of minimum distance from curr_pos to desitination. II. dictionary stores the the position ---> steps taken from source to the position.
 - [1263. Minimum Moves to Move a Box to Their Target Location](Solutions/1263.Minimum-Moves-to-Move-a-Box-to-Their-Target-Location.py) (H) <br>
 思路：这个题是从源节点到目标节点的最短路径问题，所以想到用bfs, 源节点是对boxPos, 目标节点是targetPos, 从源节点出发做带层序遍历的bfs_1, return 层数即可。注意在判断nextBoxPos是否可以append到q的时候需要兼顾考虑到player能不能到nextBoxPos的相反方向去推box, 所以需要找到从currPlayerPos到oppositeNextBoxPos的可能路径，这是一个从源节点到目标节点的问题，源节点是对currPlayerPos, 目标节点是oppositeNextBoxPos, 需要做bfs_2, 如果能到就返回true. 总体思路就是上述了，需要注意的是bfs_1中由于box每移动一下boxPos会变playerPos也会变，所以要把boxPos和playerPos都入队列。另外易错点：visited里面只装boxPos. 这是不对的, 因为box从不同的方向被推到同一个地方是允许的，因此visited里面应该装入(boxPos, the pos where the boxPos comes from). <br>
 Solution 2: 无权图单源节点的最短路径问题，自然想到A-star search algorithm. use manhatan distance as Heuristic esitimation for A-star algorithm: steps + (abs(nextBoxPos[0]-targetPos[0]) + abs(nextBoxPos[1]-targetPos[1])).  put the heuristic estimation in the hq, together with steps, so the hq stores (heristic estimation of hte minimum steps needed from source to target, steps, boxPos, playerPos).  in A* algorithm, do not do level order bfs, do non-level order bfs.  
+- [0843. Guess the Word](Solutions/0843.Guess-the-Word.py) (!!!H Google) <br>
+Repeatedly choose a word to guess, and then eliminate all words that do not have the same number of matches as the guessed word. 
+In this way, the wordlist is narrowed down each time we do a guess.
+How to choose a word: solution 1: random guess; 2. choose the guess word wisely (Heuristically). Soltion 2: Each time we guess, we choose the word that has the most common chars (overlaps) with other words in the candidates list. This is just a hueristic estimation, hard to prove why it works. But indeed it works much better than random guess.
 
--------843. Guess the Word (Google high freq)----------- 818. Race Car -----------------
 
 
 # [Depth First Search](/Depth-First-Search.py)
