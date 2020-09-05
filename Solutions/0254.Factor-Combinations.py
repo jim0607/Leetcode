@@ -41,6 +41,43 @@ Output:
 ]
 
 
+"""
+solution 1: step 1. we get a list of factors first; step 2. then we do a dfs like combination sum
+"""
+class Solution:
+    def getFactors(self, n: int) -> List[List[int]]:
+        def get_factors():
+            factors = []
+            for i in range(2, n // 2 + 1):      # 注意范围是(2, n//2)
+                if n % i == 0:
+                    factors.append(i)
+            return factors        
+        
+        def backtrack(curr_idx, curr_comb, curr_prod):
+            if curr_prod == n:
+                res.append(curr_comb.copy())
+                return
+            
+            if curr_prod > n:       # this is important, otherwise it will be TLE
+                return
+            
+            for next_idx in range(curr_idx, len(nums)):
+                # if next_idx > 0 and nums[next_idx] == nums[next_idx - 1] and next_idx - 1 != curr_idx:
+                #     continue                  # cannot have this because we can have multiple same number
+                curr_comb.append(nums[next_idx])
+                backtrack(next_idx, curr_comb, curr_prod * nums[next_idx])
+                curr_comb.pop()        
+        
+        if n == 1 or n == 2:
+            return []
+        
+        nums = get_factors()    # nums is sorted already
+        res = []
+        backtrack(0, [], 1)
+        return res
+      
+
+
 class Solution:
     def getFactors(self, n: int) -> List[List[int]]:
         if n == 1:
