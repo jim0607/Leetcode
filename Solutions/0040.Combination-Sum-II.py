@@ -52,6 +52,37 @@
 # 
 #
 
+
+
+class Solution:
+    def combinationSum2(self, nums: List[int], target: int) -> List[List[int]]:
+        def backtrack(curr_idx, curr_comb, curr_sum):
+            if curr_sum == target:
+                res.append(curr_comb.copy())
+                return
+            
+            if curr_sum > target:
+                return
+            
+            for next_idx in range(curr_idx + 1, len(nums)):     # 一个数只能用一次所以从curr_idx + 1开始
+                if next_idx > 0 and nums[next_idx] == nums[next_idx-1] and next_idx - 1 != curr_idx:
+                    continue                        # 去重第二步
+                    
+                if nums[next_idx] > target:     # strong prune
+                    continue
+                curr_comb.append(nums[next_idx])
+                backtrack(next_idx, curr_comb, curr_sum + nums[next_idx])
+                curr_comb.pop()
+                
+        
+        nums.sort()     # 去重第一步是sort        
+        res = []
+        backtrack(-1, [], 0)
+        return res
+
+
+
+
 class Solution:
     def combinationSum2(self, nums: List[int], target: int) -> List[List[int]]:
         nums.sort()
