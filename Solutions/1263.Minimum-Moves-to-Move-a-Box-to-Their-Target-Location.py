@@ -65,6 +65,90 @@ grid contains only characters '.', '#',  'S' , 'T', or 'B'.
 There is only one character 'S', 'B' and 'T' in the grid.
 
 
+
+
+       
+"""
+use manhatan distance as Heuristic esitimation for A-star algorithm: steps + (abs(nextBoxPos[0]-targetPos[0]) + abs(nextBoxPos[1]-targetPos[1])).  
+put the heuristic estimation in the hq, together with steps, so the hq stores 
+(heristic estimation of hte minimum steps needed from source to target, steps, boxPos, playerPos).  
+in A* algorithm, do not do level order bfs, do non-level order bfs.  
+"""
+class Solution:
+    FLOOR = "."
+    WALL = "#"
+    def minPushBox(self, grid: List[List[str]]) -> int:
+        m, n = len(grid), len(grid[0])
+        player, box, target = (0, 0), (0, 0), (0, 0)
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == "S": player = (i, j)
+                if grid[i][j] == "B": box = (i, j)
+                if grid[i][j] == "T": target = (i, j)
+        
+        # (heristic estimation of the minimum steps needed from source_box_pos to target, curr_steps, curr_box_pos, curr_player_pos)
+        # 因为box从不同的方向被推到同一个地方是允许的，所以curr_box_pos, curr_player_pos都需要入队列
+        hq = [(abs(target[0] - box[0]) + abs(target[1] - box[1]), 0, box, player)]
+        steps = collections.defaultdict(int)  # 记录从(source_box_pos, source_player_pos)到(curr_box_pos, curr_player_pos)的步数，这个extra space在A*是必须的，用空间换时间
+        
+        while len(hq) > 0:
+            curr_heuristic_est, curr_steps, (curr_i, curr_j), player = heappop(hq)
+            if (curr_i, curr_j) == target:
+                return curr_steps
+            
+            for next_i, next_j in self._get_next(grid, curr_i, curr_j, player):
+                if (((next_i, next_j), (curr_i, curr_j))) not in steps or curr_steps + 1 < steps[((next_i, next_j), (curr_i, curr_j))]:
+                    player = (curr_i, curr_j)
+                    steps[((next_i, next_j), (curr_i, curr_j))] = curr_steps + 1
+                    heappush(hq, (curr_steps + 1 + abs(target[0]-next_i) + abs(target[1]-next_j), curr_steps + 1, (next_i, next_j), player))
+                    
+        return -1
+                   
+        
+    def _get_next(self, grid, curr_i, curr_j, player):
+        """
+        Return a list of posible positions the box could be moved to. There are basically 4 choices: up, down left, right
+        """
+        m, n = len(grid), len(grid[0])
+        res = []
+        if curr_i - 1 >= 0 and grid[curr_i - 1][curr_j] != self.WALL and self._can_player_reach(grid, player, (curr_i + 1, curr_j), (curr_i, curr_j), set()):
+            res.append((curr_i - 1, curr_j))
+        if curr_i + 1 < m and grid[curr_i + 1][curr_j] != self.WALL and self._can_player_reach(grid, player, (curr_i - 1, curr_j), (curr_i, curr_j), set()):
+            res.append((curr_i + 1, curr_j))
+        if curr_j - 1 >= 0 and grid[curr_i][curr_j - 1] != self.WALL and self._can_player_reach(grid, player, (curr_i, curr_j + 1), (curr_i, curr_j), set()):
+            res.append((curr_i, curr_j - 1))
+        if curr_j + 1 < n and grid[curr_i][curr_j + 1] != self.WALL and self._can_player_reach(grid, player, (curr_i, curr_j - 1), (curr_i, curr_j), set()):
+            res.append((curr_i, curr_j + 1))
+        return res
+    
+    
+    def _can_player_reach(self, grid, curr_pos, dst, box, visited):
+        """
+        Return if player can reach dst position by doing bfs/dfs
+        """
+        m, n = len(grid), len(grid[0])
+        if curr_pos[0] < 0 or curr_pos[0] >= m or curr_pos[1] < 0 or curr_pos[1] >= n:
+            return False
+        if curr_pos == dst:
+            return True
+        
+        for delta_i, delta_j in [(1, 0), (0, -1), (-1, 0), (0, 1)]:
+            next_i, next_j = curr_pos[0] + delta_i, curr_pos[1] + delta_j
+            if 0 <= next_i < m and 0 <= next_j < n:
+                if grid[next_i][next_j] != self.WALL:
+                    if (next_i, next_j) not in visited and (next_i, next_j) != box:     # 易错点: 遇到box的话也不能前进
+                        visited.add((next_i, next_j))
+                        if self._can_player_reach(grid, (next_i, next_j), dst, box, visited):
+                            return True
+        return False
+
+
+
+
+
+
+
+
 """
 思路：这个题是从源节点到目标节点的最短路径问题，所以想到用bfs, 源节点是对boxPos, 目标节点是targetPos, 从源节点出发做带层序遍历的bfs_1, return 层数即可。
 注意在判断nextBoxPos是否可以append到q的时候需要兼顾考虑到player能不能到nextBoxPos的相反方向去推box, 
