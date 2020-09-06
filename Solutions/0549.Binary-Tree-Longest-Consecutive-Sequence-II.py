@@ -23,6 +23,51 @@ Input:
 Output: 3
 Explanation: The longest consecutive path is [1, 2, 3] or [3, 2, 1].
 
+        
+        
+"""
+helper function returns (the LCS ended with root decreasing, increasing, without root, pass root)
+"""
+class Solution:
+    def longestConsecutive(self, root: TreeNode) -> int:
+        return max(self._helper(root))
+        
+        
+    def _helper(self, root):
+        """
+        Return the LCS ended with root decreasing/increasing, without root, pass root
+        """
+        if not root:
+            return 0, 0, 0, 0
+        if not root.left and not root.right:
+            return 1, 1, 0, 1
+        
+        left_w_dec, left_w_inc, left_wo, left_p = self._helper(root.left)
+        right_w_dec, right_w_inc, right_wo, right_p = self._helper(root.right)
+        
+        root_wo = max(left_w_dec, left_w_inc, left_wo, left_p, right_w_dec, right_w_inc, right_wo, right_p)
+        
+        root_w_inc, root_w_dec = 1, 1
+        if root.left and root.left.val == root.val + 1:
+            root_w_inc = max(root_w_inc, left_w_inc + 1)
+        if root.right and root.right.val == root.val + 1:
+            root_w_inc = max(root_w_inc, right_w_inc + 1)
+        if root.left and root.left.val == root.val - 1:
+            root_w_dec = max(root_w_dec, left_w_dec + 1)
+        if root.right and root.right.val == root.val - 1:
+            root_w_dec = max(root_w_dec, right_w_dec + 1)
+            
+        root_p = 1
+        if root.left and root.right and root.val == root.left.val - 1 == root.right.val + 1:
+            root_p = max(root_p, 1 + left_w_inc + right_w_dec)
+        if root.left and root.right and root.val == root.left.val + 1 == root.right.val - 1:
+            root_p = max(root_p, 1 + left_w_dec + right_w_inc)
+
+        return root_w_dec, root_w_inc, root_wo, root_p
+        
+        
+        
+        
 
 
 class Solution:
