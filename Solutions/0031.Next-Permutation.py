@@ -43,3 +43,47 @@ class Solution:
             nums[i], nums[j] = nums[j], nums[i]
             i += 1
             j -= 1
+
+            
+            
+"""
+1 3 2 5 4 2  -  1 3 4 2 2 5
+the first decreasing is 2
+the right list after 2 is [5, 4, 2], the num just larger than 2 is 4;
+swap 2 and 4 [1 3 4 5 2 2]. sort the right list - 1 3 4   2 2 5 
+"""
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        if len(nums) == 1:
+            return nums
+        
+        first_dec_num, first_dec_idx = float("inf"), len(nums)
+        for i in range(len(nums)-1, 0, -1):
+            if nums[i-1] < nums[i]:
+                first_dec_num = nums[i-1]
+                first_dec_idx = i - 1
+                break
+                
+        if first_dec_num == float("inf") and i-1 == 0:
+            self.reverse(nums, 0)
+            
+        else:
+            just_larger_num, just_larger_idx = i, nums[i]
+            for j in range(i, len(nums)):
+                if nums[j] > first_dec_num:
+                    just_larger_num = nums[j]
+                    just_larger_idx = j
+
+            nums[first_dec_idx], nums[just_larger_idx] = nums[just_larger_idx], nums[first_dec_idx]
+            self.reverse(nums, first_dec_idx + 1)
+            
+            
+    def reverse(self, nums, start_idx):
+        p, q = start_idx, len(nums) - 1
+        while p < q:
+            nums[p], nums[q] = nums[q], nums[p]
+            p += 1
+            q -= 1
