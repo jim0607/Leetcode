@@ -21,6 +21,45 @@ Input: arr = ["abcdefghijklmnopqrstuvwxyz"]
 Output: 26
 
 
+    
+class Solution:
+    def maxLength(self, arr: List[str]) -> int:
+        def backtrack(curr_idx, curr_comb):
+            res.append("".join(curr_comb.copy()))
+            for next_idx in range(curr_idx + 1, len(lst)):      # 一个string只能取一次，所以从curr_idx+1开始
+                if next_idx > 0 and lst[next_idx] == lst[next_idx-1] and next_idx - 1 != curr_idx:
+                    continue
+                if has_same_char(lst[next_idx], curr_comb):
+                    continue
+                curr_comb.append(lst[next_idx])
+                backtrack(next_idx, curr_comb)
+                curr_comb.pop()
+                
+        def has_same_char(s, comb):
+            set_s = set([ch for ch in s])
+            for string in comb:
+                for ch in string:
+                    if ch in set_s:
+                        return True
+            return False        
+        
+        
+        # step 1: remove the invalid strings in arr
+        lst = []
+        for s in arr:
+            if len(s) == len(set([ch for ch in s])):
+                 lst.append(s)
+        lst = sorted(lst)   # 去重第一步
+                    
+        # step 2: backtrack to find all combinations
+        res = []
+        backtrack(-1, [])
+        return max(len(comb) for comb in res) 
+    
+    
+    
+    
+    
 class Solution:
     def maxLength(self, arr: List[str]) -> int:
         # step 1: remove the invalid strings in arr
