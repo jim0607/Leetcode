@@ -32,7 +32,7 @@ https://leetcode.com/problems/permutation-sequence/discuss/22554/Backtrack-Summa
 O(N^2)
 class Solution:
     def getPermutation(self, n: int, k: int) -> str:
-        # step 1: calculate the factorial
+        # step 1: calculate the factorial - 这样可以更快捷得到factorial
         factorial = [1 for _ in range(n+1)]
         for i in range(1, n+1):
             factorial[i] = i * factorial[i-1]
@@ -46,6 +46,6 @@ class Solution:
             res += nums[idx]
             del nums[idx]       # O(N)
             
-            k = k % factorial[i-1]
+            k = k % factorial[i-1]      # 这里没想出来！
             
         return res
