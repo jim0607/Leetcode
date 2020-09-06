@@ -1,3 +1,4 @@
+"""
 549. Binary Tree Longest Consecutive Sequence II
 
 Given a binary tree, you need to find the length of Longest Consecutive Path in Binary Tree.
@@ -22,6 +23,7 @@ Input:
       1   3
 Output: 3
 Explanation: The longest consecutive path is [1, 2, 3] or [3, 2, 1].
+"""
 
         
         
