@@ -23,6 +23,42 @@ Note:
 0 <= A[i] <= 1e9
 
 
+
+"""
+本质还是求permutation. 只是多了一个条件就是nums[cur_idx] +nums[next_idx]必须是square number.
+"""
+class Solution:
+    def numSquarefulPerms(self, nums: List[int]) -> int:       
+        def backtrack(curr_idx, curr_comb):
+            if len(curr_comb) == len(nums):
+                res.append(curr_comb.copy())
+                return
+            for next_idx in range(len(nums)):
+                if next_idx in visited:
+                    continue
+                if next_idx > 0 and nums[next_idx] == nums[next_idx-1] and next_idx - 1 not in visited:
+                    continue
+                if curr_idx != -1 and not is_square(nums[curr_idx] + nums[next_idx]):
+                    continue
+                visited.add(next_idx)
+                curr_comb.append(nums[next_idx])
+                backtrack(next_idx, curr_comb)
+                curr_comb.pop()
+                visited.remove(next_idx)
+            
+        def is_square(num):       # this takes O(1), we can also use binary search which takes O(logn)
+            return int(num**0.5) == num**0.5
+        
+        
+        nums.sort()     # 去重第一步
+        res = []
+        visited = set()
+        backtrack(-1, [])
+        return len(res)
+
+
+
+
 """
 solution 1: brutal backtracking - find all permutations (O(n!)) and then check how many of them are squareful (O(n*n!))
 """
