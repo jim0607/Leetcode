@@ -12,6 +12,31 @@ Example 2:
 Input: "AAABBC"
 Output: 188
 
+    
+    
+class Solution:
+    def numTilePossibilities(self, tiles: str) -> int:
+        def backtrack(curr_idx, curr_comb):
+            res.append(str(curr_comb.copy()))
+            for next_idx in range(len(tiles)):
+                if next_idx in visited:
+                    continue
+                if next_idx > 0 and tiles[next_idx] == tiles[next_idx-1] and next_idx-1 not in visited:
+                    continue
+                visited.add(next_idx)
+                curr_comb.append(tiles[next_idx])
+                backtrack(next_idx, curr_comb)
+                curr_comb.pop()
+                visited.remove(next_idx)                    
+                    
+        tiles = sorted(tiles)     # 去重第一步sort, string只能用sorted
+        res = []
+        visited = set()
+        backtrack(0, [])
+        return len(res) - 1
+            
+
+    
 
 
 class Solution:
