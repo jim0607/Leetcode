@@ -900,14 +900,10 @@ Linear scan the 2d grid map, if a node contains a '1', then it is a root node th
 simple dfs or bfs is ok.
 - [0364. Nested List Weight Sum II](Solutions/0364.Nested-List-Weight-Sum-II.py) (M) <br>
 do a dfs to find the depth first, then another dfs to do 339. Nested List Weight Sum I
-
-
-
-
 - [0690. Employee Importance](Solutions/0690.Employee-Importance.py) (E) <br>
-simple dfs 可破
+simple dfs 可破, use a dictionary to map employee_id with employee, so that looking for employee by id takes O(1)
 - [0733. Flood Fill](Solutions/0733.Flood-Fill.py) (!!E) <br>
-Solution 1: Union Find; Solution 2: bfs; Solution 3: dfs iteratively; Solution 4: dfs recurssively
+Solution 1: dfs recurssively, don't need a set to record visited nodes, cuz we can modify the matrix in place; Solution 2: bfs; Solution 3: dfs iteratively; Solution 4: Union Find; 
 - [0841. Keys and Rooms](Solutions/0841.Keys-and-Rooms.py) (!!M) <br>
 dfs. 这题不能用union find来解
 - [0130. Surrounded Regions](Solutions/0130.Surrounded-Regions.py) (!!M) <br>
@@ -921,52 +917,38 @@ Solution 1: Union Find.  Step 1: Union all the "O" that are neighborign with eac
 
 
 
-
-
-
-
-### [Backtrack - Combination](/Depth-First-Search.py)
+### [Backtrack - Combination and Permutation](/Depth-First-Search.py)
 - [0078. Subsets](Solutions/0078.Subsets.py) (!!M) <br>
-C(m, n)：m个里面找出n个的组合问题; 模板的DFS + back tracking求combination问题 O(NS), S是solution的个数，这里S=2^N; 注意两点：1.res.append(curr.copy()); has to be a deep copy; 2. self.dfs(nums, i + 1, curr, res) 要从i+1开始cuz不能回头找会重复
-其实可以不用把res传进去，定义一个全局变量self.res即可，可以简化dfs传入的参数。
+C(m, n)：m个里面找出n个的组合问题; 模板的back tracking求combination问题, S是solution的个数，这里S=2^N. Copy takes O(N), so overall O(N* S); 注意两点：1.res.append(curr.copy()); has to be a deep copy; 2. self.dfs(i + 1, curr) 要从i+1开始cuz不能回头找会重复. 因为subsets, subarray, substring都是讲究顺序的
 - [0077. Combinations](Solutions/0077.Combinations.py) (!!M) <br>
+C(m, n)：m个里面找出n个的组合问题; C_m_n = (n!)/( (m!)* (n-m)! )
 - [0090. Subsets II](Solutions/0090.Subsets-II.py) (!!M)<br>
 如果输入存在重复元素，[1, 2, 2]的遍历中，我们只取前面的那个2，对于后面的那个2，如果不是挨着前面那个2选的，也就是说i != startIndex，那么就不要放后面那个2，这样会造成重复出现[1,第一个2],[1,第二个2], 注意可以挨着第一个2来选第二个2是可以的，因为允许出现[1,2,2]作为答案。所以contraint是: if (i >= 1 and nums[i] == nums[i-1]) and i != startIndex: continue
-- [0254. Factor Combinations](Solutions/0254.Factor-Combinations.py) (M)<br>
-dfs找所有的约数组合
-- [0039. Combination Sum](Solutions/0039.Combination-Sum.py) (M) <br>
-模板：find_solution: if target == 0； Is_not_valid：if nums[i] > targetstart是从i开始的，而不是subsets里面的i+1, 这是因为Subsets 一个数只能选一次，Combination Sum 一个数可以选很多次
+- [0039. Combination Sum](Solutions/0039.Combination-Sum.py) (!!M) <br>
+这里从curr_idx开始的，而不是subsets里面的curr_idx+1, 这是因为Subsets同一个数只能选一次，这里同一个数可以选很多次
 - [0040. Combination Sum II](Solutions/0040.Combination-Sum-II.py) (M) <br>
 输入中存在重复元素，避免重复输出的方法与Subsets II一样; 模板 find_solution: if target == 0; is_not_valid: if (nums[i] > target) or (i >= 1 and nums[i] == nums[i-1]) and i != startIdx
 - [0216. Combination Sum III](Solutions/0216.Combination-Sum-III.py) (M)<br>
-self.dfs(nums, k - 1, n - nums[i], i + 1, curr)   # 不能重复同一个数，所以从i+1开始
+一个数只能选一次，所以从curr_idx + 1开始
 - [0090. k Sum II](Solutions/0090.k-Sum-II.py) (M Lintcode) <br>
 exactly the same as 216.
-- [0518. Coin Change 2](Solutions/0518.Coin-Change-2.py) (M) <br>
+- [0518. Coin Change 2](Solutions/0518.Coin-Change-2.py) (!!!!!!!!!!M) <br>
 与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解。DP解的for循环顺序很重要，由于(1,3)和(3,1)被认为是同一解，所以for coin in coins:是主循环，for num in range(1, amount + 1):是次循环。因为当coin遍历到coin=1的时候，dp[4]+=d[3]此时的dp[3]=0所以dp[4]实际上加的是0；而当coin遍历到coin=3的时候，dp[4]+=d[1]，此时d[1]被更新过一次。所以真个过程dp[4]只被更新一次，不会重复更新。
 - [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (M)<br>
 self.dfs(nums, target - nums[i], 0, curr, res)  # (1, 3)和(3, 1)被认为是不同解，所以让i从0开始; solution 2: dp. DP解的for循环顺序很重要， for m in range(target + 1): 是主循环，for num in nums:是次循环，这么写可以保证(1,3)可以进solution, (3,1)也可以进solution, 所以符合题意。
-- [1056. Confusing Number](Solutions/1056.Confusing-Number.py) (E) <br>
-- [1088. Confusing Number II](Solutions/1088.Confusing-Number-II.py) (!!H) <br>
-solution 2: Only 0, 1, 6, 8, 9 are the valid set of digits, do a backtracking to generate all the numbers containing this digits and check they are valid.
-time complexity: O(L*(number of solutions)), where L is avg lens used to check is_confusingNumber.
-
-
-### [Backtracking - Permutation](/Depth-First-Search.py)
+- [0254. Factor Combinations](Solutions/0254.Factor-Combinations.py) (M) <br>
+solution 1: step 1. we get a list of factors first; step 2. then we do a dfs like combination sum
 - [0046. Permutations](Solutions/0046.Permutations.py) (!!M)<br>
-与combination相比少了一个startIndex参数，加入visited用于防止重复出现; append之后需要将visited[i]变为True; pop出来之后将visited[i]再变回False
+与combination相比少了一个startIndex参数，加入visited存idx用于防止重复出现; 
 - [0047. Permutations II](Solutions/0047.Permutations-II.py) (M) <br>
 模板: is_not_valid: if i in self.visited: continue; if (i > 0 and nums[i] == nums[i-1]) and (i-1) not in self.visited: continue
 - [1079. Letter Tile Possibilities](Solutions/1079.Letter-Tile-Possibilities.py) (!!M) <br>
 用47. Permutations II中的方法去重, 需要先sort!!!!!!!!
-- [0052. N Queens II](Solutions/0052.N-Queens-II.py) (!!H) <br>
-排列问题：先打印出数组[0, 1, 2, 3....n]中所有的可能排列：[[0,1,2,3], [1,3,0,2].....]，其中的每一个子数组表示一种可能的方法，子数组中的数字表示在哪个数字的地方放一个Queen，数字对应的下标位置是放那个Queen的行，数字的值是放那个Queen的列。由于Queen可以很冲直撞，所以列是不能相同的，所以需要去重，用visited标记就可以。又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。用三个字典visited_col, visited_sum, visited_diff分别存储列号，横纵坐标之和，横纵坐标之差有没有被用过
-- [0051. N Queens](Solutions/0051.N-Queens.py) (H)<br>
-- [0996. Number of Squareful Arrays](Solutions/0996.Number-of-Squareful-Arrays.py) (!!H)  <br>
-backtracking with constraints solution: O(number of possible solutions).
-需要判断A[i]+A[i-1]合不合格，所以需要把prev_idx传入backtrack function signature
-- [0031. Next Permutation](Solutions/0031.Next-Permutation.py) (M) <br>
+- [0031. Next Permutation](Solutions/0031.Next-Permutation.py) (!!M) <br>
 step 1: sweeping from right to left, find the first decreasing element nums[i]; Step 2: sweep from right to left, find the first element larger just than nums[i], then swap nums[i] and nums[j], then swap all the items starting from i+1
+
+
+
 - [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (!!M)  <br>
 step 1: put the characters that have seen two times in the char list; now we have a charList that only holds char that appears even times, eg: "aaaabbc" now becomes "aab", Step 2: we only need to do permutation for this charList, so the time complexity is O((n/2)!), which is quite an improve. Step 3: when return the results, we just use the permuation generated in steps 2 + permuation[::-1]
 - [0060. Permutation Sequence](Solutions/0060.Permutation-Sequence.py) (M)  <br>
@@ -975,6 +957,20 @@ It really is all about pattern finding; https://leetcode.com/problems/permutatio
 
 
 ### [Backtrack](/Depth-First-Search.py)
+- [1056. Confusing Number](Solutions/1056.Confusing-Number.py) (E) <br>
+use a hashmap
+- [1088. Confusing Number II](Solutions/1088.Confusing-Number-II.py) (!!H) <br>
+solution 2: Only 0, 1, 6, 8, 9 are the valid set of digits, do a backtracking to generate all the numbers containing this digits and check they are valid.
+time complexity: O(5^M), where M is how many digits are there in str(N), which scales with ~logN, where log is 10-based.
+- [0052. N Queens II](Solutions/0052.N-Queens-II.py) (!!H) <br>
+排列问题：先打印出数组[0, 1, 2, 3....n]中所有的可能排列：[[0,1,2,3], [1,3,0,2].....]，其中的每一个子数组表示一种可能的方法，子数组中的数字表示在哪个数字的地方放一个Queen，数字对应的下标位置是放那个Queen的行，数字的值是放那个Queen的列。由于Queen可以很冲直撞，所以列是不能相同的，所以需要去重，用visited标记就可以。又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。用三个字典visited_col, visited_sum, visited_diff分别存储列号，横纵坐标之和，横纵坐标之差有没有被用过
+- [0051. N Queens](Solutions/0051.N-Queens.py) (H)<br>
+
+
+
+- [0996. Number of Squareful Arrays](Solutions/0996.Number-of-Squareful-Arrays.py) (!!H)  <br>
+backtracking with constraints solution: O(number of possible solutions).
+需要判断A[i]+A[i-1]合不合格，所以需要把prev_idx传入backtrack function signature
 - [1239. Maximum Length of a Concatenated String with Unique Characters](Solutions/1239.Maximum-Length-of-a-Concatenated-String-with-Unique-Characters.py) (!!M)<br>
 subsets问题的变形
 - [0526. Beautiful Arrangement](Solutions/0526.Beautiful-Arrangement.py) (!!M)<br>
@@ -1363,7 +1359,7 @@ f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B
 - [1537. Get the Maximum Score](Solutions/1537.Get-the-Maximum-Score.py) (!!H) <br>
 solution 1: two pointers + dp: dp1[i] := max path sum ends with nums1[i-1]; dp2[j] := max path sum ends with nums2[j-1]
 
---------- 983. Minimum Cost for tickets ---------
+--------- 983. Minimum Cost for tickets ------1349. Maximum Students Taking Exam----------
 
 
 ### [Other DP Problems](https://juejin.im/post/5d556b7ef265da03aa2568d5)
@@ -1914,6 +1910,9 @@ find the num that is closest to num and num minus it and update res.
 
 
 # [系列题](/)
+### [Gradient Descent](/)
+--------69. Sqrt(x)--------------1515. Best Position for a Service Centre-----------------11. Container With Most Water----------
+
 ### [Rectangle几何题](/)
 - [0836. Rectangle Overlap](Solutions/0836.Rectangle-Overlap.py) (E) <br>
 比较点的坐标即可
