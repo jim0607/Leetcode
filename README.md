@@ -426,6 +426,16 @@ Divide and Conquer的方法输出以root为根的subTree的subSum，然后每次
 题意应该是任何path都可以，只要点和点连接在一起就算一个path，起点和终点doesn't matter. 方法是定义一个self.maxSum在helper函数中去打擂台。helper 函数return the maxPathSum for tree ended with root: return max(left of root, right of root) + root.val; 打擂台: self.maxSum = max(self.maxSum, leftmax + rightMax + root.val). 注意打擂台的self.maxSum和非打擂台的变量和helper function return的变量是不一样的，这是本题的难点。
 - [0687. Longest Univalue Path](Solutions/0687.Longest-Univalue-Path.py) (!!M) <br>
 在binary tree里求longest path问题，如果任何path都算数的话，那么我们在divide and conquer的时候要分成两种情况讨论：1. path ended with root; 2: path not ended with root. 我们往往需要在helper函数中返回end_w和end_wo两种情况的值, 有时候也可以将case 2细分为: I. path pass the root, and II. path without the root.
+- [0298. Binary Tree Longest Consecutive Sequence](Solutions/0298.Binary-Tree-Longest-Consecutive-Sequence.py) (!!M) <br> 
+helper function returns (the LCS ended with root, without root)
+- [0549. Binary Tree Longest Consecutive Sequence II](Solutions/0549.Binary-Tree-Longest-Consecutive-Sequence-II.py) (!!M) <br> 
+helper function returns (the LCS ended with root decreasing, increasing, without root, pass root)
+- [0968. Binary Tree Cameras](Solutions/0968.Binary-Tree-Cameras.py) (!!H) <br> 
+helper function returns minimum number of cameras needed to cover all the node's children with (node not covered, node covered: 1. with a camera on node, 2. without a camera on node)
+- [0834. Sum of Distances in Tree](Solutions/0834.Sum-of-Distances-in-Tree.py) (!!H) <br> 
+sums(Y) = sums(X) + cnt(X) - cnt(Y) = sums(X) + (N - cnt(Y) - cnt(Y) = sums(X) + N - 2* cnt(X).
+cnt[X]可以通过dfs遍历一次算出来存到一个list里面，这样我们如果已知sums(0)的话，
+那么其余的sums(X)都可以通过上述公式算出来了
 - [0110. Balanced Binary Tree](Solutions/0110.Balanced-Binary-Tree.py) (E) <br>
 helper function return (if the tree is balanced, maxDepth); rootIsBalan = leftIsBalan and rightIsBalan and abs(leftMaxDepth - rightMaxDepth) <= 1
 - [0543. Diameter of Binary Tree](Solutions/0543.Diameter-of-Binary-Tree.py) (!!E Facebook) <br>
@@ -499,6 +509,17 @@ solution 1 takes O(N^2) because each time we find idx in inorder, it takes O(N).
 the root is the arr[0], root.left = [1: idx] and root.right = [idx:], where idx is the first num that is larger than arr[0].
 - [1028. Recover a Tree From Preorder Traversal](Solutions/1028.Recover-a-Tree-From-Preorder-Traversal.py) (!!H) <br>
 step 1: store the (depth, node_val) information in a list; step 2: use that list to construct a Tree.
+- [1469. Find All The Lonely Nodes](Solutions/1469.Find-All-The-Lonely-Nodes.py) (E) <br> 
+simple dfs to visit every node, check if it is a lonely node when visit it.
+- [1302. Deepest Leaves Sum](Solutions/1302.Deepest-Leaves-Sum.py) (M) <br> 
+first dfs find the max depth, 2nd dfs get the sum of all nodes with max depth.
+solution 2: level order bfs, 每次都在while循环里初始化max_depth_sums就可以保证输出的是最后一层的sums了，只需一次遍历
+- [0979. Distribute Coins in Binary Tree](Solutions/0979.Distribute-Coins-in-Binary-Tree.py) (!!M) <br> 
+The algorithm is: one node by another, try to balance node from down to top.
+helper function returns how many coins should the node receive from it's parent in order to balance itself.
+用一个全局变量打擂台记录移动了多少个coins
+
+
 
 
 
@@ -946,13 +967,11 @@ solution 1: step 1. we get a list of factors first; step 2. then we do a dfs lik
 用47. Permutations II中的方法去重, 需要先sort!!!!!!!!
 - [0031. Next Permutation](Solutions/0031.Next-Permutation.py) (!!M) <br>
 step 1: sweeping from right to left, find the first decreasing element nums[i]; Step 2: sweep from right to left, find the first element larger just than nums[i], then swap nums[i] and nums[j], then swap all the items starting from i+1
-
-
-
 - [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (!!M)  <br>
-step 1: put the characters that have seen two times in the char list; now we have a charList that only holds char that appears even times, eg: "aaaabbc" now becomes "aab", Step 2: we only need to do permutation for this charList, so the time complexity is O((n/2)!), which is quite an improve. Step 3: when return the results, we just use the permuation generated in steps 2 + permuation[::-1]
-- [0060. Permutation Sequence](Solutions/0060.Permutation-Sequence.py) (M)  <br>
-It really is all about pattern finding; https://leetcode.com/problems/permutation-sequence/discuss/22507/%22Explain-like-I'm-five%22-Java-Solution-in-O(n)
+step 1: put the characters that have seen two times in the char list; now we have a charList that only holds char that appears even times, eg: "aabbbbcc" now becomes "abbc", Step 2: we only need to do permutation for this charList, so the time complexity is O((n/2)!), which is quite an improve. Step 3: when return the results, we just use the permuation generated in steps 2 + permuation[::-1]
+- [0060. Permutation Sequence](Solutions/0060.Permutation-Sequence.py) (!!H)  <br>
+It really is all about pattern finding; 只需要用 k // (n-1)! 去找到k所在的位置
+
 
 
 
@@ -1000,10 +1019,6 @@ solution 1: dfs + backtrack - next candidate valid的条件是matrix[next_i][nex
 - [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
 Solution 1: 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
 Solution 2: similar with 257 and 112, we just find all the possible paths.
-- [0298. Binary Tree Longest Consecutive Sequence](Solutions/0298.Binary-Tree-Longest-Consecutive-Sequence.py) (!!M) <br> 
-Solution 1: 带backtracking the dfs;
-solution 2: backtracking dfs 的 interative 的写法 by using a stack;
-Solution 3: 不需要打印所有的路径，所以可以用普通的二叉树的divide and conquer方法：helper function return the Longest Consecutive Sequence **started with** root node, 全局变量res进到helper function中去打擂台
 - [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (!!!M) <br>
 递归的定义：从s中的start位置开始，挑一些位置切割，判断从start到i的部分是否为回文，如果是就放入curr中，如果i到了string末尾了则说明此事curr是一种组合方式，放入res中 <br>
 - [0332. Reconstruct Itinerary](Solutions/0332.Reconstruct-Itinerary.py) (!!M) <br>
@@ -1018,29 +1033,6 @@ dfs + backtracking, time complexity is (9!)^9, which is veyr high.
 ----------1087. Brace Expansion----------
 
 
-
-### [树上的DFS](/Depth-First-Search.py) <br>
-- [1469. Find All The Lonely Nodes](Solutions/1469.Find-All-The-Lonely-Nodes.py) (E) <br> 
-simple dfs to visit every node, check if it is a lonely node when visit it.
-- [1302. Deepest Leaves Sum](Solutions/1302.Deepest-Leaves-Sum.py) (M) <br> 
-first dfs find the max depth, 2nd dfs get the sum of all nodes with max depth.
-solution 2: level order bfs, 每次都在while循环里初始化max_depth_sums就可以保证输出的是最后一层的sums了，只需一次遍历
-- [0549. Binary Tree Longest Consecutive Sequence II](Solutions/0549.Binary-Tree-Longest-Consecutive-Sequence-II.py) (M) <br> 
-Solution 1: divide and conquer方法：helper function return the increasing and decreasing Longest Consecutive Sequence **started with** root node, 全局变量res进到helper function中去打擂台: self.res = max(self.res, root_increasing + root_decreasing - 1)
-- [0979. Distribute Coins in Binary Tree](Solutions/0979.Distribute-Coins-in-Binary-Tree.py) (!!M) <br> 
-helper(node) return how many coins should a node receive from it's parent to make itself balanced.
-The number of coins a node should receive from it's parent to make a node balanced is 1 - node.val. 
-- [0968. Binary Tree Cameras](Solutions/0968.Binary-Tree-Cameras.py) (!!H) <br> 
-solution 1: dp. bottom up: O(N)
-state0[i] = the min cameras needed to get all the children of node i covered but node i not covered;
-state1[i] = the min cameras needed to get all the children of node i and node i covered - no camera on node i;
-state2[i] = the min cameras needed to get all the children of node i and node i covered - camera on node i;
-Solution 2: Greedy algorithm: O(N)
-If a node has children that are not covered by a camera, then we must place a camera here. 
-Additionally, if a node has no parent and it is not covered, 因为我们是从下往上的，所以如果this node is not covered, 
-then it means it is not covered by it's children, then we must place a camera here.
-- [0834. Sum of Distances in Tree](Solutions/0834.Sum-of-Distances-in-Tree.py) (H) <br> 
-两个dfs. 看不懂呀，真TMD难呀
 
 
 # [图的遍历](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
