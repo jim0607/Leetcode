@@ -1,3 +1,4 @@
+"""
 1088. Confusing Number II
 
 We can rotate digits by 180 degrees to form new digits. When 0, 1, 6, 8, 9 are rotated 180 degrees, they become 0, 1, 9, 8, 6 respectively. When 2, 3, 4, 5 and 7 are rotated 180 degrees, they become invalid.
@@ -24,7 +25,7 @@ Input: 100
 Output: 19
 Explanation: 
 The confusing numbers are [6,9,10,16,18,19,60,61,66,68,80,81,86,89,90,91,98,99,100].
-
+"""
 
 
 """
@@ -60,37 +61,25 @@ class Solution:
         
 """
 solution 2: Only 0, 1, 6, 8, 9 are the valid set of digits, do a backtracking to generate all the numbers containing this digits and check they are valid.
-time complexity: O(L*(number of solutions)), where L is avg lens used to check is_confusingNumber.
+time complexity: O(5^M), where M is how many digits are there in str(N), which scales with ~logN, where log is 10-based.
 """
 class Solution:
     def confusingNumberII(self, N: int) -> int:
-        valid_lst = ["0", "1", "6", "8", "9"]
-        self.cnt = 0
-        included = set()
-        self._backtrack(N, valid_lst, "", included)
-        return self.cnt
-    
-    def _backtrack(self, N, valid_lst, curr_num, included):
-        if curr_num and int(curr_num) <= N and self._is_confusingNumber(curr_num):
-            self.cnt += 1       # 注意不能return，因为"66"后面还可以再加eg:"661", "668"等等
+        def backtrack(curr_num, curr_rotated):
+            if int(curr_num) > N:
+                return
             
-        if curr_num and int(curr_num) > N:
-            return        # 注意不能写成continue, continue只能用在loop里，所以这里写return相当于continue
-        
-        if curr_num and curr_num[0] == "0":     # 注意0开头的数字无效
-            return
-        
-        for ch in valid_lst:
-            next_num = curr_num + ch
-            if next_num in included:
-                continue
-            included.add(next_num)
-            self._backtrack(N, valid_lst, next_num, included)
-            included.remove(next_num)
+            if curr_num != curr_rotated:
+                self.cnt += 1
                 
-    def _is_confusingNumber(self, s) -> (bool, int):
+            for ch in mapping:
+                next_num = curr_num + ch
+                next_rotated = mapping[ch] + curr_rotated    # 注意加的顺序
+                backtrack(next_num, next_rotated)   # 都是immutable的数据结构，不需要后面的remove或pop部分了
+
+                
+        self.cnt = 0
         mapping = {"0": "0", "1": "1", "6": "9", "8": "8", "9": "6"}
-        rotated = ""
-        for i in range(len(s) - 1, -1, -1):
-            rotated += mapping[s[i]]
-        return rotated != s
+        for num in ["1", "6", "8", "9"]:    # 这里是初始化bachtrack的其实参数，这里不要把"0"加进去，因为"0"不能作为一个数的开头
+            backtrack(num, mapping[num])        
+        return self.cnt
