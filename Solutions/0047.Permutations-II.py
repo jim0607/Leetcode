@@ -50,7 +50,7 @@ class Solution:
             if i in self.visited:
                 continue
             # 如果nums[i]这个数与它前一个数是一样的但是前一个数并没有放进去，那就不要把这个数放进去了，因为我们是优先放前面的那个数。
-            if (i > 0 and nums[i] == nums[i-1]) and (i-1) not in self.visited:
+            if i > 0 and nums[i] == nums[i-1] and (i-1) not in self.visited:
                 continue
                 
             curr.append(nums[i])
@@ -60,3 +60,29 @@ class Solution:
             
             curr.pop()
             self.visited.remove(i)
+            
+            
+            
+            
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        def backtrack(curr_idx, curr_comb):
+            if len(curr_comb) == len(nums):
+                res.append(curr_comb.copy())
+                return
+            for next_idx in range(len(nums)):
+                if next_idx > 0 and nums[next_idx] == nums[next_idx-1] and next_idx - 1 not in visited:
+                    continue
+                if next_idx in visited:
+                    continue
+                visited.add(next_idx)
+                curr_comb.append(nums[next_idx])
+                backtrack(next_idx, curr_comb)
+                curr_comb.pop()
+                visited.remove(next_idx)            
+        
+        res = []
+        nums.sort()         # 去重第一步 - sort the list
+        visited = set()
+        backtrack(0, [])
+        return res
