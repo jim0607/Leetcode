@@ -39,7 +39,29 @@ Input: root = [31,null,78,null,28]
 Output: [78,28]
 
 
-
+ 
+"""
+simple tree traversal
+"""
+class Solution:
+    def getLonelyNodes(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        if not root.left and not root.right:
+            return []
+        
+        res = []
+        if not root.left:
+            res.append(root.right.val)
+        if not root.right:
+            res.append(root.left.val)
+            
+        res += self.getLonelyNodes(root.left)
+        res += self.getLonelyNodes(root.right)
+        
+        return res
+ 
+ 
 
 """
 simple dfs to visit every node, check if it is a lonely node when visit it.
@@ -63,23 +85,4 @@ class Solution:
         self._dfs(root.left)
         self._dfs(root.right)
 
-"""
-pass res into the signatures, so that we don't need global variables
-"""
-class Solution:
-    def getLonelyNodes(self, root: TreeNode) -> List[int]:
-        if not root:
-            return []
-        if not root.left and not root.right:
-            return []
-        
-        res = []
-        if not root.left:
-            res.append(root.right.val)
-        if not root.right:
-            res.append(root.left.val)
-            
-        res += self.getLonelyNodes(root.left)
-        res += self.getLonelyNodes(root.right)
-        
-        return res
+
