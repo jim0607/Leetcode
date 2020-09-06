@@ -37,10 +37,11 @@ Output: 4
 
 
 """
-helper(node) return how many coins should a node receive from it's parent to make itself balanced.
-The number of coins a node should receive from it's parent to make a node balanced is 1 - node.val. 
-Time Complexity: O(N), where NN is the number of nodes in the tree.
-Space Complexity: O(H), where HH is the height of the tree.
+The algorithm is: one node by another, try to balance node from down to top.
+helper function returns how many coins should the node receive from it's parent in order to balance itself.
+用一个全局变量打擂台记录移动了多少个coins
+Time Complexity: O(N), where N is the number of nodes in the tree.
+Space Complexity: O(H), where H is the height of the tree.
 """
 class Solution:
     def distributeCoins(self, root: TreeNode) -> int:
