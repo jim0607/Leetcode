@@ -53,8 +53,9 @@
 用一个visited数组存储 列号，横纵坐标之和，横纵坐标之差 有没有被用过
 """
 
+
 class Solution:
-    def totalNQueens(self, n: int) -> int:
+    def solveNQueens(self, n: int) -> int:
         def backtrack(curr_row, curr_col, curr_comb):
             if len(curr_comb) == n:
                 res.append(curr_comb.copy())
@@ -87,15 +88,14 @@ class Solution:
         sum_visited = set()
         diff_visited = set()
         backtrack(-1, -1, [])
-        return len(res)
         
-        # ans = []
-        # for lst in res:
-        #     for i, j in lst:
-        #         temp_ans = [["." for _ in range(n)] for _ in range(n)]
-        #         temp_ans[i][j] = "Q"
-        #     ans.append(temp_ans)
-        # return ans
+        ans = []
+        for lst in res:
+            temp = ["." * n for _ in range(n)]
+            for i, j in lst:
+                temp[i] = temp[i][:j] + "Q" + temp[i][j+1:]
+            ans.append(temp)
+        return ans
 
 
 
