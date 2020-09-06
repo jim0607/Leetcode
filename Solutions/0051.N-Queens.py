@@ -52,6 +52,57 @@
 又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。
 用一个visited数组存储 列号，横纵坐标之和，横纵坐标之差 有没有被用过
 """
+
+class Solution:
+    def totalNQueens(self, n: int) -> int:
+        def backtrack(curr_row, curr_col, curr_comb):
+            if len(curr_comb) == n:
+                res.append(curr_comb.copy())
+                return
+            for next_row in range(curr_row + 1, n):         # 注意不能回头找, 必须从curr_row+1开始, 
+                if next_row in row_visited:   # 因为permutation[(0, 1), (1, 3), (2, 0), (3, 2)]和[(0, 1), (2, 0), (1, 3), (3, 2)]是重复的答案
+                    continue
+                for next_col in range(curr_col + 1, n):
+                    if next_col in col_visited:
+                        continue
+                    if next_row + next_col in sum_visited:
+                        continue
+                    if next_row - next_col in diff_visited:
+                        continue
+                    row_visited.add(next_row)
+                    col_visited.add(next_col)
+                    sum_visited.add((next_row + next_col))
+                    diff_visited.add((next_row - next_col))
+                    curr_comb.append((next_row, next_col))
+                    backtrack(next_row, curr_col, curr_comb)
+                    curr_comb.pop()
+                    row_visited.remove(next_row)
+                    col_visited.remove(next_col)
+                    sum_visited.remove((next_row + next_col))
+                    diff_visited.remove((next_row - next_col))
+                    
+        res = []
+        row_visited = set()
+        col_visited = set()
+        sum_visited = set()
+        diff_visited = set()
+        backtrack(-1, -1, [])
+        return len(res)
+        
+        # ans = []
+        # for lst in res:
+        #     for i, j in lst:
+        #         temp_ans = [["." for _ in range(n)] for _ in range(n)]
+        #         temp_ans[i][j] = "Q"
+        #     ans.append(temp_ans)
+        # return ans
+
+
+
+
+"""
+下面是优化一点的解
+"""
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         self.res = []
