@@ -67,8 +67,7 @@ class Solution:
 
         return root_w_dec, root_w_inc, root_wo, root_p
         
-        
-        
+
         
 
 
