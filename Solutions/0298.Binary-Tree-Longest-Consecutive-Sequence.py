@@ -1,3 +1,4 @@
+"""
 298. Binary Tree Longest Consecutive Sequence
 
 Given a binary tree, find the length of the longest consecutive sequence path.
@@ -34,6 +35,45 @@ Input:
 Output: 2 
 
 Explanation: Longest consecutive sequence path is 2-3, not 3-2-1, so return 2.
+"""
+
+
+
+
+"""
+helper function returns (the LCS ended with root, without root)
+"""
+class Solution:
+    def longestConsecutive(self, root: TreeNode) -> int:
+        return max(self._helper(root))
+    
+    def _helper(self, root):
+        """
+        returns (the LCS ended with root, without root)
+        """
+        if not root:
+            return 0, 0
+        if not root.left and not root.right:
+            return 1, 0
+        
+        left_w, left_wo = self._helper(root.left)
+        right_w, right_wo = self._helper(root.right)
+        
+        root_wo = max(left_w, left_wo, right_w, right_wo)
+        
+        root_w = 1
+        if root.left and root.left.val == root.val + 1:
+            root_w = max(root_w, 1 + left_w)
+        if root.right and root.right.val == root.val + 1:
+            root_w = max(root_w, 1 + right_w)
+            
+        return root_w, root_wo
+
+
+
+
+
+
 
 
 """
