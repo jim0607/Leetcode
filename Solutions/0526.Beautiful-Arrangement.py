@@ -27,6 +27,35 @@ Number at the 1st position (i=1) is 2, and 2 is divisible by i (i=1).
 Number at the 2nd position (i=2) is 1, and i (i=2) is divisible by 1.
 
 
+
+"""
+套模板即可
+"""
+class Solution:
+    def countArrangement(self, N: int) -> int:
+        def backtrack(curr_idx, curr_comb):
+            if len(curr_comb) == N:
+                res.append(curr_comb.copy())
+                return
+            for next_idx in range(N):
+                if next_idx in visited:
+                    continue
+                if nums[next_idx] % (len(curr_comb) + 1) == 0 or (len(curr_comb) + 1) % nums[next_idx] == 0:
+                    visited.add(next_idx)
+                    curr_comb.append(nums[next_idx])
+                    backtrack(next_idx, curr_comb)
+                    curr_comb.pop()
+                    visited.remove(next_idx)        
+        
+        
+        nums = [i for i in range(1, N+1)]
+        res = []
+        visited = set()
+        backtrack(-1, [])
+        return len(res)
+
+
+
 """
 For permutation problem, the 1st idx has N choices of number, 2nd has n-1 choices.
 so time complexity id O(solutions = N!). 
