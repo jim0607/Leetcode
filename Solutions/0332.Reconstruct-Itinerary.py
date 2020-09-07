@@ -1,3 +1,4 @@
+"""
 332. Reconstruct Itinerary
 
 Given a list of airline tickets represented by pairs of departure and arrival airports [from, to], reconstruct the itinerary in order. All of the tickets belong to a man who departs from JFK. Thus, the itinerary must begin with JFK.
@@ -16,49 +17,46 @@ Example 2:
 Input: [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]
 Output: ["JFK","ATL","JFK","SFO","ATL","SFO"]
 Explanation: Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","SFO"].
-             But it is larger in lexical order.
-
-   
+             But it is larger in lexical order. 
 """
+
+
+
 """
 Recurssive backtracking.  Worst case: O(E^d), where E is # of edges, d is is the maximum number of flights from an airport.
 """  
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
-        # step 1: build a graph
+        def backtrack(curr_node, curr_path):
+            if len(cnt) == 0:   # when all tickets are used and there is not tickets remaining
+                res.append(curr_path.copy())
+                return 
+            for next_node in graph[curr_node]:
+                if (curr_node, next_node) not in cnt:
+                    continue
+                cnt[(curr_node, next_node)] -= 1
+                if cnt[(curr_node, next_node)] == 0:  # 注意要delete掉if the ticket all (curr_node, next_node) have been used
+                    del cnt[(curr_node, next_node)]
+                curr_path.append(next_node)
+                backtrack(next_node, curr_path)
+                curr_path.pop()
+                cnt[(curr_node, next_node)] += 1
+            
+            
         graph = collections.defaultdict(list)
-        for dep, des in tickets:
-            graph[dep].append(des)
+        cnt = collections.defaultdict(int)   # store how many tickets are there (u --> v), 
+                           # normally we use viisted set, but there are duplicated tickets in input
+        for u, v in tickets:
+            graph[u].append(v)
+            cnt[(u, v)] += 1
             
-        # step 2: sort the des in the graph reversely
-        for dep in graph.keys():
-            graph[dep].sort(reverse = True)
+        for lst in graph.values():  
+            lst.sort()      # you should return the itinerary that has the smallest lexical order
             
-        # do a backtrack
-        self.lens = len(tickets)
-        self.res = []
-        source = "JFK"
-        self.backtrack(graph, source, [source])
-        
-        return self.res
-    
-    def backtrack(self, graph, source, path):
-        if len(path) == self.lens + 1:
-            self.res = path
-            return
-
-        if source not in graph:
-            return
-        
-        for _ in range(len(graph[source])):
-            nextSource = graph[source].pop()
-            path.append(nextSource)
-            self.backtrack(graph, nextSource, path)
-            if len(path) == self.lens + 1:  # don't understand why we need to check here
-                self.res = path
-                return
-            graph[source].insert(0, nextSource)     # 注意这里不能用append
-            path.pop() 
+        res = []
+        visited = set()
+        backtrack("JFK", ["JFK"])
+        return res[0]
     
   
   
