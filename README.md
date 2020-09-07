@@ -1,6 +1,6 @@
 ## 四刷：每天刷15-20题, 做好总结！08/17 to 09/30
 ## 每天晚上睡前Review做过的题
-##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778; 09/04: 364; 09/05: 31
+##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778; 09/04: 364; 09/05: 31; 09/06: 79
 
 
 # [Data Structure](/Data-Structure.py)
@@ -965,6 +965,11 @@ solution 1: step 1. we get a list of factors first; step 2. then we do a dfs lik
 模板: is_not_valid: if i in self.visited: continue; if (i > 0 and nums[i] == nums[i-1]) and (i-1) not in self.visited: continue
 - [1079. Letter Tile Possibilities](Solutions/1079.Letter-Tile-Possibilities.py) (!!M) <br>
 用47. Permutations II中的方法去重, 需要先sort!!!!!!!!
+- [0996. Number of Squareful Arrays](Solutions/0996.Number-of-Squareful-Arrays.py) (!!H)  <br>
+本质还是求permutation Constrained permutation problem. 只是多了一个条件就是nums[cur_idx] +nums[next_idx]必须是square number.
+- [0052. N Queens II](Solutions/0052.N-Queens-II.py) (!!H) <br>
+本质还是permutation问题Constrained permutation problem：先打印出数组[0, 1, 2, 3....n]中所有的可能排列：[[0,1,2,3], [1,3,0,2].....]，其中的每一个子数组表示一种可能的方法，子数组中的数字表示在哪个数字的地方放一个Queen，数字对应的下标位置是放那个Queen的行，数字的值是放那个Queen的列。由于Queen可以很冲直撞，所以列是不能相同的，所以需要去重，用visited标记就可以。又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。用三个字典visited_col, visited_sum, visited_diff分别存储列号，横纵坐标之和，横纵坐标之差有没有被用过
+- [0051. N Queens](Solutions/0051.N-Queens.py) (H)<br>
 - [0031. Next Permutation](Solutions/0031.Next-Permutation.py) (!!M) <br>
 step 1: sweeping from right to left, find the first decreasing element nums[i]; Step 2: sweep from right to left, find the first element larger just than nums[i], then swap nums[i] and nums[j], then swap all the items starting from i+1
 - [0267. Palindrome Permutation II](Solutions/0267.Palindrome-Permutation-II.py) (!!M)  <br>
@@ -981,39 +986,29 @@ use a hashmap
 - [1088. Confusing Number II](Solutions/1088.Confusing-Number-II.py) (!!H) <br>
 solution 2: Only 0, 1, 6, 8, 9 are the valid set of digits, do a backtracking to generate all the numbers containing this digits and check they are valid.
 time complexity: O(5^M), where M is how many digits are there in str(N), which scales with ~logN, where log is 10-based.
-- [0052. N Queens II](Solutions/0052.N-Queens-II.py) (!!H) <br>
-排列问题：先打印出数组[0, 1, 2, 3....n]中所有的可能排列：[[0,1,2,3], [1,3,0,2].....]，其中的每一个子数组表示一种可能的方法，子数组中的数字表示在哪个数字的地方放一个Queen，数字对应的下标位置是放那个Queen的行，数字的值是放那个Queen的列。由于Queen可以很冲直撞，所以列是不能相同的，所以需要去重，用visited标记就可以。又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。用三个字典visited_col, visited_sum, visited_diff分别存储列号，横纵坐标之和，横纵坐标之差有没有被用过
-- [0051. N Queens](Solutions/0051.N-Queens.py) (H)<br>
-
-
-
-- [0996. Number of Squareful Arrays](Solutions/0996.Number-of-Squareful-Arrays.py) (!!H)  <br>
-backtracking with constraints solution: O(number of possible solutions).
-需要判断A[i]+A[i-1]合不合格，所以需要把prev_idx传入backtrack function signature
 - [1239. Maximum Length of a Concatenated String with Unique Characters](Solutions/1239.Maximum-Length-of-a-Concatenated-String-with-Unique-Characters.py) (!!M)<br>
-subsets问题的变形
+subsets问题的变形 - constraint subsets
 - [0526. Beautiful Arrangement](Solutions/0526.Beautiful-Arrangement.py) (!!M)<br>
-For constrained permutation problem, the time complexity is O(valid solutions)
+Constrained permutation problem. THe constrain is: nums[next_idx] % (len(curr_comb) + 1) == 0 or (len(curr_comb) + 1) % nums[next_idx] == 0.  For constrained permutation problem, the time complexity is O(valid solutions)
 - [1219. Path with Maximum Gold](Solutions/1219.Path-with-Maximum-Gold.py) (!!M)<br>
-尝试每一个pos
+尝试每一个pos出发backtrack所有可能的path比较哪一条path能得到最多的gold - O((MN)^2). 注意backtrack遍历得到的是每一条path的curr_sum, 而不是像普通dfs那样得遍历的是整个区域的. 对比这一题与200. Number of islands. 我们可以看到求path一定需要用backtrack.
 - [0784. Letter Case Permutation](Solutions/0784.Letter-Case-Permutation.py) (!!E)<br>
-backtrack - O(2^N) which the total number of solutions
-- [0351. Android Unlock Patterns](Solutions/0351.Android-Unlock-Patterns.py) (!!M) <br>
+backtrack. 注意这个题目next_idx不能往回找 - O(2^N) which the total number of solutions.
+- [0351. Android Unlock Patterns](Solutions/0351.Android-Unlock-Patterns.py) (!!!M) <br>
 backtrack: 跟普通的backtrack不同的是From a number in the keypad we can reach any other number, but can't reach the one's that have a number as obstacle in between. 
 For example, for (1 to 3), the obstacle is 2. 所以在判断要不要把next_num作为下一个valid candidates的时候如果(curr_num, next_num) in cannot_pass那就不行。
 - [0093. Restore IP Addresses](Solutions/0093.Restore-IP-Addresses.py) (!!M)  <br>
-Grandyang: 根据目前刷了这么多题，得出了两个经验，一是只要遇到字符串的子序列或配准问题首先考虑动态规划DP，二是只要遇到需要求出所有可能情况首先考虑用递归。
-这道题并非是求字符串的子序列或配准问题，更符合第二种情况，所以我们要用递归来解。我们用k来表示当前已经分出的段数，
-如果k = 4，四段已经形成，若这时字符串刚好为空，则将当前分好的结果保存。
-则对于每一段，我们分别用一位，两位，三位来尝试，分别判断其合不合法，如果合法，则调用递归继续分剩下的字符串，最终和求出所有合法组合.
+套backtrack的模板，这里的结束条件有两个: curr_intervals == 4 and curr_idx == len(s) - 1, 所以cur_interval数目和curr_idx都要传进backtrack里
 - [0017. Letter Combinations of a Phone Number](Solutions/0017.Letter-Combinations-of-a-Phone-Number.py) (!!M) <br>
-经典的backtrack题，in dfs template, find solution: if currIdx == len(digits); for next_candidate in list_of_candidates: for ch in self.phone[digits[currIdx]]; is_not_valid: None
-- [0329. Longest Increasing Path in a Matrix](Solutions/0329.Longest-Increasing-Path-in-a-Matrix.py) (!!H) <br>
-solution 1: dfs + backtrack - next candidate valid的条件是matrix[next_i][next_j] > matrix[curr_i][curr_j].  - O(2^(MN)).  solution 2: 由于题目并不要求算出path, 所以可以用dfs+memorization (top up dp). Time complexity : O(mn). solution 3: buttom up dp.
+经典的backtrack题，in dfs template, find solution: if currIdx == len(digits); for next_candidate in list_of_candidates: for ch in self.phone[digits[next_idx]];
 - [0282. Expression Add Operators](Solutions/0282.Expression-Add-Operators.py) (!!H) <br>
-如果非要找一个类似的题，可能跟combination sum II 比较像吧, 找next candidate 比较麻烦，我们需要两个变量curr_res, curr_num，一个用于计算当前所有运算加一起的值，另一个用来记录当前的数。
+套用backtrack的模板， 这里的backtrack里面需要传入(curr_idx, curr_num, curr_sum, curr_combo). find solution is: curr_sum == target and curr_idx == len(s) - 1. overall O(N* 4^N)
 - [0079. Word Search](Solutions/0079.Word-Search.py) (!!M) <br>
-经典的backtrack题，whenever we find a char == word[0], we trigger a backtracking dfs. in dfs template, find solution:  currIdx == len(word); is_not_valid:  if new_x < 0 or new_x >= len(self.board) or new_y < 0 or new_y >= len(self.board[0]): continue; if (new_x, new_y) in self.visited: continue; if self.board[new_x][new_y] != word[currIdx]: continue; 需要一个visited set来标记已经走过的路径避免走重复的路径。
+套用backtrack的模板，backtrack 里面要传入(curr_i, curr_j, curr_idx on word). find solution: if board[next_i][next_j] == word[curr_idx + 1].  if find a solution, backtrack函数输出True. if valid: if board[next_i][next_j] == word[curr_idx + 1]. 需要一个visited set来标记已经走过的路径避免走重复的路径。
+Time Complexity: O(N* 4^L) where N is the number of cells in the board and L is the length of the word to be matched.
+
+
+
 - [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!H) <br>
 要求打印所有路径所以：Trie + Backtracking DFS. in dfs template, find_solution:  if currNode.isEnd; is_not_valid: if next_x < 0 or next_x >= len(self.board) or next_y < 0 or next_y >= len(self.board[0]): continue; if (next_x, next_y) in self.visited: continue; if self.board[next_x][next_y] not in currNode.child: continue.
 - [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
@@ -1165,6 +1160,8 @@ then memo[(curr_ring, curr_idx)] = min(memo[(curr_ring, curr_idx)], steps + 1 + 
 dfs+memo: O(N^2); memo[(curr_s)] = 能稳赢
 - [0312. Burst Balloons](Solutions/0312.Burst-Balloons.py) (!!H) <br>
 带memo的recursion比DP更好懂; left = self.memoSearch(nums, i, k, memo); right=self.memoSearch(nums, k, j, memo); maxCoins = max(maxCoins, left + right + nums[i] * nums[k] * nums[j]). 也可以用dp: https://qoogle.top/leetcode-312-burst-balloons/
+- [0329. Longest Increasing Path in a Matrix](Solutions/0329.Longest-Increasing-Path-in-a-Matrix.py) (!!H) <br>
+与1219. Path with Maximum Gold 类似solution 1: dfs + backtrack - next candidate valid的条件是matrix[next_i][next_j] > matrix[curr_i][curr_j].  - O(2^(MN)).  solution 2: 由于题目并不要求算出path, 所以可以用dfs+memorization (top up dp). Time complexity : O(mn). solution 3: buttom up dp.
 
 ----------1376. Time Needed to Inform All Employees Google Onsite----------
 ------------664. Strange Printer--------488. Zuma Game--------546. Remove Boxes---------691. Stickers to Spell Word--------887. Super Egg Drop----------
