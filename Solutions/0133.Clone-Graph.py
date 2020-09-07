@@ -49,6 +49,32 @@
 # graph.
 # 
 #
+
+
+"""
+用一个mapping 保存node-->node_copy. 然后一边dfs一边新建copied nodes
+"""
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if not node:
+            return None
+        
+        def dfs(node):
+            for neighbor in node.neighbors:
+                if neighbor in mapping:         # 注意这里不要continue
+                    mapping[node].neighbors.append(mapping[neighbor])
+                else:
+                    mapping[neighbor] = Node(neighbor.val, [])
+                    mapping[node].neighbors.append(mapping[neighbor])
+                    dfs(neighbor)
+
+        mapping = collections.defaultdict(Node)
+        mapping[node] = Node(node.val, [])
+        dfs(node)
+        return mapping[node]
+
+
+
 """deep copy意味着所有的节点都一样，但是与原图存放的地址不一样，所以原图发生任何改变都不会影响到copy的那个图
 分三步：Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现
 Step 2: 复制所有原有的node，存到mapping中，这样就建立了一个new_node和original_node的一一映射
