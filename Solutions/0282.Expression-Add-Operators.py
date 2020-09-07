@@ -24,12 +24,43 @@ Input: num = "3456237490", target = 9191
 Output: []
 
 
+
+"""
+overall O(N*4^N). 4 comes from there are 4 choices for next_idx: putting "+" "-" "*" between
+curr_idx and next_idx, and also put nothing in between simply move further to form more than one digit number.
+"""
+class Solution:
+    def addOperators(self, s: str, target: int) -> List[str]:
+        def backtrack(curr_idx, curr_num, curr_sum, curr_comb):
+            if curr_sum == target and curr_idx == len(s) - 1:
+                res.append(curr_comb)       # this takes O(N), so overall O(N*4^N)
+                return
+            for next_idx in range(curr_idx + 1, len(s)):    # next_idx 从curr_idx + 1开始
+                if s[curr_idx + 1] == "0" and next_idx != curr_idx + 1:  # 0 is a valid number but 01 is not
+                    continue
+                next_num = int(s[curr_idx + 1: next_idx + 1])   # "121" 可以输出1+2+1, 也可以是12+1, 所以下一个数可能比较长
+                if len(curr_comb) == 0:     # 这里check curr_comb是否为空是为了避免以"*" operator开头的话curr_num是0, 0乘以任何数都是0, 
+                    backtrack(next_idx, next_num, next_num, str(next_num))  # 就会导致第一个数加不加去
+                else:
+                    backtrack(next_idx, next_num, curr_sum + next_num, curr_comb + "+" + str(next_num))
+                    backtrack(next_idx, -next_num, curr_sum - next_num, curr_comb + "-" + str(next_num))
+                    backtrack(next_idx, curr_num * next_num, curr_sum - curr_num + curr_num * next_num, curr_comb + "*" + str(next_num))
+            
+            
+        res = []
+        backtrack(-1, 0, 0, "")
+        return res
+
+
+
+
+
+
 """
 还是用递归来解题，我们需要两个变量curr_res, curr_num，一个用于计算当前所有运算加一起的值，另一个用来记录当前的数。
 对于加和减，curr_num就是即将要加上的数和即将要减去的数的负值，而对于乘来说稍有些复杂，此时的curr_num应该是上一次的变化的curr_num乘以即将要乘上的数，
 有点不好理解，那我们来举个例子，比如 2+3*2，即将要运算到乘以2的时候，上次循环的 curr_res = 5, curr_num = 3, 
 而如果我们要算这个乘2的时候，新的变化值curr_num应为 3*2=6，而我们要把之前的curr_num (+3)操作的结果去掉，再加上新的curr_num，即 (5-3)+6=8；
-如果非要找一个类似的题，可能跟combination sum II 比较像吧
 backtrack parameters:
 curr_idx: the curr_idx of the path we have gone through;
 curr_num: the curr number we are operating now;
