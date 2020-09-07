@@ -902,42 +902,6 @@ How to choose a word: solution 1: random guess; 2. choose the guess word wisely 
 
 
 # [Depth First Search](/Depth-First-Search.py)
-### [dfs/bfs](/Depth-First-Search.py)
-##### 凡是能用bfs和dfs解的题，一律都用dfs解
-- [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
-判断图是不是一棵树（不一定非要是二叉树）需要满足两点:1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树. 遍历节点的方法可以是dfs/bfs. solution 2: Union Find
-- [0785. Is Graph Bipartite?](Solutions/0785.Is-Graph-Bipartite.py) (!!M)  <br>
-solution 1: bfs, use a colormap in which key is the node, value is the color.  visit every node layer by layer and label their color every other step. O(V+E); 
-solution 2: dfs.  dfs is better for this problem. O(V+E)
-- [0399. Evaluate Division](Solutions/0399.Evaluate-Division.py) (!!M) <br>
-Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hashmap构建邻接表 graph = collections.defaultdict(dict), in graph, key is node1, val is a dict of (key: node2, val: node1/node2), 然后每次query其实就是从单源节点出发寻求不带权值最短路径问题。  Soltution 2: DFS;
-- [1236. Web Crawler](Solutions/1236.Web-Crawler.py) (!!M) <br>
-简单bfs/dfs可破，nextUrl必须与currUrl在同一个domain里
-- [1242. Web Crawler Multithreaded](Solutions/1242.Web-Crawler-Multithreaded.py) (!!M) <br>
-bfs + multi-thread + MapReduce, use ThreadPoolExecutor with 10 worker threads
-- [0695. Max Area of Island](Solutions/0695.Max-Area-of-Island.py) (M) <br>
-Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a dfs/bfs.
-- [0339. Nested List Weight Sum](Solutions/0339.Nested-List-Weight-Sum.py) (E) <br>
-simple dfs or bfs is ok.
-- [0364. Nested List Weight Sum II](Solutions/0364.Nested-List-Weight-Sum-II.py) (M) <br>
-do a dfs to find the depth first, then another dfs to do 339. Nested List Weight Sum I
-- [0690. Employee Importance](Solutions/0690.Employee-Importance.py) (E) <br>
-simple dfs 可破, use a dictionary to map employee_id with employee, so that looking for employee by id takes O(1)
-- [0733. Flood Fill](Solutions/0733.Flood-Fill.py) (!!E) <br>
-Solution 1: dfs recurssively, don't need a set to record visited nodes, cuz we can modify the matrix in place; Solution 2: bfs; Solution 3: dfs iteratively; Solution 4: Union Find; 
-- [0841. Keys and Rooms](Solutions/0841.Keys-and-Rooms.py) (!!M) <br>
-dfs. 这题不能用union find来解
-- [0130. Surrounded Regions](Solutions/0130.Surrounded-Regions.py) (!!M) <br>
-Solution 1: Union Find.  Step 1: Union all the "O" that are neighborign with each other. We do a weighted union, meaning when we union, we also choose to point to the one that is on the border. Step 2: 2nd pass, we change to "X" tha "O" that has a root not on border.  Solution 2: bfs: Step 1: Start from border, do a bfs for "O", mark all the "O" that can be reached from the border. We can either mark by putting them into a visited set, or just change it to some symbol "#". Step 2: 2nd pass, we change to "X" tha "O" that could not be visited from the border. bfs只从border出发做bfs, 很中间的"O"就不用管了，而Union Find中间的也需要union, 所以bfs 比union find 更快。Solution 3: dfs interatively, only change one line in the bfs solution. Solution 4: dfs recurssively.
-
-
-
-
-
-
-
-
-
 ### [Backtrack - Combination and Permutation](/Depth-First-Search.py)
 - [0078. Subsets](Solutions/0078.Subsets.py) (!!M) <br>
 C(m, n)：m个里面找出n个的组合问题; 模板的back tracking求combination问题, S是solution的个数，这里S=2^N. Copy takes O(N), so overall O(N* S); 注意两点：1.res.append(curr.copy()); has to be a deep copy; 2. self.dfs(i + 1, curr) 要从i+1开始cuz不能回头找会重复. 因为subsets, subarray, substring都是讲究顺序的
@@ -991,9 +955,11 @@ subsets问题的变形 - constraint subsets
 - [0526. Beautiful Arrangement](Solutions/0526.Beautiful-Arrangement.py) (!!M)<br>
 Constrained permutation problem. THe constrain is: nums[next_idx] % (len(curr_comb) + 1) == 0 or (len(curr_comb) + 1) % nums[next_idx] == 0.  For constrained permutation problem, the time complexity is O(valid solutions)
 - [1219. Path with Maximum Gold](Solutions/1219.Path-with-Maximum-Gold.py) (!!M)<br>
-尝试每一个pos出发backtrack所有可能的path比较哪一条path能得到最多的gold - O((MN)^2). 注意backtrack遍历得到的是每一条path的curr_sum, 而不是像普通dfs那样得遍历的是整个区域的. 对比这一题与200. Number of islands. 我们可以看到求path一定需要用backtrack.
+尝试每一个pos出发backtrack所有可能的path比较哪一条path能得到最多的gold - O(4^N). 注意backtrack遍历得到的是每一条path的curr_sum, 而不是像普通dfs那样得遍历的是整个区域的. 对比这一题与200. Number of islands. 我们可以看到求path一定需要用backtrack. backtrack与dfs相比其实就是多了一步visited.remove(next_candidate). 这就导致dfs的时间复杂度是O(N), while backtrack的时间复杂度是O(4^N), where N is the number of cells in the matrix. 4 is the number of next_nodes in the for next_candidate in ...
 - [0784. Letter Case Permutation](Solutions/0784.Letter-Case-Permutation.py) (!!E)<br>
 backtrack. 注意这个题目next_idx不能往回找 - O(2^N) which the total number of solutions.
+- [1087. Brace Expansion](Solutions/1087.Brace-Expansion.py) (!!M) <br>
+套用dfs模板即可 - O(M^N), where N is len(lst), M is avg how many choices we have for each string in lst.
 - [0351. Android Unlock Patterns](Solutions/0351.Android-Unlock-Patterns.py) (!!!M) <br>
 backtrack: 跟普通的backtrack不同的是From a number in the keypad we can reach any other number, but can't reach the one's that have a number as obstacle in between. 
 For example, for (1 to 3), the obstacle is 2. 所以在判断要不要把next_num作为下一个valid candidates的时候如果(curr_num, next_num) in cannot_pass那就不行。
@@ -1006,26 +972,52 @@ For example, for (1 to 3), the obstacle is 2. 所以在判断要不要把next_nu
 - [0079. Word Search](Solutions/0079.Word-Search.py) (!!M) <br>
 套用backtrack的模板，backtrack 里面要传入(curr_i, curr_j, curr_idx on word). find solution: if board[next_i][next_j] == word[curr_idx + 1].  if find a solution, backtrack函数输出True. if valid: if board[next_i][next_j] == word[curr_idx + 1]. 需要一个visited set来标记已经走过的路径避免走重复的路径。
 Time Complexity: O(N* 4^L) where N is the number of cells in the board and L is the length of the word to be matched.
-
-
-
-- [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!H) <br>
-要求打印所有路径所以：Trie + Backtracking DFS. in dfs template, find_solution:  if currNode.isEnd; is_not_valid: if next_x < 0 or next_x >= len(self.board) or next_y < 0 or next_y >= len(self.board[0]): continue; if (next_x, next_y) in self.visited: continue; if self.board[next_x][next_y] not in currNode.child: continue.
 - [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
-Solution 1: 碰到打印所有路径的问题，第一反应就是带backtracking the dfs
-Solution 2: similar with 257 and 112, we just find all the possible paths.
-- [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (!!!M) <br>
-递归的定义：从s中的start位置开始，挑一些位置切割，判断从start到i的部分是否为回文，如果是就放入curr中，如果i到了string末尾了则说明此事curr是一种组合方式，放入res中 <br>
+Solution 1: 碰到打印所有路径的问题，第一反应就是带backtrack. 套用backtrack的模板即可
 - [0332. Reconstruct Itinerary](Solutions/0332.Reconstruct-Itinerary.py) (!!M) <br>
 有向图的遍历问题，LeetCode关于有向图的题只有两道Course Schedule和Course Schedule II，而那两道是关于有向图的顶点的遍历的，而本题是关于有向图的边的遍历。每张机票都是有向图的一条边，我们需要找出一条经过所有边的路径，那么DFS不是我们的不二选择. Recurssive backtracking.  Worst case: O(E^d), where E is # of edges, d is is the maximum number of flights from an airport.  Solution 2: 因为只需要输出一种包含所有边的路径，所以可以用另一种图的解法 Eulerian Path - every edge is visited exactly once. Eulerian path 使用的算法叫做 Hierholzer algorithm. Hierholzer algorithm 不做backtrack, 所以每一条边只访问一次，所以时间复杂度是O(E), where E is the # of edges.
-- [0425. Word Squares](Solutions/0425.Word-Squares.py) (!!H Google) <br>
-Trie的解法怎样一步一步来的很重要！！把这题多写几遍backtrack+Trie+hashmap就都有更深的理解！
+- [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (!!!M) <br>
+要求输出所有的可能组合，所以只能backtrack. O(L* 2^L), where L is the lens of string, 2 is two choices: 这这里分还是不分。  
+如果题目只是要求输出所有可能组合的数目，那就dp - O(L^2)
 - [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!H) <br>
-we put the words into a trie. Then we loop over the board, whenever we found a letter==word[0], we trigger a backtrak. Backtrack 的结束条件是if curr_node.is_end. 打印所有路径所以用Trie + Backtracking DFS. 非常经典的题呀！
-- [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (H) <br> 
-dfs + backtracking, time complexity is (9!)^9, which is veyr high.
+要求打印所有路径所以：Trie + Backtracking. we put the words into a trie. Then we loop over the board, whenever we found a char in root.child, we trigger a backtrak. Backtrack 里面应该传入参数 (curr_i and curr_j in board, curr_node in trie, curr_word). backtrack 的结束条件是if curr_node.is_end. 注意找到到案之后千万不要return, 然单词health找到之后就不再继续找单词healthy了
+- [0425. Word Squares](Solutions/0425.Word-Squares.py) (!!H Google) <br>
+Trie的解法怎样一步一步来的很重要！！把这题多写几遍backtrack+Trie+hashmap就都有更深的理解！这题的题眼是：我们想加在第五行加单词，那这个单词必须满足prefix是前4行的第四列组成的。hashmap是最快的 - O(N* 26^L). build a hashmap so that 我们可以快速O(1)地从prefix找到可以得到的第五行可以加哪些单词
+- [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (!!H) <br> 
+use rows, cols, boxes dictionary to record the numbers in each row, each col and each small box, then do standard backtrack
 
-----------1087. Brace Expansion----------
+
+
+
+
+### [dfs/bfs](/Depth-First-Search.py)
+##### 凡是能用bfs和dfs解的题，一律都用dfs解
+- [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
+判断图是不是一棵树（不一定非要是二叉树）需要满足两点:1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树. 遍历节点的方法可以是dfs/bfs. solution 2: Union Find
+- [0785. Is Graph Bipartite?](Solutions/0785.Is-Graph-Bipartite.py) (!!M)  <br>
+solution 1: bfs, use a colormap in which key is the node, value is the color.  visit every node layer by layer and label their color every other step. O(V+E); 
+solution 2: dfs.  dfs is better for this problem. O(V+E)
+- [0399. Evaluate Division](Solutions/0399.Evaluate-Division.py) (!!M) <br>
+Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hashmap构建邻接表 graph = collections.defaultdict(dict), in graph, key is node1, val is a dict of (key: node2, val: node1/node2), 然后每次query其实就是从单源节点出发寻求不带权值最短路径问题。  Soltution 2: DFS;
+- [1236. Web Crawler](Solutions/1236.Web-Crawler.py) (!!M) <br>
+简单bfs/dfs可破，nextUrl必须与currUrl在同一个domain里
+- [1242. Web Crawler Multithreaded](Solutions/1242.Web-Crawler-Multithreaded.py) (!!M) <br>
+bfs + multi-thread + MapReduce, use ThreadPoolExecutor with 10 worker threads
+- [0695. Max Area of Island](Solutions/0695.Max-Area-of-Island.py) (M) <br>
+Linear scan the 2d grid map, if a node contains a '1', then it is a root node that triggers a dfs/bfs.
+- [0339. Nested List Weight Sum](Solutions/0339.Nested-List-Weight-Sum.py) (E) <br>
+simple dfs or bfs is ok.
+- [0364. Nested List Weight Sum II](Solutions/0364.Nested-List-Weight-Sum-II.py) (M) <br>
+do a dfs to find the depth first, then another dfs to do 339. Nested List Weight Sum I
+- [0690. Employee Importance](Solutions/0690.Employee-Importance.py) (E) <br>
+simple dfs 可破, use a dictionary to map employee_id with employee, so that looking for employee by id takes O(1)
+- [0733. Flood Fill](Solutions/0733.Flood-Fill.py) (!!E) <br>
+Solution 1: dfs recurssively, don't need a set to record visited nodes, cuz we can modify the matrix in place; Solution 2: bfs; Solution 3: dfs iteratively; Solution 4: Union Find; 
+- [0841. Keys and Rooms](Solutions/0841.Keys-and-Rooms.py) (!!M) <br>
+dfs. 这题不能用union find来解
+- [0130. Surrounded Regions](Solutions/0130.Surrounded-Regions.py) (!!M) <br>
+Solution 1: Union Find.  Step 1: Union all the "O" that are neighborign with each other. We do a weighted union, meaning when we union, we also choose to point to the one that is on the border. Step 2: 2nd pass, we change to "X" tha "O" that has a root not on border.  Solution 2: bfs: Step 1: Start from border, do a bfs for "O", mark all the "O" that can be reached from the border. We can either mark by putting them into a visited set, or just change it to some symbol "#". Step 2: 2nd pass, we change to "X" tha "O" that could not be visited from the border. bfs只从border出发做bfs, 很中间的"O"就不用管了，而Union Find中间的也需要union, 所以bfs 比union find 更快。Solution 3: dfs interatively, only change one line in the bfs solution. Solution 4: dfs recurssively.
+
 
 
 
