@@ -1,3 +1,4 @@
+"""
 37. Sudoku Solver
 
 Write a program to solve a Sudoku puzzle by filling the empty cells.
@@ -8,6 +9,37 @@ Each of the digits 1-9 must occur exactly once in each row.
 Each of the digits 1-9 must occur exactly once in each column.
 Each of the the digits 1-9 must occur exactly once in each of the 9 3x3 sub-boxes of the grid.
 Empty cells are indicated by the character '.'.
+"""
+
+
+class Solution:
+    def solveSudoku(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        # step 1:
+        # rows = collections.defaultdict(set)
+        # cols = collections.defaultdict(set)
+        # boxes = collections.defaultdict(set)
+        # rows, cols, boxes are to record the numbers in each row, each col and each small box
+
+        # step 2: backtrack
+        # find soltion: if boxes are all full
+        # for next_row in range(9):
+        #    for next_col in range(9):
+        #        for next_num in [1 to 9]: 
+        #            not valid: if next_num in rows or in cols or in boxes
+        #            place next_num in rows, cols, boxes
+        #            backtrack()
+        #            remove next_num from rows, cols, boxes
+
+
+
+
+
+
+
+
 
 
 from collections import defaultdict
