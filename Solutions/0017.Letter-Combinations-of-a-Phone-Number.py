@@ -1,3 +1,4 @@
+"""
 17. Letter Combinations of a Phone Number
 
 Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.
@@ -11,9 +12,40 @@ Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
 Note:
 
 Although the above answer is in lexicographical order, your answer could be in any order you want.
+"""
 
 
+"""
+套用backtrack的模板，这里的next_idx只能取curr_idx + 1, 因为我们要在s里一个一个往前
+"""
+class Solution:
+    def letterCombinations(self, s: str) -> List[str]:
+        mapping = {'2': ['a', 'b', 'c'],
+                    '3': ['d', 'e', 'f'],
+                    '4': ['g', 'h', 'i'],
+                    '5': ['j', 'k', 'l'],
+                    '6': ['m', 'n', 'o'],
+                    '7': ['p', 'q', 'r', 's'],
+                    '8': ['t', 'u', 'v'],
+                    '9': ['w', 'x', 'y', 'z']}
+            
+        def backtrack(curr_idx, curr_comb):
+            if len(curr_comb) == len(s):
+                res.append(curr_comb)
+                return
+            next_idx = curr_idx + 1     # 这里的next_idx只能取curr_idx + 1, 因为我们要在s里一个一个往前
+            for ch in mapping[s[next_idx]]:
+                backtrack(next_idx, curr_comb + ch)
+            
+        if len(s) == 0:
+            return []
+        res = []
+        backtrack(-1, "")
+        return res
 
+
+    
+    
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
         if not digits:
