@@ -21,6 +21,33 @@ Return:
 ]
 
 
+
+"""
+套用backtrack的模板即可
+"""
+class Solution:
+    def pathSum(self, root: TreeNode, target: int) -> List[List[int]]:
+        if not root:
+            return []
+        
+        def backtrack(curr_node, curr_sum, curr_comb):
+            if not curr_node.left and not curr_node.right and curr_sum == target:
+                res.append(curr_comb.copy())
+                return
+            for next_node in [curr_node.left, curr_node.right]:
+                if next_node:
+                    curr_comb.append(next_node.val)
+                    backtrack(next_node, curr_sum + next_node.val, curr_comb)
+                    curr_comb.pop()
+                   
+        res = []
+        backtrack(root, root.val, [root.val])
+        return res
+
+
+
+
+
 """碰到打印所有路径的问题，第一反应就是带backtracking the dfs"""
 class Solution:
     def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
