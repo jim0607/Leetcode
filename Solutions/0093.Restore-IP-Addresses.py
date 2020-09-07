@@ -9,6 +9,31 @@ Example:
 Input: "25525511135"
 Output: ["255.255.11.135", "255.255.111.35"]
 
+    
+    
+    
+"""
+套backtrack的模板，这里的结束条件有两个: curr_intervals == 4 and curr_idx == len(s) - 1, 所以cur_interval数目和curr_idx都要传进backtrack里
+"""
+class Solution:
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        def backtrack(curr_idx, curr_intervals, curr_path):   # curr_idx represents curr_pos to put a ".", curr_intervals is how many interval are there now
+            if curr_intervals == 4 and curr_idx == len(s) - 1:
+                res.append(curr_path[:-1])
+                return
+            if curr_intervals >= 4:     # 注意这里的pruning很重要
+                return
+            for next_idx in range(curr_idx + 1, len(s)):
+                if s[curr_idx + 1] == "0":
+                    if next_idx == curr_idx + 1:    # "0" is valid but "01" is not
+                        backtrack(next_idx, curr_intervals + 1, curr_path + "0" + ".")
+                elif 1 <= int(s[curr_idx+1: next_idx+1]) <= 255:
+                    backtrack(next_idx, curr_intervals + 1, curr_path + s[curr_idx + 1: next_idx + 1] + ".")
+                    
+        res = []
+        backtrack(-1, 0, "")
+        return res
+    
 
 
 """
