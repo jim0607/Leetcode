@@ -103,37 +103,42 @@ class Solution:
 use a hashtable to store the (prefix, word) pairs in advance, so that when we search for next_word with a specific prefix, it will be O(1) 
 - O(K26^L), O(KL)
 """
+"""
+hashmap + backtrack - O(N*26^L)
+"""
 class Solution:
     def wordSquares(self, words: List[str]) -> List[List[str]]:
+        def backtrack(curr_sq):
+            if len(curr_sq) == n:
+                res.append(curr_sq.copy())
+                return
+            should_start_with = _should_start_with(curr_sq)
+            for next_word in start_with[should_start_with]:     # 我们想加在第五行加单词，
+                curr_sq.append(next_word)       # 那这个单词必须满足prefix是前4行的第四列组成的
+                backtrack(curr_sq)
+                curr_sq.pop()
+                    
+                    
+        def _should_start_with(word_lst):
+            ans = ""
+            idx = len(word_lst)
+            for word in word_lst:
+                ans += word[idx]
+            return ans
+        
+        
+        # step 1: build a hashmap
+        start_with = collections.defaultdict(list)
+        n = len(words[0])
+        for word in words:
+            for i in range(n):
+                start_with[word[:i]].append(word)
+                
+        # step 2: try backtrack for each word as the start word
         res = []
-        N = len(words[0])
-        self.mapping = collections.defaultdict(list)
-        self._build_mapping(words)
-
         for word in words:
-            self._backtrack(words, N, 1, [word], res)       # try every word as start word in the word_square
-        
+            backtrack([word])
         return res
-    
-    def _backtrack(self, words, N, curr_row, curr_square, res):
-        if curr_row == N:
-            res.append(curr_square.copy())
-            return
-        
-        prefix = "".join(word[curr_row] for word in curr_square)    # 我们想加在第五行加单词，那这个单词必须满足prefix是前4行的第四列组成的
-        for next_word in self.mapping[prefix]:
-            curr_square.append(next_word)
-            self._backtrack(words, N, curr_row + 1, curr_square, res)
-            curr_square.pop()
-                
-    def _build_mapping(self, words):
-        """
-        build the mapping between prefix and it's corresponding words
-        """
-        for word in words:
-            for i in range(len(word)):
-                self.mapping[word[:i+1]].append(word)
-                
                 
                 
 """
