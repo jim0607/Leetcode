@@ -1,3 +1,4 @@
+"""
 290. Word Pattern
 
 Given a pattern and a string str, find if str follows the same pattern.
@@ -22,6 +23,8 @@ Input: pattern = "abba", str = "dog dog dog dog"
 Output: false
 Notes:
 You may assume pattern contains only lowercase letters, and str contains lowercase letters that may be separated by a single space.
+"""
+
 
 
 """
@@ -35,20 +38,18 @@ class Solution:
             return False
         
         ch_to_str = collections.defaultdict(str)
-        for i, ch in enumerate(pattern):
-            if ch in ch_to_str:
-                if ch_to_str[ch] != lst[i]:
-                    return False
-            else:
-                ch_to_str[ch] = lst[i]
-                
         str_to_ch = collections.defaultdict(str)
-        for i, word in enumerate(lst):
-            if word in str_to_ch:
-                if str_to_ch[word] != pattern[i]:
+        for i in range(len(lst)):
+            ch = pattern[i]
+            word = lst[i]
+            if ch in ch_to_str:
+                if ch_to_str[ch] != word or str_to_ch[word] != ch:
                     return False
             else:
-                str_to_ch[word] = pattern[i]                
+                if word in str_to_ch:
+                    return False
+                ch_to_str[ch] = word
+                str_to_ch[word] = ch
                 
         return True
     
@@ -56,7 +57,7 @@ class Solution:
 
 
 """
-The following takes O(N^2)
+The following takes O(N^2) using one hashmap
 """
 class Solution:
     def wordPattern(self, pattern: str, words_str: str) -> bool:
