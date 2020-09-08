@@ -71,7 +71,7 @@ Time complexity: O(26NL^2), where N is the number of words in word_set, and L is
 """
 class Solution:
     def ladderLength(self, begin_word: str, end_word: str, word_list: List[str]) -> int:
-        word_set = word_list
+        word_set = set(word_list)
         if end_word not in word_set:
             return 0
         
