@@ -85,5 +85,5 @@ You need to do the same thing—find a person who has an indegree of N - 1 and a
 However, the input format is a bit different.
 It's well worth a look at. A seemingly small difference (the input format) completely changes what the optimal algorithm to solve it is.
 Interestingly though, the optimal algorithm for that problem can also be used here. 
-The only difference is that there, it has a cost of O(N)O(N), but here it has a cost of O(E)O(E). 
+The only difference is that there, it has a cost of O(N), but here it has a cost of O(E). 
 Try and figure out why once you've solved both problems. It's a really nice example of cost analysis with graphs.
