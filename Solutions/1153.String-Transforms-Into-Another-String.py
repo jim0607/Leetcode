@@ -32,16 +32,21 @@ why this case should return False?
 "bcdefghijklmnopqrstuvwxyza"
 You can choose to change a -> b. So now the str1 becomes :
 "abcdefghijklmnopqrstuvwxyz" -> "bbcdefghijklmnopqrstuvwxyz"
-Now you are stuck. If you try to change b-> c, your first character will also change. The order of transformation matters.
+Now you are stuck. If you try to change b -> c, your first character will also change. The order of transformation matters.
+or you can change z -> a, then the str1 will become: "abcdefghijklmnopqrstuvwxya", now you are stuck cuz there are two "a" in the string.
+
+but in this case:
+"abcdefghijklmnopqrstuvwxy"
+"bcdefghijklmnopqrstuvwxyz"
+there are only 25 different letters. we can change y -> z. then str becomes "abcdefghijklmnopqrstuvwxz"
+then change x -> y....and so on....until change a -> b, and get "bcdefghijklmnopqrstuvwxyz"
+
+The point is we cannot have all 26 different letters in str2. We need to have at least on letter to use as a buffer.
 """
 
 class Solution:
     def canConvert(self, str1: str, str2: str) -> bool:
-        lens = len(str1)
-        if str1 == str2:
-            return True
-        
-        mapping = collections.defaultdict()
+        mapping = collections.defaultdict(str)
         for i, ch in enumerate(str1):
             if ch not in mapping:
                 mapping[ch] = str2[i]
@@ -49,4 +54,16 @@ class Solution:
                 if mapping[ch] != str2[i]:
                     return False
                 
-        return len(set(str2)) < 26
+        return len(set(str2)) < 26 or str1 == str2
+       
+       
+       
+"""
+follow up: 若transform可行，判断是否需要用到中介字符，即判断有向图是否有环。
+eg 1: abcd, bcde
+d->e, c->d, b->c, a->b. 这样mapping dictionary作为adjacency matrix表示的图是无环，不需要用到中介字符。
+eg 2: abcd, bcda
+d->a, c->d, b->c, a->b. 我们会发现mapping dictionary作为adjacency matrix表示的图是有环的。
+这时候我们就需要用到中介字符，否则就不可行了。
+使用中介字符f, transition过程为 d->f: abcf, c->d: abdf, b->c: acdf, a->b: bcdf, f->a: bcda
+"""
