@@ -24,6 +24,37 @@ Notes:
 You may assume pattern contains only lowercase letters, and str contains lowercase letters that may be separated by a single space.
 
 
+"""
+similar with 1153. String Transforms Into Another Strin. use a mapping to map ch to str, 
+and use another mapping to map str to ch.
+"""
+class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        lst = s.split(" ")
+        if len(pattern) != len(lst):
+            return False
+        
+        ch_to_str = collections.defaultdict(str)
+        for i, ch in enumerate(pattern):
+            if ch in ch_to_str:
+                if ch_to_str[ch] != lst[i]:
+                    return False
+            else:
+                ch_to_str[ch] = lst[i]
+                
+        str_to_ch = collections.defaultdict(str)
+        for i, word in enumerate(lst):
+            if word in str_to_ch:
+                if str_to_ch[word] != pattern[i]:
+                    return False
+            else:
+                str_to_ch[word] = pattern[i]                
+                
+        return True
+    
+
+
+
 
 class Solution:
     def wordPattern(self, pattern: str, words_str: str) -> bool:
