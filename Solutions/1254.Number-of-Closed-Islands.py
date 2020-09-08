@@ -31,35 +31,39 @@ Output: 2
 
 
 """
-dfs just like LC 200, except cnt+=1 only if the island not otuching the boundary.
+与130出重复了，代码一模一样
 """
-class Solution:
+cclass Solution:
     LAND = 0
     WATER = 1
     def closedIsland(self, grid: List[List[int]]) -> int:
+        def dfs(curr_i, curr_j):
+            visited.add((curr_i, curr_j))
+            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                if 0 <= next_i < m and 0 <= next_j < n:
+                    if grid[next_i][next_j] == self.LAND:
+                        if (next_i, next_j) not in visited:
+                            dfs(next_i, next_j)        
+        
+        
         m, n = len(grid), len(grid[0])
-        cnt = 0
         visited = set()
         for i in range(m):
+            if grid[i][0] == self.LAND and (i, 0) not in visited:
+                dfs(i, 0)
+            if grid[i][n-1] == self.LAND and (i, n-1) not in visited:
+                dfs(i, n-1)
+        for j in range(n):
+            if grid[0][j] == self.LAND and (0, j) not in visited:
+                dfs(0, j)
+            if grid[m-1][j] == self.LAND and (m-1, j) not in visited:
+                dfs(m-1, j)
+        
+        cnt = 0
+        for i in range(m):
             for j in range(n):
-                if i == 0 or i == m - 1 or j == 0 or j == n - 1:
-                    continue        # boundary is not valid
-                if grid[i][j] == self.LAND:
-                    if (i, j) not in visited:
-                        self.touching_boundary = False
-                        visited.add((i, j))
-                        self._dfs(grid, i, j, visited)
-                        if not self.touching_boundary:  # cnt+=1 only if the island not otuching the boundary
-                            cnt += 1
+                if grid[i][j] == self.LAND and (i, j) not in visited:
+                    dfs(i, j)
+                    cnt += 1
         return cnt
-    
-    def _dfs(self, grid, i, j, visited):
-        m, n = len(grid), len(grid[0])
-        for delta_i, delta_j in [(1,0), (-1,0), (0,1), (0,-1)]:
-            next_i, next_j = i + delta_i, j + delta_j
-            if 0 <= next_i < m and 0 <= next_j < n and grid[next_i][next_j] == self.LAND:
-                if next_i == 0 or next_i == m - 1 or next_j == 0 or next_j == n - 1:
-                    self.touching_boundary = True       # can not return here, need to keep dfs going to update visited
-                if (next_i, next_j) not in visited:
-                    visited.add((next_i, next_j))
-                    self._dfs(grid, next_i, next_j, visited)
