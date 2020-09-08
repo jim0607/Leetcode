@@ -77,7 +77,87 @@
 1. 从end到start做BFS，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2
 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近。最后将路径都存入到res里
 """
-# @lc code=start
+
+
+
+
+class Solution:
+    def findLadders(self, begin_word: str, end_word: str, word_list: List[str]) -> List[List[str]]:
+        word_set = set(word_list)
+        word_set.add(begin_word)
+        if end_word not in word_set:
+            return []
+        
+        # step 1: 构造一个dictionary, key is all possible combination of the word, value is the word
+        # this makes it much much fater cuz finding next_word only takes O(L^2) now
+        L = len(begin_word)
+        all_combo_dict = collections.defaultdict(list)
+        for word in word_set:           # constructing the all_combo_dict takes O(NL^2) overall
+            for i in range(L):
+                intermediate_word = word[:i] + "*" + word[i+1:]
+                all_combo_dict[intermediate_word].append(word)
+
+        # step 2: bfs to find the distance of each node to the end_word
+        distance = collections.defaultdict(int)
+        self._bfs(end_word, begin_word, all_combo_dict, distance)
+        
+        # step 3: backtrack to get the shortest path
+        res = []
+        visited = set()
+        self._backtrack(begin_word, end_word, all_combo_dict, distance, visited, [begin_word], res)
+        return res
+    
+    def _backtrack(self, curr_word, end_word, all_combo_dict, distance, visited, curr_res, res):
+        if curr_word == end_word:
+            res.append(curr_res.copy())
+            return
+        for next_word in self._get_all_combo(all_combo_dict, curr_word):   # O(L^2)
+            if next_word in visited:
+                continue
+            if distance[next_word] >= distance[curr_word]:
+                continue
+            visited.add(next_word)
+            curr_res.append(next_word)
+            self._backtrack(next_word, end_word, all_combo_dict, distance, visited, curr_res, res)
+            curr_res.pop()
+            visited.remove(next_word)        
+        
+    def _bfs(self, end_word, begin_word, all_combo_dict, distance) -> int:
+        q = collections.deque()
+        visited = set()
+        q.append(end_word)
+        visited.add(end_word)
+        steps = -1
+        while len(q) > 0:       # O(N), where N is number of words in word_set
+            steps += 1
+            lens = len(q)
+            for _ in range(lens):
+                curr_word = q.popleft()
+                distance[curr_word] = steps
+                if curr_word == begin_word:
+                    return
+                for next_word in self._get_all_combo(all_combo_dict, curr_word):   # O(L^2)
+                    if next_word not in visited:
+                        q.append(next_word)
+                        visited.add(next_word)
+
+    def _get_all_combo(self, all_combo_dict, curr_word):           # O(L^2)
+        res = []
+        for i in range(len(curr_word)):
+            intermediate_word = curr_word[:i] + "*" + curr_word[i+1:]
+            res += all_combo_dict[intermediate_word]
+        return res
+
+
+
+
+
+
+
+
+
+
+
 class Solution:
     def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
         if not wordList:
