@@ -1,6 +1,6 @@
 ## 四刷：每天刷15-20题, 做好总结！08/17 to 09/30
 ## 每天晚上睡前Review做过的题
-##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778; 09/04: 364; 09/05: 31; 09/06: 79
+##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778; 09/04: 364; 09/05: 31; 09/06: 79; 09/07: 126
 
 
 # [Data Structure](/Data-Structure.py)
@@ -519,7 +519,7 @@ The algorithm is: one node by another, try to balance node from down to top.
 helper function returns how many coins should the node receive from it's parent in order to balance itself.
 用一个全局变量打擂台记录移动了多少个coins
 
-
+--------------1245. Tree Diameter---------
 
 
 
@@ -747,6 +747,7 @@ can use bfs/dfs/union-find to traverse the graph.
 since we want to output disconnected components, union-find is quite straight forward - O(L* N^2).
 dfs/bfs也可以做，只需要用visited记录遍历过的就可以了
 
+----------------1202. Smallest String With Swaps------------
 
 
 ### [Minimum Spanning Tree - Kruskal's and Prim's](/)
@@ -764,6 +765,8 @@ Step 4: keep step 3 until all the edges are collected (E = V-1 or only one disjo
 - [Amazon 2019. Min Cost to Repair Edges](Solutions/Amazon_Min_Cost_to_Repair_Edges.py) (!!H) <br>
 Apply Kruskal's algorithm: Just take existing edges to have 0 cost and broken edges have their given cost.
 And find minimum spanning tree cost will be the answer.
+
+
 
 
 # [Breadth First Search](/Breadth-First-Search.py)
@@ -886,6 +889,7 @@ Google 面经：有一个nxn矩阵，信使从(0, 0)出发，想走到(n-1, n-1)
 - [0778. Swim in Rising Water](Solutions/0778.Swim-in-Rising-Water.py) (!!H) <br>
 find a path with the minimum max-height in the path. 采用Dikstra, 每次pop出来的都是min height就可了 - O(N^2* log(N^2)), where N is the lens of grid. solution 2: union find is also quite straigt-forward
 
+--------1376. Time Needed to Inform All Employees-----------------------------------------------------
 
 
 ### [A*  /Heuristic](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
@@ -1016,43 +1020,48 @@ Solution 1: dfs recurssively, don't need a set to record visited nodes, cuz we c
 - [0841. Keys and Rooms](Solutions/0841.Keys-and-Rooms.py) (!!M) <br>
 dfs. 这题不能用union find来解
 - [0130. Surrounded Regions](Solutions/0130.Surrounded-Regions.py) (!!M) <br>
-Solution 1: Union Find.  Step 1: Union all the "O" that are neighborign with each other. We do a weighted union, meaning when we union, we also choose to point to the one that is on the border. Step 2: 2nd pass, we change to "X" tha "O" that has a root not on border.  Solution 2: bfs: Step 1: Start from border, do a bfs for "O", mark all the "O" that can be reached from the border. We can either mark by putting them into a visited set, or just change it to some symbol "#". Step 2: 2nd pass, we change to "X" tha "O" that could not be visited from the border. bfs只从border出发做bfs, 很中间的"O"就不用管了，而Union Find中间的也需要union, 所以bfs 比union find 更快。Solution 3: dfs interatively, only change one line in the bfs solution. Solution 4: dfs recurssively.
-
-
-
-
-
-# [图的遍历](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-## [基础图问题](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+Solution 1: dfs/bfs: Step 1: Start from border, do a bfs for "O", mark all the "O" that can be reached from the border. We can either mark by putting them into a visited set, or just change it to some symbol "#". Step 2: 2nd pass, we change to "X" tha "O" that could not be visited from the border.  Solution 2: Union Find.  Step 1: Union all the "O" that are neighborign with each other. We do a weighted union, meaning when we union, we also choose to point to the one that is on the border. Step 2: 2nd pass, we change to "X" tha "O" that has a root not on border.  bfs只从border出发做bfs, 很中间的"O"就不用管了，而Union Find中间的也需要union, 所以bfs 比union find 更快。Solution 3: dfs interatively, only change one line in the bfs solution. Solution 4: dfs recurssively.
+- [1254. Number of Closed Islands](Solutions/1254.Number-of-Closed-Islands.py) (M) <br>
+与130出重复了
 - [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (!!!M) <br>
-Step 1：找到所有的original_nodes，存到一个set里面，用BFS实现; Step 2: 复制所有原有的node，存到mapping中，这样就建立了一个new_node和original_node的一一映射; Step 3: 复制所有original_node对应的neighbors 到 new_node里面
-- [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (E) <br>
+用一个mapping 保存node-->node_copy. 然后一边dfs一边新建copied nodes 
+
+
+
+
+
+# [Graph](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+### [Graph Basics](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+- [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (!!E) <br>
 one dict to store the inDegree (beingTrusted), one dict to store the outDegree (trustOthers). there exsit a town judge only if there is a node with inDegree==N-1(beiing trusted by all others), and at the same time the node should have outDegree==0(not trust anyone)
 - [0277. Find the Celebrity](Solutions/0277.Find-the-Celebrity.py) (!!M) <br>
 main algorithm: each comparing kowns(i, j), we are sure either i is definitely not a celebrity (knows(i, j)=True), or j is definitely not a celebrity (knows(i, j)=False). step 1: one pass, find a candidate by making sure other people are not candidates; step 2: one pass, double check the candidate selected in step 1 is indeed a celebrity
 - [1267. Count Servers that Communicate](Solutions/1267.Count-Servers-that-Communicate.py) (M) <br>
-one pass to store the number of servers in each row and each col, cnt += 1.
-another pass to find the isolated severs, cnt -= 1.
-- [0531. Lonely Pixel I](Solutions/0531.Lonely-Pixel I.py) (!!M) <br>
-same as the above problem. one pass to store number of "B" in col_cnt and row_cnt;
-another pass to find where col_cnt == 1 or row_cnt == 1
-- [1153. String Transforms Into Another String](Solutions/) (!H Google++) <br>
-follow up 是若transform可行，判断是否需要用到中介字符，即判断有向图是否有环。
+one pass to store the number of servers in each row and each col. another pass to find the __isolated severs__.
+- [0531. Lonely Pixel I](Solutions/0531.Lonely-Pixel-I.py) (!!M) <br>
+same as the above problem. one pass to store number of "B" in col_cnt and row_cnt; another pass to find the isolated pixels
+- [1153. String Transforms Into Another String](Solutions/1153.String-Transforms-Into-Another-String.py) (!H Google++) <br>
+step 1: Map each character in str1 to what it needs to be in str2. If any of these mappings collide (e.g. str1 = "aa", str2 = "bc", "a" needs to become both "b" and "c"),
+we immediately return False since the transformation is impossible. Next, we check the number of unique characters in str2. If all 26 characters are represented, there are no characters available to use for temporary conversions, and the transformation is impossible.
 
 
 
-## [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+### [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0694. Number of Distinct Islands](Solutions/0694.Number-of-Distinct-Islands.py) (!!M) <br>
 When we start a dfs on the top-left square of some island, the path taken by dfs will be the same if and only if the shape is the same. So path is the signature of shape.
-So we can record the path, and count how many distinct path.
+So we can record the path, and count how many distinct path. 特别注意易错的是要在for loop 走完了加上"#", to mark the end of a path.  solution 2: use the relative lacation of each "1" with respect to the staring point as the signature of shape.
 - [0711. Number of Distinct Islands II](Solutions/0711.Number-of-Distinct-Islands-II.py) (H) <br>
-与上题一样得到shape, 得到之后可以通过定义一个transform(shape)函数得到all the trasformed shape. Too hard for an interview.
-- [1254. Number of Closed Islands](Solutions/1254.Number-of-Closed-Islands.py (M) <br>
-dfs just like LC 200, except cnt+=1 only if the island not otuching the boundary.
-- [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (!!H) 打印/输出所有满足条件的路径必用DFS
-Step 1. 从end到start做BFS，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
-Step 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近(if self.distance[nextWord] >= self.distance[currWord]: continue)。最后将路径都存入到res里
+step 1: use the relative lacation of each "1" with respect to the staring point as the signature of shape. this step is exactly the same as 694.
+step 2: rotate and reflect+rotate them against (0,0) in 8 directions, to get hte signature of the rotated shapes.
+step 3: choose the smallest among 8 directions to hash.
+- [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (!!H) 打印/输出所有满足条件的路径必用backtrack
+step 1: 构造一个dictionary, key is all possible combination of the word, value is the word. this makes it much much fater <br>
+Step 2. 从end_word到start_word做bfs，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
+Step 3. 从start到end做backtrack，每走一步都必须确保离end的distance越来越近(if distance[next_word] >= distance[curr_word]: continue)。
 想想210题的Google follow up.
+
+
+
 - [0980.Unique-Paths-III.py](Solutions/0980.Unique-Paths-III.py) (!!M youtube with path-I and II) <br>
 Solution 2: since we don't need to print the actual paths, DP or dfs with memorization is good.
 Total ime complexity for this DP = No. of sub-problems * Time taken per sub-problem = O(n * 2^n) * O(1) = O(n * 2^n).
@@ -1340,7 +1349,7 @@ f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B
 - [1537. Get the Maximum Score](Solutions/1537.Get-the-Maximum-Score.py) (!!H) <br>
 solution 1: two pointers + dp: dp1[i] := max path sum ends with nums1[i-1]; dp2[j] := max path sum ends with nums2[j-1]
 
---------- 983. Minimum Cost for tickets ------1349. Maximum Students Taking Exam----------
+--------- 983. Minimum Cost for tickets ------1349. Maximum Students Taking Exam--------1216. Valid Palindrome III-------
 
 
 ### [Other DP Problems](https://juejin.im/post/5d556b7ef265da03aa2568d5)
