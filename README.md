@@ -768,8 +768,23 @@ And find minimum spanning tree cost will be the answer.
 
 
 
+# [Graph](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+## [Graph Basics](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+- [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (!!E) <br>
+one dict to store the inDegree (beingTrusted), one dict to store the outDegree (trustOthers). there exsit a town judge only if there is a node with inDegree==N-1(beiing trusted by all others), and at the same time the node should have outDegree==0(not trust anyone)
+- [0277. Find the Celebrity](Solutions/0277.Find-the-Celebrity.py) (!!M) <br>
+main algorithm: each comparing kowns(i, j), we are sure either i is definitely not a celebrity (knows(i, j)=True), or j is definitely not a celebrity (knows(i, j)=False). step 1: one pass, find a candidate by making sure other people are not candidates; step 2: one pass, double check the candidate selected in step 1 is indeed a celebrity
+- [1267. Count Servers that Communicate](Solutions/1267.Count-Servers-that-Communicate.py) (M) <br>
+one pass to store the number of servers in each row and each col. another pass to find the __isolated severs__.
+- [0531. Lonely Pixel I](Solutions/0531.Lonely-Pixel-I.py) (!!M) <br>
+same as the above problem. one pass to store number of "B" in col_cnt and row_cnt; another pass to find the isolated pixels
+- [1153. String Transforms Into Another String](Solutions/1153.String-Transforms-Into-Another-String.py) (!H Google++) <br>
+step 1: Map each character in str1 to what it needs to be in str2. If any of these mappings collide (e.g. str1 = "aa", str2 = "bc", "a" needs to become both "b" and "c"),
+we immediately return False since the transformation is impossible. Next, we check the number of unique characters in str2. If all 26 characters are represented, there are no characters available to use for temporary conversions, and the transformation is impossible.
 
-# [Breadth First Search](/Breadth-First-Search.py)
+
+
+## [Breadth First Search](/Breadth-First-Search.py)
 ### [BFS in Trees](/Breadth-First-Search.py) 
 ##### 总结：Tree中需要一层一层输出的都用BFS
 - [0102. Binary Tree Level Order Traversal](Solutions/0102.Binary-Tree-Level-Order-Traversal.py) (!!M, youtubed) <br>
@@ -795,7 +810,10 @@ If two subtrees have the same string representation, then they are duplicated su
 
 
 
-### [BFS in Graphs](/Breadth-First-Search.py)
+
+
+
+## [BFS in Graphs](/Breadth-First-Search.py)
 ##### 只有一种情况必须用bfs: 需要层序遍历求最短路径问题(find min steps/time/swaps/moves, or Topo sort, or Dijkstra, A*). 其余情况都用dfs.
 - [0994. Rotting Oranges](Solutions/0994.Rotting-Oranges.py) (M) <br>
 求最短路径问题，必须用bfs. Step 1. append the rotten ones to the first level（多源节点）, Step 2: 层序遍历的bfs to turn the adjacent fresh ones into rotten ones. 必须层序遍历才能保证最少时间make all fresh ones rotten 在class solution(): 后面定义全局变量 EMPTY = 0; FRESH = 1;
@@ -905,7 +923,7 @@ How to choose a word: solution 1: random guess; 2. choose the guess word wisely 
 
 
 
-# [Depth First Search](/Depth-First-Search.py)
+## [Depth First Search](/Depth-First-Search.py)
 ### [Backtrack - Combination and Permutation](/Depth-First-Search.py)
 - [0078. Subsets](Solutions/0078.Subsets.py) (!!M) <br>
 C(m, n)：m个里面找出n个的组合问题; 模板的back tracking求combination问题, S是solution的个数，这里S=2^N. Copy takes O(N), so overall O(N* S); 注意两点：1.res.append(curr.copy()); has to be a deep copy; 2. self.dfs(i + 1, curr) 要从i+1开始cuz不能回头找会重复. 因为subsets, subarray, substring都是讲究顺序的
@@ -987,6 +1005,15 @@ Solution 1: 碰到打印所有路径的问题，第一反应就是带backtrack. 
 要求打印所有路径所以：Trie + Backtracking. we put the words into a trie. Then we loop over the board, whenever we found a char in root.child, we trigger a backtrak. Backtrack 里面应该传入参数 (curr_i and curr_j in board, curr_node in trie, curr_word). backtrack 的结束条件是if curr_node.is_end. 注意找到到案之后千万不要return, 然单词health找到之后就不再继续找单词healthy了
 - [0425. Word Squares](Solutions/0425.Word-Squares.py) (!!H Google) <br>
 Trie的解法怎样一步一步来的很重要！！把这题多写几遍backtrack+Trie+hashmap就都有更深的理解！这题的题眼是：我们想加在第五行加单词，那这个单词必须满足prefix是前4行的第四列组成的。hashmap是最快的 - O(N* 26^L). build a hashmap so that 我们可以快速O(1)地从prefix找到可以得到的第五行可以加哪些单词
+- [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (!!H) 打印/输出所有满足条件的路径必用backtrack
+step 1: 构造一个dictionary, key is all possible combination of the word, value is the word. this makes it much much fater <br>
+Step 2. 从end_word到start_word做bfs，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
+Step 3. 从start到end做backtrack，每走一步都必须确保离end的distance越来越近(if distance[next_word] >= distance[curr_word]: continue)。
+想想210题的Google follow up.
+- [0679. 24 Game](Solutions/0679.24-Game.py) (!!H) <br>
+方法：两个for loop在nums中取两个数nums[i] and nums[j]. 算出nums[i] and nums[j]这两个数加减乘除可能得到的数，
+将这些可能得到的数放进next_nums里面进行递归。递归的结束条件是len(nums)==1即无法再跟其他书加减乘除了。
+如果len(nums)==1 and nums[0]==24, then return True
 - [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (!!H) <br> 
 use rows, cols, boxes dictionary to record the numbers in each row, each col and each small box, then do standard backtrack
 
@@ -994,10 +1021,12 @@ use rows, cols, boxes dictionary to record the numbers in each row, each col and
 
 
 
-### [dfs/bfs](/Depth-First-Search.py)
+## [dfs/bfs](/Depth-First-Search.py)
 ##### 凡是能用bfs和dfs解的题，一律都用dfs解
 - [0261. Graph Valid Tree](Solutions/0261.Graph-Valid-Tree.py) (!!M) <br>
 判断图是不是一棵树（不一定非要是二叉树）需要满足两点:1. 首先点的数目一定比边的数目多一个; 2. 然后要确保no isolated node and no cycle，也即是保证每个点都能被访问且只被访问了一次，也就是visited的数目要等于节点数目, 如果小于则说明有的节点被访问不到，如果大于说明有环，则不是树. 遍历节点的方法可以是dfs/bfs. solution 2: Union Find
+- [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (!!!M) <br>
+用一个mapping 保存node-->node_copy. 然后一边dfs一边新建copied nodes 
 - [0785. Is Graph Bipartite?](Solutions/0785.Is-Graph-Bipartite.py) (!!M)  <br>
 solution 1: bfs, use a colormap in which key is the node, value is the color.  visit every node layer by layer and label their color every other step. O(V+E); 
 solution 2: dfs.  dfs is better for this problem. O(V+E)
@@ -1023,30 +1052,6 @@ dfs. 这题不能用union find来解
 Solution 1: dfs/bfs: Step 1: Start from border, do a bfs for "O", mark all the "O" that can be reached from the border. We can either mark by putting them into a visited set, or just change it to some symbol "#". Step 2: 2nd pass, we change to "X" tha "O" that could not be visited from the border.  Solution 2: Union Find.  Step 1: Union all the "O" that are neighborign with each other. We do a weighted union, meaning when we union, we also choose to point to the one that is on the border. Step 2: 2nd pass, we change to "X" tha "O" that has a root not on border.  bfs只从border出发做bfs, 很中间的"O"就不用管了，而Union Find中间的也需要union, 所以bfs 比union find 更快。Solution 3: dfs interatively, only change one line in the bfs solution. Solution 4: dfs recurssively.
 - [1254. Number of Closed Islands](Solutions/1254.Number-of-Closed-Islands.py) (M) <br>
 与130出重复了
-- [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (!!!M) <br>
-用一个mapping 保存node-->node_copy. 然后一边dfs一边新建copied nodes 
-
-
-
-
-
-# [Graph](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-### [Graph Basics](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-- [0997. Find the Town Judge](Solutions/0997.Find-the-Town-Judge.py) (!!E) <br>
-one dict to store the inDegree (beingTrusted), one dict to store the outDegree (trustOthers). there exsit a town judge only if there is a node with inDegree==N-1(beiing trusted by all others), and at the same time the node should have outDegree==0(not trust anyone)
-- [0277. Find the Celebrity](Solutions/0277.Find-the-Celebrity.py) (!!M) <br>
-main algorithm: each comparing kowns(i, j), we are sure either i is definitely not a celebrity (knows(i, j)=True), or j is definitely not a celebrity (knows(i, j)=False). step 1: one pass, find a candidate by making sure other people are not candidates; step 2: one pass, double check the candidate selected in step 1 is indeed a celebrity
-- [1267. Count Servers that Communicate](Solutions/1267.Count-Servers-that-Communicate.py) (M) <br>
-one pass to store the number of servers in each row and each col. another pass to find the __isolated severs__.
-- [0531. Lonely Pixel I](Solutions/0531.Lonely-Pixel-I.py) (!!M) <br>
-same as the above problem. one pass to store number of "B" in col_cnt and row_cnt; another pass to find the isolated pixels
-- [1153. String Transforms Into Another String](Solutions/1153.String-Transforms-Into-Another-String.py) (!H Google++) <br>
-step 1: Map each character in str1 to what it needs to be in str2. If any of these mappings collide (e.g. str1 = "aa", str2 = "bc", "a" needs to become both "b" and "c"),
-we immediately return False since the transformation is impossible. Next, we check the number of unique characters in str2. If all 26 characters are represented, there are no characters available to use for temporary conversions, and the transformation is impossible.
-
-
-
-### [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0694. Number of Distinct Islands](Solutions/0694.Number-of-Distinct-Islands.py) (!!M) <br>
 When we start a dfs on the top-left square of some island, the path taken by dfs will be the same if and only if the shape is the same. So path is the signature of shape.
 So we can record the path, and count how many distinct path. 特别注意易错的是要在for loop 走完了加上"#", to mark the end of a path.  solution 2: use the relative lacation of each "1" with respect to the staring point as the signature of shape.
@@ -1054,39 +1059,22 @@ So we can record the path, and count how many distinct path. 特别注意易错�
 step 1: use the relative lacation of each "1" with respect to the staring point as the signature of shape. this step is exactly the same as 694.
 step 2: rotate and reflect+rotate them against (0,0) in 8 directions, to get hte signature of the rotated shapes.
 step 3: choose the smallest among 8 directions to hash.
-- [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (!!H) 打印/输出所有满足条件的路径必用backtrack
-step 1: 构造一个dictionary, key is all possible combination of the word, value is the word. this makes it much much fater <br>
-Step 2. 从end_word到start_word做bfs，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
-Step 3. 从start到end做backtrack，每走一步都必须确保离end的distance越来越近(if distance[next_word] >= distance[curr_word]: continue)。
-想想210题的Google follow up.
-
-
-
-- [0980.Unique-Paths-III.py](Solutions/0980.Unique-Paths-III.py) (!!M youtube with path-I and II) <br>
-Solution 2: since we don't need to print the actual paths, DP or dfs with memorization is good.
-Total ime complexity for this DP = No. of sub-problems * Time taken per sub-problem = O(n * 2^n) * O(1) = O(n * 2^n).
-solution 1: dfs+backtrack: 这种方法不但可以找出有多少种路径，而且可以打印出所有路径
-O(4^N) time where N is number of non-block squares in the grid. 
 - [0417. Pacific Atlantic Water Flow](Solutions/0417.Pacific-Atlantic-Water-Flow.py) (!!M) <br>
 题目的意思是外围一圈的地方是water进来的地方，左上角的外围是pacific ocean water进来的地方，右下角的外围是atlantic ocean water进来的地方。
 step 1: 从左上角外围的每个点出发做dfs, next_pos is a valid candidate if matrix[curr_pos] <= matrix[next_pos], 
 如果能visited就存起来表示pacific ocean water可以到达这个pos；
 step 2: 同样的方法记录atlantic ocean water可以达到的pos.  然后用2nd pass 来找到哪些点是两个ocean都能到达的。
-- [0679. 24 Game](Solutions/0679.24-Game.py) (!!H) <br>
-recursively 'glue' 2 numbers as a new number, and try to make 24 with the new nums list.
-at the end, when len(nums) = 1, check if it is 24 (due to division some precision loss should be expected, here set as 1e-4).
+
+
+
+
+
+
+### [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0290. Word Pattern](Solutions/0290.Word-Pattern.py) (E) <br>
 use a dictinoary to map the ch in pattern with the word in words. warm up for 291.
 - [0291. Word Pattern II](Solutions/0291.Word-Pattern-II.py) (!!H) <br>
 backtracking solution.  next candidate is valid only if string[curr_idx:next_idx] is satisfy the mapping condition.
-- [0139. Word Break](Solutions/0139.Word-Break.py) (!!M) <br>
-solution 1: dp[i]=can partition until ith char?, not including i; dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in wordDict). solution 2: bfs, solution 3: dfs + memorization (top-down dp)
-- [0140. Word Break II](Solutions/0140.Word-Break-II.py) (!!H) <br>
-Need to find a path, so backtracking.  O(2^m + m^2 + n), where m is the lens of string, n is the lens of word_dict.
-O(2^m) comes from backtracking on the string, cuz each 每个ch之间我们可以选择切一刀或不切一刀.
-O(m^2) comes from the checking for wordBreakI.  O(n) for converting word_dict to a set.
-- [0472. Concatenated Words](Solutions/0472.Concatenated-Words.py) (!!H) 打印/输出所有满足条件的路径必用DFS
-dfs + memorization - Top down DP.  与139, 140构成砍单词三部曲！
 - [0320. Generalized Abbreviation](Solutions/0320.Generalized-Abbreviation.py) (!!H) <br>
 dfs, similar with permutation. curr_idx: the idx at word; 
 curr_cnt: the cnt at of number BEFORE curr_idx;
@@ -1147,6 +1135,14 @@ Solution 2: since we don't need to print the actual paths, DP or dfs with memori
 Total ime complexity for this DP = No. of sub-problems * Time taken per sub-problem = O(n * 2^n) * O(1) = O(n * 2^n).
 solution 1: dfs+backtrack: 这种方法不但可以找出有多少种路径，而且可以打印出所有路径
 O(4^N) time where N is number of non-block squares in the grid. 
+- [0139. Word Break](Solutions/0139.Word-Break.py) (!!M) <br>
+solution 1: dp[i]=can partition until ith char?, not including i; dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in wordDict). solution 2: bfs, solution 3: dfs + memorization (top-down dp)
+- [0140. Word Break II](Solutions/0140.Word-Break-II.py) (!!H) <br>
+Need to find a path, so backtracking.  O(2^m + m^2 + n), where m is the lens of string, n is the lens of word_dict.
+O(2^m) comes from backtracking on the string, cuz each 每个ch之间我们可以选择切一刀或不切一刀.
+O(m^2) comes from the checking for wordBreakI.  O(n) for converting word_dict to a set.
+- [0472. Concatenated Words](Solutions/0472.Concatenated-Words.py) (!!H) 打印/输出所有满足条件的路径必用DFS
+dfs + memorization - Top down DP.  与139, 140构成砍单词三部曲！
 - [0894. All Possible Full Binary Trees](Solutions/0894.All-Possible-Full-Binary-Trees.py) (M) <br>
 - [0494. Target Sum](Solutions/0494.Target-Sum.py) (!!M) <br>
 solution 1: naive dfs - O(2^n); solution 2: naive dfs + memorization - O(n * t) where n is len(nums), t is target
