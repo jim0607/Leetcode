@@ -16,32 +16,30 @@ You cannot concatenate numbers together. For example, if the input is [1, 2, 1, 
 
 
 """
-recursively 'glue' 2 numbers as a new number, and try to make 24 with the new nums list.
-at the end, when len(nums) = 1, check if it is 24 (due to division some precision loss should be expected, here set as 1e-4).
-Time complexity is number of possible combinations - O(9216)
+方法：两个for loop在nums中取两个数nums[i] and nums[j]. 算出nums[i] and nums[j]这两个数加减乘除可能得到的数，
+将这些可能得到的数放进next_nums里面进行递归。递归的结束条件是len(nums)==1即无法再跟其他书加减乘除了。
+如果len(nums)==1 and nums[0]==24, then return True
 """
 class Solution:
     def judgePoint24(self, nums: List[int]) -> bool:
-        if len(nums) == 1:
-            return True if abs(nums[0] - 24) < 10**(-4) else False
+        if len(nums) == 1 and abs(nums[0] - 24) < 10**(-4):
+            return True
         
-        # 选两个数做运算
-        for i in range(len(nums)-1):
-            for j in range(i+1, len(nums)):
-                candidates = []         # 把两个数运算所能产生的结果放到一个List中
-                candidates.append(nums[i]+nums[j])
-                candidates.append(nums[i]*nums[j])
-                candidates.append(nums[i]-nums[j])
-                candidates.append(nums[j]-nums[i])
+        for i in range(len(nums) - 1):
+            for j in range(i + 1, len(nums)):
+                calculated = []     # 存nums[i] and nums[j]这两个数加减乘除可能得到的数
+                calculated.append(nums[i] + nums[j])
+                calculated.append(nums[i] - nums[j])
+                calculated.append(-nums[i] + nums[j])
+                calculated.append(nums[i] * nums[j])
                 if nums[i] != 0:
-                    candidates.append(nums[j]/nums[i])
+                    calculated.append(nums[j] / nums[i])
                 if nums[j] != 0:
-                    candidates.append(nums[i]/nums[j])
-                    
-                # backtrack for neighbors
-                for candidate in candidates:
-                    # remove nums[i] and nums[j] in the next_nums, and put candidate in next_nums
-                    next_nums = [candidate] + nums[:i] + nums[i+1:j] + nums[j+1:]   
+                    calculated.append(nums[i] / nums[j])
+                
+                for cal in calculated:
+                    # 把calculated的数放进next_nums, 同时把nums[i], nums[j]移除next_nums
+                    next_nums = nums[:i] + nums[i+1:j] + nums[j+1:] + [cal]  
                     if self.judgePoint24(next_nums):
                         return True
                     
