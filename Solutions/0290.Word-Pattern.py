@@ -55,7 +55,9 @@ class Solution:
 
 
 
-
+"""
+The following takes O(N^2)
+"""
 class Solution:
     def wordPattern(self, pattern: str, words_str: str) -> bool:
         words = words_str.split(" ")
