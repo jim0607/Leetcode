@@ -1,3 +1,4 @@
+"""
 886. Possible Bipartition
 
 Given a set of N people (numbered 1, 2, ..., N), we would like to split everyone into two groups of any size.
@@ -23,16 +24,133 @@ Example 3:
 
 Input: N = 5, dislikes = [[1,2],[2,3],[3,4],[4,5],[1,5]]
 Output: false
-
-
-
-
+"""
         
 """
 Assign the first person RED, then anyone the first person doesn't like should be assigned BLUE. Then anyone those BLUE person don't like should be RED.
 If a person has to be both BLUE and RED, then it is impossible. 
 Solution 1: dfs - Time: O(V+E); Space: O(V+E)
 """
+
+class Solution:
+    def possibleBipartition(self, N: int, dislikes: List[List[int]]) -> bool:
+        def dfs(curr_node, flag):
+            if flag:
+                if curr_node in blue:
+                    return False
+                red.add(curr_node)
+            else:
+                if curr_node in red:
+                    return False
+                blue.add(curr_node)
+            flag = not flag         # next_node 与curr_node 放在不同阵营
+            for next_node in graph[curr_node]:
+                if flag and next_node in red:
+                    continue
+                if not flag and next_node in blue:
+                    continue
+                if not dfs(next_node, flag):
+                    return False
+            return True
+        
+        # step 1: change list of edges representation to adjacency list representation
+        graph = collections.defaultdict(list)
+        for u, v in dislikes:   
+            graph[u].append(v)
+            graph[v].append(u)
+            
+        red, blue = set(), set()
+        for node in range(1, N+1):
+            if node not in red and node not in blue:
+                if not dfs(node, True):
+                    return False
+        return True
+
+
+
+
+
+
+
+"""
+follow up 1是有几种不同的分组方法，dfs解之。follow up 2是如何将两个组的人数尽可能分的一样多，在面试官提醒下逐步推导出dp的方法，具体不记得了。
+"""
+follow up 1: dfs 找可能的组合方法，然后找闲云野鹤，闲云野鹤就是没有人dislike他，也不去dislike别人的人。
+Consider from 闲云野鹤 the persons who can go into both A and B group.  闲云野鹤 = n, then we have 2**n different组合方式?
+
+Follow up2:
+本质竟然是dp 背包问题
+S1-S2=diff.
+S1 
+S2
+https://leetcode.com/problems/tallest-billboard/
+
+
+
+Connected component.
+
+Delta possible
+
+1         2
+A <-> B C
+1        2
+D<-> X Y
+
+-1   -2 
+1    0
+      0
+      2
+
+A: b 
+B: a
+
+a: 2
+b: 3
+diff = b-a = 1
+
+最后问题变成了：
+nums = [1, 1, 2, 2, 10, 9], nums里面存这个idx下的人dislike的人数。
+然后去找怎样把nums分成两个子数组，使得他们的和最接近 -- 背包问题！！！
+sums = sum(nums)
+find a subsequence which has closet value to sums / 2
+有点像416. Partition Equal Subset Sum 
+
+
+
+TF: F[I][D]=F[I-1][D-abs(Right-Left)] || F[I-1][D+abs(right-left)]
+std::min(abs(D) | D ~ delta values that are possible).
+
+
+// All connected components have been processed.  We are looking for std::min(abs(I) | I ~ delta values that are possible).
+
+2X * X=2X^2.
+-X X total number of people.
+X 
+
+DP[N]
+-1 OK.
+1 OK
+A <-> B C
+
+
+
+D<-> X Y
+
+(A,D) (BCXY)  -> (A X Y) (B C D)	 
+
+Follow up2:
+
+https://leetcode.com/problems/tallest-billboard/
+
+
+
+
+
+
+
+
+
+
 """
 Assign the first person RED, then anyone the first person doesn't like should be assigned BLUE. Then anyone those BLUE person don't like should be RED.
 If a person has to be both BLUE and RED, then it is impossible. 
