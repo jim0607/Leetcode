@@ -25,7 +25,8 @@ Output: 1
  
 """
 setp 1: 用outliners_1, outliners_2 = set(), set()找到两个island的outliner. 
-step 2: 接下来是多源节点出发求最短路径问题 - bfs
+step 2: 接下来是多源节点出发求最短路径问题 - bfs.
+这题的关键是怎样找一个岛屿的outliners.
 """
 class Solution:
     def shortestBridge(self, grid: List[List[int]]) -> int:
@@ -34,8 +35,8 @@ class Solution:
             for delta_i, delta_j in [(1, 0), (0, 1), (0, -1), (-1, 0)]:
                 next_i, next_j = curr_i + delta_i, curr_j + delta_j
                 if 0 <= next_i < m and 0 <= next_j < n:
-                    if grid[next_i][next_j] == 0:       # ****注意这样找一个连通区域的outliners
-                        outliners.add((next_i, next_j))
+                    if grid[next_i][next_j] == 0:       # ****注意这样找一个连通区域的outliners - 将周围的0加入到outliners
+                        outliners.add((next_i, next_j)) # 也可以outliners.add((curr_i, curr_j)) - 将最外层的1加入到outliners
                     elif grid[next_i][next_j] == 1:
                         if (next_i, next_j) not in visited:
                             dfs(next_i, next_j, outliners)
