@@ -1,13 +1,6 @@
+"""
 827. Making A Large Island
-Hard
 
-428
-
-13
-
-Add to List
-
-Share
 In a 2D grid of 0s and 1s, we change at most one 0 to a 1.
 
 After, what is the size of the largest island? (An island is a 4-directionally connected group of 1s).
@@ -27,6 +20,52 @@ Example 3:
 Input: [[1, 1], [1, 1]]
 Output: 4
 Explanation: Can't change any 0 to 1, only one island with area = 4.
+"""
+
+
+"""
+solution 1: dfs
+"""
+class Solution:
+    def largestIsland(self, grid: List[List[int]]) -> int:
+        def dfs(curr_i, curr_j):
+            visited.add((curr_i, curr_j))
+            island.add((curr_i, curr_j))
+            for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                if 0 <= next_i < m and 0 <= next_j < n:
+                    if grid[next_i][next_j] == 1:
+                        if (next_i, next_j) not in visited:
+                            dfs(next_i, next_j)
+
+        # step 1: get all the islands and store all their positions
+        islands = []
+        visited = set()
+        m, n = len(grid), len(grid[0])
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1 and (i, j) not in visited:
+                    island = set()
+                    dfs(i, j)
+                    islands.append(island)
+                    
+        if len(islands) == 0:
+            return 1
+        if len(islands) == 1:
+            return len(islands[0]) + 1 if len(islands[0]) < m * n else m * n
+        
+        # step 2: sweep the matrix and change each WATER to LAND one by one to update max_size
+        max_size = max(len(island) for island in islands)
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 0:
+                    size = 0
+                    for island in islands:
+                        if any((adj_i, adj_j) in island for adj_i, adj_j in [(i+1, j), (i-1, j), (i, j+1), (i, j-1)]):
+                            size += len(island)
+                    max_size = max(max_size, size + 1)
+        return max_size
+
 
 
 """
