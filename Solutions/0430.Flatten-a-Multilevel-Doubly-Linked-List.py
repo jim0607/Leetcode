@@ -58,6 +58,54 @@ Merging the serialization of each level and removing trailing nulls we obtain:
 
 
 
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val, prev, next, child):
+        self.val = val
+        self.prev = prev
+        self.next = next
+        self.child = child
+"""
+
+class Solution:
+    def flatten(self, head: 'Node') -> 'Node':
+        if not head:
+            return head
+        if not head.next and not head.child:
+            return head
+        if not head.child:
+            next_flattend_head = self.flatten(head.next)
+            head.next = next_flattend_head
+            next_flattend_head.prev = head
+            return head
+        if not head.next:
+            child_flattened_head = self.flatten(head.child)
+            head.next = child_flattened_head
+            child_flattened_head.prev = head
+            head.child = None     # return head之前别忘了把head.child设置成None
+            return head
+        
+        next_flattened_head = self.flatten(head.next)
+        child_flattend_head = self.flatten(head.child)
+        child_flattend_tail = self._find_tail(child_flattend_head)
+        
+        head.next = child_flattend_head
+        child_flattend_head.prev = head
+        child_flattend_tail.next = next_flattened_head
+        next_flattened_head.prev = child_flattend_tail
+
+        head.child = None         # return head之前别忘了把head.child设置成None
+        return head
+    
+    def _find_tail(self, node):
+        while node.next:
+            node = node.next
+        return node
+
+
+
+
 
 """
 # Definition for a Node.
