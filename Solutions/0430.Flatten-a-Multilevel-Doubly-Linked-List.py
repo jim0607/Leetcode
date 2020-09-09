@@ -1,3 +1,4 @@
+"""
 430. Flatten a Multilevel Doubly Linked List
 
 You are given a doubly linked list which in addition to the next and previous pointers, it could have a child pointer, which may or may not point to a separate doubly linked list. These child lists may have one or more children of their own, and so on, to produce a multilevel data structure, as shown in the example below.
@@ -55,6 +56,8 @@ To serialize all levels together we will add nulls in each level to signify no n
 Merging the serialization of each level and removing trailing nulls we obtain:
 
 [1,2,3,4,5,6,null,null,null,7,8,9,10,null,null,11,12]
+"""
+
 
 
 
