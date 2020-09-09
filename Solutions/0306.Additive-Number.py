@@ -23,6 +23,37 @@ Output: true
 Explanation: The additive sequence is: 1, 99, 100, 199. 
              1 + 99 = 100, 99 + 100 = 199
 
+   
+"""
+套backtrack模板即可，backtrack传入的参数有(curr_idx, prev_num, curr_num, curr_cnt). 结束条件是if curr_idx == len(s) - 1 and curr_cnt > 2
+"""
+class Solution:
+    def isAdditiveNumber(self, s: str) -> bool:
+        def backtrack(curr_idx, prev_num, curr_num, curr_cnt):
+            if curr_idx == len(s) - 1 and curr_cnt > 2:    # 必须至少有3个数才算valid, 所以目前的数字个数curr_cnt要入参数
+                return True
+            for next_idx in range(curr_idx + 1, len(s)):
+                if s[curr_idx + 1] == "0" and next_idx != curr_idx + 1:  # "01" is not valid, "0" is valid
+                    continue        
+                next_num = int(s[curr_idx + 1: next_idx + 1])
+                if curr_num == None:       # 如果前面一个num都不存在
+                    if backtrack(next_idx, None, next_num, 1):
+                        return True
+                elif prev_num == None:     # 如果前只存在一个num
+                    if backtrack(next_idx, curr_num, next_num, 2):
+                        return True
+                else:                      # 如果前面两个num都存在
+                    if next_num == prev_num + curr_num:
+                        if backtrack(next_idx, curr_num, next_num, curr_cnt + 1):
+                            return True
+            return False                
+                
+            
+        return backtrack(-1, None, None, 0)
+   
+   
+   
+
 
 """
 自己写的dfs, easy to understand
