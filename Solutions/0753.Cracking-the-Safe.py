@@ -99,6 +99,30 @@ class Solution:
             res += str(j)
             self._dfs(n, k, res, covered)
             
+
+class Solution:
+    def crackSafe(self, n: int, k: int) -> str:
+        def dfs():
+            if len(covered) == k ** n:
+                return
+            for next_num in range(k-1, -1, -1):
+                next_password = self.curr_res[-n+1:] + str(next_num)
+                if next_password in covered:
+                    continue
+                covered.add(next_password)
+                self.curr_res += str(next_num)
+                dfs()
+                
+            
+        if n == 1:
+            return "".join([str(i) for i in range(k)])       
+        
+        self.curr_res = "0" * n
+        covered = set()
+        covered.add(self.curr_res)
+        dfs()
+        return self.curr_res
+            
             
 """
 change res to a global variable
