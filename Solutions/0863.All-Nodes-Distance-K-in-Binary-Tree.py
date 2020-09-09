@@ -1,3 +1,4 @@
+"""
 863. All Nodes Distance K in Binary Tree
 
 We are given a binary tree (with root node root), a target node, and an integer value K.
@@ -28,12 +29,52 @@ The given tree is non-empty.
 Each node in the tree has unique values 0 <= node.val <= 500.
 The target node is a node in the tree.
 0 <= K <= 1000.
+"""
 
 
 """
 step 1: use dfs, change a tree to a graph with adjacency list representation; 
 step 2: start from target, use bfs/dfs to find the nodes with distance == K
 """
+class Solution:
+    def distanceK(self, root: TreeNode, target: TreeNode, K: int) -> List[int]:
+        def dfs(curr_node, prev_node):
+            if not curr_node:
+                return
+            for next_node in [curr_node.left, curr_node.right]:
+                if next_node:
+                    graph[curr_node].append(next_node)
+                    graph[next_node].append(curr_node)
+                    dfs(next_node, curr_node)
+                    
+                    
+        def dfs2(curr_node, curr_dist):
+            if curr_dist == K:
+                res.append(curr_node.val)
+                return
+            for next_node in graph[curr_node]:
+                if next_node not in visited:
+                    visited.add(next_node)
+                    dfs2(next_node, curr_dist + 1)
+            
+            
+        graph = collections.defaultdict(list)
+        dfs(root, None)
+        res = []
+        visited = set()
+        for node in graph:
+            if node == target:
+                visited.add(node)
+                dfs2(node, 0)
+        return res
+
+
+
+
+
+
+
+
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, K: int) -> List[int]:
         # step 1: use dfs, change a tree to a graph with adjacency list representation
