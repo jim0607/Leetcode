@@ -1010,6 +1010,12 @@ step 1: 构造一个dictionary, key is all possible combination of the word, val
 Step 2. 从end_word到start_word做bfs，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
 Step 3. 从start到end做backtrack，每走一步都必须确保离end的distance越来越近(if distance[next_word] >= distance[curr_word]: continue)。
 想想210题的Google follow up.
+- [0290. Word Pattern](Solutions/0290.Word-Pattern.py) (E) <br>
+similar with 1153. String Transforms Into Another Strin. use a mapping to map ch to str, and use another mapping to map str to ch.  warm up for 291.
+- [0291. Word Pattern II](Solutions/0291.Word-Pattern-II.py) (!!H) <br>
+backtrack传入参数(curr_s_idx, curr_p_idx, ch_to_str, str_to_ch).
+backtrack结束条件: if curr_s_idx == len(s) - 1 and curr_p_idx == len(pattern) - 1.
+is valid: if ch_to_str[next_ch] == next_word and str_to_ch[next_word] == next_ch.
 - [0679. 24 Game](Solutions/0679.24-Game.py) (!!H) <br>
 方法：两个for loop在nums中取两个数nums[i] and nums[j]. 算出nums[i] and nums[j]这两个数加减乘除可能得到的数，
 将这些可能得到的数放进next_nums里面进行递归。递归的结束条件是len(nums)==1即无法再跟其他书加减乘除了。
@@ -1052,6 +1058,11 @@ dfs. 这题不能用union find来解
 Solution 1: dfs/bfs: Step 1: Start from border, do a bfs for "O", mark all the "O" that can be reached from the border. We can either mark by putting them into a visited set, or just change it to some symbol "#". Step 2: 2nd pass, we change to "X" tha "O" that could not be visited from the border.  Solution 2: Union Find.  Step 1: Union all the "O" that are neighborign with each other. We do a weighted union, meaning when we union, we also choose to point to the one that is on the border. Step 2: 2nd pass, we change to "X" tha "O" that has a root not on border.  bfs只从border出发做bfs, 很中间的"O"就不用管了，而Union Find中间的也需要union, 所以bfs 比union find 更快。Solution 3: dfs interatively, only change one line in the bfs solution. Solution 4: dfs recurssively.
 - [1254. Number of Closed Islands](Solutions/1254.Number-of-Closed-Islands.py) (M) <br>
 与130出重复了
+- [0417. Pacific Atlantic Water Flow](Solutions/0417.Pacific-Atlantic-Water-Flow.py) (!!M) <br>
+题目的意思是外围一圈的地方是water进来的地方，左上角的外围是pacific ocean water进来的地方，右下角的外围是atlantic ocean water进来的地方。
+step 1: 从左上角外围的每个点出发做dfs, next_pos is a valid candidate if matrix[curr_pos] <= matrix[next_pos], 
+如果能visited就存起来表示pacific ocean water可以到达这个pos；
+step 2: 同样的方法记录atlantic ocean water可以达到的pos.  然后用2nd pass 来找到哪些点是两个ocean都能到达的。
 - [0694. Number of Distinct Islands](Solutions/0694.Number-of-Distinct-Islands.py) (!!M) <br>
 When we start a dfs on the top-left square of some island, the path taken by dfs will be the same if and only if the shape is the same. So path is the signature of shape.
 So we can record the path, and count how many distinct path. 特别注意易错的是要在for loop 走完了加上"#", to mark the end of a path.  solution 2: use the relative lacation of each "1" with respect to the staring point as the signature of shape.
@@ -1059,23 +1070,11 @@ So we can record the path, and count how many distinct path. 特别注意易错�
 step 1: use the relative lacation of each "1" with respect to the staring point as the signature of shape. this step is exactly the same as 694.
 step 2: rotate and reflect+rotate them against (0,0) in 8 directions, to get hte signature of the rotated shapes.
 step 3: choose the smallest among 8 directions to hash.
-- [0417. Pacific Atlantic Water Flow](Solutions/0417.Pacific-Atlantic-Water-Flow.py) (!!M) <br>
-题目的意思是外围一圈的地方是water进来的地方，左上角的外围是pacific ocean water进来的地方，右下角的外围是atlantic ocean water进来的地方。
-step 1: 从左上角外围的每个点出发做dfs, next_pos is a valid candidate if matrix[curr_pos] <= matrix[next_pos], 
-如果能visited就存起来表示pacific ocean water可以到达这个pos；
-step 2: 同样的方法记录atlantic ocean water可以达到的pos.  然后用2nd pass 来找到哪些点是两个ocean都能到达的。
-
-
-
 
 
 
 ### [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-- [0290. Word Pattern](Solutions/0290.Word-Pattern.py) (E) <br>
-use a dictinoary to map the ch in pattern with the word in words. warm up for 291.
-- [0291. Word Pattern II](Solutions/0291.Word-Pattern-II.py) (!!H) <br>
-backtracking solution.  next candidate is valid only if string[curr_idx:next_idx] is satisfy the mapping condition.
-- [0320. Generalized Abbreviation](Solutions/0320.Generalized-Abbreviation.py) (!!H) <br>
+- [0320. Generalized Abbreviation](Solutions/0320.Generalized-Abbreviation.py) (!!M) <br>
 dfs, similar with permutation. curr_idx: the idx at word; 
 curr_cnt: the cnt at of number BEFORE curr_idx;
 curr_path: the path BEFORE curr_idx;
