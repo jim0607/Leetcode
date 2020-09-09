@@ -1016,6 +1016,10 @@ similar with 1153. String Transforms Into Another Strin. use a mapping to map ch
 backtrack传入参数(curr_s_idx, curr_p_idx, ch_to_str, str_to_ch).
 backtrack结束条件: if curr_s_idx == len(s) - 1 and curr_p_idx == len(pattern) - 1.
 is valid: if ch_to_str[next_ch] == next_word and str_to_ch[next_word] == next_ch.
+- [0320. Generalized Abbreviation](Solutions/0320.Generalized-Abbreviation.py) (!!M) <br>
+backtrack中传入的参数(curr_idx, curr_num, curr_word). 
+backtrack结束条件: if curr_idx == len(word)-1. 
+分两种情况: case 1: treat word[next_idx] as a letter; case 2: treat word[next_idx] as a number
 - [0679. 24 Game](Solutions/0679.24-Game.py) (!!H) <br>
 方法：两个for loop在nums中取两个数nums[i] and nums[j]. 算出nums[i] and nums[j]这两个数加减乘除可能得到的数，
 将这些可能得到的数放进next_nums里面进行递归。递归的结束条件是len(nums)==1即无法再跟其他书加减乘除了。
@@ -1070,23 +1074,18 @@ So we can record the path, and count how many distinct path. 特别注意易错�
 step 1: use the relative lacation of each "1" with respect to the staring point as the signature of shape. this step is exactly the same as 694.
 step 2: rotate and reflect+rotate them against (0,0) in 8 directions, to get hte signature of the rotated shapes.
 step 3: choose the smallest among 8 directions to hash.
+- [0934. Shortest Bridge](Solutions/0934.Shortest-Bridge.py) (!!M) <br>
+setp 1: 用outliners_1, outliners_2 = set(), set()找到两个island的outliner. 
+step 2: 接下来是多源节点出发求最短路径问题 - bfs.
+这题的关键是怎样找一个岛屿的outliners.
+- [0827. Making A Large Island](Solutions/0827.Making-A-Large-Island.py) (!!H) <br>
+solution 1: dfs. step 1: get all the islands and store all their positions. step 2: sweep the matrix and change each WATER to LAND one by one to update max_size.  solution 2: UnionFind O(MN) - 要注意每次将0变1都会改变uf的图，所以要提前用一个temp_father=uf.father来保存father的信息
+
 
 
 
 ### [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-- [0320. Generalized Abbreviation](Solutions/0320.Generalized-Abbreviation.py) (!!M) <br>
-dfs, similar with permutation. curr_idx: the idx at word; 
-curr_cnt: the cnt at of number BEFORE curr_idx;
-curr_path: the path BEFORE curr_idx;
-分两个case做backtrack: case 1: treat word[next_idx] as a number; # case 2: treat word[next_idx] as a ch, then 我们需要结算curr_cnt了
-- [0827. Making A Large Island](Solutions/0827.Making-A-Large-Island.py) (!!H) <br>
-solution 1: UnionFind O(MN) - 要注意每次将0变1都会改变uf的图，所以要提前用一个temp_father=uf.father来保存father的信息
-- [0934. Shortest Bridge](Solutions/0934.Shortest-Bridge.py) (!!M) <br>
-After identifying both islands correctly via DFS, it is a BFS finding shortest path problem.
-3 steps:
-DSF to mark the first island + collect outliner points of the first island;
-DSF to mark the second island + collect outliner points of the second island;
-Calculate the min distance between every pair of the points between the two islands.
+
 - [0886. Possible Bipartition](Solutions/0886.Possible-Bipartition.py) (!!M Google) <br>
 Assign the first person RED, then anyone the first person doesn't like should be assigned BLUE. Then anyone those BLUE persons don't like should be assigned to RED.
 If a person has to be both BLUE and RED, then it is impossible. 
