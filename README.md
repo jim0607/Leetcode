@@ -1040,6 +1040,10 @@ use rows, cols, boxes dictionary to record the numbers in each row, each col and
 - [0785. Is Graph Bipartite?](Solutions/0785.Is-Graph-Bipartite.py) (!!M)  <br>
 solution 1: bfs, use a colormap in which key is the node, value is the color.  visit every node layer by layer and label their color every other step. O(V+E); 
 solution 2: dfs.  dfs is better for this problem. O(V+E)
+- [0886. Possible Bipartition](Solutions/0886.Possible-Bipartition.py) (!!M Google) <br>
+Assign the first person RED, then anyone the first person doesn't like should be assigned BLUE. Then anyone those BLUE persons don't like should be assigned to RED.
+If a person has to be both BLUE and RED, then it is impossible. 
+Solution 1: dfs - Time: O(V+E); Space: O(V+E); solution 2: 层序遍历bfs; Google两个follow up 很难
 - [0399. Evaluate Division](Solutions/0399.Evaluate-Division.py) (!!M) <br>
 Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hashmap构建邻接表 graph = collections.defaultdict(dict), in graph, key is node1, val is a dict of (key: node2, val: node1/node2), 然后每次query其实就是从单源节点出发寻求不带权值最短路径问题。  Soltution 2: DFS;
 - [1236. Web Crawler](Solutions/1236.Web-Crawler.py) (!!M) <br>
@@ -1085,12 +1089,6 @@ solution 1: dfs. step 1: get all the islands and store all their positions. step
 
 
 ### [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-
-- [0886. Possible Bipartition](Solutions/0886.Possible-Bipartition.py) (!!M Google) <br>
-Assign the first person RED, then anyone the first person doesn't like should be assigned BLUE. Then anyone those BLUE persons don't like should be assigned to RED.
-If a person has to be both BLUE and RED, then it is impossible. 
-Solution 1: dfs - Time: O(V+E); Space: O(V+E); solution 2: 层序遍历bfs; Solution 3: union find 这题不太适合比较慢;
-Google两个follow up 很难
 - [0863. All Nodes Distance K in Binary Tree](Solutions/0863.All-Nodes-Distance-K-in-Binary-Tree.py) (M) <br>
 step 1: use dfs, change a tree to a graph with adjacency list representation; 
 step 2: start from target, use bfs/dfs to find the nodes with distance == K
@@ -1265,7 +1263,7 @@ if it is True, then number of palindromic substring += 1
 - [0516. Longest Palindromic Subsequence](Solutions/0516.Longest-Palindromic-Subsequence.py) (!!M) <br>
 题目问subsequence, subsequence不需要连续，题目要求Return the longest length: dp[i][j]=longest palindr from i to j; dp[i][j]=dp[i+1][j-1]+2 if s[i]==s[j] else max(dp[i+1][j], dp[i][j-1]);注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)
 
------------Lintcode 476. Stone Game-------------1011-----------410. Split Array Largest Sum---------------------1444---------------
+-----------Lintcode 476. Stone Game-------------1011-----------410. Split Array Largest Sum---------------------1444--------956. Tallest Billboard-------
 
 
 ###  [划分型DP](/Dynamic-Programming.py) (状态往往定义为前j个的某种特性，不包括j！！！！，这个思想很重要，相当于给前面做了一层buffer layer)
