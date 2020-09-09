@@ -1084,14 +1084,14 @@ step 2: 接下来是多源节点出发求最短路径问题 - bfs.
 这题的关键是怎样找一个岛屿的outliners.
 - [0827. Making A Large Island](Solutions/0827.Making-A-Large-Island.py) (!!H) <br>
 solution 1: dfs. step 1: get all the islands and store all their positions. step 2: sweep the matrix and change each WATER to LAND one by one to update max_size.  solution 2: UnionFind O(MN) - 要注意每次将0变1都会改变uf的图，所以要提前用一个temp_father=uf.father来保存father的信息
+- [0863. All Nodes Distance K in Binary Tree](Solutions/0863.All-Nodes-Distance-K-in-Binary-Tree.py) (M) <br>
+step 1: use dfs, change a tree to a graph with adjacency list representation; 
+step 2: start from target, use bfs/dfs to find the nodes with distance == K
 
 
 
 
 ### [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-- [0863. All Nodes Distance K in Binary Tree](Solutions/0863.All-Nodes-Distance-K-in-Binary-Tree.py) (M) <br>
-step 1: use dfs, change a tree to a graph with adjacency list representation; 
-step 2: start from target, use bfs/dfs to find the nodes with distance == K
 - [1057.Campus-Bikes.py](Solutions/1057.Campus-Bikes.py) (!!M) <br>
 brutal force solution O(MNlog(MN)): find the distance of all combinations, and sort them.
 . bucket sort solution O(MN): find the distance of all combinations, and put them into bucket based on their distance. 
