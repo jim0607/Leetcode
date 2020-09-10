@@ -1,3 +1,4 @@
+"""
 306. Additive Number
 
 Additive number is a string whose digits can form additive sequence.
@@ -22,6 +23,8 @@ Input: "199100199"
 Output: true
 Explanation: The additive sequence is: 1, 99, 100, 199. 
              1 + 99 = 100, 99 + 100 = 199
+"""
+            
 
    
 """
