@@ -1,3 +1,4 @@
+"""
 1192. Critical Connections in a Network
 
 There are n servers numbered from 0 to n-1 connected by undirected server-to-server connections forming a network where connections[i] = [a, b] represents a connection between servers a and b. Any server can reach any other server directly or indirectly through the network.
@@ -18,6 +19,8 @@ Constraints:
 n-1 <= connections.length <= 10^5
 connections[i][0] != connections[i][1]
 There are no repeated connections.
+"""
+
 
 
 """
@@ -33,27 +36,35 @@ low = [0, 0, 0, 3]
 """
 class Solution:
     def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
+        def dfs(curr_node, prev_node, steps):
+            min_steps[curr_node] = steps
+            for next_node in graph[curr_node]:
+                if next_node == prev_node:
+                    continue
+                if min_steps[next_node] == -1:      # if not visited
+                    dfs(next_node, curr_node, steps + 1)
+                
+                # 注意min_steps[next_node]表示节点next_node所见到过的所有节点中最小的steps
+                # 经过上面一系列dfs去更新min_steps[next_node]之后，如果min_steps[next_node]还是 >=steps+1，
+                # 说明要想visit到next_node必须经过curr_node，那[curr_node, next_node]就是critical bridge了
+                if min_steps[next_node] == steps + 1:  
+                    res.append([curr_node, next_node])
+                    
+                # 经过上面一系列dfs去更新min_steps[next_node]之后，如果min_steps[next_node]可以<steps+1，
+                # 说明next_node不仅可以通过curr_node访问到，而且还可以通过别的渠道访问到，说明不是critical connection.
+                # 那么我们更新curr_node所见过的所有节点中步数最小的steps
+                else:                           
+                    min_steps[curr_node] = min(min_steps[curr_node], min_steps[next_node])       
+        
+        
         graph = collections.defaultdict(list)
         for u, v in connections:
             graph[u].append(v)
             graph[v].append(u)
-
-        low = [-1 for _ in range(n)]
-        
-        def dfs(curr, prev, step):      # 需要传入curr node and prev node
-            low[curr] = step
             
-            for next in graph[curr]:
-                if next == prev:
-                    continue
-                if low[next] == -1:       # if not visited
-                    dfs(next, curr, step+1)
-                    
-                if low[next] > step:    # 说明next只能通过curr访问到，那就是critical bridge了 
-                    res.append([curr, next])
-                else:                   # 说明next不仅可以通过curr访问到，而且还可以通过别的渠道访问到
-                    low[curr] = min(low[curr], low[next])
-
+        # min_steps[i]表示节点i所见到过的除了目前的父节点之外的所有节点中步数最小的那一个的步数
+        # 注意事项节点i所见到过的所有节点（不是节点i）中最小的步数
+        min_steps = [-1 for _ in range(n)] 
         res = []
         dfs(0, -1, 0)
         return res
