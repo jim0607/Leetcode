@@ -1,3 +1,4 @@
+"""
 842. Split Array into Fibonacci Sequence
 
 Given a string S of digits, such as S = "123456579", we can split it into a Fibonacci-like sequence [123, 456, 579].
@@ -34,6 +35,42 @@ Example 5:
 Input: "1101111"
 Output: [110, 1, 111]
 Explanation: The output [11, 0, 11, 11] would also be accepted.
+"""
+
+
+"""
+套backtrack模板即可，backtrack传入的参数有(curr_idx, curr_comb). 
+结束条件是if curr_idx == len(s) - 1 and len(curr_comb) > 2:
+"""
+class Solution:
+    def splitIntoFibonacci(self, s: str) -> List[int]:
+        def backtrack(curr_idx, curr_comb):
+            if curr_idx == len(s) - 1 and len(curr_comb) > 2:
+                res.append(curr_comb.copy())
+                return
+            for next_idx in range(curr_idx + 1, len(s)):
+                if s[curr_idx + 1] == "0" and next_idx != curr_idx + 1: # 0 is a valid number but 01 is not
+                    continue
+                next_num = int(s[curr_idx + 1: next_idx + 1])
+                if next_num > 2**31 - 1:        # 题目要求0 <= F[i] <= 2^31 - 1
+                    continue
+                if len(curr_comb) <= 1:
+                    curr_comb.append(next_num)
+                    backtrack(next_idx, curr_comb)
+                    curr_comb.pop()
+                elif len(curr_comb) >= 2:
+                    if next_num == curr_comb[-1] + curr_comb[-2]:
+                        curr_comb.append(next_num)
+                        backtrack(next_idx, curr_comb)
+                        curr_comb.pop()
+
+                    
+        res = []
+        backtrack(-1, [])
+        return res[0] if len(res) > 0 else []
+
+
+
 
 
 """
