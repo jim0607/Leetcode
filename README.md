@@ -1106,19 +1106,12 @@ in dfs: step 1: check how many MINES are there in adjacent to (curr_i, curr_j);
 step 2: based on adj_mine, we choose either continue dfs or stop
 - [0753. Cracking the Safe](Solutions/0753.Cracking-the-Safe.py) (!!H) <br>
 思路： dfs取cur_res的最后n-1个数字，加上k中的一个新的数字来组新的combination, 判断这个combination是否已经cover到了. dfs的结束条件是if len(covered) == k ** n
-
-
-
-
-### [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [1192. Critical Connections in a Network](Solutions/1192.Critical-Connections-in-a-Network.py) (!!H) <br>
 solution 1: brutal force: 每次都是尝试去掉一条边，然后看去掉之后connected comonents的个数是不是还是只有一个 - O(E^2).
-solution 2: Tarjan's algorithm. In Tarjan's algorithm we keep a list low[i].
-low[i]: 表示节点i所见到过的除了目前的父节点parent之外的所有节点中步数最小的那一个。
-eg: [[0,1],[1,2],[2,3],[3,0],[2,4]]. 节点2第一次被访问到的时候是作为节点1的next, 那时候节点2的low[2]没有被更新过，
-所以我们继续访问节点2; 节点2第二次被访问到的时候是作为节点3的next, 那时候节点2的low[2]已经被更新过了，
-说明2已经被访问过了，那就不继续访问了
-We use dfs to scan all the node, at each node, we update the low[node]. 需要传入curr node and prev node
+solution 2: Tarjan's algorithm. In Tarjan's algorithm we keep a list min_steps[i].
+min_steps[i]表示节点i所见到过的除了目前的父节点之外的所有节点中步数最小的那一个的步数. dfs 需要传入参数dfs(curr_node, prev_node, steps)
+
+
 
 
 
