@@ -943,6 +943,12 @@ exactly the same as 216.
 与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解。DP解的for循环顺序很重要，由于(1,3)和(3,1)被认为是同一解，所以for coin in coins:是主循环，for num in range(1, amount + 1):是次循环。因为当coin遍历到coin=1的时候，dp[4]+=d[3]此时的dp[3]=0所以dp[4]实际上加的是0；而当coin遍历到coin=3的时候，dp[4]+=d[1]，此时d[1]被更新过一次。所以真个过程dp[4]只被更新一次，不会重复更新。
 - [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (M)<br>
 self.dfs(nums, target - nums[i], 0, curr, res)  # (1, 3)和(3, 1)被认为是不同解，所以让i从0开始; solution 2: dp. DP解的for循环顺序很重要， for m in range(target + 1): 是主循环，for num in nums:是次循环，这么写可以保证(1,3)可以进solution, (3,1)也可以进solution, 所以符合题意。
+- [0698. Partition to K Equal Sum Subsets](Solutions/0698.Partition-to-K-Equal-Sum-Subsets.py) (!!M) <br>
+套backtrack模板即可，backtrack里面需要传入(curr_sum, curr_idx, curr_cnt).
+结束条件是已有curr_cnt=k段满足条件了. 
+Time complexity: we basically iterate over nums and for each element either use it or drop it, 
+which is O(2^n). We are doing the same for each subset. Total subsets are k. 
+So Time Complexity becomes O(k*(2^n))
 - [0254. Factor Combinations](Solutions/0254.Factor-Combinations.py) (M) <br>
 solution 1: step 1. we get a list of factors first; step 2. then we do a dfs like combination sum
 - [0046. Permutations](Solutions/0046.Permutations.py) (!!M)<br>
@@ -1001,6 +1007,11 @@ Solution 1: 碰到打印所有路径的问题，第一反应就是带backtrack. 
 - [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (!!!M) <br>
 要求输出所有的可能组合，所以只能backtrack. O(L* 2^L), where L is the lens of string, 2 is two choices: 这这里分还是不分。  
 如果题目只是要求输出所有可能组合的数目，那就dp - O(L^2)
+- [0306. Additive Number](Solutions/0306.Additive-Number.py) (!!M) <br>
+套backtrack模板即可，backtrack传入的参数有(curr_idx, prev_num, curr_num, curr_cnt). 结束条件是if curr_idx == len(s) - 1 and curr_cnt > 2
+- [0842. Split Array into Fibonacci Sequence](Solutions/0842.Split-Array-into-Fibonacci-Sequence.py) (!!M) <br>
+套backtrack模板即可，backtrack传入的参数有(curr_idx, curr_comb). 
+结束条件是if curr_idx == len(s) - 1 and len(curr_comb) > 2:
 - [0212. Word Search II](Solutions/0212.Word-Search-II.py) (!!H) <br>
 要求打印所有路径所以：Trie + Backtracking. we put the words into a trie. Then we loop over the board, whenever we found a char in root.child, we trigger a backtrak. Backtrack 里面应该传入参数 (curr_i and curr_j in board, curr_node in trie, curr_word). backtrack 的结束条件是if curr_node.is_end. 注意找到到案之后千万不要return, 然单词health找到之后就不再继续找单词healthy了
 - [0425. Word Squares](Solutions/0425.Word-Squares.py) (!!H Google) <br>
@@ -1026,6 +1037,9 @@ backtrack结束条件: if curr_idx == len(word)-1.
 如果len(nums)==1 and nums[0]==24, then return True
 - [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (!!H) <br> 
 use rows, cols, boxes dictionary to record the numbers in each row, each col and each small box, then do standard backtrack
+- [0465. Optimal Account Balancing](Solutions/0465.Optimal-Account-Balancing.py) (!!H) <br> 
+step 1: find all the balance information for each person; step 2: we care only those person who own or owe money - put them in a list; backtrack to update the minimum transaction needed. backtrack传入(curr_idx, curr_cnt)
+
 
 
 
@@ -1087,17 +1101,16 @@ solution 1: dfs. step 1: get all the islands and store all their positions. step
 - [0863. All Nodes Distance K in Binary Tree](Solutions/0863.All-Nodes-Distance-K-in-Binary-Tree.py) (M) <br>
 step 1: use dfs, change a tree to a graph with adjacency list representation; 
 step 2: start from target, use bfs/dfs to find the nodes with distance == K
+- [0529. Minesweeper](Solutions/0529.Minesweeper.py) (M) <br>
+in dfs: step 1: check how many MINES are there in adjacent to (curr_i, curr_j);
+step 2: based on adj_mine, we choose either continue dfs or stop
+- [0753. Cracking the Safe](Solutions/0753.Cracking-the-Safe.py) (!!H) <br>
+思路： dfs取cur_res的最后n-1个数字，加上k中的一个新的数字来组新的combination, 判断这个combination是否已经cover到了. dfs的结束条件是if len(covered) == k ** n
 
 
 
 
 ### [DFS/BFS/Union-Find - Revisited](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-- [1057.Campus-Bikes.py](Solutions/1057.Campus-Bikes.py) (!!M) <br>
-brutal force solution O(MNlog(MN)): find the distance of all combinations, and sort them.
-. bucket sort solution O(MN): find the distance of all combinations, and put them into bucket based on their distance. 
-In this way, the distances are represented by idx, which were sort by nature.
-- [1066. Campus Bikes II](Solutions/1066.Campus-Bikes-II.py) (!!M) <br>
-backtracking with memorization, 由于必须把assigned_bike set放入到state中，所以是指数级别的复杂度
 - [1192. Critical Connections in a Network](Solutions/1192.Critical-Connections-in-a-Network.py) (!!H) <br>
 solution 1: brutal force: 每次都是尝试去掉一条边，然后看去掉之后connected comonents的个数是不是还是只有一个 - O(E^2).
 solution 2: Tarjan's algorithm. In Tarjan's algorithm we keep a list low[i].
@@ -1106,23 +1119,11 @@ eg: [[0,1],[1,2],[2,3],[3,0],[2,4]]. 节点2第一次被访问到的时候是作
 所以我们继续访问节点2; 节点2第二次被访问到的时候是作为节点3的next, 那时候节点2的low[2]已经被更新过了，
 说明2已经被访问过了，那就不继续访问了
 We use dfs to scan all the node, at each node, we update the low[node]. 需要传入curr node and prev node
-- [0529. Minesweeper](Solutions/0529.Minesweeper.py) (M) <br>
-dfs - neighbor的for循环要做两次，第一个for循环，更新board[curr_pos], 因为如果board[curr_pos].isdigit()就不能further explore了,
-第二个for循环further explore if not board[curr_pos].isdigit()
-- [0430. Flatten a Multilevel Doubly Linked List](Solutions/0430.Flatten-a-Multilevel-Doubly-Linked-List.py) (M) <br>
-dfs pass prev_node, curr_node in the parameters, dfs return the tail of the curr_node-->child_node
-- [0753. Cracking the Safe](Solutions/0753.Cracking-the-Safe.py) (!!H) <br>
-思路：# 一共有k** n种可能的组合，取res的最后n-1个数字(贪心)，加上k中的一个新的数字来组新的combination, 判断这个combination是否已经cover到了
-- [0306. Additive Number](Solutions/0306.Additive-Number.py) (!!M) <br>
-固定两个开头的idx, 然后做dfs
-- [0842. Split Array into Fibonacci Sequence](Solutions/0842.Split-Array into-Fibonacci-Sequence.py) (!!M) <br>
-与上一题相比要求输出所有Fibonacci组合，所以用backtrack: pass curr as signature to record the curr path/res
-
---------------- 698. Partition to K Equal Sum Subsets ------465. Optimal Account Balancing-------
 
 
 
-# [dfs + memoization/top down DP](/https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+
+## [dfs + memoization/top down DP](/https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 - [0437. Path Sum III](Solutions/0437.Path-Sum-III.py) (M) <br>
 不需要从根节点出发，solution 1: dfs every node in the tree. at each node, do a backtrack to find how many root-to-any_node paths are there. 
 solution 2: dfs + memorization. 用 HashMap 来建立路径之和跟其个数之间的映射，即路径之和为 curSum 的个数为 m[curSum].
@@ -1155,6 +1156,12 @@ dfs+memo: O(N^2); memo[(curr_s)] = 能稳赢
 带memo的recursion比DP更好懂; left = self.memoSearch(nums, i, k, memo); right=self.memoSearch(nums, k, j, memo); maxCoins = max(maxCoins, left + right + nums[i] * nums[k] * nums[j]). 也可以用dp: https://qoogle.top/leetcode-312-burst-balloons/
 - [0329. Longest Increasing Path in a Matrix](Solutions/0329.Longest-Increasing-Path-in-a-Matrix.py) (!!H) <br>
 与1219. Path with Maximum Gold 类似solution 1: dfs + backtrack - next candidate valid的条件是matrix[next_i][next_j] > matrix[curr_i][curr_j].  - O(2^(MN)).  solution 2: 由于题目并不要求算出path, 所以可以用dfs+memorization (top up dp). Time complexity : O(mn). solution 3: buttom up dp.
+- [1057.Campus-Bikes.py](Solutions/1057.Campus-Bikes.py) (!!M) <br>
+brutal force solution O(MNlog(MN)): find the distance of all combinations, and sort them.
+. bucket sort solution O(MN): find the distance of all combinations, and put them into bucket based on their distance. 
+In this way, the distances are represented by idx, which were sort by nature.
+- [1066. Campus Bikes II](Solutions/1066.Campus-Bikes-II.py) (!!M) <br>
+backtracking with memorization, 由于必须把assigned_bike set放入到state中，所以是指数级别的复杂度
 
 ----------1376. Time Needed to Inform All Employees Google Onsite----------
 ------------664. Strange Printer--------488. Zuma Game--------546. Remove Boxes---------691. Stickers to Spell Word--------887. Super Egg Drop----------
@@ -1568,6 +1575,10 @@ solution 1: dictionary to store the (num, pos) pairs. O(N), O(M), where N is the
 Solution 1: brutal force O(n^2); solution 2: Balanced BST O(nlogk); solution 3: bucket method: O(n). bucket sort利用的是分块的思想
 The main idea is splitting elements in nums into different buckets in terms of the value of t (for each element, divide by (t+1) for integer division). 保持bucket的大小为t这样只要有两个数被分配到了同一个bucket, 那么就可以return True了
 If the result is True, which means one of the following 3 cases hold: 1. Two elements in the same bucket; 2. One in the previous bucket; 3. One in the next bucket. If the case 2 or 3 holds, you need to check if their difference <= t.
+- [1057.Campus-Bikes.py](Solutions/1057.Campus-Bikes.py) (!!M) <br>
+brutal force solution O(MNlog(MN)): find the distance of all combinations, and sort them.
+. bucket sort solution O(MN): find the distance of all combinations, and put them into bucket based on their distance. 
+In this way, the distances are represented by idx, which were sort by nature.
 - [0275. H-Index II](Solutions/0275.H-Index-II.py) (!!M) <br>
 The list is sorted, 疯狂暗示二分呀有木有！
 find the first idx where citations[idx] >= N - idx, OOOXXX problem
@@ -1665,6 +1676,9 @@ maintain一个heapq，初始化将每个list的head放入，然后每次pop出�
 step 1: cut the list into two halves; step 2: reverse the 2nd half; step 3: connect the 1st and 2nd half
 - [0328. Odd Even Linked List](Solutions/0328.Odd-Even-Linked-List.py) (!!M) <br>
 把dummy指向head.next的地方，因为一会儿会丢失掉head.next的位置, 害怕什么node的位置会丢掉就拿一个dummy指向那个位置
+- [0430. Flatten a Multilevel Doubly Linked List](Solutions/0430.Flatten-a-Multilevel-Doubly-Linked-List.py) (M) <br>
+递归即可，易错点是return head之前别忘了把head.child设置成None
+
 
 
 
