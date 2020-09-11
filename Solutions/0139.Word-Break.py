@@ -43,9 +43,28 @@ class Solution:
                     break
         return dp[-1]
       
-
+      
+      
+      
 """
-soution 2: dfs + memorizaion
+solution 2: dfs without memorization - O(2^N)
+"""
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        word_set = set(wordDict)    # find if word in the worddict in O(1)
+        def dfs(curr_idx):
+            if curr_idx == len(s) - 1:
+                return True
+            for next_idx in range(curr_idx + 1, len(s)):
+                if s[curr_idx+1: next_idx+1] in word_set and dfs(next_idx):
+                    return True
+            return False
+        return dfs(-1) 
+      
+      
+      
+"""
+solution 3: dfs with memorization - O(N^2)
 """
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
@@ -58,10 +77,9 @@ class Solution:
 
             res = False
             for next_idx in range(curr_idx + 1, len(s)):
-                if s[curr_idx + 1: next_idx + 1] in word_set:
-                    if dfs(next_idx):
-                        res = True
-                        break
+                if s[curr_idx + 1: next_idx + 1] in word_set and dfs(next_idx):
+                    res = True
+                    break
                         
             memo[curr_idx] = res
             return res
@@ -69,7 +87,9 @@ class Solution:
         
         word_set = set(wordDict)
         memo = collections.defaultdict(bool) 
-        return dfs(-1)
+        return dfs(-1) 
+      
+
       
       
       
