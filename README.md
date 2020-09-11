@@ -1002,6 +1002,8 @@ For example, for (1 to 3), the obstacle is 2. 所以在判断要不要把next_nu
 Time Complexity: O(N* 4^L) where N is the number of cells in the board and L is the length of the word to be matched.
 - [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
 Solution 1: 碰到打印所有路径的问题，第一反应就是带backtrack. 套用backtrack的模板即可
+- [0980. Unique Paths III](Solutions/0980.Unique-Paths-III.py) (!!H youtube with path-I and II) <br>
+套用backtrack模板就可以了. 每一个位置都有3种可能，所以time complexity O(3^N). 
 - [0332. Reconstruct Itinerary](Solutions/0332.Reconstruct-Itinerary.py) (!!M) <br>
 有向图的遍历问题，LeetCode关于有向图的题只有两道Course Schedule和Course Schedule II，而那两道是关于有向图的顶点的遍历的，而本题是关于有向图的边的遍历。每张机票都是有向图的一条边，我们需要找出一条经过所有边的路径，那么DFS不是我们的不二选择. Recurssive backtracking.  Worst case: O(E^d), where E is # of edges, d is is the maximum number of flights from an airport.  Solution 2: 因为只需要输出一种包含所有边的路径，所以可以用另一种图的解法 Eulerian Path - every edge is visited exactly once. Eulerian path 使用的算法叫做 Hierholzer algorithm. Hierholzer algorithm 不做backtrack, 所以每一条边只访问一次，所以时间复杂度是O(E), where E is the # of edges.
 - [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (!!!M) <br>
@@ -1039,7 +1041,9 @@ backtrack结束条件: if curr_idx == len(word)-1.
 use rows, cols, boxes dictionary to record the numbers in each row, each col and each small box, then do standard backtrack
 - [0465. Optimal Account Balancing](Solutions/0465.Optimal-Account-Balancing.py) (!!H) <br> 
 step 1: find all the balance information for each person; step 2: we care only those person who own or owe money - put them in a list; backtrack to update the minimum transaction needed. backtrack传入(curr_idx, curr_cnt)
-
+- [0437. Path Sum III](Solutions/0437.Path-Sum-III.py) (M) <br>
+不需要从根节点出发，solution 1: dfs every node in the tree. at each node, do a backtrack to find how many root-to-any_node paths are there. 
+solution 2: presum solution: O(N). Use a presum to record presum --> how many paths have this presum accured
 
 
 
@@ -1117,14 +1121,6 @@ min_steps[i]表示节点i所见到过的除了目前的父节点之外的所有�
 
 
 ## [dfs + memoization/top down DP](/https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-- [0437. Path Sum III](Solutions/0437.Path-Sum-III.py) (M) <br>
-不需要从根节点出发，solution 1: dfs every node in the tree. at each node, do a backtrack to find how many root-to-any_node paths are there. 
-solution 2: dfs + memorization. 用 HashMap 来建立路径之和跟其个数之间的映射，即路径之和为 curSum 的个数为 m[curSum].
-- [0980. Unique Paths III](Solutions/0980.Unique-Paths-III.py) (!!M youtube with path-I and II) <br>
-Solution 2: since we don't need to print the actual paths, DP or dfs with memorization is good.
-Total ime complexity for this DP = No. of sub-problems * Time taken per sub-problem = O(n * 2^n) * O(1) = O(n * 2^n).
-solution 1: dfs+backtrack: 这种方法不但可以找出有多少种路径，而且可以打印出所有路径
-O(4^N) time where N is number of non-block squares in the grid. 
 - [0139. Word Break](Solutions/0139.Word-Break.py) (!!M) <br>
 solution 1: dp[i]=can partition until ith char?, not including i; dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in wordDict). solution 2: bfs, solution 3: dfs + memorization (top-down dp)
 - [0140. Word Break II](Solutions/0140.Word-Break-II.py) (!!H) <br>
