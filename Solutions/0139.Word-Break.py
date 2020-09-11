@@ -1,3 +1,4 @@
+"""
 139. Word Break
 
 Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
@@ -21,6 +22,8 @@ Example 3:
 
 Input: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
 Output: false
+"""
+
 
 
 """
@@ -30,21 +33,17 @@ O(n^2)
 """
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        lens = len(s)
-        wordSet = set()
-        for word in wordDict:
-            wordSet.add(word)
-            
-        dp = [False for _ in range(lens + 1)]
+        word_set = set(wordDict)    # change to set so check if s[i:j] in word_set is faster
+        dp = [False for _ in range(len(s) + 1)] # can 
         dp[0] = True
-        
-        for j in range(1, lens + 1):
-            for i in range(j):   # 这句话应该改成for i in range(j-1,-1,-1), 因为从 s[i:j] in wordSet 就更容易判断更快了！
-                if dp[i] and s[i:j] in wordSet:     # 这句话应该把dp[i]==True放到前面，因为dp[i]==True is low cost comparison.
+        for j in range(len(dp)):
+            for i in range(j):    # 反向遍历 s[i:j] in wordSet 就更容易判断更快了！
+                if dp[i] and s[i:j] in word_set:    # 这句话应该把dp[i]==True放到前面，因为dp[i]==True is low cost comparison
                     dp[j] = True
                     break
-                    
-        return dp[lens]
+        return dp[-1]
+      
+      
       
       
 """
