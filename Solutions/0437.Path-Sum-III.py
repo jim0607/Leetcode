@@ -56,10 +56,29 @@ class Solution:
         return cnt
 
 """
-solution 2: the above solution is easy to understand, but it takes O(N^2)
+solution 2: the above solution is easy to understand, but it takes O(N^2).
+presum solution: O(N). Use a presum to record presum --> how many paths have this presum accured
 """
 
-死活写不出来，都到现在了，必须必须写出来呀！！
+class Solution:
+    def pathSum(self, root: TreeNode, target: int) -> int:
+        if not root:
+            return 0
+        
+        def dfs(curr_node, curr_sum):
+            if not curr_node:
+                return 0
+            res = pre_sum[curr_sum - target]
+            pre_sum[curr_sum] += 1
+            if curr_node.left: res += dfs(curr_node.left, curr_sum + curr_node.left.val)
+            if curr_node.right: res += dfs(curr_node.right, curr_sum + curr_node.right.val)
+            pre_sum[curr_sum] -= 1      # 做backtrack
+            return res
+        
+        
+        pre_sum = collections.defaultdict(int)  # presum --> how many paths have this presum accured
+        pre_sum[0] = 1
+        return dfs(root, root.val)
 
 
 
