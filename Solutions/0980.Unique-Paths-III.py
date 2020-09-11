@@ -1,3 +1,4 @@
+"""
 980. Unique Paths III
 
 On a 2-dimensional grid, there are 4 types of squares:
@@ -33,6 +34,56 @@ Output: 0
 Explanation: 
 There is no path that walks over every empty square exactly once.
 Note that the starting and ending square can be anywhere in the grid.
+"""
+
+
+"""
+套用backtrack模板就可以了. 每一个位置都有3种可能，所以time complexity O(3^N). 
+"""
+class Solution:
+    START, END, EMPTY, BLOCK = 1, 2, 0, -1
+    def uniquePathsIII(self, grid: List[List[int]]) -> int:
+        def dfs(curr_i, curr_j, curr_path):
+            if (curr_i, curr_j) == end_pos:
+                if len(curr_path) == empty_cnt + 2:
+                    res.append(curr_path.copy())                
+                return
+            for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                if 0 <= next_i < m and 0 <= next_j < n:
+                    if grid[next_i][next_j] != self.BLOCK:
+                        if (next_i, next_j) not in visited:
+                            visited.add((next_i, next_j))
+                            curr_path.append((next_i, next_j))
+                            dfs(next_i, next_j, curr_path)
+                            curr_path.pop()
+                            visited.remove((next_i, next_j))
+                    
+                    
+        m, n = len(grid), len(grid[0])
+        empty_cnt = 0
+        start_pos, end_pos = (0, 0), (0, 0)
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == self.EMPTY:
+                    empty_cnt += 1
+                if grid[i][j] == self.START:
+                    start_pos = (i, j)
+                if grid[i][j] == self.END:
+                    end_pos = (i, j)
+        res = []
+        visited = set()
+        visited.add(start_pos)
+        dfs(start_pos[0], start_pos[1], [start_pos])
+        return len(res)
+
+
+
+
+
+
+
+
 
 
 
@@ -60,7 +111,7 @@ class Solution:
         visited = set()
         visited.add(start)
         
-        # key is how many steps to reach (i, j), val is how many ways to use so many steps to reach(i, j)
+        # key is how many steps to reach (i, j), val is how many ways to use so many ways to reach(i, j)
         memo = collections.defaultdict(int)
         
         def dfs(curr_i, curr_j, steps):
