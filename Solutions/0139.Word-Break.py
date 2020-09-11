@@ -43,6 +43,35 @@ class Solution:
                     break
         return dp[-1]
       
+
+"""
+soution 2: dfs + memorizaion
+"""
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        def dfs(curr_idx):
+            if curr_idx == len(s) - 1:
+                return True
+            
+            if curr_idx in memo:
+                return memo[curr_idx]
+
+            res = False
+            for next_idx in range(curr_idx + 1, len(s)):
+                if s[curr_idx + 1: next_idx + 1] in word_set:
+                    if dfs(next_idx):
+                        res = True
+                        break
+                        
+            memo[curr_idx] = res
+            return res
+        
+        
+        word_set = set(wordDict)
+        memo = collections.defaultdict(bool) 
+        return dfs(-1)
+      
+      
       
       
       
