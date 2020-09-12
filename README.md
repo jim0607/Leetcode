@@ -518,6 +518,8 @@ solution 2: level order bfs, 每次都在while循环里初始化max_depth_sums�
 The algorithm is: one node by another, try to balance node from down to top.
 helper function returns how many coins should the node receive from it's parent in order to balance itself.
 用一个全局变量打擂台记录移动了多少个coins
+- [0894. All Possible Full Binary Trees](Solutions/0894.All-Possible-Full-Binary-Trees.py) (!!M) <br>
+Good example of recurssion
 
 --------------1245. Tree Diameter---------
 
@@ -1124,14 +1126,14 @@ min_steps[i]表示节点i所见到过的除了目前的父节点之外的所有�
 - [0139. Word Break](Solutions/0139.Word-Break.py) (!!M) <br>
 solution 1: dp[i]=can partition until ith char?, not including i; dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in wordDict). solution 2: bfs, solution 3: dfs + memorization (top-down dp)
 - [0140. Word Break II](Solutions/0140.Word-Break-II.py) (!!H) <br>
-Need to find a path, so backtracking.  O(2^m + m^2 + n), where m is the lens of string, n is the lens of word_dict.
+套用backtrack模板即可.  O(2^m + m^2 + n), where m is the lens of string, n is the lens of word_dict.
 O(2^m) comes from backtracking on the string, cuz each 每个ch之间我们可以选择切一刀或不切一刀.
 O(m^2) comes from the checking for wordBreakI.  O(n) for converting word_dict to a set.
 - [0472. Concatenated Words](Solutions/0472.Concatenated-Words.py) (!!H) 打印/输出所有满足条件的路径必用DFS
 dfs + memorization - Top down DP.  与139, 140构成砍单词三部曲！
-- [0894. All Possible Full Binary Trees](Solutions/0894.All-Possible-Full-Binary-Trees.py) (M) <br>
 - [0494. Target Sum](Solutions/0494.Target-Sum.py) (!!M) <br>
-solution 1: naive dfs - O(2^n); solution 2: naive dfs + memorization - O(n * t) where n is len(nums), t is target
+solution 1: naive dfs - O(2^n); solution 2: naive dfs + memorization - 从backtrack到memorization只需要将memo dict的key定义为backtrack的arguments, val是需要return的东西。
+time complexty is how many diferent keys are possible there - O(n * t) where n is len(nums), t is largest sum possible.
 - [0638. Shopping Offers](Solutions/0638.Shopping-Offers.py) (!!M) <br>
 solution 1: backtrack; solution 2: dfs + memorization
 - [0514. Freedom Trail](Solutions/0514.Freedom-Trail.py) (!!H) <br>
@@ -1933,6 +1935,8 @@ we know the second time occurance becasue we flip the sign each time.
 solution 1: 448类似的做法，我们通过nums[i] += 1来change all 0s to be positive number.  solution 2: bit manipulation 所有的idx and num都异或起来. solution 3: 题目确定只有一个missing number. add every num together and compare with n(n+1)/2. O(1).  Follow up: what is there are 2 missing numbers?  How can we solve within O(1). we can calculate the sum of the 2 missing numbers using solutino 3, and also prodct of the 2 missing number, then 用求根公式求出来就可以了
 - [0041. First Missing Positive](Solutions/0041.First-Missing-Positive.py) (H) <br>
 1st pass: change all negtive numbers to be 1, so that there will be no negtive numbers;  2nd pass: change the positive numbers into negative; 3rd pass: find the first positive number, and the corresponding idx is missing
+- [Pramp. Getting a Different Number](Solutions/Pramp.Getting-a-Different-Number.py) (failed) <br>
+Use a list to record the appearance of idx.
 - [0287. Find the Duplicate Number](Solutions/0287.Find-the-Duplicate-Number.py) (M) <br>
 把这个数组的每一个数num看成这样一个linked list node: num的下标代表.val, num的值代表.next指向下一个node。那么如果存在重复的num，那就表示有两个不同node都指向了同一个公共，也就是成环的地点。这么想这个题目就和142一样了，具体实现过程中对p取一个nums[p]，就相当于取一个p.next
 
