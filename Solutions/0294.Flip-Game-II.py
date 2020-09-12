@@ -16,35 +16,28 @@ Derive your algorithm's runtime complexity.
 
 """
 dfs+memo: O(N^2)
-memo[(curr_s)] = 能稳赢
+memo = (curr_state-->guarantee a win)
 """
 class Solution:
     def canWin(self, s: str) -> bool:
-        def dfs(curr_s, memo):
-            if self._garantee_to_lose(curr_s):
+        def dfs(curr_state):
+            if len(self.generatePossibleNextMoves(curr_state)) == 0:
                 return False
-            
-            if curr_s in memo:
-                return memo[curr_s]
+            if curr_state in memo:
+                return memo[curr_state]
+            garantee_win = False
+            for next_state in self.generatePossibleNextMoves(curr_state):
+                garantee_win = garantee_win or not dfs(next_state)   # 只要有一个next的dfs(next)稳输那就curr就稳赢
+            memo[curr_state] = garantee_win
+            return garantee_win
+        
+        memo = collections.defaultdict(lambda: False)    # (curr_state-->guarantee a win)
+        return dfs(s)
 
-            for next_s in self._find_next(curr_s):
-                memo[curr_s] = memo[curr_s] or (not dfs(next_s, memo))  # 只要有一个next的dfs(next)稳输那就curr就稳赢
-                                                                        # 所以这里用 or 
-            return memo[curr_s]
-        
-        memo = collections.defaultdict(lambda: False)   # 注意这里的初始化成False
-        return dfs(s, memo)
-        
-    def _garantee_to_lose(self, s):
-        found = False       
-        for i in range(1, len(s)):             
-            if s[i-1] == "+" and s[i] == "+":
-                found = True
-        return not found    # 没有连着两个"++"那就稳输
-    
-    def _find_next(self, s):
+    # below just copied Flip Game I to get next state
+    def generatePossibleNextMoves(self, s: str) -> List[str]:
         res = []
         for i in range(1, len(s)):
-            if s[i-1] == "+" and s[i] == "+":
+            if s[i] == s[i-1] == "+":
                 res.append(s[:i-1] + "--" + s[i+1:])
         return res
