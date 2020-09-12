@@ -1,3 +1,4 @@
+"""
 494. Target Sum
 
 You are given a list of non-negative integers, a1, a2, ..., an, and a target, S. Now you have 2 symbols + and -. For each integer, you should choose one from + and - as its new symbol.
@@ -17,6 +18,8 @@ Explanation:
 +1+1+1+1-1 = 3
 
 There are 5 ways to assign symbols to make the sum of nums be target 3.
+"""
+
 
 
 """
@@ -24,60 +27,41 @@ solution 1: naive dfs - O(2^n)
 """
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        def backtrack(curr_idx, curr_sum):
+            if curr_idx == len(nums) - 1:
+                if curr_sum == target:
+                    self.cnt += 1
+                return
+            backtrack(curr_idx + 1, curr_sum + nums[curr_idx + 1])
+            backtrack(curr_idx + 1, curr_sum - nums[curr_idx + 1])
+            
+            
         self.cnt = 0
-        self._dfs(nums, target, 0, nums[0])
-        self._dfs(nums, target, 0, -nums[0])
+        backtrack(-1, 0)
         return self.cnt
-        
-    def _dfs(self, nums, target, curr_idx, curr_sum):
-        if curr_idx == len(nums) - 1:
-            if curr_sum == target:
-                self.cnt += 1
-            return
-        
-        self._dfs(nums, target, curr_idx + 1, curr_sum + nums[curr_idx+1])
-        self._dfs(nums, target, curr_idx + 1, curr_sum - nums[curr_idx+1])
+    
+    
         
 """
-solution 1: 把cnt传到参数里的写法
+从backtrack到memorization只需要将memo dict的key定义为backtrack的arguments, val是需要return的东西。
+time complexty is how many diferent keys are possible there.
+solution 2: backtrack + memorization - O(n * t) where n is len(nums), t is largest sum possible.
 """
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        return self._dfs(nums, target, 0, nums[0], 0) + self._dfs(nums, target, 0, -nums[0], 0)
+        def backtrack(curr_idx, curr_sum):
+            if curr_idx == len(nums) - 1:
+                if curr_sum == target:
+                    return 1
+                return 0
+            if (curr_idx, curr_sum) in memo:
+                return memo[(curr_idx, curr_sum)]
+            res = 0
+            res += backtrack(curr_idx + 1, curr_sum + nums[curr_idx + 1])
+            res += backtrack(curr_idx + 1, curr_sum - nums[curr_idx + 1])
+            memo[(curr_idx, curr_sum)] = res
+            return res
         
-    def _dfs(self, nums, target, curr_idx, curr_sum, cnt):
-        if curr_idx == len(nums) - 1:
-            if curr_sum == target:
-                cnt += 1
-            return cnt
         
-        cnt_1 = self._dfs(nums, target, curr_idx + 1, curr_sum + nums[curr_idx+1], cnt)
-        cnt_2 = self._dfs(nums, target, curr_idx + 1, curr_sum - nums[curr_idx+1], cnt)
-        
-        return cnt_1 + cnt_2
-        
-        
-        
-"""
-solution 2: naive dfs + memorization - O(n * t) where n is len(nums), t is target
-"""
-class Solution:
-    def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        memo = collections.defaultdict(int)     # memo[(i, t)] = 用前i个num拼出t的方式有多少种
-        return self._dfs(nums, target, 0, nums[0], memo) + self._dfs(nums, target, 0, -nums[0], memo)
-        
-    def _dfs(self, nums, target, curr_idx, curr_sum, memo):
-        if curr_idx == len(nums) - 1:
-            if curr_sum == target:
-                memo[(curr_idx, curr_sum)] = 1
-            else:
-                memo[(curr_idx, curr_sum)] = 0
-        
-        if (curr_idx, curr_sum) in memo:
-            return memo[(curr_idx, curr_sum)]
-        
-        cnt_1 = self._dfs(nums, target, curr_idx + 1, curr_sum + nums[curr_idx+1], memo)
-        cnt_2 = self._dfs(nums, target, curr_idx + 1, curr_sum - nums[curr_idx+1], memo)
-        
-        memo[(curr_idx, curr_sum)] = cnt_1 + cnt_2
-        return cnt_1 + cnt_2
+        memo = collections.defaultdict(int)  
+        return backtrack(-1, 0)
