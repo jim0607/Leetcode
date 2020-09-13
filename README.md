@@ -1,6 +1,6 @@
 ## 四刷：每天刷15-20题, 做好总结！08/17 to 09/30
 ## 每天晚上睡前Review做过的题
-##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778; 09/04: 364; 09/05: 31; 09/06: 79; 09/07: 126; 09/08: 863
+##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778; 09/04: 364; 09/05: 31; 09/06: 79; 09/07: 126; 09/08: 863; 09/13: 1066
 
 
 # [Data Structure](/Data-Structure.py)
@@ -1158,13 +1158,14 @@ brutal force solution O(MNlog(MN)): find the distance of all combinations, and s
 . bucket sort solution O(MN): find the distance of all combinations, and put them into bucket based on their distance. 
 In this way, the distances are represented by idx, which were sort by nature. <br>
 - [1066. Campus Bikes II](Solutions/1066.Campus-Bikes-II.py) (!!M) <br>
-backtracking with memorization, 由于必须把assigned_bike set放入到state中，所以是指数级别的复杂度, solution 2: backtrack + Dijkstra's
-##### Campus Bikes III (minimize max) - Dijkstra's
+backtracking with memorization, 由于必须把assigned_bike set放入到state中，所以是指数级别的复杂度, solution 2: backtrack + Dijkstra's <br>
+Extention: __Campus Bikes III (minimize max) - Dijkstra's__
 
-------------664. Strange Printer--------488. Zuma Game--------546. Remove Boxes---------691. Stickers to Spell Word--------887. Super Egg Drop----------------1547. Minimum Cost to Cut a Stick----------
+---------------887. Super Egg Drop--------------------
 
 
 # [Dynamic Programming/bottom up DP](Dynamic-Programming.py)
+#### 抓大放小，3D DP 就不需要看了
 ### [坐标型DP](/Dynamic-Programming.py)
 - [0062. Unique Paths](Solutions/0062.Unique-Paths.py) (!!M) <br>
 状态: f[i][j]=有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = f[i][j-1]+f[i-1][j]
