@@ -27,72 +27,42 @@ Explanation: The longest increasing path is [3, 4, 5, 6]. Moving diagonally is n
 
 
 """
-dfs + backtrack - next candidate valid的条件是matrix[next_i][next_j] > matrix[curr_i][curr_j].  
-O(2^(MN)).  The search is repeated for each valid increasing path. TLE.
+solution 1: 从每一个点开始做backtrack -  next candidate valid的条件是matrix[next_i][next_j] > matrix[curr_i][curr_j].  
+O(MN*2^(MN)).  The search is repeated for each valid increasing path. TLE.
 """
 class Solution:
-    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
-        if not matrix or not matrix[0]:
+    def longestIncreasingPath(self, grid: List[List[int]]) -> int:
+        if not grid or not grid[0]:
             return 0
         
-        m, n = len(matrix), len(matrix[0])
-        moves = [(1, 0), (-1, 0), (0, 1), (0, -1)]
         
-        def dfs(curr_i, curr_j, curr_lens):
+        def backtrack(curr_i, curr_j, curr_lens):
             self.max_lens = max(self.max_lens, curr_lens)
-            for delta_i, delta_j in moves:
+            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
                 next_i, next_j = curr_i + delta_i, curr_j + delta_j
-                if 0 <= next_i < m and 0 <= next_j < n and (next_i, next_j) not in visited \
-                and matrix[next_i][next_j] > matrix[curr_i][curr_j]:
-                    visited.add((next_i, next_j))
-                    dfs(next_i, next_j, curr_lens + 1)
-                    visited.remove((next_i, next_j))        # backtrack
-                    
+                if 0 <= next_i < m and 0 <= next_j < n:
+                    if grid[next_i][next_j] > grid[curr_i][curr_j]:
+                        visited.add((next_i, next_j))
+                        backtrack(next_i, next_j, curr_lens + 1)
+                        visited.remove((next_i, next_j))
+                        
+        
         self.max_lens = 1
+        m, n = len(grid), len(grid[0])
         for i in range(m):
             for j in range(n):
-                visited = {(i, j)}
-                dfs(i, j, 1)
-                
+                visited = set()
+                visited.add((i, j))
+                backtrack(i, j, 1)    # 以(i, j)开始backtrack
         return self.max_lens
-        
+      
 
-"""
-下面的写法也是naive dfs, 很容易理解
-"""
-class Solution:
-    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
-        if not matrix or not matrix[0]:
-            return 0
-        
-        m, n = len(matrix), len(matrix[0])
-        moves = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-        
-        def dfs(curr_i, curr_j):
-            max_len = 1
-            for delta_i, delta_j in moves:
-                next_i, next_j = curr_i + delta_i, curr_j + delta_j
-                if 0 <= next_i < m and 0 <= next_j < n and (next_i, next_j) not in visited \
-                and matrix[next_i][next_j] > matrix[curr_i][curr_j]:
-                    visited.add((next_i, next_j))
-                    max_len = max(max_len, dfs(next_i, next_j) + 1)
-                    visited.remove((next_i, next_j))        # backtrack
-                    
-            return max_len
-                    
-        max_lens = 1
-        for i in range(m):
-            for j in range(n):
-                visited = {(i, j)}
-                max_len = dfs(i, j)
-                max_lens = max(max_lens, max_len)
-                
-        return max_lens
-        
+       
         
         
 
 """
+solution 2: memorization - O(MN)
 由于题目并不要求算出path, 所以可以用dfs+memorization.
 In computing, memoization is an optimization technique used primarily to speed up computer programs by 
 storing the results of expensive function calls and returning the cached result when the same inputs occur again.
@@ -104,31 +74,34 @@ In our problem, O(V) = O(mn), O(E) = O(4V) = O(mn).
 简化一点，这题可以不用visited标记，
 """
 
+"""
+solution 2: with memorization to memorize the LIP from (curr_i, curr_j)
+"""
 class Solution:
-    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
-        if not matrix or not matrix[0]:
+    def longestIncreasingPath(self, grid: List[List[int]]) -> int:
+        if not grid or not grid[0]:
             return 0
         
-        m, n = len(matrix), len(matrix[0])
-        moves = [(1, 0), (-1, 0), (0, 1), (0, -1)]
         
-        def dfs(curr_i, curr_j, memo):
-            if (curr_i, curr_j) in memo:
+        def backtrack(curr_i, curr_j):
+            if (curr_i, curr_j) in memo:        # step 1: check if curr_state in memo
                 return memo[(curr_i, curr_j)]
             
-            memo[(curr_i, curr_j)] = 1      # 初始化
-            for delta_i, delta_j in moves:
+            LIP = 1                             # step 2: recurssively update memo[curr_state]
+            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
                 next_i, next_j = curr_i + delta_i, curr_j + delta_j
-                if 0 <= next_i < m and 0 <= next_j < n and matrix[next_i][next_j] > matrix[curr_i][curr_j]:
-                    memo[(curr_i, curr_j)] = max(memo[(curr_i, curr_j)], dfs(next_i, next_j, memo) + 1)     # 更新memo[(curr_i, curr_j)]
-                    
-            return memo[(curr_i, curr_j)]
-                    
+                if 0 <= next_i < m and 0 <= next_j < n:
+                    if grid[next_i][next_j] > grid[curr_i][curr_j]:
+                        LIP = max(LIP , backtrack(next_i, next_j) + 1)
+                        
+            memo[(curr_i, curr_j)] = LIP        # step 3: update memo[curr_state]
+            return LIP
+                        
+        
+        memo = collections.defaultdict(int) # ((curr_i, curr_j) --> LIP starting from (curr_i curr_j))
+        m, n = len(grid), len(grid[0])
         max_lens = 1
-        memo = collections.defaultdict(int)    # memo[(i, j)] = LIP to reach (i, j)
         for i in range(m):
             for j in range(n):
-                max_len = dfs(i, j, memo)
-                max_lens = max(max_lens, max_len)
-                
+                max_lens = max(max_lens, backtrack(i, j))
         return max_lens
