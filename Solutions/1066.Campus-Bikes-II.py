@@ -63,3 +63,34 @@ class Solution:
         assigned_bikes = set()
         
         return dfs(0, assigned_bikes, memo)
+       
+       
+       
+       
+       
+"""
+solution 2: backtrack + Dijkstra's
+"""
+class Solution:
+    def assignBikes(self, workers: List[List[int]], bikes: List[List[int]]) -> int:
+        def dist(w, b):
+            return abs(w[0] - b[0]) + abs(w[1] - b[1])
+        
+        assigned_bikes = set()
+        hq = [(0, 0, tuple(assigned_bikes))]  # (curr_cost, number_of_assigned_workers, assigned_bikes)
+        optimal = collections.defaultdict(lambda: float("inf"))
+        while len(hq) > 0:
+            curr_cost, assigned_workers_cnt, assigned_bikes = heappop(hq)
+            assigned_bikes = set(assigned_bikes)
+            if assigned_workers_cnt == len(workers):
+                return curr_cost            
+            for bike_id, bike_pos in enumerate(bikes):
+                if bike_id in assigned_bikes:
+                    continue
+                assigned_bikes.add(bike_id)
+                next_cost = curr_cost + dist(workers[assigned_workers_cnt], bike_pos)
+                if next_cost < optimal[(assigned_workers_cnt, tuple(assigned_bikes))]:
+                    optimal[(assigned_workers_cnt, tuple(assigned_bikes))] = next_cost
+                    heappush(hq, (next_cost, assigned_workers_cnt + 1, tuple(assigned_bikes)))
+                assigned_bikes.remove(bike_id)
+        return -1
