@@ -7,9 +7,6 @@ def findK(A, B):
         preA[i+1] = preA[i] + A[i]
         preB[i+1] = preB[i] + B[i]
 
-    # print(preA)
-    # print(preB)
-
     cnt = 0
     for i in range(1, len(preA) - 1):
         if preA[i] == preA[-1] - preA[i] == preB[i] == preB[-1] - preB[i]:
