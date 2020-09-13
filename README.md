@@ -1004,6 +1004,8 @@ For example, for (1 to 3), the obstacle is 2. 所以在判断要不要把next_nu
 Time Complexity: O(N* 4^L) where N is the number of cells in the board and L is the length of the word to be matched.
 - [0113. Path Sum II](Solutions/0113.Path-Sum-II.py) (!!M) <br> 
 Solution 1: 碰到打印所有路径的问题，第一反应就是带backtrack. 套用backtrack的模板即可
+- [1376. Time Needed to Inform All Employees](Solutions/1376.Time-Needed-to-Inform-All-Employees.py) (!!M Google Onsite) <br> 
+Same as Path Sum II except it's a N-arry tree.
 - [0980. Unique Paths III](Solutions/0980.Unique-Paths-III.py) (!!H youtube with path-I and II) <br>
 套用backtrack模板就可以了. 每一个位置都有3种可能，所以time complexity O(3^N). 
 - [0332. Reconstruct Itinerary](Solutions/0332.Reconstruct-Itinerary.py) (!!M) <br>
@@ -1123,6 +1125,10 @@ min_steps[i]表示节点i所见到过的除了目前的父节点之外的所有�
 
 
 ## [dfs + memoization/top down DP](/https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+#### 最重要的是memo状态的定义和递归返回值的定义. memo的key是状态, 往往跟backtrack的状态定义是一样的, val是我们想求的东西与递归返回值是一样的
+- [0494. Target Sum](Solutions/0494.Target-Sum.py) (!!M) <br>
+solution 1: naive dfs - O(2^n); solution 2: naive dfs + memorization - 从backtrack到memorization只需要将memo dict的key定义为backtrack的arguments, val是需要return的东西。
+time complexty is how many diferent keys are possible there - O(n * t) where n is len(nums), t is largest sum possible.
 - [0139. Word Break](Solutions/0139.Word-Break.py) (!!M) <br>
 solution 1: dp[i]=can partition until ith char?, not including i; dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in wordDict). solution 2: bfs, solution 3: dfs + memorization (top-down dp)
 - [0140. Word Break II](Solutions/0140.Word-Break-II.py) (!!H) <br>
@@ -1131,34 +1137,31 @@ O(2^m) comes from backtracking on the string, cuz each 每个ch之间我们可�
 O(m^2) comes from the checking for wordBreakI.  O(n) for converting word_dict to a set.
 - [0472. Concatenated Words](Solutions/0472.Concatenated-Words.py) (!!H) 打印/输出所有满足条件的路径必用DFS
 dfs + memorization - Top down DP.  与139, 140构成砍单词三部曲！
-- [0494. Target Sum](Solutions/0494.Target-Sum.py) (!!M) <br>
-solution 1: naive dfs - O(2^n); solution 2: naive dfs + memorization - 从backtrack到memorization只需要将memo dict的key定义为backtrack的arguments, val是需要return的东西。
-time complexty is how many diferent keys are possible there - O(n * t) where n is len(nums), t is largest sum possible.
 - [0638. Shopping Offers](Solutions/0638.Shopping-Offers.py) (!!M) <br>
-solution 1: backtrack; solution 2: dfs + memorization
+solution 1: backtrack - 套用backtrack模板，backtrack加入的参数有(curr_bought, curr_cost).
+backtrack结束条件是if all(curr_bought[i] >= needs[i] for i in range(len(needs))).
+backtrack的剪枝很重要 - skip deals that exceed needs: if any(special[i] > needs[i] - curr_bought[i] for i in range(len(needs)))
+O(2^M* L* N) where L is len(prices), M is how many specials are there, N is value of needs; solution 2: dfs + memorization
 - [0514. Freedom Trail](Solutions/0514.Freedom-Trail.py) (!!H) <br>
 dfs+memo的关键是memo的定义，跟dp的关键是状态的定义是一样的。
-这题的定义为memo[(curr_ring, curr_idx)] = steps needed if from (curr_ring, curr_idx)
+这题的定义为memo[(curr_ring, curr_idx)] = minimum step needed to reach target)
 then memo[(curr_ring, curr_idx)] = min(memo[(curr_ring, curr_idx)], steps + 1 + dfs(next_ring, curr_idx + 1, memo))
 - [0293. Flip Game](Solutions/0293.Flip-Game.py) (E) <br>
 - [0294. Flip Game II](Solutions/0294.Flip-Game-II.py) (!!M) <br>
-dfs+memo: O(N^2); memo[(curr_s)] = 能稳赢
+dfs+memo: O(N^2); memo = (curr_state-->guarantee a win)
 - [0312. Burst Balloons](Solutions/0312.Burst-Balloons.py) (!!H) <br>
-带memo的recursion比DP更好懂; left = self.memoSearch(nums, i, k, memo); right=self.memoSearch(nums, k, j, memo); maxCoins = max(maxCoins, left + right + nums[i] * nums[k] * nums[j]). 也可以用dp: https://qoogle.top/leetcode-312-burst-balloons/
+backtrack without memorizaiton - O(2^N). solution 2: 带memo的recursion比DP更好懂; left = self.memoSearch(nums, i, k, memo); right=self.memoSearch(nums, k, j, memo); maxCoins = max(maxCoins, left + right + nums[i] * nums[k] * nums[j]). 
 - [0329. Longest Increasing Path in a Matrix](Solutions/0329.Longest-Increasing-Path-in-a-Matrix.py) (!!H) <br>
-与1219. Path with Maximum Gold 类似solution 1: dfs + backtrack - next candidate valid的条件是matrix[next_i][next_j] > matrix[curr_i][curr_j].  - O(2^(MN)).  solution 2: 由于题目并不要求算出path, 所以可以用dfs+memorization (top up dp). Time complexity : O(mn). solution 3: buttom up dp.
+solution 1: 从每一个点开始做backtrack - next candidate valid的条件是matrix[next_i][next_j] > matrix[curr_i][curr_j].  - O(MN2^(MN)).  solution 2: 由于题目并不要求算出path, 所以可以用recurssion with memorization to memorize the LIP from (curr_i, curr_j) (top down dp). Time complexity : O(MN). solution 3: buttom up dp.
 - [1057.Campus-Bikes.py](Solutions/1057.Campus-Bikes.py) (!!M) <br>
 brutal force solution O(MNlog(MN)): find the distance of all combinations, and sort them.
 . bucket sort solution O(MN): find the distance of all combinations, and put them into bucket based on their distance. 
-In this way, the distances are represented by idx, which were sort by nature.
+In this way, the distances are represented by idx, which were sort by nature. <br>
 - [1066. Campus Bikes II](Solutions/1066.Campus-Bikes-II.py) (!!M) <br>
-backtracking with memorization, 由于必须把assigned_bike set放入到state中，所以是指数级别的复杂度
+backtracking with memorization, 由于必须把assigned_bike set放入到state中，所以是指数级别的复杂度, solution 2: backtrack + Dijkstra's
+##### Campus Bikes III (minimize max) - Dijkstra's
 
-----------1376. Time Needed to Inform All Employees Google Onsite----------
-------------664. Strange Printer--------488. Zuma Game--------546. Remove Boxes---------691. Stickers to Spell Word--------887. Super Egg Drop----------
------------ - [0727. Minimum Window Subsequence](Solutions/0727.Minimum-Window-Subsequence.py) (!!H Google) <br>
-solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题只需要freq都满足了就行，这题不仅如此，而且还是讲究顺序的，; solution 2: dp ------------
----------1547. Minimum Cost to Cut a Stick----------
+------------664. Strange Printer--------488. Zuma Game--------546. Remove Boxes---------691. Stickers to Spell Word--------887. Super Egg Drop----------------1547. Minimum Cost to Cut a Stick----------
 
 
 # [Dynamic Programming/bottom up DP](Dynamic-Programming.py)
@@ -1338,6 +1341,8 @@ f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配； 画个图�
 f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B[j-1]不是"星": f[i][j] = f[i-1][j-1] if (B[j-1]="." or A[i-1]=B[j-1]); 情况二：B[j-1]是"星"：可以让"星"表示0个前面的字符，那就让A[0..i)去和B[0..j-2)匹配： f[i][j] = f[i][j-2]；也可以让"星"表示几个前面的字符，A[i-1]是多个ch中的最后一个，能否匹配取决于A[0..i-1)和B[0..j)是否匹配：f[i][j] = f[i-1][j] if (B[j-2]="." or B[j-2]=A[i-1])
 - [1537. Get the Maximum Score](Solutions/1537.Get-the-Maximum-Score.py) (!!H) <br>
 solution 1: two pointers + dp: dp1[i] := max path sum ends with nums1[i-1]; dp2[j] := max path sum ends with nums2[j-1]
+[0727. Minimum Window Subsequence](Solutions/0727.Minimum-Window-Subsequence.py) (!!H Google) <br>
+solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题只需要freq都满足了就行，这题不仅如此，而且还是讲究顺序的，; solution 2: dp
 
 --------- 983. Minimum Cost for tickets ------1349. Maximum Students Taking Exam--------1216. Valid Palindrome III-------
 
