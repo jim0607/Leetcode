@@ -28,6 +28,41 @@ class Solution:
     
 """TLE, should try Greedy solution with O(N), O(1)"""
 
+
+
+"""
+Greedy算法：第一步可以跳到比如位置10，也就是说0-10我们都可以一步跳到，那我们就在0-10这些位置中，选一个位置i跳第二步，
+看看第二步能跳到最远的地方是哪里，比如是最远的是从位置6跳到位置28，那么就说明两步可以跳到位置28，
+也就是说11-28我们可以通过两步跳到，那我们就继续在11-28这些位置中，选一个位置i跳第三步.........
+这个greedy的思想非常重要，要熟记！！
+"""
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        curr_coverage = nums[0]
+        if curr_coverage >= len(nums) - 1:
+            return True
+        
+        i = 0
+        while i < len(nums):
+            j = i
+            next_coverage = curr_coverage
+            for j in range(i, curr_coverage + 1):   # 更新next_coverage
+                next_coverage = max(next_coverage, j + nums[j])
+                
+            if next_coverage >= len(nums) - 1:  # 可以到达终点
+                return True
+            if next_coverage == curr_coverage:  # 无法前进了
+                return False
+            
+            i = j
+            curr_coverage = next_coverage
+            
+        return False
+
+
+
+
+
 """Greedy 解法: O(N) 
 Iterating right-to-left, for each position we check if there is a potential jump that 
 reaches a GOOD index (currPosition + nums[currPosition] >= GoodIndex). If we can reach a GOOD index, 
