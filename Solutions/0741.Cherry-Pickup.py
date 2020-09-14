@@ -1,3 +1,4 @@
+"""
 741. Cherry Pickup
 
 In a N x N grid representing a field of cherries, each cell is one of three possible integers.
@@ -28,6 +29,7 @@ The player started at (0, 0) and went down, down, right right to reach (2, 2).
 4 cherries were picked up during this single trip, and the matrix becomes [[0,1,-1],[0,0,-1],[0,0,0]].
 Then, the player went left, up, up, left to return home, picking up one more cherry.
 The total number of cherries picked up is 5, and this is the maximum possible.
+"""
 
 
 """
@@ -38,7 +40,7 @@ This is wrong because https://www.cnblogs.com/grandyang/p/8215787.html
 Go from (0, 0) -> (n-1, n-1) -> (0, 0) can be treated as two men go from (0, 0) -> (n-1, n-1) together, 
 but when they go into the same cell, they can pick up one cherry.
 Using DP to solve the problem:
-1.  dp[x1][y1][x2] to represent the largest ans we can get when first guy (marked as A) at(x1, y2) 
+1.  dp[x1][y1][x2] to represent the largest ans we can get when first guy (marked as A) at(x1, y1) 
 and second guy(marked as B) at (x2, x1 + y1 - x2), 只需要三个坐标是因为A和B是同时走的，走的步数是一样的。
 2.  Induction: every time we calculate the maximum of :
     * dp[x1 - 1][y1][x2] : A down, B right
