@@ -1180,8 +1180,6 @@ dp[i][j] = min(triangle[i][j] + dp[i-1][j], triangle[i][j] + dp[i-1][j-1]), roll
 dp[i][j] = min(dp[i-1][j-k] + A[i][j], where k = -1,0,1)
 - [1289. Minimum Falling Path Sum II](Solutions/1289.Minimum-Falling-Path-Sum-II.py) (!!H) <br>
 similar with 265. Paint House II: 将上一行的fisrt_min和second_min提前计算好 - O(MN)
-- [0741. Cherry Pickup](Solutions/0741.Cherry-Pickup.py) (!!H) <br>
-Go from (0, 0) -> (n-1, n-1) -> (0, 0) can be treated as two men go from (0, 0) -> (n-1, n-1) together, dp[x1][y1][x2] to represent the largest ans we can get when first guy (marked as A) at(x1, y2) and second guy(marked as B) at (x2, x1 + y1 - x2)
 - [0174. Dungeon Game](Solutions/0174.Dungeon-Game.py) (!!H) <br>
 find the max of mininum_sum in all the paths.这题不能像1102.Path-With-Maximum-Minimum-Value那样用Dijkstra's (mnlogn)因为这题不是四个方向都能走的，也就是说选择了一个方向就不能回到原来的位置了，所以只能dp -O(mn). 假设我们能到达(m, n)房间，我们需要的最小血量是dp[m][n] = 1 if A[m][n] >= 0 else 1- A[m][n], 这是我们的base case.
 那我们就知道了我们到达(m-1, n)房间所需的最小血量是dp[m-1][n] = 到达(m, n)房间所需要的血量减去在(m-1, n)房间的损耗，
@@ -1189,12 +1187,13 @@ find the max of mininum_sum in all the paths.这题不能像1102.Path-With-Maxim
 所以我们是从终点倒着往起点推。
 - [0221. Maximal Square](Solutions/0221.Maximal-Square.py) (M) <br>
 dp[i][j]=以(i, j)为右下角的最大正方形的边长; dp[i][j]=min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]) + 1 if matrix[i][j]=1 
-- [0403. Frog Jump](Solutions/0403.Frog-Jump.py) (M) <br>
+- [0403. Frog Jump](Solutions/0403.Frog-Jump.py) (H) <br>
 维护一个stonesDict的key is the stone in stones. value is the possible steps to reach the stone.
 There could be multiple possible steps to reach the stone, so stonesDict[stone] = set(). 
 状态转移方程为：1. 跳k-1到stone+k-1: stonesDict[stone + k - 1].add(k - 1); 2. 跳k到stone + k: stonesDict[stone + k].add(k); 3. 跳k + 1到stone + k + 1:stonesDict[stone + k + 1].add(k + 1); Return stonesDict[last stone] is not empty; this is bottom up method O(N^2), O(N^2)
-- [0055. Jump Game](Solutions/0055.Jump-Game.py) (!!H) <br>
-存在性问题。状态: dp[j]=能不能跳到位置j; 转移方程：dp[j]=True if dp[i] and nums[i]>=j-i) (TLE 注意只要有一个dp[i]是的dp[j]=True了就可以break了). DP解法: O(N^2).  Greedy 解法: O(N) Iterating right-to-left, for each position we check if there is a potential jump that reaches a GOOD index (currPosition + nums[currPosition] >= GoodIndex). If we can reach a GOOD index, then our position is itself GOOD. Iteration continues until the beginning of the array.  Return if the first position is a GOOD index.
+- [0741. Cherry Pickup](Solutions/0741.Cherry-Pickup.py) (!!H) <br>
+Go from (0, 0) -> (n-1, n-1) -> (0, 0) can be treated as two men go from (0, 0) -> (n-1, n-1) together, dp[x1][y1][x2] to represent the largest ans we can get when first guy (marked as A) at(x1, y2) and second guy(marked as B) at (x2, x1 + y1 - x2)
+
 
 ### [序列型DP](/Dynamic-Programming.py)
 - [0978. Longest Turbulent Subarray](Solutions/0978.Longest-Turbulent-Subarray.py) (M) <br>
@@ -1842,9 +1841,7 @@ greedily 尽量用最少的糖果去优先满足孩子孩子，所以需要先�
 田忌赛马：Greedy algorithm: sort A and B first, and then assign num_a to num_b so that num_a is larger than num_b and num_a as small as possible.
 For each num_a a in sortedA, we will either beat that num_b (put a into assigned[b] map), or throw it out (put a into not_assigned list). 
 - [0055. Jump Game](Solutions/0055.Jump-Game.py) (!!M) <br>
-存在性问题。状态: dp[j]=能不能跳到位置j; 转移方程：dp[j]=True if dp[i] and nums[i]>=j-i) (TLE 注意只要有一个dp[i]是的dp[j]=True了就可以break了). DP解法: O(N^2).  Greedy 解法: O(N) Iterating right-to-left, for each position we check if there is a potential jump that reaches a GOOD index (currPosition + nums[currPosition] >= leftmostGoodIndex). 
-If we can reach a GOOD index, then our position is itself GOOD. Iteration continues until the beginning of the array. 
-If first position is a GOOD index then we can reach the last index from the first position.
+solution 1: dp - TLE. solution 2: greedy - O(N)
 - [0045. Jump Game II](Solutions/0045.Jump-Game-II.py) (!!H) <br>
 Greedy算法：第一步可以跳到比如位置10，也就是说0-10我们都可以一步跳到，那我们就在0-10这些位置中，选一个位置i跳第二步，看看第二步能跳到最远的地方是哪里，比如是最远的是从位置6跳到位置28，那么就说明两步可以跳到位置28，也就是说11-28我们可以通过两步跳到，那我们就继续在11-28这些位置中，选一个位置i跳第三步.........这个greedy的思想非常重要，要熟记！！ 
 - [1024. Video Stitching](Solutions/1024.Video-Stitching.py) (!!M) <br>
