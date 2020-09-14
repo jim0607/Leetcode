@@ -1162,7 +1162,7 @@ In this way, the distances are represented by idx, which were sort by nature. <b
 backtracking with memorization, 由于必须把assigned_bike set放入到state中，所以是指数级别的复杂度, solution 2: backtrack + Dijkstra's <br>
 Extention: __Campus Bikes III (minimize max) - Dijkstra's__
 
----------------887. Super Egg Drop--------------------
+
 
 
 # [Dynamic Programming/bottom up DP](Dynamic-Programming.py)
@@ -1356,6 +1356,8 @@ solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题
 dp[j] = max number pressing j times.
 dp[j] = max(dp[i] * (j-i-1)), eg: i = j - 3; dp[j] = dp[j-3]* 2, 因为把dp[j-3] ctr+V了一次; 
 eg: i = j - 4, dp[j] = dp[j-4]* 3, 因为把dp[j-4] ctr+V了两次
+- [0887. Super Egg Drop](Solutions/0887.Super-Egg-Drop.py) (!!H) <br>
+solution 1 - O(KN^2): dp[i][j] 表示有i个鸡蛋，j层楼要测需要的最小操作数. dp[i][j] = min(dp[i][j], 1 + max(dp[i - 1][k - 1], dp[i][j - k]) for k in range(1, j)). solution 2 - O(KNlogN). 用binary search 找k， instead of linear search.
 - [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
 - [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (M)
 - [1049. Last Stone Weight II](Solutions/1049.Last-Stone-Weight-II.py) (M)
