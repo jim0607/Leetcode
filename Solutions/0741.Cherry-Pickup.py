@@ -48,7 +48,7 @@ and second guy(marked as B) at (x2, x1 + y1 - x2), 只需要三个坐标是因�
     * dp[x1 - 1][y1][x2 - 1]: A down, B down
     * dp[x1][y1 - 1][x2 - 1]: A right, B down
     if the Max of these values is negative, then we don't have a path to this point
-    else we have: dp[x1][y1][x2] = Max + grid[x1 - 1][y1 - 1] + grid[x2 - 1][y2 - 1] (if A, B不在同一点 else only pick up one cherry)
+    else we have: dp[x1][y1][x2] = Max + grid[x1][y1] + grid[x2][y2] (if A, B不在同一点 else only pick up one cherry)
 3.  Base case;
     we use dp[][][]from 1 - n, so we have:
         dp[1][1][1] = 1 and all other values are MIN_VALUE
