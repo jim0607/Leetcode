@@ -248,6 +248,7 @@ return the first i where dp[i] >= target.
 solution 2: heapq - O(nlogn)
 heapq stores the fuel at the station. 这题的关键是不要考虑到达的那个station的位置，
 我们永远只需要考虑从0出发，中途能加多少油，加的油越多跑得越远. 维护一个possible_coverage变量表示能跑多远. 这个题目用hq的方式跟Dikstra's有点像，都是要贪心地pop出最优解！
+- [DIDI OA. Min Deletions to Make Frequency of Each Letter Unique](Solutions/DIDI_OA.py) (!!M) <br>
 
 
 
