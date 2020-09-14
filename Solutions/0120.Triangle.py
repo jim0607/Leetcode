@@ -17,6 +17,30 @@ Note:
 Bonus point if you are able to do this using only O(n) extra space, where n is the total number of rows in the triangle.
 
 
+
+class Solution:
+    def minimumTotal(self, triangle: List[List[int]]) -> int:
+        m = len(triangle)
+        dp = [[float("inf")] * (i+1) for i in range(m)]
+        dp[0][0] = triangle[0][0]
+        for i in range(1, m):
+            for j in range(len(triangle[i])):
+                if j - 1 >= 0:
+                    dp[i][j] = min(dp[i][j], dp[i-1][j-1] + triangle[i][j])
+                if j < len(triangle[i]) - 1:
+                    dp[i][j] = min(dp[i][j], dp[i-1][j] + triangle[i][j])
+        return min(dp[-1])
+
+
+
+
+
+
+
+
+
+
+
 class Solution:
     def minimumTotal(self, A: List[List[int]]) -> int:
         dp = []
