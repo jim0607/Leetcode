@@ -1,3 +1,4 @@
+"""
 A frog is crossing a river. The river is divided into x units and at each unit there may or may not exist a stone. The frog can jump on a stone, but it must not jump into the water.
 
 Given a list of stones' positions (in units) in sorted ascending order, determine if the frog is able to cross the river by landing on the last stone. Initially, the frog is on the first stone and assume the first jump must be 1 unit.
@@ -22,34 +23,37 @@ Return true. The frog can jump to the last stone by jumping
 1 unit to the 2nd stone, then 2 units to the 3rd stone, then 
 2 units to the 4th stone, then 3 units to the 6th stone, 
 4 units to the 7th stone, and 5 units to the 8th stone.
+"""
 
 
 
-"""维护一个stonesDict的key is the stone in stones. value is the possible steps to reach the stone.
+"""
+维护一个stonesDict的key is the stone in stones. value is the possible steps to reach the stone.
 There could be multiple possible steps to reach the stone, so stonesDict[stone] = set(). 
 状态转移方程为：1. 跳k-1到stone+k-1: stonesDict[stone + k - 1].add(k - 1); 2. 跳k到stone + k: stonesDict[stone + k].add(k); 
 3. 跳k + 1到stone + k + 1:stonesDict[stone + k + 1].add(k + 1); Return the len(stonesDict[last stone])>0?
-this is bottom up method O(N^2), O(N^2)"""
+this is bottom up method O(N^2), O(N^2)
+"""
+
+"""
+stone_to_steps = (stone --> possible steps taken to reach stone)
+"""
 class Solution:
     def canCross(self, stones: List[int]) -> bool:
-
-        stonesDict = collections.defaultdict(set)  # key is stone in stones, val is the corresponding steps to reach the stone
+        stones_set = set(stones)    # convert to set for fast loop up
         
+        stone_to_steps = collections.defaultdict(set)
+        stone_to_steps[stones[0]].add(0)
         for stone in stones:
-            stonesDict[stone] = set()
-            
-        stonesDict[stones[0]].add(0)
-            
-        for stone in stones:
-            for k in stonesDict[stone]:     # 注意这个k不是任意取的
-                if stone + (k + 1) in stonesDict.keys():
-                    stonesDict[stone + k + 1].add(k + 1)
-                if stone + k in stonesDict.keys():
-                    stonesDict[stone + k].add(k)
-                if stone + (k - 1) in stonesDict.keys() and k > 1:     # 如果这里用k>=1的话会报错: set changed size during interation, 因为change了自己的size
-                    stonesDict[stone + k - 1].add(k - 1)
+            for k in stone_to_steps[stone]:     # 注意这个k不是任意取的
+                if k + 1 + stone in stones_set:
+                    stone_to_steps[k+1+stone].add(k+1)
+                if k + stone in stones_set:
+                    stone_to_steps[k+stone].add(k)
+                if k - 1 > 0 and k - 1 + stone in stones_set:   # 如果这里用k>=1的话会报错: set changed size during interation, 因为change了自己的size
+                    stone_to_steps[k-1+stone].add(k-1)
                     
-        return len(stonesDict[stones[-1]]) > 0
+        return len(stone_to_steps[stones[-1]]) > 0
     
     
 
