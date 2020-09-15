@@ -22,10 +22,7 @@ class Solution:
         
         # if k >= lens / 2, then the problem becomes 122, where you can make as much transactions as possible
         if k >= lens // 2:
-            maxProf = 0
-            for i in range(1, lens):
-                if prices[i] > prices[i - 1]:
-                    maxProf += prices[i] - prices[i - 1]
+            return self.stockII(prices)
 
         return maxProf
         
@@ -39,7 +36,16 @@ class Solution:
                 sell[i] = max(sell[i], price - buy[i])      # sell[i] = the maximum money you can earn after the ith purchase
                 
         return sell[-1]
+    
+   
+    def stockII(self, prices: List[int]) -> int:
+        prof = 0
+        for i in range(1, len(prices)):
+            if prices[i] > prices[i-1]:
+                prof += prices[i] - prices[i-1]
+        return prof
 
+    
     
 # solve the memory overflow problem below.
     
