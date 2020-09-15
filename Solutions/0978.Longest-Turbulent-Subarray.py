@@ -1,3 +1,4 @@
+"""
 978. Longest Turbulent Subarray
 
 A subarray A[i], A[i+1], ..., A[j] of A is said to be turbulent if and only if:
@@ -23,6 +24,8 @@ Example 3:
 
 Input: [100]
 Output: 1
+"""
+
 
 
 
