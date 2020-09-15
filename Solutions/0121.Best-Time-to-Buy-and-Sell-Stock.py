@@ -1,3 +1,4 @@
+"""
 121. Best Time to Buy and Sell Stock
 
 Say you have an array for which the ith element is the price of a given stock on day i.
@@ -12,15 +13,18 @@ Input: [7,1,5,3,6,4]
 Output: 5
 Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
              Not 7-1 = 6, as selling price needs to be larger than buying price.
+"""
              
              
              
-             
+"""
+Maintain a curr_min and a max_prof; max_prof = max(max_prof, price - curr_min)
+"""
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        minPrice, maxProfit = float("inf"), 0
+        curr_min = float("inf")
+        max_prof = 0
         for price in prices:
-          minPrice = min(minPrice, price)
-          maxProfit = max(maxProfit, price - minPrice)
-                
-        return maxProfit
+            curr_min = min(curr_min, price)
+            max_prof = max(max_prof, price - curr_min)
+        return max_prof
