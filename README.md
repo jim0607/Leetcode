@@ -1196,20 +1196,21 @@ Go from (0, 0) -> (n-1, n-1) -> (0, 0) can be treated as two men go from (0, 0) 
 
 
 ### [序列型DP](/Dynamic-Programming.py)
-- [0978. Longest Turbulent Subarray](Solutions/0978.Longest-Turbulent-Subarray.py) (M) <br>
+- [0978. Longest Turbulent Subarray](Solutions/0978.Longest-Turbulent-Subarray.py) (!!M) <br>
 dp: keep track of the lens of current increasing subarray and lens of current decreasing subarray.
 inc = dec + 1 if A[i]>A[i-1]; dec = inc + 1 if A[i]<A[i-1]
 - [0256. Paint House](Solutions/0256.Paint-House.py) (E) <br>
 dp[i][j] means the minimum cost to paint house i to be color j; dp[i][0] = costs[i][0] + min(dp[i-1][1], dp[i-1][2])
-- [0265. Paint House II](Solutions/0265.Paint-House-II.py) (H) <br> 
-dp[i][j]=minimum cost to paint the ith house the be color j; dp[i][j] = dp(minIThe(i-1)thRow) + costs[i][j]. In order to find dp(minIThe(i-1)thRow fast), we can find the position for the 1st and 2nd min in the i-1 th row first, then in the ith row calcuation, if j=1stMinposition, then dp[i][j]=2nd_min + costs[i][j], else dp[i][j]=1st_min + costs[i][j]
+- [0265. Paint House II](Solutions/0265.Paint-House-II.py) (!!H) <br> 
+dp[i][j]=minimum cost to paint the ith house the be color j; dp[i][j] = dp(min in the (i-1)th row) + costs[i][j]. In order to find dp(min in the (i-1)th row), we can find the position for the 1st and 2nd min in the i-1 th row first, then in the ith row calcuation, if j==1st_min_pos, then dp[i][j]=2nd_min + costs[i][j], else dp[i][j]=1st_min + costs[i][j]
 - [0198. House Robber](Solutions/0198.House-Robber.py) (E) <br>
 f[i]=the max profit when reaching ith house; f[i] = max(rob ith = f[i-2]+nums[i], not rob ith = f[i-1]) <br>
 空间优化：dp[i] 之和 dp[i-2]与dp[i-1]有关，所以可以用prevMax和currMax来代表dp[i-2]与dp[i-1]
-- [0213. House Robber II](Solutions/0213.House-Robber-II.py) (M) <br>
+- [0213. House Robber II](Solutions/0213.House-Robber-II.py) (!!M) <br>
 房子形成了一个环，所以第一个房子和第N个房子不能同时偷，我们可以把问题分成两个问题来解决：1. 房子1没偷：问题变成了对房子2:N做House robber I的问题; 2. 房子N没偷：问题变成了对房子1:N-1做House robber I的问题
-- [0337. House Robber III](Solutions/0337.House-Robber-III.py) (M) <br>
+- [0337. House Robber III](Solutions/0337.House-Robber-III.py) (!!M) <br>
 树状的house.递归： def with_without_rob(self, root): return a tuple, the 1st element in the tuple is the max profift with_rob_root， the 2nd element in the tuple is the max profit without_rob_root. 递归公式：with_rob_root = root.val + without_rob_left + without_rob_right; without_rob_root = max(with_rob_left, without_rob_left) + max(with_rob_right, without_rob_right)
+
 
 ### [Buy and sell stock DP问题](/Dynamic-Programming.py)
 - [0121. Best Time to Buy and Sell Stock](Solutions/0121.Best-Time-to-Buy-and-Sell-Stock.py) (E) <br>
