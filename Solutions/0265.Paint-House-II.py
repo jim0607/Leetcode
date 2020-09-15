@@ -14,30 +14,6 @@ Output: 5
 Explanation: Paint house 0 into color 0, paint house 1 into color 2. Minimum cost: 1 + 4 = 5; 
              Or paint house 0 into color 2, paint house 1 into color 0. Minimum cost: 3 + 2 = 5.
 
-
-
-"""dp[i][j]=minimum cost to paint the ith house the be color j
-O(N*K^2), O(N*K)"""
-class Solution:
-    def minCostII(self, costs: List[List[int]]) -> int:
-        if not costs:
-            return 0
-        
-        n, k = len(costs), len(costs[0])
-        dp = [[0] * k for _ in range(n)]
-        dp[0] = costs[0]
-        for i in range(1, n):
-            for j in range(k):
-                tempMin = float("inf")
-                for m in range(j):
-                    tempMin = min(tempMin, dp[i - 1][m])
-                for m in range(j + 1, k):
-                    tempMin = min(tempMin, dp[i - 1][m])
-                    
-                dp[i][j] = tempMin + costs[i][j]
-        
-        return min(dp[-1])
-        
         
 """
 优化成O(N*K)，因为每次都需要求出最小值，如果我们记录最小值就可以减小计算量了
