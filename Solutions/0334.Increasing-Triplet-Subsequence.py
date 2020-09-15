@@ -1,5 +1,6 @@
-"""solution 1: same as 300
-O(N^2), O(N)"""
+"""
+solution 1: same as 300
+O(N^2), O(N)
 """
 class Solution:
     def increasingTriplet(self, nums: List[int]) -> bool:
@@ -18,22 +19,19 @@ class Solution:
                     
         return False
         
-"""    
-"""how to solve it in O(N), O(1)"""
+
+                               
+"""
+how to solve it in O(N), O(1)
+"""
 class Solution:
     def increasingTriplet(self, nums: List[int]) -> bool:
-        if not nums:
-            return False
-        
-        lens = len(nums)
-        if lens < 3:
-            return False
-        
-        # min_1, mnin_2 and are the most min and the second min in the array
+                               
+        # min_1, mnin_2 and are the first min and the second min in the array
         min_1, min_2 = float("inf"), float("inf")
         for num in nums:
             if num < min_1:             # first renew
-                min_1 = num             # 很容易错写成 min1, min2 = num, min1, 为什么这么写会出错呢？
+                min_1 = num             # 很容易错写成 min1, min2 = num, min1, 为什么这么写会出错呢？因为我们不是要得到最小值和次小值，我们需要的是第一次出现的和第二次出现的min
             elif min_1 < num < min_2:   # second renew
                 min_2 = num
             elif min_2 < num:           # third renew
