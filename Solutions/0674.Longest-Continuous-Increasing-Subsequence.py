@@ -33,26 +33,23 @@ class Solution:
     def findLengthOfLCIS(self, nums: List[int]) -> int:
         if not nums:
             return 0
-        
-        lens = len(nums)
-        if lens == 1:
-            return lens
-        
-        curr = 1
-        res = 1
-        
-        for i in range(1, lens):
-            if nums[i] > nums[i - 1]:
-                curr += 1
+        if len(nums) == 1:
+            return 1
+        max_len = 1
+        curr_len = 1
+        for i in range(1, len(nums)):
+            if nums[i] > nums[i-1]:
+                curr_len += 1
             else:
-                curr = 1
-            
-            res = max(res, curr)
-                
-        return res
+                curr_len = 1
+            max_len = max(max_len, curr_len)
+        return max_len
+    
 
 
-"""two pointers, one act as an anchor"""
+"""
+two pointers, one act as an anchor
+"""
 class Solution:
     def findLengthOfLCIS(self, nums: List[int]) -> int:
         if not nums:
