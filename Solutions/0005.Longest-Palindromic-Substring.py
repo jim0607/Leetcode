@@ -38,10 +38,10 @@ class Solution:
         
         dp = [[False for _ in range(lens)] for _ in range(lens)]
         for i in range(lens):
-            dp[i][i] = True     # 初始化对角线
+            dp[i][i] = True     # 注意初始化的是对角线 - 这种区间问题都是初始化对角线
             
-        for i in range(lens - 2, -1, -1):   # 注意初始化的是对角线，因为计算dp[i][j需要用到dp[i+1][j-1]，所以要先算i+1, 再算i，所以i 是倒序遍历
-            for j in range(i + 1, lens):
+        for i in range(lens - 2, -1, -1):   # 因为计算dp[i][j需要用到dp[i+1][j-1]，所以要先算i+1, 再算i，所以i 是倒序遍历
+            for j in range(i + 1, lens):    # 注意j的范围
                 if s[j] == s[i]:
                     if j == i + 1:
                         dp[i][j] = True
