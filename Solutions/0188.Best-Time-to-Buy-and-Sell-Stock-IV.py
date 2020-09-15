@@ -1,3 +1,4 @@
+"""
 188. Best Time to Buy and Sell Stock IV
 
 Say you have an array for which the i-th element is the price of a given stock on day i.
@@ -12,9 +13,13 @@ Example 1:
 Input: [2,4,1], k = 2
 Output: 2
 Explanation: Buy on day 1 (price = 2) and sell on day 2 (price = 4), profit = 4-2 = 2.
+"""
 
 
-"""O(N*K), O(K)"""
+
+"""
+O(N*K), O(K)
+"""
 class Solution:
     def maxProfit(self, k: int, prices: List[int]) -> int:
         if k == 0 or not prices:
