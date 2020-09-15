@@ -1,3 +1,4 @@
+"""
 Given an unsorted array of integers, find the length of longest increasing subsequence.
 
 Example:
@@ -10,6 +11,9 @@ Note:
 There may be more than one LIS combination, it is only necessary for you to return the length.
 Your algorithm should run in O(n2) complexity.
 Follow up: Could you improve it to O(n log n) time complexity?
+"""
+
+
 
 """经典dp LIS 问题 O(N^2)"""
 class Solution:
@@ -33,21 +37,22 @@ class Solution:
     
 """NlogN的算法，还是网上的高人讲得好。https://www.youtube.com/watch?v=YoeWZ3ELMEk"""
 
-import bisect
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        dp = [0] * len(nums)    # dp[i]中的i是指最长上升子序列长度，好难讲dp[i]代表什么，看视频吧！
-        maxLen = 0
+        if not nums or len(nums) == 0:
+            return 0
         
-        for num in nums:
-            insertIndex = bisect.bisect_left(dp, num, 0, maxLen)    # 用binary search找到num应该放入的位置，以保证dp这个数组是递增的
-            dp[insertIndex] = num       # 将该位置的值改为num
-            
-            if insertIndex == maxLen:     # 如果num比dp中的数都大，则说明num放入的位置是整个递增数组的最右端，所以maxLen需要加1
-                maxLen += 1
+        dp = [nums[0]]  # dp[i]中的i是指最长上升子序列长度，好难讲dp[i]代表什么，看视频吧！
+        for i in range(1, len(nums)):
+            if nums[i] > dp[-1]:        # 如果num比dp中的数都大，则说明num放入的位置是整个递增数组的最右端
+                dp.append(nums[i])
+            else:
+                idx = bisect.bisect_left(dp, nums[i])   # 用binary search找到num应该放入的位置，以保证dp这个数组是递增的  
+                dp[idx] = nums[i]                       # 将该位置的值改为num
                 
-        return maxLen
+        return len(dp)
  
+
 
 # 不用python自带的包
 class Solution:
