@@ -1,3 +1,4 @@
+"""
 309. Best Time to Buy and Sell Stock with Cooldown
 
 Say you have an array for which the ith element is the price of a given stock on day i.
@@ -11,29 +12,25 @@ Example:
 Input: [1,2,3,0,2]
 Output: 3 
 Explanation: transactions = [buy, sell, cooldown, buy, sell]
+"""
 
 
 
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        if not prices:
+        if not prices or len(prices) == 1:
             return 0
         
-        lens = len(prices)
-        if lens == 1:
-            return 0
-        
-        hold = [0] * lens
-        unhold = [0] * lens
-        
+        hold = [float("-inf") for _ in range(len(prices))]
+        unhold = [float("-inf") for _ in range(len(prices))]
         hold[0] = -prices[0]
-        hold[1] = max(-prices[0], -prices[1])
         unhold[0] = 0
+        hold[1] = max(-prices[0], -prices[1])
         unhold[1] = max(0, prices[1] - prices[0])
         
-        for i in range(2, lens):
-            hold[i] = max(hold[i - 1], unhold[i - 2] - prices[i])
-            unhold[i] = max(unhold[i - 1], hold[i - 1] + prices[i])
+        for i in range(2, len(prices)):
+            hold[i] = max(unhold[i-2] - prices[i], hold[i-1])
+            unhold[i] = max(prices[i] + hold[i-1], unhold[i-1])
             
         return unhold[-1]
