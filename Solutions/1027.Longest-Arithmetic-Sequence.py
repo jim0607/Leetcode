@@ -11,24 +11,13 @@ The whole array is an arithmetic sequence with steps of length = 3.
         
         
         
-"""实际上这个问题和之前问题Leetcode 300：最长上升子序列（最详细的解法！！！）非常类似，我们可以使用动态规划来做。我们知道对于等差数列有三种情况
+"""
+实际上这个问题和之前问题Leetcode 300：最长上升子序列（最详细的解法！！！）非常类似，我们可以使用动态规划来做。我们知道对于等差数列有三种情况
 dp=a 2D array
 dp[i]=以i结尾的等差数列
-dp[i][j]=以i结尾的等差数列且以j为公差的长度"""
-class Solution:
-    def longestArithSeqLength(self, A: List[int]) -> int:
-        lens = len(A)
-        # 构建一个二维字典，collections.defaultdict(int)的默认值是0，可以通过collections.defaultdict(lambda: 1)把默认值改成1
-        dp = [collections.defaultdict(lambda: 1) for _ in range(lens)]   # 在每个位置上，以字典结构保存该位置元素与前面每个位置上元素的差值,这个差值就是字典的key，对应该差值的数列长度是字典的value。
-        res = 1
-        for i in range(lens-1):
-            for j in range(i+1, lens):
-                diff = A[j]-A[i]
-                # 这里的二维字典dp[j][diff]表示以j作为键值1，键值1对应的value是一个嵌套的dict，这个嵌套的dict里面可能有很多key-val pair，这个嵌套的dict的key是diff，value是该j下标对应该差值diff的数列长度
-                dp[j][diff] = dp[i][diff]+1
-                res = max(dp[j][diff], res)
-        return res
-"""O(N^2), O(N^2)"""
+dp[i][j]=以i结尾的等差数列且以j为公差的长度
+O(N^2), O(N^2)
+"""
 
 class Solution:
     def longestArithSeqLength(self, A: List[int]) -> int:        
@@ -36,6 +25,8 @@ class Solution:
         if lens <= 2:
             return lens
         
+        # dp[i] = dictionary (公差 --> LAS ended with ith)
+        # collections.defaultdict(int)的默认值是0，可以通过collections.defaultdict(lambda: 1)把默认值改成1
         dp = [collections.defaultdict(lambda: 1) for _ in range(lens)]  # why this is incorrect: dp = [collections.defaultdict(lambda: 1)] * lens
         
         maxLens = 1
@@ -48,6 +39,11 @@ class Solution:
                 maxLens = max(maxLens, val)
                     
         return maxLens
+
+
+
+
+
 
 """暴力法：O(N^3), O(N)
 思路：
