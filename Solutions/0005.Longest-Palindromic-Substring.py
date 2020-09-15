@@ -5,8 +5,7 @@ if s[i] == s[j]: dp[i][j] = True"""
 
 """
 dp[i][j]=is s[from i to j including i and j] a palindromic substring?
-dp[i][i]=True
-if (s[i]=s[j] for j > i): dp[i][j]=True if dp[i+1][j-1] is true or j-i==1
+dp[i][j]=True if dp[i+1][j-1] is true or j-i==1
 return the longest substring for all dp[i][j]=True
 """
 class Solution:
