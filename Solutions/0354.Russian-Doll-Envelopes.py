@@ -1,4 +1,6 @@
-You have a number of envelopes with widths and heights given as a pair of integers (w, h). One envelope can fit into another if and only if both the width and height of one envelope is greater than the width and height of the other envelope.
+"""
+You have a number of envelopes with widths and heights given as a pair of integers (w, h). 
+One envelope can fit into another if and only if both the width and height of one envelope is greater than the width and height of the other envelope.
 
 What is the maximum number of envelopes can you Russian doll? (put one inside other)
 
@@ -10,6 +12,8 @@ Example:
 Input: [[5,4],[6,4],[6,7],[2,3]]
 Output: 3 
 Explanation: The maximum number of envelopes you can Russian doll is 3 ([2,3] => [5,4] => [6,7]).
+"""
+
 
 
 """similiar with 300. LIS; here we not only compare nums[j]>nums[i], but instead both the width and height;
@@ -48,34 +52,17 @@ class Solution:
         lens = len(envelopes)
         if lens <= 1: return lens
         
-        envelopes.sort(key = lambda x: (x[0], -x[1]))   # sort width ascendingly以保证后面的width肯定能fit进前面的width, while sort length descendingly以保证相同的width不同的length不能相互fit进去
+        # sort width ascendingly以保证后面的width肯定能fit进前面的width, 
+        # while sort length descendingly以保证相同的width不同的length不能相互fit进去
+        envelopes.sort(key = lambda x: (x[0], -x[1]))   # 这一步的sort很tricky
         
         # now below we are just doing LIS problem using the length, which is exactly the same as 300
-        dp = [envelopes[0][1]]
-        for i, env in enumerate(envelopes):
-            if env[1] <= dp[0]:
-                dp[0] = env[1]     
-            elif env[1] > dp[-1]:
-                dp.append(env[1])     
+        dp = [envelopes[0][1]]      # 用length来做300. LIS
+        for i in range(1, len(envelopes)):
+            if envelopes[i][1] > dp[-1]:
+                dp.append(envelopes[i][1])
             else:
-                self.replace(dp, env[1])
-                    
+                idx = bisect.bisect_left(dp, envelopes[i][1])
+                dp[idx] = envelopes[i][1]
+                
         return len(dp)
-    
-    def replace(self, arr, num):
-        """
-        replace an item in arr
-        the arr is sorted acsendingly, and the arr is not none
-        return void
-        """
-        start, end = 0, len(arr) - 1
-        while start + 1 < end:
-            mid = start + (end - start) // 2
-            if num > arr[mid]:      
-                start = mid
-            else:           
-                end = mid
-
-        if arr[start] == num:
-            arr[start ] = num
-        arr[end] = num 
