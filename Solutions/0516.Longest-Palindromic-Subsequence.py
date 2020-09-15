@@ -1,3 +1,4 @@
+"""
 516. Longest Palindromic Subsequence
 
 Given a string s, find the longest palindromic subsequence's length in s. You may assume that the maximum length of s is 1000.
@@ -9,33 +10,38 @@ Input:
 Output:
 4
 One possible longest palindromic subsequence is "bbbb".
+"""
 
 
 
-"""dp[i][j]=dp[i+1][j-1]+2 if s[i]==s[j] else max(dp[i+1][j], dp[i][j-1])
-注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i"""
+
+"""
+dp[i][j]=dp[i+1][j-1]+2 if s[i]==s[j] else max(dp[i+1][j], dp[i][j-1])
+注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i
+"""
 class Solution:
     def longestPalindromeSubseq(self, s: str) -> int:
-        lens = len(s)
-        if lens <= 1:
-            return lens
         
-        dp = [[1] * lens for _ in range(lens)]     # longest palindr subsequence from i to j, including i and j
-        for i in range(lens):
+        # dp[i] = longest palindr subsequence from i to j, including i and j
+        dp = [[0 for _ in range(len(s))] for _ in range(len(s))]
+        for i in range(len(s)):
             dp[i][i] = 1
-            if i + 1 < lens:
-                dp[i][i + 1] = 2 if s[i] == s[i + 1] else 1
-                
-        for j in range(1, lens):
-            for i in range(j - 2, -1, -1):      ## 注意 i 要倒序遍历
+            
+        for i in range(len(s)-2, -1, -1):   # 注意 i 要倒序遍历
+            for j in range(i+1, len(s)):
                 if s[i] == s[j]:
-                    dp[i][j] = dp[i + 1][j - 1] + 2
-                
+                    if j == i + 1:
+                        dp[i][j] = 2
+                    else:
+                        dp[i][j] = max(dp[i+1][j-1] + 2, dp[i+1][j], dp[i][j-1])    # 注意这里dp[i+1][j-1] + 2成立是因为Subsequence不需要连续
                 else:
-                    dp[i][j] = max(dp[i + 1][j], dp[i][j - 1])
+                    dp[i][j] = max(dp[i+1][j], dp[i][j-1])
                     
-        return dp[0][lens - 1]
+        return dp[0][len(s)-1]
+                
 
+    
+    
     
 """解法一：递归, O(?)"""
 class Solution:
