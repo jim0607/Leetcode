@@ -1,3 +1,4 @@
+"""
 647. Palindromic Substrings
 
 Given a string, your task is to count how many palindromic substrings in this string.
@@ -16,6 +17,7 @@ Example 2:
 Input: "aaa"
 Output: 6
 Explanation: Six palindromic strings: "a", "a", "a", "aa", "aa", "aaa".
+"""
 
 
 """
@@ -25,18 +27,20 @@ if it is True, then number of palindromic substring += 1
 """
 class Solution:
     def countSubstrings(self, s: str) -> int:
-        cnt = 0
-        n = len(s)
-        dp = [[False for _ in range(n)] for _ in range(n)]
-        for i in range(n):
+        dp = [[False for _ in range(len(s))] for _ in range(len(s))]
+        for i in range(len(s)):
             dp[i][i] = True
-            cnt += 1
-            
-        for j in range(1, n):   # we need j-1 infomation to update j, 所以正序遍历
-            for i in range(j - 1, -1, -1):
+        for i in range(len(s)-2, -1, -1):
+            for j in range(i+1, len(s)):
                 if s[i] == s[j]:
-                    if j - i <= 2 or dp[i+1][j-1]:
+                    if j == i + 1:
                         dp[i][j] = True
-                        cnt += 1
-                        
+                    else:
+                        dp[i][j] = dp[i+1][j-1]
+        
+        cnt = 0
+        for i in range(len(s)-1, -1, -1):
+            for j in range(i, len(s)):
+                if dp[i][j]:
+                    cnt += 1
         return cnt
