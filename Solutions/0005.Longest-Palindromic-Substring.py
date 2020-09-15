@@ -1,7 +1,29 @@
-"""经典的区间型动态规划 
+"""
+5. Longest Palindromic Substring
+
+Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
+
+Example 1:
+
+Input: "babad"
+Output: "bab"
+Note: "aba" is also a valid answer.
+Example 2:
+
+Input: "cbbd"
+Output: "bb"
+"""
+
+
+
+
+
+"""
+经典的区间型动态规划 
 给定一些序列/字符串，进行一些操作，求满足区间[i, j]的一些性质的题目
 自然而然将状态定义为f[i][j]表示面对子序列[i, j]时的最佳性质。dp[i][j]=from i to j (including j), is it a palindr?
-if s[i] == s[j]: dp[i][j] = True"""
+if s[i] == s[j]: dp[i][j] = True
+"""
 
 """
 dp[i][j]=is s[from i to j including i and j] a palindromic substring?
@@ -21,7 +43,7 @@ class Solution:
         for i in range(lens - 2, -1, -1):   # 注意初始化的是对角线，因为计算dp[i][j需要用到dp[i+1][j-1]，所以要先算i+1, 再算i，所以i 是倒序遍历
             for j in range(i + 1, lens):
                 if s[j] == s[i]:
-                    if j - i == 1:
+                    if j == i + 1:
                         dp[i][j] = True
                     else:
                         dp[i][j] = dp[i + 1][j - 1]
@@ -33,10 +55,13 @@ class Solution:
                 if dp[i][j]:
                     if j - i + 1 > maxLens:
                         maxLens = j - i + 1
-                        res = s[i: j + 1]
-                        
+                        res = s[i: j + 1]  
         return res
 
+    
+    
+    
+    
 
 """
 Follow up quetion: If the problem is to ask what is the longest length?
@@ -57,7 +82,7 @@ class Solution:
         for j in range(1, lens):
             for i in range(j):
                 if s[i] == s[j]:
-                    dp[i][j] = dp[i + 1][j - 1] + 2     # I don't think this is correct @ 08/03/2020
+                    dp[i][j] = dp[i + 1][j - 1] + 2     # I don't think this is correct @ 08/03/2020.  Me neither @ 09/15/2020
                 
                 else:
                     dp[i][j] = max(dp[i + 1][j], dp[i][j - 1])
