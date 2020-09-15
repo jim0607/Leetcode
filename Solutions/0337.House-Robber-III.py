@@ -1,13 +1,6 @@
+"""
 337. House Robber III
-Medium
 
-2338
-
-49
-
-Add to List
-
-Share
 The thief has found himself a new place for his thievery again. There is only one entrance to this area, called the "root." Besides the root, each house has one and only one parent house. After a tour, the smart thief realized that "all houses in this place forms a binary tree". It will automatically contact the police if two directly-linked houses were broken into on the same night.
 
 Determine the maximum amount of money the thief can rob tonight without alerting the police.
@@ -24,6 +17,7 @@ Input: [3,2,3,null,3,null,1]
 
 Output: 7 
 Explanation: Maximum amount of money the thief can rob = 3 + 3 + 1 = 7.
+"""
 
 
 
@@ -38,30 +32,25 @@ Explanation: Maximum amount of money the thief can rob = 3 + 3 + 1 = 7.
                 / \       /  \        /  \
            [0,0] [0,0] [0,0] [0,0]  [0,0] [0,0]
 """
+
 class Solution:
-    lens = 0
     def rob(self, root: TreeNode) -> int:
-        """
-        return the max sum of elements withoug connecting each other, for the tree rooted as root
-        """
-        return max(self.with_without_rob(root)[0], self.with_without_rob(root)[1])
-    
-    def with_without_rob(self, root):
-        """
-        return a tuple, the 1st element in the tuple is the max profift with_rob_root
-        the 2nd element in the tuple is the max profit without_rob_root
-        """
-        if not root:
-            return (0, 0)
-        if not root.left and not root.right:
-            return (root.val, 0)
+        def helper(root):
+            """
+            Return the max_sum with_root, without_root
+            """
+            if not root:
+                return 0, 0
+            
+            # divide
+            left_w, left_wo = helper(root.left)
+            right_w, right_wo = helper(root.right)
+            
+            # conquer
+            root_w = left_wo + right_wo + root.val
+            root_wo = max(left_w, left_wo) + max(right_w, right_wo)
+            
+            return root_w, root_wo
         
-        # divide
-        with_rob_left, without_rob_left = self.with_without_rob(root.left)
-        with_rob_right, without_rob_right = self.with_without_rob(root.right)
         
-        # conque
-        with_rob_root = root.val + without_rob_left + without_rob_right
-        without_rob_root = max(with_rob_left, without_rob_left) + max(with_rob_right, without_rob_right)
-        
-        return with_rob_root, without_rob_root
+        return max(helper(root))
