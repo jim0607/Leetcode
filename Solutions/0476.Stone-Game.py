@@ -28,7 +28,7 @@ Explanation:
 
 """
 dp[i][j]表示合并i到j的石头需要的最小代价, including i and j.
-转移函数：dp[i][j]=dp[i][k]+dp[k+1][j]+sum[i][j]（i <= k =< j). 
+转移函数：dp[i][j] = max(dp[i][k]+dp[k+1][j]+sums[i][j] for k in range(i, j)). 
 即合并i－j的代价为合并左边部分的代价＋合并右边部分的代价＋合并左右部分的代价（即i－j所有元素的总和）。找到使dp[i][j]最小的k.
 """
 class Solution:
@@ -40,14 +40,12 @@ class Solution:
             sums[i][i] = A[i]
             for j in range(i + 1, n):
                 sums[i][j] = sums[i][j-1] + A[j]
-        print(sums)
                 
         # step 2: dp to find dp[0][len(A)-1]
         dp = [[0 for _ in range(n)] for _ in range(n)]
         for i in range(n-2, -1, -1):   # 注意要逆序遍历
             for j in range(i+1, n):
                 dp[i][j] = float("inf")
-                for k in range(i, j):
-                    dp[i][j] = min(dp[i][j], dp[i][k] + dp[k+1][j] + sums[i][j])
+                dp[i][j] = min(dp[i][k] + dp[k+1][j] + sums[i][j] for k in range(i, j))
                     
         return dp[0][len(A)-1]
