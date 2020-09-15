@@ -1,3 +1,4 @@
+"""
 122. Best Time to Buy and Sell Stock II
 
 Say you have an array for which the ith element is the price of a given stock on day i.
@@ -12,20 +13,16 @@ Input: [7,1,5,3,6,4]
 Output: 7
 Explanation: Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.
              Then buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.
+"""
+
              
-             
+"""
+whenever we can make a profit, we make a profit
+"""
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        if not prices:
-            return 0
-        
-        lens = len(prices)
-        if lens == 1:
-            return 0
-        
-        res = 0
-        for i in range(1, lens):
-            if prices[i] > prices[i - 1]:
-                res += prices[i] - prices[i - 1]
-        
-        return res
+        prof = 0
+        for i in range(1, len(prices)):
+            if prices[i] > prices[i-1]:
+                prof += prices[i] - prices[i-1]
+        return prof
