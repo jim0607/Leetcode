@@ -46,6 +46,6 @@ class Solution:
         for i in range(n-2, -1, -1):   # 注意要逆序遍历
             for j in range(i+1, n):
                 dp[i][j] = float("inf")
-                dp[i][j] = min(dp[i][k] + dp[k+1][j] + sums[i][j] for k in range(i, j))
+                dp[i][j] = min(dp[i][k] + dp[k+1][j] + sums[i][j] for k in range(i, j))   # 要理解为什么是sums[i][j]
                     
         return dp[0][len(A)-1]
