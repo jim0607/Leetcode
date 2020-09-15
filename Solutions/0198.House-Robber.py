@@ -1,3 +1,4 @@
+"""
 198. House Robber
 
 You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security system connected and it will automatically contact the police if two adjacent houses were broken into on the same night.
@@ -10,6 +11,9 @@ Input: [1,2,3,1]
 Output: 4
 Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
              Total amount you can rob = 1 + 3 = 4.
+"""
+             
+             
              
 
 """f[i]=the max profit when reaching ith house
@@ -32,6 +36,7 @@ class Solution:
             dp[i] = max(dp[i - 2] + nums[i], dp[i - 1])
             
         return dp[-1]
+        
 """
 """空间优化：dp[i] 之和 dp[i-2]与dp[i-1]有关，所以可以用prevMax和currMax来代表dp[i-2]与dp[i-1]"""
 class Solution:
