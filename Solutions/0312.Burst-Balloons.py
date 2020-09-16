@@ -18,6 +18,27 @@ Explanation: nums = [3,1,5,8] --> [3,5,8] -->   [3,8]   -->  [8]  --> []
 """
              
   
+"""
+dp[i][j] = max coin we can get from i to j, not including i, not including j.
+dp[i][j] = max(dp[i][k] + dp[k][j] + nums[i]*nums[k]*nums[j] for k in range(i+1, j))
+dp[i][k] 的意义是什么呢，是打爆区间 (i, k) 内 (not including i, not including k) 所有的气球后的最大得分，
+此时第 i+1 到 k-1 个气球已经爆掉了已经不能用了，同理，第 k+1 到 j-1 个气球也已经爆掉不能用了，
+这就是说区间 (i, j) 中除了第k个气球，其他的都已经爆了，那么周围的气球只能是第 i 个，和第 j 个了，
+所以得分应为 nums[i] * nums[k] * nums[j]
+"""
+class Solution:
+    def maxCoins(self, nums: List[int]) -> int:
+        nums = [1] + nums + [1]
+        n = len(nums)
+        dp = [[0 for _ in range(n)] for _ in range(n)]
+        for i in range(n-2, -1, -1):
+            for j in range(i+2, n):
+                dp[i][j] = max(dp[i][k] + dp[k][j] + nums[i]*nums[k]*nums[j] for k in range(i+1, j))
+        return dp[0][n-1]
+  
+  
+  
+  
   
 """
 backtrack without memorizaiton - O(2^N)
