@@ -1,3 +1,4 @@
+"""
 Given an array of scores that are non-negative integers. Player 1 picks one of the numbers from either end of the array followed by the player 2 and then player 1 and so on. Each time a player picks a number, that number will not be available for the next player. This continues until all the scores have been chosen. The player with the maximum score wins.
 
 Given an array of scores, predict whether player 1 is the winner. You can assume each player plays to maximize his score.
@@ -9,30 +10,35 @@ Explanation: Initially, player 1 can choose between 1 and 2.
 If he chooses 2 (or 1), then player 2 can choose from 1 (or 2) and 5. If player 2 chooses 5, then player 1 will be left with 1 (or 2). 
 So, final score of player 1 is 1 + 2 = 3, and player 2 is 5. 
 Hence, player 1 will never be the winner and you need to return False.
+"""
 
 
-"""f[i][j]=当石子还剩i到j时，先手最多能赢多少
-f[i][j] = max(取左边A[i]-f[i+1][j], 取右边A[j]-f[i][j-1])"""
+"""
+f[i][j]=当石子还剩i到j时，先手最多能赢多少
+f[i][j] = max(取左边A[i]-f[i+1][j], 取右边A[j]-f[i][j-1])
+"""
 class Solution:
     def PredictTheWinner(self, nums: List[int]) -> bool:
-        # dp[i][j]=the first taker can win by how much if the left stones are [i to j]
-        # dp[i][j]=max(nums[i]-dp[i+1][j], nums[j]-dp[i][j-1])
+        n = len(nums)
+        if n <= 2: return True
         
-        lens = len(nums)
-        if lens <= 2:
-            return True
-        
-        dp = [[0] * lens for _ in range(lens)]
-        for i in range(lens):
+        dp = [[0 for _ in range(n)] for _ in range(n)]
+        for i in range(n):
             dp[i][i] = nums[i]
-            
-        for j in range(1, lens):
-            for i in range(j - 1, -1, -1):
-                dp[i][j] = max(nums[i] - dp[i + 1][j], nums[j] - dp[i][j - 1])
-                
-        return dp[0][lens - 1] >= 0
+        for i in range(n-2, -1, -1):
+            for j in range(i+1, n):
+                if j == i + 1:
+                    dp[i][j] = abs(nums[j] - nums[i])
+                else:
+                    dp[i][j] = max(nums[i] - dp[i+1][j], nums[j] - dp[i][j-1])
+                    
+        return dp[0][n-1] >= 0
 
 
+    
+    
+    
+    
 """时间复杂度：O(2^N)，其中 N 是数组的长度。空间复杂度：O(N)，为递归时栈使用的空间。"""
 class Solution:
     def PredictTheWinner(self, nums: List[int]) -> bool:
