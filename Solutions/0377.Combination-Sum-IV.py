@@ -1,55 +1,71 @@
-#
-# @lc app=leetcode id=377 lang=python3
-#
-# [377] Combination Sum IV
-#
-# https://leetcode.com/problems/combination-sum-iv/description/
-#
-# algorithms
-# Medium (44.15%)
-# Likes:    1056
-# Dislikes: 126
-# Total Accepted:    103K
-# Total Submissions: 233.1K
-# Testcase Example:  '[1,2,3]\n4'
-#
-# Given an integer array with all positive numbers and no duplicates, find the
-# number of possible combinations that add up to a positive integer target.
-# 
-# Example:
-# 
-# 
-# nums = [1, 2, 3]
-# target = 4
-# 
-# The possible combination ways are:
-# (1, 1, 1, 1)
-# (1, 1, 2)
-# (1, 2, 1)
-# (1, 3)
-# (2, 1, 1)
-# (2, 2)
-# (3, 1)
-# 
-# Note that different sequences are counted as different combinations.
-# 
-# Therefore the output is 7.
-# 
-# 
-# 
-# 
-# Follow up:
-# What if negative numbers are allowed in the given array?
-# How does it change the problem?
-# What limitation we need to add to the question to allow negative numbers?
-# 
-# Credits:
-# Special thanks to @pbrother for adding this problem and creating all test
-# cases.
-# 
-#
+"""
+377. Combination Sum IV
+
+Given an integer array with all positive numbers and no duplicates, find the number of possible combinations that add up to a positive integer target.
+
+Example:
+
+nums = [1, 2, 3]
+target = 4
+
+The possible combination ways are:
+(1, 1, 1, 1)
+(1, 1, 2)
+(1, 2, 1)
+(1, 3)
+(2, 1, 1)
+(2, 2)
+(3, 1)
+
+Note that different sequences are counted as different combinations.
+
+Therefore the output is 7.
+"""
 
 
+"""
+不要求输出所有的combination，所以除了dfs，还有更快的方法：背包问题。
+如果问题要求用i个数加在一起拼出target，那么多半是背包问题。
+f[i]=how many ways to combine to number i  背包问题一定要把总承重放到状态里！！
+f[i]=f[i-A1]+f[i-A2]+f[i-A3]....
+f[0] = 1
+return f[target]
+注意和coin change II那题进行对比，我们发现for 循环的顺序是不一样的，这是因为这一题(1,3)和(3,1)都可以算到答案里, 而coin change II那题则不可以。
+"""
+class Solution:
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        lens = len(nums)
+        dp = [0] * (target + 1)
+        dp[0] = 1       # 注意这里初始化为1
+        
+        for m in range(target + 1):
+            for num in nums:    # 这里会导致(1,3)可以进solution, (3,1)也可以进solution, 所以符合题意。
+                if m >= num:
+                    dp[m] += dp[m - num]
+                    
+        return dp[target]
+    
+    
+"""
+Follow up:
+What if negative numbers are allowed in the given array?
+How does it change the problem?
+What limitation we need to add to the question to allow negative numbers?
+
+Answer to follow up questions:
+Negative numbers will cause problems. For example:
+sum of 0, and we have 1 and -1. Can have {1, -1}, {1, 1, -1, -1}, etc. There would be infinite count.
+That might seem like an obvious case, but consider this case: {-3, 5}. 
+Doesn't seem obvious if it will cause problems, but if you simply do 5 * -3 + 3 * 5, boom there goes the computer. 
+This basically means given ANY two numbers a, and b, one positive and one negative, 
+you will get infinite combinations by simply adding multiple of "a" number of "b"s and "b" number of "a"s ( ! ).
+
+This changes the problem because the DP vector will not work. 
+Updating negative numbers will require information on positive numbers that might not be updated, and vice versa. 
+This can only be solved using recursion (DFS), with pre-defined max recursion depth. 
+When the depth is limited, we limit them max size of a the numbers count that makes up the solution, 
+so we can stop the above from happening. The algorithm will be O(2^n), where n is the max recursion depth. Very cool.
+"""
 """
 solution 1: dfs to find all combinations
 """
@@ -75,34 +91,11 @@ class Solution:
         backtrack(0, [], 0)
         return len(res)
 
-
-
-"""
-不要求输出所有的combination，所以除了dfs，还有更快的方法：背包问题。
-如果问题要求用i个数加在一起拼出target，那么多半是背包问题。
-f[i]=how many ways to combine to number i  背包问题一定要把总承重放到状态里！！
-f[i]=f[i-A1]+f[i-A2]+f[i-A3]....
-f[0] = 1
-return f[target]
-注意和coin change II那题进行对比，我们发现for 循环的顺序是不一样的，这是因为这一题(1,3)和(3,1)都可以算到答案里, 而coin change II那题则不可以。
-"""
-class Solution:
-    def combinationSum4(self, nums: List[int], target: int) -> int:
-        # dp[m]=how many ways to add to m
-        # dp[m] += dp[m-num] for num in numsand m>=num
-        # dp[0] = 0
-        # return dp[target]
-        
-        lens = len(nums)
-        dp = [0] * (target + 1)
-        dp[0] = 1       # 注意这里初始化为1
-        
-        for m in range(target + 1):
-            for num in nums:    # 这里会导致(1,3)可以进solution, (3,1)也可以进solution, 所以符合题意。
-                if m >= num:
-                    dp[m] += dp[m - num]
-                    
-        return dp[target]
+    
+    
+    
+    
+    
 
 """为什么下面这样就是错的呢
 ### 因为思路不对，我们每次更新的是dp[i]，所以每一个循环更新一次。总共更新n次就对了。"""
@@ -121,8 +114,6 @@ class Solution:
                     dp[i] += dp[i - num]
                     
         return dp[target]
-
-
 
 
 
