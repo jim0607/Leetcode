@@ -21,31 +21,24 @@ https://www.kancloud.cn/kancloud/pack/70125
 这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。
 用子问题定义状态：即f[i][v]表示前i件物品恰放入一个容量为v的背包可以获得的最大价值。
 f[i][j]=max{f[i-1][j],f[i-1][j-A[i]]+V[i]}
-将前i件物品（包括i）放入容量为j的背包中”这个子问题，若只考虑第i件物品的策略（放或不放），那么就可以转化为一个只牵扯前i-1件物品的问题。如果不放第i件物品，那么问题就转化为“前i-1件物品放入容量为a的背包中”，价值为f[i-1][v]；如果放第i件物品，那么问题就转化为“前i-1件物品放入剩下的容量为j-A[i]的背包中”，此时能获得的最大价值就是f[i-1][j-A[i]]再加上通过放入第i件物品获得的价值V[i]"""
-class Solution:
-    def backPackII(self, m, A, V):
-        if not A:
-            return 0
-            
-        lens = len(A)
-        dp = [[0] * (m + 1) for _ in range(lens)]
+将前i件物品（包括i）放入容量为j的背包中”这个子问题，若只考虑第i件物品的策略（放或不放），
+那么就可以转化为一个只牵扯前i-1件物品的问题。如果不放第i件物品，那么问题就转化为“前i-1件物品放入容量为a的背包中”，价值为f[i-1][v]；
+如果放第i件物品，那么问题就转化为“前i-1件物品放入剩下的容量为j-A[i]的背包中”，此时能获得的最大价值就是f[i-1][j-A[i]]再加上通过放入第i件物品获得的价值V[i]
+"""
 
-        for i in range(lens):
-            
-            dp[i][0] = 0
-            
-            for j in range(1, m + 1):
-                if i == 0:      # initialize
-                    dp[i][j] = V[0] if A[0] <= j else 0
-                    continue
-                
-                if A[i] <= j:
-                    dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - A[i]] + V[i])
-                
-                else:
-                    dp[i][j] = dp[i - 1][j]
-                
-        return dp[lens - 1][m]
+class Solution:
+    def backPackII(self, target, A, V):
+        dp = [[0 for _ in range(target + 1)] for _ in range(len(A) + 1)]
+        for i in range(1, len(A) + 1):
+            for m in range(1, target + 1):
+                dp[i][m] = dp[i-1][m]
+                if m >= A[i-1]:
+                    dp[i][m] = max(dp[i][m], dp[i-1][m-A[i-1]] + V[i-1])
+                    
+        return dp[len(A)][target]
+
+    
+    
         
         
 """
