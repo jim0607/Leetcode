@@ -42,10 +42,10 @@ class Solution:
 
     
     
-""""
+"""
 优化为O(N^2), 用一个isPalin[i][j]记录s[i:j]是否是palindrome, 更新isPalin[i][j]的方法与leetcode 5 相同，
 这样就不用每次都用双指针去判断s[i:j]是不是palindrome
-""
+"""
 class Solution:
     def minCut(self, s: str) -> int:
         
