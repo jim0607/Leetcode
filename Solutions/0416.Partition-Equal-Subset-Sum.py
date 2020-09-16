@@ -1,11 +1,11 @@
-Given a non-empty array containing only positive integers, find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.
+"""
+Given a non-empty array containing only positive integers, 
+find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.
 
 Note:
-
 Each of the array element will not exceed 100.
 The array size will not exceed 200.
  
-
 Example 1:
 
 Input: [1, 5, 11, 5]
@@ -13,9 +13,12 @@ Input: [1, 5, 11, 5]
 Output: true
 
 Explanation: The array can be partitioned as [1, 5, 5] and [11].
+"""
 
 
-"""背包问题：将A中的物品放入容量为target的背包中，问是否存在？
+
+"""
+背包问题：将A中的物品放入容量为target的背包中，问是否存在？
 f[i]=将前i个物品放入背包中，能否拼出t (背包问题重量一定要入状态)
 f[i][t]=True if 不放最后一个进背包: f[i-1][t]=True or 放最后一个进背包: f[i-1][t-A[i-1]]=True"""
 """
@@ -24,25 +27,19 @@ dp[i][m] = 1. not put nums[i-1]: dp[i-1][m] or put nums[i-1]: dp[i-1][m-nums[i-1
 """
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
-        lens = len(nums)
-        sums = sum(nums)
-        if sums % 2 == 1:
-            return False
+        target = sum(nums) / 2
+        if target != int(target): return False
+        target = int(target)
         
-        target = sums // 2
-        
-        dp = [[False for _ in range(target + 1)] for _ in range(lens + 1)]
-        for i in range(lens + 1):
+        dp = [[False for _ in range(target + 1)] for _ in range(len(nums) + 1)]
+        for i in range(len(nums) + 1):
             dp[i][0] = True
-        
-        for i in range(1, lens + 1):
+        for i in range(1, len(nums) + 1):
             for m in range(1, target + 1):
-                dp[i][m] = dp[i - 1][m]
-            
-                if m >= nums[i - 1]:
-                    dp[i][m] = dp[i][m] or dp[i - 1][m - nums[i - 1]]
-                    
-        return dp[lens][target]
+                dp[i][m] = dp[i-1][m]
+                if m >= nums[i-1]:
+                    dp[i][m] = dp[i][m] or dp[i-1][m-nums[i-1]]
+        return dp[-1][-1]
        
        
 class Solution:
