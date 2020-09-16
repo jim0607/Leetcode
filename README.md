@@ -1150,8 +1150,6 @@ then memo[(curr_ring, curr_idx)] = min(memo[(curr_ring, curr_idx)], steps + 1 + 
 - [0293. Flip Game](Solutions/0293.Flip-Game.py) (E) <br>
 - [0294. Flip Game II](Solutions/0294.Flip-Game-II.py) (!!M) <br>
 dfs+memo: O(N^2); memo = (curr_state-->guarantee a win)
-- [0312. Burst Balloons](Solutions/0312.Burst-Balloons.py) (!!H) <br>
-backtrack without memorizaiton - O(2^N). solution 2: 带memo的recursion比DP更好懂; left = self.memoSearch(nums, i, k, memo); right=self.memoSearch(nums, k, j, memo); maxCoins = max(maxCoins, left + right + nums[i] * nums[k] * nums[j]). 
 - [0329. Longest Increasing Path in a Matrix](Solutions/0329.Longest-Increasing-Path-in-a-Matrix.py) (!!H) <br>
 solution 1: 从每一个点开始做backtrack - next candidate valid的条件是matrix[next_i][next_j] > matrix[curr_i][curr_j].  - O(MN2^(MN)).  solution 2: 由于题目并不要求算出path, 所以可以用recurssion with memorization to memorize the LIP from (curr_i, curr_j) (top down dp). Time complexity : O(MN). solution 3: buttom up dp.
 - [1057.Campus-Bikes.py](Solutions/1057.Campus-Bikes.py) (!!M) <br>
@@ -1241,8 +1239,8 @@ dp + binary search (O(NlogN))的算法也很重要！dp[i] = the maintianed arra
 - [0354. Russian Doll Envelopes](Solutions/0354.Russian-Doll-Envelopes.py) (!!H) <br>
 solution 1 dp - O(N^2): Similiar with 300. LIS; sort the list first envelopes.sort(key = lambda x: (x[0], x[1])), here we not only compare nums[j]>nums[i], but instead both the width and height; TLE. Solution 2: sort the evelopes first (tricky in sorting order!!), then 用length来做300. LIS - O(nlogn)
 - [0673. Number of Longest Increasing Subsequence](Solutions/0673.Number-of-Longest-Increasing-Subsequence.py) (!!M) <br>
- dp=以i为结尾的最大的长度; cnt=以i为结尾的最大的长度的个数; 在nums[j]>nums[i]的情况下：cnt[j]+=cnt[i] if dp[j]=dp[i]+1. solution 2: segment tree - O(nlogn)需要掌握！   
-- [1027. Longest Arithmetic Sequence.py](Solutions/1027.Longest-Arithmetic-Sequence.py) (M) <br>
+ dp=以i为结尾的最大的长度; cnt=以i为结尾的最大的长度的个数; 在nums[j]>nums[i]的情况下：cnt[j]+=cnt[i] if dp[j]=dp[i]+1.    
+- [1027. Longest Arithmetic Sequence.py](Solutions/1027.Longest-Arithmetic-Sequence.py) (!!M) <br>
 dp[i] = {key:diff, val:lens of arithmetic sequence ended with i and diff as 公差}; dp[j][nums[j]-nums[i]] = dp[i][nums[j] - nums[i]] + 1
 - [0873. Length of Longest Fibonacci Subsequence](Solutions/0873.Length-of-Longest-Fibonacci-Subsequence.py) (M) <br>
 dp[i]=dictionary{key: last num of the fib; val: the lens of the fib ended with ith}, dp[j][nums[i]]=d[i][nums[j]-nums[i]]+1
@@ -1250,13 +1248,13 @@ dp[i]=dictionary{key: last num of the fib; val: the lens of the fib ended with i
 Similiar with 300. LIS; dp[j] = max(dp[i] + 1 for i<j and nums[i]<nums[j]); if dp[j]>=3 return True；  how to solve it in O(N), O(1); min_1, min_2 and are the most min and the second min in the arr, if min_1 and min_2 are renewed twice already and there is a num>min_2 later, then return True.
 - [1048. Longest String Chain](Solutions/1048.Longest-String-Chain.py) (M) <br>
 dp = dict, key is word, val is the longest chain lens ended with word; prevWord = word[:i]+word[i+1:]; if prevWord in dp: dp[word] = max(dp[redesessor]+1)
-programming solution also.
-- [0907. Sum of Subarray Minimums](Solutions/0907.Sum-of-Subarray-Minimums.py) (!!M) <br>
+- [0907. Sum of Subarray Minimums](Solutions/0907.Sum-of-Subarray-Minimums.py) (!!!M) <br>
 我们其实关心的是以某个数字结尾时的子数组最小值之和，
 可以用一个一维数组 dp，其中 dp[i] 表示以数字 A[i] 结尾的所有子数组最小值之和，
 遍历A, 更新 dp[i] = dp[idx] + A[i] * (i-idx)，其中idx是往左寻找第一个比当前A[i]小的数的idx，
 最终的结果 res 就是将 dp 数组累加起来即可.
-为了更快速得到往左寻找第一个比当前A[i]小的数的 idx, 我们可以提前算好存起来，怎样算：monostack
+为了更快速得到往左寻找第一个比当前A[i]小的数的 idx, 我们可以提前算好存起来，怎样算：monostack.
+这种预先计算好sums的思想非常重要，参看132. Palindrome Partitioning II.
 
 
 ### [区间型DP](/Dynamic-Programming.py) 自然而然将状态定义为f[i][j]表示面对子区间[i, j]时的最佳性质
@@ -1269,11 +1267,16 @@ dp[i][j] = True if s[i]==s[j] and (dp[i+1][j-1] or lens <=2).
 if it is True, then number of palindromic substring += 1
 - [0516. Longest Palindromic Subsequence](Solutions/0516.Longest-Palindromic-Subsequence.py) (!!M) <br>
 题目问subsequence, subsequence不需要连续，题目要求Return the longest length: dp[i][j]=longest palindr from i to j; dp[i][j]=dp[i+1][j-1]+2 if s[i]==s[j] else max(dp[i+1][j], dp[i][j-1]);注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)
+- [0476. Stone Game](Solutions/0476.Stone-Game.py) (!!M Lintcode) <br>
+dp[i][j]表示合并i到j的石头需要的最小代价, including i and j.
+转移函数：dp[i][j] = max(dp[i][k]+dp[k+1][j]+sums[i][j] for k in range(i, j)). 
+即合并i－j的代价为合并左边部分的代价＋合并右边部分的代价＋合并左右部分的代价（即i－j所有元素的总和）。找到使dp[i][j]最小的k.
+- [0312. Burst Balloons](Solutions/0312.Burst-Balloons.py) (!!H) <br>
+solution 1: dp[i][j] = max coin we can get from i to j, __not including i, not including j__.  dp[i][j] = max(dp[i][k] + dp[k][j] + nums[i]* nums[k]* nums[j] for k in range(i+1, j)). solution 2: backtrack without memorizaiton - O(2^N). solution 3: 带memo的recursion; left = self.memoSearch(nums, i, k, memo); right=self.memoSearch(nums, k, j, memo); maxCoins = max(maxCoins, left + right + nums[i] * nums[k] * nums[j]). 
 
------------Lintcode 476. Stone Game-------------1011-----------410. Split Array Largest Sum---------------------1444--------956. Tallest Billboard-------
 
-
-###  [划分型DP](/Dynamic-Programming.py) (状态往往定义为前j个的某种特性，不包括j！！！！，这个思想很重要，相当于给前面做了一层buffer layer)
+###  [划分型DP](/Dynamic-Programming.py) 
+#### 状态往往定义为前j个的某种特性，__不包括 j__ ！！这个思想很重要，相当于给前面做了一层buffer layer)
 - [0139. Word Break](Solutions/0139.Word-Break.py) (!!M) <br>
 solution 1: dp[i]=can partition until ith char?, not including i; dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in wordDict). solution 2: bfs, solution 3: dfs + memorization (top-down dp)
 - [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M) <br>
@@ -1284,10 +1287,11 @@ Given a N-ary tree, where each node represents a __remainder__ of the number n s
 our task is to find a node in the tree, which should meet the conditions or remainder=0.
 Time complexity: 比较复杂最后是 O(n^(h/2)), where h is the height of the N-ary tree, h is 0 to 4
 - [0132. Palindrome Partitioning II](Solutions/0132.Palindrome-Partitioning-II.py) (!!H) <br>
-子数组或者子字符串且求极值的题，基本就是 DP 没差了. f[j]=the minimum number of total palindrome till the jth character (not including j); f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome. O(N^3), 划分型的dp的状态一般都not include j, 这样就有一个buffer layer可以用。Solution 2: 优化为O(N^2), 用一个isPalin[i][j]记录s[i:j]是否是palindrome, 更新isPalin[i][j]的方法与leetcode 5 相同，这样就不用每次都用双指针去判断s[i:j]是不是palindrome. 输出所有的可能的partition成palindrome的组合问题只能dfs+backtracking了- 131. Palindrome Partitioning
+子数组或者子字符串且求极值的题，基本就是 DP 没差了. f[j]=the minimum number of total palindrome till the jth character (not including j); f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome. O(N^3), 划分型的dp的状态一般都not include j, 这样就有一个buffer layer可以用。Solution 2: 优化为O(N^2), 用一个isPalin[i][j]记录s[i:j]是否是palindrome, 更新isPalin[i][j]的方法与leetcode 5 相同，这样就不用每次都用双指针去判断s[i:j]是不是palindrome. 这种预先计算好的思想非常重要，参看907. Sum of Subarray Minimums.  输出所有的可能的partition成palindrome的组合问题只能dfs+backtracking了- 131. Palindrome Partitioning
 - [1043. Partition Array for Maximum Sum](Solutions/1043.Partition-Array-for-Maximum-Sum.py) (!!M) <br>
 Suppose you are at position X of the array. What is the maximum possible sum to this point?
 so we go back K-1 steps, we choose the maximum from the following combinations: dp_sum[X - (k-1)] + max(A[X-(k-2)] ..... A[X])* (k-1)
+
 
 ### [博弈型DP](/Dynamic-Programming.py)
 - [0394. Coins in a Line](Solutions/0394.Coins-in-a-Line.py) (M Lintcode) <br>
@@ -1297,25 +1301,26 @@ Solution 2: 至于prev, curr有关，所以可以空间优化成O(1)了; Solutio
 f[i][j]=当石子还剩i到j时，先手最多能赢多少; f[i][j] = max(取左边A[i]-f[i+1][j], 取右边A[j]-f[i][j-1]), 注意f[i][j]与f[i+1][j]相关，所以i要从后往前遍历.
 
 ### [背包型DP](/Dynamic-Programming.py)
+#### 1. 背包问题的特点：题目要求加起来满足什么条件往往是背包；2. 背包问题总重量一定要入状态！ 3. 如果list中的items不能重复利用，那么状态要定义为成二维：前i个item拼出m的个数/可能性/方法/性质; 4. buffer layer
 - [0322. Coin Change](Solutions/0322.Coin-Change.py) (!!M) <br>
 背包问题，重量一定要入状态。状态: f[X]=最少用多少枚硬币拼出X; 转移方程：f[X] = min(f[X-1]+1, f[X-2]+1, f[X-5]+1, f[X])
 - [0092. Backpack](Solutions/0092.Backpack.py) (!!M Lintcode) <br>
-f[i][m]=能否用前i个物品拼出重量m; f[i][m] = f[i-1][m] (放不入，表示前i-1个物品就可以拼出m) or f[i-1][m-A[i-1]] (放入，表示前i-1个物品可以拼出m-A[i-1]); # 注意点1：这里要定义lens+1，这样就可以做一个buffer layer出来了; # 注意点2；这里循环i在外面，m在里面，千万别搞反了！！# 注意点3：由于buffer layer的存在，这里用nums[i-1]与m相比较
+__背包里的物品不能重复使用，所有状态定义为二维__ f[i][m]=能否用前i个物品拼出重量m; f[i][m] = f[i-1][m] (不放入，表示前i-1个物品就可以拼出m) or f[i-1][m-A[i-1]] (放入，表示前i-1个物品可以拼出m-A[i-1]); # 注意点1：这里要定义lens+1，这样就可以做一个buffer layer出来了; # 注意点2；这里循环i在外面，m在里面，千万别搞反了！！# 注意点3：由于buffer layer的存在，这里用nums[i-1]与m相比较
 - [0563. Backpack-V](Solutions/0563.Backpack-V.py) (!!M Lintcode) <br>
-一个num不能取多次，所以与322. coin change 不同。所以必须用二维数组，f[i][m]=前i个物品能拼出重量m有多少种方式。f[i][m] = 不放入 f[i-1][m] + 放入 f[i-1][m-A[i-1]] if m > nums[i] else =f[i-1][m]
+__一个num不能取多次，所有状态定义为二维__ ，f[i][m]=前i个物品能拼出重量m有多少种方式。f[i][m] = 不放入 f[i-1][m] + 放入 f[i-1][m-A[i-1]] if m > nums[i]
 - [0518. Coin Change 2](Solutions/0518.Coin-Change-2.py) (M) <br>
-与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解。DP解的for循环顺序很重要，由于(1,3)和(3,1)被认为是同一解，所以for coin in coins:是主循环，for num in range(1, amount + 1):是次循环。因为当coin遍历到coin=1的时候，dp[4]+=d[3]此时的dp[3]=0所以dp[4]实际上加的是0；而当coin遍历到coin=3的时候，dp[4]+=d[1]，此时d[1]被更新过一次。所以真个过程dp[4]只被更新一次，不会重复更新。
+与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解。DP解的for循环顺序很重要，由于(1,3)和(3,1)被认为是同一解，所以for coin in coins:是主循环，for num in range(1, amount + 1):是次循环。因为当coin遍历到coin=1的时候，dp[4]+=dp[3]此时的dp[3]=0所以dp[4]实际上加的是0；而当coin遍历到coin=3的时候，dp[4]+=dp[1]，此时dp[1]被更新过一次。所以真个过程dp[4]只被更新一次，不会重复更新。
 - [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (M)<br>
 self.dfs(nums, target - nums[i], 0, curr, res)  # (1, 3)和(3, 1)被认为是不同解，所以让i从0开始; solution 2: dp. 一个num能取多次，所以与322. coin change 相同。所以可以用一维数组，f[i]=how many ways to combine to number i; 背包问题一定要把总承重放到状态里！！ f[i]=f[i-A1]+f[i-A2]+f[i-A3].... <br> DP解的for循环顺序很重要， for m in range(target + 1): 是主循环，for num in nums:是次循环，这么写可以保证(1,3)可以进solution, (3,1)也可以进solution, 所以符合题意。
 - [0125. Backpack II](Solutions/0125.Backpack-II.py) (!!M Lintcode) <br>
 这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。用子问题定义状态：即f[i][j]表示前i件物品拼出重量j可以获得的最大价值。
-f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i]]+V[i] (放入)}; return f[lens-1][M]
+f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i-1]]+V[i-1] (放入)}; return f[lens][M]
 - [0089. k Sum](Solutions/0089.k-Sum.py) (M Lintcode) <br>
 f[i][j][s]表示有多少种方法可以在前i个数中选出j个，使得它们的和是s; 情况一:（A[i-1]不选入）：需要在前n-1个数中选K个数，使得它们的和是Target: f[i][j][s] += f[i-1][j][s]; 情况二（A[i-1]选入）：需要在前i-1个数中选j-1个数，使得它们的和是Target-A[i-1]: f[i][j][s] += f[i-1][j-1][s-A[i-1]]
 - [0416. Partition Equal Subset Sum](Solutions/0416.Partition-Equal-Subset-Sum.py) (M) <br>
-背包问题：将A中的物品放入容量为target的背包中，问是否存在？一个num不能取多次，所以与322. coin change 不同。所以必须用二维数组。与0092一模一样。 f[i][t]=将前i个物品放入背包中，能否拼出t (背包问题重量一定要入状态); f[i][t]=True if 不放最后一个进背包: f[i-1][t]=True or 放最后一个进背包: f[i-1][t-A[i-1]]=True
+背包问题：将A中的物品放入容量为target的背包中，问是否存在 __背包里的物品不能重复使用，所有状态定义为二维__ 。与0092一模一样。 f[i][t]=将前i个物品放入背包中，能否拼出t (背包问题重量一定要入状态); f[i][t]=True if 不放最后一个进背包: f[i-1][t]=True or 放最后一个进背包: f[i-1][t-A[i-1]]=True
 
---------------------------- 473. Matchsticks to Square ----------------------956. Tallest Billboard---------
+---------- 473. Matchsticks to Square ----------------------956. Tallest Billboard !!---------
 
 
 ### [位操作型DP](/Dynamic-Programming.py)
