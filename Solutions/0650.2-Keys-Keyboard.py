@@ -1,3 +1,4 @@
+"""
 650. 2 Keys Keyboard
 
 Initially on a notepad only one character 'A' is present. You can perform two operations on this notepad for each step:
@@ -17,6 +18,24 @@ Intitally, we have one character 'A'.
 In step 1, we use Copy All operation.
 In step 2, we use Paste operation to get 'AA'.
 In step 3, we use Paste operation to get 'AAA'.
+"""
+
+
+
+"""
+递归调用即可，寻找第一个可以dividor that can divide n, return dividor + self.minSteps(n//dividor)
+"""
+class Solution:
+    def minSteps(self, n: int) -> int:
+        if n == 1: return 0
+        if n == 2: return 2
+        if n == 3: return 3
+        for div in range(2, n // 2 + 1):    # 寻找第一个可以dividor that can divide n
+            if n % div == 0:
+                return div + self.minSteps(n // div)
+        return n
+
+
 
 
 """
