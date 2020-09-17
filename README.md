@@ -1210,6 +1210,11 @@ f[i]=the max profit when reaching ith house; f[i] = max(rob ith = f[i-2]+nums[i]
 房子形成了一个环，所以第一个房子和第N个房子不能同时偷，我们可以把问题分成两个问题来解决：1. 房子1没偷：问题变成了对房子2:N做House robber I的问题; 2. 房子N没偷：问题变成了对房子1:N-1做House robber I的问题
 - [0337. House Robber III](Solutions/0337.House-Robber-III.py) (!!M) <br>
 树状的house.递归： def with_without_rob(self, root): return a tuple, the 1st element in the tuple is the max profift with_rob_root， the 2nd element in the tuple is the max profit without_rob_root. 递归公式：with_rob_root = root.val + without_rob_left + without_rob_right; without_rob_root = max(with_rob_left, without_rob_left) + max(with_rob_right, without_rob_right)
+- [0983. Minimum Cost For Tickets](Solutions/0983.Minimum-Cost-For-Tickets.py) (!!M) <br>
+我们定义函数f(i)表示第i天的最低消费，那么
+某天，如果你不必出行的话，等一等再购买火车票一定更优，如果你需要出行的话，那么就有三种选择：在通行期为 1 天、7 天、30 天中的火车票中选择一张购买。
+f(i)=f(i−1)  if i not in days
+else f(i)=min(f(i−1)+costs[0],f(i−7)+costs[1],f(i−30)+costs[2])
 
 
 ### [Buy and sell stock DP问题](/Dynamic-Programming.py)
@@ -1269,6 +1274,10 @@ dp[i][j] = True if s[i]==s[j] and (dp[i+1][j-1] or lens <=2).
 if it is True, then number of palindromic substring += 1
 - [0516. Longest Palindromic Subsequence](Solutions/0516.Longest-Palindromic-Subsequence.py) (!!M) <br>
 题目问subsequence, subsequence不需要连续，题目要求Return the longest length: dp[i][j]=longest palindr from i to j; dp[i][j]=dp[i+1][j-1]+2 if s[i]==s[j] else max(dp[i+1][j], dp[i][j-1]);注意初始化对角线，因为计算dp[i]需要用到dp[i+1]，所以要先算i+1, 再算i，所以i is from (j, 0)
+- [0680. Valid Palindrome II](Solutions/0680.Valid-Palindrome-II.py) (E) <br>
+warm up for next question.  two pointers: if s[i] != s[j]: return self.ispalin(s[i:j]) or self.ispalin(s[i+1:j+1])
+- [1216. Valid Palindrome III](Solutions/1216.Valid-Palindrome-III.py) (H) <br>
+find the Longest Palindromic Subsequence L, return lens - L <= k.
 - [0476. Stone Game](Solutions/0476.Stone-Game.py) (!!M Lintcode) <br>
 dp[i][j]表示合并i到j的石头需要的最小代价, including i and j.
 转移函数：dp[i][j] = max(dp[i][k]+dp[k+1][j]+sums[i][j] for k in range(i, j)). 
@@ -1353,12 +1362,12 @@ f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配； 画个图�
 情况二：B[j-1]是"星"：可以让"星"表示0个字符，那就让A[0..i)去和B[0..j-1)匹配： f[i][j] = f[i][j-1]；也可以让"星"表示字符，A[i-1]肯定是多个ch中的最后一个，能否匹配取决于A[0..i-1)和B[0..j)是否匹配：f[i][j] = f[i-1][j]
 - [0010. Regular Expression Matching](Solutions/0010.Regular-Expression-Matching.py) (!!H) <br>
 f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B[j-1]不是"星": f[i][j] = f[i-1][j-1] if (B[j-1]="." or A[i-1]=B[j-1]); 情况二：B[j-1]是"星"：可以让"星"表示0个前面的字符，那就让A[0..i)去和B[0..j-2)匹配： f[i][j] = f[i][j-2]；也可以让"星"表示几个前面的字符，A[i-1]是多个ch中的最后一个，能否匹配取决于A[0..i-1)和B[0..j)是否匹配：f[i][j] = f[i-1][j] if (B[j-2]="." or B[j-2]=A[i-1])
-- [1537. Get the Maximum Score](Solutions/1537.Get-the-Maximum-Score.py) (!!H) <br>
-solution 1: two pointers + dp: dp1[i] := max path sum ends with nums1[i-1]; dp2[j] := max path sum ends with nums2[j-1]
 - [0727. Minimum Window Subsequence](Solutions/0727.Minimum-Window-Subsequence.py) (!!H Google) <br>
-solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题只需要freq都满足了就行，这题不仅如此，而且还是讲究顺序的，; solution 2: dp
+solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题只需要freq都满足了就行，这题不仅如此，而且还是讲究顺序的，; solution 2: dp - dp[i][j] = the min window subsequence that ends with ith ch in t, and jth ch in s.
+If t[i-1] == s[j-1]: dp[i][j] = dp[i-1][j-1] + 1; else: dp[i][j] = dp[i][j-1] + 1
+- [1537. Get the Maximum Score](Solutions/1537.Get-the-Maximum-Score.py) (!!H) <br>
+two pointers + dp: dp1[i] = max path sum ends with nums1[i-1]; dp2[j] = max path sum ends with nums2[j-1]  two pointers loop over nums1 and nums2 and update dp1 and dp2.
 
---------- 983. Minimum Cost for tickets ------1349. Maximum Students Taking Exam--------1216. Valid Palindrome III-------
 
 
 ### [Other DP Problems](https://juejin.im/post/5d556b7ef265da03aa2568d5)
