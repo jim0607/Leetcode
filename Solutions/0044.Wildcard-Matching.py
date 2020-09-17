@@ -62,7 +62,7 @@ cclass Solution:
                     if i >= 1:
                         dp[i][j] = dp[i][j] or dp[i-1][j]  # "*" represen a seq, and the seq has to end with s[i-1]
                 else:
-                    if p[j-1] == "?" or (i >= 1 and p[j-1] == s[i-1]):
+                    if i >= 1 and (p[j-1] == "?" or p[j-1] == s[i-1]):
                         dp[i][j] = dp[i-1][j-1]
                         
         return dp[m][n]
