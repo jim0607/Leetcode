@@ -1,3 +1,4 @@
+"""
 1537. Get the Maximum Score
 
 You are given two sorted arrays of distinct integers nums1 and nums2.
@@ -36,6 +37,7 @@ Example 4:
 
 Input: nums1 = [1,4,5,8,9,11,19], nums2 = [2,3,4,11,12]
 Output: 61
+"""
 
 
 
@@ -54,7 +56,7 @@ class Solution:
         lens1, lens2 = len(nums1), len(nums2)
         dp1 = [0 for _ in range(lens1 + 1)]     # 这题必须加buffer layer
         dp2 = [0 for _ in range(lens2 + 1)]
-        i, j = 1, 1
+        i, j = 1, 1         # 注意从1开始
         while i < lens1 + 1 and j < lens2 + 1:
             if nums1[i-1] == nums2[j-1]:
                 dp1[i] = max(dp1[i-1], dp2[j-1]) + nums1[i-1]
