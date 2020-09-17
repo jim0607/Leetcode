@@ -946,12 +946,14 @@ exactly the same as 216.
 与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解。DP解的for循环顺序很重要，由于(1,3)和(3,1)被认为是同一解，所以for coin in coins:是主循环，for num in range(1, amount + 1):是次循环。因为当coin遍历到coin=1的时候，dp[4]+=d[3]此时的dp[3]=0所以dp[4]实际上加的是0；而当coin遍历到coin=3的时候，dp[4]+=d[1]，此时d[1]被更新过一次。所以真个过程dp[4]只被更新一次，不会重复更新。
 - [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (M)<br>
 self.dfs(nums, target - nums[i], 0, curr, res)  # (1, 3)和(3, 1)被认为是不同解，所以让i从0开始; solution 2: dp. DP解的for循环顺序很重要， for m in range(target + 1): 是主循环，for num in nums:是次循环，这么写可以保证(1,3)可以进solution, (3,1)也可以进solution, 所以符合题意。
-- [0698. Partition to K Equal Sum Subsets](Solutions/0698.Partition-to-K-Equal-Sum-Subsets.py) (!!M) <br>
+- [0698. Partition to K Equal Sum Subsets](Solutions/0698.Partition-to-K-Equal-Sum-Subsets.py) (!!!M) <br>
 套backtrack模板即可，backtrack里面需要传入(curr_sum, curr_idx, curr_cnt).
 结束条件是已有curr_cnt=k段满足条件了. 
 Time complexity: we basically iterate over nums and for each element either use it or drop it, 
 which is O(2^n). We are doing the same for each subset. Total subsets are k. 
 So Time Complexity becomes O(k*(2^n))
+- [0698. Partition to K Equal Sum Subsets](Solutions/0698.Partition-to-K-Equal-Sum-Subsets.py) (!!M) <br>
+backtrack: 698. Partition to 4 Equal Sum Subsets
 - [0254. Factor Combinations](Solutions/0254.Factor-Combinations.py) (M) <br>
 solution 1: step 1. we get a list of factors first; step 2. then we do a dfs like combination sum
 - [0046. Permutations](Solutions/0046.Permutations.py) (!!M)<br>
@@ -1319,19 +1321,20 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i-1]]+V[i-1] (放入)}; return f[le
 f[i][j][s]表示有多少种方法可以在前i个数中选出j个，使得它们的和是s; 情况一:（A[i-1]不选入）：需要在前n-1个数中选K个数，使得它们的和是Target: f[i][j][s] += f[i-1][j][s]; 情况二（A[i-1]选入）：需要在前i-1个数中选j-1个数，使得它们的和是Target-A[i-1]: f[i][j][s] += f[i-1][j-1][s-A[i-1]]
 - [0416. Partition Equal Subset Sum](Solutions/0416.Partition-Equal-Subset-Sum.py) (M) <br>
 背包问题：将A中的物品放入容量为target的背包中，问是否存在 __背包里的物品不能重复使用，所有状态定义为二维__ 。与0092一模一样。 f[i][t]=将前i个物品放入背包中，能否拼出t (背包问题重量一定要入状态); f[i][t]=True if 不放最后一个进背包: f[i-1][t]=True or 放最后一个进背包: f[i-1][t-A[i-1]]=True
-
----------- 473. Matchsticks to Square ----------------------956. Tallest Billboard !!---------
+- [0473. Matchsticks to Square](Solutions/0473.Matchsticks-to-Square.py) (!!M) <br>
+backtrack: 698. Partition to 4 Equal Sum Subsets
+- [0956. Tallest Billboard](Solutions/0956.Tallest-Billboard.py) (!!M) <br>
+Given a list of numbers, multiply each number with 1 or 0 or -1, make the sum of all numbers to 0. 
+Find a combination which has the largest sum of all positive numbers.
 
 
 ### [位操作型DP](/Dynamic-Programming.py)
 - [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) <br>
 状态dp[i]=i的二进制中有多少个1; dp[i] = dp[i >> 1] + i % 2
 
----------191. Number of 1 Bits 土拨鼠google onsite ----
-----------1349. Maximum Students Taking Exam-----
-
 
 ### [双序列型DP!!](/Dynamic-Programming.py) 
+#### 二维数组下标表示序列A前i个，序列B前j个: f[i][j]
 - [1143. Longest Common Subsequence](Solutions/1143.Longest-Common-Subsequence.py) (!!M) <br>
 f[i][j]为A前i个字符A[0..i)和B前j个字符[0..j)的最长公共子串的长度，注意不包括i和j，前面有一层buffer layer非常重要，就像sputtering那样重要！ f[i][j]=f[i-1][j-1] + 1 when A[i-1]=B[j-1], else f[i][j]=max(f[i-1][j], f[i][j-1])) # 注意有了buffer layer之后，dp中的i对应的是text中的i-1,所以判断条件是when A[i-1]=B[j-1]
 - [583. Delete Operation for Two Strings](Solutions/0583.Delete-Operation-for-Two-Strings.py) (M) <br>
@@ -1339,7 +1342,7 @@ f[i][j] = the min number of steps needed to make word1[:i] and word[:j] the same
 - [0161. One Edit Distance](Solutions/0161.One-Edit-Distance.py) (M) <br>
 warm up problem for 72.  One pass solution using two pointers: if s[i] != t[j]: return s[i+1:] == t[j+1:] or s[i+1:] == t[j:] or s[i:] == t[j+1:]
 - [0072. Edit Distance/Levenshtein distance](Solutions/0072.Edit-Distance.py) (!!H) <br>
-f[i][j]=A前i个字符[0..i)和B前j个字符[0..j)的最小编辑距离; f[i][j]=min{1. f[i-1][j]+1 (f[i-1][j]表示A[0..i-1)就可以拼成B[0..j)了，所以A[0..i)要拼成B[0..j)需要删掉A[0..i)的最后一个字母); 2. f[i][j-1]+1 (B[0..j)需要删掉最后一个字母，即A[0..i)的后面需要增加一个字母); 3. f[i-1][j-1]+1 (A[0..i)的后面需要replace一个字母); 4. f[i-1][j-1] (if A[i-1]=B[j-1] 就不需要任何操作直接就是了)}
+f[i][j]=A前i个字符[0..i)和B前j个字符[0..j)的最小编辑距离; f[i][j]=min{case 1. f[i-1][j]+1 (f[i-1][j]表示A[0..i-1)就可以拼成B[0..j)了，所以A[0..i)要拼成B[0..j)需要删掉A[0..i)的最后一个字母); case 2. f[i][j-1]+1 (B[0..j)需要删掉最后一个字母，即A[0..i)的后面需要增加一个字母); case 3. f[i-1][j-1]+1 (A[0..i)的后面需要replace一个字母); case 4. f[i-1][j-1] (if A[i-1]=B[j-1] 就不需要任何操作直接就是了)}
 - [0097. Interleaving String](Solutions/0097.Interleaving-String.py) (!!H) <br>
 f[i][j]=s3的前[0..i+j)个字符能否由s1前i个字符[0..i)和s2前j个字符[0..j)交错形成; f[i][j]=True when (s3[i+j-1]=s1[i-1] 且 f[i-1][j]=True 即s3的前[0..i+j-1)个字符能否由s1前i-1个字符[0..i-1)和s2前j个字符[0..j)交错形成) or (s3[i+j-1]=s2[j-1] and f[i][j-1]=True)
 - [0115. Distinct Subsequences](Solutions/0115.Distinct-Subsequences.py) (H) <br>
@@ -1352,7 +1355,7 @@ f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配； 画个图�
 f[i][j]=A前i个字符A[0..i)和B前j个字符B[0..j)能否匹配; 情况一：B[j-1]不是"星": f[i][j] = f[i-1][j-1] if (B[j-1]="." or A[i-1]=B[j-1]); 情况二：B[j-1]是"星"：可以让"星"表示0个前面的字符，那就让A[0..i)去和B[0..j-2)匹配： f[i][j] = f[i][j-2]；也可以让"星"表示几个前面的字符，A[i-1]是多个ch中的最后一个，能否匹配取决于A[0..i-1)和B[0..j)是否匹配：f[i][j] = f[i-1][j] if (B[j-2]="." or B[j-2]=A[i-1])
 - [1537. Get the Maximum Score](Solutions/1537.Get-the-Maximum-Score.py) (!!H) <br>
 solution 1: two pointers + dp: dp1[i] := max path sum ends with nums1[i-1]; dp2[j] := max path sum ends with nums2[j-1]
-[0727. Minimum Window Subsequence](Solutions/0727.Minimum-Window-Subsequence.py) (!!H Google) <br>
+- [0727. Minimum Window Subsequence](Solutions/0727.Minimum-Window-Subsequence.py) (!!H Google) <br>
 solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题只需要freq都满足了就行，这题不仅如此，而且还是讲究顺序的，; solution 2: dp
 
 --------- 983. Minimum Cost for tickets ------1349. Maximum Students Taking Exam--------1216. Valid Palindrome III-------
