@@ -1,3 +1,4 @@
+"""
 Given two words word1 and word2, find the minimum number of operations required to convert word1 to word2.
 
 You have the following 3 operations permitted on a word:
@@ -13,10 +14,18 @@ Explanation:
 horse -> rorse (replace 'h' with 'r')
 rorse -> rose (remove 'r')
 rose -> ros (remove 'e')
+"""
 
 
-"""f[i][j]=A前i个字符[0..i)和B前j个字符[0..j)的最小编辑距离
-f[i][j]=min{1. f[i-1][j]+1 (f[i-1][j]表示A[0..i-1)就可以拼成B[0..j)了，所以A[0..i)要拼成B[0..j)需要删掉A[0..i)的最后一个字母); 2. f[i][j-1]+1 (B[0..j)需要删掉最后一个字母，即A[0..i)的后面需要增加一个字母); 3. f[i-1][j-1]+1 (A[0..i)的后面需要replace一个字母); 4. f[i-1][j-1] (if A[i-1]=B[j-1] 就不需要任何操作直接就是了)}"""
+
+"""
+f[i][j]=A前i个字符[0..i)和B前j个字符[0..j)的最小编辑距离
+f[i][j]=min{
+1. f[i-1][j]+1 (f[i-1][j]表示A[0..i-1)就可以拼成B[0..j)了，所以A[0..i)要拼成B[0..j)需要删掉A[0..i)的最后一个字母); 
+2. f[i][j-1]+1 (B[0..j)需要删掉最后一个字母，即A[0..i)的后面需要增加一个字母); 
+3. f[i-1][j-1]+1 (A[0..i)的后面需要replace一个字母); 
+4. f[i-1][j-1] (if A[i-1]=B[j-1] 就不需要任何操作直接就是了)}
+"""
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
         # dp[i][j] = the min no. of operations to make word1 and word2 the same
