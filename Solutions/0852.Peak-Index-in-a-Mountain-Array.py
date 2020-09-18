@@ -18,7 +18,7 @@ Output: 1
 class Solution:
     def peakIndexInMountainArray(self, A: List[int]) -> int:
         lens = len(A)
-        start, end = 0, lens - 2
+        start, end = 1, lens - 2
         while start + 1 < end:
             mid = start + (end - start) // 2
             if A[mid] >= A[mid+1]:
