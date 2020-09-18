@@ -61,3 +61,31 @@ Would this affect the run-time complexity? How and why?
 """
 The time complexity will degrade to O(N) if there are lots of duplicates.
 """
+
+
+""" 与nums[start], nums[end]比较也是对的 """
+class Solution:
+    def search(self, nums: List[int], target: int) -> bool:
+        if not nums: return False
+        if len(nums) == 1: return nums[0] == target
+        if target == nums[0]: return True
+        
+        start, end = 0, len(nums) - 1
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            if target > nums[0]:
+                if nums[mid] == nums[start]:
+                    start += 1
+                elif nums[start] < nums[mid] < target:
+                    start = mid
+                else:
+                    end = mid
+            else:
+                if nums[mid] == nums[end]:
+                    end -= 1
+                elif target <= nums[mid] < nums[end]:
+                    end = mid
+                else:
+                    start = mid
+                    
+        return True if nums[start] == target or nums[end] == target else False
