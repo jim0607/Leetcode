@@ -1436,16 +1436,14 @@ This is to implement bisect.bisect_left(nums, target), which returns the positio
 画个图分几个区间讨论就可以了, 分target在左边区间和target在右边区间讨论
 - [0081. Search in Rotated Sorted Array II](Solutions/0081.Search-in-Rotated-Sorted-Array-II.py) (M) 
 If nums[0] = nums[-1], the binary search would be very complicated, so we pre-process the nums by remving the nums[-1] if it equals nums[0]. Then we can do LC 33 (分target在左边区间和target在右边区间) + LC 154 (nums[mid] == nums[end]: end -= 1, 注意不能drop掉一半)
-- [0852. Peak Index in a Mountain Array](Solutions/0852.Peak-Index-in-a-Mountain-Array.py) (E)<br>
+- [0852. Peak Index in a Mountain Array](Solutions/0852.Peak-Index-in-a-Mountain-Array.py) (E) <br>
 OOOXXX问题，找到第一个出现的X，X是the first position of 递减的序列 arr[mid] 与 arr[mid+1] 比较
 - [0162. Find Peak Element](Solutions/0162.Find-Peak-Element.py) (M) <br>
 OOXX问题，找到第一个出现的X，X是the first position of 递减的序列, mid 要与 mid-1 比较 也要与 mid+1 比较. 分四种情况：上升区间，下降区间，谷底，山顶
 - [0390. Find Peak Element II](Solutions/0390.Find-Peak-Element-II.py) (!!H Lintocde) <br>
 先二分找到中间某一行的最大值位置(i, j)，然后这个最大值的地方向上(i-1, j)和向下(i-1, j)分别比一下，如果(i, j)最大，那恭喜找到了peak, 如果向上更大，那就往上爬到(i-1,j), 此时i行及其以下的行都可以丢掉了，然后在j那一列查找最大值的位置(ii, j), 这时候在(ii, j)这个位置向左(ii, j-1)向右(ii, j+1)分别比一下，如果发现(ii, j)最大，那么恭喜找到peak了，如果发现(ii, j-1)更大，那就继续往(ii, j-1)爬一步，可以直接丢掉j-1列及其右边的部分了。这样的时间复杂度是T(N)=O(N 在第i行查找最大值)+T(N/2), using Master's theorem, then time complexity is O(N).
-- [1060. Missing Element in Sorted Array](Solutions/1060.Missing-Element-in-Sorted-Array.py) (!!!M Google) <br>
-定义一个function missing(idx) to find the number of number missing before idx. so that we can compare missing(mid) with k. Google真的把binary search 玩出花了！
-- [0875. Koko Eating Bananas](Solutions/0875.Koko-Eating-Bananas.py) (M) <br>
-If Koko can finish eating all the bananas (within H hours) with an eating speed of K, she can finish with a larger speed too. So it is a OOOXXX problem trying to find the first X. end is set to be max(piles). Every time find if it posible to eat all the bananas with speed mid. if yes, then drop the right part, if no, then drop the left.
+
+
 - [0074. Search a 2D Matrix](Solutions/0074.Search-a-2D-Matrix.py) (M) <br>
 Think it as a long 1D array with MxN element, then we can use binary search; row = mid // n, col = mid % n; O(log(MN)), O(1)
 - [0240. Search a 2D Matrix II](Solutions/0240.Search-a-2D-Matrix-II.py) (M) <br>
@@ -1462,6 +1460,8 @@ recursion solution: half = self.myPow(x, n//2); if n%2 == 0: res = half * half; 
 eg: 10//3, 每次通过右移3 << 1的方法将3乘以2,这种算法是O(N), 每次都右移几次3 << x, 相当于3x2x2x2...,直到3x2x2x2...>10, 然后取余数继续这个算法是O(logN)
 - [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
 Solution 1: find Kth smallest O(log(M+N)). midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx1], nums2[midIdx2]; when k is relatively large, then we can safely drop the first half that are surely smaller than the kth, the question is where is the first half that are surely smaller than the kth? by comparing midVal1 and midVal2, we can find it out, if midVal1 < midVal2, then all the vals in nums1[:midIdx1] are less than midVal2, also all of those vals are less than kth, we can safely drop all those vals
+- [0875. Koko Eating Bananas](Solutions/0875.Koko-Eating-Bananas.py) (M) <br>
+If Koko can finish eating all the bananas (within H hours) with an eating speed of K, she can finish with a larger speed too. So it is a OOOXXX problem trying to find the first X. end is set to be max(piles). Every time find if it posible to eat all the bananas with speed mid. if yes, then drop the right part, if no, then drop the left.
 - [0183. Wood Cut](Solutions/0183.Wood-Cut.py) (H Lintcode) <br>
 If we can cut into pieces with lens, then we can also cut into prices with len - 1, So this is a OOOXXX problem, to find the last O.
 - [0437. Copy Books](Solutions/0437.Copy-Books.py) (!!M Lintcode) <br>
@@ -1476,6 +1476,9 @@ We use greedy algorithm to do that, which is very similar with copy books.
 If I can get a sweetness of s, we can also get a sweetness less than s. 
 So it's a OOXX problem. The difficult is to check whether or not can get the sweetness mid.
 Use greedy to check can get - O(N).  Overall: O(NlogM), where N = len(sweetness), M = sum(sweetness)//(K+1)
+
+
+
 - [0774. Minimize Max Distance to Gas Station](Solutions/0774.Minimize-Max-Distance-to-Gas-Station.py) (H) <br>
 If we can do it at D, then we can do it at larger than D. This is a OOXX problem to find the minimum D.
 The difficult part is to find if is_valid to place K stations so that every adjacent station has distance smaller than D - using greedy. 注意这一题的start, end都是小数
@@ -1489,9 +1492,12 @@ solution 1: simple dfs visit every balck pixel, and update the max_i, max_j, min
 - [0643. Maximum Average Subarray I](Solutions/0643.Maximum-Average-Subarray-I.py) (E) <br>
 - [0644. Maximum Average Subarray II](Solutions/0644.Maximum-Average-Subarray-II.py) (!!H Google) <br>
 二分答案：初始化 left 为原数组的最小值，right 为原数组的最大值 - O(Nlog(max-min)). helper function比较难需要构造 diff_nums = [num - mid for num in nums], 然后构造prefix_diff_sum, 然后check if there is in diff_nums a sum with at least K length that is larger than 0, which we can do in linear time by keeping a min_sum and use it for compare, similar with 121. Best Time to Buy and Sell Stock
+- [1060. Missing Element in Sorted Array](Solutions/1060.Missing-Element-in-Sorted-Array.py) (!!!M Google) <br>
+定义一个function missing(idx) to find the number of number missing before idx. so that we can compare missing(mid) with k. Google真的把binary search 玩出花了！
 - [0719. Find K-th Smallest Pair Distance](Solutions/0719.Find-K-th-Smallest-Pair-Distance.py) (!!H Google) <br>
 二分答案：sort the list, then it becomes [1,1,3,4,8,8,9]. let helper function return if there is more than k distance smaller than mid.
 we use two pointers to go through the list to check if there is more than k distance smaller than mid. The algorithm of helper function is sliding window so it's only O(N)
+
 ----------1552. Magnetic Force Between Two Balls--------------
 
 
