@@ -1,3 +1,4 @@
+"""
 651. 4 Keys Keyboard
 
 Imagine you have a special keyboard with the following keys:
@@ -24,6 +25,7 @@ Output: 9
 Explanation: 
 We can at most get 9 A's on screen by pressing following key sequence:
 A, A, A, Ctrl A, Ctrl C, Ctrl V, Ctrl V
+"""
 
 
 
