@@ -1161,7 +1161,8 @@ In this way, the distances are represented by idx, which were sort by nature. <b
 - [1066. Campus Bikes II](Solutions/1066.Campus-Bikes-II.py) (!!M) <br>
 backtracking with memorization, 由于必须把assigned_bike set放入到state中，所以是指数级别的复杂度, solution 2: backtrack + Dijkstra's <br>
 Extention: __Campus Bikes III (minimize max) - Dijkstra's__
-
+- [0464. Can I Win](Solutions/0464.Can-I-Win.py) (M)
+dfs + memo, memo: (curr_choosable_numbers --> can_win_with_curr_choosable_numbers?)
 
 
 
@@ -1234,6 +1235,8 @@ hold[i] = max(hold[i-1], unhold[i-1]-prices[i]); unhold[i] = max(unhold[i-1], ho
 Only two transactions are allowed.  Maintain buy1=the minimum money you can **owe** after the first buy, sell1=the maximum money you **earn** after the first sell, also, buy2, sell2, and update them together in a for loop, 算法只是把121中的算法重复两次而已.
 - [0188. Best Time to Buy and Sell Stock IV](Solutions/0188.Best-Time-to-Buy-and-Sell-Stock-IV.py) (H) <br>
 Only k transactions are allowed.   Maintain buy=[]* k, sell=[]* k, and update them together in a for loop. buy[i] = min(buy[i], price - sell[i - 1]), buy[i] = the minimum money you can own after the ith purchase; sell[i] = max(sell[i], price - buy[i]), sell[i] = the maximum money you can earn after the ith purchase.  Solve the memory overflow problem: if k>prices.length/2, then it is the same as 122.
+- [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
+714. Best Time to Buy and Sell Stock with Transaction Fee 很像，都有交换和不交换两种情况
 
 
 
@@ -1319,6 +1322,10 @@ f[i][j]=当石子还剩i到j时，先手最多能赢多少; f[i][j] = max(取左
 __背包里的物品不能重复使用，所有状态定义为二维__ f[i][m]=能否用前i个物品拼出重量m; f[i][m] = f[i-1][m] (不放入，表示前i-1个物品就可以拼出m) or f[i-1][m-A[i-1]] (放入，表示前i-1个物品可以拼出m-A[i-1]); # 注意点1：这里要定义lens+1，这样就可以做一个buffer layer出来了; # 注意点2；这里循环i在外面，m在里面，千万别搞反了！！# 注意点3：由于buffer layer的存在，这里用nums[i-1]与m相比较
 - [0563. Backpack-V](Solutions/0563.Backpack-V.py) (!!M Lintcode) <br>
 __一个num不能取多次，所有状态定义为二维__ ，f[i][m]=前i个物品能拼出重量m有多少种方式。f[i][m] = 不放入 f[i-1][m] + 放入 f[i-1][m-A[i-1]] if m > nums[i]
+- [1049. Last Stone Weight II](Solutions/1049.Last-Stone-Weight-II.py) (M)
+找一组数使他们的和尽可能接近sum(nums)//2.
+由于一个数只能用一次，所以我们使用二维dp: dp[i][m] = can we use first i nums to add up to m? 
+dp[i][m] = True of dp[i-1][m] == True or dp[i-1][m-A[i]] == True
 - [0518. Coin Change 2](Solutions/0518.Coin-Change-2.py) (M) <br>
 与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解。DP解的for循环顺序很重要，由于(1,3)和(3,1)被认为是同一解，所以for coin in coins:是主循环，for num in range(1, amount + 1):是次循环。因为当coin遍历到coin=1的时候，dp[4]+=dp[3]此时的dp[3]=0所以dp[4]实际上加的是0；而当coin遍历到coin=3的时候，dp[4]+=dp[1]，此时dp[1]被更新过一次。所以真个过程dp[4]只被更新一次，不会重复更新。
 - [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (M)<br>
@@ -1330,6 +1337,9 @@ f[i][j]=max{f[i-1][j] (不放入),f[i-1][j-A[i-1]]+V[i-1] (放入)}; return f[le
 f[i][j][s]表示有多少种方法可以在前i个数中选出j个，使得它们的和是s; 情况一:（A[i-1]不选入）：需要在前n-1个数中选K个数，使得它们的和是Target: f[i][j][s] += f[i-1][j][s]; 情况二（A[i-1]选入）：需要在前i-1个数中选j-1个数，使得它们的和是Target-A[i-1]: f[i][j][s] += f[i-1][j-1][s-A[i-1]]
 - [0416. Partition Equal Subset Sum](Solutions/0416.Partition-Equal-Subset-Sum.py) (M) <br>
 背包问题：将A中的物品放入容量为target的背包中，问是否存在 __背包里的物品不能重复使用，所有状态定义为二维__ 。与0092一模一样。 f[i][t]=将前i个物品放入背包中，能否拼出t (背包问题重量一定要入状态); f[i][t]=True if 不放最后一个进背包: f[i-1][t]=True or 放最后一个进背包: f[i-1][t-A[i-1]]=True
+- [1155. Number of Dice Rolls With Target Sum](Solutions/1155.Number-of-Dice-Rolls-With-Target-Sum.py) (M)
+dp[i][m] = how many ways to add up to m using i dices. - 背包问题总承重要放入状态
+dp[i][m] += sum(dp[i-1][m - all_possible_f])
 - [0473. Matchsticks to Square](Solutions/0473.Matchsticks-to-Square.py) (!!M) <br>
 backtrack: 698. Partition to 4 Equal Sum Subsets
 - [0956. Tallest Billboard](Solutions/0956.Tallest-Billboard.py) (!!M) <br>
@@ -1340,6 +1350,9 @@ Find a combination which has the largest sum of all positive numbers.
 ### [位操作型DP](/Dynamic-Programming.py)
 - [0338. Counting Bits](Solutions/0338.Counting-Bits.py) (M) <br>
 状态dp[i]=i的二进制中有多少个1; dp[i] = dp[i >> 1] + i % 2
+- [0898. Bitwise ORs of Subarrays](Solutions/0898.Bitwise-ORs-of-Subarrays.py) (M)
+simply just find all the possible. res is a set that stores all the possible combinations.
+curr is a set that stores all the combinations ended with ith number as we loop over the list.
 
 
 ### [双序列型DP!!](/Dynamic-Programming.py) 
@@ -1367,32 +1380,37 @@ solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题
 If t[i-1] == s[j-1]: dp[i][j] = dp[i-1][j-1] + 1; else: dp[i][j] = dp[i][j-1] + 1
 - [1537. Get the Maximum Score](Solutions/1537.Get-the-Maximum-Score.py) (!!H) <br>
 two pointers + dp: dp1[i] = max path sum ends with nums1[i-1]; dp2[j] = max path sum ends with nums2[j-1]  two pointers loop over nums1 and nums2 and update dp1 and dp2.
+- [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (M)
+since subarray has to be continuous, we define dp as
+dp[i][j] = the max lens of repeated subarray ended with A[i] and B[j]
+dp[i][j] = if A[i-1]==B[j-1]: dp[i-1][j-1] + 1; else: 0 cuz has ot be continuous
 
 
 
 ### [Other DP Problems](https://juejin.im/post/5d556b7ef265da03aa2568d5)
+- [1105. Filling Bookcase Shelves](Solutions/1105.Filling-Bookcase-Shelves.py) (!!!M)
+dp[i]: the min height to place the first i-1 books.
+For dp[i+1], either place book i on a new shelve dp[i] = dp[i-1] + height[i-1],
+or grab previous books together with book i and move to next level together: 
+dp[i] = min(dp[j-1] + max(height[j-1] .. height[0])), where sum(width[j-1] + ... + sum(width[i]) <= shelve_width
 - [0650. 2 Keys Keyboard](Solutions/0650.2-Keys-Keyboard.py) (!!M) <br>
-与991. Broken Calculator类似单不一样，其实是一个质因数分解的问题(integer factorization); dp[j] = min steps to get j
+递归调用即可，寻找第一个可以dividor that can divide n, return dividor + self.minSteps(n//dividor)
 - [0651. 4 Keys Keyboard](Solutions/0651.4-Keys-Keyboard.py) (!!M) <br>
 dp[j] = max number pressing j times.
 dp[j] = max(dp[i] * (j-i-1)), eg: i = j - 3; dp[j] = dp[j-3]* 2, 因为把dp[j-3] ctr+V了一次; 
 eg: i = j - 4, dp[j] = dp[j-4]* 3, 因为把dp[j-4] ctr+V了两次
 - [0887. Super Egg Drop](Solutions/0887.Super-Egg-Drop.py) (!!H) <br>
 solution 1 - O(KN^2): dp[i][j] 表示有i个鸡蛋，j层楼要测需要的最小操作数. dp[i][j] = min(dp[i][j], 1 + max(dp[i - 1][k - 1], dp[i][j - k]) for k in range(1, j)). solution 2 - O(KNlogN). 用binary search 找k， instead of linear search.
-- [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
-- [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (M)
-- [1049. Last Stone Weight II](Solutions/1049.Last-Stone-Weight-II.py) (M)
-- [1155. Number of Dice Rolls With Target Sum](Solutions/1155.Number-of-Dice-Rolls-With-Target-Sum.py) (M)
-- [0983. Minimum Cost For Tickets](Solutions/0983.Minimum-Cost-For-Tickets.py) (M)
 - [0688. Knight Probability in Chessboard](Solutions/0688.Knight-Probability-in-Chessboard.py) (M)
+其中dp[i][j]表示在棋盘(i, j)位置上走完当前步数还留在棋盘上的走法总和(注意是走法，不是步数). dp[i][j][k] += dp[next_i][next_j][k-1] for next_i and next_j in bound.
 - [0361. Bomb Enemy](Solutions/0361.Bomb-Enemy.py) (M)
-- [0467. Unique Substrings in Wraparound String](Solutions/0467.Unique-Substrings-in-Wraparound-String.py) (M)
-- [0898. Bitwise ORs of Subarrays](Solutions/0898.Bitwise-ORs-of-Subarrays.py) (M)
-- [0343. Integer Break](Solutions/0343.Integer-Break.py) (M)
+brutal force: 上下左右四个方向去找能炸死多少人即可。 DP解法: 把(i, j)位置能炸死多少敌人提前计算好放入二维数组中， up[i][j]=在(i,j)位置能向上炸的敌人数目
 - [1223. Dice Roll Simulation](Solutions/1223.Dice-Roll-Simulation.py) (M)
-- [1105. Filling Bookcase Shelves](Solutions/1105.Filling-Bookcase-Shelves.py) (M)
-- [0464. Can I Win](Solutions/0464.Can-I-Win.py) (M)
+没搞懂
 
+
+
+- [0467. Unique Substrings in Wraparound String](Solutions/0467.Unique-Substrings-in-Wraparound-String.py) (M)
 
 
 
@@ -2022,6 +2040,7 @@ solution 1: sort and put larger lens in front. O(NlogN + N^2* L)
 ### [Math](/)
 - [1071. Greatest Common Divisor of Strings](Solutions/1071.Greatest-Common-Divisor-of-Strings.py) (!!E) <br>
 The central idea is that if y > x, the GCD of x and y is the GCD of x and y − x. For example, GCD(156, 36) = GCD((156 − 36) = 120, 36). By extension, this implies that the GCD of x and y is the GCD of x and y mod x, i.e., GCD(156, 36) = GCD((156 mod 36) = 12, 36) = GCD(12, 36 mod 12 = 0) = 12.
+- [0343. Integer Break](Solutions/0343.Integer-Break.py) (M)
 
 
 
