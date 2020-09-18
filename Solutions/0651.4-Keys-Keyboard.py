@@ -41,8 +41,8 @@ class Solution:
         dp[1] = 1
         dp[2] = 2
         for j in range(3, N + 1):
-            dp[j] = dp[j-1] + 1    # 注意初始化
-            for i in range(1, j-2):
+            dp[j] = dp[j-1] + 1      # 注意初始化
+            for i in range(1, j-2):     # 可以ctrl+v的次数是 j-2-i
                 dp[j] = max(dp[j], dp[i] * (j-i-1))
             
         return dp[N]
