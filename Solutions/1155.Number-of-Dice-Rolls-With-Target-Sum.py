@@ -19,22 +19,22 @@ You throw two dice, each with 6 faces.  There are 6 ways to get a sum of 7:
 1+6, 2+5, 3+4, 4+3, 5+2, 6+1.
 
 
-""" dp[i][j]表示用i个骰子得出j的组合数
-    dp[i][j] = dp[i-1][j-1] + ... + dp[i-1][j-f] if (j-f >= 0)  
-    可以优化为1维，因为每次更新都只与上一次相关
-    注意取模返回"""
+"""
+dp[i][m] = how many ways to add up to m using i dices. - 背包问题总承重要放入状态
+dp[i][m] += sum(dp[i-1][m - all_possible_f])
+"""
 class Solution:
     def numRollsToTarget(self, d: int, f: int, target: int) -> int:
-        dp = [[0]*(target+1) for _ in range(d+1)]
-        # 初始化条件，只有1个骰子的时候，1->f的方法均只有1种
-        for i in range(1, target+1):   # 去他妈的检查了一个小时，原来就是这里错写成了range(target+1)
-            if i <= f:
-                dp[1][i] = 1
-        for i in range(1, d+1):
-            for j in range(1, target+1):
-                for k in range(1, min(f, j)+1):
-                    dp[i][j] += dp[i-1][j-k]   # 用i-1个骰子实现j-k，然后用剩下的一个实现j-(j-k)=k
-                    dp[i][j] %= (10**9+7)
+        MOD = 10**9 + 7
+        dp = [[0 for _ in range(target + 1)] for _ in range(d + 1)]
+        
+        
+        for m in range(1, target + 1):  # 去他妈的检查了一个小时，原来就是这里错写成了range(target+1)
+            if m <= f:                  # 初始化条件，只有1个骰子的时候，1->f的方法均只有1种
+                dp[1][m] = 1
+            
+        for i in range(1, d + 1):
+            for m in range(1, target + 1):
+                dp[i][m] += sum(dp[i-1][m - possible_f] % MOD for possible_f in range(1, f + 1) if m >= possible_f) % MOD
+                
         return dp[d][target]
-    
-# 可优化为1维，不太理解！
