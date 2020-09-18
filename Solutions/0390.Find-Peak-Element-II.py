@@ -1,6 +1,6 @@
+"""
 390 Find Peak Element II
-    
-Question
+
 There is an integer matrix which has the following features:
 The numbers in adjacent positions are different.
 The matrix has n rows and m columns.
@@ -17,7 +17,7 @@ Challenge
 Solve it in O(n+m) time.
 If you come up with an algorithm that you thought it is O(n log m) or O(m log n), can you prove it is actually O(n+m) or propose a similar but O(n+m) algorithm?
 Solution
-
+"""
 
 
 """
@@ -28,10 +28,7 @@ Time complexity: T(n) = T(n/2) + O(n), where O(n) is to find the max col idx in 
 using Master's Theorem: a = 1, b = 2, d = 1, d > logb(a), O(n^d) = O(n)
 """
 
-
 class Solution:
-    # @param A: An list of list integer
-    # @return: The index of position is a list of integer, for example [2,2]
     def findPeakII(self, A):
         upper, down = 1, len(A) - 2
         left, right = 1, len(A[0]) - 2
@@ -43,7 +40,7 @@ class Solution:
             # if the width is larger, then we drop left part of right part
             # how do we decide to drop the left part of the right part?
             # compare the left_max, central_max and right_max
-            # 为什么不能比较相邻的呢？暂时不知道，这个题目的思想了解了就可以了。
+            # 为什么不能比较相邻的呢？因为可能回绕回来
             if width > height:  # Vertical split
                 mid_j = left + (right - left) // 2
 
