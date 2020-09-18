@@ -1,3 +1,4 @@
+"""
 We have two integer sequences A and B of the same non-zero length.
 
 We are allowed to swap elements A[i] and B[i].  Note that both elements are in the same index position in their respective sequences.
@@ -17,11 +18,39 @@ Note:
 
 A, B are arrays with the same length, and that length will be in the range [1, 1000].
 A[i], B[i] are integer values in the range [0, 2000].
+"""
 
 
-"""https://www.cnblogs.com/grandyang/p/9311385.html
-和714.买卖股票的最佳时机很像，都有交换和不交换两种情况
-我们可以优化上面解法的空间复杂度，由于当前位置的值只跟前一个位置相关，所以我们并不需要保存整个数组，用四个变量来分别表示当前位置和前一个位置的各两种状态，可以实现同样的效果，参见代码如下："""
+
+"""
+swap[i] = min swaps with A[i] and B[i] swap
+no_swap[i] = min swaps with A[i] and B[i] not swapped
+"""
+class Solution:
+    def minSwap(self, A: List[int], B: List[int]) -> int:
+        if len(A) <= 1:
+            return 0
+        swap = [float("inf") for _ in range(len(A))]
+        no_swap = [float("inf") for _ in range(len(A))]
+        swap[0] = 1
+        no_swap[0] = 0
+        for i in range(1, len(A)):
+            if A[i] > A[i-1] and B[i] > B[i-1]:     
+                swap[i] = swap[i-1] + 1             # i-1那个位置swap过，需要swap过来
+                no_swap[i] = no_swap[i-1]           # i-1那个位置没有swap过，不需要管
+            if A[i] > B[i-1] and B[i] > A[i-1]:     
+                swap[i] = min(swap[i], no_swap[i-1] + 1)  # i-1那个位置没有swap过，需要swap过来
+                no_swap[i] = min(no_swap[i], swap[i-1])   # i-1那个位置swap过，不需要管
+        return min(swap[-1], no_swap[-1])
+
+
+
+"""
+https://www.cnblogs.com/grandyang/p/9311385.html
+和714.Best Time to Buy and Sell Stock with Transaction Fee 很像，都有交换和不交换两种情况
+我们可以优化上面解法的空间复杂度，由于当前位置的值只跟前一个位置相关，所以我们并不需要保存整个数组，
+用四个变量来分别表示当前位置和前一个位置的各两种状态，可以实现同样的效果，参见代码如下：
+"""
 class Solution:
     def minSwap(self, A: List[int], B: List[int]) -> int:
         lens = len(A)
