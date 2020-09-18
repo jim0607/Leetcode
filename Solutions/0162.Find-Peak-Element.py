@@ -21,20 +21,20 @@ class Solution:
             return 
         if lens == 1:
             return 0
-        if nums[0] > nums[1]:  # [2，1]输出0
+        if nums[0] > nums[1]:  # [2，1]输出0 - ascendingly sorted的情况
             return 0
-        if nums[-1] > nums[-2]: # [1,2]输出1
+        if nums[-1] > nums[-2]: # [1,2]输出1 - descendingly sorted的情况
             return lens - 1
         start, end = 1, lens - 2
         while start + 1 < end:
             mid = start + (end - start) // 2
-            if nums[mid] > nums[mid-1] and nums[mid] > nums[mid+1]:
+            if nums[mid] > nums[mid-1] and nums[mid] > nums[mid+1]:     # 山顶
                 return mid
-            elif nums[mid] < nums[mid-1] and nums[mid] < nums[mid+1]:
+            elif nums[mid] < nums[mid-1] and nums[mid] < nums[mid+1]:   # 谷底 - 可以 end = mid 也可以 start = mid
                 end = mid
-            elif nums[mid] < nums[mid-1] and nums[mid] > nums[mid+1]:
+            elif nums[mid] < nums[mid-1] and nums[mid] > nums[mid+1]:   # 下降区间
                 end = mid
-            elif nums[mid] > nums[mid-1] and nums[mid] < nums[mid+1]:
+            elif nums[mid] > nums[mid-1] and nums[mid] < nums[mid+1]:   # 上升区间
                 start = mid
         if nums[end] > nums[start]:
             return end
