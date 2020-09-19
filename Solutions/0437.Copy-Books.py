@@ -1,3 +1,4 @@
+"""
 437. Copy Books
 
 Given n books and the i-th book has pages[i] pages. There are k persons to copy these books.
@@ -15,7 +16,7 @@ Output: 5
 Explanation: 
     First person spends 5 minutes to copy book 1 and book 2.
     Second person spends 4 minutes to copy book 3.
-
+"""
 
     
 """
@@ -23,41 +24,35 @@ binary search: O(nlog(sum(pages)-max(pages))), n is the number of books
 """
 class Solution:
     def copyBooks(self, pages, k):
-        """
-        k is the number of person to copy the books
-        """
-        if not pages:
-            return 0
-            
-        startTime, endTime = max(pages), sum(pages)
-        while startTime + 1 < endTime:
-            midTime = startTime + (endTime - startTime) // 2
-            if self.leastPersonNeeded(pages, midTime) <= k:
-                endTime = midTime
+        if not pages: return 0
+        start, end = max(pages), sum(pages) + 1
+        while start + 1 < end:
+            mid = start + (end - start ) // 2
+            if self._can_finish(pages, k, mid):
+                end = mid
             else:
-                startTime = midTime
-                
-        return startTime if self.leastPersonNeeded(pages, startTime) <= k else endTime
+                start = mid
+        return start if self._can_finish(pages, k, start) else end
         
-    def leastPersonNeeded(self, pages, timeLimit):
+    def _can_finish(self, pages, k, mid):
         """
-        return the least person needed in order to finish all the pages in the timeLimit.  Algorithm: greedy. 每次发现要超时了就加一个人。
-        sweep the books and keep track of the timeNeeded. 
-        when we find we cannot finish all pages in timeLimit, we add a new person and set the timeNeeded for the new person to be zero
+        return if k paople can finish in mid time.  Algorithm: greedy. 每次发现要超时了就加一个人。
+        sweep the books and keep track of the curr_time. 
+        when we find we cannot finish all pages in timeLimit, we add a new person and set the curr_time for the new person to be zero
         """
-        personNeeded = 1
-        timeNeeded = 0      # initialize the timeNeeded for person 1 is zero
-        for pages in pages:
-            # whenever timeNeeded is over the timelimit, we need a new person to join and help, so that we can reduce the timeCost within timeLimit
-            # 每次发现要超时了就加一个人
-            if timeNeeded + page > timeLimit:    
-                personNeeded += 1
-                timeNeeded = 0        # timeNeeded resets to 0 for the new persion joined
-            timeNeeded += page
-            
-        return personNeeded
+        i = 0
+        while i < len(pages):
+            curr_time = 0
+            while i < len(pages) and curr_time + pages[i] <= mid:
+                curr_time += pages[i]
+                i += 1
+            k -= 1      # 只有上一个人无法在mid时间内完成的情况下，我们才加一个人进来
+        return k >= 0
     
   
+
+
+
 class Solution:
     def copyBooks(self, pages, k):
         if not pages:
