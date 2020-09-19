@@ -1420,6 +1420,10 @@ brutal force: 上下左右四个方向去找能炸死多少人即可。 DP解法
 Find end point using "double method", same as dynamic array
 - [0367. Valid Perfect Square](Solutions/0367.Valid-Perfect-Square.py) (E) <br>
 same as sqrt(x)
+- [0050. Pow(x, n)](Solutions/0050.Pow(x,n).py) (M) <br>
+recursion solution: half = self.myPow(x, n//2); if n%2 == 0: res = half * half; else: res = half * half * x
+- [0029. Divide Two Integers](Solutions/0029.Divide-Two-Integers.py) (M) <br>
+eg: 10//3, 每次都右移几次3 << k, 相当于3x2x2x2...,直到3x2x2x2...>10, 然后取余数继续这个算法是O(logN)
 - [0034. Find First and Last Position of Element in Sorted Array](Solutions/0034.Find-First-and-Last-Position-of-Element-in-Sorted-Array.py) (!!M) <br>
 用两次二分分别找first pos of target and last pos of target. 想找first position of target，要保证两点：1. while循环里的判断要往左逼，也就是if nums[mid] **>=** target: end = mid； 2. 就把start放在后面更新，这样如果出现nums[end]和nums[start]都等于target的情况的话，first可以被后面较小的start替换掉，因为start肯定是小于end的。<br>
 Follow up: In a sorted array [1,3,4.......], search the elements that are in a certain range eg:[10, 100]. solution: 用两次二分分别找first position of 10 and last position of 100.  Then the elements between the two positions should be in range [10, 100].
@@ -1442,44 +1446,32 @@ OOOXXX问题，找到第一个出现的X，X是the first position of 递减的�
 OOXX问题，找到第一个出现的X，X是the first position of 递减的序列, mid 要与 mid-1 比较 也要与 mid+1 比较. 分四种情况：上升区间，下降区间，谷底，山顶
 - [0390. Find Peak Element II](Solutions/0390.Find-Peak-Element-II.py) (!!H Lintocde) <br>
 先二分找到中间某一行的最大值位置(i, j)，然后这个最大值的地方向上(i-1, j)和向下(i-1, j)分别比一下，如果(i, j)最大，那恭喜找到了peak, 如果向上更大，那就往上爬到(i-1,j), 此时i行及其以下的行都可以丢掉了，然后在j那一列查找最大值的位置(ii, j), 这时候在(ii, j)这个位置向左(ii, j-1)向右(ii, j+1)分别比一下，如果发现(ii, j)最大，那么恭喜找到peak了，如果发现(ii, j-1)更大，那就继续往(ii, j-1)爬一步，可以直接丢掉j-1列及其右边的部分了。这样的时间复杂度是T(N)=O(N 在第i行查找最大值)+T(N/2), using Master's theorem, then time complexity is O(N).
-
-
 - [0074. Search a 2D Matrix](Solutions/0074.Search-a-2D-Matrix.py) (M) <br>
-Think it as a long 1D array with MxN element, then we can use binary search; row = mid // n, col = mid % n; O(log(MN)), O(1)
+Think it as a long 1D array with MxN element, then we can use binary search; row = mid // n, col = mid % n; O(log(MN))
 - [0240. Search a 2D Matrix II](Solutions/0240.Search-a-2D-Matrix-II.py) (M) <br>
-start from left bottom, head up to right top, each comparism rule out a row (i-1=1) or rule out a col (j+=1). O(M+N).
+__从左下角出发往右上角搜索__, each comparism rule out a row (i-1=1) or rule out a col (j+=1). O(M+N).
 Comparing with 74, we can see that in 74, the 2D matrix is strongly sorted, so the time is logM + logN <br>
 in 240, the 2D matrix is less strongly sorted, so the time is M + N <br>
 If the 2D matrix is not sorted at all, then the time is MN.
 - [0668. Kth Smallest Number in Multiplication Table](Solutions/0668. Kth Smallest Number in Multiplication Table.py) (!!H Google) <br>
 helper函数定义为是否有k个数大于mid, helper函数利用sorted matrix的特性，可以达到O(m+n).
 so overall O((m+n)log(mn))
-- [0050. Pow(x, n)](Solutions/0050.Pow(x,n).py) (M) <br>
-recursion solution: half = self.myPow(x, n//2); if n%2 == 0: res = half * half; else: res = half * half * x
-- [0029. Divide Two Integers](Solutions/0029.Divide-Two-Integers.py) (M) <br>
-eg: 10//3, 每次通过右移3 << 1的方法将3乘以2,这种算法是O(N), 每次都右移几次3 << x, 相当于3x2x2x2...,直到3x2x2x2...>10, 然后取余数继续这个算法是O(logN)
-- [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
-Solution 1: find Kth smallest O(log(M+N)). midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx1], nums2[midIdx2]; when k is relatively large, then we can safely drop the first half that are surely smaller than the kth, the question is where is the first half that are surely smaller than the kth? by comparing midVal1 and midVal2, we can find it out, if midVal1 < midVal2, then all the vals in nums1[:midIdx1] are less than midVal2, also all of those vals are less than kth, we can safely drop all those vals
 - [0875. Koko Eating Bananas](Solutions/0875.Koko-Eating-Bananas.py) (M) <br>
 If Koko can finish eating all the bananas (within H hours) with an eating speed of K, she can finish with a larger speed too. So it is a OOOXXX problem trying to find the first X. end is set to be max(piles). Every time find if it posible to eat all the bananas with speed mid. if yes, then drop the right part, if no, then drop the left.
 - [0183. Wood Cut](Solutions/0183.Wood-Cut.py) (H Lintcode) <br>
 If we can cut into pieces with lens, then we can also cut into prices with len - 1, So this is a OOOXXX problem, to find the last O.
 - [0437. Copy Books](Solutions/0437.Copy-Books.py) (!!M Lintcode) <br>
-OOOXXX problem, to find the first O. 二分法不难想，难想的是比较mid时的那个helper function, helper function 中 return if k people can finish all the pages in the midTime.  Algorithm: greedy. 每次发现要超时了就加一个人。 
+OOOXXX problem, to find the first O. 二分法不难想，难想的是比较mid时的那个helper function, helper function return if k people can finish all the pages in the midTime.  Algorithm: greedy. 只有上一个人无法在mid时间内完成的情况下，我们才加一个人进来 
 - [1011. Capacity To Ship Packages Within D Days](Solutions/1011.Capacity-To-Ship-Packages-Within-D-Days.py) (M) <br>
 similar with copy books
 - [0410. Split Array Largest Sum](Solutions/0410.Split-Array-Largest-Sum.py) (H) <br>
 If we can divide nums so that the minimum subarray sum is mid, we can also divide nums so that the minimum subarray sum is larger than mid.
 So this is a OOXX problem.  The difficult part is to check if mid is valid.
 We use greedy algorithm to do that, which is very similar with copy books.
-- [1231. Divide Chocolate](Solutions/1231.Divide-Chocolate.py) (H) <br>
-If I can get a sweetness of s, we can also get a sweetness less than s. 
-So it's a OOXX problem. The difficult is to check whether or not can get the sweetness mid.
-Use greedy to check can get - O(N).  Overall: O(NlogM), where N = len(sweetness), M = sum(sweetness)//(K+1)
-
-
-
-- [0774. Minimize Max Distance to Gas Station](Solutions/0774.Minimize-Max-Distance-to-Gas-Station.py) (H) <br>
+- [1231. Divide Chocolate](Solutions/1231.Divide-Chocolate.py) (!!H Google) <br>
+Divide the nums into K+1 subarrays, and make sure each subarray has a sum at least S.
+Find the max S. so it's a OOXXX problem finding the last O.
+- [0774. Minimize Max Distance to Gas Station](Solutions/0774.Minimize-Max-Distance-to-Gas-Station.py) (!!H Google) <br>
 If we can do it at D, then we can do it at larger than D. This is a OOXX problem to find the minimum D.
 The difficult part is to find if is_valid to place K stations so that every adjacent station has distance smaller than D - using greedy. 注意这一题的start, end都是小数
 - [0436. Find Right Interval](Solutions/0436.Find-Right-Interval.py) (M) <br>
