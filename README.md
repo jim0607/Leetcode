@@ -1465,11 +1465,10 @@ OOOXXX problem, to find the first O. 二分法不难想，难想的是比较mid�
 - [1011. Capacity To Ship Packages Within D Days](Solutions/1011.Capacity-To-Ship-Packages-Within-D-Days.py) (M) <br>
 similar with copy books
 - [0410. Split Array Largest Sum](Solutions/0410.Split-Array-Largest-Sum.py) (H) <br>
-If we can divide nums so that the minimum subarray sum is mid, we can also divide nums so that the minimum subarray sum is larger than mid.
-So this is a OOXX problem.  The difficult part is to check if mid is valid.
+把array分成K份，求min of max subarray sum. If we can divide nums so that the minimum subarray sum is mid, we can also divide nums so that the minimum subarray sum is larger than mid. So this is a OOXX problem.  The difficult part is to check if mid is valid.
 We use greedy algorithm to do that, which is very similar with copy books.
 - [1231. Divide Chocolate](Solutions/1231.Divide-Chocolate.py) (!!H Google) <br>
-Divide the nums into K+1 subarrays, and make sure each subarray has a sum at least S.
+与上一题类似，把array分成K份，求max of min subarray sum. Divide the nums into K+1 subarrays, and make sure each subarray has a sum at least S.
 Find the max S. so it's a OOXXX problem finding the last O.
 - [0774. Minimize Max Distance to Gas Station](Solutions/0774.Minimize-Max-Distance-to-Gas-Station.py) (!!H Google) <br>
 If we can do it at D, then we can do it at larger than D. This is a OOXX problem to find the minimum D.
