@@ -1,3 +1,4 @@
+"""
 981. Time Based Key-Value Store
 
 Create a timebased key-value store class TimeMap, that supports two operations.
@@ -11,7 +12,6 @@ Returns a value such that set(key, value, timestamp_prev) was called previously,
 If there are multiple such values, it returns the one with the largest timestamp_prev.
 If there are no values, it returns the empty string ("").
  
-
 Example 1:
 
 Input: inputs = ["TimeMap","set","get","get","set","get","get"], inputs = [[],["foo","bar",1],["foo",1],["foo",3],["foo","bar2",4],["foo",4],["foo",5]]
@@ -29,6 +29,8 @@ Example 2:
 
 Input: inputs = ["TimeMap","set","set","get","get","get","get","get"], inputs = [[],["love","high",10],["love","low",20],["love",5],["love",10],["love",15],["love",20],["love",25]]
 Output: [null,null,null,"","high","high","low","low"]
+"""
+
 
 
 """
@@ -44,13 +46,12 @@ class TimeMap:
 
     def set(self, key: str, value: str, timestamp: int) -> None:
         """
-        since curr timestamp is always larger than prev as time is passing by, we can just append,
-        otherwise, we use binary insert the timestamp into the mapping[key] list - O(logN)
+        since curr timestamp is always larger than prev as time is passing by, we can just append
         """
         self.mapping[key].append((timestamp, value))
            
     def get(self, key: str, timestamp: int) -> str:
-        if key not in self.mapping or self.mapping[key] == [] or timestamp < self.mapping[key][0][0]:
+        if key not in self.mapping or timestamp < self.mapping[key][0][0]:
             return ""
         
         start, end = 0, len(self.mapping[key]) - 1
