@@ -1,3 +1,4 @@
+"""
 410. Split Array Largest Sum
 
 Given an array which consists of non-negative integers and an integer m, you can split the array into m non-empty continuous subarrays. Write an algorithm to minimize the largest sum among these m subarrays.
@@ -20,6 +21,7 @@ Explanation:
 There are four ways to split nums into two subarrays.
 The best way is to split it into [7,2,5] and [10,8],
 where the largest sum among the two subarrays is only 18.
+"""
 
 
 """
@@ -27,6 +29,36 @@ If we can divide nums so that the minimum subarray sum is mid, we can also divid
 So this is a OOXX problem.  The difficult part is to check if mid is valid.
 We use greedy algorithm to do that.
 """
+class Solution:
+    def splitArray(self, nums: List[int], m: int) -> int:
+        start, end = max(nums), sum(nums) + 1
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            if self._can_split(nums, m, mid):
+                end = mid
+            else:
+                start = mid
+        return start if self._can_split(nums, m, start) else end
+    
+    def _can_split(self, nums, m, max_sum):
+        """
+        Return if we can split nums into m subarrays with with each subarray has sum less than max_sum
+        """
+        cnt = 0
+        i = 0
+        while i < len(nums):
+            curr_sum = 0
+            while i < len(nums) and curr_sum + nums[i] <= max_sum:
+                curr_sum += nums[i]
+                i += 1
+            cnt += 1
+        return cnt <= m
+
+
+
+
+
+
 class Solution:
     def splitArray(self, nums: List[int], m: int) -> int:
         start, end = 0, sum(nums)
