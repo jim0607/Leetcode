@@ -1,3 +1,4 @@
+"""
 Given two integers dividend and divisor, divide two integers without using multiplication, division and mod operator.
 
 Return the quotient after dividing dividend by divisor.
@@ -12,21 +13,26 @@ Example 2:
 
 Input: dividend = 7, divisor = -3
 Output: -2
+"""
 
 
-"""https://www.youtube.com/watch?v=htX69j1jf5U"""
+
+"""
+https://www.youtube.com/watch?v=htX69j1jf5U
+eg: 10//3, 每次都右移几次3 << k, 相当于3x2x2x2...,直到3x2x2x2...>10, 然后取余数继续这个算法是O(logN)
+"""
 class Solution:
     def divide(self, dividend: int, divisor: int) -> int:
         sign = (dividend < 0) == (divisor < 0)
         a, b = abs(dividend), abs(divisor)
-        res = 0
         
+        res = 0
         while a >= b:
-            x = 0
-            while a >= b << (x + 1):
-                x += 1
+            shift = 0
+            while a >= (b << (shift + 1)):
+                shift += 1
+                
+            res += 1 << shift
+            a -= b << shift
             
-            res += 1 << x
-            a -= b << x
-            
-        return min(res if sign else -res, 2**31 - 1)
+        return min(res if sign else -res, 2**31-1)
