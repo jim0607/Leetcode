@@ -1,3 +1,4 @@
+"""
 183. Wood Cut
 
 Given an int array wood representing the length of n pieces of wood and an int k. It is required to cut these pieces of wood such that more or equal to k pieces of the same length len are cut. What is the longest len you can get?
@@ -28,6 +29,7 @@ Example 4:
 Input: wood = [232, 124, 456], k = 7
 Output: 114
 Explanation: We can cut it into 7 pieces if any piece is 114 long, however we can't cut it into 7 pieces if any piece is 115 long.
+"""
 
 
 
@@ -46,7 +48,7 @@ class Solution:
         while start + 1 < end:
             mid = start + (end - start) // 2
             if self.isValid(L, k, mid):
-                start = mid
+                start = mid     # 注意这里是取后一半，因为我们希望长度尽可能长
             else:
                 end = mid
                 
