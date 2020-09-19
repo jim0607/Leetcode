@@ -1,3 +1,4 @@
+"""
 668. Kth Smallest Number in Multiplication Table
 
 Nearly every one have used the Multiplication Table. But could you find out the k-th smallest number quickly from the multiplication table?
@@ -26,6 +27,9 @@ The 6-th smallest number is 6 (1, 2, 2, 3, 4, 6).
 Note:
 The m and n will be in the range [1, 30000].
 The k will be in the range [1, m * n]
+"""
+
+
 
 """
 helper函数定义为是否有k个数大于mid, helper函数利用sorted matrix的特性，可以达到O(m+n).
@@ -36,19 +40,19 @@ class Solution:
         start, end = 1, m*n
         while start + 1 < end:
             mid = start + (end - start) // 2
-            if self._has_more(m, n, k, mid):      # check if there is more than k numbers less than mid
+            if self._has_more(m, n, k, mid):    # check if there is more than k numbers less than mid
                 end = mid
             else:
                 start = mid
-        return end if self._has_more(m, n, k, end) else start
+        return start if self._has_more(m, n, k, start) else end
     
-    def _has_more(self, m, n, k, val):
-        i, j = 1, n
+    def _has_more(self, m, n, k, val):    # check if there is more than k numbers less than mid - O(M+N)
         cnt = 0
-        while i <= m and j >= 1:
-            if i * j <= val:   # i代表行，j代表列
-                cnt += j       # i * j <= val, then i times all numbes before j will be less than val     
-                i += 1         # 既然这一行都满足了，咱们去下一行看
+        i, j = m, 1     # 从左上角出发
+        while i >= 1 and j <= n:
+            if i * j <= val:
+                cnt += i    # i * j <= val, then j times all numbes on top of i will be less than val 
+                j += 1      # 既然这一列都满足了我们去看下一列
             else:
-                j -= 1
-        return cnt >= k
+                i -= 1      
+        return cnt >= k      # 往左逼近
