@@ -21,7 +21,7 @@ class Solution:
     def minmaxGasDist(self, stations: List[int], K: int) -> float:
         start, end = 1e-6, stations[-1] - stations[0]       # 注意start, end可以是小数
         while start + 1e-6 < end:
-            mid = start + (end - start) / 2
+            mid = start + (end - start) / 2     # 注意是小数，不要用整除号
             if self._is_valid(stations, mid, K):
                 end = mid
             else:
@@ -30,7 +30,11 @@ class Solution:
         return start if self._is_valid(stations, start, K) else end
     
     def _is_valid(self, stations, D, K):
-        cnt = 0     # how many stations we should add in order to make sure every adjacent is smaller than D
+        """
+        Return if we can add K gas stations to make every adjacent gas station have distance no larger than D.
+        Algorithm: whenever we find a distance larger then D, we add a gas statation. 
+        """
+        cnt = 0     # how many stations we need to add
         for i in range(1, len(stations)):
             if stations[i] - stations[i-1] > D:
                 cnt += (stations[i] - stations[i-1]) // D       # 注意这里cnt是一个整数 但是D是一个小数，所以不要用(stations[i] - stations[i-1] - 1) // D
