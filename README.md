@@ -1453,7 +1453,7 @@ __从左下角出发往右上角搜索__, each comparism rule out a row (i-1=1) 
 Comparing with 74, we can see that in 74, the 2D matrix is strongly sorted, so the time is logM + logN <br>
 in 240, the 2D matrix is less strongly sorted, so the time is M + N <br>
 If the 2D matrix is not sorted at all, then the time is MN.
-- [0668. Kth Smallest Number in Multiplication Table](Solutions/0668. Kth Smallest Number in Multiplication Table.py) (!!H Google) <br>
+- [0668. Kth Smallest Number in Multiplication Table](Solutions/0668.Kth-Smallest-Number-in-Multiplication-Table.py) (!!H Google) <br>
 helper函数定义为是否有k个数大于mid, helper函数利用sorted matrix的特性，可以达到O(m+n).
 so overall O((m+n)log(mn))
 - [0875. Koko Eating Bananas](Solutions/0875.Koko-Eating-Bananas.py) (M) <br>
@@ -1477,7 +1477,7 @@ The difficult part is to find if is_valid to place K stations so that every adja
 - [0436. Find Right Interval](Solutions/0436.Find-Right-Interval.py) (M) <br>
 step 1: include the idx information into the interval;
 step 2: then sort the intervals based on start time;
-step 3: scan the interval and update res.
+step 3: scan the interval and update res, by using binary search.
 - [0981. Time Based Key-Value Store](Solutions/0981.Time-Based-Key-Value-Store.py) (M) <br>
 - [0302. Smallest Rectangle Enclosing Black Pixels](Solutions/0302.Smallest-Rectangle-Enclosing-Black-Pixels.py) (!!H) <br>
 solution 1: simple dfs visit every balck pixel, and update the max_i, max_j, min_i, min_j during dfs. - O(mn). solution 2: 我们需要知道Black出现的最大的i和最小的i, 所以我们可以求出每一行的第一个Black和最后一个Black的idx, 就是我们想求的最大的i和最小的i了，转换成了OOXX问题了. 这题可以用binary search的原因是有且只有一个Black的岛屿，所以每一行都是一个向上后下的mountain array. - O(mlogn+nlogm). 我们在某一行扫binary search的时候范围是start, end = 0, self.min_j 
