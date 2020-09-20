@@ -1,3 +1,4 @@
+"""
 302. Smallest Rectangle Enclosing Black Pixels
 
 An image is represented by a binary matrix with 0 as a white pixel and 1 as a black pixel. The black pixels are connected, i.e., there is only one black region. Pixels are connected horizontally and vertically. Given the location (x, y) of one of the black pixels, return the area of the smallest (axis-aligned) rectangle that encloses all black pixels.
@@ -13,44 +14,47 @@ Input:
 and x = 0, y = 2
 
 Output: 6
+"""
+
 
 
 """
 solution 1: simple dfs visit every balck pixel, and update the max_i, max_j, min_i, min_j during dfs. - O(mn)
 """
 class Solution:
-    BLACK = "1"
-    WHITE = "0"
     def minArea(self, image: List[List[str]], x: int, y: int) -> int:
-        self.max_i, self.min_i = x, x
-        self.max_j, self.min_j = y, y
-        visited = set((x, y))
-        self._dfs(image, x, y, visited)
+        self.min_i, self.max_i = x, x
+        self.min_j, self.max_j = y, y
+        self._dfs(image, x, y)
         return (self.max_i - self.min_i + 1) * (self.max_j - self.min_j + 1)
     
-    def _dfs(self, image, i, j, visited):
-        print((i, j))
-        self.max_i = max(self.max_i, i)
-        self.min_i = min(self.min_i, i)
-        self.max_j = max(self.max_j, j)
-        self.min_j = min(self.min_j, j)
-        
-        for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
-            next_i, next_j = i + delta_i, j + delta_j
-            if 0 <= next_i < len(image) and 0 <= next_j < len(image[0]) and image[next_i][next_j] == self.BLACK:
-                if (next_i, next_j) in visited:
-                    continue
-                visited.add((next_i, next_j))
-                self._dfs(image, next_i, next_j, visited)
-                
+    def _dfs(self, image, curr_i, curr_j):
+        image[curr_i][curr_j] = "0"
+        self.min_i = min(self.min_i, curr_i)
+        self.min_j = min(self.min_j, curr_j)
+        self.max_i = max(self.max_i, curr_i)
+        self.max_j = max(self.max_j, curr_j)
+        for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+            next_i, next_j = curr_i + delta_i, curr_j + delta_j
+            if 0 <= next_i < len(image) and 0 <= next_j < len(image[0]):
+                if image[next_i][next_j] == "1":
+                    self._dfs(image, next_i, next_j)                
                 
                 
                 
 """
 solution 2: 我们需要知道Black出现的最大的i和最小的i, 所以我们可以求出每一行的第一个Black和最后一个Black的idx, 
 就是我们想求的最大的i和最小的i了，转换成了OOXX问题了. 这题可以用binary search的原因是有且只有一个Black的岛屿，
-所以每一行都是一个向上后下的mountain array. - O(mlogn+nlogm)
+所以每一行都是一个先上后下的mountain array. - O(mlogn+nlogm)
 特别注意我们在某一行扫binary search的时候范围是start, end = 0, self.min_j 
+"""
+"""
+https://leetcode.com/problems/smallest-rectangle-enclosing-black-pixels/discuss/75127/C%2B%2BJavaPython-Binary-Search-solution-with-explanation
+In a word, the algorithm is doing following:
+top = search row [0...x], find first row contain 1,
+bottom = search row[x+1, row], find first row contian all 0
+left = search col[0...y], find first col contain 1,
+right = search col[y+1, col], find first col contain all 0
 """
 class Solution:
     BLACK = "1"
