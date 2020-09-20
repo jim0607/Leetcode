@@ -1443,6 +1443,10 @@ This is to implement bisect.bisect_left(nums, target), which returns the positio
 If nums[0] = nums[-1], the binary search would be very complicated, so we pre-process the nums by remving the nums[-1] if it equals nums[0]. Then we can do LC 33 (分target在左边区间和target在右边区间) + LC 154 (nums[mid] == nums[end]: end -= 1, 注意不能drop掉一半)
 - [0852. Peak Index in a Mountain Array](Solutions/0852.Peak-Index-in-a-Mountain-Array.py) (E) <br>
 OOOXXX问题，找到第一个出现的X，X是the first position of 递减的序列 arr[mid] 与 arr[mid+1] 比较
+- [1095. Find in Mountain Array](Solutions/1095.Find-in-Mountain-Array.py) (H) <br>
+step 1: Binary find peak in the mountain - 852. Peak Index in a Mountain Array.
+step 2: Binary find the target in strict increasing/left part.
+step 3: Binary find the target in strict decreasing/right part.
 - [0162. Find Peak Element](Solutions/0162.Find-Peak-Element.py) (M) <br>
 OOXX问题，找到第一个出现的X，X是the first position of 递减的序列, mid 要与 mid-1 比较 也要与 mid+1 比较. 分四种情况：上升区间，下降区间，谷底，山顶
 - [0390. Find Peak Element II](Solutions/0390.Find-Peak-Element-II.py) (!!H Lintocde) <br>
@@ -1462,79 +1466,44 @@ If the 2D matrix is not sorted at all, then the time is MN.
 - [0668. Kth Smallest Number in Multiplication Table](Solutions/0668.Kth-Smallest-Number-in-Multiplication-Table.py) (!!H Google) <br>
 helper函数定义为是否有k个数大于mid, helper函数利用sorted matrix的特性，可以达到O(m+n).
 so overall O((m+n)log(mn))
-- [0875. Koko Eating Bananas](Solutions/0875.Koko-Eating-Bananas.py) (M) <br>
-If Koko can finish eating all the bananas (within H hours) with an eating speed of K, she can finish with a larger speed too. So it is a OOOXXX problem trying to find the first X. end is set to be max(piles). Every time find if it posible to eat all the bananas with speed mid. if yes, then drop the right part, if no, then drop the left.
-- [0183. Wood Cut](Solutions/0183.Wood-Cut.py) (H Lintcode) <br>
-If we can cut into pieces with lens, then we can also cut into prices with len - 1, So this is a OOOXXX problem, to find the last O.
-- [0437. Copy Books](Solutions/0437.Copy-Books.py) (!!M Lintcode) <br>
-OOOXXX problem, to find the first O. 二分法不难想，难想的是比较mid时的那个helper function, helper function return if k people can finish all the pages in the midTime.  Algorithm: greedy. 只有上一个人无法在mid时间内完成的情况下，我们才加一个人进来 
-- [1011. Capacity To Ship Packages Within D Days](Solutions/1011.Capacity-To-Ship-Packages-Within-D-Days.py) (M) <br>
-similar with copy books
-- [0410. Split Array Largest Sum](Solutions/0410.Split-Array-Largest-Sum.py) (!!H) <br>
-把array分成K份，求min of max subarray sum. If we can divide nums so that the minimum subarray sum is mid, we can also divide nums so that the minimum subarray sum is larger than mid. So this is a OOXX problem.  The difficult part is to check if mid is valid.
-We use greedy algorithm to do that, which is very similar with copy books.
-- [1231. Divide Chocolate](Solutions/1231.Divide-Chocolate.py) (!!H Google) <br>
-与上一题类似，把array分成K份，求max of min subarray sum. Divide the nums into K+1 subarrays, and make sure each subarray has a sum at least S.
-Find the max S. so it's a OOXXX problem finding the last O.
-- [0774. Minimize Max Distance to Gas Station](Solutions/0774.Minimize-Max-Distance-to-Gas-Station.py) (!!H Google) <br>
-If we can do it at D, then we can do it at larger than D. This is a OOXX problem to find the minimum D.
-The difficult part is to find if is_valid to place K stations so that every adjacent station has distance smaller than D - using greedy. 注意这一题的start, end都是小数
 - [1060. Missing Element in Sorted Array](Solutions/1060.Missing-Element-in-Sorted-Array.py) (!!!M Google) <br>
 定义一个function missing(idx) to find the number of number missing before idx. so that we can compare missing(mid) with k. Google真的把binary search 玩出花了！
 - [0643. Maximum Average Subarray I](Solutions/0643.Maximum-Average-Subarray-I.py) (E) <br>
 - [0644. Maximum Average Subarray II](Solutions/0644.Maximum-Average-Subarray-II.py) (!!H Google) <br>
 binary search + prefix sum + best_time_to_buy_and_sell_stock (two pointers). 二分答案：初始化 left 为原数组的最小值，right 为原数组的最大值 - O(Nlog(max-min)). helper function比较难需要构造prefix_sum, 然后check if there is in a sum with at least K length that is larger than mid, which we can do in linear time by keeping a min_sum and use it for compare, similar with 121. Best Time to Buy and Sell Stock
-
 - [0719. Find K-th Smallest Pair Distance](Solutions/0719.Find-K-th-Smallest-Pair-Distance.py) (!!H Google) <br>
-二分答案：sort the list, then it becomes [1,1,3,4,8,8,9]. let helper function return if there is more than k distance smaller than mid.
+binary search + sliding window 二分答案：sort the list, then it becomes [1,1,3,4,8,8,9]. let helper function return if there is more than k distance smaller than mid.
 we use two pointers to go through the list to check if there is more than k distance smaller than mid. The algorithm of helper function is sliding window so it's only O(N)
 - [0302. Smallest Rectangle Enclosing Black Pixels](Solutions/0302.Smallest-Rectangle-Enclosing-Black-Pixels.py) (!!H) <br>
-solution 1: simple dfs visit every balck pixel, and update the max_i, max_j, min_i, min_j during dfs. - O(mn). solution 2: 我们需要知道Black出现的最大的i和最小的i, 所以我们可以求出每一行的第一个Black和最后一个Black的idx, 就是我们想求的最大的i和最小的i了，转换成了OOXX问题了. 这题可以用binary search的原因是有且只有一个Black的岛屿，所以每一行都是一个向上后下的mountain array. - O(mlogn+nlogm). 我们在某一行扫binary search的时候范围是start, end = 0, self.min_j 
-
---------1283. Find the Smallest Divisor Given a Threshold--------------------1552. Magnetic Force Between Two Balls-------------1095. Find in Mountain Array----------363. Max Sum of Rectangle No Larger Than K-----------1044. Longest Duplicate Substring-------------------------------------
+solution 1: simple dfs visit every balck pixel, and update the max_i, max_j, min_i, min_j during dfs. - O(mn). solution 2: 我们需要知道Black出现的最大的i和最小的i, 所以我们可以求出每一行的第一个Black和最后一个Black的idx, 就是我们想求的最大的i和最小的i了，转换成了OOXX问题了. 这题可以用binary search的原因是有且只有一个Black的岛屿，所以每一行都是一个先上后下的mountain array. - O(mlogn+nlogm). 我们在某一行扫binary search的时候范围是start, end = 0, self.min_j 
 
 
+### 二分答案：1. minimum of maximum / maximum of minimum 的问题; 2. minimum/maximum to satisfy some condition 的问题
+- [1283. Find the Smallest Divisor Given a Threshold](Solutions/1283.Find-the-Smallest-Divisor-Given-a-Threshold.py) (M) <br>
+minimum/maximum to satisfy some condition 的问题: helper function returns whether we can have sum(num//mid) <= threshold? start = 1, end = max(nums) + 1
+- [0875. Koko Eating Bananas](Solutions/0875.Koko-Eating-Bananas.py) (M) <br>
+minimum/maximum to satisfy some condition 的问题: If Koko can finish eating all the bananas (within H hours) with an eating speed of K, she can finish with a larger speed too. So it is a OOOXXX problem trying to find the first X. end is set to be max(piles). Every time find if it posible to eat all the bananas with speed mid. if yes, then drop the right part, if no, then drop the left.
+- [0183. Wood Cut](Solutions/0183.Wood-Cut.py) (H Lintcode) <br>
+minimum/maximum to satisfy some condition 的问题: If we can cut into pieces with lens, then we can also cut into prices with len - 1, So this is a OOOXXX problem, to find the last O.
+- [0437. Copy Books](Solutions/0437.Copy-Books.py) (!!M Lintcode) <br>
+minimum/maximum to satisfy some condition 的问题: OOOXXX problem, to find the first O. 二分法不难想，难想的是比较mid时的那个helper function, helper function return if k people can finish all the pages in the midTime.  Algorithm: greedy. 只有上一个人无法在mid时间内完成的情况下，我们才加一个人进来 
+- [1011. Capacity To Ship Packages Within D Days](Solutions/1011.Capacity-To-Ship-Packages-Within-D-Days.py) (M) <br>
+minimum/maximum to satisfy some condition 的问题: similar with copy books
+- [1482. Minimum Number of Days to Make m Bouquets](Solutions/1482.Minimum-Number-of-Days-to-Make-m-Bouquets.py) (M) <br>
+minimum/maximum to satisfy some condition 的问题: helper function returns can we have at least m bouquets after mid days?
+- [1552. Magnetic Force Between Two Balls](Solutions/1552.Magnetic-Force-Between-Two-Balls.py) (!!M) <br>
+minimum of maximum / maximum of minimum 的问题: the thinking process of helper function is the most difficult part.
+- [0410. Split Array Largest Sum](Solutions/0410.Split-Array-Largest-Sum.py) (!!H) <br>
+minimum of maximum / maximum of minimum 的问题: 把array分成K份，求min of max subarray sum. If we can divide nums so that the minimum subarray sum is mid, we can also divide nums so that the minimum subarray sum is larger than mid. So this is a OOXX problem.  The difficult part is to check if mid is valid.
+We use greedy algorithm to do that, which is very similar with copy books.
+- [1231. Divide Chocolate](Solutions/1231.Divide-Chocolate.py) (!!H Google) <br>
+minimum of maximum / maximum of minimum 的问题: 与上一题类似，把array分成K份，求max of min subarray sum. Divide the nums into K+1 subarrays, and make sure each subarray has a sum at least S. Find the max S. so it's a OOXXX problem finding the last O.
+- [0774. Minimize Max Distance to Gas Station](Solutions/0774.Minimize-Max-Distance-to-Gas-Station.py) (!!H Google) <br>
+minimum of maximum / maximum of minimum 的问题: If we can do it at D, then we can do it at larger than D. This is a OOXX problem to find the minimum D.
+The difficult part is to find if is_valid to place K stations so that every adjacent station has distance smaller than D - using greedy. 注意这一题的start, end都是小数
 
+----------1044. Longest Duplicate Substring-------------------------------------
 
-# [Data Stream and Multiple Query]()
-- [0243. Shortest Word Distance](Solutions/0243.Shortest-Word-Distance.py) (E) <br>
-Should know both two pass solution and One pass solution. follow up 1:  如果word1在words中很少只有两个，word2在words中很多有1 million个，怎么优化算法？那么这时候solution 1就派上用场了，我们可以存下idx1 和 idx2两个list. eg: idx1 = [10, 50000]; idx2 = [.......], 那么我们可以在idx2中binary search离10最近的数，然后binary search离50000最近的数。这样时间复杂度就是O(MlogN)了。
-Follow up 2: 如果题目改成不是求两个word的最短距离而是是求K个word的最短距离呢？ solution 1: leetcode 76. Minimum Window Substring.  O(N) where N is the the lens of words.  soltution 2: leetcode 23. Merge k Sorted Lists.  O(NlogK), 方法与solution 1类似，只是为了知道k个idx list中哪根指针需要往前移动一下, 我们需要一个heapq, heapq中最小的那个往前挪动一步.
-- [0244. Shortest Word Distance II](Solutions/0244.Shortest-Word-Distance-II.py) (!!M) <br>
-如果题目要求multiple query with unlimited time, 那么一定考察的是precomputation!! precomputation记录结果一般都需要一个hash map!! 
-这个思想非常重要！！这个题用dictionary记录每个word在words中的位置，这样如果这次需要query a and b, 下次需要query c and d, 
-我们都可以很快找到他们的位置。    # 注意可能会有重复的query，比如第一次query a and b, 第三次又需要query a and b, 这时候为了为了避免重复计算，我们可以直接用memo/cache保存query a and b 的结果, 这个思想非常重要！！这个思想成立的前提是memory不值钱！Follow up 1: 
-你都用两个额外空间去存结果以达到加速的目的了（一个是dictinoary存放每个word在words中的位置，另一个是cache/memo记录已经query过的a and b的结果）,可是面试官还不开心，他还希望调用 query method 能更快一些，怎么办？那咱们就采用最极端的方法：把所有words里可能的word1 and word2组合的结果都算出来存到cache中，这样所有的query 就都是O(1)了这个方法的前提是words list是不会变的，如果重新instantiate一个class把constrcutor里的words list变了那之前的所有结果就都白算了。
-- [245. Shortest Word Distance III](Solutions/0245.Shortest-Word-Distance-III.py) (M) <br>
-word1 and word2 may be the same and they represent two individual words in the list. 分word1等于和不等于两种情况讨论就可以了。
-- [0460. LFU Cache](Solutions/0460.LFU-Cache.py) (!!!H) <br>
-Use a dictionary to store (key, freq) pair.
-Use another dicitonary to store (freq, list of keys) pair, where list of keys could be OrderedDict like LRU to enable O(1) operations.
-其实是在LRU的基础上加了一个frequency的要求。
-Follow up 变形题snapchat：在一个data stream 中find top K most frequent number用LFU来解，也可以用heapq O(Nk).
-
-
-# [Big Data]()
-- [0349. Intersection of Two Arrays](Solutions/0349.Intersection-of-Two-Arrays.py) (!!E) <br>
-Facebook follow up: what if the lists are sorted and you are requred to use O(1) space. Approach: two-pointers solution, 注意去重的方法！！
-- [0350. Intersection of Two Arrays II](Solutions/0350.Intersection-of-Two-Arrays-II.py) (!!E) <br>
-Fackbook follow up 1: what if sorted? solution is using two-pointers. Follow up 2: what if size of nums1 is small? solution is binary search.  Follow up 3: what if nums2 is so large that it cannot fit in the memory? solution: Divide nums2 into n chunks of 1/n size and load 1/n piece each time. Follow up 4: What if neither nums1 or nums2 can fully fit in memory? solution: external sort + n chunks + two pointers.
-- [1213. Intersection of Three Sorted Arrays](Solutions/1213.Intersection-of-Three-Sorted-Arrays.py) (E) <br>
-sorted arr, three-pointers 就可以了
-- [0311. Sparse Matrix Multiplication](Solutions/0311.Sparse-Matrix-Multiplication.py) (!!M Facebook) <br>
-Sparse matrices, which are common in scientific applications, are matrices in which most elements are zero. To save space and running time it is critical to only store the nonzero elements. Many real world applications of vectors include sparse vectors. An example of it in Machine Learning is the popular one-hot encoding method for categorical computation. We can se a dictinoary to store the index and value of non-zero values, O(M+N + mn), O(M+N), M is the number of elements in matrix A, m is the number of non-zero elements in A.
-- [0289. Game of Life](Solutions/0289.Game-of-Life.py) (M) <br>
-solution 1: O(MN), O(MN) solution, should be noted that we cannot use shallow copy for 2D nested list. Have to use deep copy.  Solution 2: O(MN), O(1) solution, Two traversals. Traversal 1: dead -> live: mark as 2; live -> dead: -1  can be whatever number you want, it's just for mark.
-Traversal 2: re-mark 2 to 1, -1 to 0.  Follow up: what if the board is infinite and matrix is sparse? If matrix is sparse, we use a dictionary to store the position of 1s. If the board is infinite and we cannot read the whole board into the memory, then we can read three rows each time because the live or dead state only depends on the up row and down row.
-- [0849. Maximize Distance to Closest Person](Solutions/0849.Maximize-Distance-to-Closest-Person.py) (E) <br>
-遍历过程中不断update idx_of_1和max_dist就可以了，把seats[0]==0和seats[-1]==0单独拿出来判断。warm up for next question.
-- [0855. Exam Room](Solutions/0855.Exam-Room.py) (M) <br>
-Use a sorted list to record the index of seats where people sit, so that we can save tons of space if the seats is sparse;
-seat(): 1. find the biggest distance at the start, at the end and in the middle. 2. insert index of seat into the idx list. 3. return index.
-leave(p): pop out p.
-- [0609. Find Duplicate File in System](Solutions/0609.Find-Duplicate-File-in-System.py) (!!M) <br>
-build a content_to_dir dictionary where key is content in txt file, val is a list of dir holding the content eg: ["root/a/1.txt"];
-需要用到string.split(char), string.index(substring). Super important follow up questions for big data.
 
 
 
@@ -1864,6 +1833,8 @@ max_1_sum, max_2_sum, max_3_sum represent the max sum of 1st k nums, 1st + 2nd k
 update the max_1_sum, max_2_sum, max_3_sum as we travel through the array.
 
 
+------363. Max Sum of Rectangle No Larger Than K------
+
 
 
 
@@ -1932,6 +1903,47 @@ use a distionary to store the roman to num pair, warm up for the following probl
 use a list of tuples to store (num, roman) pair, 
 find the num that is closest to num and num minus it and update res.
 
+
+
+# [Data Stream and Multiple Query]()
+- [0243. Shortest Word Distance](Solutions/0243.Shortest-Word-Distance.py) (E) <br>
+Should know both two pass solution and One pass solution. follow up 1:  如果word1在words中很少只有两个，word2在words中很多有1 million个，怎么优化算法？那么这时候solution 1就派上用场了，我们可以存下idx1 和 idx2两个list. eg: idx1 = [10, 50000]; idx2 = [.......], 那么我们可以在idx2中binary search离10最近的数，然后binary search离50000最近的数。这样时间复杂度就是O(MlogN)了。
+Follow up 2: 如果题目改成不是求两个word的最短距离而是是求K个word的最短距离呢？ solution 1: leetcode 76. Minimum Window Substring.  O(N) where N is the the lens of words.  soltution 2: leetcode 23. Merge k Sorted Lists.  O(NlogK), 方法与solution 1类似，只是为了知道k个idx list中哪根指针需要往前移动一下, 我们需要一个heapq, heapq中最小的那个往前挪动一步.
+- [0244. Shortest Word Distance II](Solutions/0244.Shortest-Word-Distance-II.py) (!!M) <br>
+如果题目要求multiple query with unlimited time, 那么一定考察的是precomputation!! precomputation记录结果一般都需要一个hash map!! 
+这个思想非常重要！！这个题用dictionary记录每个word在words中的位置，这样如果这次需要query a and b, 下次需要query c and d, 
+我们都可以很快找到他们的位置。    # 注意可能会有重复的query，比如第一次query a and b, 第三次又需要query a and b, 这时候为了为了避免重复计算，我们可以直接用memo/cache保存query a and b 的结果, 这个思想非常重要！！这个思想成立的前提是memory不值钱！Follow up 1: 
+你都用两个额外空间去存结果以达到加速的目的了（一个是dictinoary存放每个word在words中的位置，另一个是cache/memo记录已经query过的a and b的结果）,可是面试官还不开心，他还希望调用 query method 能更快一些，怎么办？那咱们就采用最极端的方法：把所有words里可能的word1 and word2组合的结果都算出来存到cache中，这样所有的query 就都是O(1)了这个方法的前提是words list是不会变的，如果重新instantiate一个class把constrcutor里的words list变了那之前的所有结果就都白算了。
+- [245. Shortest Word Distance III](Solutions/0245.Shortest-Word-Distance-III.py) (M) <br>
+word1 and word2 may be the same and they represent two individual words in the list. 分word1等于和不等于两种情况讨论就可以了。
+- [0460. LFU Cache](Solutions/0460.LFU-Cache.py) (!!!H) <br>
+Use a dictionary to store (key, freq) pair.
+Use another dicitonary to store (freq, list of keys) pair, where list of keys could be OrderedDict like LRU to enable O(1) operations.
+其实是在LRU的基础上加了一个frequency的要求。
+Follow up 变形题snapchat：在一个data stream 中find top K most frequent number用LFU来解，也可以用heapq O(Nk).
+
+
+# [Big Data]()
+- [0349. Intersection of Two Arrays](Solutions/0349.Intersection-of-Two-Arrays.py) (!!E) <br>
+Facebook follow up: what if the lists are sorted and you are requred to use O(1) space. Approach: two-pointers solution, 注意去重的方法！！
+- [0350. Intersection of Two Arrays II](Solutions/0350.Intersection-of-Two-Arrays-II.py) (!!E) <br>
+Fackbook follow up 1: what if sorted? solution is using two-pointers. Follow up 2: what if size of nums1 is small? solution is binary search.  Follow up 3: what if nums2 is so large that it cannot fit in the memory? solution: Divide nums2 into n chunks of 1/n size and load 1/n piece each time. Follow up 4: What if neither nums1 or nums2 can fully fit in memory? solution: external sort + n chunks + two pointers.
+- [1213. Intersection of Three Sorted Arrays](Solutions/1213.Intersection-of-Three-Sorted-Arrays.py) (E) <br>
+sorted arr, three-pointers 就可以了
+- [0311. Sparse Matrix Multiplication](Solutions/0311.Sparse-Matrix-Multiplication.py) (!!M Facebook) <br>
+Sparse matrices, which are common in scientific applications, are matrices in which most elements are zero. To save space and running time it is critical to only store the nonzero elements. Many real world applications of vectors include sparse vectors. An example of it in Machine Learning is the popular one-hot encoding method for categorical computation. We can se a dictinoary to store the index and value of non-zero values, O(M+N + mn), O(M+N), M is the number of elements in matrix A, m is the number of non-zero elements in A.
+- [0289. Game of Life](Solutions/0289.Game-of-Life.py) (M) <br>
+solution 1: O(MN), O(MN) solution, should be noted that we cannot use shallow copy for 2D nested list. Have to use deep copy.  Solution 2: O(MN), O(1) solution, Two traversals. Traversal 1: dead -> live: mark as 2; live -> dead: -1  can be whatever number you want, it's just for mark.
+Traversal 2: re-mark 2 to 1, -1 to 0.  Follow up: what if the board is infinite and matrix is sparse? If matrix is sparse, we use a dictionary to store the position of 1s. If the board is infinite and we cannot read the whole board into the memory, then we can read three rows each time because the live or dead state only depends on the up row and down row.
+- [0849. Maximize Distance to Closest Person](Solutions/0849.Maximize-Distance-to-Closest-Person.py) (E) <br>
+遍历过程中不断update idx_of_1和max_dist就可以了，把seats[0]==0和seats[-1]==0单独拿出来判断。warm up for next question.
+- [0855. Exam Room](Solutions/0855.Exam-Room.py) (M) <br>
+Use a sorted list to record the index of seats where people sit, so that we can save tons of space if the seats is sparse;
+seat(): 1. find the biggest distance at the start, at the end and in the middle. 2. insert index of seat into the idx list. 3. return index.
+leave(p): pop out p.
+- [0609. Find Duplicate File in System](Solutions/0609.Find-Duplicate-File-in-System.py) (!!M) <br>
+build a content_to_dir dictionary where key is content in txt file, val is a list of dir holding the content eg: ["root/a/1.txt"];
+需要用到string.split(char), string.index(substring). Super important follow up questions for big data.
 
 
 
