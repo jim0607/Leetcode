@@ -1,3 +1,4 @@
+"""
 75. Sort Colors
 
 Given an array with n objects colored red, white or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white and blue.
@@ -10,6 +11,7 @@ Example:
 
 Input: [2,0,2,1,1,0]
 Output: [0,0,1,1,2,2]
+"""
 
 
     
@@ -28,7 +30,7 @@ class Solution:
         lens = len(nums)
         lt, i, gt = 0, 0, lens - 1
         pivot = 1
-        while i <= gt:
+        while i <= gt:      # 这里要特别注意
             if nums[i] < pivot:
                 nums[lt], nums[i] = nums[i], nums[lt]
                 i += 1
