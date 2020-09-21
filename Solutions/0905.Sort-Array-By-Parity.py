@@ -42,25 +42,24 @@
 #
 
 
-"""同向双指针 two pointers: anchor, curr"""
+"""
+anchor keeps all the even number on it's left side;
+curr keeps going until hit an even number, then switch the even number to anchor
+"""
 class Solution:
-    def sortArrayByParity(self, A: List[int]) -> List[int]:
-        anchor, curr = 0, 0
-        lens = len(A)
-        
-        while curr < lens:
-            if A[curr] % 2 == 0:
-                A[anchor], A[curr] = A[curr], A[anchor]
-                curr += 1
+    def sortArrayByParity(self, nums: List[int]) -> List[int]:
+        anchor = 0
+        curr = 0
+        for curr in range(len(nums)):
+            if nums[curr] % 2 == 0:
+                nums[anchor], nums[curr] = nums[curr], nums[anchor]
                 anchor += 1
-            else:
-                curr += 1
-                
-        return A
+        return nums
 
 
-"""用双指针的方法做partition，与lintcode 31的方法一模一样"""
-
+"""
+用双指针的方法做partition，与lintcode 31的方法一模一样
+"""
 class Solution:
     def sortArrayByParity(self, A: List[int]) -> List[int]:
         left, right = 0, len(A) - 1
