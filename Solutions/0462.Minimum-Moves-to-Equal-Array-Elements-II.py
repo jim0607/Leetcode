@@ -21,6 +21,26 @@ Only two moves are needed (remember each move increments or decrements one eleme
 """
 
 
+
+
+"""
+先看只有两个点A和B的情况,
+
+______A_____P_______B_______
+
+可以发现，只要选择位置P在 [A, B] 区间内，不管在哪，距离之和都是A和B之间的距离，如果P不在 [A, B] 之间，那么距离之和就会大于A和B之间的距离，
+
+现在再加两个点C和D：
+
+______C_____A_____P_______B______D______
+
+通过分析可以得出，P点的最佳位置就是在 [A, B] 区间内.
+
+如果加入很多点，我们选择最佳的点是最小区间[A, B]之间的点，也就是[median - 1, median + 1]之间选一个点，
+
+这就是为什么我们需要选择median了
+"""
+
 """
 solution 1: find median by sorting
 """
