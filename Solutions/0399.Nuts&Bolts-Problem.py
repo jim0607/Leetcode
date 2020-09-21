@@ -1,3 +1,4 @@
+"""
 399. Nuts & Bolts Problem
 
 Given a set of n nuts of different sizes and n bolts of different sizes. There is a one-one mapping between nuts and bolts.
@@ -22,7 +23,7 @@ nuts = ['ab','bc','dd','gg'], bolts = ['BC','AA','DD','GG'].
 So you must use the compare function that we give to do the sorting.
 
 The order of the nuts or bolts does not matter. You just need to find the matching bolt for each nut.
-
+"""
 
 
 
@@ -38,6 +39,14 @@ When "a" is not a nut or "b" is not a bolt, it will return 2, which is not valid
 """
 
 """
+螺帽螺母问题脱胎于排序问题，这里的特别之处在于需要通过两个array进行对应的排序。
+这就需要利用一个array中的元素对另一个array进行partition，并反过来重复这一个过程，最终让两个array都满足comparator所定义的相同顺序。
+
+这里要注意的是partition的变式，因为pivot并非来源当前array，只能通过一方元素作为基准，对另一个array进行partition。
+
+核心在于：首先使用 nuts 中的某一个元素作为基准对 bolts 进行 partition 操作，随后将 bolts 中得到的基准元素作为基准对 nuts 进行 partition 操作。
+"""
+"""
 将nuts和botls用quick sort排序成一一对应关系。
 首先以bolts的左边界元素作为基准，对nuts进行排序。在nuts中寻找该bolt对应的nut，找到之后将该nut交换到其左边界，
 然后以该nut为pivot进行quick sort，因为compare只能比较nut和bult，所以还是以之前的bolt作为基准，将比该bolt小的nut交换到前部，
@@ -48,10 +57,6 @@ When "a" is not a nut or "b" is not a bolt, it will return 2, which is not valid
 """
 
 class Solution:
-    # @param nuts: a list of integers
-    # @param bolts: a list of integers
-    # @param compare: a instance of Comparator
-    # @return: nothing
     def sortNutsAndBolts(self, nuts, bolts, compare):
         self.quick_sort(nuts, bolts, 0, len(nuts) - 1, compare.cmp)
         
@@ -60,28 +65,21 @@ class Solution:
             return
         
         left, right = start, end
-        # nuts = [a, c, b, d] 
-        # bolts = [C, D, A, B]
-        index = self.partition(bolts, left, right, nuts[(left + right) // 2], cmp)
-        # nuts = [a, c, b, d] 
-        # bolts = [A, B, C, D]
-        # index = 2
-        self.partition(nuts, left, right, bolts[index], cmp)
-        # nuts = [b, a, c, d] 
-        # bolts = [A, B, C, D]      
-        self.quick_sort(nuts, bolts, start, index - 1, cmp)
-        self.quick_sort(nuts, bolts, index + 1, end, cmp)
+        idx = self.partition(bolts, left, right, nuts[(left + right) // 2], cmp)      # the pivot val for bolts is: nuts[(start+end)//2]
+        self.partition(nuts, left, right, bolts[idx], cmp)            # the pivot val for nuts is: bolts[index] 
+        
+        self.quick_sort(nuts, bolts, start, idx - 1, cmp)
+        self.quick_sort(nuts, bolts, idx + 1, end, cmp)
         
     def partition(self, arr, start, end, pivot, cmp):
-        #kick the elem matches pivot to front, 相等的值是为了保证bolts和nuts进行的是同样的partition
+        # step 1: 暂时把等于pivot的螺丝移到最前面去, 这是为了保证bolts和nuts进行的是同样的partition
         for i in range(start, end + 1):
             if cmp(arr[i], pivot) == 0 or cmp(pivot, arr[i]) == 0:
                 arr[i], arr[start] = arr[start], arr[i]
                 break
-        #partition the rest
-        left, right = start + 1, end
-        
-            
+                
+        # step 2: partition the rest of the arr
+        left, right = start + 1, end  
         while left <= right:
             while left <= right and (cmp(arr[left], pivot) == -1 or cmp(pivot, arr[left]) == 1):
                 left += 1
@@ -89,12 +87,11 @@ class Solution:
                 right -= 1
             if left <= right:
                 arr[left], arr[right] = arr[right], arr[left]
-                left, right = left + 1, right - 1
+                left += 1
+                right -= 1
                 
-        #Now [start + 1,right] < pivot & [left, end] > pivot
-        #Swap arr[start], arr[right] makes [start, right - 1] < pivot & [left, end] > pivot.
-        #left = right + 1 , arr[right] matches pivot
-        
+        # step 3: 在partition之前暂时把等于pivot的螺丝移到最前面去了，现在把它移回它该有的位置
+        # Now [start + 1,right] < pivot & [left, end] > pivot, Swap arr[start], arr[right] makes [start, right - 1] < pivot & [left, end] > pivot.
         arr[start], arr[right] = arr[right], arr[start]
 
         return right
