@@ -1,6 +1,6 @@
 ## 四刷：每天刷15-20题, 做好总结！08/17 to 09/30
 ## 每天晚上睡前Review做过的题
-##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778; 09/04: 364; 09/05: 31; 09/06: 79; 09/07: 126; 09/08: 863; 09/13: 1066; 09/14: 354; 09/15: 416; 09/16: 10; 09/17: 1223; 09/18: 436; 09/19: 644
+##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778; 09/04: 364; 09/05: 31; 09/06: 79; 09/07: 126; 09/08: 863; 09/13: 1066; 09/14: 354; 09/15: 416; 09/16: 10; 09/17: 1223; 09/18: 436; 09/19: 644; 09/20: 179
 
 
 # [Data Structure](/Data-Structure.py)
@@ -1502,18 +1502,16 @@ minimum of maximum / maximum of minimum 的问题: 与上一题类似，把array
 minimum of maximum / maximum of minimum 的问题: If we can do it at D, then we can do it at larger than D. This is a OOXX problem to find the minimum D.
 The difficult part is to find if is_valid to place K stations so that every adjacent station has distance smaller than D - using greedy. 注意这一题的start, end都是小数
 
-----------1044. Longest Duplicate Substring-------------------------------------
-
 
 
 
 # [Sort](/Sort.py)
 - [0912. Sort an Array](Solutions/0912.Sort-an-Array.py) (!!M Youtubed) <br>
-quick sort: 用partition function先整体有序，返回pivotPos，然后再pivotPos两边分边局部有序
-merge sort: 用mid分成左右两部分，leftArr和righArr分别记录局部的有序数组，然后merge到arr数组
+quick sort: 先整体有序，再局部有序，需要helper function, helper function无返回值 - modify nums in place，先整体有序：选一个pivot，把arr按pivot的值分为左右两边；后局部有序：递归
+merge sort: 用mid分成左右两部分，leftArr和righArr分别记录局部的有序数组，然后merge到arr数组，不需要helper function
 - [0179. Largest Number](Solutions/0179.Largest-Number.py) (M) <br>
 quick sort, self-define comparing two strings by: if s1 + s2 <= s2 + s1: return True else False
-- [0969. Pancake Sorting](Solutions/0969.Pancake-Sorting.py) (M) <br>
+- [0969. Pancake Sorting](Solutions/0969.Pancake-Sorting.py) (M Pramp) <br>
 for i in range(lens-1, -1, -1 ): Find maxIndex -> flip max to top -> flip max to bottom of the whole arr -> repeat
 - [0280. Wiggle Sort](Solutions/0280.Wiggle-Sort.py) (M) <br>
 O(N): 从左到右扫一遍，不满足条件的交换就好了。定义一个变量prevShouldLessThanCurr, in the for loop, prevShouldLessThanCurr = not prevShouldLessThanCurr every step, and based on prevShouldLessThanCurr is true or not, we swap nums[i-1] with nums[i] or not.
@@ -2024,7 +2022,8 @@ O(n)* O(string), n is lens of s, string is the average lens of equal string. che
 - [1316. Distinct Echo Substrings](Solutions/1316.Distinct-Echo-Substrings.py) (H) <br>
 先把整个string的hash_code计算出来存在一个数组里面hash_code[i] = the hash code for s[:i] 相当于prefix_hash_code这样后面计算是substring s[i:j]的hash code就是O(1) 了
 
------------- 187. Repeated DNA Sequences ----------
+------------ 187. Repeated DNA Sequences --------------------------1044. Longest Duplicate Substring-------------------------------------------
+
 
 ### [Bit Manipulation](/)
 - [0136. Single Number](Solutions/0136.Single-Number.py) (!!E) <br>
