@@ -24,7 +24,7 @@ Explanation: There are 2 global inversions, and 1 local inversion.
 
 
 """
-solution 1: O(1) just for this problem.
+solution 1: O(n) just for this problem.
 If the number of global inversions is equal to the number of local inversions,
 it means that all global inversions in permutations are local inversions.
 It also means that we can not find A[i] > A[j] with j > i + 1, cuz that will be globa not local.
@@ -49,44 +49,54 @@ When we're doing mergesort, original index of elements in left part (smaller sid
 So in the merging part of merge_sort, we can update cnt if left_arr[i] > right_arr[j].
 """
 class Solution:
-    def isIdealPermutation(self, A: List[int]) -> bool:
-        local_cnt = 0
-        for i in range(1, len(A)):
-            if A[i-1] > A[i]:
-                local_cnt += 1
-        
-        self.global_cnt = 0
-        self._merge_sort(A)
-        
-        return local_cnt == self.global_cnt
+    def isIdealPermutation(self, nums: List[int]) -> bool:
+        self.local_inversions = 0 
+        self.global_inversions = 0
+        self._find_local(nums)
+        self._find_global(nums)
+        return self.local_inversions == self.global_inversions
     
-    def _merge_sort(self, arr):
-        if len(arr) <= 1:
-            return arr
+    def _find_local(self, nums):
+        for i in range(len(nums) - 1):
+            if nums[i] > nums[i+1]:
+                self.local_inversions += 1
     
-        mid = len(arr) // 2
-        left_arr = self._merge_sort(arr[:mid])
-        right_arr = self._merge_sort(arr[mid:])
+    def _find_global(self, nums):   # we are actually doing merge sort here - using devide and conquer
+        if len(nums) <= 1:
+            return nums
         
-        i, j, k = 0, 0, 0
-        while i < len(left_arr) and j < len(right_arr):
-            if left_arr[i] <= right_arr[j]:
-                arr[k] = left_arr[i]
-                k += 1
-                i += 1
-            else:
-                arr[k] = right_arr[j]
-                k += 1
+        # divide
+        mid = len(nums) // 2
+        left = self._find_global(nums[:mid])
+        right = self._find_global(nums[mid:])
+
+        # before merge/conquer, we update cnt first
+        i, j = 0, 0
+        while i < len(left) and j < len(right):
+            if left[i] > right[j]:
+                self.global_inversions += len(left) - i # 因为left已经sort好了，所以如果left[i]>right[j], 那么i后面的都会>right[j]
                 j += 1
-                self.global_cnt += len(left_arr) - i    # 因为left已经sort好了，所以如果left[i]>right[j], 那么i后面的都会>right[j]
+            else:
+                i += 1
                 
-        while i < len(left_arr):
-            arr[k] = left_arr[i]
-            k += 1
+        # merge/conquer
+        i, j, k = 0, 0, 0
+        while i < len(left) and j < len(right):
+            if left[i] < right[j]:
+                nums[k] = left[i]
+                i += 1
+                k += 1
+            else:
+                nums[k] = right[j]
+                j += 1
+                k += 1
+        while i < len(left):
+            nums[k] = left[i]
             i += 1
-        while j < len(right_arr):
-            arr[k] = right_arr[j]
             k += 1
+        while j < len(right):
+            nums[k] = right[j]
             j += 1
-            
-        return arr                
+            k += 1
+
+        return nums
