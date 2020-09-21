@@ -1,3 +1,4 @@
+"""
 969. Pancake Sorting
 
 Given an array A, we can perform a pancake flip: We choose some positive integer k <= A.length, then reverse the order of the first k elements of A.  We want to perform zero or more pancake flips (doing them one after another in succession) to sort the array A.
@@ -14,6 +15,7 @@ After 1st flip (k=4): A = [1, 4, 2, 3]
 After 2nd flip (k=2): A = [4, 1, 2, 3]
 After 3rd flip (k=4): A = [3, 2, 1, 4]
 After 4th flip (k=3): A = [1, 2, 3, 4], which is sorted. 
+"""
 
 
 """
@@ -21,37 +23,43 @@ Find max
 flip max to top
 flip max to bottom
 reduce size
-repeat"""
+repeat
+"""
+
+
 class Solution:
-    def pancakeSort(self, A: List[int]) -> List[int]:
-        if not A:
-            return A
+    def pancakeSort(self, arr: List[int]) -> List[int]:
+        if not arr or len(arr) == 1:
+            return arr
         
-        lens = len(A)
-        if lens == 1:
-            return A
-        
+        lens = len(arr)
         res = []
-        for j in range(lens - 1, 0, -1):
+        for i in range(lens-1, 0, -1):
+            max_idx = self._find_max(arr, i + 1)
+            self._flip(arr, 0, max_idx)
+            self._flip(arr, 0, i)
+            res.append(max_idx + 1)
+            res.append(i + 1)
+        return res            
             
-            # find the max from 0-jth idx
-            maxVal, maxIdx = A[0], 0
-            for i in range(j + 1):
-                if A[i] > maxVal:
-                    maxVal = A[i]
-                    maxIdx = i
-                    
-            # do two filps
-            self.flip(A, 0, maxIdx)
-            res.append(maxIdx + 1)
-            self.flip(A, 0, j)
-            res.append(j + 1)
-            
-        return res
-            
-    def flip(self, A, start, end):
+    def _find_max(self, arr, end):
+        """
+        Return the idx of max num in arr[:end]
+        """
+        max_idx = 0
+        max_num = arr[0]
+        for i in range(end):
+            if arr[i] > max_num:
+                max_num = arr[i]
+                max_idx = i
+        return max_idx
+    
+    def _flip(self, arr, start, end):
+        """
+        Flip the arr from start to end - in place
+        """
         i, j = start, end
         while i < j:
-            A[i], A[j] = A[j], A[i]
+            arr[i], arr[j] = arr[j], arr[i]
             i += 1
-            j -= 1        
+            j -= 1
