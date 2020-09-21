@@ -40,11 +40,30 @@ class Solution:
             else:
                 i += 1
     
+"""
+同向双指针: step 1: move all 0s to the left; step 2: move all 1s to the left of the rest of the arr
+这种分区的题目都可以用同向双指针
+""" 
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        # step 1: move all 0s to the left
+        anchor = 0
+        for curr in range(len(nums)):
+            if nums[curr] == 0:
+                nums[anchor], nums[curr] = nums[curr], nums[anchor]
+                anchor += 1
+        
+        # step 2: move all 1s to the left of the rest of the arr
+        for curr in range(anchor, len(nums)):
+            if nums[curr] == 1:
+                nums[anchor], nums[curr] = nums[curr], nums[anchor]
+                anchor += 1
     
     
     
     
-"""typical partition problem"""
+    
+"""solution 3: partition twice"""
 
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
@@ -82,31 +101,4 @@ class Solution:
             if left <= right:
                 nums[left], nums[right] = nums[right], nums[left]
                 left += 1
-                right -= 1                
-    
-    
-    
-"""同向双指针: move '2's to the right first, then move '1's to the right
-这种分区的题目都可以用同向双指针"""
-class Solution:
-    def sortColors(self, nums: List[int]) -> None:
-        lens = len(nums)
-        anchor, curr = 0, 0
-        while curr < lens:
-            if nums[curr] == 2:
-                curr += 1
-            else:
-                nums[anchor], nums[curr] = nums[curr], nums[anchor]
-                anchor += 1
-                curr += 1
-                
-        # after the while loop, anchor is at the first '2' position
-        
-        anchor1, curr = 0, 0
-        while curr < anchor:
-            if nums[curr] == 1:
-                curr += 1
-            else:
-                nums[anchor1], nums[curr] = nums[curr], nums[anchor1]
-                anchor1 += 1
-                curr += 1    
+                right -= 1            
