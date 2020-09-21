@@ -1,3 +1,4 @@
+"""
 493. Reverse Pairs
 
 Given an array nums, we call (i, j) an important reverse pair if i < j and nums[i] > 2*nums[j].
@@ -12,6 +13,7 @@ Example2:
 
 Input: [2,4,3,5,1]
 Output: 3
+"""
 
     
 
@@ -24,49 +26,49 @@ This while loop is for every left_sublist and right_sublist.
 """
 class Solution:
     def reversePairs(self, nums: List[int]) -> int:
-        def merge_sort(nums):
-            if len(nums) <= 1:
-                return nums
-            
-            # divide
-            mid = len(nums) // 2
-            left = merge_sort(nums[:mid])
-            right = merge_sort(nums[mid:])
-            
-            # before the conquer while loop, we update our cnt for this sorted left_sublist and right_sublist
-            i, j = 0, 0
-            while i < len(left) and j < len(right):
-                if left[i] > 2 * right[j]:      # 这里只需要比较数值不需要比较idx是因为left属于nums[:mid], 而right属于num[mid:].
-                    self.cnt += len(left) - i   # 因为left已经sort好了，所以如果left[i]>2*right[j], 那么i后面的都会>2*right[j]
-                    j += 1                      # 上面self.cnt用的是i更新的，所以这里j往前挪一位. j 要奔着结束这个if判断条件而去. 
-                else:                           # 所以逻辑是我们想更新self.cnt based on j, 所以必须用i去更新, 更新完之后j要往后挪一位, j又要奔着结束if判断条件去
-                    i += 1
-                    
-            # now we do conquer/merge for merge sort
-            i, j, k = 0, 0, 0
-            while i < len(left) and j < len(right):
-                if left[i] < right[j]:
-                    nums[k] = left[i]
-                    i += 1
-                    k += 1
-                else:
-                    nums[k] = right[j]
-                    j += 1
-                    k += 1
-            while i < len(left):
+        self.cnt = 0
+        self._merge_sort(nums)
+        return self.cnt
+    
+    def _merge_sort(self, nums):
+        if len(nums) <= 1:
+            return nums
+        
+        # divide
+        mid = len(nums) // 2
+        left = self._merge_sort(nums[:mid])
+        right = self._merge_sort(nums[mid:])
+        
+        # before the conquer while loop, we use another while loop to update our cnt for this sorted left_sublist and right_sublist
+        i, j = 0, 0
+        while i < len(left) and j < len(right):     
+            if left[i] > 2 * right[j]:          # 这里只需要比较数值不需要比较idx是因为left属于nums[:mid], 而right属于num[mid:].
+                self.cnt += len(left) - i       # 因为left已经sort好了，所以如果left[i]>2*right[j], 那么i后面的都会>2*right[j]
+                j += 1                          # 上面self.cnt用的是i更新的，所以这里j往前挪一位. j 要奔着结束这个if判断条件而去. 
+            else:                               # 所以逻辑是我们想更新self.cnt based on j, 所以必须用i去更新, 更新完之后j要往后挪一位, j又要奔着结束if判断条件去
+                i += 1
+        
+        # now we do conquer/merge for merge sort
+        i, j, k = 0, 0, 0
+        while i < len(left) and j < len(right):
+            if left[i] < right[j]:
                 nums[k] = left[i]
                 i += 1
                 k += 1
-            while j < len(right):
+            else:
                 nums[k] = right[j]
                 j += 1
                 k += 1
-            
-            return nums
+        while i < len(left):
+            nums[k] = left[i]
+            i += 1
+            k += 1
+        while j < len(right):
+            nums[k] = right[j]
+            k += 1
+            j += 1
         
-        self.cnt = 0
-        merge_sort(nums)
-        return self.cnt
+        return nums
 
     
     
