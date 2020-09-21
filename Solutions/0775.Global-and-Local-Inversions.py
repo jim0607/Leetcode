@@ -1,3 +1,4 @@
+"""
 775. Global and Local Inversions
 
 We have some permutation A of [0, 1, ..., N - 1], where N is the length of A.
@@ -18,6 +19,8 @@ Example 2:
 Input: A = [1,2,0]
 Output: false
 Explanation: There are 2 global inversions, and 1 local inversion.
+"""
+
 
 
 """
