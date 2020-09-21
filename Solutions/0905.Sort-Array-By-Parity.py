@@ -63,14 +63,7 @@ class Solution:
 
 class Solution:
     def sortArrayByParity(self, A: List[int]) -> List[int]:
-        self.partition(A, 0, len(A) - 1)
-        return A
-        
-    def partition(self, A, start, end):
-        if start >= end:
-            return
-        
-        left, right = start, end
+        left, right = 0, len(A) - 1
         while left <= right:
             while left <= right and A[left] % 2 == 0:
                 left += 1
@@ -80,3 +73,5 @@ class Solution:
                 A[left], A[right] = A[right], A[left]
                 left += 1
                 right -= 1
+                
+        return A
