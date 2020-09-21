@@ -70,7 +70,7 @@ class Solution:
         left = self._find_global(nums[:mid])
         right = self._find_global(nums[mid:])
 
-        # before merge/conquer, we update cnt first
+        # Everything is exactly the same as merge sort, except that before merge/conquer, we update cnt first
         i, j = 0, 0
         while i < len(left) and j < len(right):
             if left[i] > right[j]:
