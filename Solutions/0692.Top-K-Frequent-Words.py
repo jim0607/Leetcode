@@ -1,3 +1,4 @@
+"""
 692. Top K Frequent Words
 
 Given a non-empty list of words, return the k most frequent elements.
@@ -19,12 +20,17 @@ You may assume k is always valid, 1 ≤ k ≤ number of unique elements.
 Input words contain only lowercase letters.
 Follow up:
 Try to solve it in O(n log k) time and O(n) extra space.
+"""
+
+
+
 
 """
 heapq solution: O(N + klogN)
 """
-"""
+
 from heapq import *
+
 class Solution:
     def topKFrequent(self, words: List[str], k: int) -> List[str]:
         freqDict = collections.Counter(words)
