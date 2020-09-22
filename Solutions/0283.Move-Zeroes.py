@@ -31,6 +31,22 @@
 #
 
 
+"""
+anchor keeps the first zero position
+"""
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        anchor = 0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[i], nums[anchor] = nums[anchor], nums[i]
+                anchor += 1       
+
+
+
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
         """
@@ -43,3 +59,5 @@ class Solution:
                 nums[anchor], nums[curr] = nums[curr], nums[anchor]
                 anchor += 1
             curr += 1
+            
+            
