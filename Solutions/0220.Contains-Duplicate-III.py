@@ -1,3 +1,4 @@
+"""
 220. Contains Duplicate III
 
 Given an array of integers, find out whether there are two distinct indices i and j in the array such that the absolute difference between nums[i] and nums[j] is at most t and the absolute difference between i and j is at most k.
@@ -14,16 +15,18 @@ Example 3:
 
 Input: nums = [1,5,9,1,5,9], k = 2, t = 3
 Output: false
+"""
 
 
 """
 Solution 3: buckets method  O(N)
 bucket sort利用的是分块的思想
-The main idea is splitting elements in nums into different buckets in terms of the value of t (for each element, divide by (t+1) for integer division). 保持bucket的大小为t这样只要有两个数被分配到了同一个bucket, 那么就可以return True了
+The main idea is splitting elements in nums into different buckets in terms of the value of t (for each element, divide by (t+1) for integer division). 
+保持bucket的大小为t这样只要有两个数被分配到了同一个bucket, 那么就可以return True了
 If the result is True, which means one of the following 3 cases hold:
-Two elements in the same bucket
-One in the previous bucket
-One in the next bucket
+1. Two elements in the same bucket
+2. One in the previous bucket
+3. One in the next bucket
 If the case 2 or 3 holds, you need to check if their difference <= t.
 And there can be at most k buckets at any time. If i (counter in code) >= k, delete the (i-k)-th one.
 """
@@ -37,12 +40,12 @@ class Solution:
             bucket_id = nums[i]//(t+1)  # 取除数在python里-4//3=-2, 所以不用像java solution那样还要考虑负数的情况, 除以t+1是为了防止t=0的情况
             if bucket_id in bucket: # meaning that there is already a number that is in there
                 return True
-            if bucket_id+1 in bucket and abs(bucket[bucket_id+1] - nums[i]) <= t:
+            if bucket_id + 1 in bucket and abs(bucket[bucket_id+1] - nums[i]) <= t:
                 return True
-            if bucket_id-1 in bucket and abs(bucket[bucket_id-1] - nums[i]) <= t:
+            if bucket_id - 1 in bucket and abs(bucket[bucket_id-1] - nums[i]) <= t:
                 return True
             
-            bucket[bucket_id] = nums[i]
+            bucket[bucket_id] = nums[i]     # 把bucket_id加进去
             
             # 这一步是为了保证所有装在bucket dictionary里面的数的idx与下一个进来的i不会超过k的距离，如果有超过的就del出bucket dict
             if i >= k:
@@ -51,17 +54,18 @@ class Solution:
             
         return False   
         
-        
+"""
 自己想了下例子还是明白了，任何数落在t+1的自己bucket 里他们的difference abs一定小于等于t 例如说t=3 bucket 1里的数就是 4,5,6,7 
 你看里面任何一个数相减的abs都是小于等于3的。 然后再看邻居 bucket 0 里有的数在这个例子里是 0,1,2,3 
 那么这里面其中有些数和bucket 1里的有些数相减的 abs会小于等于t 
 同样的解释可以用于bucket2. bucket 3里的数为 12，13，14，15.这里的任何一个数和bucket1 里的任意数相减都不会小于等于 t (12-7=5). 
 为什么+1 因为避免t=0. 
-    
+"""
     
     
 
-""" Brute Force Solution
+""" 
+Brute Force Solution
 Brute force solution is use two loops and test both the conditions. The inner loop starts from i+1 to i+k. Because of that, we no longer need to test one of the conditions since that is taken care of automatically.
 Time complexity : O(n * k).
 """
