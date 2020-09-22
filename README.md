@@ -1660,8 +1660,8 @@ anchor is the first zero element, __anchor keeps all the non-zero numbers on it'
 step1: divide: 先找到mid, 然后在mid处cut成左右half, 再分别sort left and right; step 2: merge, 同21
 - [0086. Partition List](Solutions/0086.Partition-List.py) (!!M) <br>
 注意这里要用两个dummy node, 左边一个，右边一个，将左边和右边分开！！！左右分别用两个指针一个往前跑，另一个留守head的位置
-- [0206. Reverse Linked List](Solutions/0206.Reverse-Linked-List.py) (!!E) 
-需要熟背理解solution 1: interrative: 注意初始化prev, curr = None, head; solution 2: recurssive: 非常容易漏掉 head.next = None
+- [0206. Reverse Linked List](Solutions/0206.Reverse-Linked-List.py) (!!E) <br>
+需要熟背理解solution 1: interrative: 注意初始化 __prev, curr = None, head__ 因为head需要point to None; solution 2: recurssive: 非常容易漏掉 head.next = None
 - [0092. Reverse Linked List II](Solutions/0092.Reverse-Linked-List-II.py) (M) <br>
 reverse node from m to n: step 1: find node_m and node_m_minus; find node_n and node_n_plus; step 2. reverse the nodes from m to n; 3. hook up node_m_minus with node_n, node_m with node_n_plus
 - [0024. Swap Nodes in Pairs](Solutions/0024.Swap-Nodes-in-Pairs.py) (M) <br>
