@@ -1,3 +1,4 @@
+"""
 41. First Missing Positive
 
 Given an unsorted integer array, find the smallest missing positive integer.
@@ -17,8 +18,41 @@ Output: 1
 Note:
 
 Your algorithm should run in O(n) time and uses constant extra space.
+"""
 
 
+"""
+O(max(nums)), O(N) solution - TLE when max(nums) is large
+"""
+class Solution:
+    def firstMissingPositive(self, nums: List[int]) -> int:
+        n = len(nums)
+        if not nums:
+            return 1
+        if 1 not in nums:
+            return 1
+        if n == 1:
+            return 2        
+
+        max_num = max(nums)
+        if max_num <= 0:
+            return 1
+        
+        boolean = [False for _ in range(max_num + 1)]
+        for num in nums:
+            if num <= 0:
+                continue
+            boolean[num - 1] = True
+        
+        for i, b in enumerate(boolean):
+            if not b:
+                return i + 1
+        return max_num + 1
+
+
+"""
+O(N), O(1) solution
+"""
 class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
         n = len(nums)   # the answer must be in range 1 to n
