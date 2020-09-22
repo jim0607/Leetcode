@@ -24,19 +24,36 @@ step 3: O(N) 遍历把相应的(被引次数, how many paper被引了那么多�
 """
 class Solution:
     def hIndex(self, citations: List[int]) -> int:
-        N = len(citations)
-        bucket = [0 for _ in range(N + 1)]
+        n = len(citations)
+        bucket = [0 for _ in range(n + 1)]    # 也可以将bucket size定义为 max(citations) + 1, 但是h-idx的上限是n
         
         for citation in citations:
-            if citation >= N:
-                bucket[N] += 1
+            if citation >= n:
+                bucket[n] += 1
             else:
                 bucket[citation] += 1
 
         paper = 0           # paper代表符合条件的paper总数
-        for i in range(N, -1, -1):      # 注意i代表的是被引次数
+        for i in range(n, -1, -1):      # 注意i代表的是被引次数
             paper += bucket[i]
             if i <= paper:
                 return i
             
         return 0
+
+      
+# 也可以将bucket size定义为 max(citations) + 1    
+class Solution:
+    def hIndex(self, citations: List[int]) -> int:
+        if not citations:
+            return 0
+        
+        bucket = [0 for _ in range(max(citations) + 1)]
+        for citation in citations:
+            bucket[citation] += 1
+        
+        cnt = 0     # record how many papers were cited as we traversal the bucket reversely
+        for cited_times in range(len(bucket) - 1, -1, -1):
+            cnt += bucket[cited_times]
+            if cited_times <= cnt:
+                return cited_times
