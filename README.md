@@ -1521,7 +1521,6 @@ O(N): 从左到右扫一遍，不满足条件的交换就好了。定义一个�
 - [Sort a nearly sorted (or K sorted) array](Solutions/Geeks__Sort-a-nearly-sorted-or-K-sorted-array.py) (Geeks) <br>
 题目要求sort一个长程无序短(k)程有序的数组，solution: 用一个大小为k的heapq存储k个元素，然后i从k开始遍历nums, 遍历的过程中每次都更新nums的最左边: nums[target_idx] = heappop(hq)，同时更新hq: heappush(hq, nums[i]), 这么做成立的原因是i是从k开始遍历的，所以nums[i]一定是大于nums[0]的，而nums[0]>=heappop(hq), 所以nums[i]及其后面的数一定是大于heappop(hq)的，所以可以放心地把heappop(hq)放到target_idx的位置。时间复杂度是O(nlogk). 当k=1: O(0), 当k=n: O(nlogn), 当k=n时就degrade成了heap sort了
 
-
 ### [Quick sort - Partition and quick select](/Sort.py) 
 - [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode) 
 用quick select的模板，partition这个函数的作用是O(N)找到某个数k在一个无序数组中所在的位置，并按照这个数k将该数组分为左右两部分。
@@ -1543,7 +1542,6 @@ solution 1: quick select O(N) in average!!!!; solution 2: heap O(NlogK): heapq.h
 <br> 一个follow up: find the median in a un-sorted array.  solution: this is to find the Kth largest in an array, where K=len(arr)//2
 - [0692. Top K Frequent Words](Solutions/0692.Top-K-Frequent-Words.py) (!!M) <br>
 heapq solution: O(N + klogN); quick select solution: O(N + klogk)
-
 - [0453. Minimum Moves to Equal Array Elements](Solutions/0453.Minimum-Moves-to-Equal-Array-Elements.py) (!!M)  <br>
 给 n-1 个数字加1，效果等同于给那个未被选中的数字减1，
 比如数组 [1，2，3]，给除去最大值的其他数字加1，变为 [2，3，3]，等价于最大的数减一变为 [1，2，2]，
