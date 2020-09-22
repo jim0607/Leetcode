@@ -1,3 +1,4 @@
+"""
 451. Sort Characters By Frequency
 
 Given a string, sort it in decreasing order based on the frequency of characters.
@@ -35,33 +36,10 @@ Output:
 Explanation:
 "bbaA" is also a valid answer, but "Aabb" is incorrect.
 Note that 'A' and 'a' are treated as two different characters.
+"""
 
 
 
-"""
-solution 1: use hash map, and then convert to list, then sort, then conver to string - O(nlogn)
-"""
-"""
-class Solution:
-    def frequencySort(self, s: str) -> str:
-        freq = collections.defaultdict(int)
-        for ch in s:
-            freq[ch] += 1
-            
-        lst = []
-        for ch, cnt in freq.items():
-            lst.append((cnt, ch))
-            
-        lst.sort(key = lambda x: (-x[0], x[1]))
-        
-        res = ""
-        for ch, cnt in lst:
-            res += ch * cnt
-            
-        return res
-        
-        
-        
 """
 solution 2: Bucket sort - O(N)
 Firstly, observe that because all of the characters came out of a String of length n, the maximum frequency for any one character is n. 
@@ -93,8 +71,54 @@ class Solution:
             bucket[cnt].append(ch)      # 把freq当做idx来放入bucket中，这样一来high freq的ch就天然的放在bucket数组后面了, 就不需要sort了
         
         res = ""
-        for i in range(len(bucket) - 1, 0, -1):     # 这里的index i就是freq
+        for i in range(len(bucket) - 1, -1, -1):     # 这里的index i就是freq
             for ch in bucket[i]:
                 res += ch * i
+            
+        return res
+
+
+"""
+也可以idx is frequency, values 直接就是string了
+"""
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        if not s or len(s) <= 2:
+            return s
+        
+        counter = collections.Counter(s)
+        
+        max_cnt = max(cnt for cnt in counter.values())
+        freq_to_str = ["" for _ in range(max_cnt + 1)]    # idx is freq, values is str
+        for ch, cnt in counter.items():
+            freq_to_str[cnt] += ch * cnt
+        
+        res = ""
+        for i in range(len(freq_to_str) - 1, -1, -1):
+            res += freq_to_str[i]
+        return res 
+    
+    
+
+
+"""
+solution 1: use hash map, and then convert to list, then sort, then conver to string - O(nlogn)
+"""
+"""
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        freq = collections.defaultdict(int)
+        for ch in s:
+            freq[ch] += 1
+            
+        lst = []
+        for ch, cnt in freq.items():
+            lst.append((cnt, ch))
+            
+        lst.sort(key = lambda x: (-x[0], x[1]))
+        
+        res = ""
+        for ch, cnt in lst:
+            res += ch * cnt
             
         return res
