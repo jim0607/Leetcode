@@ -1601,17 +1601,17 @@ so we are safe to look only for the inter-bucket gaps.
 - [0448. Find All Numbers Disappeared in an Array](Solutions/0448.Find-All-Numbers-Disappeared-in-an-Array.py) (E) <br>
 难就难在题目要求O(1) space. 做法是把数组里的数当坐标用，We use the sign of the index as the indicator. If one number never occur, 
 we know the number corresponding to the idx will never be negative. eg: [4,3,1,3] -- > [-4,3,-1,-3], 2 is missing, so num[2-1] will never be changed to be negative. 1st pass: change numbers to be negative [4,3,1,3] --> [-4,3,-1,-3].  2nd pass: find those numbers that has not been changed negative, there is not num corrsponding to their idx.
-- [0442. Find All Duplicates in an Array](Solutions/0442.Find-All-Duplicates-in-an-Array.py) (M) <br>
+- [0442. Find All Duplicates in an Array](Solutions/0442.Find-All-Duplicates-in-an-Array.py) (!!!M) <br>
 难就难在题目要求O(1) space. 做法是把数组里的数当坐标用，We use the sign of the index as the indicator. If one number occurs twice, 
 we know the second time occurance becasue we flip the sign each time.
-- [0268. Missing Number](Solutions/0268.Missing-Number.py) (M) <br>
+- [0268. Missing Number](Solutions/0268.Missing-Number.py) (!!M) <br>
 solution 1: 448类似的做法，我们通过nums[i] += 1来change all 0s to be positive number.  solution 2: bit manipulation 所有的idx and num都异或起来. solution 3: 题目确定只有一个missing number. add every num together and compare with n(n+1)/2. O(1).  Follow up: what is there are 2 missing numbers?  How can we solve within O(1). we can calculate the sum of the 2 missing numbers using solutino 3, and also prodct of the 2 missing number, then 用求根公式求出来就可以了
-- [0041. First Missing Positive](Solutions/0041.First-Missing-Positive.py) (H) <br>
-1st pass: change all negtive numbers to be 1, so that there will be no negtive numbers;  2nd pass: change the positive numbers into negative; 3rd pass: find the first positive number, and the corresponding idx is missing
 - [Pramp. Getting a Different Number](Solutions/Pramp.Getting-a-Different-Number.py) (failed) <br>
 Use a list to record the appearance of idx.
-- [0287. Find the Duplicate Number](Solutions/0287.Find-the-Duplicate-Number.py) (M) <br>
-把这个数组的每一个数num看成这样一个linked list node: num的下标代表.val, num的值代表.next指向下一个node。那么如果存在重复的num，那就表示有两个不同node都指向了同一个公共，也就是成环的地点。这么想这个题目就和142一样了，具体实现过程中对p取一个nums[p]，就相当于取一个p.next
+- [0041. First Missing Positive](Solutions/0041.First-Missing-Positive.py) (!!H) <br>
+1st pass: change all negtive numbers to be 1, so that there will be no negtive numbers;  2nd pass: change the positive numbers into negative; 3rd pass: find the first positive number, and the corresponding idx is missing
+- [0287. Find the Duplicate Number](Solutions/0287.Find-the-Duplicate-Number.py) (!!M) <br>
+142. linked list找环的题目，把这个数组的每一个数num看成这样一个linked list node: num的下标代表.val, num的值代表.next指向下一个node。那么如果存在重复的num，那就表示有两个不同node都指向了同一个公共，也就是成环的地点。这么想这个题目就和142一样了，具体实现过程中对p取一个nums[p]，就相当于取一个p.next
 
 
 
@@ -1624,15 +1624,12 @@ midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx
 
 
 # [Two Pointers](/Two-pointers.py)
----------- 809. Expressive Words Google !!!!!!! ------------
 ### [反向双指针](/Two-pointers.py)
 - [EPI book](Solutions/) (E) <br>
 Question: given an array, move all the even numbers to the left while all the odd numbers to the right.
 Solution: two pointers, the same process of merge part in merge sort.
 - [0977. Squares of a Sorted Array](Solutions/0977.Squares-of-a-Sorted-Array.py) (E) <br>
 three pointers: i starts from beginning of A; j starts from the end of A; k starts from end of res 
-- [0238. Product of Array Except Self](Solutions/0238.Product-of-Array-Except-Self.py) (M) <br>
-定义两个数组分别记录product before ith num: fwd[i]=fwd[i-1] * nums[i-1] and product after ith num: bwd[i]=bwd[i+1] * nums[i+1], then res[i]=fwd[i] * bwd[i]
 - [0011. Container With Most Water](Solutions/0011.Container-With-Most-Water.py) (!!M) <br>
 if height[i] > height[j]: j -= 1  # meaning that 右边的栅栏更低，所以把右边指针移动一下，希望能用长度去compromise宽度，即寄希望于min(height[i], height[j])会变大，来compromise掉(j - i)的变小. 为什么不移左边指针呢？因为移动左边的话，min(height[i], height[j])不会变大，但是(j - i)一定变小，所以面积一定变小.
 
@@ -1640,11 +1637,9 @@ if height[i] > height[j]: j -= 1  # meaning that 右边的栅栏更低，所以�
 ### [同向双指针](/Two-pointers.py)
 - [0415. Add Strings](Solutions/0415.Add-Strings.py) (E) <br>
 similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check while i >= 0: ;  while i >= 0: ; 最后还要check if carryBit > 0:
-- [0019. Remove Nth Node From End of List](Solutions/0019.Remove-Nth-Node-From-End-of-List.py) (M) <br>
-fast 比 slow 先出发 n 步即可
 - [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py) (E) <br>
 modify nums1 in-place, 由于nums1有足够空间，我们可以从nums1的尾部开始排，use i, j, k = m - 1, n - 1, m + n -1; 把最大的数放到nums1的后面
-- [0283. Move Zeroes](Solutions/0283.Move-Zeroes.py) <br>
+- [0283. Move Zeroes](Solutions/0283.Move-Zeroes.py) (E) <br>
 anchor is the first zero element, __anchor keeps all the non-zero numbers on it's left, that is the reason the pointer is called anchor__. while curr runs forward, whenever curr equals a non-zero number, switch it to anchor, and move anchor one step forward.  Solution 2: partition using the method in 31, but not accepted cuz partition changes the original order of non-zero numbers. Beacuase quick sort is a ramdomized sorting algorithm.
 - [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (!!E) <br>
 典型的同向双指针 on the left of anchor (including anchor) are the maintained array without duplicates
@@ -1652,7 +1647,7 @@ anchor is the first zero element, __anchor keeps all the non-zero numbers on it'
 - [0082. Remove Duplicates from Sorted List II](Solutions/0082.Remove-Duplicates-from-Sorted-List-II.py) (M) <br>
 要把duplicates都去掉一个不留，anchor stays where on it's left there is only distinct numbers，需要比较prev,curr,curr.next的val来判断一个数是不是合格的
 - [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) <br>
-同向双指针法，注意题目需要去重，如果碰到符合条件的，把i和j往前挪到不重复的元素去。
+同向双指针法，注意题目需要去重，如果碰到符合条件的，把i和j往前挪到不重复的元素去。有点像3-sum去重的问题
 - [0042. Trapping Rain Water](Solutions/0042.Trapping-Rain-Water.py) (!!H) <br>
 首先找到最高highestBar的位置。然后从左边往最高的位置扫，同时maintain一个指针记录leftHighest的高度，如果扫到的地方i小于这个leftHighest的高度，
 则说明i这个地方可以蓄水，可蓄水量为leftHighest的高度减去i的高度；如果扫到的地方i大于这个leftHighest的高度，则说明i这个地方不可以蓄水，所以这时候要更新leftHighest为i的高度。同理对右边做同样的操作
@@ -1697,7 +1692,8 @@ step 1: cut the list into two halves; step 2: reverse the 2nd half; step 3: conn
 把dummy指向head.next的地方，因为一会儿会丢失掉head.next的位置, 害怕什么node的位置会丢掉就拿一个dummy指向那个位置
 - [0430. Flatten a Multilevel Doubly Linked List](Solutions/0430.Flatten-a-Multilevel-Doubly-Linked-List.py) (M) <br>
 递归即可，易错点是return head之前别忘了把head.child设置成None
-
+- [0019. Remove Nth Node From End of List](Solutions/0019.Remove-Nth-Node-From-End-of-List.py) (M) <br>
+fast 比 slow 先出发 n 步即可
 
 
 
@@ -1707,6 +1703,9 @@ step 1: cut the list into two halves; step 2: reverse the 2nd half; step 3: conn
 思路：定义caps cnt，先扫一遍看多少个caps lock，比较s1.charAt(i) == s2.charAt(j) && caps1 == caps2
 - [0524. Longest Word in Dictionary through Deleting](Solutions/0524.Longest-Word-in-Dictionary-through-Deleting.py) (M) <br>
 sort the words by lens, and check the word one by one to see if there is a match. How to check if word matches s? use two pointers to traverse word and s, compare as they go.
+
+---------- 809. Expressive Words Google !!!!!!! ------------
+
 
 
 ### [Two Sum]()
@@ -1848,6 +1847,8 @@ DP solution is somehow similar with 123. Best Time to Buy and Sell Stock III.
 sub_1_sum, sub_2_sum, sub_3_sum represent the sum of 1st k nums, 1st + 2nd k nums, 1st + 2nd + 3rd k nums.
 max_1_sum, max_2_sum, max_3_sum represent the max sum of 1st k nums, 1st + 2nd k nums, 1st + 2nd + 3rd k nums.
 update the max_1_sum, max_2_sum, max_3_sum as we travel through the array.
+- [0238. Product of Array Except Self](Solutions/0238.Product-of-Array-Except-Self.py) (M Pramp) <br>
+定义两个数组分别记录product before ith num: fwd[i]=fwd[i-1] * nums[i-1] and product after ith num: bwd[i]=bwd[i+1] * nums[i+1], then res[i]=fwd[i] * bwd[i]
 
 
 ------363. Max Sum of Rectangle No Larger Than K------
