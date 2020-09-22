@@ -57,9 +57,8 @@ class Solution:
             fast = fast.next.next
         
         # step 2: cut the list into two equal parts
-        leftTail = slow
         rightHead = slow.next
-        leftTail.next = None
+        slow.next = None
 
         # step 3: divide into two parts and recrussviely sort left and right
         sortedLeftHead = self.sortList(head)
