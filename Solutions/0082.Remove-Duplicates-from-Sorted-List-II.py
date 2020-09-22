@@ -20,19 +20,16 @@ anchor stays where on it's left there is only distinct numbers
 """
 class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
-        dummy = ListNode(float("inf"))
-        dummy.next = head
-        anchor, prev, curr = dummy, dummy, head
-        while curr:
-            if prev.val == curr.val:
-                prev = prev.next
-                curr = curr.next
-            else:                                               # 需要比较prev, curr的val来判断一个数是不是合格的
-                if not curr.next or curr.next.val != curr.val:  # 还需要比较curr, curr.next的val来判断一个数是不是合格的
-                    anchor.next = curr
-                    anchor = anchor.next
-                prev = prev.next
-                curr = curr.next
-                
-        anchor.next = None      # 把anchor后面的都断开，因为后面的都是duplicated numbers
-        return dummy.next
+        if not head or not head.next:
+            return head
+        
+        slow, fast = head, head.next
+        while fast:
+            if fast.val != slow.val:
+                slow = slow.next
+                slow.val = fast.val
+            fast = fast.next
+        
+        slow.next = None    # 把anchor后面的都断开，因为后面的都是duplicated numbers
+        
+        return head
