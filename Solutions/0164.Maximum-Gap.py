@@ -1,3 +1,4 @@
+"""
 164. Maximum Gap
 
 Given an unsorted array, find the maximum difference between the successive elements in its sorted form.
@@ -19,6 +20,8 @@ Note:
 
 You may assume all elements in the array are non-negative integers and fit in the 32-bit signed integer range.
 Try to solve it in linear time/space.
+"""
+
 
 """
 solution 1: sort the list and then compare adjacent num
@@ -31,8 +34,33 @@ class Solution:
             max_diff = max(max_diff, nums[i] - nums[i-1])
         return max_diff
         
+"""
+Naive bucket sort - TLE for case [2, 99999999]
+"""
+class Solution:
+    def maximumGap(self, nums: List[int]) -> int:
+        if not nums or len(nums) <= 1:
+            return 0
         
-        
+        bucket = [False for _ in range(max(nums) + 1)]
+        for num in nums:
+            bucket[num] = True
+
+        prev_num = -1
+        max_gap = 0
+        for idx in range(len(bucket)):
+            if bucket[idx]:
+                if prev_num == -1:
+                    prev_num = idx
+                else:
+                    max_gap = max(max_gap, idx - prev_num)
+                    prev_num = idx
+        return max_gap     
+  
+  
+  
+  
+  
 """
 遇到这类问题肯定先想到的是要给数组排序，但是题目要求是要线性的时间和空间，那么只能用桶排序Bucket Sort 。
 If we set the bucket size clever(relatively small), 
@@ -58,12 +86,10 @@ class Solution:
         lens = len(nums)
         size = (mx - mn) // lens + 1
         buckets_number = (mx - mn) // size + 1       # how many buckets are there
-        # buckets = [[] for _ in range(buckets_number)]  # 可要可不要，主要是存每个bucket里的最大值和最小值
         buckets_max = [float("-inf") for _ in range(buckets_number)]      # keep track of max_num in each bucket
         buckets_min = [float("inf") for _ in range(buckets_number)]
         for num in nums:   
             idx = (num - mn) // size
-            # buckets[idx].append(num)  # put nums into the bucket
             buckets_max[idx] = max(buckets_max[idx], num)   # update the max and min number in the bucket
             buckets_min[idx] = min(buckets_min[idx], num)
 
@@ -71,11 +97,11 @@ class Solution:
         max_diff = 0
         prev_max = float("-inf")
         for i in range(len(buckets_max)):
-            if buckets_max[i] == float("-inf") and buckets_min[i] == float("inf"):    # empty bucket
+            if buckets_max[i] == float("-inf"):    # empty bucket
                 continue
             if prev_max == float("-inf"):
                 prev_max = buckets_max[i]
-                continue
-            max_diff = max(max_diff, buckets_min[i] - prev_max)
-            prev_max = buckets_max[i]
+            else:
+              max_diff = max(max_diff, buckets_min[i] - prev_max)
+              prev_max = buckets_max[i]
         return max_diff
