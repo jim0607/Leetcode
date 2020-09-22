@@ -32,7 +32,7 @@ class Solution:
                 right = right.next
                 curr = curr.next
         
-        right.next = None
-        left.next = right_head.next
+        right.next = None               # 注意这里断开很重要
+        left.next = right_head.next     # 注意这里要把两边连起来
             
         return left_head.next
