@@ -1,3 +1,4 @@
+"""
 217. Contains Duplicate
 
 Given an array of integers, find if the array contains any duplicates.
@@ -16,6 +17,7 @@ Example 3:
 
 Input: [1,1,1,3,3,4,3,2,4,2]
 Output: true
+"""
 
 
 class Solution:
@@ -27,4 +29,21 @@ class Solution:
             
             numSet.add(num)
             
+        return False
+
+
+"""
+solution 2: bucket sort: 把num当idx使用
+"""
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        if not nums or len(nums) <= 1:
+            return False
+        
+        idx = [False for _ in range(max(nums) + 1)]
+        for num in nums:
+            if idx[num]:
+                return True
+            else:
+                idx[num] = True
         return False
