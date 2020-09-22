@@ -1519,69 +1519,73 @@ O(N): 从左到右扫一遍，不满足条件的交换就好了。定义一个�
 这题比Wiggle Sort I难在相邻的数不能相等，所以相邻交换法行不通，
 我们可以sort the nums, then 把有序数组从中间分成两部分，然后从前半段的末尾取一个，在从后半的末尾取一个，这样保证了第一个数小于第二个数，然后从前半段取倒数第二个，从后半段取倒数第二个，这保证了第二个数大于第三个数，且第三个数小于第四个数，以此类推。O(nlogn), O(n)
 - [Sort a nearly sorted (or K sorted) array](Solutions/Geeks__Sort-a-nearly-sorted-or-K-sorted-array.py) (Geeks) <br>
-题目要求sort一个长程无序短(k)程有序的数组，solution: 用一个大小为k的heapq存储k个元素，然后i从k开始遍历nums, 遍历的过程中每次都更新nums的最左边: nums[target_idx] = heappop(hq)，同时更新hq: heappush(hq, nums[i]), 这么做成立的原因是i是从k开始遍历的，所以nums[i]一定是大于nums[0]的，而nums[0]>=heappop(hq), 所以nums[i]及其后面的数一定是大于heappop(hq)的，所以可以放心地把heappop(hq)放到target_idx的位置。时间复杂度是O(nlogk). 当k=1: O(0), 当k=n: O(nlogn)
+题目要求sort一个长程无序短(k)程有序的数组，solution: 用一个大小为k的heapq存储k个元素，然后i从k开始遍历nums, 遍历的过程中每次都更新nums的最左边: nums[target_idx] = heappop(hq)，同时更新hq: heappush(hq, nums[i]), 这么做成立的原因是i是从k开始遍历的，所以nums[i]一定是大于nums[0]的，而nums[0]>=heappop(hq), 所以nums[i]及其后面的数一定是大于heappop(hq)的，所以可以放心地把heappop(hq)放到target_idx的位置。时间复杂度是O(nlogk). 当k=1: O(0), 当k=n: O(nlogn), 当k=n时就degrade成了heap sort了
 
 
 ### [Quick sort - Partition and quick select](/Sort.py) 
 - [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode) 
 用quick select的模板，partition这个函数的作用是O(N)找到某个数k在一个无序数组中所在的位置，并按照这个数k将该数组分为左右两部分。
+- [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E) <br>
+solution 1: 同向双指针； solution 2: 反向双指针 - partition
+- [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode) <br>
+STEP 1: 反向双指针（或同向双指针）对[-1,-2,4,,5,-3,6]进行partition，负数在左边，正数在右边[-1, -2, -3, 4, 5, 6]; STEP 2: 再正负正负安插
+- [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) <br>
+solution 1: 同向双指针: step 1: move all 0s to the left; step 2: move all 1s to the left of the rest of the arr; 优点：very easy to implement, don't need to memorize anything.
+Solution 2: 经典的荷兰三色旗问题采用 Dijkstra's 3-way partitioning: while i <= gt: <br>
+a[i] < pivot: exchange a[i] and a[lt] and i++, lt++; <br>
+a[i] > pivot: exchange a[i] and a[gt] and gt--; <br>
+a[i] = pivot: i++; <br>
+QuickSort with 3-way partitioning is very fast because it is entropy optimal
+- [0399. Nuts & Bolts Problem](Solutions/0399.Nuts&Bolts-Problem.py) (!!M Lintcode) <br>
+核心在于：首先使用 nuts 中的某一个元素作为基准对 bolts 进行 partition 操作，随后将 bolts 中得到的基准元素作为基准对 nuts 进行 partition 操作
 - [0215. Kth Largest Element in an Array](Solutions/0215.Kth-Largest-Element-in-an-Array.py) (!!!M Youtubed)  <br>
 solution 1: quick select O(N) in average!!!!; solution 2: heap O(NlogK): heapq.heappush(numsHeap, num); heapq.heappop(numsHeap)
 <br> 一个follow up: find the median in a un-sorted array.  solution: this is to find the Kth largest in an array, where K=len(arr)//2
 - [0692. Top K Frequent Words](Solutions/0692.Top-K-Frequent-Words.py) (!!M) <br>
 heapq solution: O(N + klogN); quick select solution: O(N + klogk)
-- [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E) <br>
-solution 1: 同向双指针； solution 2: 反向双指针同上题
-- [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode)
-STEP 1: 反向双指针（或同向双指针）对[-1,-2,4,,5,-3,6]进行partition，负数在左边，正数在右边[-1, -2, -3, 4, 5, 6]; STEP 2: 再正负正负安插
-- [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) <br>
-solution 1: 做两次partition就可以了; 
-solution 2: 同向双指针: move '2's to the right first, then move '1's to the middle;
-Solution 3: 经典的荷兰三色旗问题采用 Dijkstra's 3-way partitioning:
-a[i] < pivot: exchange a[i] and a[lt] and i++, lt++;
-a[i] > pivot: exchange a[i] and a[gt] and gt--;
-a[i] = pivot: i++;
-QuickSort with 3-way partitioning is very fast because it is entropy optimal
-- [0399. Nuts & Bolts Problem](Solutions/0399.Nuts&Bolts-Problem.py) (!!M Lintcode) 
-写一个带返回pivotIdx的partition function, 先以nuts[(start+end)//2]为nuts_pivotVal对bolts进行partition, 然后返回在bolts中对应nuts_pivotVal的bolts_pivotIdx and bolts_pivotVal, 在以这个bolts_pivotVal对nuts进行partition, 这样就保证了bolts和nuts进行partition的时候用的是同一个pivotVal; 最后pivotIdx左右两边分别递归调用quickSort function 即可
-- [0462. Minimum Moves to Equal Array Elements II](Solutions/0462.Minimum-Moves-to-Equal-Array-Elements-II.py) (!!M) 
+
+- [0453. Minimum Moves to Equal Array Elements](Solutions/0453.Minimum-Moves-to-Equal-Array-Elements.py) (!!M)  <br>
+给 n-1 个数字加1，效果等同于给那个未被选中的数字减1，
+比如数组 [1，2，3]，给除去最大值的其他数字加1，变为 [2，3，3]，等价于最大的数减一变为 [1，2，2]，
+那么问题也可能转化为，将所有数字都减小到最小值
+- [0462. Minimum Moves to Equal Array Elements II](Solutions/0462.Minimum-Moves-to-Equal-Array-Elements-II.py) (!!M)  <br>
 solution 1: find median by sorting; solution 2: find meddian by quick select(kth largest element) - O(N)
-- [0296. Best Meeting Point](Solutions/0296.Best-Meeting-Point.py) (H) 
-It all about finding median, very similar with 462. Minimum Moves to Equal Array Elements II. 注意千万不要错误的去求mean: Median minimizes the absolute distance of points. Mean minimizes the squared distance from points.
+- [0296. Best Meeting Point](Solutions/0296.Best-Meeting-Point.py) (!!H)  <br>
+It all about finding median, very similar with 462. Minimum Moves to Equal Array Elements II. step 1: find row_median; step 2: find col_median; step 3: the min total distance is sum of every house to (row_median, col_median). 注意千万不要错误的去求mean: Median minimizes the absolute distance of points. Mean minimizes the squared distance from points.
 
 
 ### [Merge sort](/Sort.py) 
 - [0775. Global and Local Inversions](Solutions/0775.Global-and-Local-Inversions.py) (!!M) <br>
 solution 1: If the number of global inversions is equal to the number of local inversions,  it means that all global inversions in permutations are local inversions. It also means that we can not find A[i] > A[j] with j > i + 1, cuz that will be globa not local. In other words, max(A[i]) < A[i+2].
-Solution 2: mergesort: 这题其实是coursera Algorithms Sorting chapter的一个习题: counting inversions. When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j. So in the merging part of merge_sort, we can update cnt if left_arr[i] > right_arr[j].
+Solution 2: mergesort: 这题其实是coursera Algorithms Sorting chapter的一个习题: counting inversions. When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j. So in the merging part of merge_sort, we can update cnt if left_arr[i] > right_arr[j]. Everthing is exactly the same as merge sort, except that before merge/conquer, we update cnt first.
 - [0493. Reverse Pairs](Solutions/0493.Reverse-Pairs.py) (!!H) <br>
+solution 2: merge sort. 其实merge sort才是这道题的正解！Count "important reverse pairs" while doing mergesort: When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j. So in addition to the while loop for do merge/conquer, we use an additonal while loop to compare nums[i] and 2* nums[j] to update cnt. - O(nlogn).
 solution 1: segment tree. similar with 315. count of smaller number after itself. We sweep from left to right, and query range [2* num+1, max_num]. 与count number after itself相比，就只有一行代码不同. 
-solution 2: merge sort. 其实merge sort才是这道题的正解！Count "important reverse pairs" while doing mergesort: When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j. So in addition to the while loop for do merge/conquer, we use a while loop to compare nums[i] and 2* nums[j] to update cnt. - O(nlogn)
 - [0315. Count of Smaller Numbers After Self](Solutions/0315.Count-of-Smaller-Numbers-After-Self.py) (!!H) <br>
 Segment Tree solution: O(NlogN) time and O(N) space. 从右往左遍历add num into the tree one by one， at the same time update the cnt of smaller number after self. Follow up: how to solve Spare Segment Tree problem? - Merge sort. 正解是solution 2: merge sort O(nlogn)
 
 
 
-### [Bucket Sort](/Sort.py) 
+### [Bucket Sort - use freq/dist/num as idx](/Sort.py) 
 - [0451. Sort Characters By Frequency](Solutions/0451.Sort-Characters-By-Frequency.py) (!!M) <br>
 solution 1: use hash map, and then convert to list, then sort, then conver to string - O(nlogn). solution 2: bucket sort: putting our chars in buckets/indexes based on their frequency - O(N).
-- [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (M) <br>
-需要一个freqDict来记录每个数出现的freq， heapq, heapq中放入的是(freq, key)对; 按照freq来做heapq，这样就保证了可以筛选出most freqent k item; solution 2: quick select should implement; solution 3: bucket sort O(N) faster then solution 2, cuz solution 2 is O(N^2) in worst case. putting our nums in buckets/indexes based on their frequency
+- [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (!!M) <br>
+需要一个freqDict来记录每个数出现的freq， heapq, heapq中放入的是(freq, key)对; 按照freq来做heapq，这样就保证了可以筛选出most freqent k item; solution 2: quick select should implement; solution 3: bucket sort O(N) faster then solution 2, cuz solution 2 is O(N^2) in worst case. use the freq as index for the bucket.
 - [0217. Contains Duplicate](Solutions/0217.Contains-Duplicate.py) (E) <br>
 hash set to store the seen number, if seen again, return True. Warm up for 219
 - [0219. Contains Duplicate II](Solutions/0219.Contains-Duplicate-II.py) (E) <br>
 solution 1: dictionary to store the (num, pos) pairs. O(N), O(M), where N is the number of num in nums, M is the number of distinct num in nums; solution 2: sliding window: use a numSet to fix the sliding window to be k.  O(N), O(k), where k is the size of the window. Warm up for 220
-- [0220. Contains Duplicate III](Solutions/0220.Contains-Duplicate-III.py) (!!M) <br>
+- [0220. Contains Duplicate III](Solutions/0220.Contains-Duplicate-III.py) (!!!M) <br>
 Solution 1: brutal force O(n^2); solution 2: Balanced BST O(nlogk); solution 3: bucket method: O(n). bucket sort利用的是分块的思想
 The main idea is splitting elements in nums into different buckets in terms of the value of t (for each element, divide by (t+1) for integer division). 保持bucket的大小为t这样只要有两个数被分配到了同一个bucket, 那么就可以return True了
 If the result is True, which means one of the following 3 cases hold: 1. Two elements in the same bucket; 2. One in the previous bucket; 3. One in the next bucket. If the case 2 or 3 holds, you need to check if their difference <= t.
-- [1057.Campus-Bikes.py](Solutions/1057.Campus-Bikes.py) (!!M) <br>
+- [1057.Campus-Bikes.py](Solutions/1057.Campus-Bikes.py) (!!!M) <br>
 brutal force solution O(MNlog(MN)): find the distance of all combinations, and sort them.
 . bucket sort solution O(MN): find the distance of all combinations, and put them into bucket based on their distance. 
 In this way, the distances are represented by idx, which were sort by nature.
 - [0275. H-Index II](Solutions/0275.H-Index-II.py) (!!M) <br>
 The list is sorted, 疯狂暗示二分呀有木有！
-find the first idx where citations[idx] >= N - idx, OOOXXX problem
+find the first idx where citations[idx] >= N - idx, OOOXXX problem - O(logN)
 - [0274. H-Index](Solutions/0274.H-Index.py) (!!M) <br>
 Now the list is not sorted, what do we do? We can sort it and then do exactly the same as 275.  However, that takes nlogn. bucket sort: - O(N) garanteed.
 step 1: 把citation num被引次数放入bucket中作为idx, 而idx上对应的值是cnt of how many papers were cited this much time.
@@ -1594,6 +1598,23 @@ we can ensure that the max gap cannot be in same bucket.
 Largest gap can not be smaller than (max-min)/lens + 1, so if we make the buckets smaller than this number, 
 any gaps within the same bucket is not the amount we are looking for, 
 so we are safe to look only for the inter-bucket gaps.
+
+### [Cyclic Sort/把数当坐标用](/)
+- [0448. Find All Numbers Disappeared in an Array](Solutions/0448.Find-All-Numbers-Disappeared-in-an-Array.py) (E) <br>
+难就难在题目要求O(1) space. 做法是把数组里的数当坐标用，We use the sign of the index as the indicator. If one number never occur, 
+we know the number corresponding to the idx will never be negative. eg: [4,3,1,3] -- > [-4,3,-1,-3], 2 is missing, so num[2-1] will never be changed to be negative. 1st pass: change numbers to be negative [4,3,1,3] --> [-4,3,-1,-3].  2nd pass: find those numbers that has not been changed negative, there is not num corrsponding to their idx.
+- [0442. Find All Duplicates in an Array](Solutions/0442.Find-All-Duplicates-in-an-Array.py) (M) <br>
+难就难在题目要求O(1) space. 做法是把数组里的数当坐标用，We use the sign of the index as the indicator. If one number occurs twice, 
+we know the second time occurance becasue we flip the sign each time.
+- [0268. Missing Number](Solutions/0268.Missing-Number.py) (M) <br>
+solution 1: 448类似的做法，我们通过nums[i] += 1来change all 0s to be positive number.  solution 2: bit manipulation 所有的idx and num都异或起来. solution 3: 题目确定只有一个missing number. add every num together and compare with n(n+1)/2. O(1).  Follow up: what is there are 2 missing numbers?  How can we solve within O(1). we can calculate the sum of the 2 missing numbers using solutino 3, and also prodct of the 2 missing number, then 用求根公式求出来就可以了
+- [0041. First Missing Positive](Solutions/0041.First-Missing-Positive.py) (H) <br>
+1st pass: change all negtive numbers to be 1, so that there will be no negtive numbers;  2nd pass: change the positive numbers into negative; 3rd pass: find the first positive number, and the corresponding idx is missing
+- [Pramp. Getting a Different Number](Solutions/Pramp.Getting-a-Different-Number.py) (failed) <br>
+Use a list to record the appearance of idx.
+- [0287. Find the Duplicate Number](Solutions/0287.Find-the-Duplicate-Number.py) (M) <br>
+把这个数组的每一个数num看成这样一个linked list node: num的下标代表.val, num的值代表.next指向下一个node。那么如果存在重复的num，那就表示有两个不同node都指向了同一个公共，也就是成环的地点。这么想这个题目就和142一样了，具体实现过程中对p取一个nums[p]，就相当于取一个p.next
+
 
 
 ### [Sorted Array](/Sort.py) 
@@ -1976,21 +1997,7 @@ The robot stays in the circle if (looking at the final vector), it changes direc
 遍历机器人的四个方向即可，唯一需要注意的是每次都需要调整机器人的朝向才能move一下，毕竟是机器人嘛
 
 
-### [Cyclic Sort/把数当坐标用](/)
-- [0448. Find All Numbers Disappeared in an Array](Solutions/0448.Find-All-Numbers-Disappeared-in-an-Array.py) (E) <br>
-难就难在题目要求O(1) space. 做法是把数组里的数当坐标用，We use the sign of the index as the indicator. If one number never occur, 
-we know the number corresponding to the idx will never be negative. eg: [4,3,1,3] -- > [-4,3,-1,-3], 2 is missing, so num[2-1] will never be changed to be negative. 1st pass: change numbers to be negative [4,3,1,3] --> [-4,3,-1,-3].  2nd pass: find those numbers that has not been changed negative, there is not num corrsponding to their idx.
-- [0442. Find All Duplicates in an Array](Solutions/0442.Find-All-Duplicates-in-an-Array.py) (M) <br>
-难就难在题目要求O(1) space. 做法是把数组里的数当坐标用，We use the sign of the index as the indicator. If one number occurs twice, 
-we know the second time occurance becasue we flip the sign each time.
-- [0268. Missing Number](Solutions/0268.Missing-Number.py) (M) <br>
-solution 1: 448类似的做法，我们通过nums[i] += 1来change all 0s to be positive number.  solution 2: bit manipulation 所有的idx and num都异或起来. solution 3: 题目确定只有一个missing number. add every num together and compare with n(n+1)/2. O(1).  Follow up: what is there are 2 missing numbers?  How can we solve within O(1). we can calculate the sum of the 2 missing numbers using solutino 3, and also prodct of the 2 missing number, then 用求根公式求出来就可以了
-- [0041. First Missing Positive](Solutions/0041.First-Missing-Positive.py) (H) <br>
-1st pass: change all negtive numbers to be 1, so that there will be no negtive numbers;  2nd pass: change the positive numbers into negative; 3rd pass: find the first positive number, and the corresponding idx is missing
-- [Pramp. Getting a Different Number](Solutions/Pramp.Getting-a-Different-Number.py) (failed) <br>
-Use a list to record the appearance of idx.
-- [0287. Find the Duplicate Number](Solutions/0287.Find-the-Duplicate-Number.py) (M) <br>
-把这个数组的每一个数num看成这样一个linked list node: num的下标代表.val, num的值代表.next指向下一个node。那么如果存在重复的num，那就表示有两个不同node都指向了同一个公共，也就是成环的地点。这么想这个题目就和142一样了，具体实现过程中对p取一个nums[p]，就相当于取一个p.next
+
 
 
 ### [Image Process](/)
