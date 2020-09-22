@@ -1,3 +1,4 @@
+"""
 532. K-diff Pairs in an Array
 
 Given an array of integers and an integer k, you need to find the number of unique k-diff pairs in the array. Here a k-diff pair is defined as an integer pair (i, j), where i and j are both numbers in the array and their absolute difference is k.
@@ -7,9 +8,11 @@ Output: 2
 Explanation: There are two 2-diff pairs in the array, (1, 3) and (3, 5).
 Although we have two 1s in the input, we should only return the number of unique pairs.
 """
+
+
 """
 注意不能先去重，因为可能有[3,3], k=0的情况
-同向双指针法，如果碰到符合条件的，把j往前挪到不重复的元素去。
+同向双指针法，如果碰到符合条件的，把j往前挪到不重复的元素去。有点像3-sum去重的问题
 """
 class Solution:
     def findPairs(self, nums: List[int], k: int) -> int:
