@@ -1,3 +1,4 @@
+"""
 561. Array Partition I
 
 Given an array of 2n integers, your task is to group these integers into n pairs of integer, 
@@ -7,15 +8,9 @@ Example 1:
 Input: [1,4,3,2]
 Output: 4
 Explanation: n is 2, and the maximum sum of pairs is 4 = min(1, 2) + min(3, 4).
+"""
 
 class Solution:
     def arrayPairSum(self, nums: List[int]) -> int:
         nums.sort()
-        
-        i = 0
-        res = 0
-        while i < len(nums):
-            res += nums[i]
-            i += 2
-            
-        return res
+        return sum(nums[i] for i in range(0, len(nums), 2))
