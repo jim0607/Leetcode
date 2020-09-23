@@ -55,3 +55,41 @@ class Solution:
         tail.next = head    # 连接5->1
         
         return curr
+
+    
+    
+    
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def rotateRight(self, head: ListNode, k: int) -> ListNode:
+        if not head or not head.next:
+            return head
+        
+        L = 0
+        curr = head
+        while curr:
+            curr = curr.next
+            L += 1
+        k = k % L
+        if k == 0:
+            return head
+        
+        fast = head
+        for _ in range(k - 1):
+            fast = fast.next
+        
+        dummy = ListNode()
+        dummy.next = head
+        prev, curr = dummy, head
+        while fast and fast.next:
+            prev = prev.next
+            curr = curr.next
+            fast = fast.next
+        
+        prev.next = None
+        fast.next = head
+        return curr
