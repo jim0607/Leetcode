@@ -100,6 +100,7 @@ class Solution:
         if not head or not head.next:
             return None
         
+        # 快慢指针找到相遇的点
         slow, fast = head, head
         while fast and fast.next:
             slow = slow.next
@@ -107,10 +108,11 @@ class Solution:
             if slow == fast:
                 break
             
-        if slow != fast:
+        if slow != fast:    # 如果没有相遇点，那就return None
             return None
         
-        curr = head
+        # 定义两根指针分别从head和上面相遇的点出发，然后p1,p2相遇的地方就是环的入口
+        curr = head     
         while curr != slow:
             curr = curr.next
             slow = slow.next
