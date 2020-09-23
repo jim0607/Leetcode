@@ -76,31 +76,6 @@ class Solution:
             return None
         
         # 快慢指针找到相遇的点
-        slow, fast = head.next, head.next.next
-        while slow != fast:
-            if not fast or not fast.next:   # if no cycel, return None
-                return None
-            slow = slow.next
-            fast = fast.next.next
-
-        # 定义两根指针分别从head和上面相遇的点出发，然后p1,p2相遇的地方就是环的入口
-        p1, p2 = head, slow
-        while p1 != p2:
-            p1 = p1.next
-            p2 = p2.next
-        
-        return p1
-      
-        
-"""
-下面的写法更加intuitive
-"""    
-class Solution:
-    def detectCycle(self, head: ListNode) -> ListNode:
-        if not head or not head.next:
-            return None
-        
-        # 快慢指针找到相遇的点
         slow, fast = head, head
         while fast and fast.next:
             slow = slow.next
