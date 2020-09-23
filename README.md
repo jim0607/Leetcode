@@ -1667,29 +1667,34 @@ reverse node from m to n: step 1: find node_m and node_m_minus; find node_n and 
 - [0024. Swap Nodes in Pairs](Solutions/0024.Swap-Nodes-in-Pairs.py) (M) <br>
 Solution 1: recursion, easier to implement. Solution 2: iterative. 想要reverse n1->n2->n3->n4->n5->n6 in pairs: step 1: 在n1前面添加一个dummy n0, 然后在while curr循环里每次都调用reverse函数，reverse函数做的事情是操作四个节点n0->n1->n2->n3, 将其变成n0->n2->n1->n3, 然后return n1，注意每次都是return想要swap的两个节点的前一个节点！step 2: curr = return的n1，然后继续循环
 - [0025. Reverse Nodes in k-Group](Solutions/0025.Reverse-Nodes-in-k-Group.py) (!!H) <br>
-similar with 24, 在reverse函数中要做的事情是reverse n0->n1->n2------>nk->n_k+1 to be n0->nk------>n2->n1->n_k+1 and return n1; 也是分两步: 首先翻转n1->n2------>nk, 然后hook up n0 with n_k, n1 with n_k+1.  Solution 2: recursion.
+Solution 1: recursion: step 1: exit of recursion: when less than k elements left, return head directly; step 2: reverse the first k elements; step 3: revursivey find the new head of the reversed list
 - [0141. Linked List Cycle](Solutions/0141.Linked-List-Cycle.py) (E) <br>
-在做环形list的题目时,模板是slow, fast = head, head, while fast and fast.next:
+在做环形list的题目时,模板是 __slow, fast = head, head; while fast and fast.next:__
+- [0202. Happy Number](Solutions/0202.Happy-Number.py) (!!E) <br>
+solution 1: 用一个hashset记录number, if next number is in visited, 说明成环了，就return False - O(N), O(N);
+solution 2: slow, fast双指针往前跑，fast跑两步，如果slow == fast说明成环了，return False - O(N), O(1).
 - [0142. Linked List Cycle II](Solutions/0142.Linked-List-Cycle-II.py) (!!M) <br>
 step 1: 快慢指针找到相遇的点; step 2: 重新定义两根指针p1, p2分别从head和上面相遇的点出发，然后p1,p2相遇的地方就是环的入口
-- [0138. Copy List with Random Pointer](Solutions/0138.Copy-List-with-Random-Pointer.py) (!!M) <br>
-Solution 1 O(N), O(N): Just iterate the linked list and create copies of the nodes on the go. Since a node can be referenced from multiple nodes due to the random pointers, make sure you are not making multiple copies of the same node. we can use extra space to keep old node --> new node mapping to prevent creating multiples copies of same node.   Solution 2 O(N), O(1): use 3 steps, each step requires iterate the loop one time.  step 1: create new node and interleave new node into original node; step 2: link the random pointer for the new nodes; step 3: seperate the interleaved old nodes and new nodes
-- [0287. Find the Duplicate Number](Solutions/0287.Find-the-Duplicate-Number.py) (M) <br>
-把这个数组的每一个数num看成这样一个linked list node: num的下标代表.val, num的值代表.next指向下一个node。那么如果存在重复的num，那就表示有两个不同node都指向了同一个公共，也就是成环的地点。这么想这个题目就和142一样了，具体实现过程中对p取一个nums[p]，就相当于取一个p.next
+- [0287. Find the Duplicate Number](Solutions/0287.Find-the-Duplicate-Number.py) (!!M) <br>
+[1,5,3,6,2,2,4]: 1 -> 5 -> 2 -> 3 -> 6 -> 4 -> 2.... 形成了环. 把这个数组的每一个数num看成这样一个linked list node: num的下标代表.val, num的值代表.next指向下一个node。那么如果存在重复的num，那就表示有两个不同node都指向了同一个公共，也就是成环的地点。这么想这个题目就和142一样了，具体实现过程中对p取一个nums[p]，就相当于取一个p.next
 - [0160. Intersection of Two Linked Lists](Solutions/0160.Intersection-of-Two-Linked-Lists.py) (E) <br>
 两个指针currA, currB; if not currA: currA = headB; if not currB: currB = headA
 - [0002. Add Two Numbers](Solutions/0002.Add-Two-Numbers.py) (!!M) <br>
 本题的考点是关于如何新建一个linked list, 要用someNode.next = ListNode(someVal), 而不是简单的修改value; 还考察了是否细心, 最后很容易漏掉carryBit != 0的判断"
 - [0445. Add Two Numbers II](Solutions/0445.Add-Two-Numbers-II.py) (M) <br>
-- [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!M) <br>
-maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we should override ListNode compare function __ lt __ to make customized compare happens: compare ListNode. Solution 2: divide and conquer, O(NlogK), this is a better solution.
+Follow up: What if you cannot modify the input lists? In other words, reversing the lists is not allowed. solution: use two stacks to store the numbers in two linked lists.
+- [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!H) <br>
+正解 Solution 1: divide and conquer. solution 2: maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we need to override ListNode compare function __ lt __ to make customized compare happens: compare ListNode. 
 - [0234. Palindrome Linked List](Solutions/0234.Palindrome-Linked-List.py) (E) <br>
-题目要求O(n) time and O(1) space: 我们只能prev, slow, fast往前走的过程中修改指针指向，将slow反向指给prev.
+题目要求O(n) time and O(1) space: 我们只能reverse 一半的linked list，先找到中点，然后reverse the left part，最后比较判断是否为panlindrome
 - [0061. Rotate List](Solutions/0061.Rotate-List.py) (M) <br>
+fast 比slow先出发k步
 - [0143. Reorder List](Solutions/0143.Reorder-List.py) (M) <br>
 step 1: cut the list into two halves; step 2: reverse the 2nd half; step 3: connect the 1st and 2nd half
 - [0328. Odd Even Linked List](Solutions/0328.Odd-Even-Linked-List.py) (!!M) <br>
 把dummy指向head.next的地方，因为一会儿会丢失掉head.next的位置, 害怕什么node的位置会丢掉就拿一个dummy指向那个位置
+- [0138. Copy List with Random Pointer](Solutions/0138.Copy-List-with-Random-Pointer.py) (!!M) <br>
+Solution 1 O(N), O(N): Just iterate the linked list and create copies of the nodes on the go. Since a node can be referenced from multiple nodes due to the random pointers, make sure you are not making multiple copies of the same node. we can use extra space to keep old node --> new node mapping to prevent creating multiples copies of same node.   Solution 2 O(N), O(1): use 3 steps, each step requires iterate the loop one time.  step 1: create new node and interleave new node into original node; step 2: link the random pointer for the new nodes; step 3: seperate the interleaved old nodes and new nodes
 - [0430. Flatten a Multilevel Doubly Linked List](Solutions/0430.Flatten-a-Multilevel-Doubly-Linked-List.py) (M) <br>
 递归即可，易错点是return head之前别忘了把head.child设置成None
 - [0019. Remove Nth Node From End of List](Solutions/0019.Remove-Nth-Node-From-End-of-List.py) (M) <br>
