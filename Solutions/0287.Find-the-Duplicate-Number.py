@@ -20,6 +20,8 @@ There is only one duplicate number in the array, but it could be repeated more t
 
 
 """
+[1,5,3,6,2,2,4]
+1 -> 5 -> 2 -> 3 -> 6 -> 4 -> 2.... 形成了环
 可以把这个数组的每一个数num看成这样一个linked list node: num的下标代表.val, num的值代表.next指向下一个node。
 那么如果存在重复的num，那就表示有两个不同node都指向了同一个node，也就是成环的地点。这么想这个题目就和142一样了
 """
