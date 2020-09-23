@@ -1,6 +1,6 @@
 ## 四刷：每天刷15-20题, 做好总结！08/17 to 09/30
 ## 每天晚上睡前Review做过的题
-##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778; 09/04: 364; 09/05: 31; 09/06: 79; 09/07: 126; 09/08: 863; 09/13: 1066; 09/14: 354; 09/15: 416; 09/16: 10; 09/17: 1223; 09/18: 436; 09/19: 644; 09/20: 179; 09/21: 448
+##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778; 09/04: 364; 09/05: 31; 09/06: 79; 09/07: 126; 09/08: 863; 09/13: 1066; 09/14: 354; 09/15: 416; 09/16: 10; 09/17: 1223; 09/18: 436; 09/19: 644; 09/20: 179; 09/21: 448; 09/22: 328
 
 
 # [Data Structure](/Data-Structure.py)
@@ -1687,6 +1687,8 @@ Follow up: What if you cannot modify the input lists? In other words, reversing 
 正解 Solution 1: divide and conquer. solution 2: maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we need to override ListNode compare function __ lt __ to make customized compare happens: compare ListNode. 
 - [0234. Palindrome Linked List](Solutions/0234.Palindrome-Linked-List.py) (E) <br>
 题目要求O(n) time and O(1) space: 我们只能reverse 一半的linked list，先找到中点，然后reverse the left part，最后比较判断是否为panlindrome
+- [0019. Remove Nth Node From End of List](Solutions/0019.Remove-Nth-Node-From-End-of-List.py) (M) <br>
+fast 比 slow 先出发 n 步即可
 - [0061. Rotate List](Solutions/0061.Rotate-List.py) (M) <br>
 fast 比slow先出发k步
 - [0143. Reorder List](Solutions/0143.Reorder-List.py) (M) <br>
@@ -1697,8 +1699,7 @@ step 1: cut the list into two halves; step 2: reverse the 2nd half; step 3: conn
 Solution 1 O(N), O(N): Just iterate the linked list and create copies of the nodes on the go. Since a node can be referenced from multiple nodes due to the random pointers, make sure you are not making multiple copies of the same node. we can use extra space to keep old node --> new node mapping to prevent creating multiples copies of same node.   Solution 2 O(N), O(1): use 3 steps, each step requires iterate the loop one time.  step 1: create new node and interleave new node into original node; step 2: link the random pointer for the new nodes; step 3: seperate the interleaved old nodes and new nodes
 - [0430. Flatten a Multilevel Doubly Linked List](Solutions/0430.Flatten-a-Multilevel-Doubly-Linked-List.py) (M) <br>
 递归即可，易错点是return head之前别忘了把head.child设置成None
-- [0019. Remove Nth Node From End of List](Solutions/0019.Remove-Nth-Node-From-End-of-List.py) (M) <br>
-fast 比 slow 先出发 n 步即可
+
 
 
 
