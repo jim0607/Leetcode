@@ -1,3 +1,4 @@
+"""
 234. Palindrome Linked List
 
 Given a singly linked list, determine if it is a palindrome.
@@ -12,42 +13,37 @@ Input: 1->2->2->1
 Output: true
 Follow up:
 Could you do it in O(n) time and O(1) space?
-
+"""
 
 
 """
-题目要求O(n) time and O(1) space: 我们只能prev, slow, fast往前走的过程中修改指针指向，
-将slow反向指给prev. 
+题目要求O(n) time and O(1) space: 
+我们只能reverse 一半的linked list，先找到中点，然后reverse the left part，最后比较判断是否为panlindrome
 """
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
         if not head or not head.next:
             return True
-        if not head.next.next:
-            return head.val == head.next.val
         
-        # step 1: prev, slow, fast往前走的过程中修改指针指向，将slow反向指给prev. 
-        dummy = ListNode(-1)
-        dummy.next = head
-        prev, slow, fast = dummy, dummy.next, dummy.next.next
+        # find the mid point of the list, at the same time reverse the left part
+        prev, curr, fast = None, head, head
         while fast and fast.next:
-            temp = slow.next
-            slow.next = prev
-            
-            prev = slow
-            slow = temp
             fast = fast.next.next
-        
-        # step 2: 找到new lefthead new righthead
-        temp = slow.next
-        if fast:    # even number of nodes
-            slow.next = prev
-            prev = slow
             
-        left, right = prev, temp
-        print(left.val, right.val)
+            # reverse the left part of the linked list
+            temp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = temp
+
+        # the left part's head is prev, 
+        # the right part's head is curr or curr.next depending on even or odd number of nodes
+        if not fast:        # even number of nodes
+            left, right = prev, curr
+        else:               # odd number of nodes
+            left, right = prev, curr.next
         
-        # step 3: check panlindrome
+        # check palindrome
         while left and right:
             if left.val != right.val:
                 return False
