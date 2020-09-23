@@ -1,3 +1,4 @@
+"""
 61. Rotate List
 
 Given a linked list, rotate the list to the right by k places, where k is non-negative.
@@ -18,52 +19,9 @@ rotate 1 steps to the right: 2->0->1->NULL
 rotate 2 steps to the right: 1->2->0->NULL
 rotate 3 steps to the right: 0->1->2->NULL
 rotate 4 steps to the right: 2->0->1->NULL
+"""
 
 
-
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution:
-    def rotateRight(self, head: ListNode, k: int) -> ListNode:
-        if not head:
-            return None
-        
-        # step 1: get the lens of the list
-        lens = 0
-        curr = head
-        tail = curr
-        while curr:     
-            tail = curr     # track where the tial is, will use later
-            curr = curr.next
-            lens += 1
-        
-        k = lens - k % lens
-        if k == lens:
-            return head
-        
-        dummy = ListNode(-1)
-        dummy.next = head
-        prev, curr = dummy, dummy.next
-        for _ in range(k):
-            prev = prev.next
-            curr = curr.next
-            
-        prev.next = None    # 断开3->4
-        tail.next = head    # 连接5->1
-        
-        return curr
-
-    
-    
-    
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
 class Solution:
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
         if not head or not head.next:
@@ -92,4 +50,38 @@ class Solution:
         
         prev.next = None
         fast.next = head
+        return curr
+    
+    
+    
+
+    
+class Solution:
+    def rotateRight(self, head: ListNode, k: int) -> ListNode:
+        if not head:
+            return None
+        
+        # step 1: get the lens of the list
+        lens = 0
+        curr = head
+        tail = curr
+        while curr:     
+            tail = curr     # track where the tial is, will use later
+            curr = curr.next
+            lens += 1
+        
+        k = lens - k % lens
+        if k == lens:
+            return head
+        
+        dummy = ListNode(-1)
+        dummy.next = head
+        prev, curr = dummy, dummy.next
+        for _ in range(k):
+            prev = prev.next
+            curr = curr.next
+            
+        prev.next = None    # 断开3->4
+        tail.next = head    # 连接5->1
+        
         return curr
