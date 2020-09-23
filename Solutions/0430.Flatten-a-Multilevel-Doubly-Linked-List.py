@@ -71,6 +71,48 @@ class Node:
         self.child = child
 """
 
+
+
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val, prev, next, child):
+        self.val = val
+        self.prev = prev
+        self.next = next
+        self.child = child
+"""
+
+class Solution:
+    def flatten(self, head: 'Node') -> 'Node':
+        if not head:
+            return None
+        
+        curr = head
+        while curr:
+            if not curr.child:
+                curr = curr.next
+            else:
+                next_node = curr.next
+                child_head = self.flatten(curr.child)   # 递归
+                child_tail = self._find_tail(child_head)
+                curr.next = child_head
+                child_head.prev = curr
+                child_tail.next = next_node
+                if next_node:
+                    next_node.prev = child_tail                
+                curr.child = None       # return head之前别忘了把head.child设置成None
+        return head
+    
+    def _find_tail(self, head):
+        curr = head
+        while curr and curr.next:
+            curr = curr.next
+        return curr
+
+
+
+
 class Solution:
     def flatten(self, head: 'Node') -> 'Node':
         if not head:
