@@ -1,10 +1,9 @@
+"""
 1248. Count Number of Nice Subarrays
 
 Given an array of integers nums and an integer k. A subarray is called nice if there are k odd numbers on it.
 
 Return the number of nice sub-arrays.
-
- 
 
 Example 1:
 
@@ -20,6 +19,8 @@ Example 3:
 
 Input: nums = [2,2,2,1,2,2,1,2,2,2], k = 2
 Output: 16
+"""
+
 
 
 """
@@ -30,23 +31,21 @@ exactly(K) = atMost(K) - atMost(K-1);
 """
 class Solution:
     def numberOfSubarrays(self, nums: List[int], k: int) -> int:
-        return self._at_most_k(nums, k) - self._at_most_k(nums, k - 1)
-        
-    def _at_most_k(self, nums, k):
+        return self._at_most(nums, k) - self._at_most(nums, k - 1)
+    
+    # 套用第二种模板：find max subarray size for at most problem.
+    def _at_most(self, nums, k):
+        odd_cnt = 0
         res = 0
-        cnt_odd = 0
         i = 0
         for j in range(len(nums)):
-            if nums[j] % 2 == 1:        # always update the pointer in the front first
-                cnt_odd += 1
-                
-            while i <= j and cnt_odd > k:
-                if nums[i] % 2 == 1:        
-                    cnt_odd -= 1
+            odd_cnt += nums[j] % 2          # 总是先更新后面的指针j
+            
+            while i <= j and odd_cnt > k:
+                odd_cnt -= nums[i] % 2      
                 i += 1
             
-            # 更新res - at most k
-            if cnt_odd <= k:
-                res += j - i
+            if odd_cnt <= k:                
+                res += j - i + 1
                 
         return res
