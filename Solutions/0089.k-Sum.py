@@ -40,6 +40,7 @@ return dp[lens][k][target]
 """
 class Solution:
     def kSum(self, A, K, target):
+        # 注意背包问题的dp定义要做buffer layer
         dp = [[[0 for _ in range(target + 1)] for _ in range(K + 1)] for _ in range(len(A) + 1)]
         for i in range(len(A) + 1):
             dp[i][0][0] = 1
