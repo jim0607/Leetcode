@@ -21,7 +21,7 @@ Explanation: The answer is "wke", with the length of 3.
              
              
 # sliding window, tiem complexity: O(N)
-# # 维护一个included=set(), 用来记录i->j中include的char，套模板时满足的条件是s[j] not in included; 
+# 维护一个included=set(), 用来记录i->j中include的char，套模板时满足的条件是s[j] not in included; 
 # 更新j: included.add(s[j]); 更新i: included.remove(s[i])
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
@@ -38,29 +38,37 @@ class Solution:
                 included.add(s[j])
                 j += 1
                 
-            res = max(res, j - i)
+            res = max(res, j - i)   
             
             included.remove(s[i])
             
         return res
       
       
-class Solution {
-    public int lengthOfLongestSubstring(String s) {
-        int lens = s.length();
-        int maxLens = 0;
-        int j = 0;
-        Set included = new HashSet();
-        
-        for (int i = 0; i < lens; i++) {
-            while (j < lens && !included.contains(s.charAt(j))) {
-                included.add(s.charAt(j));
-                 j ++;
-            }
-            maxLens = Math.max(maxLens, j - i);
-            included.remove(s.charAt(i));
-        }
-        
-        return maxLens;
-    }
-}
+"""
+也可以套用模板 for find max subarray size for at most problem 
+"""
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        ch_to_cnt = collections.defaultdict(int)
+        i = 0
+        max_size = 0
+        for j in range(len(s)):
+            ch_to_cnt[s[j]] += 1
+            
+            while i <= j and not self._is_valid(ch_to_cnt):
+                ch_to_cnt[s[i]] -= 1
+                if ch_to_cnt[s[i]] == 0:
+                    del ch_to_cnt[s[i]]
+                i += 1
+                
+            if self._is_valid(ch_to_cnt):
+                max_size = max(max_size, j - i + 1)
+                
+        return max_size
+    
+    def _is_valid(self, ch_to_cnt):
+        for cnt in ch_to_cnt.values():
+            if cnt > 1:
+                return False
+        return True
