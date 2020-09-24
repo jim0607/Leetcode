@@ -29,9 +29,9 @@ class Solution:
         sums = 0
         i = 0
         for j in range(len(nums)):
-            sums += nums[j]         # 不管是那种模板，都是先更新后面的指针
+            sums += nums[j]         # 不管是哪种模板，都是先更新后面的指针
             
-            while i <= j and sums > target:
+            while i <= j and sums > target:     # 用 i < j 也可以
                 sums -= nums[i]     # 再更新前面的指针
                 i += 1
             
