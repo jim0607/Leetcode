@@ -1,5 +1,6 @@
+"""
 653. Two Sum IV - Input is a BST
-E
+
 Given a Binary Search Tree and a target number, return true if there exist two elements in the BST such that their sum is equal to the given target.
 Example 1:
 Input: 
@@ -10,14 +11,35 @@ Input:
 2   4   7
 Target = 9
 Output: True
+"""
 
 
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+
+"""
+iterative in-order traversal of a tree要背熟
+"""
+class Solution:
+    def findTarget(self, root: TreeNode, target: int) -> bool:
+        if not root or not root.left and not root.right:
+            return False
+        
+        num_set = set()
+        curr = root
+        st = []
+        while curr or st:
+            while curr:
+                st.append(curr)
+                curr = curr.left
+            curr = st.pop()
+            
+            if target - curr.val in num_set:
+                return True
+            num_set.add(curr.val)
+            
+            curr = curr.right
+        return False
+
+
 
 Solution 1: First convert the BST into a sortedArr using inorder traversal, then use two pointer method to do the two sum problem
 class Solution:
