@@ -27,17 +27,19 @@ for c:
   for d:
     -(c + d) in hashmap?"""
 
+
+
 class Solution:
     def fourSumCount(self, A: List[int], B: List[int], C: List[int], D: List[int]) -> int:
-        sumDict = collections.defaultdict(int)  # key is twoSum, val is how many time the key appears
+        n = len(A)
+        sum_to_cnt = collections.defaultdict(int)   # key is two_sum, val is how many time the two_sum appears
         for a in A:
             for b in B:
-                sumDict[a+b] += 1
-                
+                sum_to_cnt[a+b] += 1
+        
         res = 0
         for c in C:
             for d in D:
-                if -(c+d) in sumDict:
-                    res += sumDict[-(c+d)]
-            
+                if -(c + d) in sum_to_cnt:
+                    res += sum_to_cnt[-(c+d)]
         return res
