@@ -1,4 +1,4 @@
-
+"""
 15. 3Sum
 
 Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
@@ -12,7 +12,7 @@ A solution set is:
   [-1, 0, 1],
   [-1, -1, 2]
 ]
-
+"""
 
                     
                     
@@ -45,7 +45,7 @@ class Solution:
                     res.append([nums[i], nums[left], nums[right]])
                     left += 1
                     right -= 1
-                    while left < right and nums[left] == nums[left - 1]:    # 注意点三：对 left 和 right 去重
+                    while left < right and nums[left] == nums[left - 1]:    # 注意点三：对 left 和 right 去重!!!!!!!
                         left += 1
                     while left < right and nums[right] == nums[right + 1]:
                         right -= 1
