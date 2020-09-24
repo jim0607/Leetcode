@@ -1,3 +1,4 @@
+"""
 76. Minimum Window Substring
 
 Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
@@ -10,8 +11,9 @@ Note:
 
 If there is no such window in S that covers all characters in T, return the empty string .
 If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
-
 """
+
+
 """
 below solution is easy, but time comsuming O(MN) 
 """
@@ -63,7 +65,6 @@ this solution is O(N), instead of using self.allIncluded(sourceDict, targetDict)
 we use a int missing to keep track of how many chars are still needed in order to match
 also, in stead of using s[i:j] everytime we renew res, we use start, end to renew the idx, which reduce time from O(N) to O(1)
 """
-
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
         if len(s) == 0 or len(s) < len(t):
