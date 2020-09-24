@@ -1,3 +1,4 @@
+"""
 1208. Get Equal Substrings Within Budget
 
 You are given two strings s and t of the same length. You want to change s to t. Changing the i-th character of s to i-th character of t costs |s[i] - t[i]| that is, the absolute difference between the ASCII values of the characters.
@@ -23,12 +24,14 @@ Example 3:
 Input: s = "abcd", t = "acde", maxCost = 0
 Output: 1
 Explanation: You can't make any change, so the maximum length is 1.
+"""
 
 
 
 """
 step 1: construct a cost arr; step 2: sliding window to solve the problem of 
 finding the max lens of subarry with sum at most target
+用第二种模板：find max subarray size for at most problem.
 """
 class Solution:
     def equalSubstring(self, s: str, t: str, max_cost: int) -> int:
