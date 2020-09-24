@@ -1704,29 +1704,30 @@ step 1: cut the list into two halves; step 2: reverse the 2nd half; step 3: conn
 
 
 ### [双指针处理双序列问题](/Two-pointers.py)
-- [0844. Backspace String Compare](Solutions/0844.Backspace-String-Compare.py) (!!E) <br>
-这种双指针处理比较双序列问题很常见。We can use a pointer traverse from __right to left__, and use a counter to count how many "#" we got so far. 一般要求用O(1) space解决。Google follow up: 加一个按键是类似caps lock，即按了之后所有的字母小写变大写，再按一下大写变小写。
+- [0844. Backspace String Compare](Solutions/0844.Backspace-String-Compare.py) (!!!E) <br>
+这种双指针处理比较双序列问题很常见。由于题目"#"可以删掉前面的ch, We can use a pointer traverse from __right to left__, and use a counter to count how many "#" we got so far. 一般要求用O(1) space解决。Google follow up: 加一个按键是类似caps lock，即按了之后所有的字母小写变大写，再按一下大写变小写。
 思路：定义caps cnt，先扫一遍看多少个caps lock，比较s1.charAt(i) == s2.charAt(j) && caps1 == caps2
 - [0524. Longest Word in Dictionary through Deleting](Solutions/0524.Longest-Word-in-Dictionary-through-Deleting.py) (M) <br>
 sort the words by lens, and check the word one by one to see if there is a match. How to check if word matches s? use two pointers to traverse word and s, compare as they go.
+- [0809. Expressive Words](Solutions/0809.Expressive-Words.py) (!!M Google) <br>
+pre-calculate how many successive same chars are there at each idx: "heeellooo" --> {0: 1, 1: 3, 2: 2, 3: 1, 4: 2, 5: 1, 6: 3, 7: 2, 8: 1}
 
----------- 809. Expressive Words Google !!!!!!! ------------
 
 
 
 ### [Two Sum]()
-- [0001. Two Sum](Solutions/0001.Two-Sum.py) (E) <br>
+- [0001. Two Sum](Solutions/0001.Two-Sum.py) (!!E) <br>
 九章算法：对于求 2 个变量如何组合的问题可以循环其中一个变量，然后研究另外一个变量如何变化, 普世的方法是：for循环一个变量a，然后看另外一个变量target-a是不是在一个hashmap中
 - [0167. Two Sum II - Input array is sorted](Solutions/0167.Two-Sum-II-Input-array-is-sorted.py) (E) <br>
 sorted 就用反向双指针
 - [0170. Two Sum III - Data structure design](Solutions/0170.Two-Sum-III-Data-structure-design.py) (E) <br>
 self.numsDict = collections.defaultdict(lambda: 0) # val is num val, key is how namy times the val was added
-- [0653. Two Sum IV - Input is a BST](Solutions/0653.Two-Sum-IV-Input-is-a-BST.py) (E) <br>
-In order traversal into an array and then use two pointer method
 - [1099. Two Sum Less Than K](Solutions/1099.Two-Sum-Less-Than-K.py) (E) <br>
 最优解是sort之后用反向双指针O(nlogn); solution 2: bucket sort: O(n)? coudl be a good follow up question.
-- [0609. Two Sum - Less than or equal to target](Solutions/0609.Two-Sum-Less-than-or-equal-to-target.py) (E) <br>
-反向双指针：if nums[i] + nums[j] <= target: cnt += j - i		# 注意这里是 cnt += j - i 表示nums[i] 加上 i 到 j之间的任何数，一定也是小于等于target的
+- [0609. Two Sum - Less than or equal to target](Solutions/0609.Two-Sum-Less-than-or-equal-to-target.py) (!!E Lintcode) <br>
+反向双指针：if nums[i] + nums[j] <= target: cnt += j - i		# 注意这里是 cnt += j - i 表示nums[i] 加上 (i 到 j之间的任何数)，一定也是小于等于target的
+- [0653. Two Sum IV - Input is a BST](Solutions/0653.Two-Sum-IV-Input-is-a-BST.py) (E) <br>
+iterative in-order traversal of a tree要背熟
 - [1214. Two Sum BSTs](Solutions/1214.Two-Sum-BSTs.py) (M) <br>
 Iteratively do an inorder traversal for root1, and store the val in a hashSet; then itteratively do an inorder traversal for root2, and at the same time check if a target-val is in the hashSet. time complexity: O(M + N). 算法跟two sum是一样的，如果闭着眼睛能写要会iterative in-order traversal的哈！
 - [0015. 3Sum](Solutions/0015.3Sum.py) (!!M) <br>
@@ -1738,7 +1739,7 @@ step 1: sort the list; step 2: 背模板，注意点一：对i去重；注意点
 solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1开始，因为要至少让j先取上第一个值i+1之后才能与前一个数比较！不然[0,0,0,0], 0就通不过了；solution 2: O(N^2): hashmap. for循环a, b,保存a+b的值进hashmap, 再for循环c, d, 判断c+d是否在hashmap中
 - [0454. 4Sum II](Solutions/0454.4Sum-II.py) (M) <br>
 有四个数组，不好用双指针，所以就使用hashmap，用一个hashmap 保存a + b
-- [0089. k Sum](Solutions/0089.k-Sum.py) (H Lintcode) <br>
+- [0089. k Sum](Solutions/0089.k-Sum.py) (!!H Lintcode) <br>
 采用动态规划，用dp[i][j][t]表示前i个数里选j个和为t的方案数。dp[i][j][t] = 选A[i-1]: dp[i-1][j-1][t-A[i-1]] + 不选 A[i-1]: dp[i-1][j][t]; initialize: dp[i][0][0] = 1; return dp[lens][k][target]
 
 
