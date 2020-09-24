@@ -37,7 +37,7 @@ Can you solve it in O(N) time and O(1) space?
 
 
 """
-naively, we can find out the final string of S and T, and compare them. But that takes O(N) space.
+naively, we can use stacks to find out the final string of S and T, and compare them. But that takes O(N) space.
 The problem is asking for O(1) space.
 由于题目"#"可以删掉前面的ch, We can use a pointer traverse from right to left, and use a counter to count how many # we got so far.
 """
