@@ -1,4 +1,6 @@
-Given two binary search trees, return True if and only if there is a node in the first tree and a node in the second tree whose values sum up to a given integer target.
+"""
+Given two binary search trees, return True if and only if there is a node in the first tree 
+and a node in the second tree whose values sum up to a given integer target.
 Example 1:
 Input: root1 = [2,1,4], root2 = [1,0,3], target = 5
 Output: true
@@ -6,37 +8,38 @@ Explanation: 2 and 3 sum up to 5.
 Example 2:
 Input: root1 = [0,-10,10], root2 = [5,1,7,0,2], target = 18
 Output: false
+"""
 
-"""solution 2: binary tree traversal using iterative way and store the val in a hash map; time complexity: O(M + N)"""
+
+
+"""
+solution 2: binary tree traversal using iterative way and store the val in a hash map; time complexity: O(M + N)
+"""
 class Solution:
     def twoSumBSTs(self, root1: TreeNode, root2: TreeNode, target: int) -> bool:
-        if not root1 or not root2:
-            return False
-        
-        stack = []
-        numsSet = set()
-        
-        # in order traversal of a BST using interative way
+        # step 1: put the node of 1st tree into a hash set
+        hashset = set()
         curr = root1
-        while stack or curr:
+        st = []
+        while curr or st:
             while curr:
-                stack.append(curr)
+                st.append(curr)
                 curr = curr.left
-            curr = stack.pop()
-            numsSet.add(curr.val)
-            curr = curr.right
-            
-        # in order traversal of 2nd BST
+            curr = st.pop()
+            hashset.add(curr.val)
+            curr = curr.right      
+        
+        # step 2: loop over the 2nd tree and see if there is a node add up to target
         curr = root2
-        while stack or curr:
+        st = []
+        while curr or st:
             while curr:
-                stack.append(curr)
+                st.append(curr)
                 curr = curr.left
-            curr = stack.pop()
-            if target - curr.val in numsSet:
+            curr = st.pop()
+            if target - curr.val in hashset:
                 return True
             curr = curr.right
-            
         return False
 
     
