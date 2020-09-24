@@ -31,11 +31,11 @@ class Solution:
                 
             left, right = i + 1, lens - 1
             while left < right:
-                threeSum = nums[i] + nums[left] + nums[right]
+                threeSum = nums[i] + nums[left] + nums[right]  
                 if threeSum >= target:
                     right -= 1
                 else:
-                    cnt += right - left
+                    cnt += right - left    # 注意这里是 cnt += j - i 表示nums[i] 加上 i 到 j之间的任何数，一定也是小于等于target的
                     left += 1
         
         return cnt
