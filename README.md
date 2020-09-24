@@ -188,7 +188,126 @@ q 记录区间[i-k, i]内被反转了的idx, 遍历过程中把里i很远的idx�
 
 
 
-## [Heap/Heapq](/Data-Structure.py) 
+
+# [Sliding Window (同向双指针)](/Sliding-window.py)
+- [0209. Minimum Size Subarray Sum](Solutions/0209.Minimum-Size-Subarray-Sum.py) (!!M) <br>
+维护一个sums, 用来记录i->j中数的和，套模板时满足的条件是sums < target; 更新j: sums += nums[j]; 更新i: sums -= nums[j]
+Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search the fisrt j that satisfy sum(nums[i:]>=s), so it is a OOXX probelm, which could be solved using binary search. Follow up: 如果有负数怎么办？那就不能用sliding window了，只能用deque. 详见239.
+这题是sum at least s problem, 所以最好的写法是while loop里让后面的指针逐渐远离前面的指针；
+如果是sum at most s problem, 写法是while loop里让前面的指针去追后面的指针
+- [0930. Binary Subarrays With Sum](Solutions/0930.Binary-Subarrays-With-Sum.py) (!!M) <br>
+(number of subarrays having sum S) = (number of subarrays having sum at most S) - (number of subarrays having sum at most S-1)
+这题是sum at least s problem, 所以最好的写法是while loop里让后面的指针逐渐远离前面的指针；
+如果是sum at most s problem, 写法是while loop里让前面的指针去追后面的指针
+- [1208. Get Equal Substrings Within Budget](Solutions/1208.Get-Equal-Substrings-Within-Budget.py) (!!M) <br>
+step 1: construct a cost arr; step 2: sliding window to solve the problem of 
+finding the max lens of subarry with sum at most target. sum at most s problem, 写法是while loop里让前面的指针去追后面的指针
+- [0003. Longest Substring Without Repeating Characters](Solutions/0003.Longest-Substring-Without-Repeating-Characters.py) (!!M) <br>
+维护一个included=set(), 用来记录i->j中include的char，套模板时满足的条件是s[j] not in included; 更新j: included.add(s[j]); 更新i: included.remove(s[i])
+- [0076. Minimum Window Substring](Solutions/0076.Minimum-Window-Substring.py) (!!H) <br>
+维护一个sourceFreqDict, 用来记录i->j中的char的频率，套用模板时满足的条件是sourceFreqDict all included in targetFreqDict; 更新j: sourceDict[s[j]] += 1, 更新i: sourceDict[s[i]] -= 1.  time complexity is O(MN). solution 2: O(N), instead of using self.allIncluded(sourceDict, targetDict) to check matched or not,  we use a int missing to keep track of how many chars are still needed in order to match, this reduce the time from O(M) to O(1). also, instead of using s[i:j] everytime when we renew res, we use start, end to renew the idx, which reduce time from O(N) to O(1)
+- [0727. Minimum Window Subsequence](Solutions/0727.Minimum-Window-Subsequence.py) (!!H) <br>
+solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题只需要freq都满足了就行，这题不仅如此，而且还是讲究顺序的，; solution 2: dp
+- [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
+Note that the numbers are positive, so the prefixProd will be an increasing arr. 维护一个sums, 用来记录i->j中数的product, 指针j再往前跑，指针i在后面追。
+- [1248. Count Number of Nice Subarrays](Solutions/1248.Count-Number-of-Nice-Subarrays.py) (!!M) <br>
+Sliding window is great of __at most__ problems.  This problem will be a very typical sliding window, if it asks the number of subarrays with __at most__ K distinct elements.
+Just need one more step to reach the folloing equation: exactly(K) = atMost(K) - atMost(K-1); 
+- [0340. Longest Substring with At Most K Distinct Characters](Solutions/0340.Longest-Substringwith-At-Most-K-Distinct-Characters.py) (!!H) <br>
+维护一个charDict, 用来记录i->j中的char的频率，套模板时满足的条件是len(charDict) <= k; 更新j: charDict[s[j]+=1; 更新i: charDict[s[i]] -= 1, if charDict[s[i]] == 0: del charDict[s[i]]
+- [0159. Longest Substring with At Most Two Distinct Characters](Solutions/0159.Longest-Substring-with-At-Most-Two-Distinct-Characters.py) (M) <br>
+Exactly the same as 340.
+- [0904. Fruit Into Baskets](Solutions/0904.Fruit-Into-Baskets.py) (M) <br>
+Exactly the same as 159.
+- [0424. Longest Repeating Character Replacement](Solutions/0424.Longest-Repeating-Character-Replacement.py) (M) <br>
+340 的变形题 this problem is to find the max_lens of substring so that (length of substring - number of times of the maximum occurring character in the substring) is at most K.
+- [0992. Subarrays with K Different Integers](Solutions/0992.Subarrays-with-K-Different-Integers.py) (!!H) <br>
+exactly(K) = atMost(K) - atMost(K-1). Helper function is exactly the same as 340. Longest Substring with At Most K Distinct Characters
+- [0487. Max Consecutive Ones II](Solutions/0487.Max-Consecutive-Ones-II.py) (!!M) <br>
+sliding window solution: find the longest subarray with at most one 0s. solution 2: record prev_lens and curr_lens for the previous lens of consecutive 1s and curr lens of consecutive 1s. update them we there is a new 0 coming, otherwise curr_lens += 1.
+- [1004. Max Consecutive Ones III](Solutions/1004.Max-Consecutive-Ones-III.py) (H) <br>
+sliding window solution: finding the maximum lens with at most K 0s.
+- [0242. Valid Anagram](Solutions/0242.Valid-Anagram.py) (E) <br>
+string s and t are anagram with each other when all the ch in s have the same count as that in t
+- [0567. Permutation in String](Solutions/0567.Permutation-in-String.py) (M) <br>
+sliding window solution 1: 九章模板，use one collections.Counters for p and one for s. sliding window solution 2: keep the window size len(s1), check the tempCntDict == cntDict ? O(M+M*(N-M)). 
+- [0438. Find All Anagrams in a String](Solutions/0438.Find-All-Anagrams-in-a-String.py) (!!M) <br>
+similar with 567, 套用九章模板就可以了
+- [0049. Group Anagrams](Solutions/0049.Group-Anagrams.py) (!!M) <br>
+dictionary: key is a tuple keeping track of the cnt of all 26 letters, val is the word list corresponding to the tuple
+- [0030. Substring with Concatenation of All Words](Solutions/0030.Substring-with-Concatenation-of-All-Words.py) (H) <br>
+固定长度的sliding window: solution: use two hashmaps to record the frequency of word.
+O(len(s)* len(words)* len(words[0]))
+- [0228. Summary Ranges](Solutions/0228.Summary-Ranges.py) (M) <br>
+sliding window可解
+- [0163. Missing Ranges](Solutions/0163.Missing-Ranges.py) (M) <br>
+这题是上一题的延伸，跟sliding window没啥关系
+- [1052. Grumpy Bookstore Owner](Solutions/1052.Grumpy-Bookstore-Owner.py) (M) <br>
+Since the window size is fixed, the problem is easier to implement. We only need to update the max_gain,
+which represents how man ymore people can be satisfied if the owner use X minites magic card
+- [1234. Replace the Substring for Balanced String](Solutions/1234.Replace-the-Substring-for-Balanced-String.py) (!!M) <br>
+this time we don't care the count of elements inside the window, we want to know the count outside the window.
+This is because we can change the char inside the window whatever we want, so as long as outside the window,
+all(count[Q],count[W],count[E],count[R]) <= n / 4 is satisfied, then we can make it balanced.
+- [1100. Find K-Length Substrings With No Repeated Characters](Solutions/1100.Find-K-Length-Substrings-With-No-Repeated-Characters.py) (!!M) <br>
+Brutal force / sliding window with fixed length: O(26N); Sliding window O(N): find the substring longer than K that has no repeating chars.
+- [1456. Maximum Number of Vowels in a Substring of Given Length](Solutions/1456.Maximum-Number-of-Vowels-in-a-Substring-of-Given-Length.py) (M) <br>
+sliding window with fixed lens
+- [1151. Minimum Swaps to Group All 1's Together](Solutions/1151.Minimum-Swaps-to-Group-All-1s-Together.py) (M) <br>
+Find the substring with lens=k and minimum 0s in it. use a fix window to find minimum number of 0s.
+- [1423. Maximum Points You Can Obtain from Cards](Solutions/1423.Maximum-Points-You-Can-Obtain-from-Cards.py) (!!M Google) <br>
+sliding window with fix size problem, the only difference is that some part of the window is at the beginning of the list and some are at the end. Google真是滑窗控
+- [0395. Longest Substring with At Least K Repeating Characters](Solutions/0395.Longest-Substring-with-At-Least-K-Repeating-Characters.py) (!!M) <br>
+注意这题不能用滑窗，use those char which counting is smaller than k as a 'wall' to divide the string into two parts and use recursion on the two parts. - O(26N)
+- [0862. Shortest Subarray with Sum at Least K](Solutions/0862.Shorteast-Subarray-with-Sum-at-Least-K.py) (!!H) <br>
+不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
+这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
+两个while循环，一个while loop do sliding window to update res, 从队首pop, 同时更新res, 
+另一个while loop do monostack to maintain an increasing dq, 从队尾pop, 对deq进行清理。
+
+-------- 1358. Number of Substrings Containing All Three Characters ----------1124. Longest Well-Performing Interval--------
+
+
+# [SubArray/Prefix Sum](/SubArray.py)
+- [0053. Maximum Subarray](Solutions/0053.Maximum-Subarray.py) (!!E) <br>
+Maintian a prefixSum and minPrefixSum, so that maxSubSum = max(maxSubSum, prefixSum - minPrefixSum); minPrefixSum = min(prefixSum, minPrefixSum)
+- [0724. Find Pivot Index](Solutions/0724.Find-Pivot-Index.py) (E) <br>
+在nums前面添加一个[0]然后再进入循环。for i, num in enumerate([0] + nums[:-1]): if prefixSum * 2 == sumNums - nums[i]: return i
+- [0560. Subarray Sum Equals K](Solutions/0560.Subarray-Sum-Equals-K.py) (!!M) <br>
+新建一个prefixSumDict = {0: 1}, key是prefixSum, val是how many times the prefixSum appears; if prefixSum - k in prefixSumDict: 等价于if prefixSum[j+1]-prefixSum[i] == k
+- [0363. Max Sum of Rectangle No Larger Than K](Solutions/0363.Max-Sum-of-Rectangle-No-Larger-Than-K.py) (!!M) <br>
+2D version of prefx sum - O(m* m* n* n). 构建2D pre_sum比较复杂需要考虑行的和列的和以及公共部分的和：pre_sum[i+1][j+1] = pre_sum[i][j+1] + pre_sum[i+1][j] - pre_sum[i][j] + matrix[i][j].   Solution 2: binary search to achieve O(n^3logn)
+- [1074. Number of Submatrices That Sum to Target](Solutions/1074.Number-of-Submatrices-That-Sum-to-Target.py) (H) <br>
+也可以先把行处理好，让每一行里面保存上面所有行的和，接下来就是在每一行里面去求560问题了，注意一点不同的是需要遍历upRow和downRow的, 如果不遍历就是solution 3的错误写法举一个反例想明白solution 3为什么行不通，自然就会改成solution 2了O(MMN)
+- [0523. Continuous Subarray Sum](Solutions/0523.Continuous-Subarray-Sum.py) (M) <br>
+prefixSumMap = {0: -1} # key: prefixSum[j], val: j/position, initial position should be -1; prefixSum += num; prefixSum = prefixSum % k 因为题目要求要能被subArray Sum 要能被k整除
+- [0974. Subarray Sums Divisible by K](Solutions/0974.Subarray-Sums-Divisible-by-K.py) (M) <br>
+prefixSumDict = {0: 1} # key is the prefixSum, val is how many times the prefixSum appears; prefixSum += num; prefixSum %= K
+- [0139. Subarray Sum Closest](Solutions/0139.Subarray-Sum-Closest.py) (M Lintcode) <br>
+题目要求NlogN, 那就是疯狂暗示要sort, prefixSumList = [(0, -1)] # (0, -1) are prefixSum and index; 对prefixSum来进行sort，这样最小的subArrSum (或者prefixSums[j+1][0] - prefixSums[i][0])就一定来自于相邻的两个prefisxSums了
+- [0152. Maximum Product Subarray](Solutions/0152.Maximum-Product-Subarray.py) (M) <br>
+最大值问题。用一个数组记录最大的正数maxDP[i]，另一个数组记录最小的负数minDP[i], maxDP[i]表示以i为结尾的subarray的最product. 分nums[i]的正负,更新maxDP[i]和minDP[i]。maxDP[i] = max(nums[i], maxDP[i-1]* nums[i]) if nums[i]>0
+- [1031. Maximum Sum of Two Non-Overlapping Subarrays](Solutions/1031.Maximum-Sum-of-Two-Non-Overlapping-Subarrays.py) (!!M) <br>
+Step 1: find the prefix_sum and suffix_sum;
+Step 2: using the prefix_sum and suffix_sum, find the prefix_max_L, where prefix_max_L[i] = the max subarray sum with window size L before i;
+do the same for prefix_max_M, suffix_sum_L, suffix_sum_M;
+Step 3: travel the arr and update max_sum as max(max_sum, prefix_max_L[i] + suffix_max_M[i], prefix_max_M[i] + suffix_max_L[i]).
+Solution 2: DP可以做到O(1) space. 具体做法与下一题689类似
+- [0689. Maximum Sum of 3 Non-Overlapping Subarrays](Solutions/0689.Maximum-Sum-of-3-Non-Overlapping-Subarrays.py) (!!H) <br>
+DP solution is somehow similar with 123. Best Time to Buy and Sell Stock III.
+sub_1_sum, sub_2_sum, sub_3_sum represent the sum of 1st k nums, 1st + 2nd k nums, 1st + 2nd + 3rd k nums.
+max_1_sum, max_2_sum, max_3_sum represent the max sum of 1st k nums, 1st + 2nd k nums, 1st + 2nd + 3rd k nums.
+update the max_1_sum, max_2_sum, max_3_sum as we travel through the array.
+- [0238. Product of Array Except Self](Solutions/0238.Product-of-Array-Except-Self.py) (M Pramp) <br>
+定义两个数组分别记录product before ith num: fwd[i]=fwd[i-1] * nums[i-1] and product after ith num: bwd[i]=bwd[i+1] * nums[i+1], then res[i]=fwd[i] * bwd[i]
+
+
+------363. Max Sum of Rectangle No Larger Than K------
+
+
+
+
+# [Heap/Heapq](/Data-Structure.py) 
 - [Heapq implementation](Solutions/Implement_Heapq.py) (!!M) <br>
 - [0703. Kth Largest Element in a Stream](Solutions/0703.Kth-Largest-Element-in-a-Stream.py) (E) <br>
 heap solution: maintain a hq with size k, the kth largest is always hq[0] - O(logk) for add function.
@@ -1741,125 +1860,6 @@ solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1
 有四个数组，不好用双指针，所以就使用hashmap，用一个hashmap 保存a + b
 - [0089. k Sum](Solutions/0089.k-Sum.py) (!!H Lintcode) <br>
 采用动态规划，用dp[i][j][t]表示前i个数里选j个和为t的方案数。dp[i][j][t] = 选A[i-1]: dp[i-1][j-1][t-A[i-1]] + 不选 A[i-1]: dp[i-1][j][t]; initialize: dp[i][0][0] = 1; return dp[lens][k][target]
-
-
-
-
-# [Sliding Window (同向双指针)](/Sliding-window.py)
-- [0209. Minimum Size Subarray Sum](Solutions/0209.Minimum-Size-Subarray-Sum.py) (!!M) <br>
-维护一个sums, 用来记录i->j中数的和，套模板时满足的条件是sums < target; 更新j: sums += nums[j]; 更新i: sums -= nums[j]
-Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search the fisrt j that satisfy sum(nums[i:]>=s), so it is a OOXX probelm, which could be solved using binary search. Follow up: 如果有负数怎么办？那就不能用sliding window了，只能用deque. 详见239.
-这题是sum at least s problem, 所以最好的写法是while loop里让后面的指针逐渐远离前面的指针；
-如果是sum at most s problem, 写法是while loop里让前面的指针去追后面的指针
-- [0930. Binary Subarrays With Sum](Solutions/0930.Binary-Subarrays-With-Sum.py) (!!M) <br>
-(number of subarrays having sum S) = (number of subarrays having sum at most S) - (number of subarrays having sum at most S-1)
-这题是sum at least s problem, 所以最好的写法是while loop里让后面的指针逐渐远离前面的指针；
-如果是sum at most s problem, 写法是while loop里让前面的指针去追后面的指针
-- [1208. Get Equal Substrings Within Budget](Solutions/1208.Get-Equal-Substrings-Within-Budget.py) (!!M) <br>
-step 1: construct a cost arr; step 2: sliding window to solve the problem of 
-finding the max lens of subarry with sum at most target. sum at most s problem, 写法是while loop里让前面的指针去追后面的指针
-- [0003. Longest Substring Without Repeating Characters](Solutions/0003.Longest-Substring-Without-Repeating-Characters.py) (!!M) <br>
-维护一个included=set(), 用来记录i->j中include的char，套模板时满足的条件是s[j] not in included; 更新j: included.add(s[j]); 更新i: included.remove(s[i])
-- [0076. Minimum Window Substring](Solutions/0076.Minimum-Window-Substring.py) (!!H) <br>
-维护一个sourceFreqDict, 用来记录i->j中的char的频率，套用模板时满足的条件是sourceFreqDict all included in targetFreqDict; 更新j: sourceDict[s[j]] += 1, 更新i: sourceDict[s[i]] -= 1.  time complexity is O(MN). solution 2: O(N), instead of using self.allIncluded(sourceDict, targetDict) to check matched or not,  we use a int missing to keep track of how many chars are still needed in order to match, this reduce the time from O(M) to O(1). also, instead of using s[i:j] everytime when we renew res, we use start, end to renew the idx, which reduce time from O(N) to O(1)
-- [0727. Minimum Window Subsequence](Solutions/0727.Minimum-Window-Subsequence.py) (!!H) <br>
-solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题只需要freq都满足了就行，这题不仅如此，而且还是讲究顺序的，; solution 2: dp
-- [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
-Note that the numbers are positive, so the prefixProd will be an increasing arr. 维护一个sums, 用来记录i->j中数的product, 指针j再往前跑，指针i在后面追。
-- [1248. Count Number of Nice Subarrays](Solutions/1248.Count-Number-of-Nice-Subarrays.py) (!!M) <br>
-Sliding window is great of __at most__ problems.  This problem will be a very typical sliding window, if it asks the number of subarrays with __at most__ K distinct elements.
-Just need one more step to reach the folloing equation: exactly(K) = atMost(K) - atMost(K-1); 
-- [0340. Longest Substring with At Most K Distinct Characters](Solutions/0340.Longest-Substringwith-At-Most-K-Distinct-Characters.py) (!!H) <br>
-维护一个charDict, 用来记录i->j中的char的频率，套模板时满足的条件是len(charDict) <= k; 更新j: charDict[s[j]+=1; 更新i: charDict[s[i]] -= 1, if charDict[s[i]] == 0: del charDict[s[i]]
-- [0159. Longest Substring with At Most Two Distinct Characters](Solutions/0159.Longest-Substring-with-At-Most-Two-Distinct-Characters.py) (M) <br>
-Exactly the same as 340.
-- [0904. Fruit Into Baskets](Solutions/0904.Fruit-Into-Baskets.py) (M) <br>
-Exactly the same as 159.
-- [0424. Longest Repeating Character Replacement](Solutions/0424.Longest-Repeating-Character-Replacement.py) (M) <br>
-340 的变形题 this problem is to find the max_lens of substring so that (length of substring - number of times of the maximum occurring character in the substring) is at most K.
-- [0992. Subarrays with K Different Integers](Solutions/0992.Subarrays-with-K-Different-Integers.py) (!!H) <br>
-exactly(K) = atMost(K) - atMost(K-1). Helper function is exactly the same as 340. Longest Substring with At Most K Distinct Characters
-- [0487. Max Consecutive Ones II](Solutions/0487.Max-Consecutive-Ones-II.py) (!!M) <br>
-sliding window solution: find the longest subarray with at most one 0s. solution 2: record prev_lens and curr_lens for the previous lens of consecutive 1s and curr lens of consecutive 1s. update them we there is a new 0 coming, otherwise curr_lens += 1.
-- [1004. Max Consecutive Ones III](Solutions/1004.Max-Consecutive-Ones-III.py) (H) <br>
-sliding window solution: finding the maximum lens with at most K 0s.
-- [0242. Valid Anagram](Solutions/0242.Valid-Anagram.py) (E) <br>
-string s and t are anagram with each other when all the ch in s have the same count as that in t
-- [0567. Permutation in String](Solutions/0567.Permutation-in-String.py) (M) <br>
-sliding window solution 1: 九章模板，use one collections.Counters for p and one for s. sliding window solution 2: keep the window size len(s1), check the tempCntDict == cntDict ? O(M+M*(N-M)). 
-- [0438. Find All Anagrams in a String](Solutions/0438.Find-All-Anagrams-in-a-String.py) (!!M) <br>
-similar with 567, 套用九章模板就可以了
-- [0049. Group Anagrams](Solutions/0049.Group-Anagrams.py) (!!M) <br>
-dictionary: key is a tuple keeping track of the cnt of all 26 letters, val is the word list corresponding to the tuple
-- [0030. Substring with Concatenation of All Words](Solutions/0030.Substring-with-Concatenation-of-All-Words.py) (H) <br>
-固定长度的sliding window: solution: use two hashmaps to record the frequency of word.
-O(len(s)* len(words)* len(words[0]))
-- [0228. Summary Ranges](Solutions/0228.Summary-Ranges.py) (M) <br>
-sliding window可解
-- [0163. Missing Ranges](Solutions/0163.Missing-Ranges.py) (M) <br>
-这题是上一题的延伸，跟sliding window没啥关系
-- [1052. Grumpy Bookstore Owner](Solutions/1052.Grumpy-Bookstore-Owner.py) (M) <br>
-Since the window size is fixed, the problem is easier to implement. We only need to update the max_gain,
-which represents how man ymore people can be satisfied if the owner use X minites magic card
-- [1234. Replace the Substring for Balanced String](Solutions/1234.Replace-the-Substring-for-Balanced-String.py) (!!M) <br>
-this time we don't care the count of elements inside the window, we want to know the count outside the window.
-This is because we can change the char inside the window whatever we want, so as long as outside the window,
-all(count[Q],count[W],count[E],count[R]) <= n / 4 is satisfied, then we can make it balanced.
-- [1100. Find K-Length Substrings With No Repeated Characters](Solutions/1100.Find-K-Length-Substrings-With-No-Repeated-Characters.py) (!!M) <br>
-Brutal force / sliding window with fixed length: O(26N); Sliding window O(N): find the substring longer than K that has no repeating chars.
-- [1456. Maximum Number of Vowels in a Substring of Given Length](Solutions/1456.Maximum-Number-of-Vowels-in-a-Substring-of-Given-Length.py) (M) <br>
-sliding window with fixed lens
-- [1151. Minimum Swaps to Group All 1's Together](Solutions/1151.Minimum-Swaps-to-Group-All-1s-Together.py) (M) <br>
-Find the substring with lens=k and minimum 0s in it. use a fix window to find minimum number of 0s.
-- [1423. Maximum Points You Can Obtain from Cards](Solutions/1423.Maximum-Points-You-Can-Obtain-from-Cards.py) (!!M Google) <br>
-sliding window with fix size problem, the only difference is that some part of the window is at the beginning of the list and some are at the end. Google真是滑窗控
-- [0395. Longest Substring with At Least K Repeating Characters](Solutions/0395.Longest-Substring-with-At-Least-K-Repeating-Characters.py) (!!M) <br>
-注意这题不能用滑窗，use those char which counting is smaller than k as a 'wall' to divide the string into two parts and use recursion on the two parts. - O(26N)
-- [0862. Shortest Subarray with Sum at Least K](Solutions/0862.Shorteast-Subarray-with-Sum-at-Least-K.py) (!!H) <br>
-不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
-这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
-两个while循环，一个while loop do sliding window to update res, 从队首pop, 同时更新res, 
-另一个while loop do monostack to maintain an increasing dq, 从队尾pop, 对deq进行清理。
-
--------- 1358. Number of Substrings Containing All Three Characters ----------1124. Longest Well-Performing Interval--------
-
-
-# [SubArray/Prefix Sum](/SubArray.py)
-- [0053. Maximum Subarray](Solutions/0053.Maximum-Subarray.py) (!!E) <br>
-Maintian a prefixSum and minPrefixSum, so that maxSubSum = max(maxSubSum, prefixSum - minPrefixSum); minPrefixSum = min(prefixSum, minPrefixSum)
-- [0724. Find Pivot Index](Solutions/0724.Find-Pivot-Index.py) (E) <br>
-在nums前面添加一个[0]然后再进入循环。for i, num in enumerate([0] + nums[:-1]): if prefixSum * 2 == sumNums - nums[i]: return i
-- [0560. Subarray Sum Equals K](Solutions/0560.Subarray-Sum-Equals-K.py) (!!M) <br>
-新建一个prefixSumDict = {0: 1}, key是prefixSum, val是how many times the prefixSum appears; if prefixSum - k in prefixSumDict: 等价于if prefixSum[j+1]-prefixSum[i] == k
-- [0363. Max Sum of Rectangle No Larger Than K](Solutions/0363.Max-Sum-of-Rectangle-No-Larger-Than-K.py) (!!M) <br>
-2D version of prefx sum - O(m* m* n* n). 构建2D pre_sum比较复杂需要考虑行的和列的和以及公共部分的和：pre_sum[i+1][j+1] = pre_sum[i][j+1] + pre_sum[i+1][j] - pre_sum[i][j] + matrix[i][j].   Solution 2: binary search to achieve O(n^3logn)
-- [1074. Number of Submatrices That Sum to Target](Solutions/1074.Number-of-Submatrices-That-Sum-to-Target.py) (H) <br>
-也可以先把行处理好，让每一行里面保存上面所有行的和，接下来就是在每一行里面去求560问题了，注意一点不同的是需要遍历upRow和downRow的, 如果不遍历就是solution 3的错误写法举一个反例想明白solution 3为什么行不通，自然就会改成solution 2了O(MMN)
-- [0523. Continuous Subarray Sum](Solutions/0523.Continuous-Subarray-Sum.py) (M) <br>
-prefixSumMap = {0: -1} # key: prefixSum[j], val: j/position, initial position should be -1; prefixSum += num; prefixSum = prefixSum % k 因为题目要求要能被subArray Sum 要能被k整除
-- [0974. Subarray Sums Divisible by K](Solutions/0974.Subarray-Sums-Divisible-by-K.py) (M) <br>
-prefixSumDict = {0: 1} # key is the prefixSum, val is how many times the prefixSum appears; prefixSum += num; prefixSum %= K
-- [0139. Subarray Sum Closest](Solutions/0139.Subarray-Sum-Closest.py) (M Lintcode) <br>
-题目要求NlogN, 那就是疯狂暗示要sort, prefixSumList = [(0, -1)] # (0, -1) are prefixSum and index; 对prefixSum来进行sort，这样最小的subArrSum (或者prefixSums[j+1][0] - prefixSums[i][0])就一定来自于相邻的两个prefisxSums了
-- [0152. Maximum Product Subarray](Solutions/0152.Maximum-Product-Subarray.py) (M) <br>
-最大值问题。用一个数组记录最大的正数maxDP[i]，另一个数组记录最小的负数minDP[i], maxDP[i]表示以i为结尾的subarray的最product. 分nums[i]的正负,更新maxDP[i]和minDP[i]。maxDP[i] = max(nums[i], maxDP[i-1]* nums[i]) if nums[i]>0
-- [1031. Maximum Sum of Two Non-Overlapping Subarrays](Solutions/1031.Maximum-Sum-of-Two-Non-Overlapping-Subarrays.py) (!!M) <br>
-Step 1: find the prefix_sum and suffix_sum;
-Step 2: using the prefix_sum and suffix_sum, find the prefix_max_L, where prefix_max_L[i] = the max subarray sum with window size L before i;
-do the same for prefix_max_M, suffix_sum_L, suffix_sum_M;
-Step 3: travel the arr and update max_sum as max(max_sum, prefix_max_L[i] + suffix_max_M[i], prefix_max_M[i] + suffix_max_L[i]).
-Solution 2: DP可以做到O(1) space. 具体做法与下一题689类似
-- [0689. Maximum Sum of 3 Non-Overlapping Subarrays](Solutions/0689.Maximum-Sum-of-3-Non-Overlapping-Subarrays.py) (!!H) <br>
-DP solution is somehow similar with 123. Best Time to Buy and Sell Stock III.
-sub_1_sum, sub_2_sum, sub_3_sum represent the sum of 1st k nums, 1st + 2nd k nums, 1st + 2nd + 3rd k nums.
-max_1_sum, max_2_sum, max_3_sum represent the max sum of 1st k nums, 1st + 2nd k nums, 1st + 2nd + 3rd k nums.
-update the max_1_sum, max_2_sum, max_3_sum as we travel through the array.
-- [0238. Product of Array Except Self](Solutions/0238.Product-of-Array-Except-Self.py) (M Pramp) <br>
-定义两个数组分别记录product before ith num: fwd[i]=fwd[i-1] * nums[i-1] and product after ith num: bwd[i]=bwd[i+1] * nums[i+1], then res[i]=fwd[i] * bwd[i]
-
-
-------363. Max Sum of Rectangle No Larger Than K------
-
 
 
 
