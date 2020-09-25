@@ -224,14 +224,17 @@ exactly(K) = atMost(K) - atMost(K-1). Helper function is exactly the same as 340
 维护一个sourceFreqDict, 用来记录i->j中的char的频率，套用模板时满足的条件是sourceFreqDict all included in targetFreqDict; 更新j: sourceDict[s[j]] += 1, 更新i: sourceDict[s[i]] -= 1.  time complexity is O(MN). solution 2: O(N), instead of using self.allIncluded(sourceDict, targetDict) to check matched or not,  we use a int missing to keep track of how many chars are still needed in order to match, this reduce the time from O(M) to O(1). also, instead of using s[i:j] everytime when we renew res, we use start, end to renew the idx, which reduce time from O(N) to O(1)
 - [0727. Minimum Window Subsequence](Solutions/0727.Minimum-Window-Subsequence.py) (!!H) <br>
 solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题只需要freq都满足了就行，这题不仅如此，而且还是讲究顺序的，; solution 2: dp. dp[i][j] = the min window subsequence that ends with ith ch in t, and jth ch in s. If t[i-1] == s[j-1]: dp[i][j] = dp[i-1][j-1] + 1; else: dp[i][j] = dp[i][j-1] + 1
-
+- [0228. Summary Ranges](Solutions/0228.Summary-Ranges.py) (M) <br>
+sliding window可解
+- [0163. Missing Ranges](Solutions/0163.Missing-Ranges.py) (M) <br>
+这题是上一题的延伸，跟sliding window没啥关系
 
 
 #### sliding window with fixed size
 - [0242. Valid Anagram](Solutions/0242.Valid-Anagram.py) (E) <br>
 string s and t are anagram with each other when all the ch in s have the same count as that in t
 - [0567. Permutation in String](Solutions/0567.Permutation-in-String.py) (M) <br>
-solution 1: 由于我们要求的substring时固定长度的，所以最好maintina a fixed size window. solution 2: 套用sliding window模板
+solution 1: 由于我们要求的substring时固定长度的，所以最好maintina a fixed size window - 套用fix window模板
 - [0438. Find All Anagrams in a String](Solutions/0438.Find-All-Anagrams-in-a-String.py) (!!M) <br>
 由于我们要求的substring时固定长度的，所以最好maintina a fixed size window. same as 567
 - [0049. Group Anagrams](Solutions/0049.Group-Anagrams.py) (!!M) <br>
@@ -239,12 +242,6 @@ dictionary: key is a tuple keeping track of the cnt of all 26 letters, val is th
 - [0030. Substring with Concatenation of All Words](Solutions/0030.Substring-with-Concatenation-of-All-Words.py) (H) <br>
 固定长度的sliding window: solution: use two hashmaps to record the frequency of word.
 O(len(s)* len(words)* len(words[0]))
-- [0228. Summary Ranges](Solutions/0228.Summary-Ranges.py) (M) <br>
-sliding window with fixed size可解
-- [0163. Missing Ranges](Solutions/0163.Missing-Ranges.py) (M) <br>
-这题是上一题的延伸，跟sliding window没啥关系
-
-
 - [1052. Grumpy Bookstore Owner](Solutions/1052.Grumpy-Bookstore-Owner.py) (M) <br>
 Since the window size is fixed, the problem is easier to implement. We only need to update the max_gain,
 which represents how man ymore people can be satisfied if the owner use X minites magic card
