@@ -17,21 +17,19 @@ Explanation: t is "aabbb" which its length is 5.
 
 class Solution:
     def lengthOfLongestSubstringTwoDistinct(self, s: str) -> int:
-        freq = collections.defaultdict(int)
-        max_len = 0
-        j = 0
-        for i in range(len(s)):
-            while j < len(s) and len(freq) <= 2:
-                if s[j] not in freq and len(freq) == 2:
-                    break
-                freq[s[j]] += 1
-                j += 1
+        ch_to_cnt = collections.defaultdict(int)
+        max_lens = 0
+        i = 0
+        for j in range(len(s)):
+            ch_to_cnt[s[j]] += 1
+            
+            while i <= j and len(ch_to_cnt) > 2:
+                ch_to_cnt[s[i]] -= 1
+                if ch_to_cnt[s[i]] == 0:
+                    del ch_to_cnt[s[i]]
+                i += 1
                 
-            if len(freq) <= 2:
-                max_len = max(max_len, j - i)
+            if len(ch_to_cnt) <= 2:
+                max_lens = max(max_lens, j - i + 1)
                 
-            freq[s[i]] -= 1
-            if freq[s[i]] == 0:
-                del freq[s[i]]
-                
-        return max_len
+        return max_lens
