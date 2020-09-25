@@ -190,39 +190,37 @@ q 记录区间[i-k, i]内被反转了的idx, 遍历过程中把里i很远的idx�
 
 
 # [Sliding Window (同向双指针)](/Sliding-window.py)
+#### 第一种模板：find min subarray size for at least problem; 第二种模板：find max subarray size for at most problem.
 - [0209. Minimum Size Subarray Sum](Solutions/0209.Minimum-Size-Subarray-Sum.py) (!!M) <br>
-维护一个sums, 用来记录i->j中数的和，套模板时满足的条件是sums < target; 更新j: sums += nums[j]; 更新i: sums -= nums[j]
+维护一个sums, 用来记录i->j中数的和，套模板时满足的条件是sums < target; 更新j: sums += nums[j]; 更新i: sums -= nums[j].
+这题是第一种模板：find min subarray size for at least problem. 写法是while loop里让后面的指针逐渐远离前面的指针；
 Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search the fisrt j that satisfy sum(nums[i:]>=s), so it is a OOXX probelm, which could be solved using binary search. Follow up: 如果有负数怎么办？那就不能用sliding window了，只能用deque. 详见239.
-这题是sum at least s problem, 所以最好的写法是while loop里让后面的指针逐渐远离前面的指针；
-如果是sum at most s problem, 写法是while loop里让前面的指针去追后面的指针
+- [1208. Get Equal Substrings Within Budget](Solutions/1208.Get-Equal-Substrings-Within-Budget.py) (!!M) <br>
+step 1: construct a cost arr; step 2: sliding window 第二种模板：find max subarray size for at most problem. 写法是while loop里让前面的指针去追后面的指针
+- [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
+Note that the numbers are positive, so we can use sliding window. 这题是sum at most s problem, 写法是while loop里让前面的指针去追后面的指针
+- [1248. Count Number of Nice Subarrays](Solutions/1248.Count-Number-of-Nice-Subarrays.py) (!!M) <br>
+exactly(K) = atMost(K) - atMost(K-1); 第二种模板：find max subarray size for at most problem. 写法是while loop里让前面的指针去追后面的指针
 - [0930. Binary Subarrays With Sum](Solutions/0930.Binary-Subarrays-With-Sum.py) (!!M) <br>
 (number of subarrays having sum S) = (number of subarrays having sum at most S) - (number of subarrays having sum at most S-1)
-这题是sum at least s problem, 所以最好的写法是while loop里让后面的指针逐渐远离前面的指针；
-如果是sum at most s problem, 写法是while loop里让前面的指针去追后面的指针
-- [1208. Get Equal Substrings Within Budget](Solutions/1208.Get-Equal-Substrings-Within-Budget.py) (!!M) <br>
-step 1: construct a cost arr; step 2: sliding window to solve the problem of 
-finding the max lens of subarry with sum at most target. sum at most s problem, 写法是while loop里让前面的指针去追后面的指针
+这题是sum at most s problem, 写法是while loop里让前面的指针去追后面的指针
+- [0340. Longest Substring with At Most K Distinct Characters](Solutions/0340.Longest-Substringwith-At-Most-K-Distinct-Characters.py) (!!H) <br>
+维护一个charDict, 用来记录i->j中的char的频率，这题是sum at most s problem, 写法是while loop里让前面的指针去追后面的指针; 更新j: charDict[s[j]+=1; 更新i: charDict[s[i]] -= 1, if charDict[s[i]] == 0: del charDict[s[i]]
+- [0159. Longest Substring with At Most Two Distinct Characters](Solutions/0159.Longest-Substring-with-At-Most-Two-Distinct-Characters.py) (M) <br>
+Exactly the same as 340.
+- [0904. Fruit Into Baskets](Solutions/0904.Fruit-Into-Baskets.py) (M) <br>
+Exactly the same as 159.
+- [0424. Longest Repeating Character Replacement](Solutions/0424.Longest-Repeating-Character-Replacement.py) (!!M) <br>
+340 的变形题 this problem is to find the max_lens of substring so that (length of substring - number of times of the maximum occurring character in the substring) is at most K.
+- [0992. Subarrays with K Different Integers](Solutions/0992.Subarrays-with-K-Different-Integers.py) (!!H) <br>
+exactly(K) = atMost(K) - atMost(K-1). Helper function is exactly the same as 340. Longest Substring with At Most K Distinct Characters
 - [0003. Longest Substring Without Repeating Characters](Solutions/0003.Longest-Substring-Without-Repeating-Characters.py) (!!M) <br>
 维护一个included=set(), 用来记录i->j中include的char，套模板时满足的条件是s[j] not in included; 更新j: included.add(s[j]); 更新i: included.remove(s[i])
 - [0076. Minimum Window Substring](Solutions/0076.Minimum-Window-Substring.py) (!!H) <br>
 维护一个sourceFreqDict, 用来记录i->j中的char的频率，套用模板时满足的条件是sourceFreqDict all included in targetFreqDict; 更新j: sourceDict[s[j]] += 1, 更新i: sourceDict[s[i]] -= 1.  time complexity is O(MN). solution 2: O(N), instead of using self.allIncluded(sourceDict, targetDict) to check matched or not,  we use a int missing to keep track of how many chars are still needed in order to match, this reduce the time from O(M) to O(1). also, instead of using s[i:j] everytime when we renew res, we use start, end to renew the idx, which reduce time from O(N) to O(1)
 - [0727. Minimum Window Subsequence](Solutions/0727.Minimum-Window-Subsequence.py) (!!H) <br>
-solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题只需要freq都满足了就行，这题不仅如此，而且还是讲究顺序的，; solution 2: dp
-- [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
-Note that the numbers are positive, so the prefixProd will be an increasing arr. 维护一个sums, 用来记录i->j中数的product, 指针j再往前跑，指针i在后面追。
-- [1248. Count Number of Nice Subarrays](Solutions/1248.Count-Number-of-Nice-Subarrays.py) (!!M) <br>
-Sliding window is great of __at most__ problems.  This problem will be a very typical sliding window, if it asks the number of subarrays with __at most__ K distinct elements.
-Just need one more step to reach the folloing equation: exactly(K) = atMost(K) - atMost(K-1); 
-- [0340. Longest Substring with At Most K Distinct Characters](Solutions/0340.Longest-Substringwith-At-Most-K-Distinct-Characters.py) (!!H) <br>
-维护一个charDict, 用来记录i->j中的char的频率，套模板时满足的条件是len(charDict) <= k; 更新j: charDict[s[j]+=1; 更新i: charDict[s[i]] -= 1, if charDict[s[i]] == 0: del charDict[s[i]]
-- [0159. Longest Substring with At Most Two Distinct Characters](Solutions/0159.Longest-Substring-with-At-Most-Two-Distinct-Characters.py) (M) <br>
-Exactly the same as 340.
-- [0904. Fruit Into Baskets](Solutions/0904.Fruit-Into-Baskets.py) (M) <br>
-Exactly the same as 159.
-- [0424. Longest Repeating Character Replacement](Solutions/0424.Longest-Repeating-Character-Replacement.py) (M) <br>
-340 的变形题 this problem is to find the max_lens of substring so that (length of substring - number of times of the maximum occurring character in the substring) is at most K.
-- [0992. Subarrays with K Different Integers](Solutions/0992.Subarrays-with-K-Different-Integers.py) (!!H) <br>
-exactly(K) = atMost(K) - atMost(K-1). Helper function is exactly the same as 340. Longest Substring with At Most K Distinct Characters
+solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题只需要freq都满足了就行，这题不仅如此，而且还是讲究顺序的，; solution 2: dp. dp[i][j] = the min window subsequence that ends with ith ch in t, and jth ch in s. If t[i-1] == s[j-1]: dp[i][j] = dp[i-1][j-1] + 1; else: dp[i][j] = dp[i][j-1] + 1
+
 - [0487. Max Consecutive Ones II](Solutions/0487.Max-Consecutive-Ones-II.py) (!!M) <br>
 sliding window solution: find the longest subarray with at most one 0s. solution 2: record prev_lens and curr_lens for the previous lens of consecutive 1s and curr lens of consecutive 1s. update them we there is a new 0 coming, otherwise curr_lens += 1.
 - [1004. Max Consecutive Ones III](Solutions/1004.Max-Consecutive-Ones-III.py) (H) <br>
