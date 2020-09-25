@@ -1,3 +1,4 @@
+"""
 438. Find All Anagrams in a String
 
 Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
@@ -29,10 +30,35 @@ Explanation:
 The substring with start index = 0 is "ab", which is an anagram of "ab".
 The substring with start index = 1 is "ba", which is an anagram of "ab".
 The substring with start index = 2 is "ab", which is an anagram of "ab".
+"""
 
 
 
+"""
+solution 1: 由于我们要求的substring时固定长度的，所以最好maintina a fixed size window.
+"""
+class Solution:
+    def checkInclusion(self, s2: str, s1: str) -> bool:
+        k = len(s2)
+        counter2 = collections.Counter(s2)
+        ch_to_cnt = collections.defaultdict(int)
+        for i in range(len(s1)):
+            ch_to_cnt[s1[i]] += 1
+            if i >= k:              # maintian a fixed size window
+                ch_to_cnt[s1[i-k]] -= 1
+                if ch_to_cnt[s1[i-k]] == 0:
+                    del ch_to_cnt[s1[i-k]]
+                    
+            if ch_to_cnt == counter2:
+                return True
+            
+        return False
 
+
+    
+"""
+solution 2: 套用sliding window模板
+"""
 from collections import Counter
 
 class Solution:
