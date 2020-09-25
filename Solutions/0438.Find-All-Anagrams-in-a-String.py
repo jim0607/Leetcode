@@ -38,21 +38,23 @@ The substring with start index = 2 is "ab", which is an anagram of "ab".
 solution 1: 由于我们要求的substring时固定长度的，所以最好maintina a fixed size window.
 """
 class Solution:
-    def checkInclusion(self, s2: str, s1: str) -> bool:
-        k = len(s2)
-        counter2 = collections.Counter(s2)
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        res = []
+        k = len(p)
+        counter = collections.Counter(p)
         ch_to_cnt = collections.defaultdict(int)
-        for i in range(len(s1)):
-            ch_to_cnt[s1[i]] += 1
-            if i >= k:              # maintian a fixed size window
-                ch_to_cnt[s1[i-k]] -= 1
-                if ch_to_cnt[s1[i-k]] == 0:
-                    del ch_to_cnt[s1[i-k]]
-                    
-            if ch_to_cnt == counter2:
-                return True
+        for i in range(len(s)):
+            ch_to_cnt[s[i]] += 1
             
-        return False
+            if i >= k:      # maintain a fixed window size
+                ch_to_cnt[s[i-k]] -= 1
+                if ch_to_cnt[s[i-k]] == 0:
+                    del ch_to_cnt[s[i-k]]
+                    
+            if ch_to_cnt == counter:
+                res.append(i - k + 1)        
+        
+        return res
 
 
     
