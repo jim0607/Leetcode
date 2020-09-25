@@ -1,3 +1,4 @@
+"""
 1151. Minimum Swaps to Group All 1's Together
 
 Given a binary array data, return the minimum number of swaps required to group all 1’s present in the array together in any place in the array.
@@ -25,30 +26,27 @@ Input: [1,0,1,0,1,0,0,1,1,0,1]
 Output: 3
 Explanation: 
 One possible solution that uses 3 swaps is [0,0,0,0,0,1,1,1,1,1,1].
+"""
+
+
 
 
 """
-find the substring with lens=k and minimum 0s in it.
+window size is how many 1s are there in data, our goal to reaplace all 0s in the window to 1s,
+find the window that has the least 0s, so that we can do minimum replacement
 """
 class Solution:
     def minSwaps(self, data: List[int]) -> int:
-        lens = len(data)
-        total_cnt = 0       # find the total_cnt of 1s, which is used as window size
-        for i, num in enumerate(data):
-            if num == 1:
-                total_cnt += 1
-        
-        cnt_zero = 0
-        for i in range(total_cnt):
-            if data[i] == 0:
-                cnt_zero += 1
-                
-        min_cnt = cnt_zero
-        for i in range(total_cnt, lens):
-            if data[i] == 0:
-                cnt_zero += 1
-            if data[i-total_cnt] == 0:
-                cnt_zero -= 1
-            min_cnt = min(min_cnt, cnt_zero)
+        k = sum(data)           # k is the window size, which equals how many 1s are there in data
+        min_cnt = len(data)     # record the min_cnt of 0s in the window
+        zero_cnt = 0            # record cnt of 0s in the window
+        for i in range(len(data)):
+            zero_cnt += 1 if data[i] == 0 else 0
+            
+            if i >= k:
+                zero_cnt -= 1 if data[i-k] == 0 else 0
+            
+            if i >= k - 1:      # 返回结果必须保证window size大于等于k
+                min_cnt = min(min_cnt, zero_cnt)
             
         return min_cnt
