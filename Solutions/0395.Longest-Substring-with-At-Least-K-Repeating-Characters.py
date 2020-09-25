@@ -1,3 +1,4 @@
+"""
 395. Longest Substring with At Least K Repeating Characters
 
 Find the length of the longest substring T of a given string (consists of lowercase letters only) such that every character in T appears no less than k times.
@@ -20,13 +21,67 @@ Output:
 5
 
 The longest substring is "ababb", as 'a' is repeated 2 times and 'b' is repeated 3 times.
+"""
+
 
 
 
 """
+For each i in range(1, 27), use sliding window technique to find the longest substring to satisfy two conditions:
+1. the number of total unique characters in substring is i;
+2. at least k repeating characters.
+第二种模板：find max subarray size for at most problem. 写法是while loop里让前面的指针去追后面的指针
+"""
+class Solution:
+    def longestSubstring(self, s: str, k: int) -> int:
+        res = 0
+        for i in range(1, 27):
+            res = max(res, self._sliding_window(s, k, i))
+        return res
+    
+    def _sliding_window(self, s, k, total_unique):
+        """
+        In a helper function, we do sliding window to find the longest substring that satisfy two conditions:
+        1. the number of total unique characters in substring is i;
+        2. at least k repeating characters
+        第二种模板：find max subarray size for at most problem. 写法是while loop里让前面的指针去追后面的指针
+        """
+        curr_valid = 0      # 合格了的ch的个数
+        curr_unique = 0     # unique ch的个数in the window = 合格了加上没有合格的ch的个数
+        ch_to_cnt = [0 for _ in range(26)]
+        max_lens = 0
+        i = 0
+        for j in range(len(s)):
+            # step 1: 更新后面的指针
+            if ch_to_cnt[ord(s[j]) - ord("a")] == 0:        # 更新curr_unique的个数
+                curr_unique += 1
+            ch_to_cnt[ord(s[j]) - ord("a")] += 1
+            if ch_to_cnt[ord(s[j]) - ord("a")] == k:        # 更新合格了的ch个数
+                curr_valid += 1
+                
+            # step 2: 更新前面的指针
+            while i <= j and curr_unique > total_unique:    # move left pointer forwar to satisfy condition 1
+                if ch_to_cnt[ord(s[i]) - ord("a")] == k:    # 更新合格了的ch个数
+                    curr_valid -= 1
+                ch_to_cnt[ord(s[i]) - ord("a")] -= 1
+                if ch_to_cnt[ord(s[i]) - ord("a")] == 0:    # 更新curr_unique的个数
+                    curr_unique -= 1
+                i += 1
+                
+            # step 3: 更新res
+            if curr_unique == curr_valid:           # meaning 没有不合格的ch了, satisfy condition 2
+                max_lens = max(max_lens, j - i + 1)
+                
+        return max_lens
+
+
+
+
+"""
+solution 2: recursion
 use those char which counting is smaller than k as a 'wall' to
 divide the string into two parts and use recursion on the two parts.
-O(26N)
+O(26n)
 """
 class Solution:
     def longestSubstring(self, s: str, k: int) -> int:
