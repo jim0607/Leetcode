@@ -1,3 +1,4 @@
+"""
 1234. Replace the Substring for Balanced String
 
 You are given a string containing only 4 kinds of characters 'Q', 'W', 'E' and 'R'.
@@ -28,6 +29,7 @@ Example 4:
 Input: s = "QQQQ"
 Output: 3
 Explanation: We can replace the last 3 'Q' to make s = "QWER".
+"""
 
 
 
@@ -36,22 +38,23 @@ We want a minimum length of substring, which leads us to the solution of sliding
 Specially this time we don't care the count of elements inside the window, we want to know the count outside the window.
 This is because we can change the char inside the window whatever we want, so as long as outside the window,
 all(count[Q],count[W],count[E],count[R]) <= n / 4 is satisfied, then we can make it balanced.
+find the minimum substring so that outside the substring, condition all(four chars has frequency less than n//4) is satisfied.
+第一种模板：find min subarray size for at least problem, 后面的指针去远离前面的指针
 """
 class Solution:
     def balancedString(self, s: str) -> int:
-        lens = len(s)
-        n = lens // 4
-        count = collections.Counter(s)
-        min_lens = lens
+        n = len(s)
+        counter = collections.Counter(s)    # keep track of the cnt outside the window
+        min_size = n
         j = 0
-        for i in range(lens):
-            while j < lens and any(count[ch] > n for ch in "QWER"):
-                count[s[j]] -= 1
+        for i in range(len(s)):
+            while j < n and not all(cnt <= n//4 for cnt in counter.values()):
+                counter[s[j]] -= 1
                 j += 1
             
-            if all(count[ch] <= n for ch in "QWER"):
-                min_lens = min(min_lens, j - i)
+            if all(cnt <= n//4 for cnt in counter.values()):
+                min_size = min(min_size, j - i)
+                
+            counter[s[i]] += 1
             
-            count[s[i]] += 1
-            
-        return min_lens
+        return min_size
