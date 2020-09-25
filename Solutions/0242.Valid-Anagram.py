@@ -1,3 +1,4 @@
+"""
 242. Valid Anagram
 
 Given two strings s and t , write a function to determine if t is an anagram of s.
@@ -15,7 +16,12 @@ You may assume the string contains only lowercase alphabets.
 
 Follow up:
 What if the inputs contain unicode characters? How would you adapt your solution to such case?
+"""
 
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        return collections.Counter(s) == collections.Counter(t)
+    
 
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
