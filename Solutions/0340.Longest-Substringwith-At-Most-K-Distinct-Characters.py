@@ -32,7 +32,7 @@ class Solution:
             
             while i <= j and len(ch_to_cnt) > k:
                 ch_to_cnt[s[i]] -= 1
-                if ch_to_cnt[s[i]] == 0:
+                if ch_to_cnt[s[i]] == 0:    # 注意要del掉cnt=0的ch
                     del ch_to_cnt[s[i]]
                 i += 1
                 
