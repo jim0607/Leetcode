@@ -30,11 +30,11 @@ class Solution:
         satisfy = sum(customers[i] for i in range(len(customers)) if grumpy[i] == 0)  # how many customer could be satisfied if not use magic x minutes.  
         max_satisfy = satisfy
         for i in range(len(customers)):
-            satisfy += customers[i] if grumpy[i] == 1 else 0
+            satisfy += customers[i] if grumpy[i] == 1 else 0    # step 1: 把ith item加到window
             
-            if i >= x:      # maintain a window with fixed size
+            if i >= x:      # step 2: maintian a fixed size window - 把(i-k)th item 吐出来
                 satisfy -= customers[i-x] if grumpy[i-x] == 1 else 0
                 
-            max_satisfy = max(max_satisfy, satisfy)
+            max_satisfy = max(max_satisfy, satisfy)     # step 3: update res
             
         return max_satisfy
