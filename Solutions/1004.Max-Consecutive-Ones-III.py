@@ -1,3 +1,4 @@
+"""
 1004. Max Consecutive Ones III
 
 Given an array A of 0s and 1s, we may change up to K values from 0 to 1.
@@ -20,30 +21,26 @@ Output: 10
 Explanation: 
 [0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1]
 Bolded numbers were flipped from 0 to 1.  The longest subarray is underlined.
+"""
 
 
 
 """
-sliding window solution: finding the maximum lens with at most K 0s.
+longest subarray with at most one 0s. 这题是at most problem, 写法是while loop里让前面的指针去追后面的指针. 
 """
 class Solution:
-    def longestOnes(self, A: List[int], K: int) -> int:
+    def longestOnes(self, nums: List[int], k: int) -> int:
         max_lens = 0
-        j = 0
-        cnt = 0
-        for i in range(len(A)):
-            while j < len(A) and cnt <= K:
-                if A[j] == 0:       # 更新带有j的信息
-                    cnt += 1
-                j += 1
+        zero_cnt = 0
+        i = 0
+        for j in range(len(nums)):
+            zero_cnt += 1 if nums[j] == 0 else 0
             
-            # 更新res
-            if cnt <= K:    # if cnt <= K, that means j == len(A)
-                max_lens = max(max_lens, j - i)
-            else:
-                max_lens = max(max_lens, j - i - 1)
+            while i <= j and zero_cnt > k:
+                zero_cnt -= 1 if nums[i] == 0 else 0
+                i += 1
                 
-            if A[i] == 0:           # 更新带有j的信息
-                cnt -= 1
+            if zero_cnt <= k:
+                max_lens = max(max_lens, j - i + 1)
                 
         return max_lens
