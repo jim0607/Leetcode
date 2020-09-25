@@ -194,7 +194,7 @@ q 记录区间[i-k, i]内被反转了的idx, 遍历过程中把里i很远的idx�
 - [0209. Minimum Size Subarray Sum](Solutions/0209.Minimum-Size-Subarray-Sum.py) (!!M) <br>
 维护一个sums, 用来记录i->j中数的和，套模板时满足的条件是sums < target; 更新j: sums += nums[j]; 更新i: sums -= nums[j].
 这题是第一种模板：find min subarray size for at least problem. 写法是while loop里让后面的指针逐渐远离前面的指针；
-Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search the fisrt j that satisfy sum(nums[i:]>=s), so it is a OOXX probelm, which could be solved using binary search. Follow up: 如果有负数怎么办？那就不能用sliding window了，只能用deque. 详见239.
+Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search the fisrt j that satisfy sum(nums[i:]>=s), so it is a OOXX probelm, which could be solved using binary search. Follow up: 如果有负数怎么办？那就不能用sliding window了，只能用prefix sum 或者hashmap 或者deque. 详见239.
 - [1208. Get Equal Substrings Within Budget](Solutions/1208.Get-Equal-Substrings-Within-Budget.py) (!!M) <br>
 step 1: construct a cost arr; step 2: sliding window 第二种模板：find max subarray size for at most problem. 写法是while loop里让前面的指针去追后面的指针
 - [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
@@ -208,6 +208,8 @@ exactly(K) = atMost(K) - atMost(K-1); 第二种模板：find max subarray size f
 sliding window solution: longest subarray with at most one 0s. 这题是at most problem, 写法是while loop里让前面的指针去追后面的指针. solution 2: record prev_lens and curr_lens for the previous lens of consecutive 1s and curr lens of consecutive 1s. update them we there is a new 0 coming, otherwise curr_lens += 1.
 - [1004. Max Consecutive Ones III](Solutions/1004.Max-Consecutive-Ones-III.py) (M) <br>
 same as 487: longest subarray with at most k 0s. 这题是at most problem, 写法是while loop里让前面的指针去追后面的指针. 
+- [1358. Number of Substrings Containing All Three Characters](Solutions/1358.Number-of-Substrings-Containing-All-Three-Characters.py) (M) <br>
+at least problem, 第一种模板：find min subarray size for at least problem. 写法是while loop里让后面的指针逐渐远离前面的指针
 - [0340. Longest Substring with At Most K Distinct Characters](Solutions/0340.Longest-Substringwith-At-Most-K-Distinct-Characters.py) (!!H) <br>
 维护一个charDict, 用来记录i->j中的char的频率，这题是sum at most s problem, 写法是while loop里让前面的指针去追后面的指针; 更新j: charDict[s[j]+=1; 更新i: charDict[s[i]] -= 1, if charDict[s[i]] == 0: del charDict[s[i]]
 - [0159. Longest Substring with At Most Two Distinct Characters](Solutions/0159.Longest-Substring-with-At-Most-Two-Distinct-Characters.py) (M) <br>
@@ -220,17 +222,26 @@ Exactly the same as 159.
 exactly(K) = atMost(K) - atMost(K-1). Helper function is exactly the same as 340. Longest Substring with At Most K Distinct Characters
 - [0003. Longest Substring Without Repeating Characters](Solutions/0003.Longest-Substring-Without-Repeating-Characters.py) (!!M) <br>
 维护一个included=set(), 用来记录i->j中include的char，套模板时满足的条件是s[j] not in included; 更新j: included.add(s[j]); 更新i: included.remove(s[i])
+- [1100. Find K-Length Substrings With No Repeated Characters](Solutions/1100.Find-K-Length-Substrings-With-No-Repeated-Characters.py) (!!M) <br>
+Brutal force / sliding window with fixed length: O(26N); Sliding window O(N): find the substring longer than K that has no repeating chars.
 - [0076. Minimum Window Substring](Solutions/0076.Minimum-Window-Substring.py) (!!H) <br>
 维护一个sourceFreqDict, 用来记录i->j中的char的频率，套用模板时满足的条件是sourceFreqDict all included in targetFreqDict; 更新j: sourceDict[s[j]] += 1, 更新i: sourceDict[s[i]] -= 1.  time complexity is O(MN). solution 2: O(N), instead of using self.allIncluded(sourceDict, targetDict) to check matched or not,  we use a int missing to keep track of how many chars are still needed in order to match, this reduce the time from O(M) to O(1). also, instead of using s[i:j] everytime when we renew res, we use start, end to renew the idx, which reduce time from O(N) to O(1)
 - [0727. Minimum Window Subsequence](Solutions/0727.Minimum-Window-Subsequence.py) (!!H) <br>
 solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题只需要freq都满足了就行，这题不仅如此，而且还是讲究顺序的，; solution 2: dp. dp[i][j] = the min window subsequence that ends with ith ch in t, and jth ch in s. If t[i-1] == s[j-1]: dp[i][j] = dp[i-1][j-1] + 1; else: dp[i][j] = dp[i][j-1] + 1
+- [0395. Longest Substring with At Least K Repeating Characters](Solutions/0395.Longest-Substring-with-At-Least-K-Repeating-Characters.py) (!!!M) <br>
+solution 1: sliding window: for each i in range(1, 27), use sliding window technique to find the longest substring to satisfy two conditions: 1. the number of total unique characters in substring is i; 2. at least k repeating characters. 第二种模板：find max subarray size for at most problem. 写法是while loop里让前面的指针去追后面的指针 solution 2: use those char which counting is smaller than k as a 'wall' to divide the string into two parts and use recursion on the two parts.
+- [1234. Replace the Substring for Balanced String](Solutions/1234.Replace-the-Substring-for-Balanced-String.py) (!!M) <br>
+find the minimum substring so that outside the substring, condition all(four chars has frequency less than n//4) is satisfied.
+第一种模板：find min subarray size for at least problem, 后面的指针去远离前面的指针
 - [0228. Summary Ranges](Solutions/0228.Summary-Ranges.py) (M) <br>
 sliding window可解
 - [0163. Missing Ranges](Solutions/0163.Missing-Ranges.py) (M) <br>
 这题是上一题的延伸，跟sliding window没啥关系
 
 
-#### sliding window with fixed size
+### sliding window with fixed size
+- [1456. Maximum Number of Vowels in a Substring of Given Length](Solutions/1456.Maximum-Number-of-Vowels-in-a-Substring-of-Given-Length.py) (M) <br>
+套 sliding window with fixed size 模板即可
 - [0242. Valid Anagram](Solutions/0242.Valid-Anagram.py) (E) <br>
 string s and t are anagram with each other when all the ch in s have the same count as that in t
 - [0567. Permutation in String](Solutions/0567.Permutation-in-String.py) (M) <br>
@@ -245,27 +256,20 @@ O(len(s)* len(words)* len(words[0]))
 - [1052. Grumpy Bookstore Owner](Solutions/1052.Grumpy-Bookstore-Owner.py) (M) <br>
 Since the window size is fixed, the problem is easier to implement. We only need to update the max_gain,
 which represents how man ymore people can be satisfied if the owner use X minites magic card
-- [1234. Replace the Substring for Balanced String](Solutions/1234.Replace-the-Substring-for-Balanced-String.py) (!!M) <br>
-this time we don't care the count of elements inside the window, we want to know the count outside the window.
-This is because we can change the char inside the window whatever we want, so as long as outside the window,
-all(count[Q],count[W],count[E],count[R]) <= n / 4 is satisfied, then we can make it balanced.
-- [1100. Find K-Length Substrings With No Repeated Characters](Solutions/1100.Find-K-Length-Substrings-With-No-Repeated-Characters.py) (!!M) <br>
-Brutal force / sliding window with fixed length: O(26N); Sliding window O(N): find the substring longer than K that has no repeating chars.
-- [1456. Maximum Number of Vowels in a Substring of Given Length](Solutions/1456.Maximum-Number-of-Vowels-in-a-Substring-of-Given-Length.py) (M) <br>
-sliding window with fixed lens
 - [1151. Minimum Swaps to Group All 1's Together](Solutions/1151.Minimum-Swaps-to-Group-All-1s-Together.py) (M) <br>
 Find the substring with lens=k and minimum 0s in it. use a fix window to find minimum number of 0s.
 - [1423. Maximum Points You Can Obtain from Cards](Solutions/1423.Maximum-Points-You-Can-Obtain-from-Cards.py) (!!M Google) <br>
-sliding window with fix size problem, the only difference is that some part of the window is at the beginning of the list and some are at the end. Google真是滑窗控
-- [0395. Longest Substring with At Least K Repeating Characters](Solutions/0395.Longest-Substring-with-At-Least-K-Repeating-Characters.py) (!!M) <br>
-注意这题不能用滑窗，use those char which counting is smaller than k as a 'wall' to divide the string into two parts and use recursion on the two parts. - O(26N)
+sliding window with fix size problem, the only difference is that some part of the window is at the beginning of the list and some are at the end. 我们可以转化为 find the minimum points you can get within window with fixed size: lens-k. 套用模板即可 Google真是滑窗控
+
+
+
+#### If negative number, cannot use sliding window
 - [0862. Shortest Subarray with Sum at Least K](Solutions/0862.Shorteast-Subarray-with-Sum-at-Least-K.py) (!!H) <br>
 不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
 这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
 两个while循环，一个while loop do sliding window to update res, 从队首pop, 同时更新res, 
 另一个while loop do monostack to maintain an increasing dq, 从队尾pop, 对deq进行清理。
 
--------- 1358. Number of Substrings Containing All Three Characters ----------1124. Longest Well-Performing Interval--------
 
 
 # [SubArray/Prefix Sum](/SubArray.py)
@@ -302,7 +306,7 @@ update the max_1_sum, max_2_sum, max_3_sum as we travel through the array.
 定义两个数组分别记录product before ith num: fwd[i]=fwd[i-1] * nums[i-1] and product after ith num: bwd[i]=bwd[i+1] * nums[i+1], then res[i]=fwd[i] * bwd[i]
 
 
-------363. Max Sum of Rectangle No Larger Than K------
+--------525. Contiguous Array---------1124. Longest Well-Performing Interval-----------325. Maximum Size Subarray Sum Equals k--------------962--------------------------------------------363. Max Sum of Rectangle No Larger Than K----------
 
 
 
