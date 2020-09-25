@@ -13,9 +13,7 @@ Explanation: Flip the first zero will get the the maximum number of consecutive 
 
 """
 sliding window solution: find the longest subarray with at most one 0.
-"""
-"""
-longest subsequence with at most one 0.
+这题是most s problem, 写法是while loop里让前面的指针去追后面的指针. 
 """
 class Solution:
     def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
