@@ -1,3 +1,4 @@
+"""
 30. Substring with Concatenation of All Words
 
 You are given a string, s, and a list of words, words, that are all of the same length. 
@@ -17,6 +18,8 @@ Input:
   s = "wordgoodgoodgoodbestword",
   words = ["word","good","best","word"]
 Output: []
+"""
+
 
 
 """
@@ -25,25 +28,19 @@ O(len(s)*len(words)*len(words[0]))
 """
 class Solution:
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
-        if not s or not words:
-            return []
-        
-        lens = len(s)
-        word_len = len(words[0])
-        word_num = len(words)
-        word_freq = collections.Counter(words)
+        m, n = len(words[0]), len(words)        
         res = []
-        for i in range(lens - word_len * word_num + 1):             # O(len(s))
-            seen = collections.defaultdict(int)
-            for j in range(i, i + word_len * word_num, word_len):   # O(len(words)*len(words[0]))
-                curr_word = s[j:j+word_len]                         
-                if curr_word not in word_freq:
-                    break
-                seen[curr_word] += 1
-                if seen[curr_word] > word_freq[curr_word]:
-                    break
-                
-            if word_freq == seen:
+        counter = collections.Counter(words)
+        
+        for i in range(len(s) - m*n + 1):                   # O(len(s))
+            if counter == self._get_cnt(s, i, i + m*n, m):  # O(m*n)
                 res.append(i)
-                
         return res
+    
+    def _get_cnt(self, s, start, end, m):
+        word_to_cnt = collections.defaultdict(int)
+        i = start
+        while i < end:
+            word_to_cnt[s[i:i+m]] += 1
+            i += m
+        return word_to_cnt
