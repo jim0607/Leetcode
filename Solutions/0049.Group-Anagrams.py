@@ -1,3 +1,4 @@
+"""
 49. Group Anagrams
 
 Given an array of strings, group anagrams together.
@@ -15,17 +16,18 @@ Note:
 
 All inputs will be in lowercase.
 The order of your output does not matter.
+"""
+
 
 
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        # key is a tuple keeping track of the cnt of all 26 letters
-        # val is the word list corresponding to the tuple
-        wordsDict = collections.defaultdict(list)
+        word_dict = collections.defaultdict(list)
         for word in strs:
-            cnt = [0 for _ in range(26)]
+            ch_to_cnt = [0 for _ in range(26)]  # 正发愁用什么最为dictionary的key, 这样定义counter真的很巧妙, 然后转换成tuple真得很巧妙
             for ch in word:
-                cnt[ord(ch)-ord("a")] += 1
-            wordsDict[tuple(cnt)].append(word)     # need to change cnt to a tuple because list is unhashable due ot list is mutable
+                ch_to_cnt[ord(ch) - ord("a")] += 1
+                
+            word_dict[tuple(ch_to_cnt)].append(word)    # need to change cnt to a tuple because list is unhashable due ot list is mutable
             
-        return wordsDict.values()
+        return word_dict.values()
