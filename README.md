@@ -190,7 +190,7 @@ q 记录区间[i-k, i]内被反转了的idx, 遍历过程中把里i很远的idx�
 
 
 # [Sliding Window (同向双指针)](/Sliding-window.py)
-#### 第一种模板：find min subarray size for at least problem; 第二种模板：find max subarray size for at most problem.
+#### 第一种模板：at least problem; 第二种模板：at most problem.
 - [0209. Minimum Size Subarray Sum](Solutions/0209.Minimum-Size-Subarray-Sum.py) (!!M) <br>
 维护一个sums, 用来记录i->j中数的和，套模板时满足的条件是sums < target; 更新j: sums += nums[j]; 更新i: sums -= nums[j].
 这题是第一种模板：find min subarray size for at least problem. 写法是while loop里让后面的指针逐渐远离前面的指针；
@@ -204,6 +204,10 @@ exactly(K) = atMost(K) - atMost(K-1); 第二种模板：find max subarray size f
 - [0930. Binary Subarrays With Sum](Solutions/0930.Binary-Subarrays-With-Sum.py) (!!M) <br>
 (number of subarrays having sum S) = (number of subarrays having sum at most S) - (number of subarrays having sum at most S-1)
 这题是sum at most s problem, 写法是while loop里让前面的指针去追后面的指针
+- [0487. Max Consecutive Ones II](Solutions/0487.Max-Consecutive-Ones-II.py) (!!!M) <br>
+sliding window solution: longest subarray with at most one 0s. 这题是at most problem, 写法是while loop里让前面的指针去追后面的指针. solution 2: record prev_lens and curr_lens for the previous lens of consecutive 1s and curr lens of consecutive 1s. update them we there is a new 0 coming, otherwise curr_lens += 1.
+- [1004. Max Consecutive Ones III](Solutions/1004.Max-Consecutive-Ones-III.py) (M) <br>
+same as 487: longest subarray with at most k 0s. 这题是at most problem, 写法是while loop里让前面的指针去追后面的指针. 
 - [0340. Longest Substring with At Most K Distinct Characters](Solutions/0340.Longest-Substringwith-At-Most-K-Distinct-Characters.py) (!!H) <br>
 维护一个charDict, 用来记录i->j中的char的频率，这题是sum at most s problem, 写法是while loop里让前面的指针去追后面的指针; 更新j: charDict[s[j]+=1; 更新i: charDict[s[i]] -= 1, if charDict[s[i]] == 0: del charDict[s[i]]
 - [0159. Longest Substring with At Most Two Distinct Characters](Solutions/0159.Longest-Substring-with-At-Most-Two-Distinct-Characters.py) (M) <br>
@@ -221,25 +225,26 @@ exactly(K) = atMost(K) - atMost(K-1). Helper function is exactly the same as 340
 - [0727. Minimum Window Subsequence](Solutions/0727.Minimum-Window-Subsequence.py) (!!H) <br>
 solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题只需要freq都满足了就行，这题不仅如此，而且还是讲究顺序的，; solution 2: dp. dp[i][j] = the min window subsequence that ends with ith ch in t, and jth ch in s. If t[i-1] == s[j-1]: dp[i][j] = dp[i-1][j-1] + 1; else: dp[i][j] = dp[i][j-1] + 1
 
-- [0487. Max Consecutive Ones II](Solutions/0487.Max-Consecutive-Ones-II.py) (!!M) <br>
-sliding window solution: find the longest subarray with at most one 0s. solution 2: record prev_lens and curr_lens for the previous lens of consecutive 1s and curr lens of consecutive 1s. update them we there is a new 0 coming, otherwise curr_lens += 1.
-- [1004. Max Consecutive Ones III](Solutions/1004.Max-Consecutive-Ones-III.py) (H) <br>
-sliding window solution: finding the maximum lens with at most K 0s.
+
+
+#### sliding window with fixed size
 - [0242. Valid Anagram](Solutions/0242.Valid-Anagram.py) (E) <br>
 string s and t are anagram with each other when all the ch in s have the same count as that in t
 - [0567. Permutation in String](Solutions/0567.Permutation-in-String.py) (M) <br>
-sliding window solution 1: 九章模板，use one collections.Counters for p and one for s. sliding window solution 2: keep the window size len(s1), check the tempCntDict == cntDict ? O(M+M*(N-M)). 
+solution 1: 由于我们要求的substring时固定长度的，所以最好maintina a fixed size window. solution 2: 套用sliding window模板
 - [0438. Find All Anagrams in a String](Solutions/0438.Find-All-Anagrams-in-a-String.py) (!!M) <br>
-similar with 567, 套用九章模板就可以了
+由于我们要求的substring时固定长度的，所以最好maintina a fixed size window. same as 567
 - [0049. Group Anagrams](Solutions/0049.Group-Anagrams.py) (!!M) <br>
 dictionary: key is a tuple keeping track of the cnt of all 26 letters, val is the word list corresponding to the tuple
 - [0030. Substring with Concatenation of All Words](Solutions/0030.Substring-with-Concatenation-of-All-Words.py) (H) <br>
 固定长度的sliding window: solution: use two hashmaps to record the frequency of word.
 O(len(s)* len(words)* len(words[0]))
 - [0228. Summary Ranges](Solutions/0228.Summary-Ranges.py) (M) <br>
-sliding window可解
+sliding window with fixed size可解
 - [0163. Missing Ranges](Solutions/0163.Missing-Ranges.py) (M) <br>
 这题是上一题的延伸，跟sliding window没啥关系
+
+
 - [1052. Grumpy Bookstore Owner](Solutions/1052.Grumpy-Bookstore-Owner.py) (M) <br>
 Since the window size is fixed, the problem is easier to implement. We only need to update the max_gain,
 which represents how man ymore people can be satisfied if the owner use X minites magic card
