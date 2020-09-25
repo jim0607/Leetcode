@@ -1,3 +1,4 @@
+"""
 567. Permutation in String
 
 Given two strings s1 and s2, write a function to return true if s2 contains the permutation of s1. In other words, one of the first string's permutations is the substring of the second string.
@@ -17,12 +18,34 @@ Constraints:
 
 The input strings only contain lower case letters.
 The length of both given strings is in range [1, 10,000].
+"""
+
+
+"""
+solution 1: 由于我们要求的substring时固定长度的，所以最好maintina a fixed size windows
+"""
+class Solution:
+    def checkInclusion(self, s2: str, s1: str) -> bool:
+        k = len(s2)
+        counter2 = collections.Counter(s2)
+        ch_to_cnt = collections.defaultdict(int)
+        for i in range(len(s1)):
+            ch_to_cnt[s1[i]] += 1
+            if i >= k:              # maintian a fixed size window
+                ch_to_cnt[s1[i-k]] -= 1
+                if ch_to_cnt[s1[i-k]] == 0:
+                    del ch_to_cnt[s1[i-k]]
+                    
+            if ch_to_cnt == counter2:
+                return True
+            
+        return False
 
 
 
 
 """
-套用九章模板 O(M+N) if cnt1 == cnt2 is O(1)
+套用九章模板
 """
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
@@ -41,27 +64,5 @@ class Solution:
             cnt2[s2[i]] -= 1
             if cnt2[s2[i]] == 0:
                 del cnt2[s2[i]]
-            
-        return False
-
-
-       
-
-"""
-solution 2: sliding window with fix lens: O(M+M*(N-M))
-"""
-class Solution:
-    def checkInclusion(self, s1: str, s2: str) -> bool:
-        cntDict = collections.defaultdict(int)
-        for ch in s1:
-            cntDict[ch] += 1
-            
-        for i in range(len(s2)-len(s1)+1):  # O(N-M)
-            tempDict = collections.defaultdict(int)
-            for ch in s2[i:i+len(s1)]:    # O(M)
-                tempDict[ch] += 1
-
-            if tempDict == cntDict:       # O(?)
-                return True
             
         return False
