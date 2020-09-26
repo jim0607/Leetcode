@@ -34,11 +34,12 @@ Step 1: 提前计算好prefix_sum and suffix_sum;
 Step 2: using the prefix_sum and suffix_sum, 提前计算好 the prefix_max_L, where prefix_max_L[i] = the max subarray sum with window size L before i, 
 and do the same for suffix_max_L;
 Step 3: travel the pre_sum and update M-long subarray sum and max_sum using the pre-calulated prefix_max_L and suffix_max_L.
-Solution 2: DP可以做到O(1) space. 具体做法与下一题689类似
 """
 class Solution:
     def maxSumTwoNoOverlap(self, nums: List[int], L: int, M: int) -> int:
         n = len(nums)
+        
+        # Step 1: 提前计算好prefix_sum and suffix_sum
         pre_sum = [0 for _ in range(n + 1)]
         for i in range(n):
             pre_sum[i+1] = pre_sum[i] + nums[i]
@@ -46,6 +47,8 @@ class Solution:
         for i in range(n - 1, 0, -1):
             sur_sum[i-1] = sur_sum[i] + nums[i]
         
+        # Step 2: using the prefix_sum and suffix_sum, 提前计算好 the prefix_max_L, 
+        # where prefix_max_L[i] = the max subarray sum with window size L before i, and do the same for suffix_max_L
         prefix_max_L = [0 for _ in range(len(pre_sum))]   # prefix_max_L[i] = the max L-long-subarray-sum before i 
         for i in range(1, len(pre_sum)):
             if i >= L:
@@ -55,6 +58,7 @@ class Solution:
             if i + L < len(sur_sum):
                 suffix_max_L[i] = max(sur_sum[i] - sur_sum[i+L], suffix_max_L[i+1])
                 
+        # Step 3: travel the pre_sum and update M-long subarray sum and max_sum using the pre-calulated prefix_max_L and suffix_max_L
         max_sum = 0
         for i in range(len(pre_sum)):
             if i >= M:
