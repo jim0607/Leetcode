@@ -191,10 +191,6 @@ q 记录区间[i-k, i]内被反转了的idx, 遍历过程中把里i很远的idx�
 
 # [Sliding Window (同向双指针)](/Sliding-window.py)
 #### 第一种模板：at least problem; 第二种模板：at most problem.
-- [0209. Minimum Size Subarray Sum](Solutions/0209.Minimum-Size-Subarray-Sum.py) (!!M) <br>
-维护一个sums, 用来记录i->j中数的和，套模板时满足的条件是sums < target; 更新j: sums += nums[j]; 更新i: sums -= nums[j].
-这题是第一种模板：find min subarray size for at least problem. 写法是while loop里让后面的指针逐渐远离前面的指针；
-Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search the fisrt j that satisfy sum(nums[i:]>=s), so it is a OOXX probelm, which could be solved using binary search. Follow up: 如果有负数怎么办？那就不能用sliding window了，只能用prefix sum 或者hashmap 或者deque. 详见239.
 - [1208. Get Equal Substrings Within Budget](Solutions/1208.Get-Equal-Substrings-Within-Budget.py) (!!M) <br>
 step 1: construct a cost arr; step 2: sliding window 第二种模板：find max subarray size for at most problem. 写法是while loop里让前面的指针去追后面的指针
 - [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
@@ -237,9 +233,16 @@ find the minimum substring so that outside the substring, condition all(four cha
 sliding window可解
 - [0163. Missing Ranges](Solutions/0163.Missing-Ranges.py) (M) <br>
 这题是上一题的延伸，跟sliding window没啥关系
+- [0209. Minimum Size Subarray Sum](Solutions/0209.Minimum-Size-Subarray-Sum.py) (!!M) <br>
+这题是第一种模板：find min subarray size for at least problem. 写法是while loop里让后面的指针逐渐远离前面的指针；
+Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search the fisrt j that satisfy sum(nums[i:]>=s), so it is a OOXX probelm, which could be solved using binary search. Follow up: 如果有负数怎么办？那就不能用sliding window了, 只能用pre_sum / deque, 详见862.
+- [0862. Shortest Subarray with Sum at Least K](Solutions/0862.Shorteast-Subarray-with-Sum-at-Least-K.py) (!!!H) <br>
+不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
+这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
+两个while循环，一个while loop do sliding window to update res, 从队首pop, 同时更新res, 
+另一个while loop do monostack to maintain an increasing dq, 从队尾pop, 对deq进行清理。
 
-
-### sliding window with fixed size
+### Sliding window with fixed size
 - [1456. Maximum Number of Vowels in a Substring of Given Length](Solutions/1456.Maximum-Number-of-Vowels-in-a-Substring-of-Given-Length.py) (M) <br>
 套 sliding window with fixed size 模板即可
 - [0242. Valid Anagram](Solutions/0242.Valid-Anagram.py) (E) <br>
@@ -263,39 +266,26 @@ sliding window with fix size problem, the only difference is that some part of t
 
 
 
-#### If negative number, cannot use sliding window
-- [0862. Shortest Subarray with Sum at Least K](Solutions/0862.Shorteast-Subarray-with-Sum-at-Least-K.py) (!!H) <br>
-不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
-这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
-两个while循环，一个while loop do sliding window to update res, 从队首pop, 同时更新res, 
-另一个while loop do monostack to maintain an increasing dq, 从队尾pop, 对deq进行清理。
-
-
-
 # [SubArray/Prefix Sum](/SubArray.py)
 - [0053. Maximum Subarray](Solutions/0053.Maximum-Subarray.py) (!!E) <br>
-Maintian a prefixSum and minPrefixSum, so that maxSubSum = max(maxSubSum, prefixSum - minPrefixSum); minPrefixSum = min(prefixSum, minPrefixSum)
+step 1: 构造前缀和pre_sum; 
+step 2: the same as 127. Best time to buy and sell stock
 - [0724. Find Pivot Index](Solutions/0724.Find-Pivot-Index.py) (E) <br>
-在nums前面添加一个[0]然后再进入循环。for i, num in enumerate([0] + nums[:-1]): if prefixSum * 2 == sumNums - nums[i]: return i
+if pre_sum[i-1] == pre_sum[-1] - pre_sum[i]: return i - 1
 - [0560. Subarray Sum Equals K](Solutions/0560.Subarray-Sum-Equals-K.py) (!!M) <br>
 新建一个prefixSumDict = {0: 1}, key是prefixSum, val是how many times the prefixSum appears; if prefixSum - k in prefixSumDict: 等价于if prefixSum[j+1]-prefixSum[i] == k
-- [0363. Max Sum of Rectangle No Larger Than K](Solutions/0363.Max-Sum-of-Rectangle-No-Larger-Than-K.py) (!!M) <br>
-2D version of prefx sum - O(m* m* n* n). 构建2D pre_sum比较复杂需要考虑行的和列的和以及公共部分的和：pre_sum[i+1][j+1] = pre_sum[i][j+1] + pre_sum[i+1][j] - pre_sum[i][j] + matrix[i][j].   Solution 2: binary search to achieve O(n^3logn)
-- [1074. Number of Submatrices That Sum to Target](Solutions/1074.Number-of-Submatrices-That-Sum-to-Target.py) (H) <br>
-也可以先把行处理好，让每一行里面保存上面所有行的和，接下来就是在每一行里面去求560问题了，注意一点不同的是需要遍历upRow和downRow的, 如果不遍历就是solution 3的错误写法举一个反例想明白solution 3为什么行不通，自然就会改成solution 2了O(MMN)
+- [0974. Subarray Sums Divisible by K](Solutions/0974.Subarray-Sums-Divisible-by-K.py) (!!M) <br>
+subarray sum的问题都要往prefix sum方面去想： pre_sum_dict is (pre_sum --> how many time pre_sum occured); prefixSum += num; prefixSum %= K
 - [0523. Continuous Subarray Sum](Solutions/0523.Continuous-Subarray-Sum.py) (M) <br>
 prefixSumMap = {0: -1} # key: prefixSum[j], val: j/position, initial position should be -1; prefixSum += num; prefixSum = prefixSum % k 因为题目要求要能被subArray Sum 要能被k整除
-- [0974. Subarray Sums Divisible by K](Solutions/0974.Subarray-Sums-Divisible-by-K.py) (M) <br>
-prefixSumDict = {0: 1} # key is the prefixSum, val is how many times the prefixSum appears; prefixSum += num; prefixSum %= K
-- [0139. Subarray Sum Closest](Solutions/0139.Subarray-Sum-Closest.py) (M Lintcode) <br>
-题目要求NlogN, 那就是疯狂暗示要sort, prefixSumList = [(0, -1)] # (0, -1) are prefixSum and index; 对prefixSum来进行sort，这样最小的subArrSum (或者prefixSums[j+1][0] - prefixSums[i][0])就一定来自于相邻的两个prefisxSums了
-- [0152. Maximum Product Subarray](Solutions/0152.Maximum-Product-Subarray.py) (M) <br>
-最大值问题。用一个数组记录最大的正数maxDP[i]，另一个数组记录最小的负数minDP[i], maxDP[i]表示以i为结尾的subarray的最product. 分nums[i]的正负,更新maxDP[i]和minDP[i]。maxDP[i] = max(nums[i], maxDP[i-1]* nums[i]) if nums[i]>0
+- [0139. Subarray Sum Closest](Solutions/0139.Subarray-Sum-Closest.py) (!!M Lintcode) <br>
+题目要求NlogN, 那就是疯狂暗示要sort, 对pre_sum来进行sort，这样最小的subArrSum就一定来自于相邻的两个prefix sum了, 注意pre_sum里面要把idx信息带上，不然一会儿sort了之后会丢掉
 - [1031. Maximum Sum of Two Non-Overlapping Subarrays](Solutions/1031.Maximum-Sum-of-Two-Non-Overlapping-Subarrays.py) (!!M) <br>
-Step 1: find the prefix_sum and suffix_sum;
-Step 2: using the prefix_sum and suffix_sum, find the prefix_max_L, where prefix_max_L[i] = the max subarray sum with window size L before i;
-do the same for prefix_max_M, suffix_sum_L, suffix_sum_M;
-Step 3: travel the arr and update max_sum as max(max_sum, prefix_max_L[i] + suffix_max_M[i], prefix_max_M[i] + suffix_max_L[i]).
+这一题是把提前计算好的思想运用到了极致。
+Step 1: 提前计算好prefix_sum and suffix_sum;
+Step 2: using the prefix_sum and suffix_sum, 提前计算好 the prefix_max_L, where prefix_max_L[i] = the max subarray sum with window size L before i, 
+and do the same for suffix_max_L;
+Step 3: travel the pre_sum and update M-long subarray sum and max_sum using the pre-calulated prefix_max_L and suffix_max_L.
 Solution 2: DP可以做到O(1) space. 具体做法与下一题689类似
 - [0689. Maximum Sum of 3 Non-Overlapping Subarrays](Solutions/0689.Maximum-Sum-of-3-Non-Overlapping-Subarrays.py) (!!H) <br>
 DP solution is somehow similar with 123. Best Time to Buy and Sell Stock III.
@@ -306,7 +296,12 @@ update the max_1_sum, max_2_sum, max_3_sum as we travel through the array.
 定义两个数组分别记录product before ith num: fwd[i]=fwd[i-1] * nums[i-1] and product after ith num: bwd[i]=bwd[i+1] * nums[i+1], then res[i]=fwd[i] * bwd[i]
 
 
---------525. Contiguous Array---------1124. Longest Well-Performing Interval-----------325. Maximum Size Subarray Sum Equals k--------------962--------------------------------------------363. Max Sum of Rectangle No Larger Than K----------
+--------525. Contiguous Array---------1124. Longest Well-Performing Interval-----------325. Maximum Size Subarray Sum Equals k--------------962------------------------------------------
+
+- [1074. Number of Submatrices That Sum to Target](Solutions/1074.Number-of-Submatrices-That-Sum-to-Target.py) (H) <br>
+也可以先把行处理好，让每一行里面保存上面所有行的和，接下来就是在每一行里面去求560问题了，注意一点不同的是需要遍历upRow和downRow的, 如果不遍历就是solution 3的错误写法举一个反例想明白solution 3为什么行不通，自然就会改成solution 2了O(MMN)
+- [0363. Max Sum of Rectangle No Larger Than K](Solutions/0363.Max-Sum-of-Rectangle-No-Larger-Than-K.py) (!!H) <br>
+2D version of prefx sum - O(m* m* n* n). 构建2D pre_sum比较复杂需要考虑行的和列的和以及公共部分的和：pre_sum[i+1][j+1] = pre_sum[i][j+1] + pre_sum[i+1][j] - pre_sum[i][j] + matrix[i][j].   Solution 2: binary search to achieve O(n^3logn)
 
 
 
@@ -1334,6 +1329,8 @@ f[i]=the max profit when reaching ith house; f[i] = max(rob ith = f[i-2]+nums[i]
 房子形成了一个环，所以第一个房子和第N个房子不能同时偷，我们可以把问题分成两个问题来解决：1. 房子1没偷：问题变成了对房子2:N做House robber I的问题; 2. 房子N没偷：问题变成了对房子1:N-1做House robber I的问题
 - [0337. House Robber III](Solutions/0337.House-Robber-III.py) (!!M) <br>
 树状的house.递归： def with_without_rob(self, root): return a tuple, the 1st element in the tuple is the max profift with_rob_root， the 2nd element in the tuple is the max profit without_rob_root. 递归公式：with_rob_root = root.val + without_rob_left + without_rob_right; without_rob_root = max(with_rob_left, without_rob_left) + max(with_rob_right, without_rob_right)
+- [0152. Maximum Product Subarray](Solutions/0152.Maximum-Product-Subarray.py) (!!M) <br>
+最大值问题。maxDP[i]表示以i为结尾的subarray的最大的正数，minDP[i]表示以i为结尾的subarray的最小负数. 根据nums[i]的正负, 更新maxDP[i]和minDP[i]
 - [0983. Minimum Cost For Tickets](Solutions/0983.Minimum-Cost-For-Tickets.py) (!!M) <br>
 我们定义函数f(i)表示第i天的最低消费，那么
 某天，如果你不必出行的话，等一等再购买火车票一定更优，如果你需要出行的话，那么就有三种选择：在通行期为 1 天、7 天、30 天中的火车票中选择一张购买。
