@@ -42,30 +42,8 @@ class Solution:
 Follow up: 如果有负数怎么办？那就不能用sliding window了，只能用deque. 详见239.  
 """  
     
-class Solution {
-    public int minSubArrayLen(int s, int[] nums) {
-        int lens = nums.length;
-        int j = 0;
-        int sums = 0;
-        int minLens = Integer.MAX_VALUE;
-        for (int i = 0; i < lens; i++) {
-            while (j < lens && sums < s) {
-                sums += nums[j];
-                j += 1;
-            }
-            
-            if (sums >= s) {
-                minLens = Math.min(minLens, j - i);
-            }
-            
-            sums -= nums[i];
-        }
-        
-        return minLens == Integer.MAX_VALUE ? 0 : minLens;
-    }
-}
-
-
+"""
 Follow up: can we solve in O(NlogN)?
 Yes, we can traverse the the list, say at i, we search the fisrt j that satisfy sum(nums[i:]>=s), so it is a OOXX probelm, 
 which could be solved using binary search.
+"""
