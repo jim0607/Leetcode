@@ -19,6 +19,60 @@ We could have also taken [2, 1], but an answer of [1, 3, 5] would be lexicograph
 
 
 """
+这一题是把提前计算好的思想运用到了极致。
+Step 1: 提前计算好prefix_sum and suffix_sum;
+Step 2: using the prefix_sum and suffix_sum, 提前计算好 the prefix_max_k, where prefix_max_k[i] = the max subarray sum with window size k before i, 
+and do the same for suffix_max_k;
+Step 3: travel the pre_sum and update 中间的 k-long subarray sum and max_sum using the pre-calulated prefix_max_L and suffix_max_L.
+"""
+class Solution:
+    def maxSumOfThreeSubarrays(self, nums: List[int], k: int) -> List[int]:
+        n = len(nums)
+        
+        # Step 1: 提前计算好prefix_sum and suffix_sum
+        pre_sum = [0 for _ in range(n + 1)]
+        for i in range(n):
+            pre_sum[i+1] = pre_sum[i] + nums[i]
+        suf_sum = [0 for _ in range(n + 1)]
+        for i in range(n - 1, 0, -1):
+            suf_sum[i-1] = suf_sum[i] + nums[i]
+            
+        # Step 2: using the prefix_sum and suffix_sum, 提前计算好 the prefix_max_k, 
+        # where prefix_max_k[i] = the max subarray sum with window size k before i, and do the same for suffix_max_k;
+        pre_max_k = [(0, i) for i in range(len(pre_sum))]   # pre_max_k[i][0] = the max k-long-subarray-sum before i 
+        for i in range(1, len(pre_sum)):
+            if i >= k:
+                if pre_sum[i] - pre_sum[i-k] > pre_max_k[i-1][0]:       # 题目要求在相等的情况下输出尽可能小的idx, 所以用 >
+                    pre_max_k[i] = (pre_sum[i] - pre_sum[i-k], i - k)   # 把starting idx也放到pre_max_k中，因为题目需要输出idx
+                else:
+                    pre_max_k[i] = pre_max_k[i-1]
+        suf_max_k = [(0, i) for _ in range(len(suf_sum))]   # pre_max_k[i][0] = the max k-long-subarray-sum after i 
+        for i in range(len(suf_sum)-1, -1, -1):             # 注意不能写成for i, num in enumerate(A[::-1]), 否则坐标就不对了
+            if i + k < len(suf_sum):
+                if suf_sum[i] - suf_sum[i+k] >= suf_max_k[i+1][0]:  # 题目要求在相等的情况下输出尽可能小的idx, 所以用 >=
+                    suf_max_k[i] = (suf_sum[i] - suf_sum[i+k], i + 1)
+                else:
+                    suf_max_k[i] = suf_max_k[i+1]
+
+        # Step 3: travel the pre_sum and update 中间的 k-long subarray sum and max_sum using the pre-calulated prefix_max_L and suffix_max_L
+        max_sum = 0
+        res = [0, 0, 0]
+        for i in range(k, len(pre_sum) - 2*k):
+            mid_sum = pre_sum[i+k] - pre_sum[i]         # 中间的 k-length string
+            three_sum = pre_max_k[i][0] + mid_sum + suf_max_k[i+k-1][0]
+            if three_sum > max_sum:
+                max_sum = three_sum
+                res = [pre_max_k[i][1], i, suf_max_k[i+k-1][1]]
+        return res
+
+
+
+
+    
+    
+
+
+"""
 DP solution is somehow similar with 123. Best Time to Buy and Sell Stock III.
 sub_1_sum, sub_2_sum, sub_3_sum represent the sum of 1st k nums, 1st + 2nd k nums, 1st + 2nd + 3rd k nums.
 max_1_sum, max_2_sum, max_3_sum represent the max sum of 1st k nums, 1st + 2nd k nums, 1st + 2nd + 3rd k nums.
