@@ -166,6 +166,12 @@ Need to use a dictionary to pre-record the last pos a ch appears.  Also need a i
 与316. Remove Duplicate Letters出重复了
 - [0654. Maximum Binary Tree](Solutions/0654.Maximum-Binary-Tree.py) (!!M) <br>
 solution 1: simple recursion - O(n^2); solution 2: monostack 通过观察发现规律，对于每个node的父亲节点 = min(左边第一个比它大的，右边第一个比它大的), 维护一个降序数组，可以实现对这个min的快速查找,maintain a mono decreasing stack, the items in the stack are nodes - O(N)
+- [0962. Maximum Width Ramp](Solutions/0962.Maximum-Width-Ramp.py) (!!!M) <br>
+This is "Last Greater Element" problem. monostack - O(n).
+Step 1: put valid candidates into stack: loop from left to the right, if there's a value greater than a value to the left, 
+it doesn't make sense to use it. So we create a stack in descending order. 
+这里跟sort很像，但是我们是把unordered的num直接不要，而不是把它放到该有的地方。
+Step 2: now go backwards on A, and compare the values to the stack to see the max_lens we can have.
 
 
 
@@ -263,7 +269,8 @@ which represents how man ymore people can be satisfied if the owner use X minite
 Find the substring with lens=k and minimum 0s in it. use a fix window to find minimum number of 0s.
 - [1423. Maximum Points You Can Obtain from Cards](Solutions/1423.Maximum-Points-You-Can-Obtain-from-Cards.py) (!!M Google) <br>
 sliding window with fix size problem, the only difference is that some part of the window is at the beginning of the list and some are at the end. 我们可以转化为 find the minimum points you can get within window with fixed size: lens-k. 套用模板即可 Google真是滑窗控
-
+- [0683. K Empty Slots](Solutions/0683.K-Empty-Slots.py) (!!M Google) <br>
+The problem is to find a fixed sized window, where any num in the window [i, i+k], are smaller than days[i-1] and also smaller than days[i+k+1].
 
 
 # [SubArray/Prefix Sum](/SubArray.py)
@@ -285,6 +292,10 @@ subarray sum的问题都要往prefix sum方面去想： pre_sum_dict is (pre_sum
 prefixSumMap = {0: -1} # key: prefixSum[j], val: j/position, initial position should be -1; prefixSum += num; prefixSum = prefixSum % k 因为题目要求要能被subArray Sum 要能被k整除
 - [0139. Subarray Sum Closest](Solutions/0139.Subarray-Sum-Closest.py) (!!M Lintcode) <br>
 题目要求NlogN, 那就是疯狂暗示要sort, 对pre_sum来进行sort，这样最小的subArrSum就一定来自于相邻的两个prefix sum了, 注意pre_sum里面要把idx信息带上，不然一会儿sort了之后会丢掉
+- [0238. Product of Array Except Self](Solutions/0238.Product-of-Array-Except-Self.py) (M Pramp) <br>
+pre-calculate pre_prod, where pre_prod[i] = product before i (not including i),
+also pre-calculate suf_prod, where suf_prod[i] = product after i (not including i);
+then traversal the arr and update Product of Array Except Self
 - [1031. Maximum Sum of Two Non-Overlapping Subarrays](Solutions/1031.Maximum-Sum-of-Two-Non-Overlapping-Subarrays.py) (!!!M) <br>
 这一题是把提前计算好的思想运用到了极致。
 Step 1: 提前计算好prefix_sum and suffix_sum;
@@ -298,13 +309,11 @@ Step 1: 提前计算好prefix_sum and suffix_sum;
 Step 2: using the prefix_sum and suffix_sum, 提前计算好 the prefix_max_k, where prefix_max_k[i] = the max subarray sum with window size k before i, 
 and do the same for suffix_max_k;
 Step 3: travel the pre_sum and update 中间的 k-long subarray sum and max_sum using the pre-calulated prefix_max_L and suffix_max_L.
-- [0238. Product of Array Except Self](Solutions/0238.Product-of-Array-Except-Self.py) (M Pramp) <br>
-pre-calculate pre_prod, where pre_prod[i] = product before i (not including i),
-also pre-calculate suf_prod, where suf_prod[i] = product after i (not including i);
-then traversal the arr and update Product of Array Except Self
-
---------1124. Longest Well-Performing Interval (subarray_sum >= k问题用deque 参考 862. Shortest Subarray with Sum at Least K)-----------683. K Empty Slots------------862. Shortest Subarray with Sum at Least K-----------962. Maximum Width Ramp----------------------------------
-
+- [1124. Longest Well-Performing Interval](Solutions/1124.Longest-Well-Performing-Interval.py) (!!M) <br>
+step 1: 大于8小时的工作时间定义为1， 小于定义为-1， 这样就得到了一个nums，
+step 2: now the problem is to find the longest subarray with sum > 0. 
+since there is negative numbers, we cannot use sliding window, for subarray sum at least/most k problem with negative number, we use prefix sum + mono deque. 
+因为这一题我们只需要check pre_sum - 1 in pre_sum_dict. 所以其实是一个subarray sum equals problem. for subarray sum equals k problem with negative number, we use prefix sum + hashmap. 
 - [1074. Number of Submatrices That Sum to Target](Solutions/1074.Number-of-Submatrices-That-Sum-to-Target.py) (H) <br>
 也可以先把行处理好，让每一行里面保存上面所有行的和，接下来就是在每一行里面去求560问题了，注意一点不同的是需要遍历upRow和downRow的, 如果不遍历就是solution 3的错误写法举一个反例想明白solution 3为什么行不通，自然就会改成solution 2了O(MMN)
 - [0363. Max Sum of Rectangle No Larger Than K](Solutions/0363.Max-Sum-of-Rectangle-No-Larger-Than-K.py) (!!H) <br>
