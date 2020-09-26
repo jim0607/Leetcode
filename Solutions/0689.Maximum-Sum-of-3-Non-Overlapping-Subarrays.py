@@ -1,3 +1,4 @@
+"""
 689. Maximum Sum of 3 Non-Overlapping Subarrays
 
 In a given array nums of positive integers, find three non-overlapping subarrays with maximum sum.
@@ -12,6 +13,8 @@ Input: [1,2,1,2,6,7,5,1], 2
 Output: [0, 3, 5]
 Explanation: Subarrays [1, 2], [2, 6], [7, 5] correspond to the starting indices [0, 3, 5].
 We could have also taken [2, 1], but an answer of [1, 3, 5] would be lexicographically larger.
+"""
+
 
 
 
