@@ -42,26 +42,25 @@
 #
 
 # @lc code=start
-"""solution 3: replace sum(A[i:j]) by using prefixSum
-and use hashmap to store frequency of subArrSum
-O(N), O(N)
+"""
+subarray sum的问题都要往prefix sum方面去想  O(N), O(N)
 """
 class Solution:
-    def subarraysDivByK(self, A: List[int], K: int) -> int:
-        prefixSumDict = {0: 1} # key is the prefixSum, val is how many times the prefixSum appears
-        prefixSum = 0
-        cnt = 0
-        for num in A:
-            prefixSum += num
-            prefixSum %= K
-            if prefixSum in prefixSumDict:
-                cnt += prefixSumDict[prefixSum]
-                prefixSumDict[prefixSum] += 1
+    def subarraysDivByK(self, nums: List[int], k: int) -> int:
+        pre_sum = 0
+        pre_sum_dict = collections.defaultdict(int)     # pre_sum --> how many time pre_sum occured
+        pre_sum_dict[0] = 1
+        res = 0
+        for i, num in enumerate(nums):
+            pre_sum += num
+            pre_sum = pre_sum % k       # (a-b)%x = a%x - b%x
+            
+            if (pre_sum - k) % k in pre_sum_dict:
+                res += pre_sum_dict[(pre_sum - k) % k]
                 
-            else:
-                prefixSumDict[prefixSum] = 1
-                
-        return cnt
+            pre_sum_dict[pre_sum] += 1
+            
+        return res
 
 
 
