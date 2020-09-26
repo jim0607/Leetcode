@@ -1,3 +1,4 @@
+"""
 238. Product of Array Except Self
 
 Example:
@@ -10,28 +11,33 @@ Note: Please solve it without division and in O(n).
 
 Follow up:
 Could you solve it with constant space complexity? (The output array does not count as extra space for the purpose of space complexity analysis.)
+"""
 
-O(N), O(N)
+
+"""
+pre-calculate pre_prod, where pre_prod[i] = product before i (not including i),
+also pre-calculate suf_prod, where suf_prod[i] = product after i (not including i);
+then traversal the arr and update Product of Array Except Self
+"""
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        lens = len(nums)
-        fwd = [1] * lens
-        bwd = [1] * lens
-        
-        for i in range(1, lens):
-            fwd[i] = fwd[i - 1] * nums[i - 1]   # fwd[i]=product before ith num
-            
-        for i in range(lens - 2, -1, -1):
-            bwd[i] = bwd[i + 1] * nums[i + 1]   # bwd[i]=product after ith num
-            
-        res = [1] * lens
-        for i in range(lens):
-            res[i] = fwd[i] * bwd[i]
-            
-        return res
-        
+        pre_prod = [1 for _ in range(len(nums))]
+        for i in range(1, len(nums)):
+            pre_prod[i] = pre_prod[i-1] * nums[i-1]
+        suf_prod = [1 for _ in range(len(nums))]
+        for i in range(len(nums) - 2, -1, -1):
+            suf_prod[i] = suf_prod[i+1] * nums[i+1]
 
+        res = []
+        for i in range(len(nums)):
+            res.append(pre_prod[i] * suf_prod[i])
+        return res
+    
+    
+    
+"""
 O(N), O(1)
+"""
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         lens = len(nums)
