@@ -1,3 +1,4 @@
+"""
 862. Shortest Subarray with Sum at Least K
 
 Return the length of the shortest, non-empty, contiguous subarray of A with sum at least K.
@@ -16,6 +17,9 @@ Example 3:
 
 Input: A = [2,-1,2], K = 3
 Output: 3
+"""
+
+
 
 """
 不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
@@ -27,7 +31,7 @@ class Solution:
     def shortestSubarray(self, A: List[int], K: int) -> int:
         # step 1: construct a presum list
         lens = len(A)
-        presum = [0 for _ in range(lens+1)]
+        presum = [0 for _ in range(lens + 1)]
         for i, num in enumerate(A):
             presum[i+1] = presum[i] + num
         
@@ -35,6 +39,7 @@ class Solution:
         dq = collections.deque()     # maintain a mono increasing dq, dq存(val, idx) pair
         min_len = float("inf")
         for i, pre in enumerate(presum):
+            
             # firstly, we pop from left to update res just like sliding window
             while len(dq) > 0 and pre - dq[0][0] >= K:
                 idx = dq.popleft()[1]
