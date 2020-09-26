@@ -61,17 +61,14 @@
 # 
 #
 
-cclass Solution:
+
+class Solution:
     def pivotIndex(self, nums: List[int]) -> int:
-        if not nums:
-            return -1
-        
-        sumNums = sum(nums)
-        prefixSum = 0
-        for i, num in enumerate([0] + nums[:-1]):
-            prefixSum += num
-            
-            if prefixSum * 2 == sumNums - nums[i]:
-                return i
-            
+        pre_sum = [0 for _ in range(len(nums) + 1)]
+        for i, num in enumerate(nums):
+            pre_sum[i+1] = pre_sum[i] + num
+
+        for i in range(1, len(pre_sum)):
+            if pre_sum[i-1] == pre_sum[-1] - pre_sum[i]:
+                return i - 1
         return -1
