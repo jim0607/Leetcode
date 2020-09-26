@@ -35,9 +35,10 @@
 
 
 """
-Solution 3: prefixSum+hashmap
-用prefixSum，hashmap来存储prefixSum中出现的数字频率, O(N), O(N)"""
-
+我们先构造一个数组pre_sum, 然后接下来就和two sum problem是一样的了，
+two sum是寻找两数之和：nums[i]+nums[j] = k, 这里是寻找两数之差：pre_sum[j] - pre_sum[i] = k. 
+方法都是用hashmap记录访问过的nums[i], O(N), O(N)
+"""
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
         prefixSumDict = collections.defaultdict(lambda: 0) # key是prefixSum, val是how many times the prefixSum appears. 
