@@ -274,29 +274,36 @@ step 2: the same as 127. Best time to buy and sell stock
 if pre_sum[i-1] == pre_sum[-1] - pre_sum[i]: return i - 1
 - [0560. Subarray Sum Equals K](Solutions/0560.Subarray-Sum-Equals-K.py) (!!M) <br>
 新建一个prefixSumDict = {0: 1}, key是prefixSum, val是how many times the prefixSum appears; if prefixSum - k in prefixSumDict: 等价于if prefixSum[j+1]-prefixSum[i] == k
+- [0325. Maximum Size Subarray Sum Equals k](Solutions/0325.Maximum-Size-Subarray-Sum-Equals-k.py) (!!M) <br>
+由于arr中有正数有负数，所以不能用sliding window, 只能用prefix sum + hashmap. pre_sum_dict stores (pre_sum --> idx where the pre_sum occured)
+- [0525. Contiguous Array](Solutions/0525.Contiguous-Array.py) (!!M) <br>
+将0都变成-1，题目就变成了max subarray size with sum == 0, which is exactly the same as 325. Maximum Size Subarray Sum Equals k.
+由于arr中有正数有负数，所以不能用sliding window, 只能用prefix sum + hashmap
 - [0974. Subarray Sums Divisible by K](Solutions/0974.Subarray-Sums-Divisible-by-K.py) (!!M) <br>
 subarray sum的问题都要往prefix sum方面去想： pre_sum_dict is (pre_sum --> how many time pre_sum occured); prefixSum += num; prefixSum %= K
 - [0523. Continuous Subarray Sum](Solutions/0523.Continuous-Subarray-Sum.py) (M) <br>
 prefixSumMap = {0: -1} # key: prefixSum[j], val: j/position, initial position should be -1; prefixSum += num; prefixSum = prefixSum % k 因为题目要求要能被subArray Sum 要能被k整除
 - [0139. Subarray Sum Closest](Solutions/0139.Subarray-Sum-Closest.py) (!!M Lintcode) <br>
 题目要求NlogN, 那就是疯狂暗示要sort, 对pre_sum来进行sort，这样最小的subArrSum就一定来自于相邻的两个prefix sum了, 注意pre_sum里面要把idx信息带上，不然一会儿sort了之后会丢掉
-- [1031. Maximum Sum of Two Non-Overlapping Subarrays](Solutions/1031.Maximum-Sum-of-Two-Non-Overlapping-Subarrays.py) (!!M) <br>
+- [1031. Maximum Sum of Two Non-Overlapping Subarrays](Solutions/1031.Maximum-Sum-of-Two-Non-Overlapping-Subarrays.py) (!!!M) <br>
 这一题是把提前计算好的思想运用到了极致。
 Step 1: 提前计算好prefix_sum and suffix_sum;
 Step 2: using the prefix_sum and suffix_sum, 提前计算好 the prefix_max_L, where prefix_max_L[i] = the max subarray sum with window size L before i, 
 and do the same for suffix_max_L;
 Step 3: travel the pre_sum and update M-long subarray sum and max_sum using the pre-calulated prefix_max_L and suffix_max_L.
 Solution 2: DP可以做到O(1) space. 具体做法与下一题689类似
-- [0689. Maximum Sum of 3 Non-Overlapping Subarrays](Solutions/0689.Maximum-Sum-of-3-Non-Overlapping-Subarrays.py) (!!H) <br>
-DP solution is somehow similar with 123. Best Time to Buy and Sell Stock III.
-sub_1_sum, sub_2_sum, sub_3_sum represent the sum of 1st k nums, 1st + 2nd k nums, 1st + 2nd + 3rd k nums.
-max_1_sum, max_2_sum, max_3_sum represent the max sum of 1st k nums, 1st + 2nd k nums, 1st + 2nd + 3rd k nums.
-update the max_1_sum, max_2_sum, max_3_sum as we travel through the array.
+- [0689. Maximum Sum of 3 Non-Overlapping Subarrays](Solutions/0689.Maximum-Sum-of-3-Non-Overlapping-Subarrays.py) (!!!H) <br>
+这一题是把提前计算好的思想运用到了极致。
+Step 1: 提前计算好prefix_sum and suffix_sum;
+Step 2: using the prefix_sum and suffix_sum, 提前计算好 the prefix_max_k, where prefix_max_k[i] = the max subarray sum with window size k before i, 
+and do the same for suffix_max_k;
+Step 3: travel the pre_sum and update 中间的 k-long subarray sum and max_sum using the pre-calulated prefix_max_L and suffix_max_L.
 - [0238. Product of Array Except Self](Solutions/0238.Product-of-Array-Except-Self.py) (M Pramp) <br>
-定义两个数组分别记录product before ith num: fwd[i]=fwd[i-1] * nums[i-1] and product after ith num: bwd[i]=bwd[i+1] * nums[i+1], then res[i]=fwd[i] * bwd[i]
+pre-calculate pre_prod, where pre_prod[i] = product before i (not including i),
+also pre-calculate suf_prod, where suf_prod[i] = product after i (not including i);
+then traversal the arr and update Product of Array Except Self
 
-
---------525. Contiguous Array---------1124. Longest Well-Performing Interval-----------325. Maximum Size Subarray Sum Equals k--------------962------------------------------------------
+--------1124. Longest Well-Performing Interval (subarray_sum >= k问题用deque 参考 862. Shortest Subarray with Sum at Least K)-----------683. K Empty Slots------------862. Shortest Subarray with Sum at Least K-----------962. Maximum Width Ramp----------------------------------
 
 - [1074. Number of Submatrices That Sum to Target](Solutions/1074.Number-of-Submatrices-That-Sum-to-Target.py) (H) <br>
 也可以先把行处理好，让每一行里面保存上面所有行的和，接下来就是在每一行里面去求560问题了，注意一点不同的是需要遍历upRow和downRow的, 如果不遍历就是solution 3的错误写法举一个反例想明白solution 3为什么行不通，自然就会改成solution 2了O(MMN)
