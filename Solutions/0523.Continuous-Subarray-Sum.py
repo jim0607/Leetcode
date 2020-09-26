@@ -51,39 +51,41 @@
 #
 
 # @lc code=start
-"""solution 3: prefixSum + hashmap"""
+"""
+solution 3: prefixSum + hashmap
+"""
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
-        lens = len(nums)
-        prefixSumMap = {0: -1} # key: prefixSum[j], val: j/position, initial position should be -1
-        prefixSum = 0
-        if k == 0:      # k = 0 和 k!= 0 分开讨论
-            for j, num in enumerate(nums):
-                prefixSum += num
-                
-                # if prefixSum in prefixSumMap is same as prefixSum_j - prefixSum_i = 0
-                # if j > prefixSumMap[prefixSum] + 1 is to make sure the subarray size is at least 2
-                if prefixSum in prefixSumMap and j > prefixSumMap[prefixSum] + 1:
-                    return True
-
-                if prefixSum not in prefixSumMap:
-                    prefixSumMap[prefixSum] = j
-                
-        else:
-            for j, num in enumerate(nums):
-                prefixSum += num
-                prefixSum = prefixSum % k       # (a-b)%x = a%x - b%x
-                
-                # if prefixSum in prefixSumMap is same as prefixSum_j % k - prefixSum_i % k = 0
-                if prefixSum in prefixSumMap and j > prefixSumMap[prefixSum] + 1:
-                    return True
-
-                if prefixSum not in prefixSumMap:
-                    prefixSumMap[prefixSum] = j
+        pre_sum = 0
+        pre_sum_dict = collections.defaultdict(int)
+        pre_sum_dict[0] = -1      # pre_sum --> idx, 注意initial position should be -1
         
+        if k == 0:      # k = 0 和 k!= 0 分开讨论
+            for i, num in enumerate(nums):
+                pre_sum += num
+                
+                # if pre_sum in pre_sum_dict is same as pre_sum_j - pre_sum_i = 0
+                # if i - pre_sum_dict[pre_sum - k] >= 2 is to make sure the subarray size is at least 2
+                if pre_sum - k in pre_sum_dict and i - pre_sum_dict[pre_sum - k] >= 2:
+                    return True
+                if pre_sum not in pre_sum_dict:     # 注意这里只有在pre_sum不在pre_sum_dict才更新pre_sum_dict[pre_sum], 
+                    pre_sum_dict[pre_sum] = i       # 否则不更新，这是为了保证pre_sum_dict[pre_sum]尽可能小，来满足i - pre_sum_dict[pre_sum - k] >= 2
+        
+        else:
+            for i, num in enumerate(nums):
+                pre_sum += num
+                pre_sum = pre_sum % k       # (a-b)%x = a%x - b%x
+                
+                # if pre_sum in pre_sum_dict is same as pre_sum_j % k - pre_sum_i % k = 0
+                if (pre_sum - k) % k in pre_sum_dict and i - pre_sum_dict[(pre_sum - k) % k] >= 2:
+                    return True
+                if pre_sum not in pre_sum_dict:
+                    pre_sum_dict[pre_sum] = i
+           
         return False
 
-# @lc code=end
+
+    
 
 
 """
