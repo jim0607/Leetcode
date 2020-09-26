@@ -1,5 +1,4 @@
-Description
-
+"""
 Given an integer array, find a subarray with sum closest to zero. Return the indexes of the first number and last number.
 
 Example
@@ -10,33 +9,21 @@ Output:
 [0,2]
 Explanation: [0,2], [1,3], [1,1], [2,2], [0,4]
 Challenge: O(nlogn) time
+"""
 
 
 class Solution:
-    """
-    @param: nums: A list of integers
-    @return: A list of integers includes the index of the first number and the index of the last number
-    """
     def subarraySumClosest(self, nums):
-        # write your code here
-        
-        # key: prefixSum val: index
-        prefixSums = [(0, -1)]
-        prefixSum = 0
-        for i, num in enumerate(nums):
-            prefixSum += num
-            prefixSums.append((prefixSum, i))
+        pre_sum = [(0, -1)]     # 注意pre_sum里面要把idx信息带上，不然一会儿sort了之后会丢掉
+        for i in range(len(nums)):
+            pre_sum.append((pre_sum[-1][0] + nums[i], i))
             
-        prefixSums.sort()   # 默认按照第一个value也就是prefixSum来进行sort，这样最小的subArrSum (或者prefixSums[j+1][0] - prefixSums[i][0])就一定来自于相邻的两个prefisxSums了。
+        pre_sum.sort(key = lambda x: x[0])   # 按照pre_sum values sort，这样最小的subArrSum就一定来自于相邻的两个prefix sum了
         
-        closestVal = float("inf")
-        res = []
-        for i in range(1, len(prefixSums)):
-            if prefixSums[i][0] - prefixSums[i - 1][0] < closestVal:
-                closestVal = prefixSums[i][0] - prefixSums[i - 1][0]
-                # prefixSum[j+1]-prefixSum[i] = sum(i~j 包括i,j)，我们要输出的是i和j,所以left = 较小的index，
-                left = min(prefixSums[i][1], prefixSums[i - 1][1])  + 1
-                right = max(prefixSums[i][1], prefixSums[i - 1][1])
-                res = [left, right]
-                
+        min_diff = float("inf")
+        res = [-1, 0]
+        for i in range(1, len(pre_sum)):
+            if pre_sum[i][0] - pre_sum[i-1][0] < min_diff:
+                min_diff = pre_sum[i][0] - pre_sum[i-1][0]
+                res = [min(pre_sum[i][1], pre_sum[i-1][1]) + 1, max(pre_sum[i][1], pre_sum[i-1][1])]
         return res
