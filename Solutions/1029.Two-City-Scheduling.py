@@ -1,6 +1,8 @@
+"""
 1029. Two City Scheduling
 
-There are 2N people a company is planning to interview. The cost of flying the i-th person to city A is costs[i][0], and the cost of flying the i-th person to city B is costs[i][1].
+There are 2N people a company is planning to interview. The cost of flying the i-th person to city A is costs[i][0], 
+and the cost of flying the i-th person to city B is costs[i][1].
 
 Return the minimum cost to fly every person to a city such that exactly N people arrive in each city.
 
@@ -22,6 +24,21 @@ Note:
 1 <= costs.length <= 100
 It is guaranteed that costs.length is even.
 1 <= costs[i][0], costs[i][1] <= 1000
+"""
+
+
+class Solution:
+    def twoCitySchedCost(self, costs: List[List[int]]) -> int:
+        # how many more money we have to spend to fly ith person to a instead of b
+        more_cost = [(acost - bcost, i) for i, (acost, bcost) in enumerate(costs)]   
+        more_cost.sort()
+        
+        total = 0
+        for i in range(len(costs) // 2):
+            total += costs[more_cost[i][1]][0]
+        for i in range(len(costs) // 2, len(costs)):
+            total += costs[more_cost[i][1]][1]
+        return total
 
 
 
