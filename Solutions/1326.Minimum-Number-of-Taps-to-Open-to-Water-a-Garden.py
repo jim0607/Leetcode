@@ -50,11 +50,10 @@ Then it becomes Jump Game II, where we want to find the minimum steps to jump fr
 class Solution:
     def minTaps(self, n: int, ranges: List[int]) -> int:
         # step 1: build the reachable list
-        reachable = [0 for _ in range(n + 1)]
+        reachable = [0 for _ in range(n + 1)]      # reachable[idx] = start from idx, where we can reach
         for i, ran in enumerate(ranges):
-            idx = max(0, i - ran)      # 注意这里idx的定义是start point, reachable[idx]=from start point, where we can reach.
-            can_reach = min(i + ran, n)     # 注意这里can_reach的含义是可以到达哪里，而不是jump game中的可以跳几步
-            reachable[idx] = max(reachable[idx], can_reach)      # 注意这里要比较一下，因为可能会出现很多idx相同的情况，比如可能很多idx都等于0
+            idx = max(0, i - ran)       
+            reachable[idx] = max(reachable[idx], i + ran)   
             
         # step 2: now it's Jump Game II, we need to find the min steps to jump from 0 to n
         last_coverage = 0
@@ -62,17 +61,14 @@ class Solution:
         cnt = 0
         i = 0
         while i < n + 1:
-            while i < n + 1 and i <= last_coverage:
-                next_coverage = max(next_coverage, reachable[i]) 
+            while i <= last_coverage:
+                next_coverage = max(next_coverage, reachable[i])
                 i += 1
-                
-            if next_coverage == last_coverage:
+            
+            if next_coverage == last_coverage:      # 不能往前进了说明无法cover所有
                 return -1
-            
             last_coverage = next_coverage
+            
             cnt += 1
-            
-            if last_coverage >= n:
+            if next_coverage >= n:
                 return cnt
-            
-        return -1
