@@ -1,9 +1,8 @@
+"""
 1296. Divide Array in Sets of K Consecutive Numbers
 
 Given an array of integers nums and a positive integer k, find whether it's possible to divide this array into sets of k consecutive numbers
 Return True if its possible otherwise return False.
-
- 
 
 Example 1:
 
@@ -24,7 +23,7 @@ Example 4:
 Input: nums = [1,2,3,4], k = 3
 Output: false
 Explanation: Each array should be divided in subarrays of size 3.
-
+"""
 
 
 """
@@ -41,7 +40,9 @@ class Solution:
 
         curr_lens = 0       # curr_lens 记录当前拼出的长度
         for num in nums:
-            if freq[num] == 0: continue
+            if freq[num] == 0: 
+               continue
+            freq[num] -= 1
                 
             if need[num] > 0:
                 need[num] += 1
@@ -59,7 +60,5 @@ class Solution:
                 curr_lens = 0             # if we found one k lens substring, reset cur_lens
                 
                 # need[num + k] += 1      # need num+1 only if lens is less than k
-            
-            freq[num] -= 1
-            
+
         return True
