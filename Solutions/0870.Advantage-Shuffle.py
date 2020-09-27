@@ -68,15 +68,6 @@ class Solution:
 
 
 
-
-
-
-
-
-
-
-
-
 """
 Greedy algorithm: sort A and B first, and then assign num_a to num_b so that num_a is larger than num_b and num_a as small as possible.
 For each num_a a in sortedA, we will either beat that num_b (put a into assigned[b] map), or throw it out (put a into not_assigned list). 
