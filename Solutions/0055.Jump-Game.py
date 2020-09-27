@@ -53,7 +53,7 @@ class Solution:
                 
             if next_coverage >= len(nums) - 1:  # 可以到达终点
                 return True
-            if next_coverage == curr_coverage:  # 无法前进了
+            if next_coverage == curr_coverage:  # 无法前进了, 这个判断很重要，不然就死循环了
                 return False
             
             i = j
