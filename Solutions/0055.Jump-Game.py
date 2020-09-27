@@ -46,7 +46,6 @@ class Solution:
         
         i = 0
         while i < len(nums):
-            j = i
             next_coverage = curr_coverage
             for j in range(i, curr_coverage + 1):   # 更新next_coverage
                 next_coverage = max(next_coverage, j + nums[j])
@@ -56,7 +55,7 @@ class Solution:
             if next_coverage == curr_coverage:  # 无法前进了, 这个判断很重要，不然就死循环了
                 return False
             
-            i = j
+            i = curr_coverage + 1
             curr_coverage = next_coverage
             
         return False
