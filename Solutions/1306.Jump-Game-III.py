@@ -1,10 +1,10 @@
+"""
 1306. Jump Game III
 
-Given an array of non-negative integers arr, you are initially positioned at start index of the array. When you are at index i, you can jump to i + arr[i] or i - arr[i], check if you can reach to any index with value 0.
+Given an array of non-negative integers arr, you are initially positioned at start index of the array.
+When you are at index i, you can jump to i + arr[i] or i - arr[i], check if you can reach to any index with value 0.
 
 Notice that you can not jump outside of the array at any time.
-
- 
 
 Example 1:
 
@@ -26,26 +26,47 @@ Example 3:
 Input: arr = [3,0,2,1,2], start = 2
 Output: false
 Explanation: There is no way to reach at index 1 with value 0.
+"""
 
-
+"""
+simple dfs
+"""
+class Solution:
+    def canReach(self, arr: List[int], start: int) -> bool:
+        def dfs(curr_idx):
+            if arr[curr_idx] == 0:
+                return True
+            
+            for next_idx in [curr_idx - arr[curr_idx], curr_idx + arr[curr_idx]]:
+                if 0 <= next_idx < len(arr):
+                    if next_idx not in visited:
+                        visited.add(next_idx)
+                        if dfs(next_idx):
+                            return True
+            return False
+        
+            
+        visited = set()
+        visited.add(start)
+        return dfs(start)
+ 
+ 
+"""
+simple bfs
+"""
 class Solution:
     def canReach(self, arr: List[int], start: int) -> bool:
         q = collections.deque()
-        q.append(start)
         visited = set()
+        q.append(start)
         visited.add(start)
-        
-        while q:
-            currIdx = q.popleft()
-            if arr[currIdx] == 0:
+        while len(q) > 0:
+            curr_idx = q.popleft()
+            if arr[curr_idx] == 0:
                 return True
-            for nextIdx in [currIdx + arr[currIdx], currIdx - arr[currIdx]]:
-                if nextIdx < 0 or nextIdx >= len(arr):
-                    continue
-                if nextIdx in visited:
-                    continue
-                    
-                q.append(nextIdx)
-                visited.add(nextIdx)
-                
+            for next_idx in [curr_idx + arr[curr_idx], curr_idx - arr[curr_idx]]:
+                if 0 <= next_idx < len(arr):
+                    if next_idx not in visited:
+                        q.append(next_idx)
+                        visited.add(next_idx)
         return False
