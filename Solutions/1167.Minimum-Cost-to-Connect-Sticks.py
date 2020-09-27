@@ -1,6 +1,6 @@
+"""
 1167. Minimum Cost to Connect Sticks
 
-"""
 It killed me to understand this, I will try to explain it as best as I can.
 
 The question IS NOT asking what the length of the stick will be at the end. It's asking to find the cost of assembling the final stick.
@@ -45,15 +45,15 @@ class Solution:
 """
 我们需要实时地保证选出两个数是最小的, heappop可以保证这一点，所以用heapq
 """
-from heapq import heapify, heappop, heappush
-
 class Solution:
     def connectSticks(self, sticks: List[int]) -> int:
-        heapify(sticks)
+        hq = []
+        for stick in sticks:
+            heappush(hq, stick)
+            
         cost = 0
-        while len(sticks) > 1:
-            smallest, second_smallest = heappop(sticks), heappop(sticks)
-            lens = smallest + second_smallest
-            cost += lens
-            heappush(sticks, lens)
+        while len(hq) > 1:
+            stick_1, stick_2 = heappop(hq), heappop(hq)
+            cost += stick_1 + stick_2
+            heappush(hq, stick_1 + stick_2)
         return cost
