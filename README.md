@@ -1,6 +1,6 @@
 ## 四刷：每天刷15-20题, 做好总结！08/17 to 09/30
 ## 每天晚上睡前Review做过的题
-##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778; 09/04: 364; 09/05: 31; 09/06: 79; 09/07: 126; 09/08: 863; 09/13: 1066; 09/14: 354; 09/15: 416; 09/16: 10; 09/17: 1223; 09/18: 436; 09/19: 644; 09/20: 179; 09/21: 448; 09/22: 328; 09/23: 89; 09/24: 1052； 09/25： 238
+##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778; 09/04: 364; 09/05: 31; 09/06: 79; 09/07: 126; 09/08: 863; 09/13: 1066; 09/14: 354; 09/15: 416; 09/16: 10; 09/17: 1223; 09/18: 436; 09/19: 644; 09/20: 179; 09/21: 448; 09/22: 328; 09/23: 89; 09/24: 1052； 09/25： 238; 09/26: 991
 
 
 # [Data Structure](/Data-Structure.py)
@@ -383,7 +383,8 @@ solution 2: heapq - O(nlogn)
 heapq stores the fuel at the station. 这题的关键是不要考虑到达的那个station的位置，
 我们永远只需要考虑从0出发，中途能加多少油，加的油越多跑得越远. 维护一个possible_coverage变量表示能跑多远. 这个题目用hq的方式跟Dikstra's有点像，都是要贪心地pop出最优解！
 - [DIDI OA. Min Deletions to Make Frequency of Each Letter Unique](Solutions/DIDI_OA.py) (!!M) <br>
-
+- [1167. Minimum Cost to Connect Sticks](Solutions/1167.Minimum-Cost-to-Connect-Sticks.py) (M) <br>
+我们需要实时地保证选出两个数是最小的, heappop可以保证这一点，所以用heapq
 
 
 
@@ -1885,8 +1886,7 @@ solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1
 - [0455. Assign Cookies](Solutions/0455.Assign-Cookies.py) (!!E) <br>
 greedily 尽量用最少的糖果去优先满足孩子孩子，所以需要先排序
 - [0870. Advantage Shuffle](Solutions/0870.Advantage-Shuffle.py) (M) <br>
-田忌赛马：Greedy algorithm: sort A and B first, and then assign num_a to num_b so that num_a is larger than num_b and num_a as small as possible.
-For each num_a a in sortedA, we will either beat that num_b (put a into assigned[b] map), or throw it out (put a into not_assigned list). 
+田忌赛马核心algorithm: 每次都给最大的b做匹配，如果最大的a可以匹配上最大的b，那就把最大的a分配给最大的b；如果不能匹配上，那就把最小的a分配给最大的b. 需要sort A and B.
 - [0055. Jump Game](Solutions/0055.Jump-Game.py) (!!M) <br>
 solution 1: dp - TLE. solution 2: greedy - O(N)
 - [0045. Jump Game II](Solutions/0045.Jump-Game-II.py) (!!H) <br>
@@ -1895,29 +1895,30 @@ Greedy算法：第一步可以跳到比如位置10，也就是说0-10我们都�
 每次都选结束时间最大的，比如选了[0, 4], 那就选开始时间在[0, 4]的Interval中选结束时间最大的, 比如选到了[2, 9],
 接着就在开始时间为[4, 9]的interval中选结束时间最大的，比如[7, 15]....这样依次下去。。。
 直到找到一个结束时间大于T的- 需要提前sort - O(nlogn).  solution 2: jump game - 无需sort - O(N).
-先建立一个reacable list存放从当前idx出发能到达的地方，然后就是jump game II了，求最少几步从0跳到T.
+先建立一个reacable list. reachable[idx]=start from idx, where can we reach.  然后就是jump game II了，求最少几步从0跳到T.
+Jump Game II greedy的思想非常重要。
 - [1326. Minimum Number of Taps to Open to Water a Garden](Solutions/1326.Minimum-Number-of-Taps-to-Open-to-Water-a-Garden.py) (!!H Twitter) <br>
-We build a list reachable to store the max range it can be watered from each index.
+We build a list reachable to store the max range it can be watered from each index. reachable[idx] = start from idx, where we can reach
 Then it becomes Jump Game II, where we want to find the minimum steps to jump from 0 to n.
 每跳一步就相当于开一个水龙头. 所以我们可以看到45. Jump Game II, 1024. Video Stitching和这题其实是一个题。
 - [0763. Partition Labels](Solutions/0763.Partition-Labels.py) (!!M) <br>
-Firstly, find the max position of s[0] appears, for all the chars within this max position, search the max postion they appears, so on...
+step 1: use a hashmap to store the last time a ch appears. mapping[ch] = the last idx the ch appears; step 2: construct has_to_reach[idx] = starting from idx, where we have to reach. step 3: jump game II
 - [1306. Jump Game III](Solutions/1306.Jump-Game-III.py) (M) <br>
-BFS, if can find arr[idx]==0, then return True.
+simple dfs/bfs, if can find arr[idx]==0, then return True.
 - [0134. Gas Station](Solutions/0134.Gas-Station.py) (!!M) <br>
 Every time a fail happens, we start reset the gas_left to 0, and reset the possible_station. 
 The problem has an assumption: if sum of gas is more than sum of cost, then there must be a solution. 
 And the question guaranteed that the solution is unique(The first one I found is the right one).
 - [0135. Candy](Solutions/0135.Candy.py) (!!H) <br>
-先给每个孩子分配一个糖果，然后从左往右扫，更新向上的child需要的candy, 接着从右往左扫，更新向下的child需要的candy. 需要证明
-- [1167. Minimum Cost to Connect Sticks](Solutions/1167.Minimum-Cost-to-Connect-Sticks.py) (M) <br>
-我们需要实时地保证选出两个数是最小的, heappop可以保证这一点，所以用heapq
-- [0406. Queue Reconstruction by Height](Solutions/0406.Queue-Reconstruction-by-Height.py) (M) <br>
+先给每个孩子分配一个糖果，然后做两次扫描，从左往右扫，遇到上升的child就把他的cnady+1; 接着从右往左扫，遇到上升的child就把他的cnady+1.
+- [0406. Queue Reconstruction by Height](Solutions/0406.Queue-Reconstruction-by-Height.py) (!!M) <br>
 Greedy: Since short people will not disturb/affect the relative order of taller people so we can start from tallest guy(s). Then for each person [i,j], we insert it into res based on j.
 - [1029. Two City Scheduling](Solutions/1029.Two-City-Scheduling.py) (!!E) <br>
 像这种interval的题一般都需要先排个序，排序标准很重要，排序标准：去city A比去city B多用多少钱，这样一来去排在前面的就是去city A能省下最多钱的人，让前N个人都去A就能省下最多的钱
-- [0991. Broken Calculator](Solutions/0991.Broken-Calculator.py) (M) <br>
-先将y除下来，除到y < x之后再减，出的过程中遇到y为奇数就加一
+- [0991. Broken Calculator](Solutions/0991.Broken-Calculator.py) (!!M) <br>
+solution 1: bfs - O(2^(X-Y)) TLE. solution 2: greedy. 先将y除下来，除到y < x之后再减，除的过程中遇到y为奇数就加一
+
+
 - [1007. Minimum Domino Rotations For Equal Row](Solutions/1007.Minimum-Domino-Rotations-For-Equal-Row.py) (M) <br>
 greedy: 优先让max_freq不动，而去rotate freq比较小的
 - [0659. Split Array into Consecutive Subsequences](Solutions/0659.Split-Array-into-Consecutive-Subsequences.py) (!!M Google) <br>
