@@ -43,3 +43,28 @@ class Solution:
             
             i = curr_coverage + 1
             curr_coverage = next_coverage
+
+            
+            
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        if not nums or len(nums) == 1:
+            return 0
+        
+        last_coverage = 0     # 记录第一步能跳到的最远的地方
+        next_possible_coverage = nums[0]    # 记录第二步能跳到的最远的地方
+        steps_needed = 0
+        i = 1
+        while i < len(nums):
+            while i <= last_coverage and i < len(nums):     # 在0-10这些位置中，选一个位置i跳第二步，看看第二步能跳到最远的地方是哪里
+                next_possible_coverage = max(next_possible_coverage, nums[i] + i) 
+                i += 1
+
+            steps_needed += 1
+
+            last_coverage = next_possible_coverage
+            steps_needed += 1
+
+            if last_coverage >= len(nums) - 1: # check if reached destination already
+                return steps_needed
+        return steps_needed
