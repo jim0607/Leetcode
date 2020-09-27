@@ -1,3 +1,4 @@
+"""
 135. Candy
 
 There are N children standing in a line. Each child is assigned a rating value.
@@ -19,7 +20,7 @@ Input: [1,2,2]
 Output: 4
 Explanation: You can allocate to the first, second and third child with 1, 2, 1 candies respectively.
              The third child gets 1 candy because it satisfies the above two conditions.
-
+"""
 
 
 
@@ -29,14 +30,14 @@ class Solution:
         lens = len(ratings)
         candies = [1] * lens    # assign each child one candy
         
-        # 从左往右扫，更新向上的child需要的candy
+        # 从左往右扫，遇到上升的child就把他的cnady+1
         for i in range(1, lens):
             if ratings[i] > ratings[i-1]:
                 candies[i] = candies[i-1] + 1
                 
-        # 从右往左扫，更新向下的child需要的candy
+        # 从右往左扫，遇到上升的child就把他的cnady+1
         for i in range(lens - 2, -1, -1):
             if ratings[i] > ratings[i+1]:
-                candies[i] = max(candies[i+1] + 1, candies[i])  # 因为之前已经更新过i了，所以这里要比较一下
+                candies[i] = max(candies[i], candies[i+1] + 1)  # 因为之前已经更新过i了，所以这里要比较一下
                 
         return sum(candies)
