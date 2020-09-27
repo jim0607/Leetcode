@@ -29,20 +29,20 @@ class Solution:
         if nums[0] >= len(nums) - 1:
             return 1
         
+        last_coverage = 0
+        next_coverage = nums[0]     # 记录第一步能跳到的最远的地方
         i = 0
-        curr_coverage = nums[0]     # 记录第一步能跳到的最远的地方
-        cnt = 1
+        cnt = 0
         while i < len(nums):
-            next_coverage = curr_coverage
-            for j in range(i, curr_coverage + 1):   # 在0-10这些位置中，选一个位置i跳第二步，看看第二步能跳到最远的地方是哪里
-                next_coverage = max(next_coverage, j + nums[j])
+            while i <= last_coverage:   # 在0-10这些位置中，选一个位置i跳第二步，看看第二步能跳到最远的地方是哪里
+                next_coverage = max(next_coverage, i + nums[i])
+                i += 1
             
             cnt += 1
             if next_coverage >= len(nums) - 1:      # check if reached destination already
                 return cnt
             
-            i = curr_coverage + 1
-            curr_coverage = next_coverage
+            last_coverage = next_coverage
 
             
             
