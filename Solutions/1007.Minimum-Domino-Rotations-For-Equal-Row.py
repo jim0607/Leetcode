@@ -24,7 +24,7 @@ In this case, it is not possible to rotate the dominoes to make one row of value
 
 
 """
-greedy: 优先让max_freq不动，而去rotate freq比较小的
+让max_freq不动，去rotate freq比较小的
 """
 class Solution:
     def minDominoRotations(self, A: List[int], B: List[int]) -> int:
