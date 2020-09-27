@@ -1,10 +1,10 @@
+"""
 You are given a series of video clips from a sporting event that lasted T seconds.  These video clips can be overlapping with each other and have varied lengths.
 
-Each video clip clips[i] is an interval: it starts at time clips[i][0] and ends at time clips[i][1].  We can cut these clips into segments freely: for example, a clip [0, 7] can be cut into segments [0, 1] + [1, 3] + [3, 7].
+Each video clip clips[i] is an interval: it starts at time clips[i][0] and ends at time clips[i][1].  
+We can cut these clips into segments freely: for example, a clip [0, 7] can be cut into segments [0, 1] + [1, 3] + [3, 7].
 
 Return the minimum number of clips needed so that we can cut the clips into segments that cover the entire sporting event ([0, T]).  If the task is impossible, return -1.
-
- 
 
 Example 1:
 
@@ -33,7 +33,7 @@ Input: clips = [[0,4],[2,8]], T = 5
 Output: 2
 Explanation: 
 Notice you can have extra video after the event ends.
-
+"""
 
 
 
@@ -42,33 +42,34 @@ Notice you can have extra video after the event ends.
 接着就在开始时间为[4, 9]的interval中选结束时间最大的，比如[7, 15]....这样依次下去。。。
 直到找到一个结束时间大于T的 - 需要提前sort - O(nlogn)
 """
-"""
 class Solution:
     def videoStitching(self, clips: List[List[int]], T: int) -> int:
-        clips.sort(key = lambda clip: (clip[0], clip[1]))
-        
-        if clips[0][0] > 0 or clips[-1][1] < T:
-            return -1
-
-        curr_start, curr_end, max_end = 0, 0, 0
-        cnt = 0
+        clips.sort(key = lambda x: (x[0], x[1]))
+    
+        # 下面就是套用jump game II的模板
+        curr_coverage = 0
         i = 0
+        steps = 0
         while i < len(clips):
-            while i < len(clips) and curr_start <= clips[i][0] <= curr_end:
-                max_end = max(max_end, clips[i][1])
+            next_coverage = curr_coverage
+            while i < len(clips) and clips[i][0] <= curr_coverage:
+                next_coverage = max(next_coverage, clips[i][1])
                 i += 1
-                  
-            if max_end == curr_end:
+            
+            steps += 1
+            if next_coverage >= T:
+                return steps
+            if curr_coverage == next_coverage:
                 return -1
             
-            curr_start, curr_end = curr_end + 1, max_end
-            cnt += 1
-            
-            if curr_end >= T:
-                return cnt
-            
+            i = curr_coverage + 1
+            curr_coverage = next_coverage
+        
         return -1
 
+       
+       
+       
 """
 [[0, 2], [1, 5], [1, 9], [4, 6], [5, 9], [8, 10]]
                            i                  j
