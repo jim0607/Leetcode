@@ -89,131 +89,25 @@ Jump Game II greedy的思想非常重要。
 """
 class Solution:
     def videoStitching(self, clips: List[List[int]], T: int) -> int:
-        # step 1: construct a reachable list to get prepared for jump game II
-        # the index is each second of starting time, value is the largest end time can be reached at this second.
         reachable = [0 for _ in range(T)]
         for start, end in clips:
-            if start >= T:
-                continue
-            reachable[start] = max(reachable[start], end)
-            
-        print(reachable)
+            if start < T:
+                reachable[start] = max(reachable[start], end)
+                
         # step 2: now we can do jump game II to find min steps
         last_coverage = 0
         next_coverage = reachable[0]
-        cnt = 0
+        steps = 0
         i = 0
         while i < T:
-            while i < T and i <= last_coverage:     # 这里的下标i是start time, 所以自然而然是已经sort好了的
+            while i <= last_coverage:     # 这里的下标i是start time, 所以自然而然是已经sort好了的
                 next_coverage = max(next_coverage, reachable[i])
                 i += 1
             
             if next_coverage == last_coverage:
                 return -1
-            
             last_coverage = next_coverage
-            cnt += 1
-            
-            if last_coverage >= T:
-                return cnt
-            
-        return -1
-
-
-
-
-
-"""动态规划DP: O(T*N), O(T), 但是merge sort需要O(NlogN), O(N), 所以总的复杂度为O(T*N+NlogN), O(T+N)
-这道题我看到了懵逼了一些时间。思考了良久发现这是一个跳蛙类型的动态规划。
-动态规划的要点：
-DP数组当中存储的状态i是：0-i时间段当中需要最小的视频数量。
-DP数组当中的简要状态方程：dp[j]=min(dp[j], dp[clips[i][0]]+1) if j in clips[i]的区间"""
-class Solution:
-    def videoStitching(self, clips: List[List[int]], T: int) -> int:
-        self.mergeSort2D(clips)
-        if clips[0][0] > 0 or clips[-1][-1] < T:
-            return -1
-        dp = [float("inf")]*(T+1)
-        dp[0] = 0
-        for t in range(1, T+1):
-            for i in range(len(clips)):
-                if t > clips[i][0] and t <= clips[i][1]:  # 如果t在clips[i]的区间内的话，clips[i]可以贡献一波
-                    dp[t] = min(dp[t], dp[clips[i][0]]+1)
-        return -1 if dp[T] == float("inf") else dp[T]  
         
-    # 经典的merge sort实现方法必须掌握,O(NlogN),O(N)
-    def mergeSort(self, arr):
-        if len(arr) <= 1:
-            return
-        mid = len(arr)//2
-        leftArr = arr[:mid]
-        rightArr = arr[mid:]
-
-        self.mergeSort(leftArr)
-        self.mergeSort(rightArr)
-
-        i, j, k = 0, 0, 0
-        while i < len(leftArr) and j < len(rightArr):
-            if leftArr[i] <= rightArr[j]:
-                arr[k] = leftArr[i]
-                i += 1
-                k += 1
-            else:
-                arr[k] = rightArr[j]
-                j += 1
-                k += 1
-
-        if i == len(leftArr):
-            arr[k:] = rightArr[j:]
-        if j == len(rightArr):
-            arr[k:] = leftArr[i:mid]
-
-    # merge sort a 2D array by the order of the first element of each subarry
-    def mergeSort2D(self, arr2D):
-        if len(arr2D) <= 1:
-            return 
-        mid = len(arr2D)//2
-        leftArr2D = arr2D[:mid]
-        rightArr2D = arr2D[mid:]
-        self.mergeSort2D(leftArr2D)
-        self.mergeSort2D(rightArr2D)
-        i, j, k = 0, 0, 0
-        while i < len(leftArr2D) and j < len(rightArr2D):
-            if leftArr2D[i][0] <= rightArr2D[j][0]:
-                arr2D[k] = leftArr2D[i]
-                i += 1
-                k += 1
-            else:
-                arr2D[k] = rightArr2D[j]
-                j += 1
-                k += 1
-        if i == len(leftArr2D):
-            arr2D[k:] = rightArr2D[j:]
-        if j == len(rightArr2D):
-            arr2D[k:] = leftArr2D[i:mid]
-            
-            
-"""解法二：贪心算法。这道题和算法书上的活动选择问题基本一致。O(NlogN+N), O(N)
-利用贪心算法：在开始时间不大于t的视频中选择一个结束时间最大的那一个视频，其中t是上一个选择视频的结束时间。
-算法：
-对视频进行升序排列
-选择一个从零开始的视频，它的结束时间是所有从零开始的视频中最大的，赋值给t
-然后在其他视频中选择一个开始时间不超过t的视频，这个被选择的视频的结束时间也应该是最大的，赋值给t
-重复，直到所有的视频都被遍历，或者t已经大于等于T"""
-class Solution:
-    def videoStitching(self, clips: List[List[int]], T: int) -> int:
-        self.mergeSort2D(clips)
-        print(clips)
-        if clips[0][0] > 0 or clips[-1][-1] < T:
-            return -1
-        i, t, res = 0, 0, 0
-        while i < len(clips) and t < T:
-            temp_t = t
-            while i < len(clips) and clips[i][0] <= temp_t:
-                t = max(t, clips[i][1])
-                i += 1
-            res += 1
-            print(i, t)
-            if i < len(clips) and t < T and clips[i][0] > t:   # 因为数组排序了，clips[i][0] > t的话说明后面没有区间接的上了，如[[0,2],[7,10]]，这里的7就大于2。i < len(clips) and t < T 是必要的，因为可能i out of index, or t > T的情况下误输出-1
-                return -1
-        return res if t >= T else -1    # 注意这里不能用t==T，因为t可能大于T的。
+            steps += 1
+            if next_coverage >= T:
+                return steps
