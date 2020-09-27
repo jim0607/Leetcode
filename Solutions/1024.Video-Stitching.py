@@ -67,24 +67,12 @@ class Solution:
         
         return -1
 
-       
-       
-       
-"""
-[[0, 2], [1, 5], [1, 9], [4, 6], [5, 9], [8, 10]]
-                           i                  j
-   
-   
-curr_start = 10
-curr_end =   10
-"""
-
 
 
 
 """
 solution 2: jump game - 无需sort - O(N).
-先建立一个reacable list存放从当前idx出发能到达的地方，然后就是jump game II了，求最少几步从0跳到T.
+先建立一个reacable list. reachable[idx]=start from idx, where can we reach.  然后就是jump game II了，求最少几步从0跳到T.
 Jump Game II greedy的思想非常重要。
 """
 class Solution:
