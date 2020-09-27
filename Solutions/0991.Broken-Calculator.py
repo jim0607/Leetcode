@@ -1,3 +1,4 @@
+"""
 991. Broken Calculator
 
 On a broken calculator that has a number showing on its display, we can perform two operations:
@@ -7,8 +8,6 @@ Decrement: Subtract 1 from the number on the display.
 Initially, the calculator is displaying the number X.
 
 Return the minimum number of operations needed to display the number Y.
-
- 
 
 Example 1:
 
@@ -30,7 +29,7 @@ Example 4:
 Input: X = 1024, Y = 1
 Output: 1023
 Explanation: Use decrement operations 1023 times.
-
+"""
 
 
 """
@@ -58,3 +57,28 @@ class Solution:
 """
 注意这题不能将x乘上去，将x乘上去肯定没有将y除下来步数更少，eg:x = 1, y = 80, x 乘上去会变成64，距离100还有16步；而将100除下来会变成5，距离1只有4步
 """
+
+
+
+"""
+单源节点出发最短路径问题：bfs - O(2^(Y-X))  TLE
+"""
+class Solution:
+    def brokenCalc(self, X: int, Y: int) -> int:
+        q = collections.deque()
+        visited = set()
+        q.append(X)
+        visited.add(X)
+        steps = -1
+        while len(q) > 0:
+            lens = len(q)
+            steps += 1
+            for _ in range(lens):
+                curr = q.popleft()
+                if curr == Y:
+                    return steps
+                
+                for next in [curr * 2, curr - 1]:
+                    if next not in visited:
+                        q.append(next)
+                        visited.add(next)
