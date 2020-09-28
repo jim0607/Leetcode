@@ -1,3 +1,4 @@
+"""
 13. Roman to Integer
 
 Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
@@ -36,10 +37,25 @@ Example 4:
 Input: "LVIII"
 Output: 58
 Explanation: L = 50, V= 5, III = 3.
+"""
+
+
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        mapping = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
+        pairs = {("I", "V"), ("I", "X"), ("X", "L"), ("X", "C"), ("C", "D"), ("C", "M")}
+        
+        res = 0
+        for i in range(len(s)):
+            if i + 1 < len(s) and (s[i], s[i+1]) in pairs:
+                res -= mapping[s[i]]
+            else:
+                res += mapping[s[i]]
+        return res            
 
 
 
-
+    
 class Solution:
     def romanToInt(self, s: str) -> int:
         roman = {'M':1000, 'D':500, 'C':100, 'L':50, 'X':10, 'V':5, 'I':1}
