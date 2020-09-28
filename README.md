@@ -1917,10 +1917,8 @@ Greedy: Since short people will not disturb/affect the relative order of taller 
 像这种interval的题一般都需要先排个序，排序标准很重要，排序标准：去city A比去city B多用多少钱，这样一来去排在前面的就是去city A能省下最多钱的人，让前N个人都去A就能省下最多的钱
 - [0991. Broken Calculator](Solutions/0991.Broken-Calculator.py) (!!M) <br>
 solution 1: bfs - O(2^(X-Y)) TLE. solution 2: greedy. 先将y除下来，除到y < x之后再减，除的过程中遇到y为奇数就加一
-
-
-- [1007. Minimum Domino Rotations For Equal Row](Solutions/1007.Minimum-Domino-Rotations-For-Equal-Row.py) (M) <br>
-greedy: 优先让max_freq不动，而去rotate freq比较小的
+- [1007. Minimum Domino Rotations For Equal Row](Solutions/1007.Minimum-Domino-Rotations-For-Equal-Row.py) (!!M) <br>
+Try all possibilities from 1 to 6. If we can make number i in a whole row, it should satisfy that countA[i] + countB[i] - same[i] = n
 - [0659. Split Array into Consecutive Subsequences](Solutions/0659.Split-Array-into-Consecutive-Subsequences.py) (!!M Google) <br>
 这道题我们遍历nums的时候只要当前的num被前面的顺子需要，就把num连上去，顺子连得越长越好，这就是greedy所在，
 使用两个 HashMap，第一个 HashMap 用来建立某个数字和其出现次数之间的映射 freq，
@@ -1928,23 +1926,24 @@ greedy: 优先让max_freq不动，而去rotate freq比较小的
 - [1296. Divide Array in Sets of K Consecutive Numbers](Solutions/1296.Divide-Array-in-Sets-of-K-Consecutive-Numbers.py) (!!M Google) <br>
 这一题与659. Split Array into Consecutive Subsequences解法很类似，需要的是两个hashmap
 一个记录freq, 一个记录how many need, 只是我们update need的方式有一点变化，如果已经拼出了长度为k的substring,
-那就不去update need[num+1]了
+那就不去update need[num+1]了. 所以需要一个curr_lens记录当前已经拼出多长的consecutive numbers了
+- [0846. Hand of Straights](Solutions/0846.Hand-of-Straights.py) (!!M Google) <br>
+Same as 1296. Divide Array in Sets of K Consecutive Numbers.  heapq solution is easier to understand.
 - [0670. Maximum Swap](Solutions/0670.Maximum-Swap.py) (!!M) <br>
-solution 1: sort and compare - O(nlogn); solution 2: one pass from backward - O(N)
-- [1383. Maximum Performance of a Team](Solutions/1383.Maximum-Performance-of-a-Team.py) (!!H) <br>
+solution 1: sort and compare - O(nlogn); solution 2: one pass from backward, 如果碰到一个小的，应该与后面已经遍历过的max_idx交换 - O(N)
+- [1383. Maximum Performance of a Team](Solutions/1383.Maximum-Performance-of-a-Team.py) (!!!H) <br>
 将workers按照efficiency降序排序，这样我们只需要从第k个worker开始，
 取他的efficiency去乘以(他之前所有workers选k个能组成的最大的speed)，
 这个因为他的efficiency一定是这k个worker里面最小的。
 可以保持一个k size的heap来存(他之前所有workers), 如果size>k就把min_speed的worker踢出去
-- [0857. Minimum Cost to Hire K Workers](Solutions/0857.Minimum-Cost-to-Hire-K-Workers.py) (!!H Google) <br>
+- [0857. Minimum Cost to Hire K Workers](Solutions/0857.Minimum-Cost-to-Hire-K-Workers.py) (!!!H Google) <br>
 generally, a team cost is ∑wi = w/q * ∑qi where w/q is the maximum wage/quality ratio in that team. 我们发现与1383. Maximum Performance of a Team是类似的。
 - [0321. Create Maximum Number](Solutions/0321.Create-Maximum-Number.py) (!!H) <br>
-there're 3 steps: 1. iterate i from 0 to k; 2. find max number from nums1, nums2 by select i , k-i numbers - monostack; 3. merge the max_num1 and max_num2 into one number - two pointers. 非常牛叉的题目呀
-- [0013. Roman to Integer](Solutions/0013.Roman-to-Integer.py) (E) <br>
+O(k^2): there're 3 steps: 1. iterate i from 0 to k; 2. find max number from nums1, nums2 by select i , k-i numbers - monostack; 3. merge the max_num1 and max_num2 into one number - two pointers. 非常牛叉的题目呀
+- [0013. Roman to Integer](Solutions/0013.Roman-to-Integer.py) (!!E) <br>
 use a distionary to store the roman to num pair, warm up for the following problem
-- [0012. Integer to Roman](Solutions/0012.Integer-to-Roman.py) (!!M) <br>
-use a list of tuples to store (num, roman) pair, 
-find the num that is closest to num and num minus it and update res.
+- [0012. Integer to Roman](Solutions/0012.Integer-to-Roman.py) (!!!M) <br>
+use a list of tuples to store (num, roman) pair, 注意list要逆序排列. Then find the num that is closest to num and num minus it and update res.
 
 
 
