@@ -1,14 +1,18 @@
+"""
 289. Game of Life
 
-According to the Wikipedia's article: "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970."
+According to the Wikipedia's article: "The Game of Life, also known simply as Life, 
+is a cellular automaton devised by the British mathematician John Horton Conway in 1970."
 
-Given a board with m by n cells, each cell has an initial state live (1) or dead (0). Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) using the following four rules (taken from the above Wikipedia article):
+Given a board with m by n cells, each cell has an initial state live (1) or dead (0). 
+Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) using the following four rules (taken from the above Wikipedia article):
 
 Any live cell with fewer than two live neighbors dies, as if caused by under-population.
 Any live cell with two or three live neighbors lives on to the next generation.
 Any live cell with more than three live neighbors dies, as if by over-population..
 Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
-Write a function to compute the next state (after one update) of the board given its current state. The next state is created by applying the above rules simultaneously to every cell in the current state, where births and deaths occur simultaneously.
+Write a function to compute the next state (after one update) of the board given its current state. 
+The next state is created by applying the above rules simultaneously to every cell in the current state, where births and deaths occur simultaneously.
 
 Example:
 
@@ -28,8 +32,12 @@ Output:
 ]
 Follow up:
 
-Could you solve it in-place? Remember that the board needs to be updated at the same time: You cannot update some cells first and then use their updated values to update other cells.
-In this question, we represent the board using a 2D array. In principle, the board is infinite, which would cause problems when the active area encroaches the border of the array. How would you address these problems?
+Could you solve it in-place? Remember that the board needs to be updated at the same time: You cannot update some cells first and 
+then use their updated values to update other cells.
+In this question, we represent the board using a 2D array. In principle, the board is infinite, which would cause problems when 
+the active area encroaches the border of the array. How would you address these problems?
+"""
+
 
 
 """
@@ -70,43 +78,37 @@ class Solution:
 Folllow up 1:
 Could you solve it in-place? Remember that the board needs to be updated at the same time: 
 You cannot update some cells first and then use their updated values to update other cells.
-"""    
-"""
-"""
+
 O(MN) O(1) solution.
 Two traversals. Traversal 1: dead -> live: mark as 2; live -> dead: -1  can be whatever number you want, it's just for mark.
 Traversal 2: re-mark 2 to 1, -1 to 0
 """
-"""
-
 class Solution:
     def gameOfLife(self, board: List[List[int]]) -> None:
         """
         Do not return anything, modify board in-place instead.
         """
-        neighbors = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
         m, n = len(board), len(board[0])
-        
         for i in range(m):
             for j in range(n):
                 cnt_live = 0
-                for delta_i, delta_j in neighbors:
-                    neighbor_i, neighbor_j = i + delta_i, j + delta_j
-                    if 0 <= neighbor_i < m and 0 <= neighbor_j < n:
-                        if board[neighbor_i][neighbor_j] == 1 or board[neighbor_i][neighbor_j] == 2:
+                for delta_i, delta_j in [(1,0),(0,1),(-1,0),(0,-1),(1,1),(1,-1),(-1,1),(-1,-1)]:
+                    neib_i, neib_j = i + delta_i, j + delta_j
+                    if 0 <= neib_i < m and 0 <= neib_j < n:
+                        if board[neib_i][neib_j] == 1 or board[neib_i][neib_j] == -1:
                             cnt_live += 1
-                if board[i][j] == 0:
-                    if cnt_live == 3:
-                        board[i][j] = -1
                 if board[i][j] == 1:
-                    if cnt_live < 2 or cnt_live > 3:
+                    if not 2 <= cnt_live <= 3:
+                        board[i][j] = -1
+                else:
+                    if cnt_live == 3:
                         board[i][j] = 2
-                        
+        
         for i in range(m):
             for j in range(n):
-                if board[i][j] == -1:
+                if board[i][j] == 2:
                     board[i][j] = 1
-                elif board[i][j] == 2:
+                elif board[i][j] == -1:
                     board[i][j] = 0
 
 """             
