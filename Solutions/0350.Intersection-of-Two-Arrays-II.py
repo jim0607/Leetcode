@@ -1,3 +1,4 @@
+"""
 350. Intersection of Two Arrays II
 
 Given two arrays, write a function to compute their intersection.
@@ -14,25 +15,23 @@ Note:
 
 Each element in the result should appear as many times as it shows in both arrays.
 The result can be in any order.
+"""
 
 
 """
 Approach 1: hashmap to store the frequency of each num.
-O(m+n), O(m+n)
+O(min(m, n))
 """
 class Solution:
     def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        freq1 = collections.defaultdict(int)
-        freq2 = collections.defaultdict(int)
-        for num in nums1:
-            freq1[num] += 1
-        for num in nums2:
-            freq2[num] += 1
-            
+        num_to_cnt = Counter(nums1)
         res = []
-        for num in freq1:
-            if num in freq2:
-                res += [num] * min(freq1[num], freq2[num])
+        for num in nums2:
+            if num in num_to_cnt:
+                res.append(num)
+                num_to_cnt[num] -= 1
+                if num_to_cnt[num] == 0:
+                    del num_to_cnt[num]
         return res
         
         
@@ -67,7 +66,7 @@ class Solution:
 Follow up 2: What if nums1's size is small compared to nums2's size? Which algorithm is better?
 """
 """
-1. If lens1 is relatively small and nums2 is not sorted, we can choose Approach 1 and use a hashmap for nums1, which takes small space;
+1. If lens1 is relatively small and nums2 is not sorted, we can choose Approach 1 and use a hashmap for nums2, cuz the time complexity is O(min(m, n)).
 2. If lens1 is relatively small and nums2 is sorted, we can choose Approach 2.
 2. if lens1 is very small, say lens1 == 2, and nums2 is sorted, then we can use binary search,
 in binary search, target is the num in nums1, we try to find if it exist in nums2.
