@@ -65,45 +65,39 @@ class ExamRoom:
         self.idx = []
 
     def seat(self) -> int:
-        insert_pos = 0
-        res_idx = 0
-        if not self.idx:
-            res_idx = 0
-        else:
-            dist, res_idx = self.idx[0], 0
-            for a, b in zip(self.idx, self.idx[1:]):    # 如果zip的长度不相等就取短的那个来pair
-                if (b - a) // 2 > dist:
-                    dist, res_idx = (b - a) // 2, (b + a) // 2
-            if self.idx[0] > dist:                   # check 开头
-                dist, res_idx = self.idx[0], 0
-            if self.N - 1 - self.idx[-1] > dist:     # check 末尾
-                dist, res_idx = self.N - 1 - self.idx[-1], self.N - 1
-
-            # maintain a sorted list using binary search
-            start, end = 0, len(self.idx) - 1
-            while start + 1 < end:
-                mid = start + (end - start) // 2
-                if self.idx[mid] >= res_idx:
-                    end = mid
-                else:
-                    start = mid
-            if self.idx[start] >= res_idx:
-                insert_pos = start
-            elif self.idx[end] >= res_idx:
-                insert_pos = end
+        if len(self.idx) == 0:
+            self.idx.append(0)
+            return 0
+        
+        if len(self.idx) == 1:
+            if self.idx[0] >= self.N // 2:
+                self.idx.insert(0, 0)
+                return 0
             else:
-                insert_pos = end + 1
-
-        self.idx.insert(insert_pos, res_idx)
-
-        return res_idx
+                self.idx.append(self.N - 1)
+                return self.N - 1
+        
+        # below is the same as 849. Maximize Distance to Closest Person
+        # step 1: check two ends; step 2: check middle
+        max_dist = 0
+        should_seat_pos = 0
+        if self.idx[0] > max_dist:      # check both ends
+            max_dist = self.idx[0]
+            should_seat = 0
+            should_seat_pos = -1
+        if self.N - 1 - self.idx[-1] > max_dist:
+            max_dist = self.idx[0]
+            should_seat = self.N - 1
+            should_seat_pos = self.idx[-1]
+            
+        for i in range(len(self.idx) - 1):      # check middle
+            if (self.idx[i+1] - self.idx[i]) // 2 > max_dist:
+                max_dist = (self.idx[i+1] - self.idx[i]) // 2
+                should_seat_pos = i
+                should_seat = (self.idx[i] + self.idx[i+1]) // 2
+                
+        self.idx.insert(should_seat_pos + 1, should_seat)
+        return should_seat
 
     def leave(self, p: int) -> None:
         self.idx.remove(p)
-
-
-# Your ExamRoom object will be instantiated and called as such:
-# obj = ExamRoom(N)
-# param_1 = obj.seat()
-# obj.leave(p)
-# leetcode submit region end(Prohibit modification and deletion)
