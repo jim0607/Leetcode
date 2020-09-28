@@ -22,10 +22,7 @@ class Solution:
                 end = mid
             else:
                 start = mid
-        if end**2 == x:
-            return end
-        else:
-            return start  
+        return end if end**2 <= x else start
 
 
 # Newton's Method. O(logN) since the set converges quadratically.
