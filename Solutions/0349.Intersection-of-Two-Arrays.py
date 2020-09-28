@@ -1,3 +1,4 @@
+"""
 349. Intersection of Two Arrays
 
 Given two arrays, write a function to compute their intersection.
@@ -10,6 +11,7 @@ Example 2:
 
 Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
 Output: [9,4]
+"""
 
 
 """
@@ -20,15 +22,7 @@ class Solution:
         return set(nums1) & set(nums2)
         
         
-"""
-This is a Facebook interview question.
-They ask for the intersection, which has a trivial solution using a hash or a set.
 
-Then they ask you to solve it under these constraints:
-O(n) time and O(1) space (the resulting array of intersections is not taken into consideration) if the lists are sorted.
-
-Below I wrote down my solution for the Facebook follow up question - O(m+n), O(1) assuming the lists are sorted
-"""
 """
 This is a Facebook interview question.
 They ask for the intersection, which has a trivial solution using a hash or a set.
