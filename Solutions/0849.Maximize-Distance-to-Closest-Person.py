@@ -1,3 +1,4 @@
+"""
 849. Maximize Distance to Closest Person
 
 In a row of seats, 1 represents a person sitting in that seat, and 0 represents that the seat is empty. 
@@ -23,6 +24,7 @@ Output: 3
 Explanation: 
 If Alex sits in the last seat, the closest person is 3 seats away.
 This is the maximum distance possible, so the answer is 3.
+"""
 
 
 
