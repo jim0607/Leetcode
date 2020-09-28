@@ -1,3 +1,4 @@
+"""
 460. LFU Cache
 
 Design and implement a data structure for Least Frequently Used (LFU) cache. It should support the following operations: get and put.
@@ -7,12 +8,9 @@ put(key, value) - Set or insert the value if the key is not already present. Whe
 
 Note that the number of times an item is used is the number of calls to the get and put functions for that item since it was inserted. This number is set to zero when the item is removed.
 
- 
 
 Follow up:
 Could you do both operations in O(1) time complexity?
-
- 
 
 Example:
 
@@ -28,6 +26,9 @@ cache.put(4, 4);    // evicts key 1.
 cache.get(1);       // returns -1 (not found)
 cache.get(3);       // returns 3
 cache.get(4);       // returns 4
+"""
+
+
 
 
 """
@@ -62,32 +63,33 @@ class LFUCache:
         else:
             if len(self._cache) == self.capacity:       # if cache is full, remove the LFU key
                 # del the least used key from the cache, as well as it's coreesponding freq in the ordered dictonary
-                # the leased used num should have min freq
+                # the leased frequenctly used num should have min freq
                 
-                remove_key = self._freqs[self._min_freq].popitem(last = False)[0]    # ordered dictionary pop a key value pair (key, val) from the beginning of the DLL: .pop(last = False)
-                del self._cache[remove_key]
+                remove_key = self._freqs[self._min_freq].popitem(last = False)[0]    # ordered dictionary pop a key value pair (key, val) from the beginning of the DLL: .popitem(last = False)
+                del self._cache[remove_key]                                          # pop出来的是一个(key, value) pair
                 
             # add the new key
             self._min_freq = 1
             self._cache[key] = 1
-            self._freqs[1][key] = value
+            self._freqs[1][key] = value    # OrderedDict添加到末尾, 新放进去的都默认放到最后面
             
     def _update(self, key, value):
         """
         1. update freq, freq+=1
-        2. update val if neccesarry
+        2. update val 
         3. update min_freq if neccessarry
         """
         freq = self._cache[key] 
-        val = self._freqs[freq].pop(key)    # remove current key and get the val
+        val = self._freqs[freq].pop(key)    # remove current key and get the val - pop(key) is O(1) for OrderedDict
         
         if self._min_freq == freq and not self._freqs[freq]:        # 3. update min_freq if neccessarry
             self._min_freq = freq + 1    
             
         freq += 1
         self._cache[key] = freq       # 1. update freq, freq+=1
-        self._freqs[freq][key] = value if value != None else val        # 2. update val if neccesarry
+        self._freqs[freq][key] = value if value != None else val        # 2. update val - OrderedDict添加到末尾
 
+        
 
 """
 非常常考的题套路就是先给一个题求Kth largest, 然后follow up是data stream, 这个问题的solution 是LFU - O(1)
