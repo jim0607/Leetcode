@@ -1,3 +1,4 @@
+"""
 311. Sparse Matrix Multiplication
 
 Given two sparse matrices A and B, return the result of AB.
@@ -24,6 +25,7 @@ Output:
      |  1 0 0 |   | 7 0 0 |   |  7 0 0 |
 AB = | -1 0 3 | x | 0 0 0 | = | -7 0 3 |
                   | 0 0 1 |
+"""
 
 
 
@@ -64,7 +66,7 @@ https://www.cs.cmu.edu/~scandal/cacm/node9.html
 http://erthal.co/programming/2019/03/18/dot-products-with-sparse-vectors.html
 somehow the time complexity is better? don't know why.
 """
-
+"""
 Follow up questions in a real interview:
 面试官先问每个vector很大，不能在内存中存下怎么办，我说只需存下非零元素和他们的下标就行，然后问面试官是否可用预处理后的
 这两个vector非零元素的index和value作为输入，面试官同意后写完O(M*N)的代码(输入未排序，只能一个个找)，MN分别是两个vector长度。
@@ -85,6 +87,5 @@ Binary search如果找到了一个元素index，那就用这次的index作为下
 比如[1, 89，100]，去找90；如果不存在，那么binary search的ending index应该是89，所以下次就从那个index开始。
 如果找不到，会返回要插入的位置index + 1，index是要插入的位置，我写的就是返回要插入的index的。
 但是不管返回89还是100的index都无所谓，反正只差一个，对performance没有明显影响的。
-
-
+"""
 
