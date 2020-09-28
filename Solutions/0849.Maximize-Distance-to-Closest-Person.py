@@ -27,36 +27,30 @@ This is the maximum distance possible, so the answer is 3.
 
 
 """
-遍历过程中不断update idx_of_1和max_dist就可以了，把seats[0]==0和seats[-1]==0单独拿出来判断。
-讨论：这道题的一个很好的 follow up 是让我们返回爱丽丝坐下的位置.
-那么要在结果 res 可以被更新的时候，同时还应该记录下连续空位的起始位置 start，这样有了 start 和 最大距离 res，那么就可以定位出爱丽丝的座位了。
+step 1: check what is the distace if he sits at two ends;
+step 2: check what is the distance if he sits in the middle, two pinters: same method as 245. Shortest Word Distance III
 """
 class Solution:
     def maxDistToClosest(self, seats: List[int]) -> int:
-        max_dist = 0
-        idx_of_1 = -1
+        # step 1: check what is the distace if he sits at two ends
+        start, end = 0, len(seats) - 1
         for i, seat in enumerate(seats):
             if seat == 1:
-                if idx_of_1 != -1:
-                    max_dist = max((i - idx_of_1) // 2, max_dist) 
-                idx_of_1 = i
+                start = i
+                break
+        for j in range(len(seats) - 1, -1 ,-1):
+            if seats[j] == 1:
+                end = j
+                break
+        max_dist = max(start, len(seats) - 1 - end)
+        
+        # step 2: check what is the distance if he sits in the middle
+        # two pinters: same method as 245. Shortest Word Distance III 
+        prev, curr = start, start
+        for i in range(start, end + 1):
+            if seats[i] == 1:
+                prev = curr
+                curr = i
+                max_dist = max(max_dist, (curr - prev) // 2)
                 
-        if seats[0] == 0:
-            i = 0
-            while i < len(seats):
-                if seats[i] != 1:
-                    i += 1
-                else:
-                    break
-            max_dist = max(max_dist, i)
-            
-        if seats[-1] == 0:
-            i = len(seats) - 1
-            while i >= 0:
-                if seats[i] != 1:
-                    i -= 1
-                else:
-                    break
-            max_dist = max(max_dist, len(seats) - 1 - i)
-            
         return max_dist
