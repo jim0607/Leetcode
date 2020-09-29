@@ -35,34 +35,29 @@
 #        """
 
 class Solution:
-    def goBack(self, robot):
+    def _go_back(self, robot):      # make robot to face at the correct direction
         robot.turnRight()
         robot.turnRight()
         robot.move()
         robot.turnRight()
-        robot.turnRight()    
-    
+        robot.turnRight()
+        
     def cleanRoom(self, robot):
+        def backtrack(curr_i, curr_j, facing):
+            visited.add((curr_i, curr_j))
+            robot.clean()               # 注意每visit一个点就让robot打扫一下
+            
+            for _ in range(4):          # this is for next_candidates in next_moves
+                facing = (facing + 1) % 4     
+                robot.turnRight()       # 注意别忘了调整机器人的朝向
+                   
+                next_i, next_j = curr_i + directions[facing][0], curr_j + directions[facing][1]
+                if (next_i, next_j) not in visited and robot.move():
+                    backtrack(next_i, next_j, facing)
+                    self._go_back(robot)
+        
         # (1, 0) 代表facing up, (0, 1)代表facing right，(-1, 0)代表facing down, (0, -1)达标facing left 
         # 注意顺序不能变
-        self.directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
-
-        self.visited = set()
-        self.backtrack(robot, 0, 0, 0)
-        
-    def backtrack(self, robot, x, y, facing):
-        """
-        backtrack so that the robot can visit every possible spot in the room
-        """
-        self.visited.add((x, y))
-        robot.clean()
-        
-        for _ in range(4):
-            facing = (facing + 1) % 4
-            robot.turnRight()
-            
-            next_x, next_y = x + self.directions[facing][0], y + self.directions[facing][1]
-
-            if (next_x, next_y) not in self.visited and robot.move():
-                self.backtrack(robot, next_x, next_y, facing)
-                self.goBack(robot)
+        directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+        visited = set()
+        backtrack(0, 0, 0)
