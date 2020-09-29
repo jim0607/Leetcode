@@ -1,3 +1,4 @@
+"""
 48. Rotate Image
 
 You are given an n x n 2D matrix representing an image.
@@ -40,6 +41,7 @@ rotate the input matrix in-place such that it becomes:
   [12, 6, 8, 9],
   [16, 7,10,11]
 ]
+"""
 
 
 
@@ -66,11 +68,17 @@ class Solution:
         """
         Do not return anything, modify matrix in-place instead.
         """
-        m, n = len(matrix), len(matrix[0])
-        for i in range(m):
-            for j in range(i + 1, n):
-                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
-                
-        for i in range(m):
+        self._flip(matrix)    # 也可以先swap后flip
+        self._swap(matrix)
+        
+    def _flip(self, matrix):
+        n = len(matrix)
+        for i in range(n):
             for j in range(n // 2):
-                matrix[i][j], matrix[i][n - j - 1] = matrix[i][n - j - 1], matrix[i][j]
+                matrix[i][j], matrix[i][n - 1 - j] = matrix[i][n - 1 - j], matrix[i][j]
+    
+    def _swap(self, matrix):
+        n = len(matrix)
+        for i in range(n):
+            for j in range(n - i):
+                matrix[i][j], matrix[n - 1 - j][n - 1 - i] = matrix[n - 1 - j][n - 1 - i], matrix[i][j]
