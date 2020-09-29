@@ -1978,7 +1978,8 @@ Sparse matrices, which are common in scientific applications, are matrices in wh
 solution 1: O(MN), O(MN) solution, should be noted that we cannot use shallow copy for 2D nested list. Have to use deep copy.  Solution 2: O(MN), O(1) solution, Two traversals. Traversal 1: dead -> live: mark as 2; live -> dead: -1  can be whatever number you want, it's just for mark.
 Traversal 2: re-mark 2 to 1, -1 to 0.  Follow up: what if the board is infinite and matrix is sparse? If matrix is sparse, we use a dictionary to store the position of 1s. If the board is infinite and we cannot read the whole board into the memory, then we can read three rows each time because the live or dead state only depends on the up row and down row.
 - [0849. Maximize Distance to Closest Person](Solutions/0849.Maximize-Distance-to-Closest-Person.py) (E) <br>
-遍历过程中不断update idx_of_1和max_dist就可以了，把seats[0]==0和seats[-1]==0单独拿出来判断。warm up for next question.
+step 1: check what is the distace if he sits at two ends;
+step 2: check what is the distance if he sits in the middle, two pinters: same method as 245. Shortest Word Distance III. warm up for next question.
 - [0855. Exam Room](Solutions/0855.Exam-Room.py) (M) <br>
 Use a sorted list to record the index of seats where people sit, so that we can save tons of space if the seats is sparse;
 seat(): 1. find the biggest distance at the start, at the end and in the middle. 2. insert index of seat into the idx list. 3. return index.
@@ -1992,21 +1993,36 @@ build a content_to_dir dictionary where key is content in txt file, val is a lis
 
 # [系列题](/)
 ### [Gradient Descent](/)
-- [0069. Sqrt(x)](Solutions/0069.Sqrt(x).py) (E) <br>
-gradient descent. 两种方法：1. Binary Search; 2. Newton's Method. x<sub>k+1</sub> = (x<sub>k</sub> + x/x<sub>k</sub>) / 2; O(logN) since the set converges quadratically
---------69. Sqrt(x)--------------1515. Best Position for a Service Centre-----------------11. Container With Most Water----------
+- [0069. Sqrt(x)](Solutions/0069.Sqrt(x).py) (!!E) <br>
+gradient descent. 三种方法：1. Binary Search; 2. Newton's Method. x<sub>k+1</sub> = (x<sub>k</sub> + x/x<sub>k</sub>) / 2; O(logN) since the set converges quadratically.
+solution 3: gradient descent: Gradient descent 核心算法: <br>
+while alpha > eps: <br>
+    prediction -= alpha * gradient, where gradient = d(cost_func)/dx, where cost_func = MSE; <br>
+    alpha * = 0.2 <br>
+return prediction <br>
+- [1515. Best Position for a Service Centre](Solutions/1515.Best-Position-for-a-Service-Centre.py) (!!!H) <br>
+the cost_func is actually defined as distance. 
 
 ### [Rectangle几何题](/)
 - [0836. Rectangle Overlap](Solutions/0836.Rectangle-Overlap.py) (E) <br>
 比较点的坐标即可
 - [0223. Rectangle Area](Solutions/0223.Rectangle-Area.py) (M) <br>
-分成是否overlap两种情况来计算
-- [0223. Rectangle Area](Solutions/0223.Rectangle-Area.py) (M) <br>
-分成是
-- [0391. Perfect Rectangle](Solutions/0391.Perfect-Rectangle.py) (H) <br>
+分成是否overlap两种情况来计算, overlap = (min(C, G) - max(A, E)) * (min(H, D) - max(B, F))
+- [0391. Perfect Rectangle](Solutions/0391.Perfect-Rectangle.py) (!!H) <br>
 属于观察题目性质的题, In order to form a perfect rectangle, two condictions must be satisfied:
 condition 1. for all the coordinates, there are 4 and only 4 coordinates that appear only once, others appear either twice or 4 times.  So we can use a set to store all the coordinates and cnt their appear times
 condition 2. the sum of area of all the small rectangles should be the same as the whole big one (the area enclosed by the 4 coordinates in condition 1)
+- [Path with Circle Blocks](Solutions/Google__Path-with-Circle-Blocks.py) (M) <br>
+Solution: Union-Find all the circles
+
+
+### [Image Process](/)
+- [0048. Rotate Image](Solutions/0048.Rotate-Image.py) (!M) <br>
+Step 1: reverse columns: swap( matrix[][i], matrix[][j] ); Step 2: transpose: swap( matrix[i][j], matrix[j][i] )
+- [0835. Image Overlap](Solutions/0835.Image-Overlap.py) (!!M) <br>
+step 1: use a list to record the positions for A and B where 1s are located;
+step 2: use a dictionary 来存 (左右移动步数，上下移动步数) --> 多少个1能通过这样的移动重合
+O(N^4), O(N^2)
 
 
 ### [Robot Simulation](/)
@@ -2020,16 +2036,6 @@ The robot stays in the circle if (looking at the final vector), it changes direc
 遍历机器人的四个方向即可，唯一需要注意的是每次都需要调整机器人的朝向才能move一下，毕竟是机器人嘛
 
 
-
-
-
-### [Image Process](/)
-- [0048. Rotate Image](Solutions/0048.Rotate-Image.py) (M) <br>
-Step 1: transpose: swap( matrix[i][j], matrix[j][i] ); Step 2: reverse columns: swap( matrix[][i], matrix[][j] )
-- [0835. Image Overlap](Solutions/0835.Image-Overlap.py) (M) <br>
-step 1: use a list to record the positions for A and B where 1s are located;
-step 2: use a counter to remember the cnt of (delta_i, delta_j)
-O(N^4), O(N^2)
 
 
 ### [Rolling Hash/Rabin Karp]()
@@ -2110,7 +2116,6 @@ Then generate a rand_int and use binary search to find which rectangle the rand_
 实际上将要删除的数字和数组的最后一个数字调换个位置，然后修改对应的 HashMap 中的值，这样只需要删除数组的最后一个元素即可，保证了常数时间内的删除。
 而返回随机数对于数组来说就很简单了，只要随机生成一个位置idx，返回该位置上的数字即可.
 Google follow up: 对一棵二叉树做增删改node操作，如何get random node，可能把树的node加到list里面吧
-
 - [0381. Insert Delete GetRandom O(1) - Duplicates allowed](Solutions/0381.Insert-Delete-GetRandom-O(1)-Duplicates-allowed.py) (!!M) 
 这题是之前那道 Insert Delete GetRandom O(1) 的拓展，与其不同的是，之前那道题不能有重复数字，而这道题可以有，
 那么就不能像之前那道题那样建立每个数字和其坐标的映射了，但是我们可以建立数字和其所有出现位置的集合set之间的映射，
@@ -2147,8 +2152,6 @@ solution 2: rejection sampling - O(1) need to call random multiple times
 ### [Google](/)
 - [BinarySearchable](Solutions/Google__BinarySearchable.py) (M) <br>
 一个数是binary searchable的必须满足的条件是：前面的数都比他小，后面的数都比他大
-- [Path with Circle Blocks](Solutions/Google__Path-with-Circle-Blocks.py) (M) <br>
-Solution: Union-Find all the circles
 - [Max Absolute Difference of Subarrays](Solutions/Google__Max_Absolute_Difference_of_Subarrays.py) (M) <br>
 step 1: maintain一个prefix_sum list和一个suffix_sum list.
 step 2: 用这两个list计算出dp1 list and dp2 lsit, dp1[i] = the max subarray sum before i, dp2[i] = the min subarray sum before i;
@@ -2236,6 +2239,6 @@ answer should be: we want to avoid visiting the same node again and again, one w
 
 
 
-### Lintcode解锁后需要看的专题：1. Union Find专题ladder; 2. Minimum Spanning Tree专题ladder
+### 把几何题都做掉
 ### 还是要多刷新题，见过和没见过真的很不一样！
 ### Jeff Jeff Erickson's Algorithms https://jeffe.cs.illinois.edu/teaching/algorithms/
