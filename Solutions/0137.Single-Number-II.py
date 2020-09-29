@@ -1,3 +1,4 @@
+"""
 137. Single Number II
 
 Given a non-empty array of integers, every element appears three times except for one, which appears exactly once. Find that single one.
@@ -14,6 +15,8 @@ Example 2:
 
 Input: [0,1,0,1,0,1,99]
 Output: 99
+"""
+
 
 
 """
@@ -26,10 +29,12 @@ class Solution:
         for i in range(32):
             sum_at_i = 0
             for num in nums:
-                if (num >> i) & 1:
-                    sum_at_i += 1     # num >> i get the bit at ith position
-            res |= (sum_at_i % 3) << i
-
+                bit_at_i = num >> i & 1     # num >> i get the bit at ith position
+                sum_at_i += bit_at_i
+                
+            sum_at_i = sum_at_i % 3
+            res |= sum_at_i << i
+            
         if ( res & (1 << 31) ) == 0:    # if it's a positive number
             return res
         else:                           # handle for negative number
