@@ -1997,8 +1997,8 @@ build a content_to_dir dictionary where key is content in txt file, val is a lis
 gradient descent. 三种方法：1. Binary Search; 2. Newton's Method. x<sub>k+1</sub> = (x<sub>k</sub> + x/x<sub>k</sub>) / 2; O(logN) since the set converges quadratically.
 solution 3: gradient descent: Gradient descent 核心算法: <br>
 while alpha > eps: <br>
-    prediction -= alpha * gradient, where gradient = d(cost_func)/dx, where cost_func = MSE; <br>
-    alpha * = 0.2 <br>
+     prediction -= alpha * gradient, where gradient = d(cost_func)/dx, where cost_func = MSE; <br>
+     alpha * = 0.2 <br>
 return prediction <br>
 - [1515. Best Position for a Service Centre](Solutions/1515.Best-Position-for-a-Service-Centre.py) (!!!H) <br>
 the cost_func is actually defined as distance. 
@@ -2025,16 +2025,41 @@ step 2: use a dictionary 来存 (左右移动步数，上下移动步数) --> �
 O(N^4), O(N^2)
 
 
-### [Robot Simulation](/)
-- [0657. Robot Return to Origin](Solutions/0657.Robot-Return-to-Origin.py) (E) <br>
-Beacuase the way that the robot is "facing" is irrelevant, hte solution is trivial.  Just count if the steps of going up equals the steps of going down; and the steps of going left equals the steps of going right.
-- [0874. Walking Robot Simulation](Solutions/0874.Walking-Robot-Simulation.py) (E) <br>
-首先定义facing directions: (1, 0) 代表facing up, (0, 1)代表facing right，(-1, 0)代表facing down, (0, -1)达标facing left, facing_directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]  注意顺序不能变. 如果是右转就是facing = (facing + 1) % 4, 新的facing direction 就是facing_directions[facing];  如果是左转就是facing = (facing - 1) % 4, 新的facing direction 就是facing_directions[facing].  
-- [1041. Robot Bounded In Circle](Solutions/1041.Robot-Bounded-In-Circle.py) (M) <br>
-The robot stays in the circle if (looking at the final vector), it changes direction (ie. doesn't stay pointing north), or it moves 0
-- [0489. Robot Room Cleaner](Solutions/0489.Robot-Room-Cleaner.py) (H) 
-遍历机器人的四个方向即可，唯一需要注意的是每次都需要调整机器人的朝向才能move一下，毕竟是机器人嘛
+### [Bit Manipulation](/)
+- [0136. Single Number](Solutions/0136.Single-Number.py) (!!E) <br>
+Bitwise XOR is the most important in bit manipulation. 要牢记xor的三条定律: If we take XOR of zero and some bit, it will return that bit: a⊕0=a; If we take XOR of two same bits, it will return 0: a⊕a=0; Commutative law for XOR: a⊕b⊕a=(a⊕a)⊕b=0⊕b=b. So we can XOR all bits together to find the unique number.
+- [0137. Single Number II](Solutions/0137.Single-Number-II.py) (M) <br>
+A general solution for dealing with numbers with n-repeating time is to deal with bit by bit, and then take the mod of n.
+- [0260. Single Number III](Solutions/0260.Single-Number-III.py) (M) <br>
+Use a bitmask to record the difference between two numbers (x and y) which were seen only once - 看不懂
+- [0191. Number of 1 Bits](Solutions/0191.Number-of-1-Bits.py) (!!E) <br>
+The way to iterate each bit in an integer is: while n > 0: n = n >> 1. get the last bit of n: last_bit = n & 1
+- [0190. Reverse Bits](Solutions/0190.Reverse-Bits.py) (E) <br>
+- [0371. Sum of Two Integers](Solutions/0371.Sum-of-Two-Integers.py) (!!M) <br>
+- [0201. Bitwise AND of Numbers Range](Solutions/0201.Bitwise-AND-of-Numbers-Range.py) (M) <br>
+只要写代码找到左边公共的部分即可
+- [0318. Maximum Product of Word Lengths](Solutions/0318.Maximum-Product-of-Word-Lengths.py) (M) <br>
+solution 1: sort and put larger lens in front. O(NlogN + N^2* L)
+- [0393. UTF-8 Validation](Solutions/0393.UTF-8-Validation.py) (M) <br>
 
+
+
+### [Math](/)
+- [1071. Greatest Common Divisor of Strings](Solutions/1071.Greatest-Common-Divisor-of-Strings.py) (!!!E) <br>
+交叉相除法，又叫Euclidean algorithm: The central idea is that if y > x, the GCD of x and y is the GCD of x and y − x. For example, GCD(156, 36) = GCD((156 − 36) = 120, 36). By extension, this implies that the GCD of x and y is the GCD of x and y mod x, i.e., GCD(156, 36) = GCD((156 mod 36) = 12, 36) = GCD(12, 36 mod 12 = 0) = 12. 具体implement的时候用recursion就可以了
+- [0343. Integer Break](Solutions/0343.Integer-Break.py) (M)
+拆分乘积最大的两个原则：1. 当所有拆分出的数字相等时，乘积最大； 2：拆分成三份时，乘积最大
+
+
+### [Robot Simulation!!!](/)
+- [0657. Robot Return to Origin](Solutions/0657.Robot-Return-to-Origin.py) (E) <br>
+Beacuase the way that the robot is "facing" is irrelevant, the solution is trivial.  Just count if the steps of going up equals the steps of going down; and the steps of going left equals the steps of going right.
+- [0874. Walking Robot Simulation](Solutions/0874.Walking-Robot-Simulation.py) (!!E) <br>
+首先定义facing directions: (1, 0) 代表facing up, (0, 1)代表facing right，(-1, 0)代表facing down, (0, -1)达标facing left, facing_directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]  注意顺序不能变. 如果是右转就是facing = (facing + 1) % 4, 新的facing direction 就是facing_directions[facing];  如果是左转就是facing = (facing - 1) % 4, 新的facing direction 就是facing_directions[facing].  
+- [1041. Robot Bounded In Circle](Solutions/1041.Robot-Bounded-In-Circle.py) (!!M) <br>
+The robot stays in the circle if (looking at the final vector!!!), it changes direction (ie. doesn't stay pointing north), or it moves 0
+- [0489. Robot Room Cleaner](Solutions/0489.Robot-Room-Cleaner.py) (!!!H) <br>
+遍历机器人的四个方向即可，唯一需要注意的是每次都需要调整机器人的朝向才能move一下，毕竟是机器人嘛. backtrack函数需要传入(curr_i, curr_j, curr_facing). 另外需要定义一个go_back function so that we can go back to the original position and facing for backtracking purpose.
 
 
 
@@ -2061,29 +2086,6 @@ O(n)* O(string), n is lens of s, string is the average lens of equal string. che
 ------------ 187. Repeated DNA Sequences --------------------------1044. Longest Duplicate Substring-------------------------------------------
 
 
-### [Bit Manipulation](/)
-- [0136. Single Number](Solutions/0136.Single-Number.py) (!!E) <br>
-Bitwise XOR is the most important in bit manipulation. 要牢记xor的三条定律: If we take XOR of zero and some bit, it will return that bit: a⊕0=a; If we take XOR of two same bits, it will return 0: a⊕a=0; Commutative law for XOR: a⊕b⊕a=(a⊕a)⊕b=0⊕b=b. So we can XOR all bits together to find the unique number.
-- [0137. Single Number II](Solutions/0137.Single-Number-II.py) (M) <br>
-A general solution for dealing with numbers with n-repeating time is to deal with bit by bit, and then take the mod of n.
-- [0260. Single Number III](Solutions/0260.Single-Number-III.py) (M) <br>
-Use a bitmask to record the difference between two numbers (x and y) which were seen only once
-- [0191. Number of 1 Bits](Solutions/0191.Number-of-1-Bits.py) (!!E) <br>
-The way to iterate each bit in an integer is: while n > 0: n = n >> 1
-- [0190. Reverse Bits](Solutions/0190.Reverse-Bits.py) (E) <br>
-- [0371. Sum of Two Integers](Solutions/0371.Sum-of-Two-Integers.py) (M) <br>
-- [0201. Bitwise AND of Numbers Range](Solutions/0201.Bitwise-AND-of-Numbers-Range.py) (M) <br>
-只要写代码找到左边公共的部分即可
-- [0318. Maximum Product of Word Lengths](Solutions/0318.Maximum-Product-of-Word-Lengths.py) (M) <br>
-solution 1: sort and put larger lens in front. O(NlogN + N^2* L)
-- [0393. UTF-8 Validation](Solutions/0393.UTF-8-Validation.py) (M) <br>
-
-
-
-### [Math](/)
-- [1071. Greatest Common Divisor of Strings](Solutions/1071.Greatest-Common-Divisor-of-Strings.py) (!!E) <br>
-The central idea is that if y > x, the GCD of x and y is the GCD of x and y − x. For example, GCD(156, 36) = GCD((156 − 36) = 120, 36). By extension, this implies that the GCD of x and y is the GCD of x and y mod x, i.e., GCD(156, 36) = GCD((156 mod 36) = 12, 36) = GCD(12, 36 mod 12 = 0) = 12.
-- [0343. Integer Break](Solutions/0343.Integer-Break.py) (M)
 
 
 
