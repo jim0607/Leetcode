@@ -1,3 +1,4 @@
+"""
 Implement strStr().
 
 Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
@@ -10,7 +11,7 @@ Example 2:
 
 Input: haystack = "aaaaa", needle = "bba"
 Output: -1
-
+"""
 
         
         
@@ -30,37 +31,33 @@ then calculate the hash code for "abcd", then calculate the hash code for "bcd",
 go on and on until the hash code equals.
 """
 
-
 class Solution:
     def strStr(self, source: str, target: str) -> int:
         n, m = len(source), len(target)
-        if m == 0:
-            return 0
-        if n == 0:
-            return -1
-
-        HASH_SIZE = 2 ** 31
-
-        # step 1: calculate the hash code of the target
+        if m == 0: return 0
+        if n == 0: return -1
+        if m == n: return 0 if source == target else -1
+        SIZE = 2**31
+        BASE = 31
+        
+        # step 1: calculate the hash code for target
         target_code = 0
         for ch in target:
-            target_code = (target_code * 31 + (ord(ch) - ord("a"))) % HASH_SIZE
-
-        # step 2: calculate the hash code in source
+            target_code = (target_code * 31 + (ord(ch) - ord("a"))) % SIZE
+            
+        # step 2: calculate the hash code for source in a sliding window
+        power = 1       # get the power so that we can substract in the source_code
+        for _ in range(m):      
+            power = power * 31 % SIZE
+            
         source_code = 0
-        power = 1
-        for _ in range(m):
-            power = (power * 31) % HASH_SIZE
         for i, ch in enumerate(source):
-            source_code = (source_code * 31 + (ord(ch) - ord("a"))) % HASH_SIZE
-            if i < m - 1:
-                continue
+            source_code = (source_code * 31 + (ord(ch) - ord("a"))) % SIZE
             if i >= m:
-                source_code = (source_code - (ord(source[i - m]) - ord("a")) * power % HASH_SIZE) % HASH_SIZE  # in python, we don't need to worry aobut get mod for negative vals because python already taken care of that: (-3) % 4 = 1, the mod always return a positive val
-            if source_code == target_code:
-                if source[i - m + 1:i + 1] == target:
+                source_code = (source_code - (ord(source[i-m]) - ord("a")) * power) % SIZE  # in python, we don't need to worry aobut get mod for negative vals because python already taken care of that: (-3) % 4 = 1, the mod always return a positive val
+            if source_code == target_code and i >= m - 1:
+                if source[i-m+1:i+1]:       # code相同了还不够，为了avoid hash collision, 还需要check string是否相同
                     return i - m + 1
-
         return -1
 
 
