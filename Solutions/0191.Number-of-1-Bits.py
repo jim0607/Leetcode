@@ -1,6 +1,5 @@
+"""
 Write a function that takes an unsigned integer and return the number of '1' bits it has (also known as the Hamming weight).
-
- 
 
 Example 1:
 
@@ -17,17 +16,19 @@ Example 3:
 Input: 11111111111111111111111111111101
 Output: 31
 Explanation: The input binary string 11111111111111111111111111111101 has a total of thirty one '1' bits.
-
+"""
 
 
 class Solution:
     def hammingWeight(self, n: int) -> int:
-        res = 0
+        cnt = 0
         while n > 0:
-            res += (n & 1)  # & operator sets each bit to 1 if both bits are 1
-            n = n >> 1      # this is how you iterate each bit in an integer
-        return res
+            last_digit = n & 1      # & operator sets each bit to 1 if both bits are 1
+            cnt += last_digit       # this is how you iterate each bit in an integer
+            n = n >> 1
+        return cnt
 
+       
        
 """
 Follow up question: Find the parity of a number. The parity of a binary word is 1 if the number of 1s in the word is odd; otherwise, it is 0.
