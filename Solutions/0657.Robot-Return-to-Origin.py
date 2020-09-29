@@ -23,15 +23,5 @@ Explanation: The robot moves left twice. It ends up two "moves" to the left of t
 
 class Solution:
     def judgeCircle(self, moves: str) -> bool:
-        xPos, yPos = 0, 0
-        for move in moves:
-            if move == "U":
-                yPos += 1
-            if move == "D":
-                yPos -= 1
-            if move == "L":
-                xPos -= 1
-            if move == "R":
-                xPos += 1
-
-        return xPos == 0 and yPos == 0
+        counter = collections.Counter(moves)
+        return counter["U"] == counter["D"] and counter["L"] == counter["R"]
