@@ -1,3 +1,4 @@
+"""
 874. Walking Robot Simulation
 
 A robot on an infinite grid starts at point (0, 0) and faces north.  The robot can receive one of three possible types of commands:
@@ -13,8 +14,6 @@ If the robot would try to move onto them, the robot stays on the previous grid s
 
 Return the square of the maximum Euclidean distance that the robot will be from the origin.
 
- 
-
 Example 1:
 
 Input: commands = [4,-1,3], obstacles = []
@@ -25,6 +24,7 @@ Example 2:
 Input: commands = [4,-1,4,-2,4], obstacles = [[2,4]]
 Output: 65
 Explanation: robot will be stuck at (1, 4) before turning left and going to (1, 8)
+"""
 
 
 
@@ -67,6 +67,66 @@ class Solution:
                         break
                     currPos[0] += directions[facing][0]
                     currPos[1] += directions[facing][1]
-                    res = max(res, currPos[0]**2 + currPos[1]**2)
+            res = max(res, currPos[0]**2 + currPos[1]**2)
                         
         return res
+       
+       
+       
+       
+       
+       
+class Solution:
+    def robotSim(self, commands: List[int], obstacles: List[List[int]]) -> int:
+        obst_set = set()
+        for obst in obstacles:
+            obst_set.add(tuple(obst))
+            
+        facing = "U"
+        x, y = 0, 0
+        max_dist = 0
+        for comm in commands:
+            if comm == -2:
+                if facing == "U":
+                    facing = "L"
+                elif facing == "D":
+                    facing = "R"
+                elif facing == "L":
+                    facing = "D"
+                elif facing == "R":
+                    facing = "U"
+            if comm == -1:
+                if facing == "U":
+                    facing = "R"
+                elif facing == "D":
+                    facing = "L"
+                elif facing == "L":
+                    facing = "U"
+                elif facing == "R":
+                    facing = "D"
+                  
+            elif 1 <= comm <= 9:
+                if facing == "U":
+                    for _ in range(comm):
+                        if (x, y + 1) in obst_set:
+                            break
+                        y += 1
+                elif facing == "D":
+                    for _ in range(comm):
+                        if (x, y - 1) in obst_set:
+                            break
+                        y -= 1
+                elif facing == "L":
+                    for _ in range(comm):
+                        if (x - 1, y) in obst_set:
+                            break
+                        x -= 1
+                elif facing == "R":
+                    for _ in range(comm):
+                        if (x + 1, y) in obst_set:
+                            break
+                        x += 1
+                       
+            max_dist = max(max_dist, x**2 + y**2)
+        
+        return max_dist
