@@ -82,7 +82,7 @@ class Solution:
             dy = prediction[1] - y
             r = sqrt(dx**2 + dy**2)
             gradient[0] += (prediction[0] - x) / (r + 1e-9)      # 加上1e-9是为了防止divide by zero
-            gradient[1] += (prediction[1] - y) / (r + 1e-9)      #
+            gradient[1] += (prediction[1] - y) / (r + 1e-9)      
         return gradient
         
         
@@ -121,5 +121,5 @@ class Solution:
             dy = prediction[1] - y
             r = sqrt(dx**2 + dy**2)
             gradient[0] += (prediction[0] - x) / (r + 1e-9)      # 加上1e-9是为了防止divide by zero
-            gradient[1] += (prediction[1] - y) / (r + 1e-9)      # 加上1e-9是为了防止divide by zero
+            gradient[1] += (prediction[1] - y) / (r + 1e-9)      
         return gradient
