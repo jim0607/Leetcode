@@ -1,3 +1,4 @@
+"""
 393. UTF-8 Validation
 
 A character in UTF8 can be from 1 to 4 bytes long, subjected to the following rules:
@@ -32,6 +33,8 @@ Return false.
 The first 3 bits are all one's and the 4th bit is 0 means it is a 3-bytes character.
 The next byte is a continuation byte which starts with 10 and that's correct.
 But the second continuation byte does not start with 10, so it is invalid.
+"""
+
 
 
 """
@@ -44,8 +47,8 @@ But the second continuation byte does not start with 10, so it is invalid.
 如果B的前三位为1，第四位为0，则B为三个字节表示的字符中的第一个字节；
 如果B的前四位为1，第五位为0，则B为四个字节表示的字符中的第一个字节；
 因此，对 UTF-8 编码中的任意字节，根据第一位，可判断是否为 ASCII 字符；
-根据前二位，可判断该字节是否为一个字符编码的第一个字节；根
-据前四位（如果前两位均为1），可确定该字节为字符编码的第一个字节，并且可判断对应的字符由几个字节表示；
+根据前二位，可判断该字节是否为一个字符编码的第一个字节；
+根据前四位（如果前两位均为1），可确定该字节为字符编码的第一个字节，并且可判断对应的字符由几个字节表示；
 根据前五位（如果前四位为1），可判断编码是否有错误或数据传输过程中是否有错误。
 
 那么根据上面的描述，我们可以先来判断第一位，如果是0的话，则说明是 ASCII 码，我们直接跳过，
