@@ -24,7 +24,7 @@ class Solution:
         
         if a * b >= 0:
             while y:
-                res = x ^ y     # 相同为1, 相异为0
+                res = x ^ y     # 相同为0, 相异为1
                 carry = (x & y) << 1
                 x, y = res, carry
         else:
