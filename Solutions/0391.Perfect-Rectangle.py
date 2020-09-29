@@ -1,8 +1,12 @@
+"""
 391. Perfect Rectangle
 
 Given N axis-aligned rectangles where N > 0, determine if they all together form an exact cover of a rectangular region.
 
-Each rectangle is represented as a bottom-left point and a top-right point. For example, a unit square is represented as [1,1,2,2]. (coordinate of bottom-left point is (1, 1) and top-right point is (2, 2)).
+Each rectangle is represented as a bottom-left point and a top-right point. For example, a unit square is represented as [1,1,2,2]. 
+(coordinate of bottom-left point is (1, 1) and top-right point is (2, 2)).
+"""
+
 
 
 """
@@ -31,7 +35,7 @@ class Solution:
                     coordinates.remove(coordinate)
         
         if len(coordinates) != 4:   # condition 1
-            return False
+            return False        # 注意光满足condition 1还不够 - eg: [[1,1,2,2],[1,1,2,2],[2,1,3,2]]
 
         bottom_left = sorted(coordinates)[0]    # here we used sorted for set, but there are only 4 elements in the set, so O(1)
         top_right = sorted(coordinates)[3]
