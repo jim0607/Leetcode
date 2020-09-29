@@ -1,3 +1,4 @@
+"""
 190. Reverse Bits
 
 Reverse bits of a given 32 bits unsigned integer.
@@ -14,15 +15,16 @@ Input: 11111111111111111111111111111101
 Output: 10111111111111111111111111111111
 Explanation: The input binary string 11111111111111111111111111111101 represents the unsigned integer 4294967293, 
 so return 3221225471 which its binary representation is 10111111111111111111111111111111.
-
+"""
 
 
 class Solution:
     def reverseBits(self, n: int) -> int:
         res = 0
         power = 31
-        while n:
-            res += (n & 1) << power     # & operator sets each bit to 1 if both bits are 1
+        while n > 0:
+            last_digit = n & 1
+            res += last_digit << power      # move the last_digit in front
             power -= 1
             n = n >> 1
         return res
