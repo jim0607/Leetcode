@@ -1,3 +1,4 @@
+"""
 835. Image Overlap
 
 Two images A and B are given, represented as binary, square matrices of the same size.  (A binary matrix has only 0s and 1s as values.)
@@ -18,6 +19,8 @@ Input: A = [[1,1,0],
             [0,0,1]]
 Output: 3
 Explanation: We slide A to right by 1 unit and down by 1 unit.
+"""
+
 
 
 """
@@ -31,12 +34,10 @@ class Solution:
         A_pos = [(i, j) for i in range(lens) for j in range(lens) if A[i][j] == 1]
         B_pos = [(i, j) for i in range(lens) for j in range(lens) if B[i][j] == 1]
         
-        res = 0
-        counter = collections.defaultdict(int)
+        counter = collections.defaultdict(int)   # (左右移动步数，上下移动步数) --> 多少个1能通过这样的移动重合
         for A_i, A_j in A_pos:          # O(N^2)
             for B_i, B_j in B_pos:      # O(N^2)
                 delta_i, delta_j = A_i - B_i, A_j - B_j
-                counter[(delta_i, delta_j)] += 1
-                res = max(res, counter[(delta_i, delta_j)])
+                counter[(delta_i, delta_j)] += 1     # 通过(delta_i, delta_j)可以从(A_i, A_j)移动到(B_i, B_j)
                 
-        return res
+        return return max(counter.values()) if len(counter.values()) > 0 else 0
