@@ -1,10 +1,9 @@
+"""
 1071. Greatest Common Divisor of Strings
 
 For strings S and T, we say "T divides S" if and only if S = T + ... + T  (T concatenated with itself 1 or more times)
 
 Return the largest string X such that X divides str1 and X divides str2.
-
- 
 
 Example 1:
 
@@ -18,12 +17,13 @@ Example 3:
 
 Input: str1 = "LEET", str2 = "CODE"
 Output: ""
+"""
+
 
 
 """
 Let's firstly do it for integers.
-"""
-"""
+
 The Euclidean algorithm for calculating the greatest common divisor (GCD) of two numbers is a
 classic example of recursion. The central idea is that if y > x, the GCD of x and y is the GCD of x
 and y − x. For example, GCD(156, 36) = GCD((156 − 36) = 120, 36). By extension, this implies that
@@ -36,7 +36,7 @@ def GCD(x, y):
     return x
 
 def GCD(x, y):      # recursive implementation
-    return x if y == 0 else GCD(y, x%y)
+    return x if y == 0 else GCD(y, x % y)
 
 print(GCD(156, 36))
 
@@ -45,7 +45,20 @@ print(GCD(156, 36))
 
 
 """
-The greatest common divisor must be a prefix of each string, so we can try all prefixes.
+The greatest common divisor must be a prefix of each string, so we use Euclidean algorithm to get the GCD of the two strings.
+Recursive
+"""
+class Solution:
+    def gcdOfStrings(self, str1: str, str2: str) -> str:
+        gcd = self._get_gcd(str1, str2) 
+        return gcd if gcd * (len(str1) // len(gcd)) == str1 and gcd * (len(str2) // len(gcd)) == str2 else ""
+        
+    def _get_gcd(self, s1, s2):
+        return s1 if len(s2) == 0 else self._get_gcd(s2, s1[: len(s1) % len(s2)])
+     
+     
+"""
+Iterative
 """
 class Solution:
     def gcdOfStrings(self, str1: str, str2: str) -> str:
