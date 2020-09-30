@@ -1,3 +1,4 @@
+"""
 528. Random Pick with Weight
 
 The explaination of the example is shity. Let's take this for example:
@@ -13,6 +14,10 @@ val:         2      4       1       5
 prefixsum:   2      6       7       12
 if we randomly pick an idx, say 9, since 9 is within 7 to 12, so the output idx is idx 3
 if we randomly pick an idx, say 4, since 4 is within 2 to 6, so the output idx is 1
+"""
+
+
+
 
 """
 step 1: create a prefix sum arr
@@ -20,30 +25,27 @@ step 2: generate a rand_idx
 step 3: binary search to find where the idx is in the prefix_sum arr
 (should be noted that it works only if prefix sum is icreasing, meaning only if arr vals in the arr are positive)
 """
-import random
-
 class Solution:
 
     def __init__(self, w: List[int]):
-        self.prefix_sum = [w[0]] * len(w)
-        for i in range(1, len(w)):
-            self.prefix_sum[i] = self.prefix_sum[i - 1] + w[i]
-            
-        print(self.prefix_sum)
+        self.pre_sum = [0 for _ in range(len(w) + 1)]
+        for i in range(len(w)):
+            self.pre_sum[i+1] = self.pre_sum[i] + w[i]
 
     def pickIndex(self) -> int:
-        rand_idx = random.randrange(self.prefix_sum[-1])
-        start, end = 0, len(self.prefix_sum) - 1
+        rand_num = random.randrange(self.pre_sum[-1])
+        return self._binary_search(rand_num) - 1
+    
+    def _binary_search(self, num):
+        """
+        Return the idx to the right of the position of where the num should be in self.pre_sum
+        eg: [1, 3] --> [0, 1, 4], if num = 0, return idx = 1; if num = 3, return idx = 2
+        """
+        start, end = 0, len(self.pre_sum) - 1
         while start + 1 < end:
             mid = start + (end - start) // 2
-            if self.prefix_sum[mid] <= rand_idx:   # 因为等于的话需要输出后面的idx所以只能往右边逼近
+            if self.pre_sum[mid] <= num:    # 往右边逼近
                 start = mid
             else:
                 end = mid
-            
-        return start if self.prefix_sum[start] > rand_idx else end  # 等于的话需要输出后面的idx
-
-
-# Your Solution object will be instantiated and called as such:
-# obj = Solution(w)
-# param_1 = obj.pickIndex()
+        return start if self.pre_sum[start] > num else end
