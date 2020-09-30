@@ -96,7 +96,7 @@ class Solution:
         """
         Return if there are two L-long substrings that are equal
         """
-        SIZE = 2**31
+        SIZE = 2**10        # 由于采用了冲突解决办法，所以size选的很小也没关系
         BASE = 31
         power = 1
         for _ in range(L):
