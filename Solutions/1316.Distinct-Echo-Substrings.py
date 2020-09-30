@@ -1,6 +1,8 @@
+"""
 1316. Distinct Echo Substrings
 
-Return the number of distinct non-empty substrings of text that can be written as the concatenation of some string with itself (i.e. it can be written as a + a where a is some string).
+Return the number of distinct non-empty substrings of text that can be written as the concatenation of some string with itself 
+(i.e. it can be written as a + a where a is some string).
 
 Example 1:
 
@@ -12,6 +14,8 @@ Example 2:
 Input: text = "leetcodeleetcode"
 Output: 2
 Explanation: The 2 substrings are "ee" and "leetcodeleetcode".
+"""
+
 
 
 class Solution:
