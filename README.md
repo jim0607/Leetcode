@@ -2066,7 +2066,7 @@ The robot stays in the circle if (looking at the final vector!!!), it changes di
 ### [Rolling Hash/Rabin Karp]()
 - [0128. Hash Function](Solutions/0128.Hash-Function.py) (E Lintcode) <br>
 Rabin Karp Algorithm O(M+N)
-- [0028. Implement strStr()](Solutions/0028.Implement-strStr().py) (E) <br>
+- [0028. Implement strStr()](Solutions/0028.Implement-strStr().py) (!!E) <br>
 Rabin Karp Algorithm O(M+N): Rolling hash 的核心就是用一个hash function把一个长度为m的string hash成一个整数，这样就可以避免O(m)的时间复杂度去比较两个string是否相等，而是去比较两个string的hash code 只用O(1)的就可以比较了。A good application of this strStr() problem is that it can be used as an API for solving the problem of check if T2 is subtree of T1 ,both are very large trees.
 https://leetcode.com/discuss/interview-question/738978/Amazon-Onsite-or-check-if-T2-is-subtree-of-T1-both-are-very-large-trees
 https://www.geeksforgeeks.org/check-binary-tree-subtree-another-binary-tree-set-2/
@@ -2093,25 +2093,22 @@ O(NL), N is lens of s, L is the average lens of equal string. Improve: instead o
 
 # [Random/Sampling](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
 ### [Shuffle]()
-- [0384. Shuffle an Array](Solutions/0384.Shuffle-an-Array.py) (!!M Google) 
+- [0384. Shuffle an Array](Solutions/0384.Shuffle-an-Array.py) (!!M Google) <br>
 step 1: generate a random idx after i;
 step 2: swap the num in i with random idx after i, then we have got the random num for ith pos;
 step 3: keep going forward until we generate all the random num using the generated random idx;
 follow up是写test方案证明自己写的shuffle符合要求
-- [0519. Random Flip Matrix](Solutions/0519.Random-Flip-Matrix.py) (M) 
-This is a sampling n elements without replacement problem. It is the same as the operation that random shuffe an array and then return the first n elements.
-When we random pick an element in the array we can store its new position in a hash table instead of the array because n is extremely less than the total num. So we can accomplish this within O(1) time and O(k) space where k is the maxium call of flip.
-- [0528. Random Pick with Weight](Solutions/0528.Random-Pick-with-Weight.py) (!!M Google++) 
-step 1: create a prefix sum arr;
+- [0528. Random Pick with Weight](Solutions/0528.Random-Pick-with-Weight.py) (!!M Google++) <br>
+step 1: create a __prefix sum arr__;
 step 2: generate a rand_idx;
-step 3: binary search to find where the idx is in the prefix_sum arr;
+step 3: __binary search__ to find where the idx is in the prefix_sum arr;
 follow up 是设计一个class支持修改已有元素的权重, 可能要用到数的结构实现o(logn)吧，没弄明白
-- [0497. Random Point in Non-overlapping Rectangles](Solutions/0497.Random-Point-in-Non-overlapping-Rectangles.py) (M) 
+- [0497. Random Point in Non-overlapping Rectangles](Solutions/0497.Random-Point-in-Non-overlapping-Rectangles.py) (!!!M) <br>
 Similar with random pick with weight, here we use number of points in the rectangle as weight.
 Firslty, create a weight list w, where w[i] is the number of points in the rectangle. 
 Secondly, use a prefix_sum list to store the prefix_sum of the weight list.
 Then generate a rand_int and use binary search to find which rectangle the rand_int belongs to. 
-- [0380	Insert Delete GetRandom O(1)](Solutions/0380.Insert-Delete-GetRandom-O(1).py) (!!M Google) 
+- [0380	Insert Delete GetRandom O(1)](Solutions/0380.Insert-Delete-GetRandom-O(1).py) (!!M Google) <br>
 这道题让我们在常数时间范围内实现插入删除和获得随机数操作，如果这道题没有常数时间的限制，那么将会是一道非常简单的题，直接用一个 HashSet 就可以搞定所有的操作。
 但是由于时间的限制，无法在常数时间内实现获取随机数，所以只能另辟蹊径。此题的正确解法是利用到了一个一维数组和一个 HashMap，
 其中数组用来保存数字，HashMap 用来建立每个数字和其在数组中的位置之间的映射，
@@ -2120,7 +2117,7 @@ Then generate a rand_int and use binary search to find which rectangle the rand_
 实际上将要删除的数字和数组的最后一个数字调换个位置，然后修改对应的 HashMap 中的值，这样只需要删除数组的最后一个元素即可，保证了常数时间内的删除。
 而返回随机数对于数组来说就很简单了，只要随机生成一个位置idx，返回该位置上的数字即可.
 Google follow up: 对一棵二叉树做增删改node操作，如何get random node，可能把树的node加到list里面吧
-- [0381. Insert Delete GetRandom O(1) - Duplicates allowed](Solutions/0381.Insert-Delete-GetRandom-O(1)-Duplicates-allowed.py) (!!M) 
+- [0381. Insert Delete GetRandom O(1) - Duplicates allowed](Solutions/0381.Insert-Delete-GetRandom-O(1)-Duplicates-allowed.py) (!!M) <br>
 这题是之前那道 Insert Delete GetRandom O(1) 的拓展，与其不同的是，之前那道题不能有重复数字，而这道题可以有，
 那么就不能像之前那道题那样建立每个数字和其坐标的映射了，但是我们可以建立数字和其所有出现位置的集合set之间的映射，
 虽然写法略有不同，但是思路和之前那题完全一样。
@@ -2128,9 +2125,10 @@ Google follow up: 对一棵二叉树做增删改node操作，如何get random no
 remove 函数是这题的难点，我们首先看 HashMap 中有没有 val，或者有val但是对应的idx set 为空，则直接返回 false。
 然后跟380是一样的。我们取出 nums 的尾元素和眼删除的元素调换位置，
 如果dict[val]有多个元素，那我们就pop set中的一个元素，当然要记录其对应的idx然后把idx的位置填上last_num, 还要更新last_num在pos_dict中的新位置。
-- [0710. Random Pick with Blacklist](Solutions/0710.Random-Pick-with-Blacklist.py) (H) 
+- [0710. Random Pick with Blacklist](Solutions/0710.Random-Pick-with-Blacklist.py) (H) <br>
 HashMap再难也不过如此了吧，目标是建立一个blacklist中的数与could not random_get的数的一一映射
-
+- [0519. Random Flip Matrix](Solutions/0519.Random-Flip-Matrix.py) (M) <br>
+没搞明白想干嘛
 
 ### [Reservoir Sampling]()
 - [0398. Random Pick Index](Solutions/0398.Random-Pick-Index.py) (!!M) 
