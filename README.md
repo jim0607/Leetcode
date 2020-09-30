@@ -2070,20 +2070,22 @@ Rabin Karp Algorithm O(M+N)
 Rabin Karp Algorithm O(M+N): Rolling hash 的核心就是用一个hash function把一个长度为m的string hash成一个整数，这样就可以避免O(m)的时间复杂度去比较两个string是否相等，而是去比较两个string的hash code 只用O(1)的就可以比较了。A good application of this strStr() problem is that it can be used as an API for solving the problem of check if T2 is subtree of T1 ,both are very large trees.
 https://leetcode.com/discuss/interview-question/738978/Amazon-Onsite-or-check-if-T2-is-subtree-of-T1-both-are-very-large-trees
 https://www.geeksforgeeks.org/check-binary-tree-subtree-another-binary-tree-set-2/
-- [1062. Longest Repeating Substring](Solutions/1062.Longest-Repeating-Substring.py) (!!M) <br>
-如果存在repeating substring的长度是L的话，那么也一定存在repeating substring的长度是小于L的;
-所以主体是一个OOXXX问题，寻找first L to satisfy that there are two substring both L long and equal.
-确定了是binary search之后就来思考怎样drop左边或者右边，如果不存在two substring both mid long and equal, 那就drop right;
-如何快速判断是否存在two substring with length = mid that equal? 
+- [0187. Repeated DNA Sequences](Solutions/0187.Repeated-DNA-Sequences.py) (!!M) <br>
+O(N) solution: Rabin Karp / Rolling hash. calculate the hash_code for each L = 10 window. use a hash_code_set to record the calculated hash_code, if the newly calculated hahs_code is in the hash_code_set, then that means we have repeated sequance.
+- [1062. Longest Repeating Substring](Solutions/1062.Longest-Repeating-Substring.py) (!!!M) <br>
+可以从lens-1开始逐个去试，takes O(N^2). 也可以用binary search去试.
+如何快速判断是否存在two substring with length = L that equal? 
 Using rolling hash to check if two substring have the same hash_code, using rolling hash, we realized O(1) string comparison;
 So the overall time complexity is O(nlogn), where n is the lens of S
-- [1147. Longest Chunked Palindrome Decomposition](Solutions/1147.Longest-Chunked-Palindrome-Decomposition.py) (H) <br>
-greedy algorithm: use two pointers iterate the s, and s[::-1], if find equal substring, we can just count them as a valid divide;
-O(n)* O(string), n is lens of s, string is the average lens of equal string. check two substring equal 的地方应该可以用rolling hash优化成O(1). 但是greedy 已经破天了，面试官还要优化的话我就mmp了
+- [1044. Longest Duplicate Substring](Solutions/1044.Longest-Duplicate-Substring.py) (H) <br>
+step 1: find the lens of longest duplicated substring using binary search - 1062. Longest Repeating Substring;
+step 2: use the longest lens to find the substring - 187. Repeated DNA Sequences
+- [1147. Longest Chunked Palindrome Decomposition](Solutions/1147.Longest-Chunked-Palindrome-Decomposition.py) (!!H) <br>
+greedy algorithm: 双指针left and right, 一个从前往后遍历得到left_s，另一个从后往前遍历right_s，
+if left_s == right_s: res += 1;
+O(NL), N is lens of s, L is the average lens of equal string. Improve: instead of comparing left_s == right_s, we compare left_hash_code == right_hash_code.
 - [1316. Distinct Echo Substrings](Solutions/1316.Distinct-Echo-Substrings.py) (H) <br>
-先把整个string的hash_code计算出来存在一个数组里面hash_code[i] = the hash code for s[:i] 相当于prefix_hash_code这样后面计算是substring s[i:j]的hash code就是O(1) 了
-
------------- 187. Repeated DNA Sequences --------------------------1044. Longest Duplicate Substring-------------------------------------------
+先把整个string的hash_code计算出来存在一个数组里面hash_code[i] = the hash code for s[:i] 相当于prefix_hash_code这样后面计算substring s[i:j]的hash code就是O(1) 了
 
 
 
