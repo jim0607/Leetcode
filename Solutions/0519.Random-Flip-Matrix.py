@@ -1,6 +1,10 @@
+"""
 519. Random Flip Matrix
 
-You are given the number of rows n_rows and number of columns n_cols of a 2D binary matrix where all values are initially 0. Write a function flip which chooses a 0 value uniformly at random, changes it to 1, and then returns the position [row.id, col.id] of that value. Also, write a function reset which sets all values back to 0. Try to minimize the number of calls to system's Math.random() and optimize the time and space complexity.
+You are given the number of rows n_rows and number of columns n_cols of a 2D binary matrix where all values are initially 0. 
+Write a function flip which chooses a 0 value uniformly at random, changes it to 1, and then returns the position [row.id, col.id] of that value. 
+Also, write a function reset which sets all values back to 0. T
+ry to minimize the number of calls to system's Math.random() and optimize the time and space complexity.
 
 Note:
 
@@ -22,7 +26,11 @@ Input:
 Output: [null,[0,0],[0,1],null,[0,0]]
 Explanation of Input Syntax:
 
-The input is two lists: the subroutines called and their arguments. Solution's constructor has two arguments, n_rows and n_cols. flip and reset have no arguments. Arguments are always wrapped with a list, even if there aren't any.
+The input is two lists: the subroutines called and their arguments. 
+Solution's constructor has two arguments, n_rows and n_cols. 
+flip and reset have no arguments. Arguments are always wrapped with a list, even if there aren't any.
+"""
+
 
     
 """
@@ -40,7 +48,7 @@ class Solution:
         self.n_cols = n_cols
         self.start = 0
         self.end = self.n_rows * self.n_cols
-        self.pos_dict = collections.defaultdict()
+        self.pos_dict = collections.defaultdict(int)
         
 
     def flip(self) -> List[int]:
