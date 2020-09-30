@@ -1,3 +1,4 @@
+"""
 1062. Longest Repeating Substring
 
 Given a string S, find out the length of the longest repeating substring(s). Return 0 if no repeating substring exists.
@@ -22,9 +23,13 @@ Example 4:
 Input: "aaaaa"
 Output: 4
 Explanation: The longest repeating substring is "aaaa", which occurs twice.
+"""
+
+
 
 
 """
+可以从lens-1开始逐个去试，takes O(N^2). 也可以用binary search去试.
 如果存在repeating substring的长度是L的话，那么也一定存在repeating substring的长度是小于L的;
 所以主体是一个OOXXX问题，寻找first L to satisfy that there are two substring both L long and equal.
 确定了是binary search之后就来思考怎样drop左边或者右边，如果不存在two substring both mid long and equal, 那就drop right;
@@ -68,3 +73,45 @@ class Solution:
             hash_code_set.add(hash_code)
             
         return False 
+
+    
+    
+    
+    
+"""
+冲突解决办法： 如果hash_code相等，我们还需要再check string是否相等
+"""
+class Solution:
+    def longestRepeatingSubstring(self, s: str) -> int:
+        start, end = 0, len(s) - 1
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            if self._has_repeat(s, mid):
+                start = mid
+            else:
+                end = mid
+        return end if self._has_repeat(s, end) else start
+    
+    def _has_repeat(self, s, L):
+        """
+        Return if there are two L-long substrings that are equal
+        """
+        SIZE = 2**31
+        BASE = 31
+        power = 1
+        for _ in range(L):
+            power = (power * BASE) % SIZE
+            
+        mapping = collections.defaultdict(set)      # hash_code --> strings with that hash_code
+        hash_code = 0
+        for i, ch in enumerate(s):
+            hash_code = (hash_code * BASE + ord(ch) - ord("a")) % SIZE
+            if i < L - 1:
+                continue
+            if i >= L:
+                hash_code = (hash_code - (ord(s[i-L]) - ord("a")) * power % SIZE) % SIZE    # ***注意每一步都要 % SIZE, 防止数字越界,
+            if hash_code in mapping:                      # 这样写有两个case过不了hash_code -= (ord(s[i-L]) - ord("a")) * power % SIZE
+                if s[i-L+1:i+1] in mapping[hash_code]:
+                    return True
+            mapping[hash_code].add(s[i-L+1:i+1])
+        return False
