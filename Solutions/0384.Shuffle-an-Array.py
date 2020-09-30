@@ -1,3 +1,4 @@
+"""
 384. Shuffle an Array
 
 Shuffle a set of numbers without duplicates.
@@ -16,6 +17,7 @@ solution.reset();
 
 // Returns the random shuffling of array [1,2,3].
 solution.shuffle();
+"""
 
 
 """
