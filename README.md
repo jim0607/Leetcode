@@ -184,7 +184,7 @@ heapq的方法是O(NK)因为需要从前面remove; monostack O(N): Iterate over 
 这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
 两个while循环，一个while loop do sliding window to update res, 从队首pop, 同时更新res, 
 另一个while loop do monostack to maintain an increasing dq, 从队尾pop, 对deq进行清理。
-- [0995. Minimum Number of K Consecutive Bit Flips](Solutions/0995.Minimum-Number-of-K-Consecutive-Bit-Flips.py) (!!H) <br>
+- [0995. Minimum Number of K Consecutive Bit Flips](Solutions/0995.Minimum-Number-of-K-Consecutive-Bit-Flips.py) (!!H Google) <br>
 q 记录区间[i-k, i]内被反转了的idx, 遍历过程中把里i很远的idx都pop出来，保持窗口小于等于K, 此时len(q)就是位置i已经被翻转的次数，如果为奇数表示i已经从0翻到1或者从1翻到0了
 - [1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](Solutions/1438.Longest-Continuous-Subarray-With-Absolute-Diff-Less-Than-or-Equal-to-Limit.py) (!!!M Google) <br>
 总结：如果题目需要我们在window里更新最大值或最小值，我们往往需要maintian一个mono increasing or mono decreasing deque.
@@ -2108,7 +2108,7 @@ Similar with random pick with weight, here we use number of points in the rectan
 Firslty, create a weight list w, where w[i] is the number of points in the rectangle. 
 Secondly, use a prefix_sum list to store the prefix_sum of the weight list.
 Then generate a rand_int and use binary search to find which rectangle the rand_int belongs to. 
-- [0380	Insert Delete GetRandom O(1)](Solutions/0380.Insert-Delete-GetRandom-O(1).py) (!!M Google) <br>
+- [0380	Insert Delete GetRandom O(1)](Solutions/0380.Insert-Delete-GetRandom-O(1).py) (!!!M Google) <br>
 这道题让我们在常数时间范围内实现插入删除和获得随机数操作，如果这道题没有常数时间的限制，那么将会是一道非常简单的题，直接用一个 HashSet 就可以搞定所有的操作。
 但是由于时间的限制，无法在常数时间内实现获取随机数，所以只能另辟蹊径。此题的正确解法是利用到了一个一维数组和一个 HashMap，
 其中数组用来保存数字，HashMap 用来建立每个数字和其在数组中的位置之间的映射，
@@ -2117,35 +2117,44 @@ Then generate a rand_int and use binary search to find which rectangle the rand_
 实际上将要删除的数字和数组的最后一个数字调换个位置，然后修改对应的 HashMap 中的值，这样只需要删除数组的最后一个元素即可，保证了常数时间内的删除。
 而返回随机数对于数组来说就很简单了，只要随机生成一个位置idx，返回该位置上的数字即可.
 Google follow up: 对一棵二叉树做增删改node操作，如何get random node，可能把树的node加到list里面吧
-- [0381. Insert Delete GetRandom O(1) - Duplicates allowed](Solutions/0381.Insert-Delete-GetRandom-O(1)-Duplicates-allowed.py) (!!M) <br>
+- [0381. Insert Delete GetRandom O(1) - Duplicates allowed](Solutions/0381.Insert-Delete-GetRandom-O(1)-Duplicates-allowed.py) (!!H) <br>
 这题是之前那道 Insert Delete GetRandom O(1) 的拓展，与其不同的是，之前那道题不能有重复数字，而这道题可以有，
 那么就不能像之前那道题那样建立每个数字和其坐标的映射了，但是我们可以建立数字和其所有出现位置的集合set之间的映射，
 虽然写法略有不同，但是思路和之前那题完全一样。
 对于 insert 函数，我们在数组 nums 末尾加入 val，然后将val所在 nums 中的位置idx加入 dict[val] set中。
 remove 函数是这题的难点，我们首先看 HashMap 中有没有 val，或者有val但是对应的idx set 为空，则直接返回 false。
-然后跟380是一样的。我们取出 nums 的尾元素和眼删除的元素调换位置，
+然后跟380是一样的。我们取出 nums 的尾元素和要删除的元素调换位置，
 如果dict[val]有多个元素，那我们就pop set中的一个元素，当然要记录其对应的idx然后把idx的位置填上last_num, 还要更新last_num在pos_dict中的新位置。
 - [0710. Random Pick with Blacklist](Solutions/0710.Random-Pick-with-Blacklist.py) (H) <br>
-HashMap再难也不过如此了吧，目标是建立一个blacklist中的数与could not random_get的数的一一映射
+建立一个tricky的一一映射。
+既然数字总共有N个，那么减去黑名单中数字的个数，就是最多能随机出来的个数。比如N=6，黑名单中有两个数{2, 4}，那么我们最多只能随机出四个随机数0,1,3,5，
+但是我们如果直接randrange(4)的话会得到0,1,2,3, 我们发现有两个问题，一是黑名单中的2可以随机到，二是数字5没法随机到。
+那么我们想，能不能随机到0,1,3就返回其本身，而当随机到2到时候，我们返回的是5， __我们需要建立这样的映射把2映射到5, 这就是使用HashMap的动机啦__
 - [0519. Random Flip Matrix](Solutions/0519.Random-Flip-Matrix.py) (M) <br>
 没搞明白想干嘛
 
+
 ### [Reservoir Sampling]()
-- [0398. Random Pick Index](Solutions/0398.Random-Pick-Index.py) (!!M) 
-solution 1: O(N) time O(N) space using random.choice(seq): Return a random element from the non-empty sequence seq.
-Solution 2: Reservoir Sampling solution reservoir sampling 特点是来一个算一下，因此适用于data stream
-- [0382. Linked List Random Node](Solutions/0382.Linked-List-Random-Node.py) (!!M Google) 
-solution 1: reservoir sampling: O(1), O(n). It is good for really large linkedlist and the linkedlist dynamically changing length; solution 2: O(n), O(1) just use an arr to store all the node vals
+- [0398. Random Pick Index](Solutions/0398.Random-Pick-Index.py) (!!M)  <br>
+Reservoir Sampling solution reservoir sampling 特点是来一个算一下，因此适用于data stream with unknown length. 
+算法：
+来第一个num: 选第一个num的概率为1/1；<br>
+来第二个num: 选第二个num的概率为1/2; 选第一个num的概率为(1-1/2)* 1/1 = 1/2 <br>
+来第三个num: 选第三个num的概率为1/3; 选第一个num的概率为(1-1/3)* 1/2 = 1/3; 选第一个num的概率为(1-1/3)* 1/2 = 1/3 <br>
+来第四个num: 选第四个num的概率为1/4; 选第一个num的概率为(1-1/4)* 1/3 = 1/4; 选第二个num的概率为(1-1/4)* 1/3 = 1/4; 选第三个num的概率为(1-1/4)* 1/3 = 1/4; <br>
+来第m个num: 选第m个num的概率为1/m; 选第一个num的概率为(1-1/m)* 1/(m-1) = 1/m..........
+- [0382. Linked List Random Node](Solutions/0382.Linked-List-Random-Node.py) (!!M Google) <br>
+Linkedlist has unknow length so we use reservior sampling: O(1), O(n). It is good for really large linkedlist and the linkedlist dynamically changing length; solution 2: O(n), O(1) just use an arr to store all the node vals
 
 
 ### [Rejection Sampling]()
-- [0470. Implement Rand10() Using Rand7()](Solutions/0470.Implement-Rand10-Using-Rand7.py) (M) 
+- [0470. Implement Rand10() Using Rand7()](Solutions/0470.Implement-Rand10-Using-Rand7.py) (!!M) <br>
 This solution is based upon Rejection Sampling. 
 The main idea is when you generate a number in the desired range, output that number immediately. 
 If the number is out of the desired range, reject it and re-sample again. 
-- [0478. Generate Random Point in a Circle](Solutions/0478.Generate-Random-Point-in-a-Circle.py) (M) 
-solution 1: convert to Polar coodinates - O(1) call random only once. 注意要取平方根, 这是因为random.randrange()取的点在线性范围内是uniform的，但是在2D圆内不是
-solution 2: rejection sampling - O(1) need to call random multiple times
+Step 1: generate one rand_int1 in range (1, 7),  step 2: generate another rand_int2 in range (1, 7). Then from 7 * rand_int1 + rand_int2, we can get a random number in range (1, 49).
+- [0478. Generate Random Point in a Circle](Solutions/0478.Generate-Random-Point-in-a-Circle.py) (!!!M) <br>
+we use Polar coodinates. step 1: generate one rand_int1 for radius; step 2: generate anoter rand_int2 for angle. 注意对rand_int1要取平方根, 这是因为random.randrange()取的点在线性范围内是uniform的，但是在2D圆内不是
 
 
 
@@ -2170,13 +2179,9 @@ Iterate the word in words, if too many words to fit in one line, we first justif
 then start over the curr_line = [] and curr_width = 0 for the next line.
 Lastly, we deal with the last line seperately.
 - [0420. Strong Password Checker](Solutions/0420.Strong-Password-Checker.py) (!!H) <br>
-分三个区间讨论：
-1. n <= 5: return max(6 - n, missing_types), 用三个小Helper function to calculate three missing_types;
-2. 6 <= n <= 20: just need to return how many replacements are needed to avoid consecutive chars: 
-number_of_replacements += num_of_consecutives // 3;
-3. n > 20: step 1: calculate how many replacements are neededto avoid consecutive chars; 
-step 2: calculate how many deletions can be used to save replacements - greedy.
+分三个区间讨论：1. n <= 5: return max(6 - n, missing_types), 用三个小Helper function to calculate three missing_types;2. 6 <= n <= 20: just need to return how many replacements are needed to avoid consecutive chars: number_of_replacements += num_of_consecutives // 3; 3. n > 20: step 1: calculate how many replacements are neededto avoid consecutive chars; step 2: calculate how many deletions can be used to save replacements - greedy.
 
+-----------1323. Maximum 69 Number------------
 
 
 ### [Amazon](/)
@@ -2234,10 +2239,8 @@ solution 1: recursion; solution 2: math
 - [070820-Busiest Time in The Mall](Solutions/Pramp__070820-Busiest-Time-in-The-Mall.py) (M) <br>
 居然没做出来呀，太菜了，真的需要练呀！！
 - [081420-Island Count](Solutions/Pramp__081420-Island-Count.py) (M) <br>
-两点不好的地方需要改进：
-1. should we ask yourself a question before implementing the code for dfs?
-answer should be: we want to avoid visiting the same node again and again, one way is to use a set to mark the visited nodes, the other way to modify the matrix in-place.
-2. 一定要在代码结束之后主动run test case, 首先需要run test case orally. 然后写一个print()出来打印结果像上面那样！！
+两点不好的地方需要改进：1. should we ask yourself a question before implementing the code for dfs?
+answer should be: we want to avoid visiting the same node again and again, one way is to use a set to mark the visited nodes, the other way to modify the matrix in-place. 2. 一定要在代码结束之后主动run test case, 首先需要run test case orally. 然后写一个print()出来打印结果像上面那样！！
 
 
 
