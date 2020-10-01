@@ -1,3 +1,4 @@
+"""
 380. Insert Delete GetRandom O(1)
 
 Design a data structure that supports all following operations in average O(1) time.
@@ -30,6 +31,8 @@ randomSet.insert(2);
 
 // Since 2 is the only number in the set, getRandom always return 2.
 randomSet.getRandom();
+"""
+
 
 
 """
@@ -41,8 +44,6 @@ randomSet.getRandom();
 实际上将要删除的数字和数组的最后一个数字调换个位置，然后修改对应的 HashMap 中的值，这样只需要删除数组的最后一个元素即可，保证了常数时间内的删除。
 而返回随机数对于数组来说就很简单了，只要随机生成一个位置idx，返回该位置上的数字即可.
 """
-import random
-
 class RandomizedSet:
 
     def __init__(self):
@@ -50,45 +51,39 @@ class RandomizedSet:
         Initialize your data structure here.
         """
         self.arr = []
-        self.pos_dict = collections.defaultdict(int)
-        self.size = 0
+        self.val_to_idx = collections.defaultdict(int)
 
     def insert(self, val: int) -> bool:
         """
         Inserts a value to the set. Returns true if the set did not already contain the specified element.
         """
-        if val in self.pos_dict:
-            return False
+        if val in self.val_to_idx:
+            return False     
         
         self.arr.append(val)
-        self.pos_dict[val] = self.size
-        self.size += 1
-        
+        self.val_to_idx[val] = len(self.arr) - 1
         return True
-
+        
     def remove(self, val: int) -> bool:
         """
         Removes a value from the set. Returns true if the set contained the specified element.
         """
-        if val not in self.pos_dict:
+        if val not in self.val_to_idx:
             return False
         
-        # 将要删除的数字的那个位置上的数变成数组的最后一个数
-        last_num = self.arr[-1]
-        need_delete_idx = self.pos_dict[val]
-        self.arr[need_delete_idx] = last_num
-        self.pos_dict[last_num] = need_delete_idx       # 修改对应的 HashMap 中的pos
+        need_delete_idx = self.val_to_idx[val]      # 将要删除的数字的那个位置上的数变成数组的最后一个数
+        last_val = self.arr[-1]
+        self.arr[need_delete_idx], self.arr[-1] = self.arr[-1], self.arr[need_delete_idx]   # swap
+        self.val_to_idx[last_val] = need_delete_idx     # 修改对应的 HashMap 中的pos
         self.arr.pop()
-        del self.pos_dict[val]
-        self.size -= 1
-        
+        del self.val_to_idx[val]
         return True
 
     def getRandom(self) -> int:
         """
         Get a random element from the set.
         """
-        rand_idx = random.randrange(0, self.size)
+        rand_idx = random.randrange(len(self.arr))
         return self.arr[rand_idx]
 
 """
