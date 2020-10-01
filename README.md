@@ -1,6 +1,97 @@
 ## 四刷：每天刷15-20题, 做好总结！08/17 to 09/30
 ## 每天晚上睡前Review做过的题
-##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778; 09/04: 364; 09/05: 31; 09/06: 79; 09/07: 126; 09/08: 863; 09/13: 1066; 09/14: 354; 09/15: 416; 09/16: 10; 09/17: 1223; 09/18: 436; 09/19: 644; 09/20: 179; 09/21: 448; 09/22: 328; 09/23: 89; 09/24: 1052；09/25：238; 09/26: 991; 09/27: 311; 09/29: 497
+##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778; 09/04: 364; 09/05: 31; 09/06: 79; 09/07: 126; 09/08: 863; 09/13: 1066; 09/14: 354; 09/15: 416; 09/16: 10; 09/17: 1223; 09/18: 436; 09/19: 644; 09/20: 179; 09/21: 448; 09/22: 328; 09/23: 89; 09/24: 1052；09/25：238; 09/26: 991; 09/27: 311; 09/29: 497; 09/30: 487
+
+
+
+# [Company High Freq](/)
+### [Google](/)
+- [BinarySearchable](Solutions/Google__BinarySearchable.py) (M) <br>
+一个数是binary searchable的必须满足的条件是：前面的数都比他小，后面的数都比他大
+- [Max Absolute Difference of Subarrays](Solutions/Google__Max_Absolute_Difference_of_Subarrays.py) (M) <br>
+step 1: maintain一个prefix_sum list和一个suffix_sum list.
+step 2: 用这两个list计算出dp1 list and dp2 lsit, dp1[i] = the max subarray sum before i, dp2[i] = the min subarray sum before i;
+dp3[i] = the min subarray sum after i, dp4[i] = the max subarray sum after i.
+step 3: 从左到右遍历一遍，比较i左右两边的min 和 max, 更新max_abs_diff即可。
+O(N), O(N)
+- [Student Cheating sheet](Solutions/Google__Student_Cheating_sheet.py) (M) <br>
+问从a到b被捉概率最小的传递路线。本质上是weighted edge shortest path，因为不是DAG 所以用dijkstra
+- [0766. Toeplitz Matrix](Solutions/0766.Toeplitz-Matrix.py) (E) <br>
+遍历整个matrix, 每次都与其右下角的数进行比较. 遇到这么简单的题，follow up 就不会太简单了, 三个follow up很重要！！
+- [0068. Text Justification](Solutions/0068.Text-Justification.py) (!!H) <br>
+use curr_line = [] to record curr words in curr_line; use curr_width = 0 to record curr total number of chars in curr_line.
+Iterate the word in words, if too many words to fit in one line, we first justify that line and update res, 
+then start over the curr_line = [] and curr_width = 0 for the next line.
+Lastly, we deal with the last line seperately.
+- [0420. Strong Password Checker](Solutions/0420.Strong-Password-Checker.py) (!!H) <br>
+分三个区间讨论：1. n <= 5: return max(6 - n, missing_types), 用三个小Helper function to calculate three missing_types;2. 6 <= n <= 20: just need to return how many replacements are needed to avoid consecutive chars: number_of_replacements += num_of_consecutives // 3; 3. n > 20: step 1: calculate how many replacements are neededto avoid consecutive chars; step 2: calculate how many deletions can be used to save replacements - greedy.
+
+-----------1323. Maximum 69 Number------------
+
+
+### [Amazon](/)
+- [0412. Fizz Buzz](Solutions/0412.Fizz-Buzz.py) (E) <br>
+How to do it without for-loop: recursion
+- [0819. Most Common Word](Solutions/0819.Most-Common-Word.py) (E) <br>
+String processing in pipline: step 1: pre-process: convert all letters in lower case and replace the punctuations with spaces cuz they are not valid words; step 2: count the freq of the words that are not banned
+- [0036. Valid Sudoku](Solutions/0036.Valid-Sudoku.py) (M) <br>
+use a row_dict to record each row, a col_dict to record each col; a block_dict to record each 3x3 block.
+
+
+
+### [Facebook](/)
+- [0008. String to Integer (atoi)](Solutions/0008.String-to-Integer-(atoi).py) (M) <br>
+we only need to handle 3 cases: 1. discards all leading whitespaces - using python str.strip(char). 2. sign of the number - use 正负1来代表符号. 3. overflow
+- [0273. Integer to English Words](Solutions/0273.Integer-to-English-Words.py) (!!H) <br>
+construct 3 lists for the english expressions for numbers less_than_20, tens, thousands.
+the main funciton handle the situation of num >= thousands.
+use a helper funciton to calcuate cases when num <= hundreds.
+- [0157. Read N Characters Given Read4](Solutions/0157.Read-N-Characters-Given-Read4.py) (E) <br>
+step 1: read file to buf4; step 2: write buf4 into buf
+- [0158. Read N Characters Given Read4 II - Call multiple times](Solutions/0158.Read-N-Characters-Given-Read4-II-Call-multiple-times.py) (!!H) <br>
+Get data from read4 and store it in a queue. When read data, transfer data from queue to buf.
+- [0073. Set Matrix Zeroes](Solutions/0073.Set-Matrix-Zeroes.py) (M) <br>
+solution 1: mark the rows and cols that need to be set to zero - O(mn), O(m+n); solution 2: use the first cell of every row and column as a flag.  This flag would determine whether a row or column has been set to zero. - O(mn), O(1)
+
+
+### [Microsoft](/)
+- [0054. Spiral Matrix](Solutions/000054.Spiral-Matrix.py) (!!M) <br>
+dfs helper function 需要传入的参数有，当前的位置，当前的row_range and col_range, 当前的方向
+
+
+### [Other companies](/)
+- [0769. Max Chunks To Make Sorted](Solutions/0769.Max-Chunks-To-Make-Sorted.py) (M) <br>
+Iterate the array, if the max(A[0] ~ A[i]) = i, then we can cut it at this index.,
+so that it the chunk ended with i. - just some game about number.
+- [0768. Max Chunks To Make Sorted II](Solutions/0768.Max-Chunks-To-Make-Sorted-II.py) (H) <br>
+没看懂，也没啥意思，这个Alice Wice喜欢为出题而出题，讨论区有用stack解的O(N)，比他自己给出的solution好多了
+- [0089. Gray Code](Solutions/0089.Gray-Code.py) (M) <br>
+找规律的题
+- [0829. Consecutive Numbers Sum](Solutions/0829.Consecutive-Numbers-Sum.py) (H) <br>
+假设从x开始存在连续有k个加起来等于N, then x+(x+1)+...+(x+k-1) = N, ie: kx + k(k-1)/2 = N.
+kx = N - k(k-1)/2. x = (N - k(k-1)/2) / k.  so the problem becomes: for k in range(1, N),
+is there a number k, such that (N - k(k-1)/2) / k is an integer?
+- [0811. Subdomain Visit Count](Solutions/0811.Subdomain-Visit-Count.py) (E) <br>
+It's all about string processing, 用到了 s.index(char)
+- [0006. ZigZag Conversion](Solutions/0006.ZigZag-Conversion.py) (M) <br>
+- [0326. Power of Three](Solutions/0326.Power-of-Three.py) (E) <br>
+solution 1: recursion; solution 2: math
+- [0605. Can Place Flowers](Solutions/0605.Can-Place-Flowers.py) (E) <br>
+把arr进行预处理：把arr的头部和尾部各加上0
+
+
+# [Pramp](/)
+- [070820-Busiest Time in The Mall](Solutions/Pramp__070820-Busiest-Time-in-The-Mall.py) (M) <br>
+居然没做出来呀，太菜了，真的需要练呀！！
+- [081420-Island Count](Solutions/Pramp__081420-Island-Count.py) (M) <br>
+两点不好的地方需要改进：1. should we ask yourself a question before implementing the code for dfs?
+answer should be: we want to avoid visiting the same node again and again, one way is to use a set to mark the visited nodes, the other way to modify the matrix in-place. 2. 一定要在代码结束之后主动run test case, 首先需要run test case orally. 然后写一个print()出来打印结果像上面那样！！
+
+
+
+### 把几何题都做掉
+### 还是要多刷新题，见过和没见过真的很不一样！
+
 
 
 # [Data Structure](/Data-Structure.py)
@@ -2158,92 +2249,4 @@ we use Polar coodinates. step 1: generate one rand_int1 for radius; step 2: gene
 
 
 
-
-# [Company High Freq](/)
-### [Google](/)
-- [BinarySearchable](Solutions/Google__BinarySearchable.py) (M) <br>
-一个数是binary searchable的必须满足的条件是：前面的数都比他小，后面的数都比他大
-- [Max Absolute Difference of Subarrays](Solutions/Google__Max_Absolute_Difference_of_Subarrays.py) (M) <br>
-step 1: maintain一个prefix_sum list和一个suffix_sum list.
-step 2: 用这两个list计算出dp1 list and dp2 lsit, dp1[i] = the max subarray sum before i, dp2[i] = the min subarray sum before i;
-dp3[i] = the min subarray sum after i, dp4[i] = the max subarray sum after i.
-step 3: 从左到右遍历一遍，比较i左右两边的min 和 max, 更新max_abs_diff即可。
-O(N), O(N)
-- [Student Cheating sheet](Solutions/Google__Student_Cheating_sheet.py) (M) <br>
-问从a到b被捉概率最小的传递路线。本质上是weighted edge shortest path，因为不是DAG 所以用dijkstra
-- [0766. Toeplitz Matrix](Solutions/0766.Toeplitz-Matrix.py) (E) <br>
-遍历整个matrix, 每次都与其右下角的数进行比较. 遇到这么简单的题，follow up 就不会太简单了, 三个follow up很重要！！
-- [0068. Text Justification](Solutions/0068.Text-Justification.py) (!!H) <br>
-use curr_line = [] to record curr words in curr_line; use curr_width = 0 to record curr total number of chars in curr_line.
-Iterate the word in words, if too many words to fit in one line, we first justify that line and update res, 
-then start over the curr_line = [] and curr_width = 0 for the next line.
-Lastly, we deal with the last line seperately.
-- [0420. Strong Password Checker](Solutions/0420.Strong-Password-Checker.py) (!!H) <br>
-分三个区间讨论：1. n <= 5: return max(6 - n, missing_types), 用三个小Helper function to calculate three missing_types;2. 6 <= n <= 20: just need to return how many replacements are needed to avoid consecutive chars: number_of_replacements += num_of_consecutives // 3; 3. n > 20: step 1: calculate how many replacements are neededto avoid consecutive chars; step 2: calculate how many deletions can be used to save replacements - greedy.
-
------------1323. Maximum 69 Number------------
-
-
-### [Amazon](/)
-- [0412. Fizz Buzz](Solutions/0412.Fizz-Buzz.py) (E) <br>
-How to do it without for-loop: recursion
-- [0819. Most Common Word](Solutions/0819.Most-Common-Word.py) (E) <br>
-String processing in pipline: step 1: pre-process: convert all letters in lower case and replace the punctuations with spaces cuz they are not valid words; step 2: count the freq of the words that are not banned
-- [0036. Valid Sudoku](Solutions/0036.Valid-Sudoku.py) (M) <br>
-use a row_dict to record each row, a col_dict to record each col; a block_dict to record each 3x3 block.
-
-
-
-### [Facebook](/)
-- [0008. String to Integer (atoi)](Solutions/0008.String-to-Integer-(atoi).py) (M) <br>
-we only need to handle 3 cases: 1. discards all leading whitespaces - using python str.strip(char). 2. sign of the number - use 正负1来代表符号. 3. overflow
-- [0273. Integer to English Words](Solutions/0273.Integer-to-English-Words.py) (!!H) <br>
-construct 3 lists for the english expressions for numbers less_than_20, tens, thousands.
-the main funciton handle the situation of num >= thousands.
-use a helper funciton to calcuate cases when num <= hundreds.
-- [0157. Read N Characters Given Read4](Solutions/0157.Read-N-Characters-Given-Read4.py) (E) <br>
-step 1: read file to buf4; step 2: write buf4 into buf
-- [0158. Read N Characters Given Read4 II - Call multiple times](Solutions/0158.Read-N-Characters-Given-Read4-II-Call-multiple-times.py) (!!H) <br>
-Get data from read4 and store it in a queue. When read data, transfer data from queue to buf.
-- [0073. Set Matrix Zeroes](Solutions/0073.Set-Matrix-Zeroes.py) (M) <br>
-solution 1: mark the rows and cols that need to be set to zero - O(mn), O(m+n); solution 2: use the first cell of every row and column as a flag.  This flag would determine whether a row or column has been set to zero. - O(mn), O(1)
-
-
-### [Microsoft](/)
-- [0054. Spiral Matrix](Solutions/000054.Spiral-Matrix.py) (!!M) <br>
-dfs helper function 需要传入的参数有，当前的位置，当前的row_range and col_range, 当前的方向
-
-
-### [Other companies](/)
-- [0769. Max Chunks To Make Sorted](Solutions/0769.Max-Chunks-To-Make-Sorted.py) (M) <br>
-Iterate the array, if the max(A[0] ~ A[i]) = i, then we can cut it at this index.,
-so that it the chunk ended with i. - just some game about number.
-- [0768. Max Chunks To Make Sorted II](Solutions/0768.Max-Chunks-To-Make-Sorted-II.py) (H) <br>
-没看懂，也没啥意思，这个Alice Wice喜欢为出题而出题，讨论区有用stack解的O(N)，比他自己给出的solution好多了
-- [0089. Gray Code](Solutions/0089.Gray-Code.py) (M) <br>
-找规律的题
-- [0829. Consecutive Numbers Sum](Solutions/0829.Consecutive-Numbers-Sum.py) (H) <br>
-假设从x开始存在连续有k个加起来等于N, then x+(x+1)+...+(x+k-1) = N, ie: kx + k(k-1)/2 = N.
-kx = N - k(k-1)/2. x = (N - k(k-1)/2) / k.  so the problem becomes: for k in range(1, N),
-is there a number k, such that (N - k(k-1)/2) / k is an integer?
-- [0811. Subdomain Visit Count](Solutions/0811.Subdomain-Visit-Count.py) (E) <br>
-It's all about string processing, 用到了 s.index(char)
-- [0006. ZigZag Conversion](Solutions/0006.ZigZag-Conversion.py) (M) <br>
-- [0326. Power of Three](Solutions/0326.Power-of-Three.py) (E) <br>
-solution 1: recursion; solution 2: math
-- [0605. Can Place Flowers](Solutions/0605.Can-Place-Flowers.py) (E) <br>
-把arr进行预处理：把arr的头部和尾部各加上0
-
-
-# [Pramp](/)
-- [070820-Busiest Time in The Mall](Solutions/Pramp__070820-Busiest-Time-in-The-Mall.py) (M) <br>
-居然没做出来呀，太菜了，真的需要练呀！！
-- [081420-Island Count](Solutions/Pramp__081420-Island-Count.py) (M) <br>
-两点不好的地方需要改进：1. should we ask yourself a question before implementing the code for dfs?
-answer should be: we want to avoid visiting the same node again and again, one way is to use a set to mark the visited nodes, the other way to modify the matrix in-place. 2. 一定要在代码结束之后主动run test case, 首先需要run test case orally. 然后写一个print()出来打印结果像上面那样！！
-
-
-
-### 把几何题都做掉
-### 还是要多刷新题，见过和没见过真的很不一样！
 ### Jeff Jeff Erickson's Algorithms https://jeffe.cs.illinois.edu/teaching/algorithms/
