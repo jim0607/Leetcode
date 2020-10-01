@@ -1,3 +1,4 @@
+"""
 766. Toeplitz Matrix
 
 A matrix is Toeplitz if every diagonal from top-left to bottom-right has the same element.
@@ -34,7 +35,7 @@ Note:
 matrix will be a 2D array of integers.
 matrix will have a number of rows and columns in range [1, 20].
 matrix[i][j] will be integers in range [0, 99].
-
+"""
 
 
 
@@ -48,10 +49,27 @@ class Solution:
             for j in range(n - 1):
                 if matrix[i][j] != matrix[i+1][j+1]:
                     return False
-                
+        return True
+       
+"""
+用hahsmap记录(i-j) --> matrix[i][j]
+"""
+class Solution:
+    def isToeplitzMatrix(self, matrix: List[List[int]]) -> bool:
+        m, n = len(matrix), len(matrix[0])
+        mapping = collections.defaultdict(int)  # (i-j) --> matrix[i][j]
+        for i in range(m):
+            for j in range(n):
+                if i - j not in mapping:
+                    mapping[i - j] = matrix[i][j]
+                else:
+                    if mapping[i - j] != matrix[i][j]:
+                        return False
         return True
         
+
         
+"""
 Follow up:
 
 What if the matrix is stored on disk, and the memory is limited such that you can only load at most one row of the matrix into the memory at once?
@@ -72,3 +90,4 @@ Follow up3: follow up 3是在memory没限制的情况下设计高效的parallel�
 .
 .
 依次类推，要注意 boarder, boarder 需要有重叠，因为需要比较前后两行才能知道是不是要 return False
+"""
