@@ -1,3 +1,4 @@
+"""
 478. Generate Random Point in a Circle
 
 Given the radius and x-y positions of the center of a circle, write a function randPoint which generates a uniform random point in the circle.
@@ -22,12 +23,18 @@ Input:
 Output: [null,[11.52438,-8.33273],[2.46992,-16.21705],[11.13430,-12.42337]]
 Explanation of Input Syntax:
 
-The input is two lists: the subroutines called and their arguments. Solution's constructor has three arguments, the radius, x-position of the center, and y-position of the center of the circle. randPoint has no arguments. Arguments are always wrapped with a list, even if there aren't any.
+The input is two lists: the subroutines called and their arguments. Solution's constructor has three arguments, 
+the radius, x-position of the center, and y-position of the center of the circle. randPoint has no arguments. 
+Arguments are always wrapped with a list, even if there aren't any.
+"""
 
 
-import random
-import math
-
+"""
+we use Polar coodinates. step 1: generate one rand_int1 for radius; step 2: generate anoter rand_int2 for angle. 
+注意对rand_int1要取平方根, 这是因为random.randrange()取的点在线性范围内是uniform的，但是在2D圆内不是. 
+想想在一个圆内，是不是在半径更大的位置分布的点比半径非常小的位置分布的点要多, 
+由于半径是 0 - 1 范围内，所以要take sqrt, 这样较大的半径就分布的多一些
+"""
 class Solution:
 
     def __init__(self, radius: float, x_center: float, y_center: float):
@@ -36,16 +43,14 @@ class Solution:
         self.y_center = y_center
 
     def randPoint(self) -> List[float]:
+        rand_int1 = random.randrange(0, 2**31 + 1)
+        rand_radius = self.radius * math.sqrt(rand_int1 / 2**31)    # **** 注意要取平方根 ****
         
-        # **** 注意要取平方根 **** 这是因为random.randrange()取的点在线性范围内是uniform的，但是在2D圆内不是
-        # 想想在一个圆内，是不是在半径更大的位置分布的点比半径非常小的位置分布的点要多
-        rand_radius = math.sqrt(random.randrange(0, 2**31 + 1) / 2**31) * self.radius  
+        rand_int2 = random.randrange(0, 360)
+        rand_angle = rand_int2 / 180 * math.pi
         
-        rand_angle = random.randrange(0, 360)
-        rand_angle = rand_angle / 180 * math.pi
-        
-        rand_x = rand_radius * math.cos(rand_angle) + self.x_center
-        rand_y = rand_radius * math.sin(rand_angle) + self.y_center
+        rand_x = self.x_center + rand_radius * cos(rand_angle)
+        rand_y = self.y_center + rand_radius * sin(rand_angle)
         
         return [rand_x, rand_y]
 
