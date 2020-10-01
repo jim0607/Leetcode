@@ -1,3 +1,4 @@
+"""
 36. Valid Sudoku
 
 Determine if a 9x9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
@@ -48,7 +49,31 @@ A Sudoku board (partially filled) could be valid but is not necessarily solvable
 Only the filled cells need to be validated according to the mentioned rules.
 The given board contain only digits 1-9 and the character '.'.
 The given board size is always 9x9.
+"""
 
+
+"""
+row_id is row, col_id is col
+cub_id is (row // 3, col // 3)
+"""
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        rows = collections.defaultdict(set)
+        cols = collections.defaultdict(set)
+        cubs = collections.defaultdict(set)
+        m, n = len(board), len(board[0])
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == ".":
+                    continue
+                num = board[i][j]
+                if num in rows[i] or num in cols[j] or num in cubs[(i//3, j//3)]:
+                    return False
+                rows[i].add(num)
+                cols[j].add(num)
+                cubs[(i//3, j//3)].add(num)
+        return True
+      
 
 
 """
