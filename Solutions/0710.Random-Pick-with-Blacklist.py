@@ -1,3 +1,4 @@
+"""
 710. Random Pick with Blacklist
 
 Given a blacklist B containing unique integers from [0, N), write a function to return a uniform random integer from [0, N) which is NOT in B.
@@ -14,6 +15,7 @@ Input:
 ["Solution","pick","pick","pick"]
 [[4,[2]],[],[],[]]
 Output: [null,1,3,1]
+"""
 
 
 
@@ -30,9 +32,6 @@ solution 3: 建立一个tricky的一一映射。
 pick method 中先随机个数字，如果有映射，则返回映射值，否则返回原数字.
 O(N) initialize, O(1) to call pick method, each pick method only call math.random once.
 """
-
-import random
-
 class Solution:
 
     def __init__(self, N: int, blacklist: List[int]):
@@ -64,31 +63,22 @@ class Solution:
 """
 solution 1: 用black_set每次都做判断 (Time Limit Exceeded cuz need to call math.random multipule times in pick method) 
 """
-
-import random
-
 class Solution:
 
     def __init__(self, N: int, blacklist: List[int]):
         self.N = N
-        self.black_set = set(blacklist)
+        self.blackset = set(blacklist)
 
     def pick(self) -> int:
-        if len(self.black_set) == self.N:
-            return -1
-        
         while True:
-            rand_idx = random.randrange(self.N)
-            if rand_idx not in self.black_set:
-                return rand_idx
+            rand_int = random.randrange(self.N)
+            if rand_int not in self.blackset:
+                return rand_int
 
 
 """
 solution 2: use a white list (Memory Limit Exceeded cuz used two sets, the two sets could be very large)
 """
-
-import random
-
 class Solution:
 
     def __init__(self, N: int, blacklist: List[int]):
