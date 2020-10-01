@@ -1,3 +1,4 @@
+"""
 381. Insert Delete GetRandom O(1) - Duplicates allowed
 
 Design a data structure that supports all following operations in average O(1) time.
@@ -28,6 +29,9 @@ collection.remove(1);
 
 // getRandom should return 1 and 2 both equally likely.
 collection.getRandom();
+"""
+
+
 
 
 """
@@ -36,54 +40,41 @@ collection.getRandom();
 虽然写法略有不同，但是思路和之前那题完全一样。
 对于 insert 函数，我们在数组 nums 末尾加入 val，然后将val所在 nums 中的位置idx加入 dict[val] set中。
 remove 函数是这题的难点，我们首先看 HashMap 中有没有 val，或者有val但是对应的idx set 为空，则直接返回 false。
-然后跟380是一样的。我们取出 nums 的尾元素和眼删除的元素调换位置，
+然后跟380是一样的。我们取出 nums 的尾元素和要删除的元素调换位置，
 如果dict[val]有多个元素，那我们就pop set中的一个元素，当然要记录其对应的idx然后把idx的位置填上last_num, 还要更新last_num在pos_dict中的新位置。
 """
-import random
-
 class RandomizedCollection:
 
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        self.pos_dict = collections.defaultdict(set)
         self.arr = []
-        self.size = 0
+        self.val_to_idx = collections.defaultdict(set)
 
     def insert(self, val: int) -> bool:
         """
         Inserts a value to the collection. Returns true if the collection did not already contain the specified element.
         """
-        not_included = True
-        if val in self.pos_dict:
-            not_included = False
-        
         self.arr.append(val)
-        self.pos_dict[val].add(self.size)
-        self.size += 1
-        
-        return not_included
+        self.val_to_idx[val].add(len(self.arr) - 1)
+        return len(self.val_to_idx[val]) == 1
 
     def remove(self, val: int) -> bool:
         """
         Removes a value from the collection. Returns true if the collection contained the specified element.
         """
-        if val not in self.pos_dict or not self.pos_dict[val]:  # 注意要判断self.pos_dict[val]的set为空，不然下面的pop会报错
+        if val not in self.val_to_idx or len(self.val_to_idx[val]) == 0:
             return False
         
-        last_num = self.arr[-1]
-        need_delete_idx = self.pos_dict[val].pop()      # set.pop() removes a random element from the set
-
-        self.arr[need_delete_idx] = last_num
-        self.arr.pop()
+        last_val = self.arr[-1]
+        need_delete_idx = self.val_to_idx[val].pop()            # set.pop() removes a random element from the set
+        self.arr[need_delete_idx], self.arr[-1] = self.arr[-1], self.arr[need_delete_idx]   # swap
         
         # 现在last_num从最尾部挪到了need_delete_idx处，所以last_num对应的位置是need_delete_idx了
-        # 所以要加把need_delete_idx到pos_dict[last_num]的set里，**** 同时要把last_num之前的idx(尾部)从set中移除出去 ****
-        self.pos_dict[last_num].add(need_delete_idx)    
-        self.pos_dict[last_num].remove(self.size - 1)      
-        
-        self.size -= 1
+        self.val_to_idx[last_val].add(need_delete_idx)          # 把swap过来的idx添加到last_val对应的set
+        self.val_to_idx[last_val].remove(len(self.arr) - 1)     # ** 注意之前last_val对应的idx是 len(self.arr) - 1 要删掉
+        self.arr.pop()      # 注意arr要pop出来的
         
         return True
 
@@ -91,12 +82,5 @@ class RandomizedCollection:
         """
         Get a random element from the collection.
         """
-        rand_idx = random.randrange(0, self.size)
+        rand_idx = random.randrange(len(self.arr))
         return self.arr[rand_idx]
-
-
-# Your RandomizedCollection object will be instantiated and called as such:
-# obj = RandomizedCollection()
-# param_1 = obj.insert(val)
-# param_2 = obj.remove(val)
-# param_3 = obj.getRandom()
