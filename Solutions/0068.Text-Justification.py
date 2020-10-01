@@ -1,3 +1,4 @@
+"""
 68. Text Justification
 
 Given an array of words and a width maxWidth, format the text such that each line has exactly maxWidth characters and is fully (left and right) justified.
@@ -53,6 +54,7 @@ Output:
   "everything  else  we",
   "do                  "
 ]
+"""
 
 
 
