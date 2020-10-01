@@ -24,9 +24,9 @@ Iterate the word in words, if too many words to fit in one line, we first justif
 then start over the curr_line = [] and curr_width = 0 for the next line.
 Lastly, we deal with the last line seperately.
 - [0420. Strong Password Checker](Solutions/0420.Strong-Password-Checker.py) (!!H) <br>
-分三个区间讨论：1. n <= 5: return max(6 - n, missing_types), 用三个小Helper function to calculate three missing_types;2. 6 <= n <= 20: just need to return how many replacements are needed to avoid consecutive chars: number_of_replacements += num_of_consecutives // 3; 3. n > 20: step 1: calculate how many replacements are neededto avoid consecutive chars; step 2: calculate how many deletions can be used to save replacements - greedy.
+分三个区间讨论：1. n <= 5: return max(6 - n, missing_types), 用三个小Helper function to calculate three missing_types;2. 6 <= n <= 20: just need to return how many replacements are needed to avoid consecutive chars: number_of_replacements += num_of_consecutives // 3; 3. n > 20: step 1: calculate how many replacements are neededto avoid consecutive chars; step 2: calculate how many deletions can be used to save replacements - greedy.好难呀
 
------------1323. Maximum 69 Number------------
+-----------1240. Tiling a Rectangle with the Fewest Squares-------
 
 
 ### [Amazon](/)
@@ -35,12 +35,12 @@ How to do it without for-loop: recursion
 - [0819. Most Common Word](Solutions/0819.Most-Common-Word.py) (E) <br>
 String processing in pipline: step 1: pre-process: convert all letters in lower case and replace the punctuations with spaces cuz they are not valid words; step 2: count the freq of the words that are not banned
 - [0036. Valid Sudoku](Solutions/0036.Valid-Sudoku.py) (M) <br>
-use a row_dict to record each row, a col_dict to record each col; a block_dict to record each 3x3 block.
+use a row_dict to record each row, a col_dict to record each col; a block_dict to record each 3x3 block. block_id is (row // 3, col // 3)
 
 
 
 ### [Facebook](/)
-- [0008. String to Integer (atoi)](Solutions/0008.String-to-Integer-(atoi).py) (M) <br>
+- [0008. String to Integer (atoi)](Solutions/0008.String-to-Integer-(atoi).py) (!!M) <br>
 we only need to handle 3 cases: 1. discards all leading whitespaces - using python str.strip(char). 2. sign of the number - use 正负1来代表符号. 3. overflow
 - [0273. Integer to English Words](Solutions/0273.Integer-to-English-Words.py) (!!H) <br>
 construct 3 lists for the english expressions for numbers less_than_20, tens, thousands.
