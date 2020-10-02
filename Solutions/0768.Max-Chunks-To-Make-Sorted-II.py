@@ -1,8 +1,11 @@
+"""
 768. Max Chunks To Make Sorted II
 
-This question is the same as "Max Chunks to Make Sorted" except the integers of the given array are not necessarily distinct, the input array could be up to length 2000, and the elements could be up to 10**8.
+This question is the same as "Max Chunks to Make Sorted" except the integers of the given array are not necessarily distinct, 
+the input array could be up to length 2000, and the elements could be up to 10**8.
 
-Given an array arr of integers (not necessarily distinct), we split the array into some number of "chunks" (partitions), and individually sort each chunk.  After concatenating them, the result equals the sorted array.
+Given an array arr of integers (not necessarily distinct), we split the array into some number of "chunks" (partitions), 
+and individually sort each chunk.  After concatenating them, the result equals the sorted array.
 
 What is the most number of chunks we could have made?
 
@@ -20,16 +23,20 @@ Output: 4
 Explanation:
 We can split into two chunks, such as [2, 1], [3, 4, 4].
 However, splitting into [2, 1], [3], [4], [4] is the highest number of chunks possible.
+"""
 
 
+"""
+Maintain two sums, one for arr, one for sorted arr.
+for num_1, num_2 in zip(arr, sorted(arr)): if sum_1 == sum_2: cnt += 1.
+"""
 class Solution:
     def maxChunksToSorted(self, arr: List[int]) -> int:
         cnt = 0
-        s1, s2 = 0, 0
-        for a, b in zip(arr, sorted(arr)):
-            s1 += a
-            s2 += b
-            if s1 == s2:
+        sum_1, sum_2 = 0, 0
+        for num_1, num_2 in zip(arr, sorted(arr)):
+            sum_1 += num_1
+            sum_2 += num_2
+            if sum_1 == sum_2:
                 cnt += 1
-                
         return cnt
