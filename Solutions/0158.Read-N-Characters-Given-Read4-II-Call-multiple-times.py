@@ -1,6 +1,8 @@
+"""
 158. Read N Characters Given Read4 II - Call multiple times
 
-Given a file and assume that you can only read the file using a given method read4, implement a method read to read n characters. Your method read may be called multiple times.
+Given a file and assume that you can only read the file using a given method read4, implement a method read to read n characters. 
+Your method read may be called multiple times.
 
  
 Method read4:
@@ -30,7 +32,8 @@ read4(buf4); // read4 returns 0. Now buf = "", fp points to end of file
 
 Method read:
 
-By using the read4 method, implement the method read that reads n characters from the file and store it in the buffer array buf. Consider that you cannot manipulate the file directly.
+By using the read4 method, implement the method read that reads n characters from the file and store it in the buffer array buf. 
+Consider that you cannot manipulate the file directly.
 
 The return value is the number of actual characters read.
 
@@ -65,6 +68,8 @@ The read function may be called multiple times.
 Please remember to RESET your class variables declared in Solution, as static/class variables are persisted across multiple test cases. Please see here for more details.
 You may assume the destination buffer array, buf, is guaranteed to have enough space for storing n characters.
 It is guaranteed that in a given test case the same buffer buf is called by read.
+"""
+
 
 
 
