@@ -27,8 +27,7 @@ Explanation: Each array should be divided in subarrays of size 3.
 
 
 """
-这一题与659. Split Array into Consecutive Subsequences解法很类似，用以一个hashmap记录frequency.
-由于必须固定长度为k, 所以我们每次都去连k个就可以了
+用以一个hashmap记录frequency. 由于必须固定长度为k, 所以我们每次都去连k个就可以了
 """
 class Solution:
     def isPossibleDivide(self, nums: List[int], k: int) -> bool:
