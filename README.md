@@ -70,7 +70,7 @@ for num_1, num_2 in zip(arr, sorted(arr)): if sum_1 == sum_2: cnt += 1.
 用一个hashmap存sub-domains --> cnt. 剩下的就是string processing了
 - [0006. ZigZag Conversion](Solutions/0006.ZigZag-Conversion.py) (M) <br>
 - [0326. Power of Three](Solutions/0326.Power-of-Three.py) (E) <br>
-solution 1: recursion; solution 2: math
+solution 1: recursion; solution 2: math: return abs(math.log(n, 3) - round(math.log(n, 3))) < 1e-10
 - [0605. Can Place Flowers](Solutions/0605.Can-Place-Flowers.py) (E) <br>
 把arr进行预处理：把arr的头部和尾部各加上0
 
@@ -2087,7 +2087,7 @@ return prediction <br>
 - [1515. Best Position for a Service Centre](Solutions/1515.Best-Position-for-a-Service-Centre.py) (!!!H) <br>
 the cost_func is actually defined as distance. 
 
-### [Rectangle几何题](/)
+### [Geometry](/)
 - [0836. Rectangle Overlap](Solutions/0836.Rectangle-Overlap.py) (E) <br>
 比较点的坐标即可
 - [0223. Rectangle Area](Solutions/0223.Rectangle-Area.py) (M) <br>
@@ -2096,8 +2096,11 @@ the cost_func is actually defined as distance.
 属于观察题目性质的题, In order to form a perfect rectangle, two condictions must be satisfied:
 condition 1. for all the coordinates, there are 4 and only 4 coordinates that appear only once, others appear either twice or 4 times.  So we can use a set to store all the coordinates and cnt their appear times
 condition 2. the sum of area of all the small rectangles should be the same as the whole big one (the area enclosed by the 4 coordinates in condition 1)
-- [Path with Circle Blocks](Solutions/Google__Path-with-Circle-Blocks.py) (M) <br>
+- [Path with Circle Blocks](Solutions/Google__Path-with-Circle-Blocks.py) (!! M) <br>
 Solution: Union-Find all the circles
+- [1266. Minimum Time Visiting All Points](Solutions/1266.Minimum-Time-Visiting-All-Points.py) (E) <br>
+- [1232. Check If It Is a Straight Line](Solutions/1232.Check-If-It-Is-a-Straight-Line.py) (E) <br>
+y = k* x + b. 单独判断k不存在的情况
 
 
 ### [Image Process](/)
