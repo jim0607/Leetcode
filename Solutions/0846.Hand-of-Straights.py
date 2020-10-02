@@ -29,36 +29,25 @@ Constraints:
 
 
 """
-similar solution as 659. Split Array into Consecutive Subsequences - O(NlogN + N*W)
+用以一个hashmap记录frequency. 由于必须固定长度为W, 所以我们每次都去连W个就可以了
 """
 class Solution:
-    def isNStraightHand(self, hand: List[int], W: int) -> bool:
-        hand.sort()
+    def isNStraightHand(self, nums: List[int], W: int) -> bool:
+        nums.sort()
         
-        counter = collections.Counter(hand)
-        need = collections.defaultdict(int)
-        curr_lens = 0
-        for num in hand:
-            if counter[num] == 0:
+        freq = collections.Counter(nums)
+
+        for num in nums:
+            if freq[num] == 0: 
                 continue
-            counter[num] -= 1
+
+            for i in range(W):
+                if freq[num + i] == 0:
+                    return False
+                freq[num + i] -= 1
             
-            if need[num] > 0:
-                need[num] -= 1
-                curr_lens += 1
-                if curr_lens == W:
-                    curr_lens = 0
-                else:
-                    need[num + 1] += 1
-            
-            elif need[num] == 0:
-                for i in range(1, W):
-                    if counter[num + i] == 0:
-                        return False
-                    counter[num + i] -= 1
-                curr_lens = 0
-                
         return True
+       
         
         
 """
