@@ -56,23 +56,18 @@ solution 1: mark the rows and cols that need to be set to zero - O(mn), O(m+n); 
 
 ### [Microsoft](/)
 - [0054. Spiral Matrix](Solutions/000054.Spiral-Matrix.py) (!!M) <br>
-dfs helper function 需要传入的参数有，当前的位置，当前的row_range and col_range, 当前的方向
+每一个转弯的点是dfs的node, dfs helper function 需要传入的参数有(当前的位置, 当前的方向，当前的row_range and col_range)
 
 
 ### [Other companies](/)
-- [0769. Max Chunks To Make Sorted](Solutions/0769.Max-Chunks-To-Make-Sorted.py) (M) <br>
+- [0769. Max Chunks To Make Sorted](Solutions/0769.Max-Chunks-To-Make-Sorted.py) (!!M) <br>
 Iterate the array, if the max(A[0] ~ A[i]) = i, then we can cut it at this index.,
 so that it the chunk ended with i. - just some game about number.
-- [0768. Max Chunks To Make Sorted II](Solutions/0768.Max-Chunks-To-Make-Sorted-II.py) (H) <br>
-没看懂，也没啥意思，这个Alice Wice喜欢为出题而出题，讨论区有用stack解的O(N)，比他自己给出的solution好多了
-- [0089. Gray Code](Solutions/0089.Gray-Code.py) (M) <br>
-找规律的题
-- [0829. Consecutive Numbers Sum](Solutions/0829.Consecutive-Numbers-Sum.py) (H) <br>
-假设从x开始存在连续有k个加起来等于N, then x+(x+1)+...+(x+k-1) = N, ie: kx + k(k-1)/2 = N.
-kx = N - k(k-1)/2. x = (N - k(k-1)/2) / k.  so the problem becomes: for k in range(1, N),
-is there a number k, such that (N - k(k-1)/2) / k is an integer?
+- [0768. Max Chunks To Make Sorted II](Solutions/0768.Max-Chunks-To-Make-Sorted-II.py) (!!H) <br>
+Maintain two sums, one for arr, one for sorted arr.
+for num_1, num_2 in zip(arr, sorted(arr)): if sum_1 == sum_2: cnt += 1.
 - [0811. Subdomain Visit Count](Solutions/0811.Subdomain-Visit-Count.py) (E) <br>
-It's all about string processing, 用到了 s.index(char)
+用一个hashmap存sub-domains --> cnt. 剩下的就是string processing了
 - [0006. ZigZag Conversion](Solutions/0006.ZigZag-Conversion.py) (M) <br>
 - [0326. Power of Three](Solutions/0326.Power-of-Three.py) (E) <br>
 solution 1: recursion; solution 2: math
@@ -2015,11 +2010,9 @@ Try all possibilities from 1 to 6. If we can make number i in a whole row, it sh
 使用两个 HashMap，第一个 HashMap 用来建立某个数字和其出现次数之间的映射 freq，
 第二个用来建立某个数字被前面顺子所需要的次数之间的映射 need。
 - [1296. Divide Array in Sets of K Consecutive Numbers](Solutions/1296.Divide-Array-in-Sets-of-K-Consecutive-Numbers.py) (!!M Google) <br>
-这一题与659. Split Array into Consecutive Subsequences解法很类似，需要的是两个hashmap
-一个记录freq, 一个记录how many need, 只是我们update need的方式有一点变化，如果已经拼出了长度为k的substring,
-那就不去update need[num+1]了. 所以需要一个curr_lens记录当前已经拼出多长的consecutive numbers了
+用以一个hashmap记录frequency. 由于必须固定长度为k, 所以我们每次都去连k个就可以了
 - [0846. Hand of Straights](Solutions/0846.Hand-of-Straights.py) (!!M Google) <br>
-Same as 1296. Divide Array in Sets of K Consecutive Numbers.  heapq solution is easier to understand.
+same as 1296. 用以一个hashmap记录frequency. 由于必须固定长度为W, 所以我们每次都去连W个就可以了
 - [0670. Maximum Swap](Solutions/0670.Maximum-Swap.py) (!!M) <br>
 solution 1: sort and compare - O(nlogn); solution 2: one pass from backward, 如果碰到一个小的，应该与后面已经遍历过的max_idx交换 - O(N)
 - [1383. Maximum Performance of a Team](Solutions/1383.Maximum-Performance-of-a-Team.py) (!!!H) <br>
@@ -2132,7 +2125,8 @@ The way to iterate each bit in an integer is: while n > 0: n = n >> 1. get the l
 - [0318. Maximum Product of Word Lengths](Solutions/0318.Maximum-Product-of-Word-Lengths.py) (M) <br>
 solution 1: sort and put larger lens in front. O(NlogN + N^2* L)
 - [0393. UTF-8 Validation](Solutions/0393.UTF-8-Validation.py) (M) <br>
-
+- [0089. Gray Code](Solutions/0089.Gray-Code.py) (M) <br>
+找规律的题
 
 
 ### [Math](/)
@@ -2140,6 +2134,10 @@ solution 1: sort and put larger lens in front. O(NlogN + N^2* L)
 交叉相除法，又叫Euclidean algorithm: The central idea is that if y > x, the GCD of x and y is the GCD of x and y − x. For example, GCD(156, 36) = GCD((156 − 36) = 120, 36). By extension, this implies that the GCD of x and y is the GCD of x and y mod x, i.e., GCD(156, 36) = GCD((156 mod 36) = 12, 36) = GCD(12, 36 mod 12 = 0) = 12. 具体implement的时候用recursion就可以了
 - [0343. Integer Break](Solutions/0343.Integer-Break.py) (M)
 拆分乘积最大的两个原则：1. 当所有拆分出的数字相等时，乘积最大； 2：拆分成三份时，乘积最大
+- [0829. Consecutive Numbers Sum](Solutions/0829.Consecutive-Numbers-Sum.py) (H) <br>
+假设从x开始存在连续有k个加起来等于N, then x+(x+1)+...+(x+k-1) = N, ie: kx + k(k-1)/2 = N.
+kx = N - k(k-1)/2. x = (N - k(k-1)/2) / k.  so the problem becomes: for k in range(1, N),
+is there a number k, such that (N - k(k-1)/2) / k is an integer?
 
 
 ### [Robot Simulation!!!](/)
