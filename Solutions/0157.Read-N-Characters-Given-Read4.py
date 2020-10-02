@@ -1,3 +1,4 @@
+"""
 Given a file and assume that you can only read the file using a given method read4, implement a method to read n characters.
 
 Method read4:
@@ -66,7 +67,7 @@ Note:
 Consider that you cannot manipulate the file directly, the file is only accesible for read4 but not for read.
 The read function will only be called once for each test case.
 You may assume the destination buffer array, buf, is guaranteed to have enough space for storing n characters.
-
+"""
 
 
 
