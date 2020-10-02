@@ -1,3 +1,4 @@
+"""
 829. Consecutive Numbers Sum
 
 Given a positive integer N, how many ways can we write it as a sum of consecutive positive integers?
@@ -17,7 +18,7 @@ Example 3:
 Input: 15
 Output: 4
 Explanation: 15 = 15 = 8 + 7 = 4 + 5 + 6 = 1 + 2 + 3 + 4 + 5
-
+"""
 
 
 """
