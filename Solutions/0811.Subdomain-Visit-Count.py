@@ -1,3 +1,4 @@
+"""
 811. Subdomain Visit Count
 
 A website domain like "discuss.leetcode.com" consists of various subdomains. At the top level, we have "com", at the next level, we have "leetcode.com", and at the lowest level, "discuss.leetcode.com". When we visit a domain like "discuss.leetcode.com", we will also visit the parent domains "leetcode.com" and "com" implicitly.
@@ -22,24 +23,31 @@ Output:
 Explanation: 
 We will visit "google.mail.com" 900 times, "yahoo.com" 50 times, "intel.mail.com" once and "wiki.org" 5 times. 
 For the subdomains, we will visit "mail.com" 900 + 1 = 901 times, "com" 900 + 50 + 1 = 951 times, and "org" 5 times.
+"""
+
 
 
 """
-It's all about string processing!
+用一个hashmap存sub-domains --> cnt. 剩下的就是string processing了
 """
 class Solution:
     def subdomainVisits(self, cpdomains: List[str]) -> List[str]:
-        domain_to_cnt = collections.defaultdict(int)
-        for s in cpdomains:
-            cnt = int(s[:s.index(" ")])
-            domains = s[s.index(" ") + 1:]
-            for i in range(len(domains) - 1, -1, -1):
-                if domains[i] == ".":
-                    domain = domains[i + 1:]
-                    domain_to_cnt[domain] += cnt
-            domain_to_cnt[domains] += cnt
-           
+        mapping = collections.defaultdict(int)      # sub-domains --> cnt
+        for domains in cpdomains:
+            self.helper(mapping, domains)
+        
         res = []
-        for domain, cnt in domain_to_cnt.items():
-            res.append(str(cnt) + " " + domain)        
+        for domain, cnt in mapping.items():
+            res.append(str(cnt) + " " + domain)
         return res
+
+    def helper(self, mapping, domains):
+        info = domains.split(" ")
+        cnt = int(info[0])
+        domains = info[1]
+        domain = ""
+        for i in range(len(domains) - 1, -1, -1):
+            if domains[i] == ".":
+                mapping[domain] += cnt
+            domain = domains[i] + domain
+        mapping[domain] += cnt
