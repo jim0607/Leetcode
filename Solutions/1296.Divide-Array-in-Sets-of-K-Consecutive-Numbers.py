@@ -27,38 +27,21 @@ Explanation: Each array should be divided in subarrays of size 3.
 
 
 """
-这一题与659. Split Array into Consecutive Subsequences解法很类似，需要的是两个hashmap
-一个记录freq, 一个记录how many need, 只是我们update need的方式有一点变化，如果已经拼出了长度为k的substring,
-那就不去update need[num+1]了
+这一题与659. Split Array into Consecutive Subsequences解法很类似，用以一个hashmap记录frequency.
+由于必须固定长度为k, 所以我们每次都去连k个就可以了
 """
 class Solution:
     def isPossibleDivide(self, nums: List[int], k: int) -> bool:
         nums.sort()
         
         freq = collections.Counter(nums)
-        need = collections.defaultdict(int)
 
-        curr_lens = 0       # curr_lens 记录当前拼出的长度
         for num in nums:
-            if freq[num] == 0: 
-               continue
-            freq[num] -= 1
-                
-            if need[num] > 0:
-                need[num] += 1
-                curr_lens += 1
-                if curr_lens < k:        # need num+1 only if lens is less than k
-                    need[num + 1] += 1
-                else:                    # if we found one k lens substring, reset cur_lens
-                    curr_lens = 0
-            
-            elif need[num] == 0:
-                for i in range(1, k):
-                    if freq[num + i] == 0:
-                        return False
-                    freq[num + i] -= 1
-                curr_lens = 0             # if we found one k lens substring, reset cur_lens
-                
-                # need[num + k] += 1      # need num+1 only if lens is less than k
+            if freq[num] == 0: continue
 
+            for i in range(k):
+                if freq[num + i] == 0:
+                    return False
+                freq[num + i] -= 1
+            
         return True
