@@ -1,6 +1,6 @@
 ## 四刷：每天刷15-20题, 做好总结！08/17 to 09/30
 ## 每天晚上睡前Review做过的题
-##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778; 09/04: 364; 09/05: 31; 09/06: 79; 09/07: 126; 09/08: 863; 09/13: 1066; 09/14: 354; 09/15: 416; 09/16: 10; 09/17: 1223; 09/18: 436; 09/19: 644; 09/20: 179; 09/21: 448; 09/22: 328; 09/23: 89; 09/24: 1052；09/25：238; 09/26: 991; 09/27: 311; 09/29: 497; 09/30: 487
+##### 08/17: 394; 08/18: 772; 08/19: 173; 08/20: 239; 08/21: 373; 08/22: 352; 08/23: 1109; 08/24: 1206; 08/25: 222; 08/26: 669; 08/27: 701; 08/28: 1233; 08/30: 642; 08/31: 327; 08/31: 765; 09/01: 1197; 09/02: 444; 09/03: 778; 09/04: 364; 09/05: 31; 09/06: 79; 09/07: 126; 09/08: 863; 09/13: 1066; 09/14: 354; 09/15: 416; 09/16: 10; 09/17: 1223; 09/18: 436; 09/19: 644; 09/20: 179; 09/21: 448; 09/22: 328; 09/23: 89; 09/24: 1052；09/25：238; 09/26: 991; 09/27: 311; 09/29: 497; 09/30: 487; 10/02: Done!
 
 
 
@@ -29,64 +29,18 @@ Lastly, we deal with the last line seperately.
 -----------1240. Tiling a Rectangle with the Fewest Squares-------
 
 
-### [Amazon](/)
-- [0412. Fizz Buzz](Solutions/0412.Fizz-Buzz.py) (E) <br>
-How to do it without for-loop: recursion
-- [0819. Most Common Word](Solutions/0819.Most-Common-Word.py) (E) <br>
-String processing in pipline: step 1: pre-process: convert all letters in lower case and replace the punctuations with spaces cuz they are not valid words; step 2: count the freq of the words that are not banned
-- [0036. Valid Sudoku](Solutions/0036.Valid-Sudoku.py) (M) <br>
-use a row_dict to record each row, a col_dict to record each col; a block_dict to record each 3x3 block. block_id is (row // 3, col // 3)
-
-
-
-### [Facebook](/)
-- [0008. String to Integer (atoi)](Solutions/0008.String-to-Integer-(atoi).py) (!!M) <br>
-we only need to handle 3 cases: 1. discards all leading whitespaces - using python str.strip(char). 2. sign of the number - use 正负1来代表符号. 3. overflow
-- [0273. Integer to English Words](Solutions/0273.Integer-to-English-Words.py) (!!H) <br>
-construct 3 lists for the english expressions for numbers less_than_20, tens, thousands.
-the main funciton handle the situation of num >= thousands.
-use a helper funciton to calcuate cases when num <= hundreds.
-- [0157. Read N Characters Given Read4](Solutions/0157.Read-N-Characters-Given-Read4.py) (E) <br>
-step 1: read file to buf4; step 2: write buf4 into buf
-- [0158. Read N Characters Given Read4 II - Call multiple times](Solutions/0158.Read-N-Characters-Given-Read4-II-Call-multiple-times.py) (!!H) <br>
-Get data from read4 and store it in a queue. When read data, transfer data from queue to buf.
-- [0073. Set Matrix Zeroes](Solutions/0073.Set-Matrix-Zeroes.py) (M) <br>
-solution 1: mark the rows and cols that need to be set to zero - O(mn), O(m+n); solution 2: use the first cell of every row and column as a flag.  This flag would determine whether a row or column has been set to zero. - O(mn), O(1)
-
-
-### [Microsoft](/)
-- [0054. Spiral Matrix](Solutions/000054.Spiral-Matrix.py) (!!M) <br>
-每一个转弯的点是dfs的node, dfs helper function 需要传入的参数有(当前的位置, 当前的方向，当前的row_range and col_range)
-
-
-### [Other companies](/)
-- [0769. Max Chunks To Make Sorted](Solutions/0769.Max-Chunks-To-Make-Sorted.py) (!!M) <br>
-Iterate the array, if the max(A[0] ~ A[i]) = i, then we can cut it at this index.,
-so that it the chunk ended with i. - just some game about number.
-- [0768. Max Chunks To Make Sorted II](Solutions/0768.Max-Chunks-To-Make-Sorted-II.py) (!!H) <br>
-Maintain two sums, one for arr, one for sorted arr.
-for num_1, num_2 in zip(arr, sorted(arr)): if sum_1 == sum_2: cnt += 1.
-- [0811. Subdomain Visit Count](Solutions/0811.Subdomain-Visit-Count.py) (E) <br>
-用一个hashmap存sub-domains --> cnt. 剩下的就是string processing了
-- [0006. ZigZag Conversion](Solutions/0006.ZigZag-Conversion.py) (M) <br>
-- [0326. Power of Three](Solutions/0326.Power-of-Three.py) (E) <br>
-solution 1: recursion; solution 2: math: return abs(math.log(n, 3) - round(math.log(n, 3))) < 1e-10
-- [0605. Can Place Flowers](Solutions/0605.Can-Place-Flowers.py) (E) <br>
-把arr进行预处理：把arr的头部和尾部各加上0
-
-
 # [Pramp](/)
 - [070820-Busiest Time in The Mall](Solutions/Pramp__070820-Busiest-Time-in-The-Mall.py) (M) <br>
 居然没做出来呀，太菜了，真的需要练呀！！
 - [081420-Island Count](Solutions/Pramp__081420-Island-Count.py) (M) <br>
 两点不好的地方需要改进：1. should we ask yourself a question before implementing the code for dfs?
 answer should be: we want to avoid visiting the same node again and again, one way is to use a set to mark the visited nodes, the other way to modify the matrix in-place. 2. 一定要在代码结束之后主动run test case, 首先需要run test case orally. 然后写一个print()出来打印结果像上面那样！！
-
-
-
-### 把几何题都做掉
-### 还是要多刷新题，见过和没见过真的很不一样！
-
+- [100320-Diff Between Two Strings](Solutions/Pramp__100320-Diff-Between-Two-Strings.py) (!!H) <br>
+This problem is easiest to attempt in two steps:
+step 1: do a dp for 72. Edit Distance;
+step 2: construct the answer using the dp list we constructed;
+If source[i] == target[j] we write source[i] in the answer. If j is invalid or dp(i+1, j) <= dp(i, j+1) we write -source[i] in the answer.
+Otherwise, we write +target[j].
 
 
 # [Data Structure](/Data-Structure.py)
@@ -2096,11 +2050,18 @@ the cost_func is actually defined as distance.
 属于观察题目性质的题, In order to form a perfect rectangle, two condictions must be satisfied:
 condition 1. for all the coordinates, there are 4 and only 4 coordinates that appear only once, others appear either twice or 4 times.  So we can use a set to store all the coordinates and cnt their appear times
 condition 2. the sum of area of all the small rectangles should be the same as the whole big one (the area enclosed by the 4 coordinates in condition 1)
+- [0963. Minimum Area Rectangle II](Solutions/0963.Minimum-Area-Rectangle-II.py) (!!M) <br>
+如果两条对角线相等，且平分对方，则这两条对角线可以组成矩形. use a hashmap to map (对角线的长度, 对角线的中点坐标) to a list of (对角线连接的两点的坐标) - O(n^2), O(n^2)
 - [Path with Circle Blocks](Solutions/Google__Path-with-Circle-Blocks.py) (!! M) <br>
 Solution: Union-Find all the circles
 - [1266. Minimum Time Visiting All Points](Solutions/1266.Minimum-Time-Visiting-All-Points.py) (E) <br>
 - [1232. Check If It Is a Straight Line](Solutions/1232.Check-If-It-Is-a-Straight-Line.py) (E) <br>
 y = k* x + b. 单独判断k不存在的情况
+- [1453. Maximum Number of Darts Inside of a Circular Dartboard](Solutions/) (H) <br>
+The intuition is that each potential answer has at least two points(darts) on the circle. O(n^3). Too hard for an interview.
+- [1401. Circle and Rectangle Overlapping](Solutions/1401.Circle-and-Rectangle-Overlapping.py) (M) <br>
+there are 9 cases in terms of repative pos of a circle and a rectangle
+
 
 
 ### [Image Process](/)
@@ -2247,6 +2208,53 @@ If the number is out of the desired range, reject it and re-sample again.
 Step 1: generate one rand_int1 in range (1, 7),  step 2: generate another rand_int2 in range (1, 7). Then from 7 * rand_int1 + rand_int2, we can get a random number in range (1, 49).
 - [0478. Generate Random Point in a Circle](Solutions/0478.Generate-Random-Point-in-a-Circle.py) (!!!M) <br>
 we use Polar coodinates. step 1: generate one rand_int1 for radius; step 2: generate anoter rand_int2 for angle. 注意对rand_int1要取平方根, 这是因为random.randrange()取的点在线性范围内是uniform的，但是在2D圆内不是
+
+
+
+### [Amazon](/)
+- [0412. Fizz Buzz](Solutions/0412.Fizz-Buzz.py) (E) <br>
+How to do it without for-loop: recursion
+- [0819. Most Common Word](Solutions/0819.Most-Common-Word.py) (E) <br>
+String processing in pipline: step 1: pre-process: convert all letters in lower case and replace the punctuations with spaces cuz they are not valid words; step 2: count the freq of the words that are not banned
+- [0036. Valid Sudoku](Solutions/0036.Valid-Sudoku.py) (M) <br>
+use a row_dict to record each row, a col_dict to record each col; a block_dict to record each 3x3 block. block_id is (row // 3, col // 3)
+
+
+
+### [Facebook](/)
+- [0008. String to Integer (atoi)](Solutions/0008.String-to-Integer-(atoi).py) (!!M) <br>
+we only need to handle 3 cases: 1. discards all leading whitespaces - using python str.strip(char). 2. sign of the number - use 正负1来代表符号. 3. overflow
+- [0273. Integer to English Words](Solutions/0273.Integer-to-English-Words.py) (!!H) <br>
+construct 3 lists for the english expressions for numbers less_than_20, tens, thousands.
+the main funciton handle the situation of num >= thousands.
+use a helper funciton to calcuate cases when num <= hundreds.
+- [0157. Read N Characters Given Read4](Solutions/0157.Read-N-Characters-Given-Read4.py) (E) <br>
+step 1: read file to buf4; step 2: write buf4 into buf
+- [0158. Read N Characters Given Read4 II - Call multiple times](Solutions/0158.Read-N-Characters-Given-Read4-II-Call-multiple-times.py) (!!H) <br>
+Get data from read4 and store it in a queue. When read data, transfer data from queue to buf.
+- [0073. Set Matrix Zeroes](Solutions/0073.Set-Matrix-Zeroes.py) (M) <br>
+solution 1: mark the rows and cols that need to be set to zero - O(mn), O(m+n); solution 2: use the first cell of every row and column as a flag.  This flag would determine whether a row or column has been set to zero. - O(mn), O(1)
+
+
+### [Microsoft](/)
+- [0054. Spiral Matrix](Solutions/000054.Spiral-Matrix.py) (!!M) <br>
+每一个转弯的点是dfs的node, dfs helper function 需要传入的参数有(当前的位置, 当前的方向，当前的row_range and col_range)
+
+
+### [Other companies](/)
+- [0769. Max Chunks To Make Sorted](Solutions/0769.Max-Chunks-To-Make-Sorted.py) (!!M) <br>
+Iterate the array, if the max(A[0] ~ A[i]) = i, then we can cut it at this index.,
+so that it the chunk ended with i. - just some game about number.
+- [0768. Max Chunks To Make Sorted II](Solutions/0768.Max-Chunks-To-Make-Sorted-II.py) (!!H) <br>
+Maintain two sums, one for arr, one for sorted arr.
+for num_1, num_2 in zip(arr, sorted(arr)): if sum_1 == sum_2: cnt += 1.
+- [0811. Subdomain Visit Count](Solutions/0811.Subdomain-Visit-Count.py) (E) <br>
+用一个hashmap存sub-domains --> cnt. 剩下的就是string processing了
+- [0006. ZigZag Conversion](Solutions/0006.ZigZag-Conversion.py) (M) <br>
+- [0326. Power of Three](Solutions/0326.Power-of-Three.py) (E) <br>
+solution 1: recursion; solution 2: math: return abs(math.log(n, 3) - round(math.log(n, 3))) < 1e-10
+- [0605. Can Place Flowers](Solutions/0605.Can-Place-Flowers.py) (E) <br>
+把arr进行预处理：把arr的头部和尾部各加上0
 
 
 
