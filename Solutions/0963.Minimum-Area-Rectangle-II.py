@@ -31,7 +31,7 @@ Explanation: The minimum area rectangle occurs at [2,1],[2,3],[3,3],[3,1], with 
 
 
 """
-如果两条对角线相等，且平分对方，则这两条.
+如果两条对角线相等，且平分对方，则这两条对角线可以组成矩形.
 use a hashmap to map (对角线的长度, 对角线的中点坐标) to a list of (对角线连接的两点的坐标)
 """
 class Solution:
