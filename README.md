@@ -1,4 +1,4 @@
-## Google + Pramp：10/03 to 10/18
+## Google 6 month 都做一遍 + Pramp：10/03 to 10/25
 ### 每天晚上睡前Review做过的题
 ##### 10/03: 
 
