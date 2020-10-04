@@ -50,9 +50,10 @@ Now we have the dp[i] for the case with out "A".
 Since we can add "A" anywhere, so the res = sum(dp[i-1] * dp[n-i]).
 - [0951. Flip Equivalent Binary Trees](Solutions/0951.Flip-Equivalent-Binary-Trees.py) (!!H) <br>
 recursion - O(min(N1, N2))
-
-
-
+- [0833. Find And Replace in String](Solutions/0833.Find-And-Replace-in-String.py) (M) <br>
+String manipulation.
+- [0722. Remove Comments](Solutions/0722.Remove-Comments.py) (M) <br>
+String manipulation. manipulate string line by line.
 
 
 
