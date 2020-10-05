@@ -1,6 +1,5 @@
-## Google 6 month 都做一遍 + Pramp：10/03 to 10/25
+## Google 6 month TOP 150 都做一遍 + Pramp：10/03 to 10/25
 ### 每天晚上睡前Review做过的题
-##### 10/03: 
 
 
 
@@ -54,6 +53,25 @@ recursion - O(min(N1, N2))
 String manipulation.
 - [0722. Remove Comments](Solutions/0722.Remove-Comments.py) (M) <br>
 String manipulation. manipulate string line by line.
+- [1293. Shortest Path in a Grid with Obstacles Elimination](Solutions/1293.Shortest-Path-in-a-Grid-with-Obstacles-Elimination.py) (H) <br>
+bfs. q 里面需要放入当前用了多少eliminations. q.append((next_i, next_j, curr_elimination_cnt))
+- [1138. Alphabet Board Path](Solutions/1138.Alphabet-Board-Path.py) (M) <br>
+bfs. 最短距离问题
+- [1345. Jump Game IV](Solutions/1345.Jump-Game-IV.py) (H) <br>
+bfs. 最短距离问题 - O(N). pruning makes hard.
+- [1240. Tiling a Rectangle with the Fewest Squares](Solutions/1240.Tiling-a-Rectangle-with-the-Fewest-Squares.py) (!!H) <br>
+backtrack. The basic idea is to fill the entire block bottom up. 
+In every step, find the lowest unfilled square first, and select a square with different possible sizes to fill it. 
+What is the nodes in the graph? It is a height array (skyline) height_arr!!!!! 
+The start_node is height_arr = [0, 0, 0...], the end_node is height_arr = [m, m, m...].
+Pruning:
+1. When the current cnt has exceeded the value of the current global optimal solution, then no need to move forward.
+2. Try largest square possible first (improves time by a lot).
+- [0562. Longest Line of Consecutive One in Matrix](Solutions/0562.Longest-Line-of-Consecutive-One-in-Matrix.py) (M) <br>
+hashset. each time we meet a 1, we explore horizontally, vertically and diagonally.
+Use set to store the nodes that were horizontally visited, vertically visited and diagonally visited. 
+
+
 
 
 
@@ -70,6 +88,14 @@ step 1: do a dp for 72. Edit Distance;
 step 2: construct the answer using the dp list we constructed;
 If source[i] == target[j] we write source[i] in the answer. If j is invalid or dp(i+1, j) <= dp(i, j+1) we write -source[i] in the answer.
 Otherwise, we write +target[j].
+- [100420-Sentence Reverse](Solutions/Pramp__100420-Sentence-Reverse.py) (!!H) <br>
+O(N), O(1) solution - 
+step 1: loop thru the given arr and inverse the whole array;
+step 2: reverse each word
+
+
+
+
 
 
 # [Data Structure](/Data-Structure.py)
