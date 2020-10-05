@@ -64,9 +64,7 @@ backtrack. The basic idea is to fill the entire block bottom up.
 In every step, find the lowest unfilled square first, and select a square with different possible sizes to fill it. 
 What is the nodes in the graph? It is a height array (skyline) height_arr!!!!! 
 The start_node is height_arr = [0, 0, 0...], the end_node is height_arr = [m, m, m...].
-Pruning:
-1. When the current cnt has exceeded the value of the current global optimal solution, then no need to move forward.
-2. Try largest square possible first (improves time by a lot).
+Pruning: 1. When the current cnt has exceeded the value of the current global optimal solution, then no need to move forward. 2. Try largest square possible first (improves time by a lot).
 - [0562. Longest Line of Consecutive One in Matrix](Solutions/0562.Longest-Line-of-Consecutive-One-in-Matrix.py) (M) <br>
 hashset. each time we meet a 1, we explore horizontally, vertically and diagonally.
 Use set to store the nodes that were horizontally visited, vertically visited and diagonally visited. 
