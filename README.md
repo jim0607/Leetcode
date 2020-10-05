@@ -68,7 +68,9 @@ Pruning: 1. When the current cnt has exceeded the value of the current global op
 - [0562. Longest Line of Consecutive One in Matrix](Solutions/0562.Longest-Line-of-Consecutive-One-in-Matrix.py) (M) <br>
 hashset. each time we meet a 1, we explore horizontally, vertically and diagonally.
 Use set to store the nodes that were horizontally visited, vertically visited and diagonally visited. 
-
+- [0777. Swap Adjacent in LR String](Solutions/0777.Swap-Adjacent-in-LR-String.py) (M) <br>
+观察之后可以发现每次replace "XL" to "LX"都是相当于把"L"向左移动。
+所以"L"一直向左移动，并且不会跨越其他"L" or "R". 而"R"一直向右移动，并且不会跨越其他"R" or "L".
 
 
 
