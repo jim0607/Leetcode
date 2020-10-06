@@ -87,6 +87,9 @@ Geometry. 看对角线吧 - 平分且相等且垂直
 Array. 
 - [0463. Island Perimeter](Solutions/0463.Island-Perimeter.py) (E) <br>
 Array.  step 1: find the min_row, max_row, min_col, max_col for the island; step 2: update the res row by row, col by col
+- [1277. Count Square Submatrices with All Ones](Solutions/1277.Count-Square-Submatrices-with-All-Ones.py) (M) <br>
+DP. very similar with 221.Maximal-Square. dp[i][j] 表示以 (i, j) 结尾所组成的最大正方形的边长。dp[i][j] 也表示以 (i, j) 结尾能组成的正方形的个数。
+
 
 
 
