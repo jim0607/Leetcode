@@ -80,7 +80,8 @@ class Solution:
         return dp[1][n]
         
 """
-正确答案：dp[i][j] = mid + max(dp[i][mid-1], dp[mid+1][j]) for mid in range(i, j)
+正确答案：dp[i][j] = mid + max(dp[i][mid-1], dp[mid+1][j]) for mid in range(i, j).
+O(n^3)
 """
 class Solution:
     def getMoneyAmount(self, n: int) -> int:
@@ -96,3 +97,36 @@ class Solution:
                     dp[i][j] = min(dp[i][j], mid + max(dp[i][mid-1], dp[mid+1][j]))
 
         return dp[1][n]
+    
+    
+"""
+below binary search for mid is similar with 887. Super Egg Drop.
+Good thinking, but not quite work here, because we are finding mid + binaray serach result, mid is also changing so donesn't work.
+"""
+class Solution:
+    def getMoneyAmount(self, n: int) -> int:
+        dp = [[float('inf') for _ in range(n + 1)] for _ in range(n + 1)]
+        for i in range(1, n + 1):
+            dp[i][i] = 0
+            if i + 1 < n + 1:
+                dp[i][i+1] = i
+        
+        for i in range(n - 2, 0, -1):
+            for j in range(i + 2, n + 1):
+                mid = self._binary_search(i, j, dp)
+                dp[i][j] = mid + max(dp[i][mid-1], dp[mid+1][j])
+
+        return dp[1][n]
+    
+    def _binary_search(self, i, j, dp):
+        """
+        return the first index k so that dp[i][k-1] >= dp[k+1][j]
+        """
+        start, end = i + 1, j - 1
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            if dp[i][mid-1] < dp[mid+1][j]:
+                start = mid
+            else:
+                end = mid
+        return start if dp[i][start-1] >= dp[start+1][j] else end
