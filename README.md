@@ -1,4 +1,4 @@
-## Google 6 month TOP 150 都做一遍 + Pramp：10/03 to 10/25
+## Google 6 month TOP 100 都做一遍 + Pramp：10/03 to 10/25
 ### 每天晚上睡前Review做过的题
 
 
@@ -71,8 +71,22 @@ Use set to store the nodes that were horizontally visited, vertically visited an
 - [0777. Swap Adjacent in LR String](Solutions/0777.Swap-Adjacent-in-LR-String.py) (M) <br>
 观察之后可以发现每次replace "XL" to "LX"都是相当于把"L"向左移动。
 所以"L"一直向左移动，并且不会跨越其他"L" or "R". 而"R"一直向右移动，并且不会跨越其他"R" or "L".
-
-
+- [0792. Number of Matching Subsequences](Solutions/0792.Number-of-Matching-Subsequences.py) (!!M) <br>
+solution 1: compare each word with source string using two pointers. O(nmk), where n = len(s), m = len(words) and k = average lens of word in words. solution 2: use binary search in s, similar with 1055.  O(mklogn)
+- [1055. Shortest Way to Form String](Solutions/1055.Shortest-Way-to-Form-String.py) (!!M) <br>
+solution 1: greedy + two pointers - O(st). solution 2: greedyf + binary seach - O(tlog(s))
+- [0374. Guess Number Higher or Lower](Solutions/0374.Guess-Number-Higher-or-Lower.py) (!!M) <br>
+Binary search.
+- [0375. Guess Number Higher or Lower II](Solutions/0375.Guess-Number-Higher-or-Lower-II.py) (!!M) <br>
+DP. dp[i][j] = 数字在[i, j]范围内所需要的最小payment. dp[i][j] = mid + max(dp[i][mid-1], dp[mid+1][j]) for mid in range(i, j)
+- [0900. RLE Iterator](Solutions/0900.RLE-Iterator.py) (M) <br>
+stack. one stack store cnt, one stack store num
+- [0593. Valid Square](Solutions/0593.Valid-Square.py) (M) <br>
+Geometry. 看对角线吧 - 平分且相等且垂直
+- [0989. Add to Array-Form of Integer](Solutions/0989.Add-to-Array-Form-of-Integer.py) (E) <br>
+Array. 
+- [0463. Island Perimeter](Solutions/0463.Island-Perimeter.py) (E) <br>
+Array.  step 1: find the min_row, max_row, min_col, max_col for the island; step 2: update the res row by row, col by col
 
 
 
@@ -1633,7 +1647,7 @@ eg: i = j - 4, dp[j] = dp[j-4]* 3, 因为把dp[j-4] ctr+V了两次
 - [0887. Super Egg Drop](Solutions/0887.Super-Egg-Drop.py) (!!H) <br>
 solution 1 - O(KN^2): dp[i][j] 表示有i个鸡蛋，j层楼要测需要的最小操作数. dp[i][j] = min(dp[i][j], 1 + max(dp[i - 1][k - 1], dp[i][j - k]) for k in range(1, j)). solution 2 - O(KNlogN). 用binary search 找k， instead of linear search.
 - [0688. Knight Probability in Chessboard](Solutions/0688.Knight-Probability-in-Chessboard.py) (!!M)
-其中dp[i][j]表示在棋盘(i, j)位置上走完当前步数还留在棋盘上的走法总和(注意是走法，不是步数). dp[i][j][k] += dp[next_i][next_j][k-1] for next_i and next_j in bound.
+dp[i][j][k]表示在棋盘(i, j)位置上走完k步数还留在棋盘上的走法总和(注意是走法，不是步数). dp[i][j][k] += dp[next_i][next_j][k-1] for next_i and next_j in bound.
 - [0467. Unique Substrings in Wraparound String](Solutions/0467.Unique-Substrings-in-Wraparound-String.py) (!!M)
 题目可以转换为分别求出以每个字符(a-z)为结束字符的最长连续字符串就行了，
 我们用一个数组记录下 以每个字符(a-z)为结束字符的最长连续字符串，最后求出数组的所有数字之和就是我们要的结果啦.
@@ -1708,6 +1722,9 @@ binary search + sliding window 二分答案：sort the list, then it becomes [1,
 we use two pointers to go through the list to check if there is more than k distance smaller than mid. The algorithm of helper function is sliding window so it's only O(N)
 - [0302. Smallest Rectangle Enclosing Black Pixels](Solutions/0302.Smallest-Rectangle-Enclosing-Black-Pixels.py) (!!H) <br>
 solution 1: simple dfs visit every balck pixel, and update the max_i, max_j, min_i, min_j during dfs. - O(mn). solution 2: 我们需要知道Black出现的最大的i和最小的i, 所以我们可以求出每一行的第一个Black和最后一个Black的idx, 就是我们想求的最大的i和最小的i了，转换成了OOXX问题了. 这题可以用binary search的原因是有且只有一个Black的岛屿，所以每一行都是一个先上后下的mountain array. - O(mlogn+nlogm). 我们在某一行扫binary search的时候范围是start, end = 0, self.min_j 
+
+
+
 
 ### [二分答案](/Binary-Search.py)
 ##### 1. minimum of maximum / maximum of minimum 的问题; 2. minimum/maximum to satisfy some condition 的问题
