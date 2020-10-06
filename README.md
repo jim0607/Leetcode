@@ -584,6 +584,9 @@ Greedy algorithm, 按结束为止排序，当两个结束位置相同时，起�
 solution 1: brutal force O(MN). solution 2: DP: O(m+n). for each interval [i, j, k], we need k more seats at day i, and we need k less seats at day j.
 so we can pre-calculate how many more we need on each day and store in a list need.
 dp[i]=how man yseats booked on day i. dp[i]=dp[i-1]+need[i]
+- [0850. Rectangle Area II](Solutions/0850.Rectangle-Area-II.py) (!!H Google) <br>
+sweep line solution: O(N^2logN).
+This is two sweep line problem pieced together.
 
 
 
