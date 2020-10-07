@@ -89,6 +89,15 @@ Array.
 Array.  step 1: find the min_row, max_row, min_col, max_col for the island; step 2: update the res row by row, col by col
 - [1277. Count Square Submatrices with All Ones](Solutions/1277.Count-Square-Submatrices-with-All-Ones.py) (M) <br>
 DP. very similar with 221.Maximal-Square. dp[i][j] 表示以 (i, j) 结尾所组成的最大正方形的边长。dp[i][j] 也表示以 (i, j) 结尾能组成的正方形的个数。
+- [1504. Count Submatrices With All Ones](Solutions/1504.Count-Submatrices-With-All-Ones.py) (!!!M) <br>
+Monostack. 与84.Largest-Rectangle-in-Histogram, 85.Maximal-Rectangle很类似.
+先构造histogram. 以j结尾的submatrices的个数等于heights[j] * (j - 向左找第一个height小于heights[j]的idx).
+- [0941. Valid Mountain Array](Solutions/0941.Valid-Mountain-Array.py) (E) <br>
+Binary search. 题目要求只要有arr[i]==arr[i-1]的情况就return False, 所以不能用binary search的
+- [0939. Minimum Area Rectangle](Solutions/0939.Minimum-Area-Rectangle.py) (!!M) <br>
+Geometry. O(N^2) - 我们choose two diagnol points to iterate, then check if other two diagonal points in p_set. 
+
+
 
 
 
