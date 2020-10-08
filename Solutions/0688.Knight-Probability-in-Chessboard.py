@@ -1,9 +1,10 @@
+"""
 On an NxN chessboard, a knight starts at the r-th row and c-th column and attempts to make exactly K moves. 
 The rows and columns are 0 indexed, so the top-left square is (0, 0), and the bottom-right square is (N-1, N-1).
 
 A chess knight has 8 possible moves it can make, as illustrated below. 
 Each move is two squares in a cardinal direction, then one square in an orthogonal direction.
-
+"""
 
 """
 上论坛看大家的解法，结果发现都是换了一个角度来解决问题的，并不很关心骑士的起始位置，
@@ -32,13 +33,13 @@ class Solution:
             for j in range(N):
                 dp[i][j][0] = 1
                 
-        for k in range(1, K + 1):
+        for k in range(1, K + 1):           # 千万注意是先更新k, 不然后面的转移方程就不成立了
             for i in range(N):
                 for j in range(N):
                     for delta_i, delta_j in steps:
-                        next_i, next_j = i + delta_i, j + delta_j
-                        if 0 <= next_i < N and 0 <= next_j < N:
-                            dp[i][j][k] += dp[next_i][next_j][k-1]      # 表示从(next_i, next_j)跳到(i, j)
+                        neigb_i, neigb_j = i + delta_i, j + delta_j
+                        if 0 <= neigb_i < N and 0 <= neigb_j < N:
+                            dp[i][j][k] += dp[neigb_i][neigb_j][k-1]      # 表示从(next_i, next_j)跳到(i, j)
         return dp[r][c][K] / 8**K
 
 
