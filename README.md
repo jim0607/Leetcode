@@ -96,7 +96,14 @@ Monostack. 与84.Largest-Rectangle-in-Histogram, 85.Maximal-Rectangle很类似.
 Binary search. 题目要求只要有arr[i]==arr[i-1]的情况就return False, 所以不能用binary search的
 - [0939. Minimum Area Rectangle](Solutions/0939.Minimum-Area-Rectangle.py) (!!M) <br>
 Geometry. O(N^2) - 我们choose two diagnol points to iterate, then check if other two diagonal points in p_set. 
-
+- [Longest snake in a matrix](Solutions/Google_longest-snake-in-a-matrix.py) (!!M) <br>
+dfs + memo same as 329. Longest Increasing Path in a Matrix.  特别注意：
+一般四个方向都可以走的情况不能用bottom up dp. 因为dp[i][j]需要用到dp[i-1][j], 而dp[i-1][j]也需要用到dp[i][j]，
+所以会形成环，DP需要无后效性，基本上是有向无环图，也就是必须能够拓扑排序。正确解法: dfs + memo, same as 329. Longest Increasing Path in a Matrix
+dfs with memorization to memorize the LIP from (curr_i, curr_j)
+- [Similar with 688. Knight Probability in Chessboard](Solutions/Google_Similar-with-688.Knight-Probability-in-Chessboard.py) (!!M Google) <br>
+dp.  dp[i][j][k] = from (i, j) the number of ways you to end up at the original coordinate with k steps.
+dp[i][j][k] = dp[i - 1][j][k - 1] + dp[i][j - 1][k - 1] + dp[i + 1][j][k - 1] + dp[i][j + 1][k - 1]
 
 
 
@@ -114,11 +121,13 @@ step 1: do a dp for 72. Edit Distance;
 step 2: construct the answer using the dp list we constructed;
 If source[i] == target[j] we write source[i] in the answer. If j is invalid or dp(i+1, j) <= dp(i, j+1) we write -source[i] in the answer.
 Otherwise, we write +target[j].
-- [100420-Sentence Reverse](Solutions/Pramp__100420-Sentence-Reverse.py) (!!H) <br>
+- [100420-Sentence Reverse](Solutions/Pramp__100420-Sentence-Reverse.py) (!!M) <br>
 O(N), O(1) solution - 
 step 1: loop thru the given arr and inverse the whole array;
 step 2: reverse each word
-
+- [1400. Construct K Palindrome Strings](Solutions/1400.Construct-K-Palindrome-Strings.py) (!!M) <br>
+Since we don't need to find each pandidromes, we don't need to use backtrack. 
+algoritm: we can form k palindromes if there are k or less than k chars that has odd cnt.
 
 
 
@@ -1411,7 +1420,7 @@ then memo[(curr_ring, curr_idx)] = min(memo[(curr_ring, curr_idx)], steps + 1 + 
 - [0293. Flip Game](Solutions/0293.Flip-Game.py) (E) <br>
 - [0294. Flip Game II](Solutions/0294.Flip-Game-II.py) (!!M) <br>
 dfs+memo: O(N^2); memo = (curr_state-->guarantee a win)
-- [0329. Longest Increasing Path in a Matrix](Solutions/0329.Longest-Increasing-Path-in-a-Matrix.py) (!!H) <br>
+- [0329. Longest Increasing Path in a Matrix](Solutions/0329.Longest-Increasing-Path-in-a-Matrix.py) (!!H Google) <br>
 solution 1: 从每一个点开始做backtrack - next candidate valid的条件是matrix[next_i][next_j] > matrix[curr_i][curr_j].  - O(MN2^(MN)).  solution 2: 由于题目并不要求算出path, 所以可以用recurssion with memorization to memorize the LIP from (curr_i, curr_j) (top down dp). Time complexity : O(MN). solution 3: buttom up dp.
 - [1057.Campus-Bikes.py](Solutions/1057.Campus-Bikes.py) (!!M) <br>
 brutal force solution O(MNlog(MN)): find the distance of all combinations, and sort them.
