@@ -73,8 +73,10 @@ Use set to store the nodes that were horizontally visited, vertically visited an
 所以"L"一直向左移动，并且不会跨越其他"L" or "R". 而"R"一直向右移动，并且不会跨越其他"R" or "L".
 - [0792. Number of Matching Subsequences](Solutions/0792.Number-of-Matching-Subsequences.py) (!!M) <br>
 solution 1: compare each word with source string using two pointers. O(nmk), where n = len(s), m = len(words) and k = average lens of word in words. solution 2: use binary search in s, similar with 1055.  O(mklogn)
+- [0392. Is Subsequence](Solutions/0392.Is-Subsequence.py) (!!E) <br>
+solution 1: two pointers. solution 2: binary search.
 - [1055. Shortest Way to Form String](Solutions/1055.Shortest-Way-to-Form-String.py) (!!M) <br>
-solution 1: greedy + two pointers - O(st). solution 2: greedyf + binary seach - O(tlog(s))
+solution 1: greedy + two pointers - O(st). solution 2: greedy + binary seach - O(tlog(s))
 - [0374. Guess Number Higher or Lower](Solutions/0374.Guess-Number-Higher-or-Lower.py) (!!M) <br>
 Binary search.
 - [0375. Guess Number Higher or Lower II](Solutions/0375.Guess-Number-Higher-or-Lower-II.py) (!!M) <br>
@@ -104,6 +106,24 @@ dfs with memorization to memorize the LIP from (curr_i, curr_j)
 - [Similar with 688. Knight Probability in Chessboard](Solutions/Google_Similar-with-688.Knight-Probability-in-Chessboard.py) (!!M Google) <br>
 dp.  dp[i][j][k] = from (i, j) the number of ways you to end up at the original coordinate with k steps.
 dp[i][j][k] = dp[i - 1][j][k - 1] + dp[i][j - 1][k - 1] + dp[i + 1][j][k - 1] + dp[i][j + 1][k - 1]
+- [0837. New 21 Game](Solutions/0837.New-21-Game.py) (!!M Google) <br>
+dp + sliding widown with fixed size.  The probability to get point K point is p(K) = p(K-1) / W + p(K-2) / W + p(K-3) / W + ... p(K-W) / W = (p(K-1) + p(K-2) + ... + p(K-W)) / W.  let wsum = p(K-1) + p(K-2) + ... + p(K-W), p(K) = wsum / W. dp is storing p(i) for i in [0 ... N]. We need to maintain the window by adding the new p(i), and getting rid of the old p(i-w)
+- [0771. Jewels and Stones](Solutions/0771.Jewels-and-Stones.py) (E) <br>
+Too easy to believe.
+- [0877. Stone Game](Solutions/0877.Stone-Game.py) (!!M Google) <br>
+dp. dp[i][j] = how many more scores can someone have when left stones are [i, j] inclussive. dp[i][i] = piles[i]. dp[i][j] = max(piles[i] - dp[i+1][j], piles[j] - dp[i][j-1]). return dp[0][n-1]
+- [1140. Stone Game II](Solutions/1140.Stone-Game-II.py) (!!M Google) <br>
+dp + suffix sum. dp[i][j] = the max score one can get with [i:] piles and M = j. dp[i][j] = max(sum(piles[i:]) - dp[i+x][max(j, x)] for x in range(1, min(2* j, n)). dp[i][n] = sum(piles[i:])
+- [1406. Stone Game III](Solutions/1406.Stone-Game-III.py) (!!M Google) <br>
+dp. similar with 394. Coins in a Line.  dp[i] = the max one can win with [i:] stones left. dp[i] = max(stones[i] - dp[i+1], stones[i] + stones[i+1] - dp[i+2], stones[i] + stones[i+1], stones[i+2] - dp[i+3])
+- [1510. Stone Game IV](Solutions/1510.Stone-Game-IV.py) (H Google) <br>
+dp. dp[j] = can one win with j. dp[j] = True if not dp[j - i* i] for i in range(1, sqrt(j)). O(N^1.5)
+- [1510. Stone Game IV](Solutions/1563.Stone-Game-V.py) (H Google) <br>
+dp. dp[i][j] = the number of scores Alice can get for [i, j]. dp[i][i] = for k in range(i, j) max(dp[i][k], dp[k+1][j]) + min(sums[i, k], sums[k+1, j]). O(N^3)
+- [1592. Rearrange Spaces Between Words](Solutions/1592.Rearrange-Spaces-Between-Words.py) (E Google) <br>
+Easy heasy!
+- [0389. Find the Difference](Solutions/0389.Find-the-Difference.py) (E Google) <br>
+Use two cnters, easy heasy!
 
 
 
@@ -121,6 +141,8 @@ step 1: do a dp for 72. Edit Distance;
 step 2: construct the answer using the dp list we constructed;
 If source[i] == target[j] we write source[i] in the answer. If j is invalid or dp(i+1, j) <= dp(i, j+1) we write -source[i] in the answer.
 Otherwise, we write +target[j].
+- [0058. Length of Last Word](Solutions/0058.Length-of-Last-Word.py) (!!E Google) <br>
+一定要熟悉句式：while j + 1 < len(s) and s[j+1].isalpha(): j += 1
 - [100420-Sentence Reverse](Solutions/Pramp__100420-Sentence-Reverse.py) (!!M) <br>
 O(N), O(1) solution - 
 step 1: loop thru the given arr and inverse the whole array;
@@ -1505,8 +1527,8 @@ hold[i] = max(hold[i-1], unhold[i-1]-prices[i]); unhold[i] = max(unhold[i-1], ho
 Only two transactions are allowed.  Maintain buy1=the minimum money you can **owe** after the first buy, sell1=the maximum money you **earn** after the first sell, also, buy2, sell2, and update them together in a for loop, 算法只是把121中的算法重复两次而已.
 - [0188. Best Time to Buy and Sell Stock IV](Solutions/0188.Best-Time-to-Buy-and-Sell-Stock-IV.py) (H) <br>
 Only k transactions are allowed.   Maintain buy=[]* k, sell=[]* k, and update them together in a for loop. buy[i] = min(buy[i], price - sell[i - 1]), buy[i] = the minimum money you can own after the ith purchase; sell[i] = max(sell[i], price - buy[i]), sell[i] = the maximum money you can earn after the ith purchase.  Solve the memory overflow problem: if k>prices.length/2, then it is the same as 122.
-- [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M)
-714. Best Time to Buy and Sell Stock with Transaction Fee 很像，都有交换和不交换两种情况
+- [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M) <br>
+与714. Best Time to Buy and Sell Stock with Transaction Fee 很像，都有交换和不交换两种情况
 
 
 
