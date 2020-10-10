@@ -62,7 +62,7 @@ class Solution:
         # step 2: then find the longest palindrome start with s[0]
         n = len(s)
         palin_idx = 0
-        for idx in idx_lst[::-1]:
+        for idx in idx_lst[::-1]:   # 注意这里只能Linear search不能binary search, 因为drop half是不行的
             if self._is_palin(s, 0, idx):
                 palin_idx = idx
                 break
