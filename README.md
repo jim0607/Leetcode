@@ -115,7 +115,7 @@ dp. dp[i][j] = how many more scores can someone have when left stones are [i, j]
 - [1140. Stone Game II](Solutions/1140.Stone-Game-II.py) (!!M Google) <br>
 dp + suffix sum. dp[i][j] = the max score one can get with [i:] piles and M = j. dp[i][j] = max(sum(piles[i:]) - dp[i+x][max(j, x)] for x in range(1, min(2* j, n)). dp[i][n] = sum(piles[i:])
 - [1406. Stone Game III](Solutions/1406.Stone-Game-III.py) (!!M Google) <br>
-dp. similar with 394. Coins in a Line.  dp[i] = the max one can win with [i:] stones left. dp[i] = max(stones[i] - dp[i+1], stones[i] + stones[i+1] - dp[i+2], stones[i] + stones[i+1], stones[i+2] - dp[i+3])
+dp. similar with 394. Coins in a Line.  dp[i] = __the max one can win with [i:] stones left__. dp[i] = max(stones[i] - dp[i+1], stones[i] + stones[i+1] - dp[i+2], stones[i] + stones[i+1], stones[i+2] - dp[i+3])
 - [1510. Stone Game IV](Solutions/1510.Stone-Game-IV.py) (H Google) <br>
 dp. dp[j] = can one win with j. dp[j] = True if not dp[j - i* i] for i in range(1, sqrt(j)). O(N^1.5)
 - [1510. Stone Game IV](Solutions/1563.Stone-Game-V.py) (H Google) <br>
@@ -171,7 +171,11 @@ step 2: reverse each word
 - [1400. Construct K Palindrome Strings](Solutions/1400.Construct-K-Palindrome-Strings.py) (!!M) <br>
 Since we don't need to find each pandidromes, we don't need to use backtrack. 
 algoritm: we can form k palindromes if there are k or less than k chars that has odd cnt.
-
+- [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (!!M)
+since subarray has to be continuous, we define dp as
+dp[i][j] = the max lens of repeated subarray ended with A[i] and B[j]
+dp[i][j] = if A[i-1]==B[j-1]: dp[i-1][j-1] + 1; else: 0 cuz has ot be continuous.
+solution 2: binary search - (m+n)mlogm.
 
 
 
@@ -1672,6 +1676,11 @@ curr is a set that stores all the combinations ended with ith number as we loop 
 #### 二维数组下标表示序列A前i个，序列B前j个: f[i][j]
 - [1143. Longest Common Subsequence](Solutions/1143.Longest-Common-Subsequence.py) (!!M) <br>
 f[i][j]为A前i个字符A[0..i)和B前j个字符[0..j)的最长公共子串的长度，注意不包括i和j，前面有一层buffer layer非常重要，就像sputtering那样重要！ f[i][j]=f[i-1][j-1] + 1 when A[i-1]=B[j-1], else f[i][j]=max(f[i-1][j], f[i][j-1])) # 注意有了buffer layer之后，dp中的i对应的是text中的i-1,所以判断条件是when A[i-1]=B[j-1]
+- [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (!!M)
+since subarray has to be continuous, we define dp as
+dp[i][j] = the max lens of repeated subarray ended with A[i] and B[j]
+dp[i][j] = if A[i-1]==B[j-1]: dp[i-1][j-1] + 1; else: 0 cuz has ot be continuous.
+solution 2: binary search - (m+n)mlogm.
 - [583. Delete Operation for Two Strings](Solutions/0583.Delete-Operation-for-Two-Strings.py) (M) <br>
 f[i][j] = the min number of steps needed to make word1[:i] and word[:j] the same; f[i][j]=f[i-1][j-1] when A[i-1]=B[j-1], else f[i][j]=min(f[i-1][j], f[i][j-1])) + 1
 - [0161. One Edit Distance](Solutions/0161.One-Edit-Distance.py) (M) <br>
@@ -1693,10 +1702,7 @@ solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题
 If t[i-1] == s[j-1]: dp[i][j] = dp[i-1][j-1] + 1; else: dp[i][j] = dp[i][j-1] + 1
 - [1537. Get the Maximum Score](Solutions/1537.Get-the-Maximum-Score.py) (!!H) <br>
 two pointers + dp: dp1[i] = max path sum ends with nums1[i-1]; dp2[j] = max path sum ends with nums2[j-1]  two pointers loop over nums1 and nums2 and update dp1 and dp2.
-- [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (M)
-since subarray has to be continuous, we define dp as
-dp[i][j] = the max lens of repeated subarray ended with A[i] and B[j]
-dp[i][j] = if A[i-1]==B[j-1]: dp[i-1][j-1] + 1; else: 0 cuz has ot be continuous
+
 
 
 ### [Other DP Problems](https://juejin.im/post/5d556b7ef265da03aa2568d5)
