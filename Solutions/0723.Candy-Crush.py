@@ -36,7 +36,7 @@ Each board[i][j] will initially start as an integer in the range [1, 2000].
 
 
 """
-step 1: check horizontal and vertical crush and changed the nums that needs to be crushed to negative.
+step 1: check horizontal and vertical crush and changed the board[i][j] that needs to be crushed to negative.
 step 2: do gravity to modify the board.
 step 3: recurssively modify the board until is there is crush needed.
 time complexity: O(number of crushes possible exist in the board * time needed for each crush)
