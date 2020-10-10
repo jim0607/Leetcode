@@ -124,6 +124,27 @@ dp. dp[i][j] = the number of scores Alice can get for [i, j]. dp[i][i] = for k i
 Easy heasy!
 - [0389. Find the Difference](Solutions/0389.Find-the-Difference.py) (E Google) <br>
 Use two cnters, easy heasy!
+- [0271. Encode and Decode Strings](Solutions/0271.Encode-and-Decode-Strings.py) (!!M Google) <br>
+quite smart. Encodes a list of strings to a single string. encode ["a$c@d", "31_;df"] as "5 a$c@d6 31_;df", where 5 is len("a$c@d") and 6 is len("31_;df").
+- [0299. Bulls and Cows](Solutions/0299.Bulls-and-Cows.py) (!!M Google) <br>
+use a digit_to_cnt hashmap for digit. one pass to update A_cnt, another pass to update B_cnt.
+- [0791. Custom Sort String](Solutions/0791.Custom-Sort-String.py) (!!M Google) <br>
+Bucket sort. use a bucket with bucket size n+1, store all the ch in t that also appear in s to the corresponding bucket_id, and those didn't appear in s to the last bucket_id.
+O(M+N)
+- [0165. Compare Version Numbers](Solutions/0165.Compare-Version-Numbers.py) (M Google) <br>
+two pointers.  split the version by "." first before processing.
+- [0249. Group Shifted Strings](Solutions/0249.Group-Shifted-Strings.py) (!!M Google) <br>
+hashmap. similar with 49. Group Anagrams.
+the key of the hashmap is a tuple of the list [ord(ch)-ord(first_ch) for ch in each string]
+- [0418. Sentence Screen Fitting](Solutions/0418.Sentence-Screen-Fitting.py) (!M Google) <br>
+string. fit the sentence in line by line
+- [0214. Shortest Palindrome](Solutions/0214.Shortest-Palindrome.py) (!!H Google) <br>
+The problem really is to find the longest palindrome starts with s[0].
+rabin carp / rolling hash O(N). The algorithm is for string s, left_code = the hash_code scan from left to right,
+right_code = the hash_code scan from right to left. if left_code == right_code, then s is a palindrome.
+
+
+
 
 
 
