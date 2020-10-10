@@ -30,6 +30,50 @@ class Solution:
         return max_len
 
 
+"""
+solution 2: binary search - (m+n)mlogm.
+"""
+class Solution:
+    def findLength(self, A: List[int], B: List[int]) -> int:
+        m, n = len(A), len(B)
+        if m > n:
+            return self.findLength(B, A)
+        
+        start, end = 0, m
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            if self._is_valid(A, B, mid):
+                start = mid
+            else:
+                end = mid
+                
+        return end if self._is_valid(A, B, end) else start
+    
+    def _is_valid(self, A, B, mid):
+        """
+        return if there is mid-size window in A that equals a mid-size window in B
+        O(m + n)
+        """
+        window_set = set()
+        dq_A = collections.deque()
+        for i in range(len(A)):
+            dq_A.append(A[i])
+            if i >= mid:
+                dq_A.popleft()
+            if len(dq_A) == mid:
+                window_set.add(tuple(dq_A))
+            
+        dq_B = collections.deque()
+        for i in range(len(B)):
+            dq_B.append(B[i])
+            if i >= mid:
+                dq_B.popleft()
+            if len(dq_B) == mid and tuple(dq_B) in window_set:      # note that this takes O(mid)
+                return True
+            
+        return False  
+    
+    
 
 
 """方法一：暴力法O(N^3)。实际这道题就是求 Longest Common Substring 的问题了。最暴力的方法就是遍历A中的每个位置，把每个位置都当作是起点进行和B从开头比较，
