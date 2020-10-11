@@ -146,7 +146,7 @@ right_code = the hash_code scan from right to left. if left_code == right_code, 
 Recurssion. step 1: check horizontal and vertical crush and changed the board[i][j] that needs to be crushed to negative.
 step 2: do gravity to modify the board.
 step 3: recurssively modify the board until is there is crush needed. O((MN)^2)
-- [0723. Candy Crush](Solutions/0723.Candy-Crush.py) (!!M Google) <br>
+- [0911. Online Election](Solutions/0911.Online-Election.py) (!!M Google) <br>
 Precomputed Answer + Binary Search.
 Constructor: O(N). each query: O(logN). 我们将每一个时刻的winner放到self.res中，这种提前计算好的思想非常重要！
 - [0535. Encode and Decode TinyURL](Solutions/0535.Encode-and-Decode-TinyURL.py) (M Google) <br>
