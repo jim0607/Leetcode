@@ -142,6 +142,22 @@ string. fit the sentence in line by line
 The problem really is to find the longest palindrome starts with s[0].
 rabin carp / rolling hash O(N). The algorithm is for string s, left_code = the hash_code scan from left to right,
 right_code = the hash_code scan from right to left. if left_code == right_code, then s is a palindrome.
+- [0723. Candy Crush](Solutions/0723.Candy-Crush.py) (!!M Google) <br>
+Recurssion. step 1: check horizontal and vertical crush and changed the board[i][j] that needs to be crushed to negative.
+step 2: do gravity to modify the board.
+step 3: recurssively modify the board until is there is crush needed. O((MN)^2)
+- [0723. Candy Crush](Solutions/0723.Candy-Crush.py) (!!M Google) <br>
+Precomputed Answer + Binary Search.
+Constructor: O(N). each query: O(logN). 我们将每一个时刻的winner放到self.res中，这种提前计算好的思想非常重要！
+- [0535. Encode and Decode TinyURL](Solutions/0535.Encode-and-Decode-TinyURL.py) (M Google) <br>
+Hashmap. Convert long url to short url via hashing. Look up long url from short url in hash table. # hash(str) returns the hash_code for the str
+- [0246. Strobogrammatic Number](Solutions/0246.Strobogrammatic-Number.py) (E) <br>
+Two pointers. similar with 1056. Confusing Number.
+- [0247. Strobogrammatic Number II](Solutions/0247.Strobogrammatic-Number-II.py) (E) <br>
+Backtrack. find all combinations for n//2 lens, using backtrack.
+
+
+
 
 
 
