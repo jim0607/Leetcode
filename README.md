@@ -183,10 +183,13 @@ step 2: update max_possible time that can be constructed from the permutations.
 prefix sum 2D version. similar with 304. Range Sum Query 2D - Immutable
 - [1292. Maximum Side Length of a Square with Sum Less than or Equal to Threshold](Solutions/1292.Maximum-Side-Length-of-a-Square-with-Sum-Less-than-or-Equal-to-Threshold.py) (!!M Google) <br>
 prefix sum 2D version + binary search. solution 1: max problem - binary search O(mnlogmn). solution 2: prefix sum
-- [Check if value exists in level-order sorted complete binary tree](Solutions/Google__Check-if -value-exists-in-level-order-sorted-complete-binary-tree.py) (!!! Google) <br>
+- [Check if value exists in level-order sorted complete binary tree](Solutions/Google__Check-if-value-exists-in-level-order-sorted-complete-binary-tree.py) (!!! Google) <br>
 binary search and tree. step 1: find the level of the num by going check the left path; binary search on the located level. This is the hard part because unlike the conventional binary search, the nodes of this level cannot be accessed directly. we need to use gray code to locate the mid node in the level.
-
-
+- [1218. Longest Arithmetic Subsequence of Given Difference](Solutions/1218.Longest-Arithmetic-Subsequence-of-Given-Difference.py) (!!!M Google) <br>
+dp, similar with. solution 1: O(N^), dp[i] = the LAS ended with arr[i]. dp[j] = dp[i] + 1 for i < j and arr[j] - arr[i] == diff. O(N) use hashmap, like two sum problem. dp[arr[j]] = dp[arr[j] - diff] + 1 if arr[j] - diff in dp else 1.
+- [1146. Snapshot Array](Solutions/1146.Snapshot-Array.py) (!!!M Google) <br>
+solution 1: sparse array. Since 题目说了 initially, each element equals 0.
+we treated it as a sparse matrix: use a dictionary to store only the non-zero values.
 
 
 
