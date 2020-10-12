@@ -92,7 +92,12 @@ Array.  step 1: find the min_row, max_row, min_col, max_col for the island; step
 - [1277. Count Square Submatrices with All Ones](Solutions/1277.Count-Square-Submatrices-with-All-Ones.py) (M) <br>
 DP. very similar with 221.Maximal-Square. dp[i][j] 表示以 (i, j) 结尾所组成的最大正方形的边长。dp[i][j] 也表示以 (i, j) 结尾能组成的正方形的个数。
 - [1504. Count Submatrices With All Ones](Solutions/1504.Count-Submatrices-With-All-Ones.py) (!!!M) <br>
-Monostack. 与84.Largest-Rectangle-in-Histogram, 85.Maximal-Rectangle很类似.
+Monostack. solution 1: dp. O(M^2N)
+固定以up_row为长方形上边，然后去探寻不同下边的情况,
+每次探寻一个下边，我们都计算一次从up_row到down_row可能有多少个valid_submatrices,
+我们把这个计算转换成一维来计算，对于每一个up_row, 都构建一个一位数组arr.  
+arr[j] = 1 if from up_row to down_row, all values in column j are 1. 只要up_row到down_row有一个value is 0，
+我们就设置arr[j] = 0, 表示不可能以up_row为上边以down_row为下边以j为右col构造valid submatrce. solution 2: 与84.Largest-Rectangle-in-Histogram, 85.Maximal-Rectangle很类似.
 先构造histogram. 以j结尾的submatrices的个数等于heights[j] * (j - 向左找第一个height小于heights[j]的idx).
 - [0941. Valid Mountain Array](Solutions/0941.Valid-Mountain-Array.py) (E) <br>
 Binary search. 题目要求只要有arr[i]==arr[i-1]的情况就return False, 所以不能用binary search的
@@ -118,7 +123,7 @@ dp + suffix sum. dp[i][j] = the max score one can get with [i:] piles and M = j.
 dp. similar with 394. Coins in a Line.  dp[i] = __the max one can win with [i:] stones left__. dp[i] = max(stones[i] - dp[i+1], stones[i] + stones[i+1] - dp[i+2], stones[i] + stones[i+1], stones[i+2] - dp[i+3])
 - [1510. Stone Game IV](Solutions/1510.Stone-Game-IV.py) (H Google) <br>
 dp. dp[j] = can one win with j. dp[j] = True if not dp[j - i* i] for i in range(1, sqrt(j)). O(N^1.5)
-- [1510. Stone Game IV](Solutions/1563.Stone-Game-V.py) (H Google) <br>
+- [1563. Stone Game V](Solutions/1563.Stone-Game-V.py) (H Google) <br>
 dp. dp[i][j] = the number of scores Alice can get for [i, j]. dp[i][i] = for k in range(i, j) max(dp[i][k], dp[k+1][j]) + min(sums[i, k], sums[k+1, j]). O(N^3)
 - [1592. Rearrange Spaces Between Words](Solutions/1592.Rearrange-Spaces-Between-Words.py) (E Google) <br>
 Easy heasy!
@@ -153,8 +158,33 @@ Constructor: O(N). each query: O(logN). 我们将每一个时刻的winner放到s
 Hashmap. Convert long url to short url via hashing. Look up long url from short url in hash table. # hash(str) returns the hash_code for the str
 - [0246. Strobogrammatic Number](Solutions/0246.Strobogrammatic-Number.py) (E) <br>
 Two pointers. similar with 1056. Confusing Number.
-- [0247. Strobogrammatic Number II](Solutions/0247.Strobogrammatic-Number-II.py) (E) <br>
+- [0247. Strobogrammatic Number II](Solutions/0247.Strobogrammatic-Number-II.py) (!!M Google) <br>
 Backtrack. find all combinations for n//2 lens, using backtrack.
+- [0043. Multiply Strings](Solutions/0043.Multiply-Strings.py) (M Google) <br>
+Math. 3 * 456 = 456 + 456 + 456
+- [1021. Remove Outermost Parentheses](Solutions/1021.Remove-Outermost-Parentheses.py) (E Google) <br>
+parentheses. solution 1: stack; solution 2: use a cnt for "("
+- [0682. Baseball Game](Solutions/0682.Baseball-Game.py) (E Google) <br>
+calculator. 
+- [1352. Product of the Last K Numbers](Solutions/1352.Product-of-the-Last-K-Numbers.py) (!!M Google) <br>
+prefix sum.  Keep all prefix products of numbers in an array, 
+then calculate the product of last K elements in O(1) complexity.
+When a zero number is added, we need to reset the array of prefix products.
+- [1237. Find Positive Integer Solution for a Given Equation](Solutions/1237.Find-Positive-Integer-Solution-for-a-Given-Equation.py) (E Google) <br>
+反向双指针.   
+- [1170. Compare Strings by Frequency of the Smallest Character](Solutions/1170.Compare-Strings-by-Frequency-of-the-Smallest-Character.py) (E Google) <br>
+hashmap. step 1: calculate the f(q) for each q in queries f_q, and f(w) for each w in words f_w.
+step 2: sort the f_w.
+step 3: ieterate queries and do binary search in f_w to update res.   
+- [0949. Largest Time for Given Digits](Solutions/0949.Largest-Time-for-Given-Digits.py) (!!M Google) <br>
+backtrack. step 1: find all possible permutations - O(4!).
+step 2: update max_possible time that can be constructed from the permutations.
+- [1314. Matrix Block Sum](Solutions/1314.Matrix-Block-Sum.py) (!!M Google) <br>
+prefix sum 2D version. similar with 304. Range Sum Query 2D - Immutable
+- [1292. Maximum Side Length of a Square with Sum Less than or Equal to Threshold](Solutions/1292.Maximum-Side-Length-of-a-Square-with-Sum-Less-than-or-Equal-to-Threshold.py) (!!M Google) <br>
+prefix sum 2D version + binary search. solution 1: max problem - binary search O(mnlogmn). 
+
+
 
 
 
