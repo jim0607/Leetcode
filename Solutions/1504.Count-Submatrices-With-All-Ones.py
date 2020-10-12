@@ -44,6 +44,41 @@ Output: 5
 
 
 """
+solution 1: dp. O(M^2N)
+固定以up_row为长方形上边，然后去探寻不同下边的情况,
+每次探寻一个下边，我们都计算一次从up_row到down_row可能有多少个valid_submatrices,
+我们把这个计算转换成一维来计算，对于每一个up_row, 都构建一个一位数组arr.  
+arr[j] = 1 if from up_row to down_row, all values in column j are 1. 只要up_row到down_row有一个value is 0，
+我们就设置arr[j] = 0, 表示不可能以up_row为上边以down_row为下边以j为右col构造valid submatrce.
+"""
+class Solution:
+    def numSubmat(self, matrix: List[List[int]]) -> int:
+        m, n = len(matrix), len(matrix[0])
+        res = 0
+        for up_row in range(m):            # 固定以up_row为长方形上边，然后去探寻不同下边的情况
+            arr = [1 for _ in range(n)]    # 每次探寻一个下边，我们都计算一次从up_row到down_row可能有多少个valid_submatrices
+            for down_row in range(up_row, m):
+                for j in range(n):
+                    if matrix[down_row][j] == 0:   #只要up_row到down_row有一个value is 0，我们就设置arr[j] = 0
+                        arr[j] = 0    
+                res += self._1D(arr)     # self._1D(arr) return的是以up_row为上边以down_row为下边的可能的valid submatrice的个数
+                
+        return res
+    
+    def _1D(self, arr):
+        """
+        Return how many subarray that are all 0s - using dp
+        """
+        dp = [0 for _ in range(len(arr))]   # dp[i] = how many substrings ended with arr[i]
+        dp[0] = 1 if arr[0] == 1 else 0
+        for i in range(1, len(arr)):
+            dp[i] = dp[i-1] + 1 if arr[i] == 1 else 0
+        return sum(dp)
+
+
+
+"""
+solution 2: O(MN)
 与84.Largest-Rectangle-in-Histogram, 85.Maximal-Rectangle很类似.
 先构造histogram. 以j结尾的submatrices的个数等于heights[j] * (j - 向左找第一个height小于heights[j]的idx).
 """
