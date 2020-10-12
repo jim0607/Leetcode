@@ -182,8 +182,9 @@ step 2: update max_possible time that can be constructed from the permutations.
 - [1314. Matrix Block Sum](Solutions/1314.Matrix-Block-Sum.py) (!!M Google) <br>
 prefix sum 2D version. similar with 304. Range Sum Query 2D - Immutable
 - [1292. Maximum Side Length of a Square with Sum Less than or Equal to Threshold](Solutions/1292.Maximum-Side-Length-of-a-Square-with-Sum-Less-than-or-Equal-to-Threshold.py) (!!M Google) <br>
-prefix sum 2D version + binary search. solution 1: max problem - binary search O(mnlogmn). 
-
+prefix sum 2D version + binary search. solution 1: max problem - binary search O(mnlogmn). solution 2: prefix sum
+- [Check if value exists in level-order sorted complete binary tree](Solutions/Google__Check-if -value-exists-in-level-order-sorted-complete-binary-tree.py) (!!! Google) <br>
+binary search and tree. step 1: find the level of the num by going check the left path; binary search on the located level. This is the hard part because unlike the conventional binary search, the nodes of this level cannot be accessed directly. we need to use gray code to locate the mid node in the level.
 
 
 
@@ -1893,7 +1894,7 @@ O(N): 从左到右扫一遍，不满足条件的交换就好了。定义一个�
 - [0031. Partition Array](Solutions/0031.Partition-Array.py) (!!Lintcode) 
 用quick select的模板，partition这个函数的作用是O(N)找到某个数k在一个无序数组中所在的位置，并按照这个数k将该数组分为左右两部分。
 - [0905. Sort Array By Parity](Solutions/0905.Sort-Array-By-Parity.py) (E) <br>
-solution 1: 同向双指针； solution 2: 反向双指针 - partition
+solution 1: 同向双指针； solution 2: 反向双指针 - partition 好像两种方法都不能maintain the original order of numbers.
 - [0144. Interleaving Positive and Negative Numbers](Solutions/0144.Interleaving-Positive-and-Negative-Numbers.py) (Lintcode) <br>
 STEP 1: 反向双指针（或同向双指针）对[-1,-2,4,,5,-3,6]进行partition，负数在左边，正数在右边[-1, -2, -3, 4, 5, 6]; STEP 2: 再正负正负安插
 - [0075. Sort Colors](Solutions/0075.Sort-Colors.py) (!!M) <br>
