@@ -115,5 +115,5 @@ class Solution:
                 
         
         MOD = 10**9 + 7
-        memo = collections.defaultdict(int)     # (curr_roll, last_num, repeat_time) --> ho many ways
+        memo = collections.defaultdict(int)     # (curr_roll, last_num, repeat_time) --> how many ways
         return backtrack(0, 0, 0)    
