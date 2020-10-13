@@ -151,6 +151,8 @@ right_code = the hash_code scan from right to left. if left_code == right_code, 
 Recurssion. step 1: check horizontal and vertical crush and changed the board[i][j] that needs to be crushed to negative.
 step 2: do gravity to modify the board.
 step 3: recurssively modify the board until is there is crush needed. O((MN)^2)
+- [0488. Zuma Game](Solutions/0488.Zuma-Game.py) (!H) <br>
+backtrack. Each crushed board is a node in backtrack. from curr_crushed_board to next_crushed_board, we need to do a crush recurssively similar with 723. Candy Crush
 - [0911. Online Election](Solutions/0911.Online-Election.py) (!!M Google) <br>
 Precomputed Answer + Binary Search.
 Constructor: O(N). each query: O(logN). 我们将每一个时刻的winner放到self.res中，这种提前计算好的思想非常重要！
@@ -190,9 +192,16 @@ dp, similar with. solution 1: O(N^), dp[i] = the LAS ended with arr[i]. dp[j] = 
 - [1146. Snapshot Array](Solutions/1146.Snapshot-Array.py) (!!!M Google) <br>
 solution 1: sparse array. Since 题目说了 initially, each element equals 0.
 we treated it as a sparse matrix: use a dictionary to store only the non-zero values.
-
-
-
+- [1223. Dice Roll Simulation](Solutions/1223.Dice-Roll-Simulation.py) (!!!M Google) <br>
+solution 1: backtrack - O(6^N) in worst case. 不需要传入curr_comb, 只需要last_num和the repeat time of last_num. solution 2: backtrack + memo - O(6n^2). 套backtrack + memo的模板即可
+- [1466. Reorder Routes to Make All Paths Lead to the City Zero](Solutions/1466.Reorder-Routes-to-Make-All-Paths-Lead-to-the-City-Zero.py) (!!M Google) <br>
+solution dfs. 问题等价于原来0不能到达所有的nodes, 现在需要改变一些connections使得0可以到达所有nodes. 建一个graph和一个anti_graph. 从0出发，先在anti_graph里面找next_node一直往前走，然后从graph里面找next_node, 从graph里面找说明需要反向，所以self.cnt += 1
+- [0471. Encode String with Shortest Length](Solutions/0471.Encode-String-with-Shortest-Length.py) (!!H Google) <br>
+solution dp. dp[i][j] is the encode of substring including index i to index j.
+dp[i][j] = min(dp[i][j], dp[i][k]+dp[k][j], potential_candidate) in terms of length.
+potential_candidate = "k[repeating_pattern]", 
+where pattern is the repeating string in substring s[i:j+1] and k is the number of repeating times. 
+initializaton: dp[i][j] = s[i:j+1] originally, return dp[0][n-1]
 
 
 
@@ -1776,8 +1785,7 @@ dp[i][j][k]表示在棋盘(i, j)位置上走完k步数还留在棋盘上的走�
 我们用一个数组记录下 以每个字符(a-z)为结束字符的最长连续字符串，最后求出数组的所有数字之和就是我们要的结果啦.
 - [0361. Bomb Enemy](Solutions/0361.Bomb-Enemy.py) (M)
 brutal force: 上下左右四个方向去找能炸死多少人即可。 DP解法: 把(i, j)位置能炸死多少敌人提前计算好放入二维数组中， up[i][j]=在(i,j)位置能向上炸的敌人数目
-- [1223. Dice Roll Simulation](Solutions/1223.Dice-Roll-Simulation.py) (M)
-没搞懂
+
 
 ---------------- 1235. Maximum Profit in Job Scheduling -----------------
 
