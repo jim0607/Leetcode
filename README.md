@@ -202,7 +202,8 @@ dp[i][j] = min(dp[i][j], dp[i][k]+dp[k][j], potential_candidate) in terms of len
 potential_candidate = "k[repeating_pattern]", 
 where pattern is the repeating string in substring s[i:j+1] and k is the number of repeating times. 
 initializaton: dp[i][j] = s[i:j+1] originally, return dp[0][n-1]
-
+- [0471. Encode String with Shortest Length](Solutions/0471.Encode-String-with-Shortest-Length.py) (!!H Google) <br>
+Parenetheses. 与394.Decode String非常类似, 我们需要反向遍历，这样只要遇到upper case的ch就可以加到dictionary了
 
 
 
