@@ -67,20 +67,17 @@ class Solution:
                         continue
                     if grid[x1][y1] == -1 or grid[x2][y2] == -1:    # if meets thorn
                         continue
-                    if dp[x1][y1][x2] > 0:      # if already visited
+                    if dp[x1][y1][x2] >= 0:      # if already visited
                         continue
 
-                    curr_max = max(dp[x1 - 1][y1][x2], dp[x1 - 1][y1][x2 - 1], dp[x1][y1 - 1][x2], dp[x1][y1 - 1][x2 - 1])
-                    if curr_max < 0:        # cannot get to this location
-                        continue
-                        
-                    dp[x1][y1][x2] = curr_max + grid[x1][y1]   # person A pick up the cherry
-                    if not (x1 == x2 and y1 == y2):
-                        dp[x1][y1][x2] += grid[x2][y2]         # person B pick up the cherry if A, B不在同一点
+                    curr_cherry = grid[x1][y1] if (x1 == x2 and y1 == y2) else grid[x1][y1] + grid[x2][y2]  # A, B在同一点只能pick up 一次
+                    for prev_x1, prev_y1, prev_x2 in [(x1 - 1, y1, x2), (x1 - 1, y1, x2 - 1), (x1, y1 - 1, x2), (x1, y1 - 1, x2 - 1)]:
+                        prev_y2 = prev_x1 + prev_y1 - prev_x2
+                        if 0 <= prev_x1 < n and 0 <= prev_x2 < n and 0 <= prev_y1 < n and 0 <= prev_y2 < n:
+                            if dp[prev_x1][prev_y1][prev_x2] >= 0:      # >= 0 表示(prev_x1, prev_y1, prev_x2, prev_y2)可以到达, 只有(prev_x1, prev_y1, prev_x2, prev_y2)可以到达，我们才可以从(prev_x1, prev_y1, prev_x2, prev_y2)出发去寻找下一个可以到达的curr_pos
+                                dp[x1][y1][x2] = max(dp[x1][y1][x2], dp[prev_x1][prev_y1][prev_x2] + curr_cherry)
         
         return 0 if dp[-1][-1][-1] == float("-inf") else dp[-1][-1][-1]
-
-
 
 """
 solution 2: dfs + memo, top down DP https://leetcode.com/problems/cherry-pickup/discuss/109907/Simple-Python-DP-solution-n3-timespace
