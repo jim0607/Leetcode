@@ -219,6 +219,20 @@ dp[i][u] = the min edit distance if we take i steps, with u as the last city vis
 dp[i][u] = min(dp[i-1][v] for v in graph[u]) + 0 if names[u] == targetPath[i] else 1;
 then min(dp[m]) is our minimum edit distance overall.
 O(MN^2)
+- [1444. Number of Ways of Cutting a Pizza](Solutions/1444.Number-of-Ways-of-Cutting-a-Pizza.py) (!!H) <br>
+dfs + memo. memo[(i, j, k)] returns the number of ways to cut pizza[i:n][j:m] into k pieces.
+Step 1: In order to fast get how many apples are there in the down-right corner pizza[i:n][j:m] block,
+construct suff_sum similar with 304. Range Sum Query 2D - Immutable.
+Step 2: dfs + memo.
+- [1463. Cherry Pickup II](Solutions/1463.Cherry-Pickup-II.py) (!!H) <br>
+dp[i][j1][j2] = the max cherry when robot reached (i, j1) and (i, j2). 注意要判断dp[i-1][prev_j1][prev_j2] >= 0 表示(prev_j1, prev_j2)可以到达
+- [0741. Cherry Pickup](Solutions/0741.Cherry-Pickup.py) (!!H) <br>
+Go from (0, 0) -> (n-1, n-1) -> (0, 0) can be treated as two men go from (0, 0) -> (n-1, n-1) together, dp[x1][y1][x2] to represent the largest ans we can get when first guy (marked as A) at(x1, y2) and second guy(marked as B) at (x2, x1 + y1 - x2)
+
+
+
+
+
 
 
 
@@ -1581,8 +1595,7 @@ dp[i][j]=以(i, j)为右下角的最大正方形的边长; dp[i][j]=min(dp[i-1][
 维护一个stonesDict的key is the stone in stones. value is the possible steps to reach the stone.
 There could be multiple possible steps to reach the stone, so stonesDict[stone] = set(). 
 状态转移方程为：1. 跳k-1到stone+k-1: stonesDict[stone + k - 1].add(k - 1); 2. 跳k到stone + k: stonesDict[stone + k].add(k); 3. 跳k + 1到stone + k + 1:stonesDict[stone + k + 1].add(k + 1); Return stonesDict[last stone] is not empty; this is bottom up method O(N^2), O(N^2)
-- [0741. Cherry Pickup](Solutions/0741.Cherry-Pickup.py) (!!H) <br>
-Go from (0, 0) -> (n-1, n-1) -> (0, 0) can be treated as two men go from (0, 0) -> (n-1, n-1) together, dp[x1][y1][x2] to represent the largest ans we can get when first guy (marked as A) at(x1, y2) and second guy(marked as B) at (x2, x1 + y1 - x2)
+
 
 
 ### [序列型DP](/Dynamic-Programming.py)
