@@ -143,10 +143,6 @@ hashmap. similar with 49. Group Anagrams.
 the key of the hashmap is a tuple of the list [ord(ch)-ord(first_ch) for ch in each string]
 - [0418. Sentence Screen Fitting](Solutions/0418.Sentence-Screen-Fitting.py) (!M Google) <br>
 string. fit the sentence in line by line
-- [0214. Shortest Palindrome](Solutions/0214.Shortest-Palindrome.py) (!!H Google) <br>
-The problem really is to find the longest palindrome starts with s[0].
-rabin carp / rolling hash O(N). The algorithm is for string s, left_code = the hash_code scan from left to right,
-right_code = the hash_code scan from right to left. if left_code == right_code, then s is a palindrome.
 - [0723. Candy Crush](Solutions/0723.Candy-Crush.py) (!!M Google) <br>
 Recurssion. step 1: check horizontal and vertical crush and changed the board[i][j] that needs to be crushed to negative.
 step 2: do gravity to modify the board.
@@ -228,6 +224,32 @@ Step 2: dfs + memo.
 dp[i][j1][j2] = the max cherry when robot reached (i, j1) and (i, j2). 注意要判断dp[i-1][prev_j1][prev_j2] >= 0 表示(prev_j1, prev_j2)可以到达
 - [0741. Cherry Pickup](Solutions/0741.Cherry-Pickup.py) (!!H) <br>
 Go from (0, 0) -> (n-1, n-1) -> (0, 0) can be treated as two men go from (0, 0) -> (n-1, n-1) together, dp[x1][y1][x2] to represent the largest ans we can get when first guy (marked as A) at(x1, y2) and second guy(marked as B) at (x2, x1 + y1 - x2)
+- [0527. Word Abbreviation](Solutions/0527.Word-Abbreviation.py) (!!H) <br>
+Trie. step 1: 建立一个abbrev函数：从idx开始，对 word 做abbreviation. 
+step 2: 建立一个abbr2word保存 abbr-->word.
+step 3: 遍历建立好了的abbr2word。 for abbr, word_lst in abbr2word.items(), 
+如果len(word_lst)==1, 那说明这个abbr是unique的，直接res.append(abbr); 
+如果len(word_lst)>1, 那说明这个abbr不是unique的，我们需要去寻找每一个word的unique prefix,
+所以对这个word_lst就一个Trie, Trie中写一个find_idx函数 to where the prefix for word is unique (cur_node.cnt == 1)
+Time Complexity: O(C) where C is the number of characters across all words in the given array.
+Space Complexity: O(C).
+- [0335. Self Crossing](Solutions/0335.Self-Crossing.py) (H) <br>
+Math. there are 3 cases in total.
+- [1203. Sort Items by Groups Respecting Dependencies](Solutions/1203.Sort-Items-by-Groups-Respecting-Dependencies.py) (!!H) <br>
+topo sort. step 1: put -1 into idependent groups;
+step 2: build the item_graph and item_degrees, and group_graph and group_degrees;
+step 3: topological sort for the two graphs we built;
+step 4: get the res: 先宏观有序，再微观有序
+- [0214. Shortest Palindrome](Solutions/0214.Shortest-Palindrome.py) (!!H Google) <br>
+The problem really is to find the longest palindrome starts with s[0].
+rabin carp / rolling hash O(N). The algorithm is for string s, left_code = the hash_code scan from left to right,
+right_code = the hash_code scan from right to left. if left_code == right_code, then s is a palindrome.
+- [1312. Minimum Insertion Steps to Make a String Palindrome](Solutions/1312.Minimum-Insertion-Steps-to-Make-a-String-Palindrome.py) (!!H) <br>
+dp 1143.Longest Common- Subsequence. 题目其实是求 n - (the longest palindromic subsequence in s);
+也就是 to find the longest common subsequence between s and s[::-1].
+which is same as 1143.Longest Common- Subsequence.
+
+
 
 
 
@@ -260,7 +282,7 @@ step 2: reverse each word
 Since we don't need to find each pandidromes, we don't need to use backtrack. 
 algoritm: we can form k palindromes if there are k or less than k chars that has odd cnt.
 - [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (!!M)
-since subarray has to be continuous, we define dp as
+__两个arr/string common subarr/substring的问题都similar with 1143.Longest Common Subsequence__. since subarray has to be continuous, we define dp as
 dp[i][j] = the max lens of repeated subarray ended with A[i] and B[j]
 dp[i][j] = if A[i-1]==B[j-1]: dp[i-1][j-1] + 1; else: 0 cuz has ot be continuous.
 solution 2: binary search - (m+n)mlogm.
@@ -1278,9 +1300,6 @@ f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i
 想想如果是一个很大的图，那minimum height trees的root就应该是这个图的最中心，所以我们就去找图的最中心就可以了，采用从外围(inDegree=1的node)往中间走的方法，解法类似topological sort, 走到最后留下的顶点就是最中心的顶点，也就是距离所有外围顶点最小的顶点。
 - [0802. Find Eventual Safe States](Solutions/0802.Find-Eventual-Safe-States.py) (M) <br>
 在环内的node可能永远都跳不出环，所以这一题是寻找不在环里的nodes, 其实就是其实就是topological sort for out_degree!
-- [1203. Sort Items by Groups Respecting Dependencies](Solutions/1203.Sort-Items-by-Groups-Respecting-Dependencies.py) (H Google) <br>
-Step 1: topo sort for all groups -> return topo sorted list of group id topo_sorted_groups;
-Step 2: topo sort inside each group in topo_sorted_groups -> return topo sorted list for each group.
 
 
 
