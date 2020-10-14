@@ -49,7 +49,7 @@ def diffBetweenTwoStrings(s, t):
 
     # step 2: construct the answer using the dp list we constructed
     res = []
-    i, j = m - 1, n - 1         # 注意要逆序遍历！why ? 
+    i, j = m - 1, n - 1         # 注意要逆序遍历找path!!!!!!!
     while i >= 0 and j >= 0:
         if s[i] == t[j]:
             res.append(s[i])
