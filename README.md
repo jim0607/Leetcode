@@ -196,15 +196,29 @@ we treated it as a sparse matrix: use a dictionary to store only the non-zero va
 solution 1: backtrack - O(6^N) in worst case. 不需要传入curr_comb, 只需要last_num和the repeat time of last_num. solution 2: backtrack + memo - O(6n^2). 套backtrack + memo的模板即可
 - [1466. Reorder Routes to Make All Paths Lead to the City Zero](Solutions/1466.Reorder-Routes-to-Make-All-Paths-Lead-to-the-City-Zero.py) (!!M Google) <br>
 solution dfs. 问题等价于原来0不能到达所有的nodes, 现在需要改变一些connections使得0可以到达所有nodes. 建一个graph和一个anti_graph. 从0出发，先在anti_graph里面找next_node一直往前走，然后从graph里面找next_node, 从graph里面找说明需要反向，所以self.cnt += 1
+- [0726. Number of Atoms](Solutions/0726.Number-of-Atoms.py) (!!H Google) <br>
+Parenetheses. 与394.Decode String非常类似, 我们需要反向遍历，这样只要遇到upper case的ch就可以加到dictionary了
 - [0471. Encode String with Shortest Length](Solutions/0471.Encode-String-with-Shortest-Length.py) (!!H Google) <br>
 solution dp. dp[i][j] is the encode of substring including index i to index j.
 dp[i][j] = min(dp[i][j], dp[i][k]+dp[k][j], potential_candidate) in terms of length.
 potential_candidate = "k[repeating_pattern]", 
 where pattern is the repeating string in substring s[i:j+1] and k is the number of repeating times. 
 initializaton: dp[i][j] = s[i:j+1] originally, return dp[0][n-1]
-- [0471. Encode String with Shortest Length](Solutions/0471.Encode-String-with-Shortest-Length.py) (!!H Google) <br>
-Parenetheses. 与394.Decode String非常类似, 我们需要反向遍历，这样只要遇到upper case的ch就可以加到dictionary了
-
+- [100320-Diff Between Two Strings](Solutions/Pramp__100320-Diff-Between-Two-Strings.py) (!!H) <br>
+__DP to find path__ This problem is easiest to attempt in two steps:
+step 1: do a dp for 72. Edit Distance;
+step 2: construct the answer using the dp list we constructed;
+If source[i] == target[j] we write source[i] in the answer. If j is invalid or dp(i+1, j) <= dp(i, j+1) we write -source[i] in the answer.
+Otherwise, we write +target[j].
+- [1548. The Most Similar Path in a Graph](Solutions/1548.The-Most-Similar-Path-in-a-Graph.py) (!!H) <br>
+similar with 100320-Diff Between Two Strings - __DP to find path__
+Step 1: build a DP table in order to find the minimum edit distance to targetPath;
+Step 2: we traverse __reversely the build DP table__ to find which path did we take 
+in order to get the minimum edit distance. At last, we return res[::-1].
+dp[i][u] = the min edit distance if we take i steps, with u as the last city visited;
+dp[i][u] = min(dp[i-1][v] for v in graph[u]) + 0 if names[u] == targetPath[i] else 1;
+then min(dp[m]) is our minimum edit distance overall.
+O(MN^2)
 
 
 
@@ -217,7 +231,7 @@ Parenetheses. 与394.Decode String非常类似, 我们需要反向遍历，这�
 两点不好的地方需要改进：1. should we ask yourself a question before implementing the code for dfs?
 answer should be: we want to avoid visiting the same node again and again, one way is to use a set to mark the visited nodes, the other way to modify the matrix in-place. 2. 一定要在代码结束之后主动run test case, 首先需要run test case orally. 然后写一个print()出来打印结果像上面那样！！
 - [100320-Diff Between Two Strings](Solutions/Pramp__100320-Diff-Between-Two-Strings.py) (!!H) <br>
-This problem is easiest to attempt in two steps:
+__DP to find path__ This problem is easiest to attempt in two steps:
 step 1: do a dp for 72. Edit Distance;
 step 2: construct the answer using the dp list we constructed;
 If source[i] == target[j] we write source[i] in the answer. If j is invalid or dp(i+1, j) <= dp(i, j+1) we write -source[i] in the answer.
