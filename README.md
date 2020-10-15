@@ -254,9 +254,14 @@ step 2: dp. dp[i] = the max lens ended with ith interval. dp[j] = max(dp[i] + 1 
 solution 2 greedy: 找到所有overlapped intervals. 用一个last_end指针记录上一个end; O(NlogN)
 - [1235. Maximum Profit in Job Scheduling](Solutions/1235.Maximum-Profit-in-Job-Scheduling.py) (!!H) <br>
 dp. similar with 646. Maximum Length of Pair Chain, we define dp as dp[i] = the max_prof for intervals __ended with__ ith interval; dp[j] = max(dp[i] + profit[j] for i < j if endTime[i] <= startTime[j]). O(N^2). solution 2: dp. 我们将dp定义为dp[i] = the max_prof for intervals __before (including)__ ith interval; solution 3: dp + binary search. 由于我们定义dp[i] = the max_prof for intervals before (including) ith interval, 所以dp是递增的，所以只需要在dp[:j]中选最后一个满足intervals[i][1] <= intervals[j][0]的i就可以了
-
-
-
+- [1125. Smallest Sufficient Team](Solutions/1125.Smallest-Sufficient-Team.py) (!!H) <br>
+backtrack. "The Set Cover Problem": find the min number of subsets to cover the entire set.
+This famous "Set Cover Problem" is actually a NP Complete problem.
+NP-complete problem: any of a class of computational problems for which no efficient solution algorithm has been found.
+solution 1: backtrack - the subset problem 78. Subsets: find the subset that is valid.
+O(m* 2^n), where m = len(req_skills), n = len(people)
+- [1255. Maximum Score Words Formed by Letters](Solutions/1255.Maximum-Score-Words-Formed-by-Letters.py) (!!H) <br>
+find all subsets, similar with 78. Subsets. O(26* 2^n), n = len(words)
 
 
 
