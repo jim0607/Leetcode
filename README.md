@@ -264,7 +264,8 @@ O(m* 2^n), where m = len(req_skills), n = len(people)
 find all subsets, similar with 78. Subsets. O(26* 2^n), n = len(words)
 - [1499. Max Value of Equation](Solutions/1499.Max-Value-of-Equation.py) (!!!H) <br>
 __maintain previous min/max problem__ solution 1: heapq; solution 2: monodeque - O(N). 如果题目需要我们在window里更新最大值或最小值，我们往往需要maintian一个mono increasing or mono decreasing deque.  在mono deque中会有两个while loop，第一个while loop从左端pop作为sliding window去限定window size, 第二个while loop从右端pop作为monostack去maintain 最大值/最小值
-
+- [1377. Frog Position After T Seconds](Solutions/1377.Frog-Position-After-T-Seconds.py) (!!H) <br>
+dfs, 虚拟一个节点零出来，从0节点出发做dfs. dfs the graph and update the dist of target and the prob of reaching target
 
 
 
