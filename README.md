@@ -248,10 +248,12 @@ right_code = the hash_code scan from right to left. if left_code == right_code, 
 dp 1143.Longest Common- Subsequence. 题目其实是求 n - (the longest palindromic subsequence in s);
 也就是 to find the longest common subsequence between s and s[::-1].
 which is same as 1143.Longest Common- Subsequence.
-
-
-
-
+- [0646. Maximum Length of Pair Chain](Solutions/0646.Maximum-Length-of-Pair-Chain.py) (!M) <br>
+dp. step 1: sort the interval by end_time or start_time;
+step 2: dp. dp[i] = the max lens ended with ith interval. dp[j] = max(dp[i] + 1 for i < j and intervals[i][1] < intervals[j][0]). O(N^2)
+solution 2 greedy: 找到所有overlapped intervals. 用一个last_end指针记录上一个end; O(NlogN)
+- [1235. Maximum Profit in Job Scheduling](Solutions/1235.Maximum-Profit-in-Job-Scheduling.py) (!!H) <br>
+dp. similar with 646. Maximum Length of Pair Chain, we define dp as dp[i] = the max_prof for intervals __ended with__ ith interval; dp[j] = max(dp[i] + profit[j] for i < j if endTime[i] <= startTime[j]). O(N^2). solution 2: dp. 我们将dp定义为dp[i] = the max_prof for intervals __before (including)__ ith interval; solution 3: dp + binary search. 由于我们定义dp[i] = the max_prof for intervals before (including) ith interval, 所以dp是递增的，所以只需要在dp[:j]中选最后一个满足intervals[i][1] <= intervals[j][0]的i就可以了
 
 
 
