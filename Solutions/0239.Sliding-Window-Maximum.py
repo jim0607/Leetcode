@@ -1,6 +1,8 @@
+"""
 239. Sliding Window Maximum
 
-Given an array nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.
+Given an array nums, there is a sliding window of size k which is moving from the very left of the array to the very right. 
+You can only see the k numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.
 
 Follow up:
 Could you solve it in linear time?
@@ -24,9 +26,7 @@ Window position                Max
 How one could improve the time complexity? The first idea is to use a heap, 
 since in a maximum heap heap[0] is always the largest element. Though to add an element in a heap of size k costs log(k), 
 that means O(Nlog(k)) time complexity for the solution.
-
-
-import heapq
+"""
 
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
@@ -71,7 +71,7 @@ class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         # step 1: put the first window into the dq, maintain dq a decreasing order
         # whenever we find the coming num is larger than dq[-1], we pop out cuz they WON'T be used anymore.
-        dq = collections.deque()
+        dq = deque()
         for i, num in enumerate(nums[:k]):
             # below code is the 模板 of mono stack
             while len(dq) > 0 and dq[-1][0] <= num:
@@ -82,7 +82,7 @@ class Solution:
         res = [dq[0][0]]   # since we are maintaining a decreasing st, dq[0] is the max_num in the window
         i = k
         while i < len(nums):
-            # remove items that are outside the windoe, make sure the window size no larger than k
+            # remove items that are outside the window, make sure the window size no larger than k
             # 注意这里必须比较idx来得到距离，而不能去比较len(dq) < k!!!
             # 这是因为len(dq) CANNOT represent window size. 这就是为什么需要在dq里存idx
             while len(dq) > 0 and i - dq[0][1] >= k:    
