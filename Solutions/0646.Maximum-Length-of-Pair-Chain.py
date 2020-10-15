@@ -18,16 +18,17 @@ Explanation: The longest chain is [1,2] -> [3,4]
 """
 step 1: sort the interval by end_time or start_time;
 step 2: dp. dp[i] = the max lens ended with ith interval.
+dp[j] = max(dp[i] + 1 for i < j and intervals[i][1] < intervals[j][0])
 O(N^2)
 """
 class Solution:
-    def findLongestChain(self, pairs: List[List[int]]) -> int:
-        pairs.sort(key = lambda x: (x[0], x[1]))
-        n = len(pairs)
+    def findLongestChain(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key = lambda x: (x[0], x[1]))
+        n = len(intervals)
         dp = [1 for _ in range(n)]
         for j in range(1, n):
             for i in range(j):
-                if pairs[j][0] > pairs[i][1]:
+                if intervals[j][0] > intervals[i][1]:
                     dp[j] = max(dp[j], dp[i] + 1)
         return max(dp)
         
