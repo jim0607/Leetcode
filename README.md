@@ -26,6 +26,8 @@ hashset. each time we meet a 1, we explore horizontally, vertically and diagonal
 Use set to store the nodes that were horizontally visited, vertically visited and diagonally visited. 
 - [0299. Bulls and Cows](Solutions/0299.Bulls-and-Cows.py) (!!!M Google) <br>
 use a digit_to_cnt hashmap for digit. one pass to update A_cnt, another pass to update B_cnt.
+- [0049. Group Anagrams](Solutions/0049.Group-Anagrams.py) (!!M) <br>
+dictionary: key is a tuple keeping track of the cnt of all 26 letters, val is the word list corresponding to the tuple
 - [0249. Group Shifted Strings](Solutions/0249.Group-Shifted-Strings.py) (!!M Google) <br>
 hashmap. similar with 49. Group Anagrams.
 the key of the hashmap is a tuple of the list [ord(ch)-ord(first_ch) for ch in each string]
@@ -299,8 +301,6 @@ string s and t are anagram with each other when all the ch in s have the same co
 solution 1: 由于我们要求的substring时固定长度的，所以最好maintina a fixed size window - 套用fix window模板
 - [0438. Find All Anagrams in a String](Solutions/0438.Find-All-Anagrams-in-a-String.py) (!!M) <br>
 由于我们要求的substring时固定长度的，所以最好maintina a fixed size window. same as 567
-- [0049. Group Anagrams](Solutions/0049.Group-Anagrams.py) (!!M) <br>
-dictionary: key is a tuple keeping track of the cnt of all 26 letters, val is the word list corresponding to the tuple
 - [0030. Substring with Concatenation of All Words](Solutions/0030.Substring-with-Concatenation-of-All-Words.py) (H) <br>
 固定长度的sliding window: solution: use two hashmaps to record the frequency of word.
 O(len(s)* len(words)* len(words[0]))
