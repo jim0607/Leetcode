@@ -37,6 +37,7 @@ class Node:
     
            
 class DoubleLinkedList:
+           
     def __init__(self):
         self.head = Node()
         self.tail = Node()
