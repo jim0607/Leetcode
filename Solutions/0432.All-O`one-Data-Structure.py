@@ -1,3 +1,4 @@
+"""
 432. All O`one Data Structure
 
 Implement a data structure supporting the following operations:
@@ -8,6 +9,7 @@ Dec(Key) - If Key's value is 1, remove it from the data structure. Otherwise dec
 GetMaxKey() - Returns one of the keys with maximal value. If no element exists, return an empty string "".
 GetMinKey() - Returns one of the keys with minimal value. If no element exists, return an empty string "".
 Challenge: Perform all these in O(1) time complexity.
+"""
 
 
 """
@@ -16,6 +18,7 @@ node is a DLL node, there is a node.key_set = set() which stores all the keys wi
 The rest is to update the dll, the two hashmaps in each method call. similar with LRU.
 """
 class Node:
+           
     def __init__(self):
         self.key_set = set()
         self.prev = None
@@ -32,6 +35,7 @@ class Node:
         self.key_set.add(key)
         return key
     
+           
 class DoubleLinkedList:
     def __init__(self):
         self.head = Node()
@@ -75,14 +79,12 @@ class AllOne:
         self.counter = collections.defaultdict(int)
         self.node_val = {0: self.dll.head}      # key is cnt, value is node
         
-    
     def remove_key(self, v, key):
         node = self.node_val[v]
         node.remove(key)
         if not node.key_set:
             self.dll.remove(node)
             self.node_val.pop(v)
-        
         
     def inc(self, key):
         """
@@ -100,9 +102,7 @@ class AllOne:
         
         if v - 1 > 0:       # remove old (v, key) pair
             self.remove_key(v-1, key)
-        
-        
-        
+
     def dec(self, key):
         """
         Decrements an existing key by 1. If Key's value is 1, remove it from the data structure.
@@ -125,7 +125,6 @@ class AllOne:
         
         self.remove_key(v+1, key)
         
-
     def getMaxKey(self):
         """
         Returns one of the keys with maximal value.
