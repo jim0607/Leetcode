@@ -21,18 +21,23 @@ Explanation: There is no way to transform str1 to str2.
 """
 
 """
-Map each character in str1 to what it needs to be in str2. If any of these mappings collide (e.g. str1 = "aa", str2 = "bc", "a" needs to become both "b" and "c"),
+Map each character in str1 to what it needs to be in str2. If any of these mappings collide 
+(e.g. str1 = "aa", str2 = "bc", "a" needs to become both "b" and "c"),
 we immediately return False since the transformation is impossible.
-Next, we check the number of unique characters in str2. If all 26 characters are represented, there are no characters available to use for temporary conversions, 
-and the transformation is impossible. The only exception to this is if str1 is equal to str2, so we handle this case at the start of the function.
+Next, we check the number of unique characters in str2. If all 26 characters are represented, 
+there are no characters available to use for temporary conversions, 
+and the transformation is impossible. The only exception to this is if str1 is equal to str2, 
+so we handle this case at the start of the function.
 
 why this case should return False?
 "abcdefghijklmnopqrstuvwxyz"
 "bcdefghijklmnopqrstuvwxyza"
 You can choose to change a -> b. So now the str1 becomes :
 "abcdefghijklmnopqrstuvwxyz" -> "bbcdefghijklmnopqrstuvwxyz"
-Now you are stuck. If you try to change b -> c, your first character will also change. The order of transformation matters.
-or you can change z -> a, then the str1 will become: "abcdefghijklmnopqrstuvwxya", now you are stuck cuz there are two "a" in the string.
+Now you are stuck. If you try to change b -> c, your first character will also change. 
+The order of transformation matters.
+or you can change z -> a, then the str1 will become: "abcdefghijklmnopqrstuvwxya", 
+now you are stuck cuz there are two "a" in the string.
 
 but in this case:
 "abcdefghijklmnopqrstuvwxy"
@@ -40,7 +45,7 @@ but in this case:
 there are only 25 different letters. we can change y -> z. then str becomes "abcdefghijklmnopqrstuvwxz"
 then change x -> y....and so on....until change a -> b, and get "bcdefghijklmnopqrstuvwxyz"
 
-The point is we cannot have all 26 different letters in str2. We need to have at least on letter to use as a buffer.
+The point is we cannot have all 26 different letters in str2. We need to have at least one letter to use as a buffer.
 """
 
 class Solution:
