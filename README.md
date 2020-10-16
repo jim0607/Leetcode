@@ -151,7 +151,8 @@ ddefine a self.iterator, and a self.peek_item to record the top item of the iter
 
 
 
-## [Monotonic stack](/Data-Structure.py) （用于向左/向右寻找第一个比自己大/小的数）
+## [Monotonic stack](/Data-Structure.py) 
+#### 用于向左/向右寻找第一个比自己大/小的数 
 - [0496. Next Greater Element I](Solutions/0496.Next-Greater-ElementI.py) (!!M) <br>
 maitain a moono decreasing st. whenever we found a smaller element, we append.
 whenever we found a larger element, we pop, and this curr element is the next greater element of the popped element.
@@ -214,7 +215,7 @@ Monostack. solution 1: dp. O(M^2N) 固定以up_row为长方形上边，然后去
 
 
 ## [Mono Deque](/Data-Structure.py) 
-##### 首先左端作为sliding window去限定window size， 然后右端作为stack or monostack
+#### 首先while loop 左端作为sliding window去限定window size， 然后while loop 右端作为stack or monostack for fast access of previous min/max
 - [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (!!H) <br>
 heapq的方法是O(NK)因为需要从前面remove; monostack O(N): Iterate over the array. At each step: I. Clean the deque: 1. Remove the items that are outside the curr window and keep only the indexes of elements from the current sliding window; 2. Remove indexes of all elements smaller than the current one, since they will not be the maximum ones. eg: [1,2,7,3,5,4], k = 3, because of 7, 1 and 2 will never be in res; II. Append the current element to the deque. Append deque[0] to the output.
 我们回头看看这题其实就是mono st多了一步保持窗口大小的步骤，而这个保持窗口大小的步骤需要从前面pop, 这就是为什么不直接用st, 而是用dq的原因. 总结：如果题目需要我们在window里更新最大值或最小值，我们往往需要maintian一个mono increasing or mono decreasing deque.
