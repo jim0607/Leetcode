@@ -1,46 +1,32 @@
-## Google 6 month TOP 100 都做一遍 + Pramp：10/03 to 10/25
-### 每天晚上睡前Review做过的题
-
-
-
-# [Google High Freq](/)
+# [Google Recent](/)
 - [BinarySearchable](Solutions/Google__BinarySearchable.py) (!!M Google) <br>
-prefix sum + binary search. 
-一个数是binary searchable的必须满足的条件是：前面的数都比他小，后面的数都比他大
+prefix sum + binary search.  一个数是binary searchable的必须满足的条件是：前面的数都比他小，后面的数都比他大
 - [Max Absolute Difference of Subarrays](Solutions/Google__Max_Absolute_Difference_of_Subarrays.py) (!!M Google) <br>
-prefix sum + dp. 
-step 1: maintain一个prefix_sum list和一个suffix_sum list.
-step 2: 用这两个list计算出dp1 list and dp2 lsit, dp1[i] = the max subarray sum before i, dp2[i] = the min subarray sum before i;
-dp3[i] = the min subarray sum after i, dp4[i] = the max subarray sum after i.
-step 3: 从左到右遍历一遍，比较i左右两边的min 和 max, 更新max_abs_diff即可。
-O(N), O(N)
+prefix sum + dp.  step 1: maintain一个prefix_sum list和一个suffix_sum list. step 2: 用这两个list计算出dp1 list and dp2 lsit, dp1[i] = the max subarray sum before i, dp2[i] = the min subarray sum before i; dp3[i] = the min subarray sum after i, dp4[i] = the max subarray sum after i. step 3: 从左到右遍历一遍，比较i左右两边的min 和 max, 更新max_abs_diff即可。O(N), O(N)
 - [1477. Find Two Non-overlapping Sub-arrays Each With Target Sum](Solutions/1477.Find-Two-Non-overlapping-Sub-arrays-Each-With-Target-Sum.py) (!!M Google) <br>
-prefix sum + dp. 
-step 1: construct a pre_sum and a suf_sum.
-Step 2: then use the pre_sum and suf_sum to construct two lists:
-pre_min[i] = minimum lens of valid subarray that ends before i.
-suf_min[i] = minimum lens of valid subarray that starts after i.
-step 3: find the ans as we iterate the arr
+prefix sum + dp. step 1: construct a pre_sum and a suf_sum. Step 2: then use the pre_sum and suf_sum to construct two lists: pre_min[i] = minimum lens of valid subarray that ends before i. suf_min[i] = minimum lens of valid subarray that starts after i. step 3: find the ans as we iterate the arr
+
+
+
+
+
 - [Student Cheating sheet](Solutions/Google__Student_Cheating_sheet.py) (!!M Google) <br>
 Dijkstra's.
 问从a到b被捉概率最小的传递路线。本质上是weighted edge shortest path，因为不是DAG 所以用dijkstra
-- [0766. Toeplitz Matrix](Solutions/0766.Toeplitz-Matrix.py) (!!E Google) <br>
-Big data. 
-遍历整个matrix, 每次都与其右下角的数进行比较. 遇到这么简单的题，follow up 就不会太简单了, 三个follow up很重要！！
+
+
+
+
+
+
 - [0068. Text Justification](Solutions/0068.Text-Justification.py) (!!H Google) <br>
-String manipulation. 
-use curr_line = [] to record curr words in curr_line; use curr_width = 0 to record curr total number of chars in curr_line.
-Iterate the word in words, if too many words to fit in one line, we first justify that line and update res, 
-then start over the curr_line = [] and curr_width = 0 for the next line.
-Lastly, we deal with the last line seperately.
+String manipulation. use curr_line = [] to record curr words in curr_line; use curr_width = 0 to record curr total number of chars in curr_line. Iterate the word in words, if too many words to fit in one line, we first justify that line and update res, then start over the curr_line = [] and curr_width = 0 for the next line. Lastly, we deal with the last line seperately.
 - [0420. Strong Password Checker](Solutions/0420.Strong-Password-Checker.py) (!!H Google) <br>
-Greedy. 
-分三个区间讨论：1. n <= 5: return max(6 - n, missing_types), 用三个小Helper function to calculate three missing_types;2. 6 <= n <= 20: just need to return how many replacements are needed to avoid consecutive chars: number_of_replacements += num_of_consecutives // 3; 3. n > 20: step 1: calculate how many replacements are neededto avoid consecutive chars; step 2: calculate how many deletions can be used to save replacements - greedy.好难呀
+Greedy. 分三个区间讨论：1. n <= 5: return max(6 - n, missing_types), 用三个小Helper function to calculate three missing_types;2. 6 <= n <= 20: just need to return how many replacements are needed to avoid consecutive chars: number_of_replacements += num_of_consecutives // 3; 3. n > 20: step 1: calculate how many replacements are neededto avoid consecutive chars; step 2: calculate how many deletions can be used to save replacements - greedy.好难呀
 - [0551. Student Attendance Record I](Solutions/0551.Student-Attendance-Record-I.py) (E Google) <br>
 warm up for 552. Student Attendance Record II.
 - [0552. Student Attendance Record II](Solutions/0552.Student-Attendance-Record-II.py) (!!H Google) <br>
-dfs + memo. 
-solution 1: typical backtrack - O(3^N); solution 2: dp - O(n). dp[i] = how many ways for i. If we don't have "A" in the record, then we have below:
+dfs + memo. solution 1: typical backtrack - O(3^N); solution 2: dp - O(n). dp[i] = how many ways for i. If we don't have "A" in the record, then we have below:
 dp[i] = dp[i-1] if choose ith ch to be "P".
 dp[i] = dp[i-2] if choose the last two ch to be "PL"
 dp[i] = dp[i-3] if choose last three ch to be "PLL", note that cannot be "LLL".
@@ -2285,6 +2271,8 @@ leave(p): pop out p.
 - [0609. Find Duplicate File in System](Solutions/0609.Find-Duplicate-File-in-System.py) (!!M) <br>
 build a content_to_dir dictionary where key is content in txt file, val is a list of dir holding the content eg: ["root/a/1.txt"];
 需要用到string.split(char), string.index(substring). Super important follow up questions for big data.
+- [0766. Toeplitz Matrix](Solutions/0766.Toeplitz-Matrix.py) (!!E Google) <br>
+Big data. 遍历整个matrix, 每次都与其右下角的数进行比较. 遇到这么简单的题，follow up 就不会太简单了, 三个follow up很重要！！
 
 
 
