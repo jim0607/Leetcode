@@ -4,41 +4,41 @@
 
 
 # [Google High Freq](/)
-- [BinarySearchable](Solutions/Google__BinarySearchable.py) (M) <br>
+- [BinarySearchable](Solutions/Google__BinarySearchable.py) (!!M Google) <br>
 prefix sum + binary search. 
 一个数是binary searchable的必须满足的条件是：前面的数都比他小，后面的数都比他大
-- [Max Absolute Difference of Subarrays](Solutions/Google__Max_Absolute_Difference_of_Subarrays.py) (M) <br>
+- [Max Absolute Difference of Subarrays](Solutions/Google__Max_Absolute_Difference_of_Subarrays.py) (!!M Google) <br>
 prefix sum + dp. 
 step 1: maintain一个prefix_sum list和一个suffix_sum list.
 step 2: 用这两个list计算出dp1 list and dp2 lsit, dp1[i] = the max subarray sum before i, dp2[i] = the min subarray sum before i;
 dp3[i] = the min subarray sum after i, dp4[i] = the max subarray sum after i.
 step 3: 从左到右遍历一遍，比较i左右两边的min 和 max, 更新max_abs_diff即可。
 O(N), O(N)
-- [1477. Find Two Non-overlapping Sub-arrays Each With Target Sum](Solutions/1477.Find-Two-Non-overlapping-Sub-arrays-Each-With-Target-Sum.py) (!!M) <br>
+- [1477. Find Two Non-overlapping Sub-arrays Each With Target Sum](Solutions/1477.Find-Two-Non-overlapping-Sub-arrays-Each-With-Target-Sum.py) (!!M Google) <br>
 prefix sum + dp. 
 step 1: construct a pre_sum and a suf_sum.
 Step 2: then use the pre_sum and suf_sum to construct two lists:
 pre_min[i] = minimum lens of valid subarray that ends before i.
 suf_min[i] = minimum lens of valid subarray that starts after i.
 step 3: find the ans as we iterate the arr
-- [Student Cheating sheet](Solutions/Google__Student_Cheating_sheet.py) (M) <br>
+- [Student Cheating sheet](Solutions/Google__Student_Cheating_sheet.py) (!!M Google) <br>
 Dijkstra's.
 问从a到b被捉概率最小的传递路线。本质上是weighted edge shortest path，因为不是DAG 所以用dijkstra
-- [0766. Toeplitz Matrix](Solutions/0766.Toeplitz-Matrix.py) (E) <br>
+- [0766. Toeplitz Matrix](Solutions/0766.Toeplitz-Matrix.py) (!!E Google) <br>
 Big data. 
 遍历整个matrix, 每次都与其右下角的数进行比较. 遇到这么简单的题，follow up 就不会太简单了, 三个follow up很重要！！
-- [0068. Text Justification](Solutions/0068.Text-Justification.py) (!!H) <br>
+- [0068. Text Justification](Solutions/0068.Text-Justification.py) (!!H Google) <br>
 String manipulation. 
 use curr_line = [] to record curr words in curr_line; use curr_width = 0 to record curr total number of chars in curr_line.
 Iterate the word in words, if too many words to fit in one line, we first justify that line and update res, 
 then start over the curr_line = [] and curr_width = 0 for the next line.
 Lastly, we deal with the last line seperately.
-- [0420. Strong Password Checker](Solutions/0420.Strong-Password-Checker.py) (!!H) <br>
+- [0420. Strong Password Checker](Solutions/0420.Strong-Password-Checker.py) (!!H Google) <br>
 Greedy. 
 分三个区间讨论：1. n <= 5: return max(6 - n, missing_types), 用三个小Helper function to calculate three missing_types;2. 6 <= n <= 20: just need to return how many replacements are needed to avoid consecutive chars: number_of_replacements += num_of_consecutives // 3; 3. n > 20: step 1: calculate how many replacements are neededto avoid consecutive chars; step 2: calculate how many deletions can be used to save replacements - greedy.好难呀
-- [0551. Student Attendance Record I](Solutions/0551.Student-Attendance-Record-I.py) (E) <br>
+- [0551. Student Attendance Record I](Solutions/0551.Student-Attendance-Record-I.py) (E Google) <br>
 warm up for 552. Student Attendance Record II.
-- [0552. Student Attendance Record II](Solutions/0552.Student-Attendance-Record-II.py) (!!H) <br>
+- [0552. Student Attendance Record II](Solutions/0552.Student-Attendance-Record-II.py) (!!H Google) <br>
 dfs + memo. 
 solution 1: typical backtrack - O(3^N); solution 2: dp - O(n). dp[i] = how many ways for i. If we don't have "A" in the record, then we have below:
 dp[i] = dp[i-1] if choose ith ch to be "P".
@@ -47,51 +47,51 @@ dp[i] = dp[i-3] if choose last three ch to be "PLL", note that cannot be "LLL".
 so dp[i] = dp[i-1] + dp[i-2] + dp[i-3] for the case there is not "A" in the record.
 Now we have the dp[i] for the case with out "A".
 Since we can add "A" anywhere, so the res = sum(dp[i-1] * dp[n-i]).
-- [0951. Flip Equivalent Binary Trees](Solutions/0951.Flip-Equivalent-Binary-Trees.py) (!!H) <br>
+- [0951. Flip Equivalent Binary Trees](Solutions/0951.Flip-Equivalent-Binary-Trees.py) (!!H Google) <br>
 recursion - O(min(N1, N2))
-- [0833. Find And Replace in String](Solutions/0833.Find-And-Replace-in-String.py) (M) <br>
+- [0833. Find And Replace in String](Solutions/0833.Find-And-Replace-in-String.py) (M Google) <br>
 String manipulation.
-- [0722. Remove Comments](Solutions/0722.Remove-Comments.py) (M) <br>
+- [0722. Remove Comments](Solutions/0722.Remove-Comments.py) (M Google) <br>
 String manipulation. manipulate string line by line.
-- [1293. Shortest Path in a Grid with Obstacles Elimination](Solutions/1293.Shortest-Path-in-a-Grid-with-Obstacles-Elimination.py) (H) <br>
+- [1293. Shortest Path in a Grid with Obstacles Elimination](Solutions/1293.Shortest-Path-in-a-Grid-with-Obstacles-Elimination.py) (H Google) <br>
 bfs. q 里面需要放入当前用了多少eliminations. q.append((next_i, next_j, curr_elimination_cnt))
-- [1138. Alphabet Board Path](Solutions/1138.Alphabet-Board-Path.py) (M) <br>
+- [1138. Alphabet Board Path](Solutions/1138.Alphabet-Board-Path.py) (M Google) <br>
 bfs. 最短距离问题
-- [1345. Jump Game IV](Solutions/1345.Jump-Game-IV.py) (H) <br>
+- [1345. Jump Game IV](Solutions/1345.Jump-Game-IV.py) (H Google) <br>
 bfs. 最短距离问题 - O(N). pruning makes hard.
-- [1240. Tiling a Rectangle with the Fewest Squares](Solutions/1240.Tiling-a-Rectangle-with-the-Fewest-Squares.py) (!!H) <br>
+- [1240. Tiling a Rectangle with the Fewest Squares](Solutions/1240.Tiling-a-Rectangle-with-the-Fewest-Squares.py) (!!H Google) <br>
 backtrack. The basic idea is to fill the entire block bottom up. 
 In every step, find the lowest unfilled square first, and select a square with different possible sizes to fill it. 
 What is the nodes in the graph? It is a height array (skyline) height_arr!!!!! 
 The start_node is height_arr = [0, 0, 0...], the end_node is height_arr = [m, m, m...].
 Pruning: 1. When the current cnt has exceeded the value of the current global optimal solution, then no need to move forward. 2. Try largest square possible first (improves time by a lot).
-- [0562. Longest Line of Consecutive One in Matrix](Solutions/0562.Longest-Line-of-Consecutive-One-in-Matrix.py) (M) <br>
+- [0562. Longest Line of Consecutive One in Matrix](Solutions/0562.Longest-Line-of-Consecutive-One-in-Matrix.py) (M Google) <br>
 hashset. each time we meet a 1, we explore horizontally, vertically and diagonally.
 Use set to store the nodes that were horizontally visited, vertically visited and diagonally visited. 
-- [0777. Swap Adjacent in LR String](Solutions/0777.Swap-Adjacent-in-LR-String.py) (M) <br>
+- [0777. Swap Adjacent in LR String](Solutions/0777.Swap-Adjacent-in-LR-String.py) (M Google) <br>
 观察之后可以发现每次replace "XL" to "LX"都是相当于把"L"向左移动。
 所以"L"一直向左移动，并且不会跨越其他"L" or "R". 而"R"一直向右移动，并且不会跨越其他"R" or "L".
-- [0792. Number of Matching Subsequences](Solutions/0792.Number-of-Matching-Subsequences.py) (!!M) <br>
+- [0792. Number of Matching Subsequences](Solutions/0792.Number-of-Matching-Subsequences.py) (!!M Google) <br>
 solution 1: compare each word with source string using two pointers. O(nmk), where n = len(s), m = len(words) and k = average lens of word in words. solution 2: use binary search in s, similar with 1055.  O(mklogn)
-- [0392. Is Subsequence](Solutions/0392.Is-Subsequence.py) (!!E) <br>
+- [0392. Is Subsequence](Solutions/0392.Is-Subsequence.py) (!!E Google) <br>
 solution 1: two pointers. solution 2: binary search.
-- [1055. Shortest Way to Form String](Solutions/1055.Shortest-Way-to-Form-String.py) (!!M) <br>
+- [1055. Shortest Way to Form String](Solutions/1055.Shortest-Way-to-Form-String.py) (!!M Google) <br>
 solution 1: greedy + two pointers - O(st). solution 2: greedy + binary seach - O(tlog(s))
-- [0374. Guess Number Higher or Lower](Solutions/0374.Guess-Number-Higher-or-Lower.py) (!!M) <br>
+- [0374. Guess Number Higher or Lower](Solutions/0374.Guess-Number-Higher-or-Lower.py) (!!M Google) <br>
 Binary search.
-- [0375. Guess Number Higher or Lower II](Solutions/0375.Guess-Number-Higher-or-Lower-II.py) (!!M) <br>
+- [0375. Guess Number Higher or Lower II](Solutions/0375.Guess-Number-Higher-or-Lower-II.py) (!!M Google) <br>
 DP. dp[i][j] = 数字在[i, j]范围内所需要的最小payment. dp[i][j] = mid + max(dp[i][mid-1], dp[mid+1][j]) for mid in range(i, j)
-- [0900. RLE Iterator](Solutions/0900.RLE-Iterator.py) (M) <br>
+- [0900. RLE Iterator](Solutions/0900.RLE-Iterator.py) (M Google) <br>
 stack. one stack store cnt, one stack store num
-- [0593. Valid Square](Solutions/0593.Valid-Square.py) (M) <br>
+- [0593. Valid Square](Solutions/0593.Valid-Square.py) (M Google) <br>
 Geometry. 看对角线吧 - 平分且相等且垂直
-- [0989. Add to Array-Form of Integer](Solutions/0989.Add-to-Array-Form-of-Integer.py) (E) <br>
+- [0989. Add to Array-Form of Integer](Solutions/0989.Add-to-Array-Form-of-Integer.py) (E Google) <br>
 Array. 
-- [0463. Island Perimeter](Solutions/0463.Island-Perimeter.py) (E) <br>
+- [0463. Island Perimeter](Solutions/0463.Island-Perimeter.py) (E Google) <br>
 Array.  step 1: find the min_row, max_row, min_col, max_col for the island; step 2: update the res row by row, col by col
-- [1277. Count Square Submatrices with All Ones](Solutions/1277.Count-Square-Submatrices-with-All-Ones.py) (M) <br>
+- [1277. Count Square Submatrices with All Ones](Solutions/1277.Count-Square-Submatrices-with-All-Ones.py) (M Google) <br>
 DP. very similar with 221.Maximal-Square. dp[i][j] 表示以 (i, j) 结尾所组成的最大正方形的边长。dp[i][j] 也表示以 (i, j) 结尾能组成的正方形的个数。
-- [1504. Count Submatrices With All Ones](Solutions/1504.Count-Submatrices-With-All-Ones.py) (!!!M) <br>
+- [1504. Count Submatrices With All Ones](Solutions/1504.Count-Submatrices-With-All-Ones.py) (!!!M Google) <br>
 Monostack. solution 1: dp. O(M^2N)
 固定以up_row为长方形上边，然后去探寻不同下边的情况,
 每次探寻一个下边，我们都计算一次从up_row到down_row可能有多少个valid_submatrices,
@@ -99,11 +99,11 @@ Monostack. solution 1: dp. O(M^2N)
 arr[j] = 1 if from up_row to down_row, all values in column j are 1. 只要up_row到down_row有一个value is 0，
 我们就设置arr[j] = 0, 表示不可能以up_row为上边以down_row为下边以j为右col构造valid submatrce. solution 2: 与84.Largest-Rectangle-in-Histogram, 85.Maximal-Rectangle很类似.
 先构造histogram. 以j结尾的submatrices的个数等于heights[j] * (j - 向左找第一个height小于heights[j]的idx).
-- [0941. Valid Mountain Array](Solutions/0941.Valid-Mountain-Array.py) (E) <br>
+- [0941. Valid Mountain Array](Solutions/0941.Valid-Mountain-Array.py) (E Google) <br>
 Binary search. 题目要求只要有arr[i]==arr[i-1]的情况就return False, 所以不能用binary search的
-- [0939. Minimum Area Rectangle](Solutions/0939.Minimum-Area-Rectangle.py) (!!M) <br>
+- [0939. Minimum Area Rectangle](Solutions/0939.Minimum-Area-Rectangle.py) (!!M Google) <br>
 Geometry. O(N^2) - 我们choose two diagnol points to iterate, then check if other two diagonal points in p_set. 
-- [Longest snake in a matrix](Solutions/Google_longest-snake-in-a-matrix.py) (!!M) <br>
+- [Longest snake in a matrix](Solutions/Google_longest-snake-in-a-matrix.py) (!!M Google) <br>
 dfs + memo same as 329. Longest Increasing Path in a Matrix.  特别注意：
 一般四个方向都可以走的情况不能用bottom up dp. 因为dp[i][j]需要用到dp[i-1][j], 而dp[i-1][j]也需要用到dp[i][j]，
 所以会形成环，DP需要无后效性，基本上是有向无环图，也就是必须能够拓扑排序。正确解法: dfs + memo, same as 329. Longest Increasing Path in a Matrix
@@ -113,7 +113,7 @@ dp.  dp[i][j][k] = from (i, j) the number of ways you to end up at the original 
 dp[i][j][k] = dp[i - 1][j][k - 1] + dp[i][j - 1][k - 1] + dp[i + 1][j][k - 1] + dp[i][j + 1][k - 1]
 - [0837. New 21 Game](Solutions/0837.New-21-Game.py) (!!M Google) <br>
 dp + sliding widown with fixed size.  The probability to get point K point is p(K) = p(K-1) / W + p(K-2) / W + p(K-3) / W + ... p(K-W) / W = (p(K-1) + p(K-2) + ... + p(K-W)) / W.  let wsum = p(K-1) + p(K-2) + ... + p(K-W), p(K) = wsum / W. dp is storing p(i) for i in [0 ... N]. We need to maintain the window by adding the new p(i), and getting rid of the old p(i-w)
-- [0771. Jewels and Stones](Solutions/0771.Jewels-and-Stones.py) (E) <br>
+- [0771. Jewels and Stones](Solutions/0771.Jewels-and-Stones.py) (E Google) <br>
 Too easy to believe.
 - [0877. Stone Game](Solutions/0877.Stone-Game.py) (!!M Google) <br>
 dp. dp[i][j] = how many more scores can someone have when left stones are [i, j] inclussive. dp[i][i] = piles[i]. dp[i][j] = max(piles[i] - dp[i+1][j], piles[j] - dp[i][j-1]). return dp[0][n-1]
@@ -147,7 +147,7 @@ string. fit the sentence in line by line
 Recurssion. step 1: check horizontal and vertical crush and changed the board[i][j] that needs to be crushed to negative.
 step 2: do gravity to modify the board.
 step 3: recurssively modify the board until is there is crush needed. O((MN)^2)
-- [0488. Zuma Game](Solutions/0488.Zuma-Game.py) (!H) <br>
+- [0488. Zuma Game](Solutions/0488.Zuma-Game.py) (!H Google) <br>
 backtrack. Each crushed board is a node in backtrack. from curr_crushed_board to next_crushed_board, we need to do a crush recurssively similar with 723. Candy Crush
 - [0911. Online Election](Solutions/0911.Online-Election.py) (!!M Google) <br>
 Precomputed Answer + Binary Search.
@@ -200,13 +200,13 @@ dp[i][j] = min(dp[i][j], dp[i][k]+dp[k][j], potential_candidate) in terms of len
 potential_candidate = "k[repeating_pattern]", 
 where pattern is the repeating string in substring s[i:j+1] and k is the number of repeating times. 
 initializaton: dp[i][j] = s[i:j+1] originally, return dp[0][n-1]
-- [100320-Diff Between Two Strings](Solutions/Pramp__100320-Diff-Between-Two-Strings.py) (!!H) <br>
+- [100320-Diff Between Two Strings](Solutions/Pramp__100320-Diff-Between-Two-Strings.py) (!!H Google) <br>
 __DP to find path__ This problem is easiest to attempt in two steps:
 step 1: do a dp for 72. Edit Distance;
 step 2: construct the answer using the dp list we constructed;
 If source[i] == target[j] we write source[i] in the answer. If j is invalid or dp(i+1, j) <= dp(i, j+1) we write -source[i] in the answer.
 Otherwise, we write +target[j].
-- [1548. The Most Similar Path in a Graph](Solutions/1548.The-Most-Similar-Path-in-a-Graph.py) (!!H) <br>
+- [1548. The Most Similar Path in a Graph](Solutions/1548.The-Most-Similar-Path-in-a-Graph.py) (!!H Google) <br>
 similar with 100320-Diff Between Two Strings - __DP to find path__
 Step 1: build a DP table in order to find the minimum edit distance to targetPath;
 Step 2: we traverse __reversely the build DP table__ to find which path did we take 
@@ -215,16 +215,16 @@ dp[i][u] = the min edit distance if we take i steps, with u as the last city vis
 dp[i][u] = min(dp[i-1][v] for v in graph[u]) + 0 if names[u] == targetPath[i] else 1;
 then min(dp[m]) is our minimum edit distance overall.
 O(MN^2)
-- [1444. Number of Ways of Cutting a Pizza](Solutions/1444.Number-of-Ways-of-Cutting-a-Pizza.py) (!!H) <br>
+- [1444. Number of Ways of Cutting a Pizza](Solutions/1444.Number-of-Ways-of-Cutting-a-Pizza.py) (!!H Google) <br>
 dfs + memo. memo[(i, j, k)] returns the number of ways to cut pizza[i:n][j:m] into k pieces.
 Step 1: In order to fast get how many apples are there in the down-right corner pizza[i:n][j:m] block,
 construct suff_sum similar with 304. Range Sum Query 2D - Immutable.
 Step 2: dfs + memo.
-- [1463. Cherry Pickup II](Solutions/1463.Cherry-Pickup-II.py) (!!H) <br>
+- [1463. Cherry Pickup II](Solutions/1463.Cherry-Pickup-II.py) (!!H Google) <br>
 dp[i][j1][j2] = the max cherry when robot reached (i, j1) and (i, j2). 注意要判断dp[i-1][prev_j1][prev_j2] >= 0 表示(prev_j1, prev_j2)可以到达
-- [0741. Cherry Pickup](Solutions/0741.Cherry-Pickup.py) (!!H) <br>
+- [0741. Cherry Pickup](Solutions/0741.Cherry-Pickup.py) (!!H Google) <br>
 Go from (0, 0) -> (n-1, n-1) -> (0, 0) can be treated as two men go from (0, 0) -> (n-1, n-1) together, dp[x1][y1][x2] to represent the largest ans we can get when first guy (marked as A) at(x1, y2) and second guy(marked as B) at (x2, x1 + y1 - x2)
-- [0527. Word Abbreviation](Solutions/0527.Word-Abbreviation.py) (!!H) <br>
+- [0527. Word Abbreviation](Solutions/0527.Word-Abbreviation.py) (!!H Google) <br>
 Trie. step 1: 建立一个abbrev函数：从idx开始，对 word 做abbreviation. 
 step 2: 建立一个abbr2word保存 abbr-->word.
 step 3: 遍历建立好了的abbr2word。 for abbr, word_lst in abbr2word.items(), 
@@ -233,9 +233,9 @@ step 3: 遍历建立好了的abbr2word。 for abbr, word_lst in abbr2word.items(
 所以对这个word_lst就一个Trie, Trie中写一个find_idx函数 to where the prefix for word is unique (cur_node.cnt == 1)
 Time Complexity: O(C) where C is the number of characters across all words in the given array.
 Space Complexity: O(C).
-- [0335. Self Crossing](Solutions/0335.Self-Crossing.py) (H) <br>
+- [0335. Self Crossing](Solutions/0335.Self-Crossing.py) (H Google) <br>
 Math. there are 3 cases in total.
-- [1203. Sort Items by Groups Respecting Dependencies](Solutions/1203.Sort-Items-by-Groups-Respecting-Dependencies.py) (!!H) <br>
+- [1203. Sort Items by Groups Respecting Dependencies](Solutions/1203.Sort-Items-by-Groups-Respecting-Dependencies.py) (!!H Google) <br>
 topo sort. step 1: put -1 into idependent groups;
 step 2: build the item_graph and item_degrees, and group_graph and group_degrees;
 step 3: topological sort for the two graphs we built;
@@ -244,27 +244,27 @@ step 4: get the res: 先宏观有序，再微观有序
 The problem really is to find the longest palindrome starts with s[0].
 rabin carp / rolling hash O(N). The algorithm is for string s, left_code = the hash_code scan from left to right,
 right_code = the hash_code scan from right to left. if left_code == right_code, then s is a palindrome.
-- [1312. Minimum Insertion Steps to Make a String Palindrome](Solutions/1312.Minimum-Insertion-Steps-to-Make-a-String-Palindrome.py) (!!H) <br>
+- [1312. Minimum Insertion Steps to Make a String Palindrome](Solutions/1312.Minimum-Insertion-Steps-to-Make-a-String-Palindrome.py) (!!H Google) <br>
 dp 1143.Longest Common- Subsequence. 题目其实是求 n - (the longest palindromic subsequence in s);
 也就是 to find the longest common subsequence between s and s[::-1].
 which is same as 1143.Longest Common- Subsequence.
-- [0646. Maximum Length of Pair Chain](Solutions/0646.Maximum-Length-of-Pair-Chain.py) (!M) <br>
+- [0646. Maximum Length of Pair Chain](Solutions/0646.Maximum-Length-of-Pair-Chain.py) (!M Google) <br>
 dp. step 1: sort the interval by end_time or start_time;
 step 2: dp. dp[i] = the max lens ended with ith interval. dp[j] = max(dp[i] + 1 for i < j and intervals[i][1] < intervals[j][0]). O(N^2)
 solution 2 greedy: 找到所有overlapped intervals. 用一个last_end指针记录上一个end; O(NlogN)
-- [1235. Maximum Profit in Job Scheduling](Solutions/1235.Maximum-Profit-in-Job-Scheduling.py) (!!H) <br>
+- [1235. Maximum Profit in Job Scheduling](Solutions/1235.Maximum-Profit-in-Job-Scheduling.py) (!!H Google) <br>
 dp. similar with 646. Maximum Length of Pair Chain, we define dp as dp[i] = the max_prof for intervals __ended with__ ith interval; dp[j] = max(dp[i] + profit[j] for i < j if endTime[i] <= startTime[j]). O(N^2). solution 2: dp. 我们将dp定义为dp[i] = the max_prof for intervals __before (including)__ ith interval; solution 3: dp + binary search. 由于我们定义dp[i] = the max_prof for intervals before (including) ith interval, 所以dp是递增的，所以只需要在dp[:j]中选最后一个满足intervals[i][1] <= intervals[j][0]的i就可以了
-- [1125. Smallest Sufficient Team](Solutions/1125.Smallest-Sufficient-Team.py) (!!H) <br>
+- [1125. Smallest Sufficient Team](Solutions/1125.Smallest-Sufficient-Team.py) (!!H Google) <br>
 backtrack. "The Set Cover Problem": find the min number of subsets to cover the entire set.
 This famous "Set Cover Problem" is actually a NP Complete problem.
 NP-complete problem: any of a class of computational problems for which no efficient solution algorithm has been found.
 solution 1: backtrack - the subset problem 78. Subsets: find the subset that is valid.
 O(m* 2^n), where m = len(req_skills), n = len(people)
-- [1255. Maximum Score Words Formed by Letters](Solutions/1255.Maximum-Score-Words-Formed-by-Letters.py) (!!H) <br>
+- [1255. Maximum Score Words Formed by Letters](Solutions/1255.Maximum-Score-Words-Formed-by-Letters.py) (!!H Google) <br>
 find all subsets, similar with 78. Subsets. O(26* 2^n), n = len(words)
-- [1499. Max Value of Equation](Solutions/1499.Max-Value-of-Equation.py) (!!!H) <br>
+- [1499. Max Value of Equation](Solutions/1499.Max-Value-of-Equation.py) (!!!H Google) <br>
 __maintain previous min/max problem__ solution 1: heapq; solution 2: monodeque - O(N). 如果题目需要我们在window里更新最大值或最小值，我们往往需要maintian一个mono increasing or mono decreasing deque.  在mono deque中会有两个while loop，第一个while loop从左端pop作为sliding window去限定window size, 第二个while loop从右端pop作为monostack去maintain 最大值/最小值
-- [1377. Frog Position After T Seconds](Solutions/1377.Frog-Position-After-T-Seconds.py) (!!H) <br>
+- [1377. Frog Position After T Seconds](Solutions/1377.Frog-Position-After-T-Seconds.py) (!!H Google) <br>
 dfs, 虚拟一个节点零出来，从0节点出发做dfs. dfs the graph and update the dist of target and the prob of reaching target
 
 
