@@ -1,3 +1,4 @@
+"""
 895. Maximum Frequency Stack
 
 Implement FreqStack, a class which simulates the operation of a stack-like data structure.
@@ -38,7 +39,7 @@ It is guaranteed that FreqStack.pop() won't be called if the stack has zero elem
 The total number of FreqStack.push calls will not exceed 10000 in a single test case.
 The total number of FreqStack.pop calls will not exceed 10000 in a single test case.
 The total number of FreqStack.push and FreqStack.pop calls will not exceed 150000 across all test cases.
-
+"""
 
 """
 It should be noted that since we don't 
