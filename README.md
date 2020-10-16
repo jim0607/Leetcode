@@ -74,7 +74,7 @@ Get data from read4 and store it in a queue. When read data, transfer data from 
 
 
 
-#### [Parentheses](/)
+### [Parentheses](/)
 - [0394. Decode String](Solutions/0394.Decode-String.py) (!!M Google) <br>
 定义一个numStack, 一个strStack 存nums和parenthesis. if it's a digit, should use a while loop to add the num in case there are multiple digits; if it's a ch, then put it into strStack; if it's a [, then put the num in numStack and re-initialize the tempNum and tempStr for calculation inside the []; if it's a ], then pop the resStack and signStack and update res.
 - [1047. Remove All Adjacent Duplicates In String](Solutions/1047.Remove-All-Adjacent-Duplicates-In-String.py) (!!E) <br>
@@ -1367,7 +1367,7 @@ min_steps[i]表示节点i所见到过的除了目前的父节点之外的所有�
 
 
 ## [dfs + memoization/top down DP](/https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-#### 最重要的是memo状态的定义和递归返回值的定义. memo的key是状态, 往往跟backtrack的状态定义是一样的, val是我们想求的东西与递归返回值是一样的
+##### 最重要的是memo状态的定义和递归返回值的定义. memo的key是状态, 往往跟backtrack的状态定义是一样的, val是我们想求的东西与递归返回值是一样的
 - [0494. Target Sum](Solutions/0494.Target-Sum.py) (!!M) <br>
 solution 1: naive dfs - O(2^n); solution 2: naive dfs + memorization - 从backtrack到memorization只需要将memo dict的key定义为backtrack的arguments, val是需要return的东西。
 time complexty is how many diferent keys are possible there - O(n * t) where n is len(nums), t is largest sum possible.
@@ -1504,7 +1504,8 @@ Only k transactions are allowed.   Maintain buy=[]* k, sell=[]* k, and update th
 
 
 
-###  [最长子序列问题](/Dynamic-Programming.py) (dp[i]都是定义为以i结尾的最长....)
+###  [最长子序列问题](/Dynamic-Programming.py) 
+##### (dp[i]都是定义为以i结尾的最长....)
 - [0674. Longest Continuous Increasing Subsequence](Solutions/0674.Longest-Continuous-Increasing-Subsequence.py) (E) <br>
 dp[i] = 以i结尾(包括i)的最长连续子序列; dp[i] = dp[i-1] + 1 if nums[i]>nums[i-1]; solution 2: 同向双指针（滑动窗口）
 - [0300. Longest Increasing Subsequence](Solutions/0300.Longest-Increasing-Subsequence.py) (!!M) <br> 
@@ -1536,7 +1537,8 @@ dp. similar with 646. Maximum Length of Pair Chain, we define dp as dp[i] = the 
 
 
 
-### [区间型DP](/Dynamic-Programming.py) 自然而然将状态定义为f[i][j]表示面对子区间[i, j]时的最佳性质
+### [区间型DP](/Dynamic-Programming.py) 
+##### 状态定义为f[i][j]表示面对子区间[i, j]时的最佳性质
 - [0005. Longest Palindromic Substring](Solutions/0005.Longest-Palindromic-Substring.py) (!!M) <br>
 题目问substring, substring就需要是连续的，题目要求Return the longest substr: dp[i][j]=from i to j (including j), is it a palindr? if s[i]==s[j]: dp[i][j] = dp[i+1][j-1]; 注意初始化对角线和相邻的，因为计算dp[i][j]需要用到dp[i+1][j-1]，所以要先算i+1, 再算i，所以i 是倒序遍历
 solution Solution 2: central spread.  从中间c往两边遍历i--, j++，遍历两次：一次是i=c, j=c开始遍历， 一次是i=c, j=c+1开始遍历。
@@ -1556,6 +1558,8 @@ dp[i][j]表示合并i到j的石头需要的最小代价, including i and j.
 即合并i－j的代价为合并左边部分的代价＋合并右边部分的代价＋合并左右部分的代价（即i－j所有元素的总和）。找到使dp[i][j]最小的k.
 - [0312. Burst Balloons](Solutions/0312.Burst-Balloons.py) (!!H) <br>
 solution 1: dp[i][j] = max coin we can get from i to j, __not including i, not including j__.  dp[i][j] = max(dp[i][k] + dp[k][j] + nums[i]* nums[k]* nums[j] for k in range(i+1, j)). solution 2: backtrack without memorizaiton - O(2^N). solution 3: 带memo的recursion; left = self.memoSearch(nums, i, k, memo); right=self.memoSearch(nums, k, j, memo); maxCoins = max(maxCoins, left + right + nums[i] * nums[k] * nums[j]). 
+- [0374. Guess Number Higher or Lower](Solutions/0374.Guess-Number-Higher-or-Lower.py) (!!M Google) <br>
+Binary search.
 - [0375. Guess Number Higher or Lower II](Solutions/0375.Guess-Number-Higher-or-Lower-II.py) (!!M Google) <br>
 DP. dp[i][j] = 数字在[i, j]范围内所需要的最小payment. dp[i][j] = mid + max(dp[i][mid-1], dp[mid+1][j]) for mid in range(i, j)
 - [0471. Encode String with Shortest Length](Solutions/0471.Encode-String-with-Shortest-Length.py) (!!!H Google) <br>
@@ -1566,7 +1570,7 @@ initializaton: dp[i][j] = s[i:j+1] originally, return dp[0][n-1]
 
 
 ###  [划分型DP](/Dynamic-Programming.py) 
-#### 状态往往定义为前j个的某种特性，__不包括 j__ ！！这个思想很重要，相当于给前面做了一层buffer layer)
+#### 状态定义为前j个的某种特性，__不包括 j__. 这个思想很重要，相当于给前面做了一层buffer layer!!
 - [0139. Word Break](Solutions/0139.Word-Break.py) (!!M) <br>
 solution 1: dp[i]=can partition until ith char?, not including i; dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in wordDict). solution 2: bfs, solution 3: dfs + memorization (top-down dp)
 - [0091. Decode Ways](Solutions/0091.Decode-Ways.py) (M) <br>
@@ -1581,6 +1585,7 @@ Time complexity: 比较复杂最后是 O(n^(h/2)), where h is the height of the 
 - [1043. Partition Array for Maximum Sum](Solutions/1043.Partition-Array-for-Maximum-Sum.py) (!!M) <br>
 Suppose you are at position X of the array. What is the maximum possible sum to this point?
 so we go back K-1 steps, we choose the maximum from the following combinations: dp_sum[X - (k-1)] + max(A[X-(k-2)] ..... A[X])* (k-1)
+
 
 
 ### [博弈型DP](/Dynamic-Programming.py)
@@ -1645,7 +1650,7 @@ curr is a set that stores all the combinations ended with ith number as we loop 
 
 
 ### [双序列型DP!!](/Dynamic-Programming.py) 
-#### 二维数组下标表示序列A前i个，序列B前j个: f[i][j]
+#### dp[i][j]定义为二维数组下标表示序列A前i个，序列B前j个的某个性质
 - [1143. Longest Common Subsequence](Solutions/1143.Longest-Common-Subsequence.py) (!!M) <br>
 f[i][j]为A前i个字符A[0..i)和B前j个字符[0..j)的最长公共子串的长度，注意不包括i和j，前面有一层buffer layer非常重要，就像sputtering那样重要！ f[i][j]=f[i-1][j-1] + 1 when A[i-1]=B[j-1], else f[i][j]=max(f[i-1][j], f[i][j-1])) # 注意有了buffer layer之后，dp中的i对应的是text中的i-1,所以判断条件是when A[i-1]=B[j-1]
 - [0718. Maximum Length of Repeated Subarray](Solutions/0718.Maximum-Length-of-Repeated-Subarray.py) (!!M)
@@ -1809,8 +1814,6 @@ minimum of maximum / maximum of minimum 的问题: 与上一题类似，把array
 - [0774. Minimize Max Distance to Gas Station](Solutions/0774.Minimize-Max-Distance-to-Gas-Station.py) (!!H Google) <br>
 minimum of maximum / maximum of minimum 的问题: If we can do it at D, then we can do it at larger than D. This is a OOXX problem to find the minimum D.
 The difficult part is to find if is_valid to place K stations so that every adjacent station has distance smaller than D - using greedy. 注意这一题的start, end都是小数
-- [0374. Guess Number Higher or Lower](Solutions/0374.Guess-Number-Higher-or-Lower.py) (!!M Google) <br>
-Binary search.
 - [0792. Number of Matching Subsequences](Solutions/0792.Number-of-Matching-Subsequences.py) (!!M Google) <br>
 solution 1: compare each word with source string using two pointers. O(nmk), where n = len(s), m = len(words) and k = average lens of word in words. solution 2: use binary search in s, similar with 1055.  O(mklogn)
 - [0392. Is Subsequence](Solutions/0392.Is-Subsequence.py) (!!E Google) <br>
@@ -2161,6 +2164,7 @@ Use another dicitonary to store (freq, list of keys) pair, where list of keys co
 Follow up 变形题snapchat：在一个data stream 中find top K most frequent number用LFU来解，也可以用heapq O(Nk).
 
 
+
 # [Big Data]()
 - [0349. Intersection of Two Arrays](Solutions/0349.Intersection-of-Two-Arrays.py) (!!E) <br>
 Facebook follow up: what if the lists are sorted and you are requred to use O(1) space. Approach: two-pointers solution, 注意去重的方法！！
@@ -2241,72 +2245,6 @@ The robot stays in the circle if (looking at the final vector!!!), it changes di
 
 
 
-### [String Manipulation](/)
-- [0833. Find And Replace in String](Solutions/0833.Find-And-Replace-in-String.py) (!!!M Google) <br>
-String manipulation.
-- [0722. Remove Comments](Solutions/0722.Remove-Comments.py) (!!M Google) <br>
-String manipulation. manipulate string line by line.
-- [0777. Swap Adjacent in LR String](Solutions/0777.Swap-Adjacent-in-LR-String.py) (!!M Google) <br>
-观察之后可以发现每次replace "XL" to "LX"都是相当于把"L"向左移动。
-所以"L"一直向左移动，并且不会跨越其他"L" or "R". 而"R"一直向右移动，并且不会跨越其他"R" or "L".
-- [0271. Encode and Decode Strings](Solutions/0271.Encode-and-Decode-Strings.py) (!!M Google) <br>
-quite smart. Encodes a list of strings to a single string. encode ["a$c@d", "31_;df"] as "5 a$c@d6 31_;df", where 5 is len("a$c@d") and 6 is len("31_;df").
-- [0418. Sentence Screen Fitting](Solutions/0418.Sentence-Screen-Fitting.py) (!M Google) <br>
-string. fit the sentence in line by line
-- [0068. Text Justification](Solutions/0068.Text-Justification.py) (!!H Google) <br>
-String manipulation. use curr_line = [] to record curr words in curr_line; use curr_width = 0 to record curr total number of chars in curr_line. Iterate the word in words, if too many words to fit in one line, we first justify that line and update res, then start over the curr_line = [] and curr_width = 0 for the next line. Lastly, we deal with the last line seperately.
-- [0771. Jewels and Stones](Solutions/0771.Jewels-and-Stones.py) (E Google) <br>
-Too easy to believe.
-- [1592. Rearrange Spaces Between Words](Solutions/1592.Rearrange-Spaces-Between-Words.py) (E Google) <br>
-Easy heasy!
-- [0389. Find the Difference](Solutions/0389.Find-the-Difference.py) (E Google) <br>
-Use two cnters, easy heasy!
-- [0058. Length of Last Word](Solutions/0058.Length-of-Last-Word.py) (!!E Google) <br>
-一定要熟悉句式：while j + 1 < len(s) and s[j+1].isalpha(): j += 1
-- [100420-Sentence Reverse](Solutions/Pramp__100420-Sentence-Reverse.py) (!!M) <br>
-O(N), O(1) solution - step 1: loop thru the given arr and inverse the whole array; step 2: reverse each word
-- [0819. Most Common Word](Solutions/0819.Most-Common-Word.py) (E) <br>
-String processing in pipline: step 1: pre-process: convert all letters in lower case and replace the punctuations with spaces cuz they are not valid words; step 2: count the freq of the words that are not banned
-- [0008. String to Integer (atoi)](Solutions/0008.String-to-Integer-(atoi).py) (!!M) <br>
-we only need to handle 3 cases: 1. discards all leading whitespaces - using python str.strip(char). 2. sign of the number - use 正负1来代表符号. 3. overflow
-- [0273. Integer to English Words](Solutions/0273.Integer-to-English-Words.py) (!!H) <br>
-construct 3 lists for the english expressions for numbers less_than_20, tens, thousands.
-the main funciton handle the situation of num >= thousands.
-use a helper funciton to calcuate cases when num <= hundreds.
-
-
-
-### [Array / Image Process](/)
-- [0048. Rotate Image](Solutions/0048.Rotate-Image.py) (!M) <br>
-Step 1: reverse columns: swap( matrix[][i], matrix[][j] ); Step 2: transpose: swap( matrix[i][j], matrix[j][i] )
-- [0835. Image Overlap](Solutions/0835.Image-Overlap.py) (!!M) <br>
-step 1: use a list to record the positions for A and B where 1s are located;
-step 2: use a dictionary 来存 (左右移动步数，上下移动步数) --> 多少个1能通过这样的移动重合
-O(N^4), O(N^2)
-- [0989. Add to Array-Form of Integer](Solutions/0989.Add-to-Array-Form-of-Integer.py) (E Google) <br>
-Array. 
-- [0463. Island Perimeter](Solutions/0463.Island-Perimeter.py) (E Google) <br>
-Array.  step 1: find the min_row, max_row, min_col, max_col for the island; step 2: update the res row by row, col by col
-- [0840. Magic Squares In Grid](Solutions/0840.Magic-Squares-In-Grid.py) (!!!M Google) <br>
-Array. 找规律就可以了
-- [070820-Busiest Time in The Mall](Solutions/Pramp__070820-Busiest-Time-in-The-Mall.py) (M) <br>
-居然没做出来呀，太菜了，真的需要练呀！！
-- [0073. Set Matrix Zeroes](Solutions/0073.Set-Matrix-Zeroes.py) (M) <br>
-solution 1: mark the rows and cols that need to be set to zero - O(mn), O(m+n); solution 2: use the first cell of every row and column as a flag.  This flag would determine whether a row or column has been set to zero. - O(mn), O(1)
-- [0769. Max Chunks To Make Sorted](Solutions/0769.Max-Chunks-To-Make-Sorted.py) (!!M) <br>
-Iterate the array, if the max(A[0] ~ A[i]) = i, then we can cut it at this index.,
-so that it the chunk ended with i. - just some game about number.
-- [0768. Max Chunks To Make Sorted II](Solutions/0768.Max-Chunks-To-Make-Sorted-II.py) (!!H) <br>
-Maintain two sums, one for arr, one for sorted arr.
-for num_1, num_2 in zip(arr, sorted(arr)): if sum_1 == sum_2: cnt += 1.
-- [0006. ZigZag Conversion](Solutions/0006.ZigZag-Conversion.py) (M) <br>
-
-- [0605. Can Place Flowers](Solutions/0605.Can-Place-Flowers.py) (E) <br>
-把arr进行预处理：把arr的头部和尾部各加上0
-
-
-
-
 ### [Bit Manipulation](/)
 - [0136. Single Number](Solutions/0136.Single-Number.py) (!!E) <br>
 Bitwise XOR is the most important in bit manipulation. 要牢记xor的三条定律: If we take XOR of zero and some bit, it will return that bit: a⊕0=a; If we take XOR of two same bits, it will return 0: a⊕a=0; Commutative law for XOR: a⊕b⊕a=(a⊕a)⊕b=0⊕b=b. So we can XOR all bits together to find the unique number.
@@ -2373,6 +2311,71 @@ rabin carp / rolling hash O(N). The algorithm is for string s, left_code = the h
 right_code = the hash_code scan from right to left. if left_code == right_code, then s is a palindrome.
 - [1312. Minimum Insertion Steps to Make a String Palindrome](Solutions/1312.Minimum-Insertion-Steps-to-Make-a-String-Palindrome.py) (!!H Google) <br>
 dp 1143.Longest Common- Subsequence. 题目其实是求 n - (the longest palindromic subsequence in s); 也就是 to find the longest common subsequence between s and s[::-1]. which is same as 1143.Longest Common- Subsequence.
+
+
+
+### [String Manipulation](/)
+- [0833. Find And Replace in String](Solutions/0833.Find-And-Replace-in-String.py) (!!!M Google) <br>
+String manipulation.
+- [0722. Remove Comments](Solutions/0722.Remove-Comments.py) (!!M Google) <br>
+String manipulation. manipulate string line by line.
+- [0777. Swap Adjacent in LR String](Solutions/0777.Swap-Adjacent-in-LR-String.py) (!!M Google) <br>
+观察之后可以发现每次replace "XL" to "LX"都是相当于把"L"向左移动。
+所以"L"一直向左移动，并且不会跨越其他"L" or "R". 而"R"一直向右移动，并且不会跨越其他"R" or "L".
+- [0271. Encode and Decode Strings](Solutions/0271.Encode-and-Decode-Strings.py) (!!M Google) <br>
+quite smart. Encodes a list of strings to a single string. encode ["a$c@d", "31_;df"] as "5 a$c@d6 31_;df", where 5 is len("a$c@d") and 6 is len("31_;df").
+- [0418. Sentence Screen Fitting](Solutions/0418.Sentence-Screen-Fitting.py) (!M Google) <br>
+string. fit the sentence in line by line
+- [0068. Text Justification](Solutions/0068.Text-Justification.py) (!!H Google) <br>
+String manipulation. use curr_line = [] to record curr words in curr_line; use curr_width = 0 to record curr total number of chars in curr_line. Iterate the word in words, if too many words to fit in one line, we first justify that line and update res, then start over the curr_line = [] and curr_width = 0 for the next line. Lastly, we deal with the last line seperately.
+- [0771. Jewels and Stones](Solutions/0771.Jewels-and-Stones.py) (E Google) <br>
+Too easy to believe.
+- [1592. Rearrange Spaces Between Words](Solutions/1592.Rearrange-Spaces-Between-Words.py) (E Google) <br>
+Easy heasy!
+- [0389. Find the Difference](Solutions/0389.Find-the-Difference.py) (E Google) <br>
+Use two cnters, easy heasy!
+- [0058. Length of Last Word](Solutions/0058.Length-of-Last-Word.py) (!!E Google) <br>
+一定要熟悉句式：while j + 1 < len(s) and s[j+1].isalpha(): j += 1
+- [100420-Sentence Reverse](Solutions/Pramp__100420-Sentence-Reverse.py) (!!M) <br>
+O(N), O(1) solution - step 1: loop thru the given arr and inverse the whole array; step 2: reverse each word
+- [0819. Most Common Word](Solutions/0819.Most-Common-Word.py) (E) <br>
+String processing in pipline: step 1: pre-process: convert all letters in lower case and replace the punctuations with spaces cuz they are not valid words; step 2: count the freq of the words that are not banned
+- [0008. String to Integer (atoi)](Solutions/0008.String-to-Integer-(atoi).py) (!!M) <br>
+we only need to handle 3 cases: 1. discards all leading whitespaces - using python str.strip(char). 2. sign of the number - use 正负1来代表符号. 3. overflow
+- [0273. Integer to English Words](Solutions/0273.Integer-to-English-Words.py) (!!H) <br>
+construct 3 lists for the english expressions for numbers less_than_20, tens, thousands.
+the main funciton handle the situation of num >= thousands.
+use a helper funciton to calcuate cases when num <= hundreds.
+
+
+
+### [Array / Image Process](/)
+- [0048. Rotate Image](Solutions/0048.Rotate-Image.py) (!M) <br>
+Step 1: reverse columns: swap( matrix[][i], matrix[][j] ); Step 2: transpose: swap( matrix[i][j], matrix[j][i] )
+- [0835. Image Overlap](Solutions/0835.Image-Overlap.py) (!!M) <br>
+step 1: use a list to record the positions for A and B where 1s are located;
+step 2: use a dictionary 来存 (左右移动步数，上下移动步数) --> 多少个1能通过这样的移动重合
+O(N^4), O(N^2)
+- [0989. Add to Array-Form of Integer](Solutions/0989.Add-to-Array-Form-of-Integer.py) (E Google) <br>
+Array. 
+- [0463. Island Perimeter](Solutions/0463.Island-Perimeter.py) (E Google) <br>
+Array.  step 1: find the min_row, max_row, min_col, max_col for the island; step 2: update the res row by row, col by col
+- [0840. Magic Squares In Grid](Solutions/0840.Magic-Squares-In-Grid.py) (!!!M Google) <br>
+Array. 找规律就可以了
+- [070820-Busiest Time in The Mall](Solutions/Pramp__070820-Busiest-Time-in-The-Mall.py) (M) <br>
+居然没做出来呀，太菜了，真的需要练呀！！
+- [0073. Set Matrix Zeroes](Solutions/0073.Set-Matrix-Zeroes.py) (M) <br>
+solution 1: mark the rows and cols that need to be set to zero - O(mn), O(m+n); solution 2: use the first cell of every row and column as a flag.  This flag would determine whether a row or column has been set to zero. - O(mn), O(1)
+- [0769. Max Chunks To Make Sorted](Solutions/0769.Max-Chunks-To-Make-Sorted.py) (!!M) <br>
+Iterate the array, if the max(A[0] ~ A[i]) = i, then we can cut it at this index.,
+so that it the chunk ended with i. - just some game about number.
+- [0768. Max Chunks To Make Sorted II](Solutions/0768.Max-Chunks-To-Make-Sorted-II.py) (!!H) <br>
+Maintain two sums, one for arr, one for sorted arr.
+for num_1, num_2 in zip(arr, sorted(arr)): if sum_1 == sum_2: cnt += 1.
+- [0006. ZigZag Conversion](Solutions/0006.ZigZag-Conversion.py) (M) <br>
+- [0605. Can Place Flowers](Solutions/0605.Can-Place-Flowers.py) (E) <br>
+把arr进行预处理：把arr的头部和尾部各加上0
+
 
 
 
