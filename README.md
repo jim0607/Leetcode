@@ -1721,7 +1721,7 @@ dp + sliding widown with fixed size.  The probability to get point K point is p(
 - [0361. Bomb Enemy](Solutions/0361.Bomb-Enemy.py) (M)
 brutal force: 上下左右四个方向去找能炸死多少人即可。 DP解法: 把(i, j)位置能炸死多少敌人提前计算好放入二维数组中， up[i][j]=在(i,j)位置能向上炸的敌人数目
 
-
+----------1335. Minimum Difficulty of a Job Schedule--------
 
 
 
