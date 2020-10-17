@@ -3,7 +3,8 @@
 
 Given a 2D board and a word, find if the word exists in the grid.
 
-The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once.
+The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. 
+The same letter cell may not be used more than once.
 
 Example:
 
@@ -26,7 +27,8 @@ Given word = "ABCB", return false.
 Time Complexity: O(N*4^L) where N is the number of cells in the board and L is the length of the word to be matched.
 """
 """
-套用backtrack的模板，backtrack 里面要传入(curr_i, curr_j, curr_idx on word). find solution: if board[next_i][next_j] == word[curr_idx + 1].  if find a solution, backtrack函数输出True
+套用backtrack的模板，backtrack 里面要传入(curr_i, curr_j, curr_idx on word). find solution: if board[next_i][next_j] == word[curr_idx + 1].  
+if find a solution, backtrack函数输出True
 if valid: if board[next_i][next_j] == word[curr_idx + 1]. 需要一个visited set来标记已经走过的路径避免走重复的路径。
 """
 
@@ -43,14 +45,14 @@ class Solution:
                             visited.add((next_i, next_j))
                             if backtrack(next_i, next_j, curr_idx + 1):
                                 return True
-                            visited.remove((next_i, next_j))
+                            visited.remove((next_i, next_j))        # backtrack
             return False
         
         
         m, n = len(board), len(board[0])
         for i in range(m):
             for j in range(n):
-                if board[i][j] == word[0]:
+                if board[i][j] == word[0]:    # trigger a bbacktrack search whenever we find a char == word[0]
                     visited = set()
                     visited.add((i, j))
                     if backtrack(i, j, 0):
