@@ -61,7 +61,7 @@ class Solution:
         
         for i in range(1, m):
             for j1 in range(n):
-                for j2 in range(j1 + 1, n):
+                for j2 in range(n):
                     curr_cherry = grid[i][j1] + grid[i][j2] if j1 != j2 else grid[i][j1]    # A, B在同一点只能pick up 一次
                     for prev_j1 in [j1 - 1, j1, j1 + 1]:
                         for prev_j2 in [j2 - 1, j2, j2 + 1]:
