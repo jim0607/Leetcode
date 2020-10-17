@@ -87,7 +87,7 @@ class Solution:
             if (curr_i, curr_j) in memo:        # step 1: check if curr_state in memo
                 return memo[(curr_i, curr_j)]
             
-            LIP = 1                             # step 2: recurssively update memo[curr_state]
+            LIP = 1                             # step 2: recurssively get the result for curr_state
             for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
                 next_i, next_j = curr_i + delta_i, curr_j + delta_j
                 if 0 <= next_i < m and 0 <= next_j < n:
