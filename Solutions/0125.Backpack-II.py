@@ -21,23 +21,22 @@ Explanation: Put A[1] and A[3] into backpack, getting the maximum value V[1] + V
 """
 https://www.kancloud.cn/kancloud/pack/70125
 这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。
-用子问题定义状态：即f[i][v]表示前i件物品恰放入一个容量为v的背包可以获得的最大价值。
-f[i][j]=max{f[i-1][j],f[i-1][j-A[i]]+V[i]}
-将前i件物品（包括i）放入容量为j的背包中”这个子问题，若只考虑第i件物品的策略（放或不放），
-那么就可以转化为一个只牵扯前i-1件物品的问题。如果不放第i件物品，那么问题就转化为“前i-1件物品放入容量为a的背包中”，价值为f[i-1][v]；
-如果放第i件物品，那么问题就转化为“前i-1件物品放入剩下的容量为j-A[i]的背包中”，此时能获得的最大价值就是f[i-1][j-A[i]]再加上通过放入第i件物品获得的价值V[i]
+定义状态：即f[i][m]表示前i件物品恰放入一个容量为m的背包可以获得的最大价值。
+f[i][m]=max{f[i-1][m], f[i-1][m-A[i]]+V[i]}
+不放第i件物品，则可以获得的最大价值是前i-1件物品恰放入一个容量为m的背包可以获得的最大价值 f[i-1][m].
+放第i件物品，则可以获得的最大价值是 V[i] + 前i-1件物品恰放入一个容量为m-A[i]的背包可以获得的最大价值
 """
 
 class Solution:
-    def backPackII(self, target, A, V):
-        dp = [[0 for _ in range(target + 1)] for _ in range(len(A) + 1)]
+    def backPackII(self, M, A, V):
+        dp = [[0 for _ in range(M + 1)] for _ in range(len(A) + 1)]     # 注意buffer layer
         for i in range(1, len(A) + 1):
-            for m in range(1, target + 1):
+            for m in range(1, M + 1):
                 dp[i][m] = dp[i-1][m]
                 if m >= A[i-1]:
                     dp[i][m] = max(dp[i][m], dp[i-1][m-A[i-1]] + V[i-1])
                     
-        return dp[len(A)][target]
+        return dp[len(A)][M]
 
     
     
