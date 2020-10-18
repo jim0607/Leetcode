@@ -1,7 +1,8 @@
 """
 315. Count of Smaller Numbers After Self
 
-You are given an integer array nums and you have to return a new counts array. The counts array has the property where counts[i] is the number of smaller elements to the right of nums[i].
+You are given an integer array nums and you have to return a new counts array. 
+The counts array has the property where counts[i] is the number of smaller elements to the right of nums[i].
 
 Example:
 
@@ -22,7 +23,6 @@ When we're doing mergesort, original index of elements in left part (smaller sid
 So in addition to the while loop for do merge/conquer, we use a while loop to compare nums[i] and nums[j] to update cnt.  
 This while loop is for every left_sublist and right_sublist.
 没想到merge sort还能这么出题，看来熟练掌握理解各种基础sort的方法很有用呀！
-"""
 """
 
 class Solution:
