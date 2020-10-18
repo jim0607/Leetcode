@@ -16,7 +16,7 @@ Explanation: The longest common subsequence is "ace" and its length is 3.
 
 """
 设f[i][j]为A前i个字符A[0..i)和B前j个字符[0..j)的最长公共子串的长度，注意不包括i和j，前面有一层buffer layer非常重要，
-就像sputtering那样重要！f[i][j]=max(f[i][j-1], f[i-1][j], f[i-1][j-1] when A[i-1]=B[j-1])
+就像sputtering那样重要！f[i][j]=max(f[i][j-1], f[i-1][j], f[i-1][j-1] + 1 when A[i-1]=B[j-1])
 """
 class Solution:
     def longestCommonSubsequence(self, A: str, B: str) -> int:
