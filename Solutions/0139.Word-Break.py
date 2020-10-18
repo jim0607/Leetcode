@@ -1,7 +1,8 @@
 """
 139. Word Break
 
-Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
+Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, 
+determine if s can be segmented into a space-separated sequence of one or more dictionary words.
 
 Note:
 
@@ -28,15 +29,16 @@ Output: false
 
 """
 dp[i]=can partition until ith char?, not including i
-dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in wordDict)
+dp[j]=true if (for i < j, there is dp[i]=True and s[i:j]is in word_set)
 O(n^2)
 """
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         word_set = set(wordDict)    # change to set so check if s[i:j] in word_set is faster
-        dp = [False for _ in range(len(s) + 1)]  
+        n = len(s)
+        dp = [False for _ in range(n + 1)]     # 注意 range(len(s) + 1)
         dp[0] = True
-        for j in range(len(dp)):
+        for j in range(1, n + 1):
             for i in range(j):    # 反向遍历 s[i:j] in wordSet 就更容易判断更快了！
                 if dp[i] and s[i:j] in word_set:  # 这句话应该把dp[i]==True放到前面，因为dp[i]==True is low cost comparison
                     dp[j] = True
