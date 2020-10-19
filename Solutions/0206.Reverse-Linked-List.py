@@ -44,7 +44,7 @@ class Solution:
         if not head or not head.next:
             return head
         
-        prev, curr = None, head
+        prev, curr = None, head     # 注意prev从None开始
         while curr:
             temp = curr.next
             curr.next = prev
@@ -68,6 +68,6 @@ class Solution:
         nextNode = head.next
         reversedHead = self.reverseList(nextNode)   # 这一部分执行完了之后nextNode已经变成了后面一大坨已经翻转好的List的tail了
         nextNode.next = head
-        head.next = None        #！！ 非常容易漏掉！！
+        head.next = None        # ！！非常容易漏掉！！
         
         return reversedHead
