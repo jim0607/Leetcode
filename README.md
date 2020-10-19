@@ -241,6 +241,14 @@ __maintain previous min/max problem__ solution 1: heapq; solution 2: monodeque -
 
 # [Sliding Window (同向双指针)](/Sliding-window.py)
 #### 第一种模板：at least problem; 第二种模板：at most problem.
+- [1234. Replace the Substring for Balanced String](Solutions/1234.Replace-the-Substring-for-Balanced-String.py) (!!M) <br>
+find the minimum substring so that outside the substring, condition all(four chars has frequency less than n//4) is satisfied.
+第一种模板：find min subarray size for at least problem, 后面的指针去远离前面的指针
+- [0209. Minimum Size Subarray Sum](Solutions/0209.Minimum-Size-Subarray-Sum.py) (!!M) <br>
+这题是第一种模板：find min subarray size for at least problem. 写法是while loop里让后面的指针逐渐远离前面的指针；
+Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search the fisrt j that satisfy sum(nums[i:]>=s), so it is a OOXX probelm, which could be solved using binary search. Follow up: 如果有负数怎么办？那就不能用sliding window了, 只能用pre_sum / deque, 详见862.
+- [1358. Number of Substrings Containing All Three Characters](Solutions/1358.Number-of-Substrings-Containing-All-Three-Characters.py) (M) <br>
+at least problem, 第一种模板：find min subarray size for at least problem. 写法是while loop里让后面的指针逐渐远离前面的指针
 - [1208. Get Equal Substrings Within Budget](Solutions/1208.Get-Equal-Substrings-Within-Budget.py) (!!M) <br>
 step 1: construct a cost arr; step 2: sliding window 第二种模板：find max subarray size for at most problem. 写法是while loop里让前面的指针去追后面的指针
 - [0713. Subarray Product Less Than K](Solutions/0713.Subarray-Product-Less-Than-K.py) (M) <br>
@@ -254,8 +262,6 @@ exactly(K) = atMost(K) - atMost(K-1); 第二种模板：find max subarray size f
 sliding window solution: longest subarray with at most one 0s. 这题是at most problem, 写法是while loop里让前面的指针去追后面的指针. solution 2: record prev_lens and curr_lens for the previous lens of consecutive 1s and curr lens of consecutive 1s. update them we there is a new 0 coming, otherwise curr_lens += 1.
 - [1004. Max Consecutive Ones III](Solutions/1004.Max-Consecutive-Ones-III.py) (M) <br>
 same as 487: longest subarray with at most k 0s. 这题是at most problem, 写法是while loop里让前面的指针去追后面的指针. 
-- [1358. Number of Substrings Containing All Three Characters](Solutions/1358.Number-of-Substrings-Containing-All-Three-Characters.py) (M) <br>
-at least problem, 第一种模板：find min subarray size for at least problem. 写法是while loop里让后面的指针逐渐远离前面的指针
 - [0340. Longest Substring with At Most K Distinct Characters](Solutions/0340.Longest-Substringwith-At-Most-K-Distinct-Characters.py) (!!H) <br>
 维护一个charDict, 用来记录i->j中的char的频率，这题是sum at most s problem, 写法是while loop里让前面的指针去追后面的指针; 更新j: charDict[s[j]+=1; 更新i: charDict[s[i]] -= 1, if charDict[s[i]] == 0: del charDict[s[i]]
 - [0159. Longest Substring with At Most Two Distinct Characters](Solutions/0159.Longest-Substring-with-At-Most-Two-Distinct-Characters.py) (M) <br>
@@ -276,16 +282,10 @@ Brutal force / sliding window with fixed length: O(26N); Sliding window O(N): fi
 solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题只需要freq都满足了就行，这题不仅如此，而且还是讲究顺序的，; solution 2: dp. dp[i][j] = the min window subsequence that ends with ith ch in t, and jth ch in s. If t[i-1] == s[j-1]: dp[i][j] = dp[i-1][j-1] + 1; else: dp[i][j] = dp[i][j-1] + 1
 - [0395. Longest Substring with At Least K Repeating Characters](Solutions/0395.Longest-Substring-with-At-Least-K-Repeating-Characters.py) (!!!M) <br>
 solution 1: sliding window: for each i in range(1, 27), use sliding window technique to find the longest substring to satisfy two conditions: 1. the number of total unique characters in substring is i; 2. at least k repeating characters. 第二种模板：find max subarray size for at most problem. 写法是while loop里让前面的指针去追后面的指针 solution 2: use those char which counting is smaller than k as a 'wall' to divide the string into two parts and use recursion on the two parts.
-- [1234. Replace the Substring for Balanced String](Solutions/1234.Replace-the-Substring-for-Balanced-String.py) (!!M) <br>
-find the minimum substring so that outside the substring, condition all(four chars has frequency less than n//4) is satisfied.
-第一种模板：find min subarray size for at least problem, 后面的指针去远离前面的指针
 - [0228. Summary Ranges](Solutions/0228.Summary-Ranges.py) (M) <br>
 sliding window可解
 - [0163. Missing Ranges](Solutions/0163.Missing-Ranges.py) (M) <br>
 这题是上一题的延伸，跟sliding window没啥关系
-- [0209. Minimum Size Subarray Sum](Solutions/0209.Minimum-Size-Subarray-Sum.py) (!!M) <br>
-这题是第一种模板：find min subarray size for at least problem. 写法是while loop里让后面的指针逐渐远离前面的指针；
-Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search the fisrt j that satisfy sum(nums[i:]>=s), so it is a OOXX probelm, which could be solved using binary search. Follow up: 如果有负数怎么办？那就不能用sliding window了, 只能用pre_sum / deque, 详见862.
 - [0862. Shortest Subarray with Sum at Least K](Solutions/0862.Shorteast-Subarray-with-Sum-at-Least-K.py) (!!!H) <br>
 不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
 这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
