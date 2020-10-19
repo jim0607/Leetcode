@@ -41,20 +41,19 @@ two sum是寻找两数之和：nums[i]+nums[j] = k, 这里是寻找两数之差�
 """
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        prefixSumDict = collections.defaultdict(lambda: 0) # key是prefixSum, val是how many times the prefixSum appears. 
-        prefixSumDict[0] = 1    # 注意prefixSumDict需要初始化
+        pre_sum_dict = defaultdict(int)     # pre_sum --> cnt of the occurance of the pre_sum
+        pre_sum_dict[0] = 1        # 特别注意pre_sum_dict需要初始化!!!!
+        pre_sum = 0
+        cnt = 0
         
-        prefixSum, cnt = 0, 0
-        
-        # Our problem is: find how many pairs of <i,j> satisfies i < j and prefixSum[j]-prefixSum[i] == k?
-        for num in nums:
-            # 这里的prefixSum相当于prefixSum[j+1], 一般都不会单独开一个数组出来存prefixSum
-            prefixSum += num
-            
-            if prefixSum - k in prefixSumDict.keys():   # 等价于if prefixSum[j+1]-prefixSum[i]==k
-                cnt += prefixSumDict[prefixSum - k]
+        # Our problem is: find how many pairs of <i,j> satisfies prefix_sum[j] - prefix_sum[i] == k?
+        # 接下来是 two sum 问题
+        for i, num in enumerate(nums):
+            pre_sum += num     # 这里的pre_sum相当于prefix_sum[j+1], 一般都不会单独开一个数组出来存prefix_sum
+            if pre_sum - k in pre_sum_dict:         # 等价于if prefix_sum[j] - prefix_sum[i] == k
+                cnt += pre_sum_dict[pre_sum - k]
                 
-            prefixSumDict[prefixSum] += 1   # 将prefixSum 存入prefixSumMap中
+            pre_sum_dict[pre_sum] += 1              # 将 pre_sum 存入pre_sum_dict中
             
         return cnt
 
