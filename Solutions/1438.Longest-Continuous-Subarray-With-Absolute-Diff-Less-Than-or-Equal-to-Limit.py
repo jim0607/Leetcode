@@ -1,3 +1,4 @@
+"""
 1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit
 
 Given an array of integers nums and an integer limit, return the size of the longest non-empty subarray such that the absolute difference between any two elements of this subarray is less than or equal to limit.
@@ -23,6 +24,8 @@ Example 2:
 Input: nums = [10,1,2,4,7,2], limit = 5
 Output: 4 
 Explanation: The subarray [2,4,7,2] is the longest since the maximum absolute diff is |2-7| = 5 <= 5.
+"""
+
 
 """
 如果题目需要我们在window里更新最大值或最小值，我们往往需要maintian一个mono increasing or mono decreasing deque.
