@@ -39,7 +39,8 @@ class Solution:
     
     
 """
-Follow up: 如果有负数怎么办？那就不能用sliding window了，只能用deque. 详见239.  
+Follow up: 如果有负数怎么办？
+那就不能用sliding window了，只能sliding window + mono deque. 详见862. Shortest Subarray with Sum at Least K 
 """  
     
 """
