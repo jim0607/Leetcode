@@ -181,6 +181,11 @@ step 2: 寻找右边第一个比自己小的idx并存起来;
 step 3: calculate the area
 - [0085. Maximal Rectangle](Solutions/0085.Maximal-Rectangle.py) (!!!H Google) <br>
 step 1: construct a heights list for each row; step 2: calculate the largestRectangularHistogram of each height using the same method in 84; Should think about dynamic programming solution also.
+- [1504. Count Submatrices With All Ones](Solutions/1504.Count-Submatrices-With-All-Ones.py) (!!!M Google) <br>
+Monostack. solution 1: dp. O(M^2N) 固定以up_row为长方形上边，然后去探寻不同下边的情况, 每次探寻一个下边，我们都计算一次从up_row到down_row可能有多少个valid_submatrices,
+我们把这个计算转换成一维来计算，对于每一个up_row, 都构建一个一位数组arr.  arr[j] = 1 if from up_row to down_row, all values in column j are 1. 只要up_row到down_row有一个value is 0，
+我们就设置arr[j] = 0, 表示不可能以up_row为上边以down_row为下边以j为右col构造valid submatrce. solution 2: 与84.Largest-Rectangle-in-Histogram, 85.Maximal-Rectangle很类似.
+先构造histogram. 以j结尾的submatrices的个数等于heights[j] * (j - 向左找第一个height小于heights[j]的idx).
 - [0907. Sum of Subarray Minimums](Solutions/0907.Sum-of-Subarray-Minimums.py) (!!M) <br>
 我们其实关心的是以某个数字结尾时的子数组最小值之和，
 可以用一个一维数组 dp，其中 dp[i] 表示以数字 A[i] 结尾的所有子数组最小值之和，
@@ -207,11 +212,7 @@ Step 1: put valid candidates into stack: loop from left to the right, if there's
 it doesn't make sense to use it. So we create a stack in descending order. 
 这里跟sort很像，但是我们是把unordered的num直接不要，而不是把它放到该有的地方。
 Step 2: now go backwards on A, and compare the values to the stack to see the max_lens we can have.
-- [1504. Count Submatrices With All Ones](Solutions/1504.Count-Submatrices-With-All-Ones.py) (!!!M Google) <br>
-Monostack. solution 1: dp. O(M^2N) 固定以up_row为长方形上边，然后去探寻不同下边的情况, 每次探寻一个下边，我们都计算一次从up_row到down_row可能有多少个valid_submatrices,
-我们把这个计算转换成一维来计算，对于每一个up_row, 都构建一个一位数组arr.  arr[j] = 1 if from up_row to down_row, all values in column j are 1. 只要up_row到down_row有一个value is 0，
-我们就设置arr[j] = 0, 表示不可能以up_row为上边以down_row为下边以j为右col构造valid submatrce. solution 2: 与84.Largest-Rectangle-in-Histogram, 85.Maximal-Rectangle很类似.
-先构造histogram. 以j结尾的submatrices的个数等于heights[j] * (j - 向左找第一个height小于heights[j]的idx).
+
 
 
 
