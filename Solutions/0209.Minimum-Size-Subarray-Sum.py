@@ -44,6 +44,5 @@ Follow up: 如果有负数怎么办？那就不能用sliding window了，只能�
     
 """
 Follow up: can we solve in O(NlogN)?
-Yes, we can traverse the the list, say at i, we search the fisrt j that satisfy sum(nums[i:]>=s), so it is a OOXX probelm, 
-which could be solved using binary search.
+Binary search O(nlogn).  二分答案: Each time, we use window size = mid to test if we have a subarray sum >= s. 
 """
