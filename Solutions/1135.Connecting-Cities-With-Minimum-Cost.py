@@ -1,10 +1,13 @@
+"""
 1135. Connecting Cities With Minimum Cost
 
 There are N cities numbered from 1 to N.
 
-You are given connections, where each connections[i] = [city1, city2, cost] represents the cost to connect city1 and city2 together.  (A connection is bidirectional: connecting city1 and city2 is the same as connecting city2 and city1.)
+You are given connections, where each connections[i] = [city1, city2, cost] represents the cost to connect city1 and city2 together.  
+(A connection is bidirectional: connecting city1 and city2 is the same as connecting city2 and city1.)
 
-Return the minimum cost so that for every pair of cities, there exists a path of connections (possibly of length 1) that connects those two cities together.  The cost is the sum of the connection costs used. If the task is impossible, return -1.
+Return the minimum cost so that for every pair of cities, there exists a path of connections (possibly of length 1) that connects those two cities together.  
+The cost is the sum of the connection costs used. If the task is impossible, return -1.
 
 Example 1:
 
@@ -18,9 +21,10 @@ Input: N = 4, connections = [[1,2,3],[3,4,4]]
 Output: -1
 Explanation: 
 There is no way to connect all cities even if all edges are used.
-
-
 """
+
+
+
 """
 This problem is to find the minimum path to connect all nodes, so it is a minimum spanning tree (MST) problem.
 There are two defferent algorithms to solve MST problem, one is Prim's, the other is Kruskal's.
@@ -31,14 +35,13 @@ step 3: put each edge into the graph if not forming cycle;
 (if the two vertices of the edge was already connected, then adding this edge will form a cycle);
 step 4: keep doing step 3 until all vertices connected (self.disjoint_cnt = 1)
 """
-"""
 
 class UnionFind:
     def __init__(self, N):
         self.father = collections.defaultdict()
         self.disjoint_cnt = 0
         
-        for i in range(1, N + 1):                                   # O(V) sapce for Union-Find
+        for i in range(1, N + 1):  # O(V) sapce for Union-Find
             self.father[i] = i
             self.disjoint_cnt += 1
         
