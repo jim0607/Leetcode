@@ -1,12 +1,15 @@
+"""
 729. My Calendar I
 
 Implement a MyCalendar class to store your events. A new event can be added if adding the event will not cause a double booking.
 
-Your class will have the method, book(int start, int end). Formally, this represents a booking on the half open interval [start, end), the range of real numbers x such that start <= x < end.
+Your class will have the method, book(int start, int end). Formally, this represents a booking on the half open interval [start, end), 
+the range of real numbers x such that start <= x < end.
 
 A double booking happens when two events have some non-empty intersection (ie., there is some time that is common to both events.)
 
-For each call to the method MyCalendar.book, return true if the event can be added to the calendar successfully without causing a double booking. Otherwise, return false and do not add the event to the calendar.
+For each call to the method MyCalendar.book, return true if the event can be added to the calendar successfully without causing a double booking. 
+Otherwise, return false and do not add the event to the calendar.
 
 Your class will be called like this: MyCalendar cal = new MyCalendar(); MyCalendar.book(start, end)
 Example 1:
@@ -18,6 +21,7 @@ MyCalendar.book(20, 30); // returns true
 Explanation: 
 The first event can be booked.  The second can't because time 15 is already booked by another event.
 The third event can be booked, as the first event takes every time less than 20, but not including 20.
+"""
 
 
 """
@@ -31,7 +35,8 @@ class MyCalendar:
 
     def book(self, start: int, end: int) -> bool:
         for interval in self.intervals:
-            # 一个interval与另一个interval的位置关系就三种情况(1. 没有交集; 2. 一个包含了另一个; 3. 有交集但是没有谁能完全包含谁)
+            # 一个interval与另一个interval的位置关系就三种情况
+            # (1. 没有交集; 2. 一个包含了另一个; 3. 有交集但是没有谁能完全包含谁)
             # 这里我们只要遇到case 2 or case 3, then there is an overlap, return False
             if not (interval[0] >= end or interval[1] <= start):
                 return False
