@@ -85,7 +85,7 @@ class Solution:
 
             uf.add((i, j))  # if pos not in father, then we should add it to father first, note that cnt++ at this time
 
-            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:         # connect neighbors
                 adj_i, adj_j = i + delta_i, j + delta_j
                 if (adj_i, adj_j) in uf.father:
                     uf.union((i, j), (adj_i, adj_j))   # note that cnt -= 1 here, because there is one less isolated islands after connection
