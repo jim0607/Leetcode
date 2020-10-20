@@ -476,7 +476,10 @@ to see if curr interval has a smaller end time than any of the previous interval
 we only need to compare with the largest end time in previous intervals.
 we can maintain a hq for the end time of the previous intervals 
 - [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (!!M) <br>
-这种interval的题目首先都需要sort, 因为我们总不可能一会处理前面的，一会处理后面的区间。 so sort the intervals first, res = []; for interval in intervals: if the interval start time is larger than the largest end time in res, then the interval cannot be merged; If cannot be merged, then res.append(interval), else then res[-1][1] = max(res[-1][1], interval[1]). merge interval的算法非常重要，后面的题经常用到！
+这种interval的题目首先都需要sort, 因为我们总不可能一会处理前面的，一会处理后面的区间。 Sort the intervals first. Loop over the intervals:
+If the curr_interval start time is larger than the largest end time in res, then the interval cannot be merged. 
+If cannot be merged, then res.append(curr_interval), else then update the new end time: res[-1][1] = max(res[-1][1], curr_interval_end). 
+Merge interval的算法非常重要，后面的题经常用到！！！
 - [0759. Employee Free Time](Solutions/0759.Employee-Free-Time.py) (!!H) <br>
 这题是merge interval的变形题: 
 step 1: obtain all intervals of all employees;
