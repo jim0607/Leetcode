@@ -1,3 +1,4 @@
+"""
 480. Sliding Window Median
 
 Median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value. So the median is the mean of the two middle value.
@@ -21,7 +22,7 @@ Window position                Median
  1  3  -1  -3 [5  3  6] 7       5
  1  3  -1  -3  5 [3  6  7]      6
 Therefore, return the median sliding window as [1,-1,-1,3,5,6].
-
+"""
 
 """
 Solution 1: maitain a sorted window.  We can use binary search for remove and insert. 
