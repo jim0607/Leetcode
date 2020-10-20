@@ -13,7 +13,12 @@ Output: [[1,5]]
 Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 """
 
-
+"""
+Sort the intervals first. Loop over the intervals:
+If the curr_interval start time is larger than the largest end time in res, then the interval cannot be merged.
+If cannot be merged, then res.append(curr_interval), else then update the new end time: res[-1][1] = max(res[-1][1], curr_interval_end).
+Merge interval的算法非常重要，后面的题经常用到！！！
+"""
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         if not intervals:
