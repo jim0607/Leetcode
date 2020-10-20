@@ -1,9 +1,11 @@
+"""
 253. Meeting Rooms II
 
 Example 1:
 
 Input: [[0, 30],[5, 10],[15, 20]]
 Output: 2
+"""
 
 
     
@@ -21,7 +23,7 @@ class Solution:
             start.append(interval[0])
             end.append(interval[1])
             
-        start.sort()
+        start.sort()        # O(NlogN)
         end.sort()
             
         curr_in_use, max_in_use = 0, 0
@@ -50,24 +52,28 @@ class Solution:
         if not intervals or not intervals[0]:
             return 0
         
+        # intervals的题目第一步一定是是sort
         intervals.sort(key = lambda x: (x[0], x[1]))
-        
+
         end_hq = []         # a min hq based on end time
-        curr_in_use = 0     
-        max_in_use = 0      
+        curr_in_use = 0
+        max_in_use = 0
         for start, end in intervals:
+
+            # step 1: 给新来的meeting开一个房间，把新的end_time push进heapq
             heappush(end_hq, (end, start))
-            curr_in_use += 1        # 新来的meeting肯定是要一个房间的
-            
-            # 如果end time < start的都可以pop出来了，
-            # 因为他们不会再与这个meeting room以及以后的meeting room有任何交集
+            curr_in_use += 1
+
+            # step 2: 如果end time < start的都可以pop出来了，
+            # 因为他们不会再与以后的meeting room有任何交集
             # pop出来之后他们的房间就空出来了，所以curr_in_use -= 1
             while len(end_hq) > 0 and start >= end_hq[0][0]:
                 heappop(end_hq)
                 curr_in_use -= 1
-            
+
+            # step 3: 更新res
             max_in_use = max(max_in_use, curr_in_use)
-            
+
         return max_in_use
     
     
