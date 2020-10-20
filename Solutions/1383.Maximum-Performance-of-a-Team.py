@@ -13,13 +13,15 @@ Example 1:
 Input: n = 6, speed = [2,10,3,1,5,8], efficiency = [5,4,3,9,7,2], k = 2
 Output: 60
 Explanation: 
-We have the maximum performance of the team by selecting engineer 2 (with speed=10 and efficiency=4) and engineer 5 (with speed=5 and efficiency=7). That is, performance = (10 + 5) * min(4, 7) = 60.
+We have the maximum performance of the team by selecting engineer 2 (with speed=10 and efficiency=4) and engineer 5 (with speed=5 and efficiency=7). 
+That is, performance = (10 + 5) * min(4, 7) = 60.
 Example 2:
 
 Input: n = 6, speed = [2,10,3,1,5,8], efficiency = [5,4,3,9,7,2], k = 3
 Output: 68
 Explanation:
-This is the same example as the first but k = 3. We can select engineer 1, engineer 2 and engineer 5 to get the maximum performance of the team. That is, performance = (2 + 10 + 5) * min(5, 4, 7) = 68.
+This is the same example as the first but k = 3. We can select engineer 1, engineer 2 and engineer 5 to get the maximum performance of the team. 
+That is, performance = (2 + 10 + 5) * min(5, 4, 7) = 68.
 Example 3:
 
 Input: n = 6, speed = [2,10,3,1,5,8], efficiency = [5,4,3,9,7,2], k = 4
@@ -37,11 +39,11 @@ Output: 72
 class Solution:
     def maxPerformance(self, n: int, speed: List[int], efficiency: List[int], k: int) -> int:
         workers = [(speed[i], efficiency[i]) for i in range(len(speed))]
-        workers.sort(key = lambda x: (-x[1], -x[0]))   # 将workers按照efficiency降序排序
+        workers.sort(key = lambda x: (-x[1], -x[0]))    # 将workers按照efficiency降序排序, 这样便利的时候就先取大的efficiency
         
         total_spd = 0
         max_perf = 0
-        hq = []         # heap 存之前所有workers的speed
+        hq = []         # min heap 存我们想要的workers的speed
         
         # 遍历的过程中min_eff在不断减小，但是total_spd在不断增加，
         # 我们希望total_spd的增加能够弥补min_ef的减小
@@ -50,6 +52,7 @@ class Solution:
             total_spd += spd
             if len(hq) > k:
                 total_spd -= heappop(hq)
+                
             max_perf = max(max_perf, total_spd * eff)
             
         return max_perf % (10**9 + 7)
