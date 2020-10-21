@@ -1,8 +1,10 @@
+"""
 743. Network Delay Time
 
 There are N network nodes, labelled 1 to N.
 
-Given times, a list of travel times as directed edges times[i] = (u, v, w), where u is the source node, v is the target node, and w is the time it takes for a signal to travel from source to target.
+Given times, a list of travel times as directed edges times[i] = (u, v, w), where u is the source node, 
+v is the target node, and w is the time it takes for a signal to travel from source to target.
 
 Now, we send a signal from a certain node K. How long will it take for all nodes to receive the signal? If it is impossible, return -1.
 
@@ -17,6 +19,7 @@ N will be in the range [1, 100].
 K will be in the range [1, N].
 The length of times will be in the range [1, 6000].
 All edges times[i] = (u, v, w) will have 1 <= u, v <= N and 0 <= w <= 100.
+"""
 
 
 class Solution:
@@ -27,13 +30,13 @@ class Solution:
             graph[u].append((v, time))
             
         # 2. bfs using heapq
-        hq = [(0, K)]   # maintian a min heap to keep track of min time
-        distance = collections.defaultdict(int) # store the distance of each node to node K, 这个extra space必不可少是用来换时间的
+        hq = [(0, K)]                            # maintian a min heap to keep track of min time
+        distance = collections.defaultdict(int)  # store the distance of each node to node K, 这个extra space必不可少是用来换时间的
         
-        while len(hq) > 0:          # O(VlogV)
+        while len(hq) > 0:      # O(VlogV)
             curr_dist, curr_node = heappop(hq)
             
-            if curr_node in distance:   # 可以continue的前提是我们每次pop出来的都是最lowest cost的路径，
+            if curr_node in distance:            # 可以continue的前提是我们每次pop出来的都是最lowest cost的路径，
                 continue  # 如果已经用最优路径访问过currNode了，接下来再次访问该node肯定不会是最low cost的了，所以可以continue
             distance[curr_node] = curr_dist
             
