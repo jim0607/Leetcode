@@ -143,13 +143,13 @@ class Codec:
         if not b_root:
             return None
         
-        n_root = Node(b_root.val, [])
+        n_root = Node(b_root.val, [])	  # children is a list of Node object
         if not b_root.left and not b_root.right:
             return n_root
         
-        node = b_root.left
-        while node:
-            n_root.children.append(self.decode(node))
-            node = node.right
+        b_curr = b_root.left
+        while b_curr:
+            n_root.children.append(self.decode(b_curr))
+            b_curr = b_curr.right
             
         return n_root
