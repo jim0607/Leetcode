@@ -21,8 +21,8 @@ if we randomly pick an idx, say 4, since 4 is within 2 to 6, so the output idx i
 
 """
 step 1: create a prefix sum arr
-step 2: generate a rand_idx
-step 3: binary search to find where the idx is in the prefix_sum arr
+step 2: generate a rand_num
+step 3: binary search to find where the rand_num is in the prefix_sum arr
 (should be noted that it works only if prefix sum is icreasing, meaning only if arr vals in the arr are positive)
 """
 class Solution:
@@ -49,3 +49,15 @@ class Solution:
             else:
                 end = mid
         return start if self.pre_sum[start] > num else end
+    
+    
+class Solution:
+
+    def __init__(self, w: List[int]):
+        self.pre_sum = [0 for _ in range(len(w) + 1)]
+        for i in range(len(w)):
+            self.pre_sum[i+1] = self.pre_sum[i] + w[i]
+
+    def pickIndex(self) -> int:
+        rand_num = random.randrange(self.pre_sum[-1])
+        return bisect.bisect_right(self.pre_sum, rand_num) - 1
