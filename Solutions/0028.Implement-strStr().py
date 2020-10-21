@@ -53,9 +53,9 @@ class Solution:
         source_code = 0
         for i, ch in enumerate(source):
             source_code = (source_code * 31 + (ord(ch) - ord("a"))) % SIZE
-            if i >= m:
+            if i >= m:       # maintain a m-size window
                 source_code = (source_code - (ord(source[i-m]) - ord("a")) * power) % SIZE  # in python, we don't need to worry aobut get mod for negative vals because python already taken care of that: (-3) % 4 = 1, the mod always return a positive val
-            if source_code == target_code and i >= m - 1:
+            if i >= m - 1 and source_code == target_code:
                 if source[i-m+1:i+1]:       # code相同了还不够，为了avoid hash collision, 还需要check string是否相同
                     return i - m + 1
         return -1
