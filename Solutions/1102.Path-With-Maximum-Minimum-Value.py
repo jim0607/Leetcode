@@ -1,3 +1,4 @@
+"""
 1102. Path With Maximum Minimum Value
 
 Given a matrix of integers A with R rows and C columns, find the maximum score of a path starting at [0,0] and ending at [R-1,C-1].
@@ -5,7 +6,6 @@ Given a matrix of integers A with R rows and C columns, find the maximum score o
 The score of a path is the minimum value in that path.  For example, the value of the path 8 →  4 →  5 →  9 is 4.
 
 A path moves some number of times from one visited cell to any neighbouring unvisited cell in one of the 4 cardinal directions (north, east, west, south).
-
 
 Example 1:
 
@@ -21,12 +21,14 @@ Example 3:
 
 Input: [[3,4,6,3,4],[0,2,1,1,7],[8,8,3,2,7],[3,2,4,9,8],[4,1,2,0,0],[4,6,5,4,3]]
 Output: 3
+"""
+
 
 
 """
 Solution 1: Dijkstra's : 
-我们要的是path里面的最大的最小值, 所以我们把每个path里面的最小值放入max heap, 这样我们每次pop出来的都是path里面最大的那个最小值
-每次都把目前为止最小值最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走
+我们要的是path里面的最大的min_val, 所以我们把每个path里面的min_val放入max heap, 这样我们每次pop出来的都是path里面最大的那个min_val
+每次都把目前为止min_val最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走
 maintain a heapq to store (the minimum value in the path so far till the currPos, currPos)
 each time, we push (min(nextVal, currMinVal), nextPos)
 O(MNlogMN), O(MN)
@@ -34,12 +36,12 @@ O(MNlogMN), O(MN)
 class Solution:
     def maximumMinimumPath(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
-        hq = [(-grid[0][0], 0, 0)]
+        hq = [(-grid[0][0], 0, 0)]          # (the minimum value in the path so far till the currPos, currPos)
         visited = set()
-        visited.add((0, 0))      # 注意做Min of maximum or max of minimum的题目都需要visited set的
+        visited.add((0, 0))                 # 注意做Min of maximum or max of minimum的题目都需要visited set的
         while len(hq) > 0:
-            curr_min_val, curr_i, curr_j = heappop(hq)      # 每次pop出来的都是path里面最大的那个最小值
-            curr_min_val = -curr_min_val    # curr_min_val stands for the curr max score of path so far
+            curr_min_val, curr_i, curr_j = heappop(hq)      # 每次pop出来的都是path里面最大的那个min_bal
+            curr_min_val = -curr_min_val                    # curr_min_val stands for the curr max score of path so far
             
             if (curr_i, curr_j) == (m-1, n-1):
                 return curr_min_val
@@ -49,9 +51,8 @@ class Solution:
                 if 0 <= next_i < m and 0 <= next_j < n:
                     if (next_i, next_j) not in visited:
                         next_val = grid[next_i][next_j]
-                        heappush(hq, (-min(next_val, curr_min_val), next_i, next_j))    # ***** 注意这里很容易错，
-                        visited.add((next_i, next_j))       # 我们要的是path里面的最大的最小值, 所以我们把每个path里面的最小值放入max heap,              
-                                                            # 这样我们每次pop出来的都是path里面最大的那个最小值
+                        heappush(hq, (-min(next_val, curr_min_val), next_i, next_j))    # ***** 注意这里很容易错，我们要的是path里面的最大的min_val, 
+                        visited.add((next_i, next_j))       # 所以我们把每个path里面的min_val放入max heap, 这样我们每次pop出来的都是path里面最大的那个最小值        
 
                 
                 
