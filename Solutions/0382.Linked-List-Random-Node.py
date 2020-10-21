@@ -1,3 +1,4 @@
+"""
 382. Linked List Random Node
 
 Given a singly linked list, return a random node's value from the linked list. Each node must have the same probability of being chosen.
@@ -15,12 +16,12 @@ Solution solution = new Solution(head);
 
 // getRandom() should return either 1, 2, or 3 randomly. Each element should have equal probability of returning.
 solution.getRandom();
+"""
 
 
 """
 solution 1: reservoir sampling: O(1), O(n). It is good for really large linkedlist and the linkedlist dynamically changing length
 """
-
 import random
 
 class Solution:
@@ -38,10 +39,10 @@ class Solution:
         """
         curr = self.head
         res = -1
-        cnt = 0
+        m = 0
         while curr:
-            cnt += 1
-            rand_idx = random.randrange(cnt)
+            m += 1
+            rand_idx = random.randrange(m)
             if rand_idx == 0:    # 这里不一定random_idx == 0, 我们用random_idx等于啥都行，我们需要的只是等于某一个数的概率是1/m
                 res = curr.val
             curr = curr.next
