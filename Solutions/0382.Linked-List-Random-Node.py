@@ -20,7 +20,7 @@ solution.getRandom();
 
 
 """
-solution 1: reservoir sampling: O(1), O(n). It is good for really large linkedlist and the linkedlist dynamically changing length
+solution 1: reservoir sampling: O(1), O(1). It is good for really large linkedlist and the linkedlist dynamically changing length
 """
 import random
 
