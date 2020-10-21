@@ -56,8 +56,8 @@
 class Codec:
 
     def serialize(self, root):
-        """Encodes a tree to a single string.
-        
+        """
+        Encodes a tree to a single string.
         :type root: TreeNode
         :rtype: str
         """
@@ -65,11 +65,11 @@ class Codec:
             return ""
         
         res = []
-        q = collections.deque()
+        q = deque()
         q.append(root)
         while len(q) > 0:
             level = []
-            lens = len(q)
+            lens = len(q)     # 层序遍历  
             for _ in range(lens):
                 curr_node = q.popleft()
                 if curr_node:
@@ -84,8 +84,8 @@ class Codec:
         return ",".join(res)        # [1, 2, 3, #, #, 4, 5]
             
     def deserialize(self, data):
-        """Decodes your encoded data to tree.
-        
+        """
+        Decodes your encoded data to tree.
         :type data: str
         :rtype: TreeNode
         """
@@ -93,23 +93,24 @@ class Codec:
             return None
         
         s = data.split(",")
-        idx = 0
         root = TreeNode(int(s[idx]))
-        idx += 1
+        idx = 1
         
         q = collections.deque()
         q.append(root)          # q 里面永远都放TreeNode, 永远永远！
         while len(q) > 0:
             curr_node = q.popleft()
             
+            # step 1: assign s[idx] to curr_node.left
             if s[idx] == "#":
                 curr_node.left = None
             else:
                 curr_node.left = TreeNode(int(s[idx]))
                 q.append(curr_node.left)
                 
-            idx += 1    # 注意index不要写到if里面，因为vals[index]==None的情况下，我们也需要将index往前进一步
-            
+            idx += 1    # 注意index不要写到if里面，
+                        # 因为vals[index]==None的情况下，我们也需要将index往前进一步
+            # step 2: assign s[idx+1] to curr_node.right
             if s[idx] == "#":
                 curr_node.right = None
             else:
