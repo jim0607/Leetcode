@@ -1,3 +1,4 @@
+"""
 99. Recover Binary Search Tree
 
 Two elements of a binary search tree (BST) are swapped by mistake.
@@ -42,7 +43,7 @@ Follow up:
 
 A solution using O(n) space is pretty straight forward.
 Could you devise a constant space solution?
-
+"""
 
 
 """
@@ -96,10 +97,10 @@ class Solution:
         if self.prev_node and root.val < self.prev_node.val:
             if not self.wrong_node_1:
                 self.wrong_node_1 = self.prev_node
-                self.wrong_node_2 = root    # 这里要赋值second_swapped是因为如果是相邻的情况就不一样了
+                self.wrong_node_2 = root    # 这里要赋值second_swapped是因为可能就是相邻的两个nodes交换了
             else:
                 self.wrong_node_2 = root
                 
-        self.prev_node = root
+        self.prev_node = root               # 注意要改变prev_node
             
         self.in_order(root.right)
