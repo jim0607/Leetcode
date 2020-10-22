@@ -104,19 +104,21 @@ class Solution:
         self.inorder(root)
         return self.res
         
-    def inorder(self, root):    # in order traversal the BST and update the res, just like doing everything in a sorted arr
+    def inorder(self, root):    
+    """ in order traversal the BST and update the res, just like doing everything in a sorted arr """
         if not root:
             return 
         
         self.inorder(root.left)
         
-        self.curr_cnt = self.curr_cnt + 1 if root.val == self.prev else 1   # 如果不相等就reset curr_cnt=1
+        self.curr_cnt = self.curr_cnt + 1 if root.val == self.prev.val else 1   # 如果不相等就reset curr_cnt=1
         if self.curr_cnt == self.max_cnt:
             self.res.append(root.val)
         elif self.curr_cnt > self.max_cnt:
             self.res = [root.val]               # 这里更新res的时候要清除之前的items
             self.max_cnt = self.curr_cnt
-        self.prev = root.val
+            
+        self.prev = root      # 注意in-order traversal prev change to curr
         
         self.inorder(root.right)
         
