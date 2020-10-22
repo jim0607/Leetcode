@@ -1,3 +1,4 @@
+"""
 530. Minimum Absolute Difference in BST
 
 Given a binary search tree with non-negative values, find the minimum absolute difference between values of any two nodes.
@@ -17,6 +18,7 @@ Output:
 
 Explanation:
 The minimum absolute difference is 1, which is the difference between 2 and 1 (or between 2 and 3).
+"""
 
 
 """
@@ -25,23 +27,24 @@ Need to use a global prev_node while doing in_order traversal. maintain a global
 """
 class Solution:
     def getMinimumDifference(self, root: TreeNode) -> int:
-        self.min_diff = float("inf")
+        self.min_diff = sys.maxsize
         self.prev = None
-        self._in_order(root)
+        self.in_order(root)
         return self.min_diff
     
-    def _in_order(self, root):
-        if not root:
-            return
-        
-        self._in_order(root.left)
-        
-        if self.prev and abs(self.prev.val - root.val) < self.min_diff:
-            self.min_diff = abs(self.prev.val - root.val)
+    def in_order(self, curr):
+        """
+        In order traversal the tree and update min_diff
+        """
+        if curr.left:
+            self.in_order(curr.left)
             
-        self.prev = root
+        if self.prev:
+            self.min_diff = min(self.min_diff, abs(curr.val - self.prev.val))
+        self.prev = curr    # 注意in-order traversal prev change to curr
         
-        self._in_order(root.right)
+        if curr.right:
+            self.in_order(curr.right)
 
 
 """
