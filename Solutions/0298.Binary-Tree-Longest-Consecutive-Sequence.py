@@ -3,7 +3,8 @@
 
 Given a binary tree, find the length of the longest consecutive sequence path.
 
-The path refers to any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The longest consecutive path need to be from parent to child (cannot be the reverse).
+The path refers to any sequence of nodes from some starting node to any node in the tree along the parent-child connections. 
+The longest consecutive path need to be from parent to child (cannot be the reverse).
 
 Example 1:
 
@@ -56,11 +57,12 @@ class Solution:
         if not root.left and not root.right:
             return 1, 0
         
+        # divide
         left_w, left_wo = self._helper(root.left)
         right_w, right_wo = self._helper(root.right)
         
+        # conquer
         root_wo = max(left_w, left_wo, right_w, right_wo)
-        
         root_w = 1
         if root.left and root.left.val == root.val + 1:
             root_w = max(root_w, 1 + left_w)
