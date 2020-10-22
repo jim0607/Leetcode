@@ -1,3 +1,4 @@
+"""
 404. Sum of Left Leaves
 
 Find the sum of all left leaves in a given binary tree.
@@ -11,6 +12,7 @@ Example:
    15   7
 
 There are two left leaves in the binary tree, with values 9 and 15 respectively. Return 24.
+"""
 
 
 """
@@ -33,3 +35,29 @@ class Solution:
             return cnt
         
         return helper(root, None)
+
+    
+"""
+dfs 中把is_left传入即可
+"""
+class Solution:
+    def sumOfLeftLeaves(self, root: TreeNode) -> int:
+        def dfs(root, is_left):
+            """
+            dfs the tree and return the sum of left leaves
+            """
+            if not root:
+                return 0
+            if not root.left and not root.right and is_left:    # if it's a leaf and is_left node
+                return root.val
+
+            sums = 0
+            if root.left:
+                sums += dfs(root.left, True)
+            if root.right:
+                sums += dfs(root.right, False)
+                
+            return sums
+
+
+        return dfs(root, False)
