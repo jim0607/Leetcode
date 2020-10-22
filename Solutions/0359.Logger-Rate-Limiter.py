@@ -1,3 +1,4 @@
+"""
 359. Logger Rate Limiter
 
 Design a logger system that receive stream of messages along with its timestamps, each message should be printed if and only if it is not printed in the last 10 seconds.
@@ -27,6 +28,7 @@ logger.shouldPrintMessage(10,"foo"); returns false;
 
 // logging string "foo" at timestamp 11
 logger.shouldPrintMessage(11,"foo"); returns true;
+"""
 
 
 class Logger:
@@ -54,6 +56,7 @@ class Logger:
 # param_1 = obj.shouldPrintMessage(timestamp,message)
 
 
+""" 
 Google followup: input在K长度内无序的，但是时间t+K之后的输入一定出现在t之后。比如K是5，
 [4, foo], [1, foo], [0, bar], [6, bar] => 在[4, foo], [1, foo], [0, bar]内是无序的，但是[6, bar]一定出现在[0, bar]之后，因为6>0+5.
 也就是短程无序，长程有序。这时候该怎么print输出呢？
@@ -101,3 +104,4 @@ if __name__ == "__main__":
     arr = [2, 6, 3, 12, 56, 8]
     sort_k(arr, k)
     print(arr)
+"""
