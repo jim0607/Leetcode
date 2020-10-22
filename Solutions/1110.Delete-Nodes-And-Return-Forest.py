@@ -44,13 +44,13 @@ class Solution:
             if root.val in to_delete:
                 root.left = helper(root.left, False)
                 root.right = helper(root.right, False)
-                return None
+                return None           # 注意return root
             else:
                 if not has_parent:    # if a node has no parent, then it is a root for a seperate forest
-                    res.append(root)
+                    res.append(root)  
                 root.left = helper(root.left, True)
                 root.right = helper(root.right, True)
-                return root
+                return root           # 注意return root
             
             
         to_delete = set(to_delete)
