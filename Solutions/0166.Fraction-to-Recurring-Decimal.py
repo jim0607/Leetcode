@@ -28,6 +28,41 @@ Idea is to put every remainder into the hash table as a key, and the position wh
 """
 class Solution:
     def fractionToDecimal(self, numerator: int, denominator: int) -> str:
+        if numerator % denominator == 0:
+            return str(numerator // denominator)
+        
+        res = ""
+        if numerator * denominator < 0:
+            res += "-"
+        numerator = abs(numerator)
+        denominator = abs(denominator)
+        res += str(numerator // denominator)
+        res += "."
+        
+        remainder = numerator % denominator
+        remain_to_pos = defaultdict(int)    # key is remainder, val is where the remainder appears
+        decimal = ""                        # string decimal is the decimal part of res
+        curr_pos = 0                        # pos 记录remainder出现的位置
+        while remainder != 0:
+            if remainder in remain_to_pos:  # now we find the recurrent remainder
+                reoccur_pos = remain_to_pos[remainder]
+                decimal = decimal[:reoccur_pos] + "(" + decimal[reoccur_pos:] + ")"
+                break
+            
+            remain_to_pos[remainder] = curr_pos
+            curr_pos += 1
+            
+            # 下面是模拟除法的过程
+            remainder *= 10                             # remainder不够除数除的，所以先在后面添零
+            decimal += str(remainder // denominator)    # 然后再除除数，得到的商作为res保存
+            remainder %= denominator                    # 得到余数，如果余数为零就停止整个除法运算
+                               
+        return res + decimal
+
+
+
+class Solution:
+    def fractionToDecimal(self, numerator: int, denominator: int) -> str:
         res = ""
         if numerator * denominator < 0:
             res += "-"
