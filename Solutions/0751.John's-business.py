@@ -1,6 +1,10 @@
+"""
 751. John's business
 
-There are n cities on an axis, numbers from 0 ~ n - 1. John intends to do business in these n cities, He is interested in Armani's shipment. Each city has a price for these goods prices [i]. For city x, John can buy the goods from the city numbered from x - k to x + k, and sell them to city x. We want to know how much John can earn at most in each city?
+There are n cities on an axis, numbers from 0 ~ n - 1. John intends to do business in these n cities, 
+He is interested in Armani's shipment. Each city has a price for these goods prices [i]. 
+For city x, John can buy the goods from the city numbered from x - k to x + k, and sell them to city x. 
+We want to know how much John can earn at most in each city?
 
 Example
 Example1
@@ -19,8 +23,60 @@ Input: prices = [1, 1, 1, 1, 1] and k = 1
 Output: [0, 0, 0, 0, 0]
 Explanation:
 All cities are the same price, so John can not make money, that is, all ans are 0.
+"""
 
 
+"""
+Solution 1: sliding window minimum - use a mono deque - O(n)
+similar with 239. Sliding Window Maximum.
+min_vals[i]表示以i结尾的window的minimum value
+特别注意sliding window maximum/minimum 都是以以i为dq window的最右端 构造 mono deque
+"""
+class Solution:
+    def business(self, prices, k):
+        prices += [sys.maxsize] * k     # 这一题最好把prices扩充一下才好理解
+        n = len(prices)
+        min_vals = []      # min_vals[i]表示以i结尾的window的minimum value - 这就是为什么要扩充prices的原因         
+        dq = collections.deque()
+        
+        # step 1: 处理前k个element - mono deque (以i为dq window的最右端)
+        for i in range(k + 1):        
+            while len(dq) > 0 and dq[-1][1] >= prices[i]:
+                dq.pop()
+            dq.append((i, prices[i]))
+            
+            min_vals.append(dq[0][1])
+        
+        # step 2: 处理中间的element - sliding window + mono deque (以i为dq window的最右端)
+        for i in range(k + 1, n - k):
+            while len(dq) > 0 and i - dq[0][0] >= 2*k + 1:  # 注意window size is 2k + 1
+                dq.popleft()
+            
+            while len(dq) > 0 and dq[-1][1] >= prices[i]:
+                dq.pop()
+            dq.append((i, prices[i]))
+            
+            min_vals.append(dq[0][1])
+        
+        # step 3: 处理最后的k个element - sliding window (以i为dq window的最右端)
+        for i in range(n - k, n):
+            while len(dq) > 0 and i - dq[0][0] >= 2*k + 1:  # 注意window size is 2k + 1
+                dq.popleft()
+            
+            min_vals.append(dq[0][1])
+
+        
+        # step 4: 将min_vals转换为res
+        res = []
+        for i in range(n - k):
+            res.append(prices[i] - min_vals[i+k])
+        return res
+
+
+
+"""
+solution 2: segment tree - O(nlogk)
+"""
 class SegmentTree:
 
     def __init__(self, start, end, min_num):
@@ -67,8 +123,3 @@ class Solution:
             res.append(profit)
 
         return res
-
-    
-"""
-Solution 2: sliding window minimum - use a mono deque - O(n)
-"""
