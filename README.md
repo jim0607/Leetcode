@@ -222,6 +222,8 @@ Step 2: now go backwards on A, and compare the values to the stack to see the ma
 - [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (!!H) <br>
 heapq的方法是O(NK)因为需要从前面remove; monostack O(N): Iterate over the array. At each step: I. Clean the deque: 1. Remove the items that are outside the curr window and keep only the indexes of elements from the current sliding window; 2. Remove indexes of all elements smaller than the current one, since they will not be the maximum ones. eg: [1,2,7,3,5,4], k = 3, because of 7, 1 and 2 will never be in res; II. Append the current element to the deque. Append deque[0] to the output.
 我们回头看看这题其实就是mono st多了一步保持窗口大小的步骤，而这个保持窗口大小的步骤需要从前面pop, 这就是为什么不直接用st, 而是用dq的原因. 总结：如果题目需要我们在window里更新最大值或最小值，我们往往需要maintian一个mono increasing or mono decreasing deque.
+- [0751. John's business](Solutions/0751.John's-business.py) (!!M Lintcode) <br>
+Solution 1: sliding window minimum - use a mono deque - O(n). similar with 239. Sliding Window Maximum.min_vals[i]表示以i结尾的window的minimum value, 特别注意sliding window maximum/minimum 都是以以i为dq window的最右端 构造 mono deque. solution 2: segment tree - O(nlogk). Maintain a self.min_num in building the SegmentTree.
 - [0862. Shortest Subarray with Sum at Least K](Solutions/0862.Shorteast-Subarray-with-Sum-at-Least-K.py) (!!H) <br>
 不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
 这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
@@ -869,7 +871,7 @@ Segment tree query takes O(h) or O(logN). This problem is to query the count in 
 - [0205. Interval Minimum Number](Solutions/0205.Interval-Minimum-Number.py) (!!M Lintcode) <br>
 Maintain a self.min_num in building the SegmentTree. 
 - [0751. John's business](Solutions/0751.John's-business.py) (!!M Lintcode) <br>
-Maintain a self.min_num in building the SegmentTree. - O(nlogk)  Solution 2: sliding window minimum - use a mono deque - O(n)
+Solution 1: sliding window minimum - use a mono deque - O(n). similar with 239. Sliding Window Maximum.min_vals[i]表示以i结尾的window的minimum value, 特别注意sliding window maximum/minimum 都是以以i为dq window的最右端 构造 mono deque. solution 2: segment tree - O(nlogk). Maintain a self.min_num in building the SegmentTree.
 - [0206. Interval Sum](Solutions/0206.Interval-Sum.py) (M Lintcode) <br>
 Maintain a self.range_sum in buildign the SegmentTree
 - [0207. Interval Sum II](Solutions/0207.Interval-Sum-II.py) (!!M Lintcode) <br>
