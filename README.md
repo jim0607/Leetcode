@@ -673,8 +673,7 @@ DFS, pass the depth and pos into the dfs arguments.
 - [0637. Average of Levels in Binary Tree](Solutions/0637.Average-of-Levels-in-Binary-Tree.py) (M) <br>
 level order traversal using a q.
 - [0404. Sum of Left Leaves](Solutions/0404.Sum-of-Left-Leaves.py) (E) <br>
-dfs to traverse the tree, 当我们遇到leaf节点的时候，我们需要判断其是不是上一个节点的left节点，如果是就更新cnt.
-为了判断是不是上一个节点的left节点，我们需要把上一个节点prev_node传到dfs函数arguments中，这种将prev_node传到dfs中的思想非常重要！
+dfs 中把is_left传入即可
 - [1110. Delete Nodes And Return Forest](Solutions/1110.Delete-Nodes-And-Return-Forest.py) (!!!M Google) <br>
 we update res as we traverse the tree. we append a node into res if two conditions are satisfied: 1. the node should not be deleted; 2. the node has not parent (meaning it's the root of a forest). In order to check if a node has parent or not, we need to pass has_parent bool into dfs arguments. If a node is in to_delete list, then the node should pass the information to it's children that it has been deleted and it's children has no parent now.
 - [0814. Binary Tree Pruning](Solutions/0814.Binary-Tree-Pruning.py) (M) <br>
