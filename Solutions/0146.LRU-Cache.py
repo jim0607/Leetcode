@@ -91,6 +91,105 @@ class LRUCache:
 Double linkedlist: newest node append to tail, eldest node remove from head, so that the operation is O(1)
 Hashmap: key is key, value is 以key为key的一个double linkedlist node"""
 class DLLNode:
+    
+    def __init__(self, key, val):
+        self.key = key
+        self.val = val
+        self.prev = None
+        self.next = None
+        
+
+class OrderedDict:
+    
+    def __init__(self):
+        """
+        实现OrderedDict需要两个数据结构：
+        1. A DLL, so that we can move a node to end, and pop last node in O(1) time
+        2. A dictionary, for fast key --> node look up
+        """
+        
+        # 定义一个 key_to_node dictionary for fast key --> node look up
+        self.key_to_node = defaultdict(DLLNode)   
+        
+        # 定义一个DLL by 定义一个dummy tail 和一个 dummy head
+        self.dummy_head = DLLNode(-1, -1) 
+        self.dummy_tail = DLLNode(-1, -1)
+        self.dummy_head.next = self.dummy_tail
+        self.dummy_tail.prev = self.dummy_head
+        
+    def update(self, key, val):
+        """
+        Update an already exsited key --> val pair
+        """
+        self.key_to_node[key].val = val
+        
+    def remove_node(self, key):
+        """
+        Remove an already existed node from the DDL
+        """
+        node = self.key_to_node[key]
+        del self.key_to_node[key]
+        
+        node.prev.next = node.next
+        node.next.prev = node.prev            
+    
+    def insert_to_end(self, key, val):
+        """
+        Insert a new node to the end of the DDL
+        """
+        new_node = DLLNode(key, val)
+        self.key_to_node[key] = new_node
+
+        self.dummy_tail.prev.next = new_node
+        new_node.prev = self.dummy_tail.prev
+        new_node.next = self.dummy_tail
+        self.dummy_tail.prev = new_node
+        
+    def move_to_end(self, key):
+        """
+        Move an already existed node to the end of the DDL
+        """
+        val = self.key_to_node[key].val
+        
+        self.remove_node(key)
+        self.insert_to_end(key, val)
+        
+    def pop_first(self):
+        """
+        Pop the first node in the DLL (no return)
+        """
+        first_node = self.dummy_head.next
+        first_node_key = first_node.key
+        self.remove_node(first_node_key)
+
+        
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.lru_cache = OrderedDict()
+        self.capacity = capacity
+
+    def get(self, key: int) -> int:
+        if key not in self.lru_cache.key_to_node:
+            return -1
+        self.lru_cache.move_to_end(key)
+        return self.lru_cache.key_to_node[key].val
+
+    def put(self, key: int, value: int) -> None:
+        if key not in self.lru_cache.key_to_node:
+            self.lru_cache.insert_to_end(key, value)
+        else:
+            self.lru_cache.update(key, value)
+            self.lru_cache.move_to_end(key)
+        if len(self.lru_cache.key_to_node) > self.capacity:
+            self.lru_cache.pop_first()
+
+
+
+
+
+
+class DLLNode:
     # define a double-linked-list node, with four properties
     def __init__(self, key, val):
         self.key = key
