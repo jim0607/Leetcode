@@ -119,6 +119,7 @@ if it's a digit, should use a while loop to add the num in case there are multip
 这道题是基本计算器系列的第三道，前两道分别为 Basic Calculator 和 Basic Calculator II，
 区别是，第一道只有加减法跟括号，第二道只有加减乘除法，而这第三道既有加减乘除法又有括号运算。
 但是好就好在我们可以将括号里的内容当作一个整体调用递归函数来处理。而其他部分，就跟第二道一模一样了。
+--------------640. Solve the Equation-----------
 - [1096. Brace Expansion II](Solutions/1096.Brace-Expansion-II.py) (!!H) <br>
 solution: Use stack to store calculated results.  Maintain two lists: 1. the previous list before ","; 2. the current list that is still growing. 有点难，没弄明白
 - [0071. Simplify Path](Solutions/0071.Simplify-Path.py) (!!M) <br>
@@ -136,6 +137,7 @@ parentheses. solution 1: stack; solution 2: use a cnt for "("
 calculator. 
 - [0726. Number of Atoms](Solutions/0726.Number-of-Atoms.py) (!!H Google) <br>
 Parenetheses. 与394.Decode String非常类似, 我们需要反向遍历，这样只要遇到upper case的ch就可以加到dictionary了
+
 
 
 
