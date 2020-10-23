@@ -33,8 +33,67 @@ cache.get(4);       // returns 4
 
 """
 Use a dictionary to store (key, freq) pair.
-Use another dicitonary to store (freq, list of key) pair, where list of key could be OrderedDict like LRU to enable O(1) operations.
+Use another dicitonary to store (freq, list of key) pair, where list of key is OrderedDict like LRU to enable O(1) operations.
 """
+class LFUCache:
+
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.key_to_freq = defaultdict(int)               # key --> freq
+        self.freq_to_orddict = defaultdict(OrderedDict)   # freq --> orddict (key --> val)
+        self.min_freq = 0
+
+    def get(self, key: int) -> int:
+        if key not in self.key_to_freq:
+            return -1
+        
+        freq = self.key_to_freq[key]
+        val = self.freq_to_orddict[freq][key]
+        self.update(key, val)
+        
+        return val
+
+    def put(self, key: int, value: int) -> None:
+        if self.capacity == 0:
+            return 
+        
+        if key in self.key_to_freq:
+            self.update(key, value)
+        
+        else:
+            if len(self.key_to_freq) == self.capacity:    # first remove LFU if oversized 
+                min_key, min_val = self.freq_to_orddict[self.min_freq].popitem(last = False)  # del the coreesponding freq in the ordered dictonary
+                del self.key_to_freq[min_key]     # del the least used key from the cache
+            
+            self.min_freq = 1                             # then update key_to_freq, freq_to_orddict and min_freq
+            self.key_to_freq[key] = 1
+            self.freq_to_orddict[1][key] = value
+            
+    def update(self, key, value):
+        """
+        Update key --> value pair for an already exsited key
+        1. update freq, freq += 1
+        2. update value
+        3. update min_freq if neccessarry
+        """
+        freq = self.key_to_freq[key]
+        
+        if self.min_freq == freq and len(self.freq_to_orddict[freq]) == 1:  # update min_freq if neccessary
+            self.min_freq += 1
+            
+        self.freq_to_orddict[freq].pop(key)     # first delete the key --> val pair in orddict
+        freq += 1                               
+        self.key_to_freq[key] = freq            # then update key_to_freq and freq_to_orddict using the new freq
+        self.freq_to_orddict[freq][key] = value
+                
+
+
+
+
+
+
+
+
 class LFUCache:
     
     def __init__(self, capacity: int):
