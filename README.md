@@ -137,7 +137,12 @@ parentheses. solution 1: stack; solution 2: use a cnt for "("
 calculator. 
 - [0726. Number of Atoms](Solutions/0726.Number-of-Atoms.py) (!!H Google) <br>
 Parenetheses. 与394.Decode String非常类似, 我们需要反向遍历，这样只要遇到upper case的ch就可以加到dictionary了
-
+- [1612. Check If Two Expression Trees are Equivalent](Solutions/1612.Check-If-Two-Expression-Trees-are-Equivalent.py) (M) <br>
+warm up for __binary expression tree__ problem.
+- [1628. Design an Expression Tree With Evaluate Function](Solutions/1628.Design-an-Expression-Tree-With-Evaluate-Function.py) (!!!M) <br>
+With careful obervation, we'll see the operator tree node cannot be leaf, and the number tree node can only be leaf. With that, we can easily implement:
+In building a tree, we can use a stack to store the operator tree nodes.
+In evaluate the result, we just do divide and conquer.
 
 
 
@@ -732,6 +737,7 @@ helper function returns how many coins should the node receive from it's parent 
 Good example of recurssion
 - [0951. Flip Equivalent Binary Trees](Solutions/0951.Flip-Equivalent-Binary-Trees.py) (!!!H Google) <br>
 recursion - O(min(N1, N2))
+
 
 --------------1245. Tree Diameter---------
 
@@ -2291,7 +2297,8 @@ Math. 3 * 456 = 456 + 456 + 456
 Math. there are 3 cases in total.
 - [0326. Power of Three](Solutions/0326.Power-of-Three.py) (E) <br>
 solution 1: recursion; solution 2: math: return abs(math.log(n, 3) - round(math.log(n, 3))) < 1e-10
-
+- [1131. Maximum of Absolute Value Expression](Solutions/1131.Maximum-of-Absolute-Value-Expression.py) (M) <br>
+根据正负符号分为4个situations. 对于每一个situation, 我们用121. Best time to buy stock problem: maintain 一个prev_min
 
 
 ### [Rolling Hash/Rabin Karp]()
