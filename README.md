@@ -2364,6 +2364,8 @@ we only need to handle 3 cases: 1. discards all leading whitespaces - using pyth
 construct 3 lists for the english expressions for numbers less_than_20, tens, thousands.
 the main funciton handle the situation of num >= thousands.
 use a helper funciton to calcuate cases when num <= hundreds.
+- [0459. Repeated Substring Pattern](Solutions/0459.Repeated-Substring-Pattern.py) (E) <br>
+step 1: find all possible divisible lens - O(n^0.5); step 2: try each possible divisible lens to see is it's a valid divide - O(n^1.5).
 
 
 
