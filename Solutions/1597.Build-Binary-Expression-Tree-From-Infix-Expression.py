@@ -51,7 +51,7 @@ It is guaranteed that s is a valid expression.
 
 
 """
-Divide and conquer - O(NlogN) in best case, O(N^2) in worst case.
+Divide and conquer - O(NlogN) in best case: 每次都能通过O(N)时间将问题分成2T(N/2)问题, O(N^2) in worst case: ((((((1)))))).
 """
 class Solution:
     def expTree(self, s: str) -> 'Node':
@@ -62,15 +62,17 @@ class Solution:
             if start == end:
                 return Node(arr[start])
 
-            pm_idx = find_first_idx_ouside_prth(start, end, "+-")     # find the first "+-" outside prth - O(N)           
-            if pm_idx != -1:            # 如果括号外有"+-", 优先把括号外的"+-"作为root
+            # 如果括号外有"+-", 优先把括号外的"+-"作为root
+            pm_idx = find_first_idx_ouside_prth(start, end, "+-")     # find the first "+-" outside parentheses - O(N)           
+            if pm_idx != -1:            
                 root = Node(arr[pm_idx])
                 root.left = build_tree(start, pm_idx - 1)
                 root.right = build_tree(pm_idx + 1, end)
                 return root
-            
-            td_idx = find_first_idx_ouside_prth(start, end, "*/")     # find the first "*/" outside prth
-            if td_idx != -1:          # 如果括号外没有"+-", 把括号外的"*/"作为root
+               
+            # 如果括号外没有"+-", 把括号外的"*/"作为root
+            td_idx = find_first_idx_ouside_prth(start, end, "*/")     # find the first "*/" outside parentheses
+            if td_idx != -1:          
                 root = Node(arr[td_idx])
                 root.left = build_tree(start, td_idx - 1)
                 root.right = build_tree(td_idx + 1, end)
@@ -81,7 +83,7 @@ class Solution:
 
         def find_first_idx_ouside_prth(start, end, opt):
             """
-            find the first appearance of the ch in s that is outsie parentheses
+            find the first appearance of the ch in opt that is outsie parentheses
             """
             open_cnt = 0        # 记录当前open_parentheses的个数
             for i in range(start, end + 1):
