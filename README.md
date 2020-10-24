@@ -143,7 +143,7 @@ warm up for __binary expression tree__ problem.
 With careful obervation, we'll see the operator tree node cannot be leaf, and the number tree node can only be leaf. With that, we can easily implement:
 In building a tree, since we are given __post-order expression__, we can use a stack to store the operator tree nodes.
 In evaluate the result, we just do divide and conquer.
-- [1597. Build Binary Expression Tree From Infix Expression](Solutions/1597.Build-Binary-Expression-Tree-From-Infix-Expression.py) (!!!M) <br>
+- [1597. Build Binary Expression Tree From Infix Expression](Solutions/1597.Build-Binary-Expression-Tree-From-Infix-Expression.py) (!!!H) <br>
 since we are given __in-order expression__, Divide and conquer - O(NlogN) in best case: 每次都能通过O(N)时间将问题分成2T(N/2)问题, O(N^2) in worst case: ((((((1)))))).
 
 
