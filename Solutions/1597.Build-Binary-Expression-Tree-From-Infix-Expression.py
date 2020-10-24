@@ -57,7 +57,7 @@ class Solution:
     def expTree(self, s: str) -> 'Node':
         def build_tree(start, end):
             """
-            build the tree using in order traversal, return the root of the built tree
+            build the tree using divide and conquer, return the root of the built tree
             """
             if start == end:
                 return Node(arr[start])
