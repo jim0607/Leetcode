@@ -496,6 +496,10 @@ Merge interval的算法非常重要，后面的题经常用到！！！
 step 1: obtain all intervals of all employees;
 step 2: sort the intervals by start time;  
 step 3: do 56. merge intervals, to update free time.
+- [0616. Add Bold Tag in String](Solutions/0616.Add-Bold-Tag-in-String.py) (!!M) <br>
+step 1: store the (start_idx, end_idx) for every appearance of substring in s.  Algorithm: 28. Implement strStr() Rabin Karp - O((M+N)* W), where N is len(s), M is avg lens of words in dict, and W is len(dict). step 2: now we have a list of (start, end) intervals, we merge interval so that we don't have overlaps anymore.  Algorithm: 56. merge intervals. step 3: add <b> and </b> pair to generate res
+
+
 - [0057. Insert Interval](Solutions/0057.Insert-Interval.py) (!!H Google) <br>
 Solution 1: Append the new interval to the intervals, and then do the merge interval problem. O(nlogn). Solution 2: add the interval as we run. If there is overlap, we update the new interval. 画个图会好理解很多。
 - [0352. Data Stream as Disjoint Intervals](Solutions/0352.Data-Stream-as-Disjoint-Intervals.py) (!!H) <br>
@@ -2329,6 +2333,9 @@ rabin carp / rolling hash O(N). The algorithm is for string s, left_code = the h
 right_code = the hash_code scan from right to left. if left_code == right_code, then s is a palindrome.
 - [1312. Minimum Insertion Steps to Make a String Palindrome](Solutions/1312.Minimum-Insertion-Steps-to-Make-a-String-Palindrome.py) (!!H Google) <br>
 dp 1143.Longest Common- Subsequence. 题目其实是求 n - (the longest palindromic subsequence in s); 也就是 to find the longest common subsequence between s and s[::-1]. which is same as 1143.Longest Common- Subsequence.
+- [0616. Add Bold Tag in String](Solutions/0616.Add-Bold-Tag-in-String.py) (!!M) <br>
+step 1: store the (start_idx, end_idx) for every appearance of substring in s.  Algorithm: 28. Implement strStr() Rabin Karp - O((M+N)* W), where N is len(s), M is avg lens of words in dict, and W is len(dict). step 2: now we have a list of (start, end) intervals, we merge interval so that we don't have overlaps anymore.  Algorithm: 56. merge intervals. step 3: add <b> and </b> pair to generate res
+
 
 
 
