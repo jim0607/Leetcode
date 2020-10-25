@@ -45,6 +45,10 @@ algoritm: we can form k palindromes if there are k or less than k chars that has
 use a row_dict to record each row, a col_dict to record each col; a block_dict to record each 3x3 block. block_id is (row // 3, col // 3)
 - [0811. Subdomain Visit Count](Solutions/0811.Subdomain-Visit-Count.py) (E) <br>
 用一个hashmap存sub-domains --> cnt. 剩下的就是string processing了
+- [1629. Slowest Key](Solutions/1629.Slowest-Key.py) (E) <br>
+用一个hashmap存sub-dom
+
+
 
 
 
@@ -1136,6 +1140,8 @@ similar iwth 505 solution 2, use Dikstra's algorithm. hq needs to store the path
 - [1102. Path With Maximum Minimum Value](Solutions/1102.Path-With-Maximum-Minimum-Value.py) (!!M) <br>
 Solution 1: Dijkstra's : 我们要的是path里面的最大的最小值, 所以我们把每个path里面的最小值放入max heap, 这样我们每次pop出来的都是path里面最大的那个最小值. maintain a heapq to store (__negative of the minimum value in the path so far till the currPos__, currPos); each time, we push (-min(nextVal, currMinVal), nextPos); O(MNlogMN), O(MN). Solution 2: Union-Find, step 1: sort the array by the values descendingly; step 2: union one-by-one, until (0, 0) and (m-1, n-1) is connected; solution 3: dfs + binary search. <br>
 想想174. Dungeon Game那题，其实也是找maximum of minimum value in a path, 不同的是只能往右走和往下走，也就是说不能回头，所以情况更简单可以用DP O(mn)解决 <br>
+- [1631. Path With Minimum Effort](Solutions/1631.Path-With-Minimum-Effort.py) (!!M) <br>
+Obviously, it is a minimum of max_val problem, which is typical Dijkstra's. maintain a heapq to store (the max_diff in the path so far till the curr_pos, curr_pos). Each time, we push (max(next_diff, curr_max_diff), next_pos). 注意需要一个visited set to store the pos we visited.
 - [Google. Maximum Safty for the Soldier](Solutions/Google.Maximum-Safty-for-the-Soldier.py) (!!M) <br>
 Google 面经：有一个nxn矩阵，信使从(0, 0)出发，想走到(n-1, n-1)去报信，中途会有一些狮子/敌营，我们离狮子的距离越远越安全，问为了尽可能到达目的地，离狮子最大的最近距离是多少？
 - [Student Cheating sheet](Solutions/Google__Student_Cheating_sheet.py) (!!M Google) <br>
@@ -2402,6 +2408,7 @@ for num_1, num_2 in zip(arr, sorted(arr)): if sum_1 == sum_2: cnt += 1.
 - [0006. ZigZag Conversion](Solutions/0006.ZigZag-Conversion.py) (M) <br>
 - [0605. Can Place Flowers](Solutions/0605.Can-Place-Flowers.py) (E) <br>
 把arr进行预处理：把arr的头部和尾部各加上0
+- [1630. Arithmetic Subarrays](Solutions/1630.Arithmetic-Subarrays.py) (E) <br>
 
 
 
