@@ -496,14 +496,9 @@ If the curr_interval start time is larger than the largest end time in res, then
 If cannot be merged, then res.append(curr_interval), else then update the new end time: res[-1][1] = max(res[-1][1], curr_interval_end). 
 Merge interval的算法非常重要，后面的题经常用到！！！
 - [0759. Employee Free Time](Solutions/0759.Employee-Free-Time.py) (!!H) <br>
-这题是merge interval的变形题: 
-step 1: obtain all intervals of all employees;
-step 2: sort the intervals by start time;  
-step 3: do 56. merge intervals, to update free time.
+这题是merge interval的变形题: step 1: obtain all intervals of all employees; step 2: sort the intervals by start time; step 3: do 56. merge intervals, to update free time.
 - [0616. Add Bold Tag in String](Solutions/0616.Add-Bold-Tag-in-String.py) (!!M) <br>
 step 1: store the (start_idx, end_idx) for every appearance of substring in s.  Algorithm: 28. Implement strStr() Rabin Karp - O((M+N)* W), where N is len(s), M is avg lens of words in dict, and W is len(dict). step 2: now we have a list of (start, end) intervals, we merge interval so that we don't have overlaps anymore.  Algorithm: 56. merge intervals. step 3: add <b> and </b> pair to generate res
-
-
 - [0057. Insert Interval](Solutions/0057.Insert-Interval.py) (!!H Google) <br>
 Solution 1: Append the new interval to the intervals, and then do the merge interval problem. O(nlogn). Solution 2: add the interval as we run. If there is overlap, we update the new interval. 画个图会好理解很多。
 - [0352. Data Stream as Disjoint Intervals](Solutions/0352.Data-Stream-as-Disjoint-Intervals.py) (!!H) <br>
