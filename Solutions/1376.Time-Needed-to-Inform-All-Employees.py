@@ -3,11 +3,14 @@
 
 A company has n employees with a unique ID for each employee from 0 to n - 1. The head of the company has is the one with headID.
 
-Each employee has one direct manager given in the manager array where manager[i] is the direct manager of the i-th employee, manager[headID] = -1. Also it's guaranteed that the subordination relationships have a tree structure.
+Each employee has one direct manager given in the manager array where manager[i] is the direct manager of the i-th employee, manager[headID] = -1. 
+Also it's guaranteed that the subordination relationships have a tree structure.
 
-The head of the company wants to inform all the employees of the company of an urgent piece of news. He will inform his direct subordinates and they will inform their subordinates and so on until all employees know about the urgent news.
+The head of the company wants to inform all the employees of the company of an urgent piece of news. 
+He will inform his direct subordinates and they will inform their subordinates and so on until all employees know about the urgent news.
 
-The i-th employee needs informTime[i] minutes to inform all of his direct subordinates (i.e After informTime[i] minutes, all his direct subordinates can start spreading the news).
+The i-th employee needs informTime[i] minutes to inform all of his direct subordinates (i.e After informTime[i] minutes, 
+all his direct subordinates can start spreading the news).
 
 Return the number of minutes needed to inform all the employees about the urgent news.
 
@@ -54,6 +57,27 @@ Output: 1076
 """
 可以问问面试官公司结构会不会有环，我们的理解应该是没环的，就是一个N-arr tree
 """
+class Solution:
+    def numOfMinutes(self, n: int, headID: int, managers: List[int], informTime: List[int]) -> int:
+        graph = defaultdict(list)
+        for i, manager in enumerate(managers):
+            if manager != -1:
+                graph[manager].append(i)
+            
+        def dfs(curr_id):
+            """
+            Return the max time to inform all sub_employees of curr_id
+            """
+            next_time = 0
+            for next_id in graph[curr_id]:
+                next_time = max(next_time, dfs(next_id))
+            return informTime[curr_id] + next_time
+        
+        return dfs(headID)
+
+
+
+
 class Solution:
     def numOfMinutes(self, n: int, headID: int, managers: List[int], informTime: List[int]) -> int:
         def backtrack(curr_id, curr_time):
