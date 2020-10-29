@@ -1,0 +1,7 @@
+You have a 2d grid of numbers representing heights. Now imagine you have a ladder k. 
+You can only walk right or down to another grid if that grid is less than or equal to the current grid plus k. 
+Return the number of unique paths. （高频 x4）
+
+dp[i][j] = the number of unique paths to reach (i, j).
+dp[i][j] += dp[i-1][j] if grid[i][j] <= grid[i-1][j] + k;
+dp[i][j] += dp[i][j-1] if grid[i][j] <= grid[i][j-1] + k
