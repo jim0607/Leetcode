@@ -2404,7 +2404,7 @@ for num_1, num_2 in zip(arr, sorted(arr)): if sum_1 == sum_2: cnt += 1.
 - [0605. Can Place Flowers](Solutions/0605.Can-Place-Flowers.py) (E) <br>
 把arr进行预处理：把arr的头部和尾部各加上0
 - [1630. Arithmetic Subarrays](Solutions/1630.Arithmetic-Subarrays.py) (E) <br>
-
+- [0066. Plus One](Solutions/0066.Plus-One.py) (E) <br>
 
 
 
