@@ -63,3 +63,83 @@ class Solution:
 """
 也可以用四个dp数组来做 - O(MN)
 """
+class Solution:
+    def longestLine(self, matrix: List[List[int]]) -> int:
+        if not matrix or not matrix[0]:
+            return 0
+        
+        return max(self.longest_horizontal_line(matrix), self.longest_vertical_line(matrix), self.longest_diagonal_line(matrix), self.longest_antidiagonal_line(matrix))
+    
+    def longest_horizontal_line(self, matrix):
+        m, n = len(matrix), len(matrix[0])
+        dp = [[0] * n for _ in range(m)]
+        for i in range(m):
+            if matrix[i][0] == 1:
+                dp[i][0] = 1 
+        for i in range(m):
+            for j in range(1, n):
+                if matrix[i][j] == 1:
+                    dp[i][j] = dp[i][j-1] + 1 
+        
+        max_lens = 0
+        for i in range(m):
+            for j in range(n):
+                max_lens = max(max_lens, dp[i][j])
+        return max_lens
+                
+    def longest_vertical_line(self, matrix):
+        m, n = len(matrix), len(matrix[0])
+        dp = [[0] * n for _ in range(m)]
+        for j in range(n):
+            if matrix[0][j] == 1:
+                dp[0][j] = 1 
+        for j in range(n):
+            for i in range(1, m):
+                if matrix[i][j] == 1:
+                    dp[i][j] = dp[i-1][j] + 1 
+        
+        max_lens = 0
+        for i in range(m):
+            for j in range(n):
+                max_lens = max(max_lens, dp[i][j]) 
+        return max_lens
+    
+    def longest_diagonal_line(self, matrix):
+        m, n = len(matrix), len(matrix[0])
+        dp = [[0] * n for _ in range(m)]
+        for i in range(m):
+            if matrix[i][0] == 1:
+                dp[i][0] = 1 
+        for j in range(n):
+            if matrix[0][j] == 1:
+                dp[0][j] = 1 
+        for i in range(1, m):
+            for j in range(1, n):
+                if matrix[i][j] == 1:
+                    dp[i][j] = dp[i-1][j-1] + 1 
+        
+        max_lens = 0
+        for i in range(m):
+            for j in range(n):
+                max_lens = max(max_lens, dp[i][j])
+        return max_lens
+    
+    def longest_antidiagonal_line(self, matrix):
+        m, n = len(matrix), len(matrix[0])
+        dp = [[0] * n for _ in range(m)]
+        for i in range(m):
+            if matrix[i][n-1] == 1:
+                dp[i][n-1] = 1 
+        for j in range(n):
+            if matrix[0][j] == 1:
+                dp[0][j] = 1 
+        for i in range(1, m):
+            for j in range(n - 2, -1, -1):
+                if matrix[i][j] == 1:
+                    dp[i][j] = dp[i-1][j+1] + 1 
+        
+        max_lens = 0
+        for i in range(m):
+            for j in range(n):
+                max_lens = max(max_lens, dp[i][j])
+        return max_lens
