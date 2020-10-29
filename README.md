@@ -664,6 +664,8 @@ helper function 是 104. Maximum Depth of Binary Tree, 在helper function 中用
 注意这一题很容易错：可能root.left只有一个节点，而root.right有很多节点，这很多个节点中可能有很多左节点，所以max_diameter可能只发生在root的右半边
 - [0236. Lowest Common Ancestor of a Binary Tree](Solutions/0236.Lowest-Common-Ancestor-of-a-Binary-Tree.py) (!!M) <br>
 LCS都求不出来的话就别说自己会二叉树
+- [Google Distance between two nodes in a binary tree](Solutions/Google__Distance-between-two-nodes-in-a-binary-tree.py) (!!M) <br>
+Distance between two nodes in a binary tree. LCA_ndoe, return (node 1 to LCA_node distance) + (node 2 to LCA_node distance)
 - [0235. Lowest Common Ancestor of a Binary Search Tree](Solutions/0235.Lowest-Common-Ancestor-of-a-Binary-Search-Tree.py) (E) <br>
 因为是BST, 所以if p.val < root.val < q.val or q.val < root.val < p.val or p.val == root.val or q.val == root.val: return root; Otherwise 要么去左边找要么去右边找。
 - [0250. Count Univalue Subtrees](Solutions/0250.Count-Univalue-Subtrees.py) (!!M Google) <br>
@@ -1107,8 +1109,11 @@ bfs. 最短距离问题 - O(N). pruning makes hard.
 - [0802. Find Eventual Safe States](Solutions/0802.Find-Eventual-Safe-States.py) (M) <br>
 在环内的node可能永远都跳不出环，所以这一题是寻找不在环里的nodes, 其实就是其实就是topological sort for out_degree!
 - [1203. Sort Items by Groups Respecting Dependencies](Solutions/1203.Sort-Items-by-Groups-Respecting-Dependencies.py) (!!H Google) <br>
-topo sort. step 1: put -1 into idependent groups; step 2: build the item_graph and item_degrees, and group_graph and group_degrees; step 3: topological sort for the two graphs we built;
-step 4: get the res: 先宏观有序，再微观有序
+topo sort. step 1: put -1 into idependent groups; step 2: build the item_graph and item_degrees, and group_graph and group_degrees; step 3: topological sort for the two graphs we built; step 4: get the res: 先宏观有序，再微观有序
+- [Google construct the original array from subsets](Solutions/Google__construct_the_original_array_from_subsets.py) (!!M Google) <br>
+Given a list of subsets from an array A, construct the original array. The original array may contain duplicate elements.
+
+
 
 
 ### [Dijkstra](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
@@ -1451,6 +1456,8 @@ construct suff_sum similar with 304. Range Sum Query 2D - Immutable. Step 2: dfs
 状态: f[i][j]=有多少种方式从左上角走到(i, j); 转移方程：f[i][j] = f[i][j-1]+f[i-1][j]
 - [0063. Unique Paths II](Solutions/0063.Unique-Paths-II.py) (M) <br> 
 转移方程：f[i][j] = 0 if it is obstacle else f[i][j-1]+f[i-1][j])
+- [Google Unique Paths With Ladder](Solutions/0063.Unique-Paths-II.py) (M) <br> 
+dp[i][j] = the number of unique paths to reach (i, j). dp[i][j] += dp[i-1][j] if grid[i][j] <= grid[i-1][j] + k; dp[i][j] += dp[i][j-1] if grid[i][j] <= grid[i][j-1] + k
 - [0064. Minimum Path Sum](Solutions/0064.Minimum-Path-Sum.py) (M) <br> 
 dp[i][j]=the minimum path sum to (i, j); dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j])
 - [0120. Triangle](Solutions/0120.Triangle.py) (M) <br>
@@ -1530,6 +1537,7 @@ Only k transactions are allowed.   Maintain buy=[]* k, sell=[]* k, and update th
 ##### (dp[i]都是定义为以i结尾的最长....)
 - [0674. Longest Continuous Increasing Subsequence](Solutions/0674.Longest-Continuous-Increasing-Subsequence.py) (E) <br>
 dp[i] = 以i结尾(包括i)的最长连续子序列; dp[i] = dp[i-1] + 1 if nums[i]>nums[i-1]; solution 2: 同向双指针（滑动窗口）
+- [Google__similar with 674 Longest Continuous Increasing Subsequence](Solutions/Google__similar_with_0674.Longest-Continuous-Increasing-Subsequence.py) (E) <br>
 - [0300. Longest Increasing Subsequence](Solutions/0300.Longest-Increasing-Subsequence.py) (!!M) <br> 
 不需要连续，所以不是dp[i] = dp[i-1] + 1，而是所有的j之前的i都有可能, 所以转移方程是 dp[j] = max(dp[i] + 1 for i<j and nums[i]<nums[j]) <br>
 dp + binary search (O(NlogN))的算法也很重要！dp[i] = the maintianed array with i as the possible increadsing numbers, dp should be an orderd array: if nums[i] > the last item in dp, then append nums[i] to dp, else then将sorted arr中最接近num的数用num取代, by using binary search. same as 35. Search Insert Position
