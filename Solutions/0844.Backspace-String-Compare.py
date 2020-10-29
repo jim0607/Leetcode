@@ -36,6 +36,25 @@ Can you solve it in O(N) time and O(1) space?
 """
 
 
+class Solution:
+    def backspaceCompare(self, S: str, T: str) -> bool:
+        return self.construct(S) == self.construct(T)
+    
+    def construct(self, s):
+        backspace_cnt = 0
+        res = ""
+        for i in range(len(s) - 1, -1, -1):
+            if s[i] == "#":
+                backspace_cnt += 1
+            else:
+                if backspace_cnt > 0:
+                    backspace_cnt -= 1
+                else:
+                    res += s[i]
+        return res[::-1]
+    
+
+
 """
 naively, we can use stacks to find out the final string of S and T, and compare them. But that takes O(N) space.
 The problem is asking for O(1) space.
