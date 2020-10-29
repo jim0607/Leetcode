@@ -1,3 +1,4 @@
+"""
 222. Count Complete Tree Nodes
 
 Given a complete binary tree, count the number of nodes.
@@ -17,26 +18,12 @@ Input:
 4  5 6
 
 Output: 6
-
+"""
 
 
 """
 solution 1: dfs to visit every node
-"""
-class Solution:
-    def countNodes(self, root: TreeNode) -> int:
-        def dfs(root):
-            if not root:
-                return 0
-            
-            cnt = 1
-            cnt += dfs(root.left)
-            cnt += dfs(root.right)
-            
-            return cnt
-        
-        return dfs(root)
-        
+"""     
         
 """
 solution 2: use the property of complete Tree - O(logN*logN)
@@ -74,3 +61,52 @@ class Solution:
             return 0
         
         return max(self._depth(root.left), self._depth(root.right)) + 1
+    
+    
+"""
+solution 3: similar with Check if value exists in level-order sorted complete binary tree: use gray code to enable binary search in the last level - O(logN* logN)
+"""
+class Solution:
+    def countNodes(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        if not root.left and not root.right:
+            return 1
+        
+        level = self.get_level(root)
+
+        start, end = 0, 2**level - 1
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            gray_code = self.get_graycode(level, mid)
+            node = self.get_node_from_graycode(root, gray_code)
+            if not node:
+                end = mid
+            else:
+                start = mid
+        end_graycode = self.get_graycode(level, end)
+        end_node = self.get_node_from_graycode(root, end_graycode)
+        if end_node:
+            return 2**level - 1 + end + 1
+        else:
+            return 2**level - 1 + end
+        
+    def get_level(self, root):
+        if not root.left and not root.right:
+            return 0
+        return 1 + self.get_level(root.left)
+    
+    def get_graycode(self, level, num):
+        res = []
+        for i in range(level - 1, -1, -1):
+            res.append(num & 1)
+            num = num >> 1
+        return res[::-1]
+    
+    def get_node_from_graycode(self, root, gray_code):
+        for code in gray_code:
+            if code == 0:
+                root = root.left
+            else:
+                root = root.right
+        return root
