@@ -2426,6 +2426,12 @@ step 3: keep going forward until we generate all the random num using the genera
 follow up是写test方案证明自己写的shuffle符合要求
 - [0528. Random Pick with Weight](Solutions/0528.Random-Pick-with-Weight.py) (!!!M Google) <br>
 step 1: create a __prefix sum arr__; step 2: generate a rand_idx; step 3: __binary search__ to find where the idx is in the prefix_sum arr; follow up 是设计一个class支持修改已有元素的权重, 可能要用到数的结构实现o(logn)吧，没弄明白
+- [Google Random Point in Non-overlapping intervals](Solutions/Google__Random-Point-in-Non-overlapping-intervals.py) (!!!M Google) <br>
+Given a list of non-overlapping intervals, generate a number that is drawn uniformly from one of the intervals. <br>
+Similar with random pick with weight, here we use number of points in the interval as weight.
+Firslty, create a weight list w, where w[i] is the number of points in the interval. 
+Secondly, use a prefix_sum list to store the prefix_sum of the weight list.
+Then generate a rand_int and use binary search to find which rectangle the rand_int belongs to. 
 - [0497. Random Point in Non-overlapping Rectangles](Solutions/0497.Random-Point-in-Non-overlapping-Rectangles.py) (!!!M) <br>
 Similar with random pick with weight, here we use number of points in the rectangle as weight.
 Firslty, create a weight list w, where w[i] is the number of points in the rectangle. 
