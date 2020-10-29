@@ -671,8 +671,6 @@ Distance between two nodes in a binary tree. LCA_ndoe, return (node 1 to LCA_nod
 - [0250. Count Univalue Subtrees](Solutions/0250.Count-Univalue-Subtrees.py) (!!M Google) <br>
 root is a univalue subtree if left is and right is and root.val = left.val = right.val;
 heper function returns (is root a univalue subtree, cnt of univalue subtrees for root)
-- [0222. Count Complete Tree Nodes](Solutions/0222.Count-Complete-Tree-Nodes.py) (!!M) <br>
-solution 1: dfs to visit every node; solution 2: use the property of complete Tree: 通过比较left sub tree height and right sub tree height 可以之直接算出左边或者右边nodes的个数 - O(logN* logN)
 - [0116. Populating Next Right Pointers in Each Node](Solutions/0116.Populating-Next-Right-Pointers-in-Each-Node.py) (M) <br>
 BFS solution using q is trivial. Follow up: what if only use constant extra space?
 我们可以设立两个指针，一根leftmost一直往下走，一根head在一层之中一直往右走，边走边连，zu以每次都是去连left_most下一层的Nodes
@@ -744,7 +742,10 @@ helper function returns how many coins should the node receive from it's parent 
 Good example of recurssion
 - [0951. Flip Equivalent Binary Trees](Solutions/0951.Flip-Equivalent-Binary-Trees.py) (!!!H Google) <br>
 recursion - O(min(N1, N2))
-
+- [Check if value exists in level-order sorted complete binary tree](Solutions/Google__Check-if-value-exists-in-level-order-sorted-complete-binary-tree.py) (!!! Google) <br>
+binary search and tree. step 1: find the level of the num by going check the left path; binary search on the located level. This is the hard part because unlike the conventional binary search, the nodes of this level cannot be accessed directly. we need to use gray code to locate the mid node in the level.
+- [0222. Count Complete Tree Nodes](Solutions/0222.Count-Complete-Tree-Nodes.py) (!!M) <br>
+solution 1: dfs to visit every node; solution 2: use the property of complete Tree: 通过比较left sub tree height and right sub tree height 可以之直接算出左边或者右边nodes的个数 - O(logN* logN). solution 3: similar with Check if value exists in level-order sorted complete binary tree: use gray code to enable binary search in the last level - O(logN* logN)
 
 --------------1245. Tree Diameter---------
 
@@ -1855,8 +1856,7 @@ Binary search. 题目要求只要有arr[i]==arr[i-1]的情况就return False, �
 - [0911. Online Election](Solutions/0911.Online-Election.py) (!!M Google) <br>
 Precomputed Answer + Binary Search.
 Constructor: O(N). each query: O(logN). 我们将每一个时刻的winner放到self.res中，这种提前计算好的思想非常重要！
-- [Check if value exists in level-order sorted complete binary tree](Solutions/Google__Check-if-value-exists-in-level-order-sorted-complete-binary-tree.py) (!!! Google) <br>
-binary search and tree. step 1: find the level of the num by going check the left path; binary search on the located level. This is the hard part because unlike the conventional binary search, the nodes of this level cannot be accessed directly. we need to use gray code to locate the mid node in the level.
+
 
 
 
