@@ -25,7 +25,7 @@ Also need a included set to mark the chars that are already in the st.
 """
 class Solution:
     def removeDuplicateLetters(self, s: str) -> str:
-        last_occur = collections.defaultdict(int)   # store the pos where ch last occured
+        last_occur = defaultdict(int)   # store the pos where ch last occured
         for i, ch in enumerate(s):
             last_occur[ch] = i
 
