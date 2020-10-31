@@ -43,7 +43,7 @@ class Solution:
                 j += 1
             
             if len(ch_to_cnt) >= 3:
-                res += len(s) - j + 1
+                res += len(s) - j + 1   # len(s) - j + 1 表示以 i 开头的valid_substring的个数
                 
             ch_to_cnt[s[i]] -= 1
             if ch_to_cnt[s[i]] == 0:
