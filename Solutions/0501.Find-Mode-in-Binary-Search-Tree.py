@@ -1,6 +1,7 @@
+"""
 501. Find Mode in Binary Search Tree
 
-Given a binary search tree (BST) with duplicates, find all the mode(s) (the most frequently occurred element) in the given BST.
+Given a binary search tree (BST) with duplicates, find all the mode(s) (the most frequently occurred element(s)) in the given BST.
 
 Assume a BST is defined as follows:
 
@@ -22,11 +23,11 @@ Given BST [1,null,2,2],
 return [2].
 
 Note: If a tree has more than one mode, you can return them in any order.
+"""
 
 
 """
 solution 1: dfs to visit every node and put their freq in a dict - O(N), O(N)
-"""
 """
 class Solution:
     def findMode(self, root: TreeNode) -> List[int]:
@@ -58,29 +59,24 @@ Follow up: Could you do that without using any extra space? (Assume that the imp
 Before we do the follow up question for BST. Let's think how to do it in a sorted arr with O(1) space.
 We dynamically update the curr_cnt and max_cnt and res, by comparing prev with curr.
 """
-class ModeInSortedArr:
-
-    def find_mode(self, arr):
-        prev = None
-        curr_cnt = 1
-        max_cnt = 1
-        res = []
-
-        for i, num in enumerate(arr):
-            curr_cnt = curr_cnt + 1 if num == prev else 1   # 如果不相等就reset curr_cnt=1
-            if curr_cnt == max_cnt:
-                res.append(num)
-            elif curr_cnt > max_cnt:
-                res = [num]
-                max_cnt = curr_cnt
-            prev = num
-
-        return res
+def find_mode(arr):
+    curr_cnt = 1
+    max_cnt = 1
+    res = []
+    prev = arr[0]
+    for num in arr[1:]:
+        curr_cnt = curr_cnt + 1 if num == prev else 1  # 如果不相等就reset curr_cnt=1
+        if curr_cnt == max_cnt:
+            res.append(num)
+        elif curr_cnt > max_cnt:
+            res = [num]
+            max_cnt = curr_cnt
+        prev = num
+    return res
 
 if __name__ == "__main__":
-    arr = [1,2,2,2,3,3,4,5,5,5,6,6]
-    sol = ModeInSortedArr()
-    print(sol.find_mode(arr))
+    arr = [1, 2, 2, 2, 3, 3, 4, 5, 5, 5, 6, 6]
+    print(find_mode(arr))
     
     
     
