@@ -28,7 +28,7 @@ Need to use a global prev_node while doing in_order traversal. maintain a global
 class Solution:
     def getMinimumDifference(self, root: TreeNode) -> int:
         self.min_diff = sys.maxsize
-        self.prev = None
+        self.prev_num = sys.maxsize
         self.in_order(root)
         return self.min_diff
     
@@ -39,9 +39,8 @@ class Solution:
         if curr.left:
             self.in_order(curr.left)
             
-        if self.prev:
-            self.min_diff = min(self.min_diff, abs(curr.val - self.prev.val))
-        self.prev = curr    # 注意in-order traversal prev change to curr
+        self.min_diff = min(self.min_diff, abs(curr.val - self.prev_num))
+        self.prev_num = curr.val   # 注意in-order traversal prev change to curr
         
         if curr.right:
             self.in_order(curr.right)
