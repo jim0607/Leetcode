@@ -82,7 +82,7 @@ class Solution:
                 if board[i][j] > 0:
                     board[row_idx][j] = board[i][j]
                     row_idx -= 1
-            while row_idx >= 0:
+            while row_idx >= 0: # 上面的空了就添零
                 board[row_idx][j] = 0
                 row_idx -= 1
         
