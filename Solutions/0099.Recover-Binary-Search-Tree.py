@@ -56,8 +56,8 @@ class SortByOneSwap:
         for i in range(1, len(arr)):
             if arr[i] < arr[i-1]:
                 wrong_node_2 = i
-                if not wrong_node_1:
-                    wrong_node_1 = i-1
+                if wrong_node_1 == None:
+                    wrong_node_1 = i - 1
                 else:
                     break
         arr[wrong_node_1], arr[wrong_node_2] = arr[wrong_node_2], arr[wrong_node_1]
