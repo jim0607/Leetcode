@@ -55,10 +55,11 @@ class SortByOneSwap:
         wrong_node_1, wrong_node_2 = None, None
         for i in range(1, len(arr)):
             if arr[i] < arr[i-1]:
-                wrong_node_2 = i
                 if wrong_node_1 == None:
                     wrong_node_1 = i - 1
+                    wrong_node_2 = i
                 else:
+                    wrong_node_2 = i
                     break
         arr[wrong_node_1], arr[wrong_node_2] = arr[wrong_node_2], arr[wrong_node_1]
 
@@ -89,10 +90,8 @@ class Solution:
         self.wrong_node_1.val, self.wrong_node_2.val = self.wrong_node_2.val, self.wrong_node_1.val
 
     def in_order(self, root):
-        if not root:
-            return
-        
-        self.in_order(root.left)
+        if root.left:
+            self.in_order(root.left)
         
         if self.prev_node and root.val < self.prev_node.val:
             if not self.wrong_node_1:
@@ -103,4 +102,5 @@ class Solution:
                 
         self.prev_node = root               # 注意要改变prev_node
             
-        self.in_order(root.right)
+        if root.right:
+            self.in_order(root.right)
