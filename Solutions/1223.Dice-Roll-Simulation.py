@@ -104,7 +104,7 @@ class Solution:
             res = 0
             for num in [1, 2, 3, 4, 5, 6]:
                 if num == last_num:
-                    if repeat_time >= rollMax[num-1]:     # 如果已经加了好几个num了，
+                    if repeat_time >= rollMax[num-1]:   # 如果已经加了好几个num了，
                         continue                        # 那么这个num就不能再继续加入了
                     res = (res + backtrack(curr_roll + 1, num, repeat_time + 1) % MOD) % MOD 
                 else:
@@ -115,5 +115,5 @@ class Solution:
                 
         
         MOD = 10**9 + 7
-        memo = collections.defaultdict(int)     # (curr_roll, last_num, repeat_time) --> how many ways
+        memo = collections.defaultdict(int)   # (curr_roll, last_num, repeat_time) --> how many ways
         return backtrack(0, 0, 0)    
