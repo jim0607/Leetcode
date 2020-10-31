@@ -1,3 +1,4 @@
+"""
 442. Find All Duplicates in an Array
 
 Given an array of integers, 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once.
@@ -12,6 +13,7 @@ Input:
 
 Output:
 [2,3]
+"""
 
 
 """
@@ -27,5 +29,4 @@ class Solution:
                 res.append(abs(num))
             else:
                 nums[idx] = -nums[idx]
-                
         return res
