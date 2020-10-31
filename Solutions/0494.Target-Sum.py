@@ -54,14 +54,17 @@ class Solution:
                 if curr_sum == target:
                     return 1
                 return 0
+            
             if (curr_idx, curr_sum) in memo:
                 return memo[(curr_idx, curr_sum)]
+            
             res = 0
             res += backtrack(curr_idx + 1, curr_sum + nums[curr_idx + 1])
             res += backtrack(curr_idx + 1, curr_sum - nums[curr_idx + 1])
+            
             memo[(curr_idx, curr_sum)] = res
             return res
         
         
-        memo = collections.defaultdict(int)  
+        memo = defaultdict(int)  
         return backtrack(-1, 0)
