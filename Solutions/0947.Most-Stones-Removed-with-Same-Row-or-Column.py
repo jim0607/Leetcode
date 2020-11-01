@@ -1,12 +1,11 @@
+"""
 947. Most Stones Removed with Same Row or Column
 
 On a 2D plane, we place stones at some integer coordinate points.  Each coordinate point may have at most one stone.
 
-Now, a move consists of removing a stone that shares a column or row with another stone on the grid.
+Now, a move consists of removing all the stones that share column or row.
 
 What is the largest possible number of moves we can make?
-
- 
 
 Example 1:
 
@@ -20,18 +19,19 @@ Example 3:
 
 Input: stones = [[0,0]]
 Output: 0
+"""
 
 
 
 """
 Use two for loops to compare each pos with another pos in the list, if two positions share same row or col,
-then we should union them, each time there is a union, it means we can do one removal, then we set cnt+=1
+then we should union them, each time there is a union, it means we can do one removal, then we set cnt += 1
 """
 class Solution:
     def removeStones(self, stones: List[List[int]]) -> int:
         uf = UnionFind(stones)
-        for i in range(len(stones)-1):
-            for j in range(i+1, len(stones)):
+        for i in range(len(stones) - 1):
+            for j in range(i + 1, len(stones)):
                 if stones[i][0] == stones[j][0] or stones[i][1] == stones[j][1]:
                     uf.union(tuple(stones[i]), tuple(stones[j]))
         return uf.cnt
