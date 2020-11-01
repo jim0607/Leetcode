@@ -36,7 +36,7 @@ class Solution:
             if not curr_node.left and not curr_node.right and curr_sum == target:
                 res.append(curr_comb.copy())
                 return
-            for next_node in [curr_node.left, curr_node.right]:
+            for next_node in (curr_node.left, curr_node.right):
                 if next_node:
                     curr_comb.append(next_node.val)
                     backtrack(next_node, curr_sum + next_node.val, curr_comb)
