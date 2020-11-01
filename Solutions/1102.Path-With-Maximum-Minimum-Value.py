@@ -42,10 +42,10 @@ class Solution:
             curr_maxmin, curr_i, curr_j = heappop(hq)  # 每次pop出来的都是min_val最大的path, 我们选择这个path走
             curr_maxmin = -curr_maxmin                 # curr_min_val stands for the curr max score of path so far
 
-            if (curr_i, curr_j) in maxmins and curr_maxmin <= maxmins[(curr_i, curr_j)]:    # 如果curr_maxmin很大的话也是就不用continue了
+            if (curr_i, curr_j) in maxmins:            # 如果curr_maxmin很大的话也是就不用continue了
                 continue
             maxmins[(curr_i, curr_j)] = curr_maxmin
-            
+
             if (curr_i, curr_j) == (m - 1, n - 1):
                 return curr_maxmin
 
@@ -54,7 +54,8 @@ class Solution:
                 if 0 <= next_i < m and 0 <= next_j < n:
                     next_val = grid[next_i][next_j]
                     heappush(hq, (-min(next_val, curr_maxmin), next_i, next_j))  # ***** 注意这里很容易错，我们要的是path里面的最大的min_val, 
-                                                # 所以我们把每个path里面的min_val放入max heap, 这样我们每次pop出来的都是path里面最大的那个最小值       
+                                                # 所以我们把每个path里面的min_val放入max heap, 这样我们每次pop出来的都是path里面最大的那个最小值
+              
 
                 
                 
