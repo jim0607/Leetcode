@@ -29,7 +29,7 @@ class Solution:
 
 
 # Newton's Method. O(logN) since the set converges quadratically.
-cclass Solution:
+class Solution:
     def mySqrt(self, x: int) -> int:
         sqrt = x
         while sqrt*sqrt - x >= 1:
