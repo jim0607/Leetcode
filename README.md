@@ -1,3 +1,7 @@
+# 每日25题，加油吧！最后的机会！
+### 11/24 1153
+
+
 # [Data Structure](/Data-Structure.py)
 ## [Hashmap/Dictionary](/Data-Structure.py) 
 - [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!!M youtubed) <br>
