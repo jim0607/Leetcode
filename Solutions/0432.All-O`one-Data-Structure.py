@@ -18,56 +18,47 @@ node is a DLL node, there is a node.key_set = set() which stores all the keys wi
 The rest is to update the dll, the two hashmaps in each method call. similar with LRU.
 """
 class Node:
-           
+
     def __init__(self):
-        self.key_set = set()
         self.prev = None
         self.next = None
-        
-    def add(self, key):
-        self.key_set.add(key)
-    
-    def remove(self, key):
-        self.key_set.remove(key)
-    
+        self.key_set = set()
+
     def get_one_key(self):
         key = self.key_set.pop()
         self.key_set.add(key)
         return key
-    
-           
+
+
 class DoubleLinkedList:
-           
+
     def __init__(self):
-        self.head = Node()
-        self.tail = Node()
-        self.head.next = self.tail
-        self.tail.prev = self.head
-    
-    def insert_after(self, n1, n2):     # insert node2 after node1
-        temp = n1.next
-        
+        self.dummy_head = Node()
+        self.dummy_tail = Node()
+        self.dummy_head.next = self.dummy_tail
+        self.dummy_tail.prev = self.dummy_head
+
+    def remove(self, node):
+        node.prev.next = node.next
+        node.next.prev = node.prev
+
+    def insert_after(self, n1, n2):
+        """
+        insert n2 after n1
+        """
+        n1.next.prev = n2
+        n2.next = n1.next
         n1.next = n2
         n2.prev = n1
-        
-        n2.next = temp
-        temp.prev = n2
-        
+
     def insert_before(self, n1, n2):
-        temp = n1.prev
-        
-        temp.next = n2
-        n2.prev = temp
-        
+        """
+        insert n2 before n1
+        """
+        n1.prev.next = n2
+        n2.prev = n1.prev
         n1.prev = n2
         n2.next = n1
-        
-    def remove(self, node):
-        prev = node.prev
-        nxt = node.next
-        
-        prev.next = nxt
-        nxt.prev = prev
 
 
 class AllOne:
@@ -77,32 +68,32 @@ class AllOne:
         Initialize your data structure here.
         """
         self.dll = DoubleLinkedList()
-        self.counter = collections.defaultdict(int)
-        self.node_val = {0: self.dll.head}      # key is cnt, value is node
-        
-    def remove_key(self, v, key):
-        node = self.node_val[v]
-        node.remove(key)
+        self.key_cnt = defaultdict(int)
+        self.cnt_node = {0: self.dll.dummy_head}  # key is cnt, value is node
+
+    def remove_key(self, cnt, key):
+        node = self.cnt_node[cnt]
+        node.key_set.remove(key)
         if not node.key_set:
             self.dll.remove(node)
-            self.node_val.pop(v)
-        
+            self.cnt_node.pop(cnt)
+
     def inc(self, key):
         """
         Inserts a new key <Key> with value 1. Or increments an existing key by 1.
         :type key: str
         :rtype: void
         """
-        self.counter[key] += 1
-        v = self.counter[key]
-        
-        if v not in self.node_val:
-            self.node_val[v] = Node()
-            self.dll.insert_after(self.node_val[v-1], self.node_val[v])
-        self.node_val[v].add(key)
-        
-        if v - 1 > 0:       # remove old (v, key) pair
-            self.remove_key(v-1, key)
+        self.key_cnt[key] += 1
+        cnt = self.key_cnt[key]
+
+        if cnt not in self.cnt_node:
+            self.cnt_node[cnt] = Node()
+            self.dll.insert_after(self.cnt_node[cnt - 1], self.cnt_node[cnt])
+        self.cnt_node[cnt].key_set.add(key)
+
+        if cnt - 1 > 0:  
+            self.remove_key(cnt - 1, key)       # remove old (cnt, key) pair
 
     def dec(self, key):
         """
@@ -110,36 +101,36 @@ class AllOne:
         :type key: str
         :rtype: void
         """
-        if key not in self.counter:
+        if key not in self.key_cnt:
             return
-        
-        self.counter[key] -= 1
-        v = self.counter[key]
-        
-        if v == 0:
-            self.counter.pop(key)
+
+        self.key_cnt[key] -= 1
+        cnt = self.key_cnt[key]
+
+        if cnt == 0:
+            self.key_cnt.pop(key)
         else:
-            if v not in self.node_val:
-                self.node_val[v] = Node()
-                self.dll.insert_before(self.node_val[v+1], self.node_val[v])
-            self.node_val[v].add(key)
-        
-        self.remove_key(v+1, key)
-        
+            if cnt not in self.cnt_node:
+                self.cnt_node[cnt] = Node()
+                self.dll.insert_before(self.cnt_node[cnt + 1], self.cnt_node[cnt])
+            self.cnt_node[cnt].key_set.add(key)
+
+        self.remove_key(cnt + 1, key)       # remove old (cnt, key) pair
+
     def getMaxKey(self):
         """
         Returns one of the keys with maximal value.
         :rtype: str
         """
-        if self.dll.head.next == self.dll.tail:
+        if self.dll.dummy_head.next == self.dll.dummy_tail:
             return ''
-        return self.dll.tail.prev.get_one_key()
+        return self.dll.dummy_tail.prev.get_one_key()
 
     def getMinKey(self):
         """
         Returns one of the keys with Minimal value.
         :rtype: str
         """
-        if self.dll.head.next == self.dll.tail:
+        if self.dll.dummy_head.next == self.dll.dummy_tail:
             return ''
-        return self.dll.head.next.get_one_key()
+        return self.dll.dummy_head.next.get_one_key()
