@@ -46,8 +46,8 @@ class Solution:
         # step 3: find all the possible 3-sequence and record their appear times
         counter = collections.defaultdict(int)
         for webs in user_to_web.values():
-            seqs = set()    # 一个user不能拥有重复的seq, 所以这里必须用一个set
-            self._find_seqs(webs, -1, [], seqs)
+            seqs = set()         # 同一个user不能拥有重复的seq, 所以这里用set
+            self._find_seqs(webs, -1, [], seqs)    # typical backtrack to find possible combinations
             for seq in seqs:
                 counter[seq] += 1
             
@@ -59,16 +59,16 @@ class Solution:
                 res.append(seq)
         
         # step 5: sortlexicographically smallest such 3-sequence
-        res.sort(key = lambda x: (len(x), x))
+        res.sort(key = lambda x: (x, len(x)))
         return res[0]
     
     
-    def _find_seqs(self, webs, curr_idx, curr, seqs):
-        if len(curr) == 3:
-            seqs.add(tuple(curr.copy()))
+    def _find_seqs(self, webs, curr_idx, curr_comb, seqs):
+        if len(curr_comb) == 3:
+            seqs.add(tuple(curr_comb.copy()))
             return seqs
         
         for next_idx in range(curr_idx + 1, len(webs)):
-            curr.append(webs[next_idx])
-            self._find_seqs(webs, next_idx, curr, seqs)
-            curr.pop()
+            curr_comb.append(webs[next_idx])
+            self._find_seqs(webs, next_idx, curr_comb, seqs)
+            curr_comb.pop()
