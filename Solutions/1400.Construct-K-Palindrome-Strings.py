@@ -46,17 +46,14 @@ algoritm: we can form k palindromes if there are k or less than k chars that has
 """
 class Solution:
     def canConstruct(self, s: str, k: int) -> bool:
-          n = len(s)
-          if n < k:
+        if len(s) < k:
             return False
-          if n == k:
-            return True
-
-          ch_to_cnt = collections.defaultdict(int)
-          for ch in s:
-            ch_to_cnt[ch] += 1
-
-          for cnt in ch_to_cnt.values():
-            if cnt %2 == 1:
-              k -= 1
-          return k >= 0
+        
+        cnter = Counter(s)
+        odd_cnt = 0
+        for cnt in cnter.values():
+            if cnt % 2 == 1:
+                odd_cnt += 1
+                if odd_cnt > k:
+                    return False
+        return True
