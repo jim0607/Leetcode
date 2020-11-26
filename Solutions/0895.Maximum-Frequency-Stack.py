@@ -41,32 +41,25 @@ The total number of FreqStack.pop calls will not exceed 10000 in a single test c
 The total number of FreqStack.push and FreqStack.pop calls will not exceed 150000 across all test cases.
 """
 
-"""
-It should be noted that since we don't 
-"""
 class FreqStack:
 
     def __init__(self):
-        self.freq = collections.defaultdict(int)        # key is num, val is freq of the num
-        self.mapping = collections.defaultdict(list)    # key is freq, val is a stack of num of that freq
+        self.num_freq = defaultdict(int)    # num --> freq
+        self.freq_nums = defaultdict(list)  # freq --> a stack of nums of that freq
         self.max_freq = 0
 
-    def push(self, x: int) -> None:
-        self.freq[x] += 1                       # update freq of x
-        f = self.freq[x]
-        # It should be noted that since we don't delete the f-1 in mapping (we did that in LC 460. LFU), cuz we want to know the position of x in f-1 lsit 
-        self.mapping[f].append(x)               # update mapping. 
-        self.max_freq = max(f, self.max_freq)   # update max_freq if neccessary
-
-    def pop(self) -> int:
-        x = self.mapping[self.max_freq].pop()   # update mapping
-        self.freq[x] -= 1                       # update freq of x
-        if not self.mapping[self.max_freq]:     # update max_freq if neccessary
-            self.max_freq -= 1
+    def push(self, num: int) -> None:
+        self.num_freq[num] += 1                     # update num_freq
+        freq = self.num_freq[num]
+        # It should be noted that since we don't delete the freq-1 in mapping (we did that in LC 460. LFU), 
+        # cuz we want to know the position of x in freq-1 lsit 
+        self.freq_nums[freq].append(num)            # update freq_nums
+        self.max_freq = max(self.max_freq, freq)    # update max_freq
         
-        return x
-
-# Your FreqStack object will be instantiated and called as such:
-# obj = FreqStack()
-# obj.push(x)
-# param_2 = obj.pop()
+    def pop(self) -> int:
+        num = self.freq_nums[self.max_freq].pop()   # update freq_nums
+        if len(self.freq_nums[self.max_freq]) == 0:
+            self.max_freq -= 1                      # update max_freq (注意这里不太好想)
+        self.num_freq[num] -= 1                     # update num_freq
+        
+        return num
