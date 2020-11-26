@@ -50,6 +50,9 @@ secret and guess consist of digits only.
 
 
 """
+这道题提出了一个叫公牛母牛的游戏，其实就是之前文曲星上有的猜数字的游戏，
+有一个四位数字，你猜一个结果，然后根据你猜的结果和真实结果做对比，提示有多少个数字和位置都正确的叫做bulls，
+还提示有多少数字正确但位置不对的叫做cows，根据这些信息来引导我们继续猜测正确的数字。
 use a digit_to_cnt hashmap for digit. one pass to update A_cnt, another pass to update B_cnt.
 """
 class Solution:
