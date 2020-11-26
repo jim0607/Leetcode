@@ -1,3 +1,4 @@
+"""
 1152. Analyze User Website Visit Pattern
 
 We are given some website visits: the user with name username[i] visited the website website[i] at time timestamp[i].
@@ -10,7 +11,8 @@ Find the 3-sequence visited by the largest number of users. If there is more tha
 
 Example 1:
 
-Input: username = ["joe","joe","joe","james","james","james","james","mary","mary","mary"], timestamp = [1,2,3,4,5,6,7,8,9,10], website = ["home","about","career","home","cart","maps","home","home","about","career"]
+Input: username = ["joe","joe","joe","james","james","james","james","mary","mary","mary"], timestamp = [1,2,3,4,5,6,7,8,9,10], 
+website = ["home","about","career","home","cart","maps","home","home","about","career"]
 Output: ["home","about","career"]
 Explanation: 
 The tuples in this example are:
@@ -29,6 +31,7 @@ The 3-sequence ("home", "cart", "maps") was visited at least once by 1 user.
 The 3-sequence ("home", "cart", "home") was visited at least once by 1 user.
 The 3-sequence ("home", "maps", "home") was visited at least once by 1 user.
 The 3-sequence ("cart", "maps", "home") was visited at least once by 1 user.
+"""
 
 
 
