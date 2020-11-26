@@ -67,18 +67,18 @@ N could be much less then L if it is a sparse matrix.
 class SnapshotArray:
 
     def __init__(self, length: int):
-        self.nums_dict = collections.defaultdict(int)   # idx --> val
-        self.snaps = []     # store the nums_dict at each time
+        self.idx_to_val = defaultdict(int)
+        self.snapshots = []     # stores the idx_to_val dictionary at each time
 
     def set(self, index: int, val: int) -> None:
-        self.nums_dict[index] = val
+        self.idx_to_val[index] = val
 
     def snap(self) -> int:
-        self.snaps.append(self.nums_dict.copy())  # now it is O(N), which is << O(L) if sparse
-        return len(self.snaps) - 1
+        self.snapshots.append(self.idx_to_val.copy())   # now it is O(N), which is << O(L) if sparse
+        return len(self.snapshots) - 1
 
     def get(self, index: int, snap_id: int) -> int:
-        return self.snaps[snap_id][index]
+        return self.snapshots[snap_id][index]
         
         
 """
