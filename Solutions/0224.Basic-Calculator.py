@@ -1,3 +1,4 @@
+"""
 224. Basic Calculator
 
 Implement a basic calculator to evaluate a simple expression string.
@@ -16,7 +17,7 @@ Example 3:
 
 Input: "(1+(4+5+2)-3)+(6+8)"
 Output: 23
-
+"""
 
 
 """
@@ -29,8 +30,7 @@ class Solution:
     def calculate(self, s: str) -> int:
         resStack = []
         signStack = []
-        res = 0
-        num, sign = 0, 1
+        res, sign = 0, 1
         i = 0
         while i < len(s):
             if s[i].isdigit():
