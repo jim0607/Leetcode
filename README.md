@@ -106,8 +106,7 @@ Very similar with permutation problem. if leftCnt == n and rightCnt == n: self.r
 - [0032. Longest Valid Parentheses](Solutions/0032.Longest-Valid-Parentheses.py) (H)  <br>
 solution 1: stack.  use a stack to store the idx, maintain a start idx to record the start idx of a valid parentheses; solution 2: dp; solution 3: greedy: O(N) O(1): 正向扫一遍，反向扫一遍, 真TM niubi呀
 - [0921. Minimum Add to Make Parentheses Valid](Solutions/0921.Minimum-Add-to-Make-Parentheses-Valid.py) (!!M)  <br>
-solution 1: use a st to store the "(". parentheses的题目一般都可以用一个st来存左括号！！！ solution 2: 借鉴32. Longest Valid Parentheses的做法：从左往右扫描，记录left和right，
-如果right大于left了,就表明前面需要添加right-left个左括号
+solution 1: use a st to store the "(". parentheses的题目一般都可以用一个st来存左括号！！！ solution 2: 简化一下，就用left_cnt代替stack
 - [1249. Minimum Remove to Make Valid Parentheses](Solutions/1249.Minimum-Remove-to-Make-Valid-Parentheses.py) (M)  <br>
 solution 1: use a st to store "(". parentheses的题目一般都可以用一个st来存左括号！！！ solution 2: 借鉴32. Longest Valid Parentheses的做法：first sweep left to right, and store the ")" that should be deleted, eg: "())", the last ")" should be deleted; then sweep right to left, and store "(" that should be deleted, eg: eg: "(()", the first "(" should be deleted;  lastly delete the prarentheses that should be deleted.
 - [0856. Score of Parentheses](Solutions/0856.Score-of-Parentheses.py) (!!M)  <br>
