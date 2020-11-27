@@ -50,7 +50,7 @@ use a row_dict to record each row, a col_dict to record each col; a block_dict t
 - [0811. Subdomain Visit Count](Solutions/0811.Subdomain-Visit-Count.py) (E) <br>
 用一个hashmap存sub-domains --> cnt. 剩下的就是string processing了
 - [1629. Slowest Key](Solutions/1629.Slowest-Key.py) (E) <br>
-用一个hashmap存sub-dom
+maitain 一个max_duration, 遍历string去更新就可以了
 
 
 
