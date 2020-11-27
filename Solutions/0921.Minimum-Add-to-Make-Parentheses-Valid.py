@@ -52,8 +52,28 @@ class Solution:
 
  
 """
-简化一下，就用left_cnt代替stack
+借鉴32. Longest Valid Parentheses的做法：从左往右扫描，记录left和right，	简化一下，就用left_cnt代替stack
+如果right大于left了,就表明前面需要添加左括号	
 """
+class Solution:	class Solution:
+    def minAddToMakeValid(self, S: str) -> int:	    
+        left, right = 0, 0	        
+        add_cnt = 0	       
+        for ch in S:	        
+            if ch == "(":	            
+                left += 1	                
+            elif ch == ")":	            
+                right += 1	                
+            if right > left:	                   
+                add_cnt += 1	              
+                left += 1	                    
+
+        add_cnt += left - right     # for case ")))(("	
+        return add_cnt
+       
+       
+       
+       
 class Solution:
     def minAddToMakeValid(self, s: str) -> int:
         left_cnt = 0
