@@ -1,3 +1,4 @@
+"""
 227. Basic Calculator II
 
 Implement a basic calculator to evaluate a simple expression string.
@@ -20,6 +21,7 @@ Note:
 
 You may assume that the given expression is always valid.
 Do not use the eval built-in library function.
+"""
 
 
 """
@@ -67,6 +69,56 @@ class Solution:
                 
         return res
 
+    
+class Solution:
+    def calculate(self, s: str) -> int:
+        num_st = []
+        sign_st = []
+        i = 0
+        while i < len(s):
+            if s[i].isdigit():
+                num = ord(s[i]) - ord("0")
+                while i + 1 < len(s) and s[i+1].isdigit():
+                    num = 10 * num + ord(s[i+1]) - ord("0")
+                    i += 1
+                num_st.append(num)
+            
+            elif s[i] in "+-":
+                sign_st.append(s[i])
+            
+            elif s[i] == "*":           # 如果是乘法就马上计算
+                i += 1
+                while s[i] == " ":
+                    i += 1
+                next_num = ord(s[i]) - ord("0")
+                while i + 1 < len(s) and s[i+1].isdigit():
+                    next_num = 10 * next_num + ord(s[i+1]) - ord("0")
+                    i += 1
+                num_st.append(num_st.pop() * next_num)
+                
+            elif s[i] == "/":
+                i += 1
+                while s[i] == " ":
+                    i += 1
+                next_num = ord(s[i]) - ord("0")
+                while i + 1 < len(s) and s[i+1].isdigit():
+                    next_num = 10 * next_num + ord(s[i+1]) - ord("0")
+                    i += 1
+                num_st.append(num_st.pop() // next_num)
+                
+            i += 1
+        
+        # 到最后opt_st里面装的全是"+-", 我们要左往右计算最后的res
+        res = num_st[0]
+        for i in range(len(opt_st)):
+            if opt_st[i] == "+":
+                res += num_st[i+1]
+            else:
+                res -= num_st[i+1]
+                
+        return res
+    
+    
 
 """
 solution 2: 上述方法的变种，我们可以不用opt_st, 只用一个num_st存所有的num.
