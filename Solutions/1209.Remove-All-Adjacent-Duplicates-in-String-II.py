@@ -1,3 +1,4 @@
+"""
 1209. Remove All Adjacent Duplicates in String II
 
 Given a string s, a k duplicate removal consists of choosing k adjacent and equal letters from s and removing them causing the left and the right side of the deleted substring to concatenate together.
@@ -27,6 +28,7 @@ Example 3:
 
 Input: s = "pbbcggttciiippooaais", k = 2
 Output: "ps"
+"""
 
 
 
@@ -46,9 +48,8 @@ class Solution:
                     if st[-1][1] == k - 1:
                         st.pop()
                     else:
-                        top = st.pop()
-                        st.append((top[0], top[1] +1))
+                        cnt = st.pop()[1]
+                        st.append((ch, cnt + 1))                    
                 else:
                     st.append((ch, 1))
-                    
         return "".join(ch * cnt for ch, cnt in st)
