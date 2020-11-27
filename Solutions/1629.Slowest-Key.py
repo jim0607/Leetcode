@@ -53,18 +53,16 @@ keysPressed contains only lowercase English letters.
 
 class Solution:
     def slowestKey(self, releaseTimes: List[int], keysPressed: str) -> str:
-        n = len(releaseTimes)
-        ch_to_cnt = defaultdict(int)
-        ch_to_cnt[keysPressed[0]] = releaseTimes[0]
-        for i in range(1, n):
-            if keysPressed[i] not in ch_to_cnt:
-                ch_to_cnt[keysPressed[i]] = releaseTimes[i] - releaseTimes[i-1]
+        res = ""
+        max_duration = 0
+        for i in range(len(releaseTimes)):
+            if i == 0:
+                duration = releaseTimes[i]
             else:
-                ch_to_cnt[keysPressed[i]] = max(ch_to_cnt[keysPressed[i]], releaseTimes[i] - releaseTimes[i-1])
+                duration = releaseTimes[i] - releaseTimes[i-1]
                 
-        max_cnt, max_ch = 0, ""
-        for ch, cnt in ch_to_cnt.items():
-            if cnt > max_cnt or (cnt == max_cnt and ord(ch) > ord(max_ch)):
-                max_ch = ch
-                max_cnt = cnt
-        return max_ch
+            if duration > max_duration or (duration == max_duration and keysPressed[i] > res):
+                res = keysPressed[i]
+                max_duration = max(max_duration, duration)
+                
+        return res
