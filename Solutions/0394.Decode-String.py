@@ -38,7 +38,45 @@
 # 
 #
 
-# @lc code=start
+
+
+class Solution:
+    def decodeString(self, s: str) -> str:
+        num_st = []         # store the number in s
+        str_st = [""]       # store the string in s
+        temp_num = 0
+        i = 0
+        while i < len(s):
+            ch = s[i]
+            
+            if ch.isdigit():
+                temp_num = int(ch)
+                while i + 1 < len(s) and s[i+1].isdigit():      # 防止多个数字同时出现
+                    temp_num = temp_num * 10 + int(s[i+1])
+                    i += 1
+            
+            elif ch == "[":
+                num_st.append(temp_num)
+                temp_num = 0
+                str_st.append("")
+                
+            elif ch.isalpha():
+                str_st[-1] += ch   # 注意不能用strStack.append(ch)，因为我们想要行程一个整体才可以pop出来想要的。
+                                   # eg:2[bc]，要让"bc"形成整体才可以一起pop出来
+            elif ch == "]":
+                num = num_st.pop()
+                string = str_st.pop()
+                str_st[-1] += num * string      # 这里不能用append，原因同上！
+                
+            i += 1
+            
+        return str_st[0]
+    
+    
+    
+
+
+
 class Solution:
     def decodeString(self, s: str) -> str:
         if not s:
