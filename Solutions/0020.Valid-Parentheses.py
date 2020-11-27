@@ -1,3 +1,4 @@
+"""
 20. Valid Parentheses
 
 Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
@@ -28,6 +29,7 @@ Example 5:
 
 Input: "{[]}"
 Output: true
+"""
 
 
 """
@@ -36,14 +38,17 @@ Output: true
 """
 class Solution:
     def isValid(self, s: str) -> bool:
+        if len(s) % 2 != 0:
+            return False
+        
+        mapping = {"(": ")", "[": "]", "{": "}"}
+        
         st = []
-        mapping = {")": "(", "]": "[", "}": "{"}
         for ch in s:
-            if ch in ["(", "[", "{"]:
+            if ch in "([{":
                 st.append(ch)
             else:
-                if len(st) == 0 or mapping[ch] != st[-1]:
+                if len(st) == 0 or mapping[st[-1]] != ch:
                     return False
                 st.pop()
-                
         return len(st) == 0
