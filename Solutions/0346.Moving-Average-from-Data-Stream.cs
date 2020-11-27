@@ -1,3 +1,4 @@
+"""
 Given a stream of integers and a window size, calculate the moving average of all integers in the sliding window.
 
 Example:
@@ -7,7 +8,28 @@ m.next(1) = 1
 m.next(10) = (1 + 10) / 2
 m.next(3) = (1 + 10 + 3) / 3
 m.next(5) = (10 + 3 + 5) / 3
+"""
 
+    
+    
+class MovingAverage:
+
+    def __init__(self, size: int):
+        """
+        Initialize your data structure here.
+        """
+        self.size = size
+        self.window = deque()
+        self.window_sum = 0
+
+    def next(self, val: int) -> float:
+        self.window.append(val)
+        self.window_sum += val
+        if len(self.window) > self.size:
+            self.window_sum -= self.window.popleft()
+        return self.window_sum / len(self.window)
+
+    
 
 // use deque, or double-ended queue
 // in C#, Queue class is by default a deque, with two methods:
@@ -32,27 +54,3 @@ public class MovingAverage {
         return windowSum * 1.0 / Math.Min(size, count);    // 注意C#里面所有的class以及其methods开头都是大写的，比如Math, Math.Min, Queue, Enqueue, Dequeu
     }
 }
-
-
-
-class MovingAverage:
-
-    def __init__(self, size: int):
-        """
-        Initialize your data structure here.
-        """
-        self.q = collections.deque()
-        self.sum = 0
-        self.size = size
-
-    def next(self, val: int) -> float:
-        self.q.append(val)
-        self.sum += val
-        if len(self.q) > self.size:
-            self.sum -= self.q.popleft()
-        return self.sum / len(self.q)
-
-
-# Your MovingAverage object will be instantiated and called as such:
-# obj = MovingAverage(size)
-# param_1 = obj.next(val)
