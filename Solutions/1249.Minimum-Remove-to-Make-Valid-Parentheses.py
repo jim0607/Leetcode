@@ -1,3 +1,4 @@
+"""
 1249. Minimum Remove to Make Valid Parentheses
 
 Given a string s of '(' , ')' and lowercase English characters. 
@@ -29,6 +30,7 @@ Example 4:
 
 Input: s = "(a(b(c)d)"
 Output: "a(b(c)d)"
+"""
 
 
 """
@@ -76,7 +78,7 @@ class Solution:
         left, right = 0, 0
         pos = set()     # store the pos where a parentheses should be deleted
         
-        # first sweep left to right, and store the ")" that should be deleted, eg: "())", the last ")" should be deleted
+        # first sweep left to right, and find the position that the ")" should be deleted, eg: "())", the last ")" should be deleted
         for i, ch in enumerate(s):
             if ch == "(":
                 left += 1
@@ -86,7 +88,7 @@ class Solution:
                 pos.add(i)
                 right -= 1
                 
-        # then sweep right to left, and store "(" that should be deleted, eg: eg: "(()", the first "(" should be deleted
+        # then sweep right to left, and find the position that the "(" should be deleted, eg: eg: "(()", the first "(" should be deleted
         left, right = 0, 0
         for i, ch in enumerate(s[::-1]):
             if ch == "(":
