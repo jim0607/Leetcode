@@ -1,3 +1,4 @@
+"""
 856. Score of Parentheses
 
 Given a balanced parentheses string S, compute the score of the string based on the following rule:
@@ -23,6 +24,7 @@ Example 4:
 
 Input: "(()(()))"
 Output: 6
+"""
 
  
 """
@@ -58,18 +60,16 @@ class Solution:
 solution 2: 题目说the string is balanced, so we don't need a ch_st.
 """
 class Solution:
-    def scoreOfParentheses(self, S: str) -> int:
-        res = 0
-        st = [0]         # store how many "(" needs to be paired and the res so far, 初始化先放一个dummy val进去垫底
-        for i in range(len(S)):
-            if S[i] == "(":
-                st.append(0)        # "(" 表示开始新一轮的计算了
-                
-            if S[i] == ")":
-                top = st.pop()
-                if S[i - 1] == ")":
-                    st[-1] += 2 * top
+    def scoreOfParentheses(self, s: str) -> int:
+        score_st = [0]
+        for i, ch in enumerate(s):
+            if ch == "(":
+                score_st.append(0)  # "(" 表示开始新一轮的计算了
+            else:
+                top = score_st.pop()
+                if s[i-1] == "(":
+                    top += 1
                 else:
-                    st[-1] += top + 1
-                        
-        return st[-1]
+                    top *= 2
+                score_st[-1] += top
+        return score_st[0]
