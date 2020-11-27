@@ -85,8 +85,6 @@ Get data from read4 and store it in a queue. When read data, transfer data from 
 
 
 ### [Parentheses](/)
-- [0394. Decode String](Solutions/0394.Decode-String.py) (!!M Google) <br>
-定义一个numStack, 一个strStack 存nums和parenthesis. if it's a digit, should use a while loop to add the num in case there are multiple digits; if it's a ch, then put it into strStack; if it's a [, then put the num in numStack and re-initialize the tempNum and tempStr for calculation inside the []; if it's a ], then pop the resStack and signStack and update res.
 - [1047. Remove All Adjacent Duplicates In String](Solutions/1047.Remove-All-Adjacent-Duplicates-In-String.py) (!!E) <br>
 use a st to store 左边等待消掉的chars. loop the string s, if s[i] == st[-1], then pop. else append.
 - [1209. Remove All Adjacent Duplicates in String II](Solutions/1209.Remove-All-Adjacent-Duplicates-in-String-II.py) (M) <br>
@@ -143,6 +141,8 @@ if type is "start", then we should update the res[st[-1]], and st.pop(), and upd
 parentheses. solution 1: stack; solution 2: use a cnt for "("
 - [0682. Baseball Game](Solutions/0682.Baseball-Game.py) (E Google) <br>
 calculator. 
+- [0394. Decode String](Solutions/0394.Decode-String.py) (!!M Google) <br>
+定义一个numStack, 一个strStack 存nums和parenthesis. if it's a digit, should use a while loop to add the num in case there are multiple digits; if it's a ch, then put it into strStack; if it's a [, then put the num in numStack and re-initialize the tempNum and tempStr for calculation inside the []; if it's a ], then pop the resStack and signStack and update res.
 - [0726. Number of Atoms](Solutions/0726.Number-of-Atoms.py) (!!H Google) <br>
 Parenetheses. 与394.Decode String非常类似, 我们需要反向遍历，这样只要遇到upper case的ch就可以加到dictionary了
 - [1612. Check If Two Expression Trees are Equivalent](Solutions/1612.Check-If-Two-Expression-Trees-are-Equivalent.py) (M) <br>
