@@ -71,7 +71,7 @@ In C#, Queue class is by default a deque, with two methods: 1. enqueue, meaning 
 - [0933. Number of Recent Calls](Solutions/0933.Number-of-Recent-Calls.py) (E) <br>
 use a queue so that we can remove the calls that happens long time ago.
 - [0946. Validate Stack Sequences](Solutions/0946.Validate-Stack-Sequences.py) (!!!M Google) <br>
-使用一个栈st来模拟push和pop的过程，用一个指针在popped list里面跑，如果popped[i]==st[-1]那就一直pop, 最后判断st能不能pop为空
+需要一个 __辅助栈st__ 来模拟push和pop的过程，用一个指针在popped list里面跑，如果popped[i]==st[-1]那就一直pop, 最后判断st能不能pop为空
 - [0735. Asteroid Collision](Solutions/0735.Asteroid-Collision.py) (M) <br>
 stack store the number after collision as we iterate the list
 - [0900. RLE Iterator](Solutions/0900.RLE-Iterator.py) (!!!M Google) <br>
