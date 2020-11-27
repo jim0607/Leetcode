@@ -1,3 +1,4 @@
+"""
 Write a class RecentCounter to count recent requests.
 
 It has only one method: ping(int t), where t represents some time in milliseconds.
@@ -14,21 +15,18 @@ Example 1:
 
 Input: inputs = ["RecentCounter","ping","ping","ping","ping"], inputs = [[],[1],[100],[3001],[3002]]
 Output: [null,1,2,3,3]
-
+"""
 
 class RecentCounter:
 
     def __init__(self):
-        self.q = collections.deque()
+        self.window = deque()
 
     def ping(self, t: int) -> int:
-        self.q.append(t)
-        
-        # 题目的意思是我们只认为3s以前的访问记录为recent，返回有多少个recent的访问记录
-        while self.q and self.q[0] < t - 3000:
-            self.q.popleft()
-            
-        return len(self.q)
+        while len(self.window) > 0 and t > self.window[0] + 3000:
+            self.window.popleft()
+        self.window.append(t)
+        return len(self.window)
 
 
 # Your RecentCounter object will be instantiated and called as such:
