@@ -81,6 +81,7 @@ class Solution:
             # 如果括号外没有"+-*/", 就说明只剩下括号里面的运算了，eg: "(5*3+4)", 就处理括号里面了
             return build_tree(start + 1, end - 1)
 
+           
         def find_first_idx_ouside_prth(start, end, opt):
             """
             find the first appearance of the ch in opt that is outsie parentheses
@@ -94,6 +95,7 @@ class Solution:
                 elif arr[i] == ")":
                     open_cnt -= 1
             return -1 
+    
     
     
         # firstly, "2-100/(23-3)+1" --> ['2', '-', '100', '/', '(', '23', '-', '3', ')', '+', '1']
