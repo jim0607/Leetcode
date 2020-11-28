@@ -54,3 +54,36 @@ class Solution:
                     res += ")"
                 open_cnt -= 1
         return res
+
+"""
+solution 2:straigt forward: 记录需要remove的pos就可以了
+"""
+class Solution:
+    def removeOuterParentheses(self, s: str) -> str:
+        left_cnt = 0
+        right_cnt = 0
+        right_pos = set()
+        for i, ch in enumerate(s):
+            if ch == "(":
+                left_cnt += 1
+            else:
+                right_cnt += 1
+            if left_cnt == right_cnt:
+                right_pos.add(i)
+                
+        left_cnt = 0
+        right_cnt = 0
+        left_pos = set()
+        for i, ch in enumerate(s[::-1]):
+            if ch == "(":
+                left_cnt += 1
+            else:
+                right_cnt += 1
+            if left_cnt == right_cnt:
+                left_pos.add(len(s) - 1 - i)
+                
+        res = ""
+        for i, ch in enumerate(s):
+            if i not in left_pos and i not in right_pos:
+                res += ch
+        return res
