@@ -1,3 +1,4 @@
+"""
 402. Remove K Digits
 
 Given a non-negative integer num represented as a string, remove k digits from the number so that the new number is the smallest possible.
@@ -20,6 +21,7 @@ Example 3:
 Input: num = "10", k = 2
 Output: "0"
 Explanation: Remove all the digits from the number and it is left with nothing which is 0.
+"""
 
 
 """
@@ -50,3 +52,26 @@ class Solution:
             i += 1
 
         return "0" if i == len(st) else "".join(st[i:])
+    
+    
+class Solution:
+    def removeKdigits(self, nums: str, k: int) -> str:
+        if k >= len(nums):
+            return "0"
+        
+        st = []
+        n = len(nums)
+        for i, num in enumerate(nums):
+            while len(st) > 0 and st[-1] > num and (len(st) - 1 + n - i) >= n - k:
+                st.pop()
+            st.append(num)
+
+        if len(st) > n - k:
+            st = st[:n-k]
+        
+        i = 0
+        while i < len(st):
+            if st[i] != "0":
+                break
+            i += 1
+        return "0" if len(st[i:]) == 0 else "".join(st[i:])
