@@ -80,3 +80,45 @@ class Solution:
         for element, cnt in sorted(mapping.items()):
             res += element if cnt == 1 else element + str(cnt)
         return res
+    
+    
+"""
+另一种写法
+"""
+class Solution:
+    def countOfAtoms(self, s: str) -> str:
+        cnter = defaultdict(int)
+        
+        num_st = [1]
+        num, ten = 1, 1
+        element = ""
+        i = len(s) - 1
+        reapeat = 0
+        while i >= 0:
+            if s[i].isdigit():
+                num = ord(s[i]) - ord("0")
+                while i - 1 >= 0 and s[i-1].isdigit():
+                    num += (ord(s[i-1]) - ord("0")) * (10 ** ten)
+                    i -= 1
+                ten = 1
+            
+            elif s[i].islower():
+                element = s[i]
+            elif s[i].isupper():
+                element = s[i] + element
+                cnter[element] += num_st[-1] * num    
+                num = 1
+                element = ""
+
+            elif s[i] == ")":
+                num_st.append(num * num_st[-1])
+                num = 1
+            elif s[i] == "(":
+                num_st.pop()
+                
+            i -= 1
+            
+        res = ""
+        for element, cnt in sorted(cnter.items()):
+            res += element if cnt == 1 else element + str(cnt)
+        return res
