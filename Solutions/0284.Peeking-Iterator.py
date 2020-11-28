@@ -1,4 +1,6 @@
-Given an Iterator class interface with methods: next() and hasNext(), design and implement a PeekingIterator that support the peek() operation -- it essentially peek() at the element that will be returned by the next call to next().
+"""
+Given an Iterator class interface with methods: next() and hasNext(), 
+design and implement a PeekingIterator that support the peek() operation -- it essentially peek() at the element that will be returned by the next call to next().
 
 Example:
 
@@ -8,7 +10,7 @@ Call next() gets you 1, the first element in the list.
 Now you call peek() and it returns 2, the next element. Calling next() after that still return 2. 
 You call next() the final time and it returns 3, the last element. 
 Calling hasNext() after that should return false.#         """
-
+"""
 
 # Below is the interface for Iterator, which is already defined for you.
 #
@@ -38,32 +40,25 @@ class PeekingIterator:
         :type iterator: Iterator
         """
         self.iterator = iterator
-        self.peek_item = self.iterator.next() if self.iterator.hasNext() else None
+        self.next_item = self.iterator.next() if self.iterator.hasNext() else None
 
     def peek(self):
         """
         Returns the next element in the iteration without advancing the iterator.
         :rtype: int
         """
-        return self.peek_item
+        return self.next_item
 
     def next(self):
         """
         :rtype: int
         """
-        res = self.peek_item
-        self.peek_item = self.iterator.next() if self.iterator.hasNext() else None
-        return res
+        top = self.next_item
+        self.next_item = self.iterator.next() if self.iterator.hasNext() else None
+        return top
 
     def hasNext(self):
         """
         :rtype: bool
         """
-        return self.peek_item != None
-        
-
-# Your PeekingIterator object will be instantiated and called as such:
-# iter = PeekingIterator(Iterator(nums))
-# while iter.hasNext():
-#     val = iter.peek()   # Get the next element but not advance the iterator.
-#     iter.next()         # Should return the same value as [val].
+        return self.next_item != None
