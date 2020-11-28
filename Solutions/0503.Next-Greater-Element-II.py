@@ -36,16 +36,14 @@ solution 2: should also know the soution that don't need to double the nums.
 """
 class Solution:
     def nextGreaterElements(self, nums: List[int]) -> List[int]:
-        lens = len(nums)
-        st = []     
-        res = [-1 for _ in range(2*lens)]
-        for idx in range(2*lens):
-            i = idx % lens 
-            while len(st) > 0 and st[-1][0] < nums[i]:
-                res[st.pop()[1]] = nums[i]
-            st.append((nums[i], idx))
-            
-        return res[:len(nums)]   
+        n = len(nums)
+        res = [-1 for _ in range(n)]
+        st = []
+        for i in range(2 * n):
+            while len(st) > 0 and st[-1][0] < nums[i % n]:
+                res[st.pop()[1]] = nums[i % n]
+            st.append((nums[i % n], i % n))
+        return res
     
 
 """
