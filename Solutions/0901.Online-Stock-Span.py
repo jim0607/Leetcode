@@ -1,3 +1,4 @@
+"""
 901. Online Stock Span
 
 Write a class StockSpanner which collects daily price quotes for some stock, and returns the span of that stock's price for the current day.
@@ -24,27 +25,26 @@ S.next(85) is called and returns 6.
 
 Note that (for example) S.next(75) returned 4, because the last 4 prices
 (including today's price of 75) were less than or equal to today's price.
+"""
 
 
 class StockSpanner:
 
     def __init__(self):
-        self.st = []    # store the price and idx, mono-decreasing
-        self.res = collections.defaultdict(lambda: 1)   # store the res
-        self.idx = -1
+        self.st = []
+        self.pos = 0
 
     def next(self, price: int) -> int:
-        self.idx += 1
-        while self.st and self.st[-1][0] <= price:
-            top = self.st.pop()
-            self.res[self.idx] = self.idx - top[1] + self.res[top[1]]
-
-        self.st.append((price, self.idx))
+        self.pos += 1
+        while len(self.st) > 0 and self.st[-1][0] <= price:
+            self.st.pop()
         
-        return self.res[self.idx]
+        res = 1
+        if len(self.st) == 0:
+            res = self.pos 
+        else:
+            res = self.pos - self.st[-1][1]
         
-
-
-# Your StockSpanner object will be instantiated and called as such:
-# obj = StockSpanner()
-# param_1 = obj.next(price)
+        self.st.append((price, self.pos))
+        
+        return res
