@@ -163,7 +163,7 @@ Solution 1: use a queue to flatten the 2D vector first. Solution 2: use two poin
 - [0281. Zigzag Iterator](Solutions/0281.Zigzag-Iterator.py) (!!M) <br>
 use two pointers and a flag. What if you are given k 1d vectors? How well can your code be extended to such cases? Solution: We append all the list into one queue. Every time we call next(), we pop a list first, then pop the first num from the list, and then re-add it to the end to deque so that we can call it again after k next calls.
 - [0284. Peeking Iterator](Solutions/0284.Peeking-Iterator.py) (!!M) <br>
-ddefine a self.iterator, and a self.peek_item to record the top item of the iterator.
+define a self.iterator, and a self.next_item to record the top item of the iterator, 相当于提前预支next_item.
 - [0173. Binary Search Tree Iterator](Solutions/0173.Binary-Search-Tree-Iterator.py) (!!M) <br>
 用stack实现binary search tree的in order traversal的方法类似, 用一个stack存最小的node, 需要额外定义一个 def getLeftMost(self, root)
 
