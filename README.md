@@ -223,6 +223,7 @@ Need to use a dictionary to pre-record the last pos a ch appears.  Also need a i
 - [0654. Maximum Binary Tree](Solutions/0654.Maximum-Binary-Tree.py) (!!M) <br>
 solution 1: simple recursion - O(n^2); solution 2: monostack 通过观察发现规律，对于每个node的父亲节点 = min(左边第一个比它大的，右边第一个比它大的), 维护一个降序数组，可以实现对这个min的快速查找,maintain a mono decreasing stack, the items in the stack are nodes - O(N)
 - [0962. Maximum Width Ramp](Solutions/0962.Maximum-Width-Ramp.py) (!!!M) <br>
+solution 1: sort the num_pos and then do 121. best time to buy and sell stock - O(nlogn). 
 This is "Last Greater Element" problem. monostack - O(n).
 Step 1: put valid candidates into stack: loop from left to the right, if there's a value greater than a value to the left, 
 it doesn't make sense to use it. So we create a stack in descending order. 
