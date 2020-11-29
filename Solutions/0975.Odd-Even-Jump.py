@@ -1,3 +1,4 @@
+"""
 975. Odd Even Jump
 
 You are given an integer array A.  From some starting index, you can make a series of jumps.  The (1st, 3rd, 5th, ...) jumps in the series are called odd numbered jumps, and the (2nd, 4th, 6th, ...) jumps in the series are called even numbered jumps.
@@ -42,7 +43,7 @@ From starting index i = 2, we jump to i = 3, and then we can't jump anymore.
 From starting index i = 3, we jump to i = 4, so we reach the end.
 From starting index i = 4, we are already at the end.
 In total, there are 3 different starting indexes (i = 1, i = 3, i = 4) where we can reach the end with some number of jumps.
-
+"""
 
 
 """
