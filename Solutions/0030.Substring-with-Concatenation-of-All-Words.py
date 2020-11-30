@@ -44,3 +44,25 @@ class Solution:
             word_to_cnt[s[i:i+m]] += 1
             i += m
         return word_to_cnt
+      
+      
+      
+class Solution:
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        m, n = len(words), len(words[0])
+        target_cnter = Counter(words)
+        res = []
+        for j in range(n):
+            cnter = defaultdict(int)
+            for i in range(j, len(s), n):
+                cnter[s[i:i+n]] += 1
+                
+                if i - j >= m * n:
+                    cnter[s[i-m*n: i-m*n+n]] -= 1
+                    if cnter[s[i-m*n: i-m*n+n]] == 0:
+                        del cnter[s[i-m*n: i-m*n+n]]
+                        
+                if cnter == target_cnter:           
+                    res.append(i - m * n + n)
+            
+        return res
