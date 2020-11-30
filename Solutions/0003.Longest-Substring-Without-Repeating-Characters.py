@@ -25,24 +25,18 @@ Explanation: The answer is "wke", with the length of 3.
 # 更新j: included.add(s[j]); 更新i: included.remove(s[i])
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        lens = len(s)
-        if lens == 0:
-            return 0
-        
         included = set()
-        
-        res = 0
         j = 0
-        for i in range(lens):
-            while j < lens and s[j] not in included:
+        max_lens = 0
+        for i in range(len(s)):
+            while j < len(s) and s[j] not in included:
+                max_lens = max(max_lens, j - i + 1)
                 included.add(s[j])
                 j += 1
-                
-            res = max(res, j - i)   
             
             included.remove(s[i])
             
-        return res
+        return max_lens
       
       
 """
