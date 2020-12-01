@@ -93,11 +93,12 @@ class Solution:
 """
 maintain a min heap with k size
 """
-from heapq import heappush, heappop, heapify
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        hq = [-num for num in nums]
+        hq = nums
         heapify(hq)
-        for _ in range(k - 1):
+        
+        while len(hq) > k:
             heappop(hq)
-        return -heappop(hq)
+            
+        return hq[0]
