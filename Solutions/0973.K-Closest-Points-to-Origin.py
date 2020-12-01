@@ -34,5 +34,3 @@ class Solution:
         for _ in range(K):
             res.append(points[heappop(hq)[1]])
         return res
-            
-        return res
