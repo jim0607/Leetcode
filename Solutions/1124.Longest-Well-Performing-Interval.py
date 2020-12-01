@@ -25,7 +25,8 @@ since there is negative numbers, we cannot use sliding window, for subarray sum 
 For subarray sum equals k problem with negative number, we use prefix sum + hashmap. 
 
 问题：为什么我们只check pre_sum - 1 in pre_sum_dict, 而不去check all possible pre_sum - x?
-因为 pre_sum - x 并不需要关心, 因为如果是最长子数组, 子数组的和一定是1, 所以只用关心 pre_sum - 1
+因为 pre_sum - x 并不需要关心, 因为如果是最长子数组, 子数组的和一定是1, 所以只用关心 pre_sum - 1. 
+感觉这个表述有点问题, 因为我们还判断了if pre_sum > 0，所以才成立的
 """
 class Solution:
     def longestWPI(self, hours: List[int]) -> int:
