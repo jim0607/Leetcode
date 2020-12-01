@@ -24,41 +24,35 @@ solution 3: bucket sort - O(N). bucket sort is garanteed to be O(N), while quick
 """
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        counter = collections.Counter(nums)
-        
-        max_cnt = max(cnt for cnt in counter.values())  # we use max_freq as our bucket size
-        freq_to_num = [[] for _ in range(max_cnt + 1)]  
-        for num, cnt in counter.items():
-            freq_to_num[cnt].append(num)    # 把freq当做idx来放入bucket中，
-                                        # 这样一来high freq的ch就天然的放在bucket后面了, 就不需要sort了
+        cnter = Counter(nums)
+        cnt_to_num = [[] for _ in range(max(cnter.values()) + 1)]   # we use max_freq as our bucket size
+        for num, cnt in cnter.items():      # 把freq当做idx来放入bucket中，
+            cnt_to_num[cnt].append(num)     # 这样一来high freq的ch就天然的放在bucket后面了, 就不需要sort了
+            
         res = []
-        for i in range(len(freq_to_num) - 1, -1, -1):
-            if len(freq_to_num) > 0:
-                res += freq_to_num[i]
-            if len(res) == k:
+        for i in range(len(cnt_to_num) - 1, -1, -1):
+            res += cnt_to_num[i]
+            if len(res) >= k:
                 return res
 
 
 """
-O(N+ClogK+K)
+O(N+klogk)
 heapq, heapq中放入的是(freq, key)对
 需要一个cntDict来记录cnt先
 """
-
-from heapq import heappush, heappop, heapify
-
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        counter = collections.Counter(nums)
+        cnter = Counter(nums)
         
-        # algorithm is the same as 215: Kth largest element in array
-        hq = []
-        for num, cnt in counter.items():
-            heappush(hq, (cnt, num))    #把freq放在num前面是为了用freq作为标准来做heap的排序, O(logK), K is the size of heap
-            if len(hq) > k:
-                heappop(hq)
-                
-        return [num for cnt, num in hq]
+        hq = [(-cnt, num) for num, cnt in cnter.items()]
+        heapify(hq)
+        
+        res = []
+        for _ in range(k):
+            res.append(heappop(hq)[1])
+            
+        return res
         
       
     
