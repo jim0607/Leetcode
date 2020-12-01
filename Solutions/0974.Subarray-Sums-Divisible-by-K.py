@@ -45,6 +45,31 @@
 """
 subarray sum的问题都要往prefix sum方面去想  O(N), O(N)
 """
+"""
+(a - b) % k == 0
+a % k - b % k == 0
+"""
+class Solution:
+    def subarraysDivByK(self, nums: List[int], k: int) -> int:
+        presum_cnter = defaultdict(int)     # presum % k --> cnt of the presum appeared
+        presum_cnter[0] = 1
+        presum = 0
+        res = 0
+        for num in nums:
+            presum += num
+            
+            if presum % k in presum_cnter:
+                res += presum_cnter[presum % k]
+                
+            presum_cnter[presum % k] += 1
+            
+        return res
+
+
+
+
+
+
 class Solution:
     def subarraysDivByK(self, nums: List[int], k: int) -> int:
         pre_sum = 0
