@@ -1,25 +1,43 @@
-// Given an array of integers. Find two disjoint subarrays such that the absolute difference between the sum of the two subarrays is maximum 
+"""
+Given an array of integers. 
+Find two disjoint subarrays such that the absolute difference between the sum of the two subarrays is maximum 
 
-// Example:
-// [2 -1 -2 1 -4 0 8] 
-// ans: (-1 -2 1 -4) (2 8) diff=16.
-// -6 10 16
+Example: [-1 -2 1 -4 0 2 8] 
+ans: (-1 -2 1 -4)  (2 8)  diff = 10 - (-6) = 16.
 
 知识点：
 Subarray就是连续的
 Subsequence是不一定连续的
+"""
+
 
 解法：
-step 1: maintain一个prefix_sum list和一个suffix_sum list.
-step 2: 用这两个list计算出dp1 list and dp2 lsit, dp1[i] = the max subarray sum before i, dp2[i] = the min subarray sum before i;
-dp3[i] = the min subarray sum after i, dp4[i] = the max subarray sum after i.
+step 1: 构造一个prefix_sum list和一个suffix_sum list.
+
+step 2: 用这两个list计算出dp1 list, dp2 list, dp3 list, dp4 lsit. 
+dp1[i] = the max subarray sum before i;
+transition function 参考53. Maximum Subarray:
+用一个辅助variable: min_presum
+for i, presum in enumerate(pre_sums):
+    dp1[i] = max(dp1[i-1], presum - min_presum)    # max(不以i结尾的max_subarry_sum, 以i结尾的max_subarry_sum)
+    min_presum = min(min_presum, presum)
+
+dp2[i] = the min subarray sum before i;
+dp3[i] = the max subarray sum after i;
+dp4[i] = the min subarray sum after i.
+
 step 3: 从左到右遍历一遍，比较i左右两边的min 和 max, 更新max_abs_diff即可。
-O(N), O(N)
+for i in range(len(nums)):
+    res = max(res, abs(dp1[i] - dp4[i]), abs(dp2[i] - dp3[i]))
+
+Time and space: O(N), O(N)
 
 
 
 
 
+ 
+ 
 
 
 //  -6 -8 diff = 2 - 
