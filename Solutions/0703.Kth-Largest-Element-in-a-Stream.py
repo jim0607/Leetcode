@@ -17,7 +17,7 @@ kthLargest.add(4);   // returns 8
 
 
 """"
-heap solution: maintain a hq with size k, the kth largest is always hq[0] - O(klogk)
+heap solution: maintain a hq with size k, the kth largest is always hq[0] - O(nlogn)
 Maybe we can do log time complexity for add method using a red–black tree, 
 red-black tree is a type of self-balancing binary search tree, Google requires at least talk about it.
 """
