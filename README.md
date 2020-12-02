@@ -471,14 +471,11 @@ O(nlogn). 题目问一个人能不能参加所有的meeting, a person could atta
 - [0391. Number of Airplanes in the Sky](Solutions/0391.Number-of-Airplanes-in-the-Sky.py) (M Lintcode) <br>
 扫描线做法：碰到interval的start，也就是起飞一架飞机，当前天上的飞机数++。碰到interval的end，也就是降落一架飞机，当前天上的飞机数--。
 Step 1: 我们分别把所有的start和所有的end放进两个数组，并排序。Step 2: 然后从第一个start开始统计，碰到start较小就加一，碰到end较小就减一。并且同时维护一个最大飞机数的max。
-- [0986. Interval List Intersections](Solutions/0986.Interval-List-Intersections.py) (!!M) <br>
-这题是找两个Interval的overlaps, 和merge interval有点像，we update res as res.append([max_start, min_end]).
-然后两个sweep line的指针，谁的end比较小，谁先往前挪一步
-- [1094. Car Pooling](Solutions/1094.Car-Pooling.py) (!!M) <br>
-这题可以叫meeting root III. 我们以end pos构造一个heapq, 每次把end pos小于start pos的pop出来. 以前觉得sweep line is better for meeting room II. 现在觉得solution 2 heapq 更具有普适性 for interval problems
 - [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
 solution 1: 扫描线；minimum meeting rooms required could be understood us maximum meeting rooms in use
 Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky <br> solution 2: 先把interval进行sort: intervals.sort(key = lambda x: (x[0], x[1])), 然后以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
+- [1094. Car Pooling](Solutions/1094.Car-Pooling.py) (!!M) <br>
+这题可以叫meeting root III. 我们以end pos构造一个heapq, 每次把end pos小于start pos的pop出来. 以前觉得sweep line is better for meeting room II. 现在觉得solution 2 heapq 更具有普适性 for interval problems
 - [0435. Non-overlapping Intervals](Solutions/0435.Non-overlapping-Intervals.py) (!!M) <br>
 This is actually greedy algorithm: always pick the interval with the earliest end time. 
 Then you can get the maximal number of non-overlapping intervals. (or minimal number to remove).
@@ -508,6 +505,9 @@ Merge interval的算法非常重要，后面的题经常用到！！！
 step 1: store the (start_idx, end_idx) for every appearance of substring in s.  Algorithm: 28. Implement strStr() Rabin Karp - O((M+N)* W), where N is len(s), M is avg lens of words in dict, and W is len(dict). step 2: now we have a list of (start, end) intervals, we merge interval so that we don't have overlaps anymore.  Algorithm: 56. merge intervals. step 3: add <b> and </b> pair to generate res
 - [0057. Insert Interval](Solutions/0057.Insert-Interval.py) (!!H Google) <br>
 Solution 1: Append the new interval to the intervals, and then do the merge interval problem. O(nlogn). Solution 2: add the interval as we run. If there is overlap, we update the new interval. 画个图会好理解很多。
+- [0986. Interval List Intersections](Solutions/0986.Interval-List-Intersections.py) (!!M) <br>
+这题是找两个Interval的overlaps, 和merge interval有点像，we update res as res.append([max_start, min_end]).
+然后两个sweep line的指针，谁的end比较小，谁先往前挪一步
 - [0352. Data Stream as Disjoint Intervals](Solutions/0352.Data-Stream-as-Disjoint-Intervals.py) (!!H) <br>
 Solution 1: merge intervals. In addNum method, we just need to append a new interval [val, val] to the intervals - O(1).
 In the getIntervals method, we do merge interval just lke 56. Merge intervals - almost O(n) to sort an almost sorted list using insertion sort.
