@@ -18,30 +18,32 @@ List 3: [5, 18, 22, 30], 22 is in range [20,24].
 
     
 """
+题目实际上是在问从所有的list中各取一个数，这些数里的[min, max]就是我们合格的range.
+求最小的合格range是什么？
 这种关注diff的题其实变相的是在关注max_val和min_val, 我们往往可以通过一个hq来快速获取max_val， 
 另一个hq来快速获取min_val。
 """
 class Solution:
     def smallestRange(self, nums: List[List[int]]) -> List[int]:
-        maxhq, minhq = [], []
-        for i in range(len(nums)):      # 每个lst中取一个数
-            heappush(minhq, (nums[i][0], i, 0))
-            heappush(maxhq, (-nums[i][0], i, 0))
-             
-        res = [-float("inf"), float("inf")]
-        while minhq and maxhq:
-            min_val, lst_idx, num_idx = heappop(minhq)
-            max_val = -maxhq[0][0]
-            maxhq.remove((-min_val, lst_idx, num_idx))  # remove takes O(m)
-            if max_val - min_val < res[1] - res[0]:
-                res = [min_val, max_val]
+        minhq, maxhq = [], []
+        for i, lst in enumerate(nums):
+            heappush(minhq, (lst[0], i, 0))     # (num, lst_idx, num_idx)
+            heappush(maxhq, -lst[0])
             
+        res = []
+        while len(minhq) > 0:
+            min_num, lst_idx, num_idx = heappop(minhq)
+            max_num = -maxhq[0]
+            maxhq.remove(-min_num)      # 注意remove的是-min_num，而不是pop出max_num
+            
+            if len(res) == 0 or max_num - min_num < res[1] - res[0]:
+                res = [min_num, max_num]
             if num_idx == len(nums[lst_idx]) - 1:   # 这个lst提供的number不能再增加了，
                 return res                          # 其他lst提供的number又都比他大，所以差距只能越来越大
             
-            # 将当前lst中的num_dix+1加入到hq中，保证每个lst中取一个数
-            heappush(minhq, (nums[lst_idx][num_idx+1], lst_idx, num_idx+1))
-            heappush(maxhq, (-nums[lst_idx][num_idx+1], lst_idx, num_idx+1))
+            # 将当前lst中的num_dix+1加入到hq中，保证每个lst中取一个数            
+            heappush(minhq, (nums[lst_idx][num_idx + 1], lst_idx, num_idx + 1))
+            heappush(maxhq, -nums[lst_idx][num_idx + 1])
     
     
 
