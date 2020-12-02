@@ -33,23 +33,15 @@
 # 
 #
 
-from heapq import *
-
 class Solution:
     def nthUglyNumber(self, n: int) -> int:
+        added = set()
+        added.add(1)
         hq = [1]
-        included = set()
-        included.add(1)
-        for _ in range(n - 1):
-            currmin = heappop(hq)
-            if 2 * currmin not in included:
-                heappush(hq, 2 * currmin)
-                included.add(2 * currmin)
-            if 3 * currmin not in included:
-                heappush(hq, 3 * currmin)
-                included.add(3 * currmin)
-            if 5 * currmin not in included:
-                heappush(hq, 5 * currmin)
-                included.add(5 * currmin)
-            
-        return heappop(hq)
+        for _ in range(n):
+            min_num = heappop(hq)
+            for k in [2, 3, 5]:
+                if min_num * k not in added:
+                    heappush(hq, min_num * k)
+                    added.add(min_num * k)
+        return min_num
