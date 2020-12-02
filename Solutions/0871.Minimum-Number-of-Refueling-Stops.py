@@ -142,12 +142,12 @@ class Solution:
         i = 0
         # i < len(stations) is not enough, 要等hq pop完, 
         # 因为hq里面放着油，用完这些油还不能到达target才真正说明到不了target
-        while i < len(stations) or hq:  
+        while i < len(stations) or len(hq) > 0:  
             while i < len(stations) and possible_coverage >= stations[i][0]:  # 如果可以cover到这个station
                 heappush(hq, -stations[i][1])      # 那就把这个station里有油放到hq里面去
                 i += 1
                 
-            if len(hq) > 0:  # 养成好习惯：pop之前check是否为空
+            if len(hq) == 0:  # 养成好习惯：pop之前check是否为空
                 return -1    # 如果hq里面没油了，说明在possible_coverage范围内没油加油站可以供加油
             
             possible_coverage += -heappop(hq)  # 先紧着油多的加油站加油，每加一次油cnt+=1
