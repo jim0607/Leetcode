@@ -1,3 +1,4 @@
+"""
 632. Smallest Range Covering Elements from K Lists
 
 You have k lists of sorted integers in ascending order. Find the smallest range that includes at least one number from each of the k lists.
@@ -12,6 +13,7 @@ Explanation:
 List 1: [4, 10, 15, 24,26], 24 is in range [20,24].
 List 2: [0, 9, 12, 20], 20 is in range [20,24].
 List 3: [5, 18, 22, 30], 22 is in range [20,24].
+"""
 
 
     
@@ -40,6 +42,7 @@ class Solution:
             # 将当前lst中的num_dix+1加入到hq中，保证每个lst中取一个数
             heappush(minhq, (nums[lst_idx][num_idx+1], lst_idx, num_idx+1))
             heappush(maxhq, (-nums[lst_idx][num_idx+1], lst_idx, num_idx+1))
+    
     
 
 """
