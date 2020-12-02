@@ -417,7 +417,10 @@ maintain一个heapq，初始化将每个list的head放入，然后每次pop出�
 - [0373. Find K Pairs with Smallest Sums](Solutions/0373.Find-K-Pairs-with-Smallest-Sums.py) (M) <br>
 heap solution: klogk, very simlilar with merge k sorted list. 方法二：将两个list各挑一个数出来的加和做成一个2D Array, 由于两个list都是sorted, 那么这个2D array就是与378同样sorted array了, 然后按照378那样解就可以了。
 - [0632. Smallest Range Covering Elements from K Lists](Solutions/0632.Smallest-Range-Covering-Elements-from-K-Lists.py) (!!H) <br>
-heapq solution: O(m+nlogm) where m is len(nums), n is len(lst). hq stores (the item in the lst, the lst_idx of where lst is in the nums, the num_idx where the num is in the lst). whenver a min_val is popped, we compare the max_val-min_val with the previous diff. 
+题目实际上是在问从所有的list中各取一个数，这些数里的[min, max]就是我们合格的range.
+求最小的合格range是什么？
+这种关注diff的题其实变相的是在关注max_val和min_val, 我们往往可以通过一个hq来快速获取max_val， 
+另一个hq来快速获取min_val。heapq solution: O(m+nlogm) where m is len(nums), n is len(lst). hq stores (the item in the lst, the lst_idx of where lst is in the nums, the num_idx where the num is in the lst). whenver a min_val is popped, we compare the max_val-min_val with the previous diff. 
 Then we push (nums[lst_idx][num_idx+1], lst_idx, num_idx+1) into the heapq and update max_val in the heapq.
 - [0621. Task Scheduler](Solutions/0621.Task-Scheduler.py) (!!M) <br>
 we only need to be concerned about tasks with higher frequencies. This makes it a perfect candidate for a Priority Queue, or a Max-Heap. 维护一个最大堆 by using negative freq
