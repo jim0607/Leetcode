@@ -37,7 +37,7 @@ class Solution:
     
     
 """
-Solution 2: add the interval on the run O(n).  If there is overlap, we update the new interval.
+Solution 2: add the interval on the run O(nlogn).  If there is overlap, we update the new interval.
 """
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
@@ -55,9 +55,11 @@ class Solution:
         return sorted(merged)   # to sort a nearly sorted list, use insertion sort - close to O(N)
 
     
+"""
 Facebook follow up:  How do you add intervals and merge them for a large stream of intervals?
 Since each insert takes O(N), it is not wise to use list as the data structure.  
 BST is a good data structure to enable O(logn) insertion and O(logn) query as well.
 We need to have two functions for the tree (add interval and query tree).
 https://leetcode.com/problems/merge-intervals/discuss/355318/Fully-Explained-and-Clean-Interval-Tree-for-Facebook-Follow-Up-No-Sorting
+"""
     
