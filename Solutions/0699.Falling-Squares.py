@@ -1,3 +1,4 @@
+"""
 699. Falling Squares
 
 On an infinite number line (x-axis), we drop given squares in the order they are given.
@@ -22,14 +23,13 @@ After the second drop of positions[1] = [2, 3]: __aaa __aaa __aaa _aa__ _aa__ --
 
 After the third drop of positions[1] = [6, 1]: __aaa __aaa __aaa _aa _aa___a -------------- The maximum height of any square is still 5. Thus, we return an answer of [2, 5, 5].
 
- 
 
- 
 Example 2:
 
 Input: [[100, 100], [200, 100]]
 Output: [100, 100]
 Explanation: Adjacent squares don't get stuck prematurely - only their bottom edge can stick to surfaces.
+"""
 
 
 """
