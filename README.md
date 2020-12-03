@@ -478,15 +478,13 @@ Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes 
 这题可以叫meeting root III. 我们以end pos构造一个heapq, 每次把end pos小于start pos的pop出来. 以前觉得sweep line is better for meeting room II. 现在觉得solution 2 heapq 更具有普适性 for interval problems
 - [0435. Non-overlapping Intervals](Solutions/0435.Non-overlapping-Intervals.py) (!!M) <br>
 This is actually greedy algorithm: always pick the interval with the earliest end time. 
-Then you can get the maximal number of non-overlapping intervals. (or minimal number to remove).
-Implemented using sweep line: 
 Step 1: sort the list based on the end time of the intervals, cuz we want to pick up the earliest end time.
-step 2: maintain a pointer (represent end time) as we sweep over the intervals. each time, we compare the start time with the pointer.
+step 2: maintain a min_end_time as we sweep over the intervals. each time, we compare the start time with the pointer.
 if the current start time is larger than the pointer, then renew the pointer to be the new end time;
 else then we will have to remove the current interval in order to to keep the end time as small as possible,  removed_cnt += 1
 - [0452. Minimum Number of Arrows to Burst Balloons](Solutions/0452.Minimum-Number-of-Arrows-to-Burst-Balloons.py) (!!M) <br>
 Step 1: sort the intervals by end time;
-Step 2: sweep line: use a pointer representing the end time, at each interval, we compare the pointer with the interval start time.
+Step 2: sweep line: maintain a min_end time, at each interval, we compare the pointer with the interval start time.
 if end >= interval start time: then there is overlap and we should wait so that later we can shot them together;
 if end < interval start time, then we can shot the previously 积累下来的interveals, shots += 1, and move the end to the new interval end time
 - [1288. Remove Covered Intervals](Solutions/1288.Remove-Covered-Intervals.py) (M) <br>
