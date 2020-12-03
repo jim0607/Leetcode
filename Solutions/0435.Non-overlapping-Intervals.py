@@ -37,18 +37,16 @@ else then we will have to remove the current interval in order to to keep the en
 """
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
-        if not intervals:
-            return 0
-        
         # in order to make this algorithm work, we need to sort based on the end time of the intervals
         # 因为我们想要maintain the minimum end_time, 所以将end_time排序
-        intervals.sort(key = lambda interval: (interval[1], interval[0]))
-        removed_cnt = 0
-        end = float("-inf")
-        for interval in intervals:
-            if interval[0] >= end:
-                end = interval[1]
-            else:   # if interval[0] < end, then we should remove this interval
-                removed_cnt += 1   # because we want to keep the end time as small as possible
+        intervals.sort(key = lambda x: (x[1], x[0]))
+        
+        min_end = -sys.maxsize
+        should_remove = 0
+        for start, end in intervals:
+            if start >= min_end:
+                min_end = end
+            else:       # if start < min_end, then we should remove this interval
+                should_remove += 1      # because we want to keep the end time as small as possible
                 
-        return removed_cnt
+        return should_remove
