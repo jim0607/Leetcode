@@ -1,3 +1,4 @@
+"""
 452. Minimum Number of Arrows to Burst Balloons
 
 There are a number of spherical balloons spread in two-dimensional space. For each balloon, provided input is the start and end coordinates of the horizontal diameter. Since it's horizontal, y-coordinates don't matter and hence the x-coordinates of start and end of the diameter suffice. Start is always smaller than end. There will be at most 104 balloons.
@@ -14,6 +15,7 @@ Output:
 
 Explanation:
 One way is to shoot one arrow for example at x = 6 (bursting the balloons [2,8] and [1,6]) and another arrow at x = 11 (bursting the other two balloons).
+"""
 
 
 """
@@ -23,13 +25,15 @@ if end >= interval start time: then there is overlap and we should wait so that 
 if end > interval start time, then we can shot the previously 积累下来的interveals, shots += 1, and move the end to the new interval end time
 """
 class Solution:
-    def findMinArrowShots(self, intervals: List[List[int]]) -> int:
-        intervals.sort(key = lambda interval: (interval[1], interval[0]))
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        points.sort(key = lambda x: (x[1], x[0]))
+        
+        min_end = -sys.maxsize
         shots = 0
-        end = float("-inf")
-        for interval in intervals:
-            if end < interval[0]:
+        for start, end in points:
+            if start <= min_end:
+                min_end = min(min_end, end)
+            else:
                 shots += 1
-                end = interval[1]
-                
+                min_end = end
         return shots
