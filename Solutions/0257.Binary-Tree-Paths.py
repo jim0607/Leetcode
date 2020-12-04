@@ -1,3 +1,4 @@
+"""
 Given a binary tree, return all root-to-leaf paths.
 
 Note: A leaf is a node with no children.
@@ -15,6 +16,7 @@ Input:
 Output: ["1->2->5", "1->3"]
 
 Explanation: All root-to-leaf paths are: 1->2->5, 1->3
+"""
 
 
 """
@@ -22,22 +24,22 @@ solution 1: dfs
 """
 class Solution:
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        def backtrack(root, curr_comb):
+            if not root.left and not root.right:
+                res.append("".join(curr_comb))
+                return
+            
+            for next_node in [root.left, root.right]:
+                if next_node:
+                    curr_comb.append("->" + str(next_node.val))
+                    backtrack(next_node, curr_comb)
+                    curr_comb.pop()            
+            
+        
         if not root:
             return []
-        
-        def dfs(curr_node, curr_path, res):
-            if not curr_node.left and not curr_node.right:
-                res.append(curr_path)
-                return 
-            
-            if curr_node.left:
-                dfs(curr_node.left, curr_path + "->" + str(curr_node.left.val), res)
-            if curr_node.right:
-                dfs(curr_node.right, curr_path + "->" + str(curr_node.right.val), res)
-                
         res = []
-        dfs(root, str(root.val), res)
-        
+        backtrack(root, [str(root.val)])
         return res
 
       
