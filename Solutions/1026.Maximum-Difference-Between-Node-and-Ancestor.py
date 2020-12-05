@@ -1,3 +1,4 @@
+"""
 1026. Maximum Difference Between Node and Ancestor
 
 Given the root of a binary tree, find the maximum value V for which there exists different nodes A and B where V = |A.val - B.val| and A is an ancestor of B.
@@ -16,6 +17,40 @@ We have various ancestor-node differences, some of which are given below :
 |8 - 1| = 7
 |10 - 13| = 3
 Among all possible differences, the maximum value of 7 is obtained by |8 - 1| = 7.
+"""
+
+class Solution:
+    def maxAncestorDiff(self, root: TreeNode) -> int:
+        def helper(root):
+            """
+            return the max and the min of the tree
+            """
+            if not root.left and not root.right:
+                return root.val, root.val
+            
+            root_max = root.val
+            root_min = root.val
+            if root.left:
+                left_max, left_min = helper(root.left)
+                self.max_diff = max(self.max_diff, abs(root.val - left_max), abs(root.val - left_min))
+                root_max = max(root_max, left_max)
+                root_min = min(root_min, left_min)
+                if root.val == 8:
+                    print(root.val, root_max, root_min, "h")
+            if root.right:
+                right_max, right_min = helper(root.right)
+                self.max_diff = max(self.max_diff, abs(root.val - right_max), abs(root.val - right_min))
+                root_max = max(root_max, right_max)
+                root_min = min(root_min, right_min)
+                
+            return root_max, root_min
+        
+        
+        self.max_diff = 0
+        helper(root)
+        return self.max_diff
+
+
 
 """
 solution 1: dfs visit every node, at each node, stop there and find the max and min of its subtree to get its max_diff.
@@ -57,27 +92,3 @@ class Solution:
             root_max, root_min = max(root_max, right_max), min(root_min, right_min)
 
         return root_max, root_min
-
-
-
-"""
-We pass the minimum and maximum values to the children,
-At the leaf node, we return max - min through the path from the root to the leaf.
-Since DFS works going finished path by finished path, so values are not corrupted between impossible paths.
-这个递归真的需要好好理解
-"""
-class Solution:
-    def maxAncestorDiff(self, root: TreeNode) -> int:
-        return self._dfs(root, root.val, root.val)
-    
-    def _dfs(self, root, max_num, min_num):
-        if not root:
-            return 0
-        
-        max_num = max(max_num, root.val)
-        min_num = min(min_num, root.val)
-        
-        left_diff = self._dfs(root.left, max_num, min_num)
-        right_diff = self._dfs(root.right, max_num, min_num)
-        
-        return max(left_diff, right_diff, max_num - min_num)
