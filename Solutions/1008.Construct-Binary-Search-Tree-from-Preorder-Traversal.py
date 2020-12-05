@@ -1,3 +1,4 @@
+"""
 1008. Construct Binary Search Tree from Preorder Traversal
 
 Return the root node of a binary search tree that matches the given preorder traversal.
@@ -18,7 +19,7 @@ Constraints:
 1 <= preorder.length <= 100
 1 <= preorder[i] <= 10^8
 The values of preorder are distinct.
-
+"""
 
 
 """
@@ -40,6 +41,55 @@ class Solution:
         root.right = self.bstFromPreorder(preorder[idx:])
         
         return root
+        
+
+        
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def bstFromPreorder(self, preorder: List[int]) -> TreeNode:
+        def build(start, end):
+            if start > end:
+                return None
+            
+            root = TreeNode(preorder[start])
+            idx = gt[start]
+            
+            if idx != -1:
+                root.left = build(start + 1, idx - 1)
+                root.right = build(idx, end)
+            else:
+                root.left = build(start + 1, end)
+                root.right = None
+        
+            return root        
+        
+        
+        gt = self.find_gt(preorder)
+        return build(0, len(preorder) - 1)
+    
+    
+    def find_gt(self, nums):
+        """
+        use mono stack to find the first idx that is gt than num
+        """
+        gt = [-1 for _ in range(len(nums))]
+        st = []
+        for i in range(len(nums) - 1, -1, -1):
+            while len(st) > 0 and st[-1][0] < nums[i]:
+                st.pop()
+            
+            if len(st) > 0:
+                gt[i] = st[-1][1]
+                
+            st.append((nums[i], i))
+                
+        return gt  
+        
         
         
         
