@@ -1,3 +1,4 @@
+"""
 1145. Binary Tree Coloring Game
 
 Two players play a turn based game on a binary tree.  We are given the root of this binary tree, and the number of nodes n in the tree.  n is odd, and each node has a distinct value from 1 to n.
@@ -10,15 +11,12 @@ If (and only if) a player cannot choose such a node in this way, they must pass 
 
 You are the second player.  If it is possible to choose such a y to ensure you win the game, return true.  If it is not possible, return false.
 
- 
-
 Example 1:
-
 
 Input: root = [1,2,3,4,5,6,7,8,9,10,11], n = 11, x = 3
 Output: true
 Explanation: The second player can choose the node with value 2.
-
+"""
 
 
 """
@@ -28,39 +26,37 @@ Then check if palcing ynode at the 3 nodes adjacent to x will end up with more s
 """
 class Solution:
     def btreeGameWinningMove(self, root: TreeNode, n: int, x: int) -> bool:
-        if n == 1:
-            return False
+        xnode = self._find_node(root, x)
         
-        xnode = self._findx(root, x)
+        left_cnt = self._find_cnt(xnode.left)
+        right_cnt = self._find_cnt(xnode.right)
+        parent_cnt = n - 1 - left_cnt - right_cnt
         
-        total_cnt = self._cnt_nodes(root)
-        left_cnt = self._cnt_nodes(xnode.left)
-        right_cnt = self._cnt_nodes(xnode.right)
-        x_cnt = left_cnt + right_cnt + 1
-        
-        if total_cnt - x_cnt > x_cnt:  # case 1: choose the parent of xnode
+        if left_cnt > right_cnt + parent_cnt + 1:   # case 1: choose the left node of xnode as ynode
             return True
-        if left_cnt > total_cnt - left_cnt:          # case 2: choose the left node of xnode as ynode
+        if right_cnt > left_cnt + parent_cnt + 1:   # case 2: choose the right node of xnode as ynode
             return True
-        if right_cnt > total_cnt - right_cnt:        # case 3: choose the right node of xnode as ynode
+        if parent_cnt > left_cnt + right_cnt + 1:   # case 3: choose the parent of xnode as ynode
             return True
-        
+    
         return False
     
-    def _findx(self, root, x):
+    
+    def _find_node(self, root, x):
         if not root:
-            return None
+            return
+        
         if root.val == x:
             return root
         
-        return self._findx(root.left, x) or self._findx(root.right, x)
-        
-    def _cnt_nodes(self, root):
-        if not root:
+        return self._find_node(root.left, x) or self._find_node(root.right, x)
+    
+    
+    def _find_cnt(self, node):
+        if not node:
             return 0
         
-        cnt = 1
-        cnt += self._cnt_nodes(root.left)
-        cnt += self._cnt_nodes(root.right)
+        left_cnt = self._find_cnt(node.left)
+        right_cnt = self._find_cnt(node.right)
         
-        return cnt
+        return 1 + left_cnt + right_cnt
