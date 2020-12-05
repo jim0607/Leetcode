@@ -1,8 +1,10 @@
+"""
 662. Maximum Width of Binary Tree
 
 Given a binary tree, write a function to get the maximum width of the given tree. The maximum width of a tree is the maximum width among all levels.
 
-The width of one level is defined as the length between the end-nodes (the leftmost and right most non-null nodes in the level, where the null nodes between the end-nodes are also counted into the length calculation.
+The width of one level is defined as the length between the end-nodes (the leftmost and right most non-null nodes in the level, 
+where the null nodes between the end-nodes are also counted into the length calculation.
 
 It is guaranteed that the answer will in the range of 32-bit signed integer.
 
@@ -55,6 +57,7 @@ Input:
     6           7
 Output: 8
 Explanation:The maximum width existing in the fourth level with the length 8 (6,null,null,null,null,null,null,7).
+"""
 
 
 
@@ -68,19 +71,18 @@ class Solution:
             return 0
         
         max_width = 1
-        q = collections.deque()
-        q.append((root, 0))         # q里面存放(node, the postion of the node)
+        q = deque()
+        q.append((root, 1))         # q里面存放(node, the postion of the node)
         while len(q) > 0:
-            level = []
             lens = len(q)
             for _ in range(lens):
-                node, pos = q.popleft()
-                level.append(pos)
-                if node.left:
-                    q.append((node.left, 2*pos))    # 注意这里的pos到下一层的转换关系
-                if node.right:
-                    q.append((node.right, 2*pos+1))
+                curr_node, curr_pos = q.popleft()
+                if curr_node.left:
+                    q.append((curr_node.left, curr_pos * 2))        # 注意这里的pos到下一层的转换关系
+                if curr_node.right:
+                    q.append((curr_node.right, curr_pos * 2 + 1))
                 
-            max_width = max(max_width, level[-1] - level[0] + 1)
-                
+            if len(q) > 0:
+                max_width = max(max_width, q[-1][1] - q[0][1] + 1)            
+            
         return max_width
