@@ -1,3 +1,4 @@
+"""
 106. Construct Binary Tree from Inorder and Postorder Traversal
 
 Given inorder and postorder traversal of a tree, construct the binary tree.
@@ -16,7 +17,8 @@ Return the following binary tree:
   9  20
     /  \
    15   7
-   
+"""
+
    
 """
 solution 1: O(N^2)
@@ -49,27 +51,23 @@ This leads to solution 2, which is O(N) instead of O(N^2).
 """
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
-        if not inorder or not postorder:
-            return None
-        
-        inorder_idxmap = collections.defaultdict(int)
-        for i, num in enumerate(inorder):
-            inorder_idxmap[num] = i
-
-        
-        def helper(postorder, left, right):
-            if not postorder or left >= right:
+        def build(start, end):
+            if start >= end:
                 return None
             
-            root = TreeNode()
-            root.val = postorder.pop()
-
-            idx = inorder_idxmap[root.val]
-
-            root.right = helper(postorder, idx+1, right)  # 注意right要放到left前面更新
-            root.left = helper(postorder, left, idx)
-
+            root = TreeNode(postorder[self.post_idx])
+            self.post_idx -= 1
+            idx = num_idx[root.val]
+            
+            root.right = build(idx + 1, end)        # 注意right要放到left前面更新
+            root.left = build(start, idx)        
+        
             return root
-       
-    
-        return helper(postorder, 0, len(inorder))
+        
+        
+        num_idx = defaultdict(int)
+        for idx, num in enumerate(inorder): 
+            num_idx[num] = idx
+            
+        self.post_idx = len(postorder) - 1
+        return build(0, len(inorder))
