@@ -1,3 +1,4 @@
+"""
 117. Populating Next Right Pointers in Each Node II
 
 Given a binary tree
@@ -26,8 +27,9 @@ Example 1:
 
 Input: root = [1,2,3,4,5,null,7]
 Output: [1,#,2,3,#,4,5,7,#]
-Explanation: Given the above binary tree (Figure A), your function should populate each next pointer to point to its next right node, just like in Figure B. The serialized output is in level order as connected by the next pointers, with '#' signifying the end of each level.
-
+Explanation: Given the above binary tree (Figure A), your function should populate each next pointer to point to its next right node, 
+just like in Figure B. The serialized output is in level order as connected by the next pointers, with '#' signifying the end of each level.
+"""
 
 
 """
@@ -39,7 +41,7 @@ class Solution:
         if not root:
             return None
         
-        q = collections.deque()
+        q = deque()
         q.append(root)
         while len(q) > 0:
             lens = len(q)
@@ -54,7 +56,6 @@ class Solution:
             
             for i in range(len(level) - 1):
                 level[i].next = level[i+1]
-            level[-1].next = None
             
         return root
                     
