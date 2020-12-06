@@ -43,7 +43,7 @@ class Solution:
                 
                 for leftTree in leftTrees:
                     for rightTree in rightTrees:
-                        currRoot = TreeNode(i)
+                        currRoot = TreeNode(i)        # 注意这个不能写到两个for loop 外面去了的！！！
                         currRoot.left = leftTree
                         currRoot.right = rightTree
                         allTrees.append(currRoot)
