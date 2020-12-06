@@ -1,3 +1,4 @@
+"""
 1166. Design File System
 
 You are asked to design a file system which provides two functions:
@@ -37,6 +38,63 @@ fileSystem.createPath("/leet/code", 2); // return true
 fileSystem.get("/leet/code"); // return 2
 fileSystem.createPath("/c/d", 1); // return false because the parent path "/c" doesn't exist.
 fileSystem.get("/c"); // return -1 because this path doesn't exist.
+"""
+
+
+"""
+solution 2: 换一种写法，把Trie的函数直接写进去
+"""
+class TrieNode:
+    
+    def __init__(self):
+        self.child = defaultdict(TrieNode)
+        self.is_end = False
+        self.val = None
+
+
+class FileSystem:
+
+    def __init__(self):
+        self.root = TrieNode()
+        self.root.is_end = True
+        
+    def createPath(self, path: str, value: int) -> bool:
+        path = path.split("/")[1:]
+        
+        curr_node = self.root
+        for s in path[:-1]:         # O(L), L is lens of path
+            if s not in curr_node.child:
+                return False
+            curr_node = curr_node.child[s]
+            
+        if not curr_node.is_end:    # Returns false if its parent path doesn't exist.
+            return False
+        
+        curr_node = curr_node.child[path[-1]]   
+        if curr_node.is_end:        # Returns false if the path already exists
+            return False
+        
+        curr_node.is_end = True
+        curr_node.val = value
+        
+        return True
+        
+    def get(self, path: str) -> int:
+        path = path.split("/")[1:]
+        
+        curr_node = self.root
+        for s in path:
+            if s not in curr_node.child:
+                return -1
+            curr_node = curr_node.child[s]
+            
+        if curr_node.is_end:
+            return curr_node.val
+        
+        return -1
+
+
+
 
 
 """
@@ -95,51 +153,3 @@ class FileSystem:
     def get(self, path: str) -> int:
         path = path[1:].split("/")
         return self.trie.get(path)
-
-
-
-    
-
-"""
-solution 2: 换一种写法，把Trie的函数直接写进去
-"""
-class TrieNode:
-    
-    def __init__(self, val):
-        self.child = collections.defaultdict(TrieNode)
-        self.val = val
-
-
-class FileSystem:
-
-    def __init__(self):
-        self.root = TrieNode(-1)
-
-    def createPath(self, path: str, value: int) -> bool:
-        curr = self.root
-        path = path.split("/")[1:]
-        for i, name in enumerate(path):   # O(L), L is lens of path
-            if i == len(path) - 1:
-                if name in curr.child:      # Returns False if the path already exists
-                    return False
-                curr.child[name] = TrieNode(value)  # create a new node for a new path
-                return True
-            
-            if name not in curr.child:  
-                return False
-            
-            curr = curr.child[name]
-
-    def get(self, path: str) -> int:
-        curr = self.root
-        for name in path.split("/")[1:]:    # O(L), L is lens of path
-            if name not in curr.child:
-                return -1
-            curr = curr.child[name]
-        return curr.val
-
-
-# Your FileSystem object will be instantiated and called as such:
-# obj = FileSystem()
-# param_1 = obj.createPath(path,value)
-# param_2 = obj.get(path)
