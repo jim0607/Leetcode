@@ -1,11 +1,12 @@
+"""
 1233. Remove Sub-Folders from the Filesystem
 
 Given a list of folders, remove all sub-folders in those folders and return in any order the folders after removing.
 
 If a folder[i] is located within another folder[j], it is called a sub-folder of it.
 
-The format of a path is one or more concatenated strings of the form: / followed by one or more lowercase English letters. For example, /leetcode and /leetcode/problems are valid paths while an empty string and / are not.
-
+The format of a path is one or more concatenated strings of the form: / followed by one or more lowercase English letters. 
+For example, /leetcode and /leetcode/problems are valid paths while an empty string and / are not.
 
 Example 1:
 
@@ -30,6 +31,7 @@ Constraints:
 folder[i] contains only lowercase letters and '/'
 folder[i] always starts with character '/'
 Each folder name is unique.
+"""
 
 
 """
@@ -62,19 +64,20 @@ class Trie:
                 return True
         return False
 
+       
 class Solution:
-    def removeSubfolders(self, folder: List[str]) -> List[str]:
+    def removeSubfolders(self, folders: List[str]) -> List[str]:
+        folders.sort(key = lambda x: len(x))        # we sort the folders by lens
+        
         trie = Trie()
         
-        folders = []
-        for f in folder:
-            folders.append(f[1:].split("/"))
-        folders.sort(key = lambda x: len(x))    # we sort the folders by lens, so that we can use has_prefix function                                                                                                 # as we go over the folders cuz longer word might have a prefix that exist in the Trie
         res = []
-        for word in folders:
-            if not trie.has_prefix(word):       # if doesn't have prefix in the trie, then it is a stand-alone word
-                res.append("/" + "/".join(word))    # should append this stand-alone word into es
-                trie.insert(word)                   # and also insert it into the trie cuz it might be the prefix of some words later on
+        for folder in folders:
+            words = folder.split("/")
+            if not trie.start_with(words):  # if doesn't have prefix in the trie, then it is a stand-alone word
+                res.append(folder)          # should append this stand-alone word into res
+                trie.insert(words)          # and also insert it into the trie cuz it might be the prefix of some words later on
+        
         return res
         
 
