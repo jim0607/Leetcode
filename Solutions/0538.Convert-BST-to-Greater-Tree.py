@@ -20,20 +20,30 @@ Note: This question is the same as 1038: https://leetcode.com/problems/binary-se
 """
 use a global self.pre_sum as we reverse_in_order traversal the tree - recurssively
 """
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def convertBST(self, root: TreeNode) -> TreeNode:
-        self.pre_sum = 0
-        self._reverse_order(root)
+        def reverse_order(curr_node):
+            if curr_node.right:
+                reverse_order(curr_node.right)
+                
+            curr_node.val += self.prev_num
+            self.prev_num = curr_node.val
+                
+            if curr_node.left:
+                reverse_order(curr_node.left)
+                
+                
+        self.prev_num = 0
+        reverse_order(root)
         return root
-    
-    def _reverse_order(self, root):
-        if not root:
-            return
-        
-        self._reverse_order(root.right)   # do root.right first 因为是reversed_in_order
-        root.val += self.pre_sum
-        self.pre_sum = root.val
-        self._reverse_order(root.left)
+      
+      
       
       
 """
