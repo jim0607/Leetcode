@@ -35,45 +35,41 @@ Output: [["baggage","bags","banner"],["baggage","bags","banner"],["baggage","bag
 class TrieNode:
     
     def __init__(self):
-        self.child = collections.defaultdict(TrieNode)
-        self.words = []     # self.words store a list of words that pass curr node.
+        self.child = defaultdict(TrieNode)
+        self.words = []     # self.words store a list of words that pass curr node
         
-
+    
 class Trie:
     
     def __init__(self, words):
         self.root = TrieNode()
         for word in words:
-            self._insert(word)
+            self.insert(word)
             
-    def _insert(self, word):
-        curr = self.root
+    def insert(self, word):
+        curr_node = self.root
         for ch in word:
-            curr = curr.child[ch]
-            curr.words.append(word)
+            curr_node = curr_node.child[ch]
+            curr_node.words.append(word)    # self.words store a list of words that pass curr node
+            
+    def search(self, prefix):       # returns a list of words that starts with the input prefix
+        curr_node = self.root
+        for ch in prefix:
+            curr_node = curr_node.child[ch]
         
-    def search(self, word):     # returns a list of words that include the input word.
-        curr = self.root
-        res = []
-        for ch in word:
-            if ch not in curr.child:
-                return res
-            curr = curr.child[ch]
-        res += curr.words
-        return res
+        return sorted(curr_node.words)[:3]      # 取lexicographically前三个输出
 
 
 class Solution:
-    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
-        trie = Trie(products)           # 把所有的products放入到Trie
-        res = [[] for _ in range(len(searchWord))]
-        for i in range(len(searchWord)):
-            search_res = trie.search(searchWord[:i+1])
-            if len(search_res) == 0:    # 如果这个已经找不到start_with这个substring的了，后面的substring更找不到
-                break
-            search_res.sort()       # 取lexicographically前三个输出
-            res[i] += search_res[:3]
-        return res 
+    def suggestedProducts(self, products: List[str], search_word: str) -> List[List[str]]:
+        trie = Trie(products)       # 把所有的products放入到Trie
+        
+        res = []
+        for i in range(len(search_word)):
+            prefix = search_word[:i+1]
+            res.append(trie.search(prefix))
+            
+        return res
     
     
     
