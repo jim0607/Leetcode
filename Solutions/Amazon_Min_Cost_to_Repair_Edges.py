@@ -7,23 +7,25 @@ Find the minimum cost to repair the edges so that all the nodes are once again a
 Input:
 n, an int representing the total number of nodes.
 edges, a list of integer pair representing the nodes connected by an edge.
-edgesToRepair, a list where each element is a triplet representing the pair of nodes between which an edge is currently broken and the cost of repearing that edge, respectively (e.g. [1, 2, 12] means to repear an edge between nodes 1 and 2, the cost would be 12).
-Example 1:
+edgesToRepair, a list where each element is a triplet representing the pair of nodes between which 
+an edge is currently broken and the cost of repearing that edge, respectively (e.g. [1, 2, 12] means to repear an edge between nodes 1 and 2, the cost would be 12).
 
+Example 1:
 Input: n = 5, edges = [[1, 2], [2, 3], [3, 4], [4, 5], [1, 5]], edgesToRepair = [[1, 2, 12], [3, 4, 30], [1, 5, 8]]
 Output: 20
 Explanation:
 There are 3 connected components due to broken edges: [1], [2, 3] and [4, 5].
 We can connect these components into a single component by repearing the edges between nodes 1 and 2, and nodes 1 and 5 at a minimum cost 12 + 8 = 20.
-Example 2:
 
+Example 2:
 Input: n = 6, edges = [[1, 2], [2, 3], [4, 5], [3, 5], [1, 6], [2, 4]], edgesToRepair = [[1, 6, 410], [2, 4, 800]]
 Output: 410
-Example 3:
 
+Example 3:
 Input: n = 6, edges = [[1, 2], [2, 3], [4, 5], [5, 6], [1, 5], [2, 4], [3, 4]], edgesToRepair = [[1, 5, 110], [2, 4, 84], [3, 4, 79]]
 Output: 79
 """
+
 
 """
 Solution:
