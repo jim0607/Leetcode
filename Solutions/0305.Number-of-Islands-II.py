@@ -51,12 +51,13 @@ Can you do it in time complexity O(k log mn), where k is the length of the posit
 class UnionFind:
     
     def __init__(self):
-        self.father = collections.defaultdict(tuple)
+        self.father = defaultdict(tuple)
         self.cnt = 0
         
     def add(self, x):
-        self.father[x] = x
-        self.cnt += 1
+        if x not in self.father:
+            self.father[x] = x
+            self.cnt += 1
         
     def find(self, x):
         if self.father[x] == x:
@@ -79,10 +80,6 @@ class Solution:
         
         res = []
         for i, j in positions:
-            if (i, j) in uf.father:
-                res.append(uf.cnt)  # pos already in father, meaning it's been connected, append the cnt to res
-                continue
-
             uf.add((i, j))  # if pos not in father, then we should add it to father first, note that cnt++ at this time
 
             for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:         # connect neighbors
