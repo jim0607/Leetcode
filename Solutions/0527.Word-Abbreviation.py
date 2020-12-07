@@ -160,5 +160,4 @@ class Solution:
         """
         if len(word) - idx < 3:
             return word
-        else:
-            return word[:idx] + str(len(word) - idx - 1) + word[-1]
+        return word[:idx] + str(len(word) - idx - 1) + word[-1]
