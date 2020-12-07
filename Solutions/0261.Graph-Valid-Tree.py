@@ -84,6 +84,33 @@ class Solution:
         return uf.cnt == 1
 
 
+    
+"""
+dfs 写法更简洁
+"""
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        if len(edges) != n - 1:  # 首先点的数目一定比边的数目多一个
+            return False
+
+        graph = collections.defaultdict(list) 
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+            
+        visited = set() 
+        self._dfs(graph, 0, visited)
+        
+        return len(visited) == n    # 每个节点都被访问过且都被访问过一次
+        
+    def _dfs(self, graph, curr_node, visited):
+        visited.add(curr_node)
+        
+        for next_node in graph[curr_node]:
+            if next_node not in visited:
+                self._dfs(graph, next_node, visited)
+
+    
 
 
 """
@@ -122,31 +149,3 @@ cclass Solution:
                 if node not in visited:   # 如果已经访问过就不再访问了，这样可以保证每个节点都被访问过一次, 没访问过就加入队列
                     q.append(node)
                     visited.add(node)     # twin brothers
-    
-    
-"""
-dfs 写法更简洁
-"""
-class Solution:
-    def validTree(self, n: int, edges: List[List[int]]) -> bool:
-        if n == 0:
-            return Ture
-        if len(edges) != n - 1:  # 首先点的数目一定比边的数目多一个
-            return False
-
-        graph = collections.defaultdict(list) 
-        for u, v in edges:
-            graph[u].append(v)
-            graph[v].append(u)
-            
-        visited = set() 
-        self._dfs(graph, 0, visited)
-        
-        return len(visited) == n    # 每个节点都被访问过且都被访问过一次
-        
-    def _dfs(self, graph, curr_node, visited):
-        visited.add(curr_node)
-        
-        for next_node in graph[curr_node]:
-            if next_node not in visited:
-                self._dfs(graph, next_node, visited)
