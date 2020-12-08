@@ -80,7 +80,7 @@ class Solution:
     def findDuplicateSubtrees(self, root: TreeNode) -> List[TreeNode]:
         mapping = collections.defaultdict(list)
         self._postorder(root, mapping)
-        return [mapping[key][0] for key, lst in mapping.items() if len(lst) > 1]
+        return [lst[0] for lst in mapping.values() if len(lst) > 1]
     
     def _postorder(self, root, mapping):
         """
