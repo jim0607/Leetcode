@@ -58,10 +58,7 @@ class Solution:
         if len(end) != lens:
             return -1
         
-        bank_set = set()
-        for gene in bank:
-            if len(gene) == lens:
-                bank_set.add(gene)
+        bank_set = set(bank)
         if end not in bank_set:
             return -1
         
