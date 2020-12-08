@@ -31,27 +31,29 @@ Note: You may assume the tree (i.e., the given root node) is not NULL.
 """
 dfs
 """
-class Solution(object):
-    def findBottomLeftValue(self, root):
-        self.max_level = 0
-        self.res = root.val
-        self._dfs(root, 0)
+class Solution:
+    def findBottomLeftValue(self, root: TreeNode) -> int:
+        def dfs(curr_node, curr_depth):
+            if curr_depth == depth:
+                self.res = curr_node.val
+                return
+            
+            for next_node in [curr_node.right, curr_node.left]:     # do right node first
+                if next_node:
+                    dfs(next_node, curr_depth + 1)
+
+        
+        depth = self.find_depth(root)
+        self.res = 0
+        dfs(root, 1)
         return self.res
-      
-    def _dfs(self, root, curr_level):
+    
+    
+    def find_depth(self, root):
         if not root:
-            return
-      
-        if not root.left and not root.right:
-            if curr_level > self.max_level:
-                self.res = root.val
-                self.max_level = curr_level
-            return
-      
-        if root.left:                               # do dfs for left part first, 
-            self._dfs(root.left, curr_level + 1)    # so that we can return the leftmost value in the last row
-        if root.right:
-            self._dfs(root.right, curr_level + 1)
+            return 0
+        
+        return 1 + max(self.find_depth(root.left), self.find_depth(root.right))
             
             
 """
