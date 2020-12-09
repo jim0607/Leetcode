@@ -20,7 +20,9 @@ Example 1:
 Input: grid = [[1,1,1,1],[2,2,2,2],[1,1,1,1],[2,2,2,2]]
 Output: 3
 Explanation: You will start at point (0, 0).
-The path to (3, 3) is as follows. (0, 0) --> (0, 1) --> (0, 2) --> (0, 3) change the arrow to down with cost = 1 --> (1, 3) --> (1, 2) --> (1, 1) --> (1, 0) change the arrow to down with cost = 1 --> (2, 0) --> (2, 1) --> (2, 2) --> (2, 3) change the arrow to down with cost = 1 --> (3, 3)
+The path to (3, 3) is as follows. (0, 0) --> (0, 1) --> (0, 2) --> (0, 3) 
+change the arrow to down with cost = 1 --> (1, 3) --> (1, 2) --> (1, 1) --> (1, 0) 
+change the arrow to down with cost = 1 --> (2, 0) --> (2, 1) --> (2, 2) --> (2, 3) change the arrow to down with cost = 1 --> (3, 3)
 The total cost = 3.
 Example 2:
 
@@ -49,29 +51,31 @@ Output: 0
 heapq stores (curr_cost, curr_i, curr_j). 
 O(NlogN), where N is the number of cells in grid.
 """
+"""
+heapq stores (curr_cost, curr_pos)
+costs dictionary maps (curr_pos --> min cost to reach the curr_pos)
+"""
 class Solution:
     def minCost(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
-        directions = {1: (0, 1), 2: (0, -1), 3: (1, 0), 4: (-1, 0)}
-        hq = []
-        visited = set()
-        heappush(hq, (0, 0, 0))
-        visited.add((0, 0, 0))
+        
+        mapping = {3: (1, 0), 4: (-1, 0), 1: (0, 1), 2: (0, -1)}
+        
+        hq = [(0, 0, 0)]
+        costs = defaultdict(int)
+        
         while len(hq) > 0:
             curr_cost, curr_i, curr_j = heappop(hq)
+            
             if (curr_i, curr_j) == (m - 1, n - 1):
                 return curr_cost
             
-            for direction, (delta_i, delta_j) in directions.items():
-                if grid[curr_i][curr_j] == direction:
-                    next_i, next_j = curr_i + delta_i, curr_j + delta_j
-                    if 0 <= next_i < m and 0 <= next_j < n:
-                        if (curr_cost, next_i, next_j) not in visited:
-                            heappush(hq, (curr_cost, next_i, next_j))
-                            visited.add((curr_cost, next_i, next_j))
-                else:
-                    next_i, next_j = curr_i + delta_i, curr_j + delta_j
-                    if 0 <= next_i < m and 0 <= next_j < n:
-                        if (curr_cost + 1, next_i, next_j) not in visited:
-                            heappush(hq, (curr_cost + 1, next_i, next_j))
-                            visited.add((curr_cost + 1, next_i, next_j))
+            if (curr_i, curr_j) in costs:
+                continue
+            costs[(curr_i, curr_j)] = curr_cost
+            
+            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                if 0 <= next_i < m and 0 <= next_j < n:
+                    next_cost = 0 if mapping[grid[curr_i][curr_j]] == (delta_i, delta_j) else 1
+                    heappush(hq, (curr_cost + next_cost, next_i, next_j))
