@@ -52,15 +52,46 @@ There is only one ball and one destination in the maze.
 Both the ball and the destination exist on an empty space, and they will not be at the same position initially.
 The given maze does not contain border (like the red rectangle in the example pictures), but you could assume the border of the maze are all walls.
 The maze contains at least 2 empty spaces, and both the width and height of the maze won't exceed 100.
-
-
-
 """
+
+
 """
 Each stoppable pos is the node, while the steps needed from one stoppable pos to another stoppable pos is the weight in the graph.
 We use Dijkstra's to find path from source to destination.
 这个题比普通的Dijkstra's就只是多了一步找下一个node的步骤
 """
+class Solution:
+    def shortestDistance(self, maze: List[List[int]], start: List[int], destination: List[int]) -> int:
+        m, n = len(maze), len(maze[0])
+        
+        hq = [(0, start[0], start[1])]
+        dist = defaultdict(int)     # pos --> steps
+        while len(hq) > 0:
+            curr_dist, curr_i, curr_j = heappop(hq)
+            
+            if [curr_i, curr_j] == destination:
+                return curr_dist
+            
+            if (curr_i, curr_j) in dist:
+                continue
+            dist[(curr_i, curr_j)] = curr_dist
+            
+            for delta_i, delta_j in [(1, 0), (0, 1), (0, -1), (-1, 0)]:
+                next_i, next_j = curr_i, curr_j
+                steps = 0
+                while 0 <= next_i + delta_i < m and 0 <= next_j + delta_j < n and maze[next_i + delta_i][next_j + delta_j] != 1:
+                    next_i += delta_i
+                    next_j += delta_j
+                    steps += 1
+                
+                heappush(hq, (curr_dist + steps, next_i, next_j))
+                
+        return -1
+
+
+
+
+
 
 class Solution:
     EMPTY = 0
