@@ -34,6 +34,12 @@ The city 0 has 1 neighboring city at a distanceThreshold = 2.
 """
 
 
+
+
+
+
+
+
 class Solution:
     def findTheCity(self, n: int, edges: List[List[int]], distanceThreshold: int) -> int:
         graph = collections.defaultdict(list)
@@ -51,18 +57,22 @@ class Solution:
         return min_neighbors_node
     
     def _dijkstra(self, graph, node, distanceThreshold):   # O(ElogV)
-        hq = [(0, node)]
-        distance = collections.defaultdict(int)
+        hq = [(0, start)]
+        dist = defaultdict(int)
+
+        cnt = 0
         while len(hq) > 0:
             curr_dist, curr_node = heappop(hq)
-            if curr_node in distance:
+
+            if curr_node in dist:
                 continue
-            distance[curr_node] = curr_dist
-                
-            for next_node, dist in graph[curr_node]:
-                if next_node in distance:       # 相当于visited
-                    continue
-                if curr_dist + dist <= distanceThreshold:
-                    heappush(hq, (curr_dist + dist, next_node))
-        
-        return len(distance) - 1
+            dist[curr_node] = curr_dist
+
+            if curr_dist > distanceThreshold:
+                continue
+            cnt += 1
+
+            for next_node, next_dist in graph[curr_node]:
+                heappush(hq, (curr_dist + next_dist, next_node))
+
+        return cnt 
