@@ -1,3 +1,4 @@
+"""
 778. Swim in Rising Water
 
 On an N x N grid, each square grid[i][j] represents the elevation at that point (i,j).
@@ -29,34 +30,37 @@ Explanation:
 
 The final route is marked in bold.
 We need to wait until time 16 so that (0, 0) and (4, 4) are connected.
+"""
 
 
 
 """
-find a path with the minimum max-height in the path.
-采用Dikstra, heapq中存放(curr_max_val, curr_node). 每次pop出来的都是min height就可了 - O(N^2*log(N^2)), where N is the lens of grid.
+find the min_maxh in the path from (0, 0) to (m-1, n-1).
+put in the heapq the (maxh, pos)
+use a min_maxhs dictionary to map (curr_pos --> min_maxh to reach the curr_pos)
+O(N^2*log(N^2)), where N is the lens of grid
 """
-
 class Solution:
     def swimInWater(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
+        
         hq = [(grid[0][0], 0, 0)]
-        visited = set()
-        visited.add((0, 0))   # 注意做Min of maximum or max of minimum的题目都需要visited set的
-       
+        min_maxhs = defaultdict(int)
+        
         while len(hq) > 0:
-            curr_max_val, curr_i, curr_j = heappop(hq)   # 每次pop出来的都是最小的max_val
+            curr_maxh, curr_i, curr_j = heappop(hq)
+            if (curr_i, curr_j) == (m - 1, n - 1):
+                return curr_maxh
             
-            if (curr_i, curr_j) == (m-1, n-1):
-                return curr_max_val
+            if (curr_i, curr_j) in min_maxhs:
+                continue
+            min_maxhs[(curr_i, curr_j)] = curr_maxh
             
-            for delta_i, delta_j in [(-1, 0), (0, -1), (1, 0), (0, 1)]:
+            for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
                 next_i, next_j = curr_i + delta_i, curr_j + delta_j
                 if 0 <= next_i < m and 0 <= next_j < n:
-                    if (next_i, next_j) not in visited:
-                        next_val = grid[next_i][next_j]
-                        heappush(hq, (max(curr_max_val, next_val), next_i, next_j))
-                        visited.add((next_i, next_j))       # 别忘了一对孪生兄弟
+                    next_maxh = max(grid[next_i][next_j], curr_maxh)
+                    heappush(hq, (next_maxh, next_i, next_j))
     
     
 
