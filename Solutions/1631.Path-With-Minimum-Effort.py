@@ -46,24 +46,21 @@ Each time, we push (max(next_diff, curr_max_diff), next_pos).
 class Solution:
     def minimumEffortPath(self, heights: List[List[int]]) -> int:
         m, n = len(heights), len(heights[0])
-        if m == 1 and n == 1:
-            return 0
         
-        hq = []
-        heappush(hq, (0, 0, 0))
-        diff = defaultdict(int)
+        hq = [(0, 0, 0)]
+        min_maxdiffs = defaultdict(int)     # curr_pos --> min_maxdiff
+        
         while len(hq) > 0:
-            curr_max_diff, curr_i, curr_j = heappop(hq)
-            
-            if (curr_i, curr_j) in diff and curr_max_diff >= diff[(curr_i, curr_j)]:
-                continue
-            diff[(curr_i, curr_j)] = curr_max_diff
-            
+            curr_maxdiff, curr_i, curr_j = heappop(hq)
             if (curr_i, curr_j) == (m - 1, n - 1):
-                return curr_max_diff
+                return curr_maxdiff
             
-            for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+            if (curr_i, curr_j) in min_maxdiffs:
+                continue
+            min_maxdiffs[(curr_i, curr_j)] = curr_maxdiff
+            
+            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
                 next_i, next_j = curr_i + delta_i, curr_j + delta_j
                 if 0 <= next_i < m and 0 <= next_j < n:
-                    next_diff = abs(heights[curr_i][curr_j] - heights[next_i][next_j])
-                    heappush(hq, (max(curr_max_diff, next_diff), next_i, next_j))
+                    next_maxdiff = max(curr_maxdiff, abs(heights[next_i][next_j] - heights[curr_i][curr_j]))
+                    heappush(hq, (next_maxdiff, next_i, next_j))                    
