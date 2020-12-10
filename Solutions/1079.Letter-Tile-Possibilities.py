@@ -1,6 +1,8 @@
+"""
 1079. Letter Tile Possibilities
 
-You have a set of tiles, where each tile has one letter tiles[i] printed on it.  Return the number of possible non-empty sequences of letters you can make.
+You have a set of tiles, where each tile has one letter tiles[i] printed on it.  
+Return the number of possible non-empty sequences of letters you can make.
 
 Example 1:
 
@@ -11,12 +13,10 @@ Example 2:
 
 Input: "AAABBC"
 Output: 188
-
-    
-    
+"""
 class Solution:
     def numTilePossibilities(self, tiles: str) -> int:
-        def backtrack(curr_idx, curr_comb):
+        def backtrack(curr_comb):
             res.append(str(curr_comb.copy()))
             for next_idx in range(len(tiles)):
                 if next_idx in visited:
@@ -25,14 +25,14 @@ class Solution:
                     continue
                 visited.add(next_idx)
                 curr_comb.append(tiles[next_idx])
-                backtrack(next_idx, curr_comb)
+                backtrack(curr_comb)
                 curr_comb.pop()
                 visited.remove(next_idx)                    
                     
         tiles = sorted(tiles)     # 去重第一步sort, string只能用sorted
         res = []
         visited = set()
-        backtrack(0, [])
+        backtrack([])
         return len(res) - 1
             
 
