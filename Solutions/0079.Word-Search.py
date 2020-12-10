@@ -24,7 +24,7 @@ Given word = "ABCB", return false.
 """
 图上的搜索：dfs + backtracking
 这题5min内写出来了才算真正会了图上的dfs + backtracking
-Time Complexity: O(N*4^L) where N is the number of cells in the board and L is the length of the word to be matched.
+Time Complexity: O(N*3^L) where N is the number of cells in the board and L is the length of the word to be matched.
 """
 """
 套用backtrack的模板，backtrack 里面要传入(curr_i, curr_j, curr_idx on word). find solution: if board[next_i][next_j] == word[curr_idx + 1].  
