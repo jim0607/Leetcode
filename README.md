@@ -1228,6 +1228,7 @@ It really is all about pattern finding; 只需要用 k // (n-1)! 去找到k所�
 
 
 ### [Backtrack](/Depth-First-Search.py)
+__在写代码之前一定要先写下三点：1. 什么是backtrack的结束条件; 2. next_candidate有哪些constraint; 3. 将什么传入backtrack函数__
 - [1056. Confusing Number](Solutions/1056.Confusing-Number.py) (E) <br>
 use a hashmap
 - [1088. Confusing Number II](Solutions/1088.Confusing-Number-II.py) (!!H Google) <br>
