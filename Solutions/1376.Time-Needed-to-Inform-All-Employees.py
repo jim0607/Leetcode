@@ -50,7 +50,22 @@ Input: n = 4, headID = 2, manager = [3,3,-1,2], informTime = [0,0,162,914]
 Output: 1076
 """
 
-
+class Solution:
+    def numOfMinutes(self, n: int, headID: int, managers: List[int], informTime: List[int]) -> int:
+        def backtrack(curr_id, curr_time):
+            if len(graph[curr_id]) == 0:        # 叶子节点
+                self.res = max(self.res, curr_time)     # 由于我们各个manager是并行往下通知的，所以我们return的是花费时间最长的那条路径 
+            for next_id in graph[curr_id]:
+                backtrack(next_id, curr_time + informTime[curr_id])
+        
+        
+        graph = collections.defaultdict(list)
+        for i, manager in enumerate(managers):
+            graph[manager].append(i)
+            
+        self.res = 0
+        backtrack(headID, 0)
+        return self.res
 
 
 
@@ -74,23 +89,3 @@ class Solution:
             return informTime[curr_id] + next_time
         
         return dfs(headID)
-
-
-
-
-class Solution:
-    def numOfMinutes(self, n: int, headID: int, managers: List[int], informTime: List[int]) -> int:
-        def backtrack(curr_id, curr_time):
-            if len(graph[curr_id]) == 0:        # 叶子节点
-                self.res = max(self.res, curr_time)     # 由于我们各个manager是并行往下通知的，所以我们return的是花费时间最长的那条路径 
-            for next_id in graph[curr_id]:
-                backtrack(next_id, curr_time + informTime[curr_id])
-        
-        
-        graph = collections.defaultdict(list)
-        for i, manager in enumerate(managers):
-            graph[manager].append(i)
-            
-        self.res = 0
-        backtrack(headID, 0)
-        return self.res
