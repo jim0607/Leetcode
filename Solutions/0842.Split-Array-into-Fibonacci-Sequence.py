@@ -39,32 +39,30 @@ Explanation: The output [11, 0, 11, 11] would also be accepted.
 
 
 """
-套backtrack模板即可，backtrack传入的参数有(curr_idx, curr_comb). 
-结束条件是if curr_idx == len(s) - 1 and len(curr_comb) > 2:
+套backtrack模板即可
+backtrack end condition: curr_idx == len(s) - 1.
+backtrack next candidate constraint: 1. next_num should equal prev two numbers add together; 2. no leading zero; 3. next_num should be less then 2**31 - 1
+backtrack should pass: (curr_idx, curr_comb)
 """
 class Solution:
     def splitIntoFibonacci(self, s: str) -> List[int]:
         def backtrack(curr_idx, curr_comb):
-            if curr_idx == len(s) - 1 and len(curr_comb) > 2:
+            if curr_idx == len(s) - 1 and len(curr_comb) >= 3:
                 res.append(curr_comb.copy())
                 return
+            
             for next_idx in range(curr_idx + 1, len(s)):
-                if s[curr_idx + 1] == "0" and next_idx != curr_idx + 1: # 0 is a valid number but 01 is not
+                next_num = s[curr_idx + 1: next_idx + 1]
+                if next_num[0] == "0" and len(next_num) > 1:    # lead zeros, 0 is a valid number but 01 is not
                     continue
-                next_num = int(s[curr_idx + 1: next_idx + 1])
-                if next_num > 2**31 - 1:        # 题目要求0 <= F[i] <= 2^31 - 1
+                if int(next_num) > 2**31 - 1:        # 题目要求0 <= F[i] <= 2^31 - 1
                     continue
-                if len(curr_comb) <= 1:
-                    curr_comb.append(next_num)
+                if len(curr_comb) < 2 or (len(curr_comb) >= 2 and int(next_num) == curr_comb[-1] + curr_comb[-2]):
+                    curr_comb.append(int(next_num))
                     backtrack(next_idx, curr_comb)
                     curr_comb.pop()
-                elif len(curr_comb) >= 2:
-                    if next_num == curr_comb[-1] + curr_comb[-2]:
-                        curr_comb.append(next_num)
-                        backtrack(next_idx, curr_comb)
-                        curr_comb.pop()
-
-                    
+            
+            
         res = []
         backtrack(-1, [])
         return res[0] if len(res) > 0 else []
