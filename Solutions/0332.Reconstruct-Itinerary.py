@@ -21,6 +21,39 @@ Explanation: Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","
 """
 
 
+"""
+Recurssive backtracking.  Worst case: O(E^d), where E is # of edges, d is is the maximum number of flights from an airport.
+"""  
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        def backtrack(curr_node, curr_comb):
+            if len(curr_comb) == len(tickets) + 1:
+                self.res.append(curr_comb.copy())
+                return
+            
+            for next_node in graph[curr_node]:
+                if next_node not in graph_copy[curr_node]:    # 注意这里不能改变graph[curr_node]， 所以要用graph_copy
+                    continue
+                curr_comb.append(next_node)
+                graph_copy[curr_node].remove(next_node)
+                backtrack(next_node, curr_comb)
+                graph_copy[curr_node].append(next_node)
+                curr_comb.pop()
+                
+                
+        graph = defaultdict(list)
+        graph_copy = defaultdict(list)
+        for u, v in tickets:
+            graph[u].append(v)
+            graph_copy[u].append(v)
+        
+        self.res = []
+        backtrack("JFK", ['JFK'])
+
+        ans = [",".join(lst) for lst in self.res]
+        ans.sort()
+        return ans[0].split(",")
+
 
 """
 Recurssive backtracking.  Worst case: O(E^d), where E is # of edges, d is is the maximum number of flights from an airport.
