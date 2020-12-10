@@ -1,3 +1,4 @@
+"""
 1239. Maximum Length of a Concatenated String with Unique Characters
 
 Given an array of strings arr. String s is a concatenation of a sub-sequence of arr which have unique characters.
@@ -19,7 +20,31 @@ Example 3:
 
 Input: arr = ["abcdefghijklmnopqrstuvwxyz"]
 Output: 26
+"""
 
+class Solution:
+    def maxLength(self, arr: List[str]) -> int:
+        def backtrack(curr_idx, curr_comb):
+            self.maxlens = max(self.maxlens, len(curr_comb))
+            
+            for next_idx in range(curr_idx + 1, len(arr)):  # 一个string只能取一次，所以从curr_idx+1开始
+                next_comb = curr_comb + arr[next_idx]
+                if is_unique(next_comb):
+                    backtrack(next_idx, next_comb)  
+                    
+        
+        def is_unique(s):
+            cnter = Counter(s)
+            for cnt in cnter.values():
+                if cnt > 1:
+                    return False
+            return True
+
+                
+        self.maxlens = 0
+        backtrack(-1, "")
+        return self.maxlens
+    
 
     
 class Solution:
