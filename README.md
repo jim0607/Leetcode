@@ -1222,7 +1222,7 @@ step 1: put the characters that have seen two times in the char list; now we hav
 - [0060. Permutation Sequence](Solutions/0060.Permutation-Sequence.py) (!!H)  <br>
 It really is all about pattern finding; 只需要用 k // (n-1)! 去找到k所在的位置
 - [0054. Spiral Matrix](Solutions/000054.Spiral-Matrix.py) (!!M) <br>
-每一个转弯的点是dfs的node, dfs helper function 需要传入的参数有(当前的位置, 当前的方向，当前的row_range and col_range)
+每一个转弯的点是dfs的node, dfs helper function 需要传入的参数有(min_row, max_row, min_col, max_col, curr_dir)
 
 
 
