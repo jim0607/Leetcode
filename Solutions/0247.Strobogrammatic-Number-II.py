@@ -50,3 +50,39 @@ class Solution:
                         right_half += mapping[s[j]]
                     ans.append(s + right_half)
         return ans
+    
+    
+    
+    
+class Solution:
+    def findStrobogrammatic(self, n: int) -> List[str]:
+        def backtrack(curr_comb):
+            if len(curr_comb) == n:
+                if is_strobogrammatic(curr_comb):
+                    res.append(curr_comb)
+                return
+            
+            for next_num in mapping:
+                if len(curr_comb) == 0 and next_num == "0":
+                    continue
+                backtrack(curr_comb + next_num)
+                
+                
+        def is_strobogrammatic(s):
+            i, j = 0, len(s) - 1
+            while i <= j:       # 注意这里要 <=
+                if s[i] not in mapping or s[j] not in mapping:
+                    return False
+                if mapping[s[i]] != s[j]:
+                    return False
+                i += 1
+                j -= 1
+            return True
+        
+        
+        mapping = {"6": "9", "9": "6", "1": "1", "0": "0", "8": "8"}
+        res = []
+        backtrack("")
+        if n == 1:
+            res.append("0")
+        return res
