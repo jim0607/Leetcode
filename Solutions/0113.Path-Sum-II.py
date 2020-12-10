@@ -26,6 +26,8 @@ Return:
 
 """
 套用backtrack的模板即可
+end condition for backtrack: the curr_node is leaf and target == curr.
+pass into backtrack function: (curr_node, curr_sum, curr_comb)
 """
 class Solution:
     def pathSum(self, root: TreeNode, target: int) -> List[List[int]]:
