@@ -27,6 +27,42 @@ Explanation:
 The confusing numbers are [6,9,10,16,18,19,60,61,66,68,80,81,86,89,90,91,98,99,100].
 """
 
+"""
+time complexity: O(M*5^M)
+"""
+class Solution:
+    def confusingNumberII(self, N: int) -> int:
+        def backtrack(curr_comb):
+            if int(curr_comb) > N:
+                return
+            
+            if is_confusing(curr_comb):
+                res.add(curr_comb)      # 注意这里不要return, 因为"16"是valid的，"168"也是valid的
+                
+            for num in mapping:
+                backtrack(curr_comb + num)
+                
+        
+        def is_confusing(comb):
+            rotated = ""
+            for i in range(len(comb) - 1, -1, -1):
+                rotated += mapping[comb[i]]
+            return rotated != comb
+        
+        
+        nums = ["1", "6", "8", "9"]
+        mapping = {"0": "0", "1": "1", "6": "9", "9": "6", "8": "8"}
+        res = set()
+        for num in nums:
+            backtrack(num)
+        return len(res)
+
+
+
+
+
+
+
 
 """
 solution 1: brutal force with memo - TLE
