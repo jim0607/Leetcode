@@ -1,10 +1,11 @@
+"""
 526. Beautiful Arrangement
 
-Suppose you have N integers from 1 to N. We define a beautiful arrangement as an array that is constructed by these N numbers successfully if one of the following is true for the ith position (1 <= i <= N) in this array:
+Suppose you have N integers from 1 to N. We define a beautiful arrangement as an array that is 
+constructed by these N numbers successfully if one of the following is true for the ith position (1 <= i <= N) in this array:
 
 The number at the ith position is divisible by i.
 i is divisible by the number at the ith position.
- 
 
 Now given N, how many beautiful arrangements can you construct?
 
@@ -25,7 +26,7 @@ The second beautiful arrangement is [2, 1]:
 Number at the 1st position (i=1) is 2, and 2 is divisible by i (i=1).
 
 Number at the 2nd position (i=2) is 1, and i (i=2) is divisible by 1.
-
+"""
 
 
 """
@@ -33,26 +34,26 @@ Number at the 2nd position (i=2) is 1, and i (i=2) is divisible by 1.
 """
 class Solution:
     def countArrangement(self, N: int) -> int:
-        def backtrack(curr_idx, curr_comb):
+        def backtrack(curr_comb):
             if len(curr_comb) == N:
-                res.append(curr_comb.copy())
+                self.res += 1
                 return
-            for next_idx in range(N):
-                if next_idx in visited:
+            
+            for num in range(1, N + 1):
+                if num in visited:
                     continue
-                if nums[next_idx] % (len(curr_comb) + 1) == 0 or (len(curr_comb) + 1) % nums[next_idx] == 0:
-                    visited.add(next_idx)
-                    curr_comb.append(nums[next_idx])
-                    backtrack(next_idx, curr_comb)
+                if (num % (len(curr_comb) + 1)) == 0 or ((len(curr_comb) + 1) % num) == 0:
+                    curr_comb.append(num)
+                    visited.add(num)
+                    backtrack(curr_comb)
+                    visited.remove(num)
                     curr_comb.pop()
-                    visited.remove(next_idx)        
         
         
-        nums = [i for i in range(1, N+1)]
-        res = []
+        self.res = 0
         visited = set()
-        backtrack(-1, [])
-        return len(res)
+        backtrack([])
+        return self.res
 
 
 
