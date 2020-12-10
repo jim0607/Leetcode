@@ -1,3 +1,4 @@
+"""
 Given n unique postive integers, number k (1<=k<=n) and target.
 
 Find all possible k integers where their sum is target.
@@ -12,9 +13,10 @@ Example 2:
 
 Input: [1,3,4,6], k = 3, target = 8
 Output:  [[1,3,4]]
+"""
 
 
-"""要求输出所有组合，只能用dfs"""
+""" 要求输出所有组合，只能用 backtrack """
 
 class Solution:
     def kSumII(self, nums, k, target):
