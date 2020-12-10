@@ -35,6 +35,9 @@
 """
 要求输出所有的可能组合，所以只能backtrack. O(L*2^L), where L is the lens of string, 2 is two choices: 这这里分还是不分。  
 如果题目只是要求输出所有可能组合的数目，那就dp - O(L^2)
+end condition: curr_idx == len(s) - 1
+constraint on next candidate: next_s should be palin
+parameters pass into backtrack: (curr_idx, curr_comb)
 """
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
