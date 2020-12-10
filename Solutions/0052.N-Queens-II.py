@@ -51,6 +51,47 @@
 又由于Queen还可以斜着走，所以横纵坐标的和与差不能相同，也需要用visited标记。
 用一个visited数组存储 列号，横纵坐标之和，横纵坐标之差 有没有被用过
 """
+class Solution:
+    def totalNQueens(self, n: int) -> int:
+        def backtrack(curr_comb):
+            if len(curr_comb) == n:
+                res.append(curr_comb.copy())
+                return
+            
+            for i in range(n):
+                row, col = len(curr_comb), i
+                
+                if col in col_visited:
+                    continue
+                if row - col in dia_visited:
+                    continue
+                if row + col in adia_visited:
+                    continue
+                    
+                curr_comb.append(col)
+                col_visited.add(col)
+                dia_visited.add(row - col)
+                adia_visited.add(row + col)
+                
+                backtrack(curr_comb)
+                
+                curr_comb.pop()
+                col_visited.remove(col)
+                dia_visited.remove(row - col)
+                adia_visited.remove(row + col)
+        
+        
+        res = []
+        col_visited = set()
+        dia_visited = set()
+        adia_visited = set()
+        backtrack([])
+        return len(res)
+
+
+
+
+
 
 
 class Solution:
@@ -89,40 +130,3 @@ class Solution:
         backtrack(-1, -1, [])
         return len(res)
 
-
-
-"""
-下面是优化一点的解
-"""
-class Solution:
-    def totalNQueens(self, n: int) -> int:
-        self.res = []
-        self.visited_col = set()
-        self.visited_sum = set()
-        self.visited_diff = set()
-        
-        self.backtrack(n, [])
-        
-        return len(self.res)
-    
-    def backtrack(self, n, curr):
-        if len(curr) == n:
-            self.res.append(curr.copy())
-            return
-        
-        for i in range(n):
-            row, col = len(curr), i
-            if col in self.visited_col or (row+col) in self.visited_sum or (row-col) in self.visited_diff:
-                continue
-                
-            curr.append(col)
-            self.visited_col.add(col)
-            self.visited_sum.add(row+col)
-            self.visited_diff.add(row-col)
-            
-            self.backtrack(n, curr)
-            
-            curr.pop()
-            self.visited_col.remove(col)
-            self.visited_sum.remove(row+col)
-            self.visited_diff.remove(row-col)
