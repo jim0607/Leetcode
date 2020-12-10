@@ -1191,9 +1191,9 @@ C(m, n)：m个里面找出n个的组合问题; C_m_n = (n!)/( (m!)* (n-m)! )
 - [0090. k Sum II](Solutions/0090.k-Sum-II.py) (M Lintcode) <br>
 exactly the same as 216.
 - [0518. Coin Change 2](Solutions/0518.Coin-Change-2.py) (!!!!!!!!!!M) <br>
-与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解。 __DP解的for循环顺序很重要，由于(1,3)和(3,1)被认为是同一解，所以coin的顺序很重要，所以for coin in coins:是主循环，for num in range(1, amount + 1):是次循环。__ 因为当coin遍历到coin=1的时候，dp[4]+=d[3]此时的dp[3]=0所以dp[4]实际上加的是0；而当coin遍历到coin=3的时候，dp[4]+=d[1]，此时d[1]被更新过一次。所以真个过程dp[4]只被更新一次，不会重复更新。
+与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解。 __DP解的for循环顺序很重要，由于(1,3)和(3,1)被认为是同一解，所以coin的加入顺序很重要，所以for coin in coins:是主循环，for num in range(1, amount + 1):是次循环。__ 因为当coin遍历到coin=1的时候，dp[4]+=d[3]此时的dp[3]=0所以dp[4]实际上加的是0；而当coin遍历到coin=3的时候，dp[4]+=d[1]，此时d[1]被更新过一次。所以真个过程dp[4]只被更新一次，不会重复更新。
 - [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (M)<br>
-self.dfs(nums, target - nums[i], 0, curr, res)  # (1, 3)和(3, 1)被认为是不同解，所以让i从0开始; solution 2: dp. DP解的for循环顺序很重要， for m in range(target + 1): 是主循环，for num in nums:是次循环，这么写可以保证(1,3)可以进solution, (3,1)也可以进solution, 所以符合题意。
+self.dfs(nums, target - nums[i], 0, curr, res)  (1, 3)和(3, 1)被认为是不同解，所以让i从0开始; solution 2: dp. __DP解的for循环顺序很重要， 由于(1,3)和(3,1)被认为是不同解，所以coin的加入顺序不重要，所以for m in range(target + 1): 是主循环，for num in nums:是次循环，这么写可以保证(1,3)可以进solution, (3,1)也可以进solution, 所以符合题意。
 - [0698. Partition to K Equal Sum Subsets](Solutions/0698.Partition-to-K-Equal-Sum-Subsets.py) (!!!M) <br>
 套backtrack模板即可，backtrack里面需要传入(curr_sum, curr_idx, curr_cnt).
 结束条件是已有curr_cnt=k段满足条件了. 
