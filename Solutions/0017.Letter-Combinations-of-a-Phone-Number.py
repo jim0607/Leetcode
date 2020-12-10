@@ -18,8 +18,13 @@ Although the above answer is in lexicographical order, your answer could be in a
 """
 套用backtrack的模板，这里的next_idx只能取curr_idx + 1, 因为我们要在s里一个一个往前
 """
+"""
+backtrack结束条件：if len(curr_comb) == len(digits).
+next_ch的constraint: must be in mapping[digits[curr_dix+1]].
+pass into backtrack: curr_idx, curr_comb
+"""
 class Solution:
-    def letterCombinations(self, s: str) -> List[str]:
+    def letterCombinations(self, digits: str) -> List[str]:
         mapping = {'2': ['a', 'b', 'c'],
                     '3': ['d', 'e', 'f'],
                     '4': ['g', 'h', 'i'],
@@ -28,17 +33,20 @@ class Solution:
                     '7': ['p', 'q', 'r', 's'],
                     '8': ['t', 'u', 'v'],
                     '9': ['w', 'x', 'y', 'z']}
-            
+        
+        
         def backtrack(curr_idx, curr_comb):
-            if len(curr_comb) == len(s):
+            if len(curr_comb) == len(digits):
                 res.append(curr_comb)
                 return
-            next_idx = curr_idx + 1     # 这里的next_idx只能取curr_idx + 1, 因为我们要在s里一个一个往前
-            for ch in mapping[s[next_idx]]:
-                backtrack(next_idx, curr_comb + ch)
             
-        if len(s) == 0:
+            for next_ch in mapping[digits[curr_idx + 1]]:   # 这里的next_idx只能取curr_idx + 1, 因为我们要在s里一个一个往前
+                backtrack(curr_idx + 1, curr_comb + next_ch)
+                
+                
+        if len(digits) == 0:
             return []
+        
         res = []
         backtrack(-1, "")
         return res
