@@ -36,7 +36,8 @@ Path to get the maximum gold, 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7.
 
 
 """
-尝试每一个pos出发backtrack所有可能的path比较哪一条path能得到最多的gold - O((MN)^2).
+尝试每一个pos出发backtrack所有可能的path比较哪一条path能得到最多的gold - O( (MN)* 3^(MN) ).
+每个位置都有3种选择，所以时间复杂度是3^(MN)
 注意backtrack遍历得到的是每一条path的curr_sum, 而不是像普通dfs那样得遍历的是整个区域的
 """
 class Solution:
