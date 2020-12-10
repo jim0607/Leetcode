@@ -35,7 +35,31 @@
 permutation的模板：
 首先判断这题题目是顺序相关的，所以是不需要startIndex的Subsets问题了。
 """
-# @lc code=start
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        def backtrack(curr_idx, curr_comb):
+            if len(curr_comb) == len(nums):
+                res.append(curr_comb.copy())
+                return
+            
+            for next_idx in range(len(nums)):
+                if next_idx not in visited:
+                    visited.add(next_idx)
+                    curr_comb.append(nums[next_idx])
+                    backtrack(next_idx, curr_comb)
+                    curr_comb.pop()
+                    visited.remove(next_idx)
+            
+            
+        res = []
+        visited = set()
+        backtrack(0, [])
+        return res
+
+
+
+
+
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         res = []
@@ -92,26 +116,3 @@ class Solution:
             
             curr.pop()
             self.visited.remove(i)      # pop出来之后将i从visited中remove走
-            
-            
-            
-class Solution:
-    def permute(self, nums: List[int]) -> List[List[int]]:
-        def backtrack(curr_idx, curr_comb):
-            if len(curr_comb) == len(nums):
-                res.append(curr_comb.copy())
-                return
-            
-            for next_idx in range(len(nums)):
-                if next_idx not in visited:
-                    visited.add(next_idx)
-                    curr_comb.append(nums[next_idx])
-                    backtrack(next_idx, curr_comb)
-                    curr_comb.pop()
-                    visited.remove(next_idx)
-            
-            
-        res = []
-        visited = set()
-        backtrack(0, [])
-        return res
