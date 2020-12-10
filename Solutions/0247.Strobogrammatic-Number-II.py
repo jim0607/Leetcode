@@ -16,44 +16,44 @@ Output: ["11","69","88","96"]
 once the left half of the valid string s is fixed, then we can find the right half.
 so we can find all combinations for n//2 lens, using backtrack.
 """
+"""
+O(5^(n//2))
+"""
 class Solution:
-    def findStrobogrammatic(self, n: int) -> List[str]:        
-        def backtrack(curr_comb, curr_len):
-            if curr_len == n // 2:
+    def findStrobogrammatic(self, n: int) -> List[str]:
+        def backtrack(curr_comb):
+            if len(curr_comb) == n // 2:
                 res.append(curr_comb)
                 return
             
-            for next_digit in mapping:
-                if curr_len == 0 and next_digit == "0":     # avoid the leading 0
+            for next_num in mapping:
+                if len(curr_comb) == 0 and next_num == "0":     # avoid the leading 0
                     continue
-                backtrack(curr_comb + next_digit, curr_len + 1)
+                backtrack(curr_comb + next_num)
         
         
         mapping = {"6": "9", "9": "6", "1": "1", "0": "0", "8": "8"}
         same = {"1": "1", "0": "0", "8": "8"}
-        
         res = []
-        backtrack("", 0)
+        backtrack("")
         
         ans = []
         if n % 2 == 0:
-            for s in res:
-                right_half = ""
-                for j in range(len(s) - 1, -1, -1):
-                    right_half += mapping[s[j]]
-                ans.append(s + right_half)
-        else:
-            for s in res:
-                for ch in same:    # 注意we can only choose ch in same as mid ch
-                    right_half = ch
-                    for j in range(len(s) - 1, -1, -1):
-                        right_half += mapping[s[j]]
-                    ans.append(s + right_half)
+            for left in res:
+                right = "".join([mapping[left[i]] for i in range(len(left) - 1, -1, -1)])
+                ans.append(left + right)
+        elif n % 2 == 1:
+            for left in res:
+                right = "".join([mapping[left[i]] for i in range(len(left) - 1, -1, -1)])
+                for ch in same:
+                    ans.append(left + ch + right)        
         return ans
     
     
     
-    
+"""
+O(5^(n))
+"""
 class Solution:
     def findStrobogrammatic(self, n: int) -> List[str]:
         def backtrack(curr_comb):
