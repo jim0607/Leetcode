@@ -20,28 +20,37 @@ So Time Complexity becomes O(k*(2^n))
 """
 class Solution:
     def canPartitionKSubsets(self, nums: List[int], k: int) -> bool:
-        def backtrack(curr_sum, curr_idx, curr_cnt):
-            if curr_cnt == k:           # 结束条件是已有curr_cnt=k段满足条件了
+        def backtrack(curr_idx, curr_sum, curr_cnt):
+            if curr_cnt == k:       # 结束条件是已有curr_cnt=k段满足条件了
                 return True
-            if curr_sum > target:       # 提前return False - strong pruning
+            if curr_cnt > k:        # 提前return False - strong pruning
                 return False
-            if curr_sum == target:      # 拼出一段之后，从头开始去拼下一段
-                return backtrack(0, -1, curr_cnt + 1)        # 拼出一段之后，从头开始去拼下一段 - O(k)
-            for next_idx in range(curr_idx + 1, len(nums)): # 去后面找数来拼凑 - O(2^N)
+            
+            if curr_sum == target:  # 拼出一段之后，从头开始去拼下一段
+                return backtrack(-1, 0, curr_cnt + 1)
+            if curr_sum > target:   # 拼出一段之后，从头开始去拼下一段 - O(k)
+                return False
+
+            for next_idx in range(curr_idx + 1, len(nums)):   # 去后面找数来拼凑 - O(2^N)
                 if next_idx in visited:
                     continue
+                    
                 visited.add(next_idx)
-                if backtrack(curr_sum + nums[next_idx], next_idx, curr_cnt):
+                if backtrack(next_idx, curr_sum + nums[next_idx], curr_cnt):
                     return True
                 visited.remove(next_idx)
-            return False
-
-                
+            
+            return False       
+            
+            
+        if k == 1:
+            return True
         if sum(nums) % k != 0:
             return False
+        
         target = sum(nums) // k
         if max(nums) > target:
             return False
         
         visited = set()
-        return backtrack(0, -1, 0)
+        return backtrack(-1, 0, 0)
