@@ -3,7 +3,8 @@
 
 A string S represents a list of words.
 
-Each letter in the word has 1 or more options.  If there is one option, the letter is represented as is.  If there is more than one option, then curly braces delimit the options.  For example, "{a,b,c}" represents options ["a", "b", "c"].
+Each letter in the word has 1 or more options.  If there is one option, the letter is represented as is.  
+If there is more than one option, then curly braces delimit the options.  For example, "{a,b,c}" represents options ["a", "b", "c"].
 
 For example, "{a,b,c}d{e,f}" represents the list ["ade", "adf", "bde", "bdf", "cde", "cdf"].
 
@@ -26,7 +27,7 @@ Output: ["abcd"]
 class Solution:
     def expand(self, s: str) -> List[str]:
         def backtrack(curr_idx, curr_comb):
-            if curr_idx == len(lst) - 1:
+            if len(curr_comb) == len(chs):
                 res.append(curr_comb)
                 return
             for ch in lst[curr_idx + 1]:        # next_idx 只能等于curr_idx + 1
