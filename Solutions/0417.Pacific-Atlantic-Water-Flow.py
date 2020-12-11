@@ -38,44 +38,40 @@ step 1: 从左上角外围的每个点出发做dfs, next_pos is a valid candidat
 如果能visited就存起来表示pacific ocean water可以到达这个pos；
 step 2: 同样的方法记录atlantic ocean water可以达到的pos.  然后用2nd pass 来找到哪些点是两个ocean都能到达的。
 """
-
 class Solution:
     def pacificAtlantic(self, grid: List[List[int]]) -> List[List[int]]:
         if not grid or not grid[0]:
             return []
+        m, n = len(grid), len(grid[0])
         
         def dfs(curr_i, curr_j, visited):
             visited.add((curr_i, curr_j))
-            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+            for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
                 next_i, next_j = curr_i + delta_i, curr_j + delta_j
-                if 0 <= next_i < m and 0 <= next_j < n:
-                    if (next_i, next_j) in visited:
-                        continue
-                    if grid[next_i][next_j] < grid[curr_i][curr_j]:
-                        continue
-                    dfs(next_i, next_j, visited)
-        
-        m, n = len(grid), len(grid[0])
-        visited_p = set()
+                if 0 <= next_i < m and 0 <= next_j < n and (next_i, next_j) not in visited:
+                    if grid[next_i][next_j] >= grid[curr_i][curr_j]:        # 题眼
+                        dfs(next_i, next_j, visited)
+             
+        # 从左上外围出发做dfs标记pacific ocean water能到的地方
+        pacific_visited = set()
         for i in range(m):
-            if (i, 0) not in visited_p:
-                dfs(i, 0, visited_p)    # 从左边外围出发做dfs标记pacific ocean water能到的地方
-        for j in range(n):
-            if (0, j) not in visited_p:
-                dfs(0, j, visited_p)    # 从上边外围出发做dfs标记pacific ocean water能到的地方
+            for j in range(n):
+                if i == 0 or j == 0:
+                    if (i, j) not in pacific_visited:
+                        dfs(i, j, pacific_visited)
+                        
+        # 从右下外围出发做dfs标记atlantic ocean water能到的地方
+        atlantic_visited = set()
+        for i in range(m):
+            for j in range(n):
+                if i == m - 1 or j == n - 1:
+                    if (i, j) not in atlantic_visited:
+                        dfs(i, j, atlantic_visited)
                 
-        visited_a = set()
-        for i in range(m):
-            if (i, n-1) not in visited_a:
-                dfs(i, n-1, visited_a)
-        for j in range(n):
-            if (m-1, j) not in visited_a:
-                dfs(m-1, j, visited_a)
-        
-        # 找visited_p和visited_a的公共部分
+        # 找两个ocean都能visit到的地方
         res = []
-        for (i, j) in visited_p:
-            if (i, j) in visited_a:
+        for (i, j) in pacific_visited:
+            if (i, j) in atlantic_visited:
                 res.append([i, j])
         return res
         
