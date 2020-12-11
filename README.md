@@ -1280,10 +1280,9 @@ Same as Path Sum II except it's a N-arry tree.
 要求打印所有路径所以：Trie + Backtracking. we put the words into a trie. Then we loop over the board, whenever we found a char in root.child, we trigger a backtrak. Backtrack 里面应该传入参数 (curr_i and curr_j in board, curr_node in trie, curr_word). backtrack 的结束条件是if curr_node.is_end. 注意找到到案之后千万不要return, 然单词health找到之后就不再继续找单词healthy了
 - [0425. Word Squares](Solutions/0425.Word-Squares.py) (!!H Google) <br>
 Trie的解法怎样一步一步来的很重要！！把这题多写几遍backtrack+Trie+hashmap就都有更深的理解！这题的题眼是：我们想加在第五行加单词，那这个单词必须满足prefix是前4行的第四列组成的。hashmap是最快的 - O(N* 26^L). build a hashmap so that 我们可以快速O(1)地从prefix找到可以得到的第五行可以加哪些单词
-- [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (!!H) 打印/输出所有满足条件的路径必用backtrack
-step 1: 构造一个dictionary, key is all possible combination of the word, value is the word. this makes it much much fater <br>
-Step 2. 从end_word到start_word做bfs，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
-Step 3. 从start到end做backtrack，每走一步都必须确保离end的distance越来越近(if distance[next_word] >= distance[curr_word]: continue)。
+- [0126. Word Ladder II](Solutions/0126.Word-Ladder-II.py) (!!H) 打印/输出所有满足条件的路径必用backtrack. 
+Step 1. 从end_word到start_word做bfs，记录每一个节点到end节点的距离，存入hashmap中 eg: distance["dog"] = 2 <br>
+Step 2. 从start到end做backtrack，每走一步都必须确保离end的distance越来越近(if distance[next_word] >= distance[curr_word]: continue)
 想想210题的Google follow up.
 - [0290. Word Pattern](Solutions/0290.Word-Pattern.py) (E) <br>
 similar with 1153. String Transforms Into Another Strin. use a mapping to map ch to str, and use another mapping to map str to ch.  warm up for 291.
