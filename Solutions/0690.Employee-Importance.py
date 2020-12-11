@@ -46,14 +46,21 @@ solution 2: use a dictionary to map employee_id with employee, so that looking f
 """
 class Solution:
     def getImportance(self, employees: List['Employee'], id: int) -> int:
-        employee_dict = collections.defaultdict(tuple)
-        for employee in employees:
-            employee_dict[employee.id] = (employee.importance, employee.subordinates)
+        def helper(curr_id):
+            """
+            return the importance of this id and it's sub
+            """
+            if len(id_to_employee[curr_id].subordinates) == 0:
+                return id_to_employee[curr_id].importance
             
-        return self._dfs(employee_dict, id)
-    
-    def _dfs(self, employee_dict, id):
-        importance = employee_dict[id][0]
-        for subordinate_id in employee_dict[id][1]:
-            importance += self._dfs(employee_dict, subordinate_id)
-        return importance
+            res = id_to_employee[curr_id].importance
+            for next_id in id_to_employee[curr_id].subordinates:
+                res += helper(next_id)
+                
+            return res
+        
+        id_to_employee = defaultdict(Employee)
+        for employee in employees:
+            id_to_employee[employee.id] = employee
+                
+        return helper(id)
