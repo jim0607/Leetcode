@@ -1198,6 +1198,8 @@ exactly the same as 216.
 与Combination Sum一模一样，只是题目不要求输出所有可能组合，只要求输出可能组合的数目，所以可以用DP解。 __DP解的for循环顺序很重要，由于(1,3)和(3,1)被认为是同一解，所以coin的加入顺序很重要，所以for coin in coins:是主循环，for num in range(1, amount + 1):是次循环。__ 因为当coin遍历到coin=1的时候，dp[4]+=d[3]此时的dp[3]=0所以dp[4]实际上加的是0；而当coin遍历到coin=3的时候，dp[4]+=d[1]，此时d[1]被更新过一次。所以真个过程dp[4]只被更新一次，不会重复更新。
 - [0377. Combination Sum IV](Solutions/0377.Combination-Sum-IV.py) (M)<br>
 self.dfs(nums, target - nums[i], 0, curr, res)  (1, 3)和(3, 1)被认为是不同解，所以让i从0开始; solution 2: dp. __DP解的for循环顺序很重要， 由于(1,3)和(3,1)被认为是不同解，所以coin的加入顺序不重要，所以for m in range(target + 1): 是主循环，for num in nums:是次循环，这么写可以保证(1,3)可以进solution, (3,1)也可以进solution, 所以符合题意。__
+- [1255. Maximum Score Words Formed by Letters](Solutions/1255.Maximum-Score-Words-Formed-by-Letters.py) (!!H Google) <br>
+find all subsets, similar with 78. Subsets. O(26* 2^n), n = len(words)
 - [0698. Partition to K Equal Sum Subsets](Solutions/0698.Partition-to-K-Equal-Sum-Subsets.py) (!!!M) <br>
 套backtrack模板即可，backtrack里面需要传入(curr_sum, curr_idx, curr_cnt).
 结束条件是已有curr_cnt=k段满足条件了. 
@@ -1312,16 +1314,12 @@ The start_node is height_arr = [0, 0, 0...], the end_node is height_arr = [m, m,
 backtrack. Each crushed board is a node in backtrack. from curr_crushed_board to next_crushed_board, we need to do a crush recurssively similar with 723. Candy Crush
 - [0949. Largest Time for Given Digits](Solutions/0949.Largest-Time-for-Given-Digits.py) (!!M Google) <br>
 backtrack. step 1: find all possible permutations - O(4!). step 2: update max_possible time that can be constructed from the permutations.
-- [1377. Frog Position After T Seconds](Solutions/1377.Frog-Position-After-T-Seconds.py) (!!H Google) <br>
-dfs, 虚拟一个节点零出来，从0节点出发做dfs. dfs the graph and update the dist of target and the prob of reaching target
 - [1125. Smallest Sufficient Team](Solutions/1125.Smallest-Sufficient-Team.py) (!!H Google) <br>
 backtrack. "The Set Cover Problem": find the min number of subsets to cover the entire set.
 This famous "Set Cover Problem" is actually a NP Complete problem.
 NP-complete problem: any of a class of computational problems for which no efficient solution algorithm has been found.
 solution 1: backtrack - the subset problem 78. Subsets: find the subset that is valid.
 O(m* 2^n), where m = len(req_skills), n = len(people)
-- [1255. Maximum Score Words Formed by Letters](Solutions/1255.Maximum-Score-Words-Formed-by-Letters.py) (!!H Google) <br>
-find all subsets, similar with 78. Subsets. O(26* 2^n), n = len(words)
 
 
 
@@ -1388,6 +1386,8 @@ in dfs: step 1: check how many MINES are there in adjacent to (curr_i, curr_j);
 step 2: based on adj_mine, we choose either continue dfs or stop
 - [1466. Reorder Routes to Make All Paths Lead to the City Zero](Solutions/1466.Reorder-Routes-to-Make-All-Paths-Lead-to-the-City-Zero.py) (!!M Google) <br>
 solution dfs. 问题等价于原来0不能到达所有的nodes, 现在需要改变一些connections使得0可以到达所有nodes. 建一个graph和一个anti_graph. 从0出发，先在anti_graph里面找next_node一直往前走，然后从graph里面找next_node, 从graph里面找说明需要反向，所以self.cnt += 1
+- [1377. Frog Position After T Seconds](Solutions/1377.Frog-Position-After-T-Seconds.py) (!!H Google) <br>
+dfs, 虚拟一个节点零出来，从0节点出发做dfs. dfs the graph and update the dist of target and the prob of reaching target
 - [0753. Cracking the Safe](Solutions/0753.Cracking-the-Safe.py) (!!!H) <br>
 思路： dfs取cur_res的最后n-1个数字，加上k中的一个新的数字来组新的combination, 判断这个combination是否已经cover到了. dfs的结束条件是if len(covered) == k ** n
 - [1192. Critical Connections in a Network](Solutions/1192.Critical-Connections-in-a-Network.py) (!!H) <br>
