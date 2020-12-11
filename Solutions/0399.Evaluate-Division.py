@@ -1,13 +1,16 @@
+"""
 399. Evaluate Division
 
-Equations are given in the format A / B = k, where A and B are variables represented as strings, and k is a real number (floating point number). Given some queries, return the answers. If the answer does not exist, return -1.0.
+Equations are given in the format A / B = k, where A and B are variables represented as strings, and k is a real number (floating point number). 
+Given some queries, return the answers. If the answer does not exist, return -1.0.
 
 Example:
 Given a / b = 2.0, b / c = 3.0.
 queries are: a / c = ?, b / a = ?, a / e = ?, a / a = ?, x / x = ? .
 return [6.0, 0.5, -1.0, 1.0, -1.0 ].
 
-The input is: vector<pair<string, string>> equations, vector<double>& values, vector<pair<string, string>> queries , where equations.size() == values.size(), and the values are positive. This represents the equations. Return vector<double>.
+The input is: vector<pair<string, string>> equations, vector<double>& values, vector<pair<string, string>> queries ,
+where equations.size() == values.size(), and the values are positive. This represents the equations. Return vector<double>.
 
 According to the example above:
 
@@ -16,8 +19,9 @@ values = [2.0, 3.0],
 queries = [ ["a", "c"], ["b", "a"], ["a", "e"], ["a", "a"], ["x", "x"] ]. 
  
 The input is always valid. You may assume that evaluating the queries will result in no division by zero and there is no contradiction.
-
 """
+
+
 """
 Solution 1: bfs
 注意这里构建图的时候是graph = collections.defaultdict(dict)  
@@ -71,34 +75,33 @@ dfs is also veyr concise
 """
 class Solution:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
-        graph = collections.defaultdict(list)
-        for i, lst in enumerate(equations):
-            val = values[i]
-            graph[lst[0]].append((lst[1], val))
-            graph[lst[1]].append((lst[0], 1/val))
+        def dfs(curr_node, end_node, curr_val):
+            if curr_node == end_node:
+                res.append(curr_val)
+                return True
+            for next_node, next_val in graph[curr_node]:
+                if next_node not in visited:
+                    visited.add(next_node)
+                    if dfs(next_node, end_node, curr_val * next_val):
+                        return True
+            return False
+        
+        
+        graph = defaultdict(list)
+        for i, (u, v) in enumerate(equations):
+            graph[u].append((v, values[i]))
+            graph[v].append((u, 1/values[i]))
             
         res = []
         for u, v in queries:
             if u not in graph or v not in graph:
-                res.append(-1.0)
-            elif u == v:
-                res.append(1.0)
+                res.append(-1)
             else:
-                if not self._dfs(graph, u, v, 1.0, {u}, res):
-                    res.append(-1.0)        # if not found, append -1
+                visited = set()
+                visited.add(u)
+                if not dfs(u, v, 1):
+                    res.append(-1)
         return res
-    
-    def _dfs(self, graph, curr_node, target, curr_res, visited, res):
-        if curr_node == target:
-            res.append(curr_res)
-            return True
-        for next_node, val in graph[curr_node]:
-            if next_node not in visited:
-                visited.add(next_node)
-                if self._dfs(graph, next_node, target, curr_res * val, visited, res):
-                    return True
-                visited.remove(next_node)
-        return False
 
 
 
