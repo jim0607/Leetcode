@@ -49,36 +49,37 @@ class Solution:
     def frogPosition(self, n: int, edges: List[List[int]], t: int, target: int) -> float:
         graph = defaultdict(list)
         for u, v in edges:
-            graph[u].append(v)
-            graph[v].append(u)      # 注意是undirected tree，双向tree
+            graph[u].append(v)      # 注意是undirected tree，双向tree
+            graph[v].append(u)
         graph[0].append(1)          # 虚拟一个节点零出来，从0节点出发做dfs
         graph[1].append(0)
+            
         
-        self.prob = 1        # the prob to get to target node from node 1
-        self.dist = -1       # the dist of target to node 1
-        self.dfs(graph, 0, 1, -1, target, {0})    
-        
-        if self.dist > t:
-            return 0
-        if self.dist == t:
-            return self.prob
-        if self.dist < t:
-            return self.prob if len(graph[target]) == 1 else 0   # target is a leaf if len(graph[target]) == 1
-
-    
-    def dfs(self, graph, curr_node, curr_prob, curr_dist, target, visited):
-        """
-        dfs the graph and update the dist of target and the prob of reaching target
-        """
-        if curr_node == target:
-            self.prob = curr_prob
-            self.dist = curr_dist
-            return
-        
-        for next_node in graph[curr_node]:
-            if next_node not in visited:
+        def dfs(curr_node, curr_prob, curr_time):
+            if curr_node == target:
+                self.prob = curr_prob
+                self.time_needed = curr_time
+                return
+            
+            for next_node in graph[curr_node]:
+                if next_node in visited:
+                    continue
                 visited.add(next_node)
                 if len(graph[curr_node]) == 1:
-                    self.dfs(graph, next_node, curr_prob, curr_dist + 1, target, visited)
-                else:
-                    self.dfs(graph, next_node, curr_prob / (len(graph[curr_node]) - 1), curr_dist + 1, target, visited)
+                    dfs(next_node, curr_prob, curr_time + 1)
+                elif len(graph[curr_node]) > 1:
+                    dfs(next_node, curr_prob / (len(graph[curr_node]) - 1), curr_time + 1)            
+            
+        
+        visited = set()
+        self.prob = 0           # the prob to get to target node from node 0
+        self.time_needed = -1   # the time needed to get to target
+        
+        dfs(0, 1, -1)
+        
+        if t < self.time_needed:
+            return 0
+        elif t == self.time_needed:
+            return self.prob
+        else:
+            return self.prob if len(graph[target]) == 1 else 0  # target is a leaf if len(graph[target]) == 1
