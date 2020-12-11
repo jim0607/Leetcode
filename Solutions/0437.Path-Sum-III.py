@@ -90,18 +90,30 @@ class Solution:
 Why this solution does not work?
 
 class Solution:
-    def pathSum(self, root: TreeNode, sum: int) -> int:
+    def pathSum(self, root: TreeNode, target: int) -> int:
         if not root:
             return 0
-
-        cnt = 0
-        if sum == 0:
-            cnt += 1
-
-        cnt += self.pathSum(root.left, sum)             # left cnt without root
-        cnt += self.pathSum(root.right, sum)            # right cnt without root
-
-        cnt += self.pathSum(root.left, sum - root.val)  # left cnt with root
-        cnt += self.pathSum(root.right, sum - root.val) # riight cnt with root
-
-        return cnt
+        
+        def helper(root, target):
+            """
+            return how many path sum up to target with/wo starting with root
+            """
+            if not root:
+                return 0, 0
+            if not root.left and not root.right:
+                if target == root.val:
+                    return 1, 0
+                return 0, 0
+            
+            left_w_1, left_wo_1 = helper(root.left, target - root.val)
+            left_w_2, left_wo_2 = helper(root.left, target)
+            right_w_1, right_wo_1 = helper(root.right, target - root.val)
+            right_w_2, right_wo_2 = helper(root.right, target)
+            
+            root_w = left_w_1 + right_w_1
+            root_wo = left_w_2 + left_wo_2 + right_w_2 + right_wo_2
+            
+            return root_w, root_wo
+        
+        root_w, root_wo = helper(root, target)
+        return root_w + root_wo
