@@ -50,6 +50,10 @@ words[i], letters[i] contains only lower case English letters.
 """
 find all subsets, similar with 78. Subsets.
 O(26*2^n), n = len(words)
+
+backtrack end condition: none
+next candidate constraint: the left letters can form the next word.
+backtrack should pass: (curr_idx in words, curr_score)
 """
 class Solution:
     def maxScoreWords(self, words: List[str], letters: List[str], score: List[int]) -> int:
@@ -61,15 +65,15 @@ class Solution:
             
             for next_idx in range(curr_idx + 1, len(words)):
                 next_word = words[next_idx]                    
-                w_cnter = Counter(next_word)
-                if any(w_cnter[ch] > ch_cnter[ch] for ch in w_cnter):
+                next_word_cnter = Counter(next_word)
+                if any(next_word_cnter[ch] > ch_cnter[ch] for ch in w_cnter):
                     continue        # 如果现有的letters无法组成这个word, 那就不能继续
 
-                for ch in w_cnter:         # 从letters中减去word
-                    ch_cnter[ch] -= w_cnter[ch]
+                for ch in next_word_cnter:         # 从letters中减去word
+                    ch_cnter[ch] -= next_word_cnter[ch]
                 backtrack(next_idx, curr_score + word_score[next_word])
                 for ch in w_cnter:         # 在letters中加入word: backtrack
-                    ch_cnter[ch] += w_cnter[ch]
+                    ch_cnter[ch] += next_word_cnter[ch]
 
                     
         ch_cnter = Counter(letters)      
