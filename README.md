@@ -623,6 +623,10 @@ step 2: do gravity to modify the board.
 step 3: recurssively modify the board until is there is crush needed. O((MN)^2)
 - [0412. Fizz Buzz](Solutions/0412.Fizz-Buzz.py) (E) <br>
 How to do it without for-loop: recursion
+- [0679. 24 Game](Solutions/0679.24-Game.py) (!!H Google) <br>
+方法：两个for loop在nums中取两个数nums[i] and nums[j]. 算出nums[i] and nums[j]这两个数加减乘除可能得到的数，
+将这些可能得到的数放进next_nums里面进行递归。递归的结束条件是len(nums)==1即无法再跟其他书加减乘除了。
+如果len(nums)==1 and nums[0]==24, then return True
 
 
 ### [Binary Tree](/Binary-Tree-Divide-and-Conquer.py) <br> 
@@ -1294,10 +1298,6 @@ is valid: if ch_to_str[next_ch] == next_word and str_to_ch[next_word] == next_ch
 backtrack中传入的参数(curr_idx, curr_num, curr_word). 
 backtrack结束条件: if curr_idx == len(word)-1. 
 分两种情况: case 1: treat word[next_idx] as a letter; case 2: treat word[next_idx] as a number
-- [0679. 24 Game](Solutions/0679.24-Game.py) (!!H Google) <br>
-方法：两个for loop在nums中取两个数nums[i] and nums[j]. 算出nums[i] and nums[j]这两个数加减乘除可能得到的数，
-将这些可能得到的数放进next_nums里面进行递归。递归的结束条件是len(nums)==1即无法再跟其他书加减乘除了。
-如果len(nums)==1 and nums[0]==24, then return True
 - [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (!!H) <br> 
 use rows, cols, boxes dictionary to record the numbers in each row, each col and each small box, then do standard backtrack
 - [0465. Optimal Account Balancing](Solutions/0465.Optimal-Account-Balancing.py) (!!H Google) <br> 
