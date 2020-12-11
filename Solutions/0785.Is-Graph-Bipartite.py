@@ -1,3 +1,4 @@
+"""
 785. Is Graph Bipartite?
 
 Given an undirected graph, return true if and only if it is bipartite.
@@ -26,6 +27,35 @@ The graph looks like this:
 |  \ |
 3----2
 We cannot find a way to divide the set of nodes into two independent subsets.
+"""
+
+        
+"""
+solution 2: dfs, mark the color of nodes as we go.  O(V+E)
+"""
+class Solution:
+    def isBipartite(self, edges: List[List[int]]) -> bool:
+        def dfs(curr_node, curr_color):
+            visited[curr_node] = curr_color
+            
+            for next_node in edges[curr_node]:
+                if next_node in visited:
+                    if visited[next_node] == curr_color:
+                        return False
+                    continue
+                if not dfs(next_node, not curr_color):  # 在这里调用dfs是模板的分内之事，这题return True/False, 所以在这里check
+                    return False
+                
+            return True
+        
+        # have to do dfs for every node cuz it could be a biparitite even if there are lots of dis-connected components in the graph
+        visited = defaultdict(bool)         # True表示red color, False表示blue color
+        for node in range(len(edges)):      # for loop保证可以访问到所有的nodes
+            if node not in visited:         # 注意这里要check in visited
+                if not dfs(node, True):
+                    return False
+        return True
+
 
 
 """
@@ -65,39 +95,3 @@ class Solution:
                     colormap[next_node] = "red" if red else "blue"
         return True
         
-        
-"""
-solution 2: dfs, mark the color of nodes as we go.  O(V+E)
-"""
-class Solution:
-    def isBipartite(self, lists: List[List[int]]) -> bool:
-        graph = collections.defaultdict(list)
-        for i, lst in enumerate(lists):
-            graph[i] = lst
-            
-        colormap = collections.defaultdict(str)   # key is the node, value is the color
-        
-        # have to do dfs for every node cuz it could be a biparitite even if there are lots of dis-connected components in the graph
-        for node in range(len(graph)):  # have to visit every node exactly once O(V)
-            if node not in colormap:    # colormap 相当于visited
-                if not self._dfs(node, graph, colormap, True):
-                    return False
-        return True
-         
-    def _dfs(self, curr_node, graph, colormap, red):
-        """
-        dfs the graph starting from curr_node, mark the color on the way
-        return whether or not there is a color violation on the way
-        """
-        red = not red
-        colormap[curr_node] = "red" if red else "blue"
-        
-        for next_node in graph[curr_node]:
-            if next_node in colormap:
-                if colormap[next_node] == colormap[curr_node]:
-                    return False
-                continue
-            if not self._dfs(next_node, graph, colormap, red):  # 在这里调用dfs是模板的分内之事，这题return True/False, 所以在这里check
-                return False
-            
-        return True
