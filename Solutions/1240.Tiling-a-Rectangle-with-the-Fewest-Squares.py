@@ -31,6 +31,70 @@ Pruning:
 1. When the current cnt has exceeded the value of the current global optimal solution, then no need to move forward.
 2. Try largest square possible first (improves time by a lot).
 """
+"""
+end condition of backtrack: curr_heights == [all m].
+constraint on next candidate: next_lens should not be too large.
+pass into backtrack function: (curr_heights, curr_cnt)
+"""
+class Solution:
+    def tilingRectangle(self, n: int, m: int) -> int:
+        def backtrack(curr_heights, curr_cnt):
+            if all(h == m for h in curr_heights):
+                self.min_cnt = min(self.min_cnt, curr_cnt)
+                return
+            
+            if curr_cnt >= self.min_cnt:            # pruning 1
+                return
+            
+            # 套模板is to find next candidate. what is the next candidate? It's the lowest unfilled area
+            left_idx, height, width = self.lowest_unfilled_area(curr_heights, m)
+            for side_lens in range(min(height, width), 0, -1):      # 注意我们需要遍历所有可能的side_lens for the square. 逆序遍历is pruning 2
+                next_heights = self.fill(curr_heights, side_lens, left_idx)
+                backtrack(next_heights, curr_cnt + 1)
+            
+
+        if m > n:
+            m, n = n, m
+            
+        self.min_cnt = m * n
+        curr_heights = [0 for _ in range(n)]
+        backtrack(curr_heights, 0)
+        return self.min_cnt
+    
+    
+    def lowest_unfilled_area(self, heights, m):
+        """
+        find the location and the shape of the lowest unfilled area in the skyline
+        return left_idx of that area, and width and height of that area
+        """
+        min_h = min(heights)
+        left_idx = heights.index(min_h)
+        height = m - min_h
+        
+        right_idx = left_idx
+        while right_idx < len(heights) and heights[right_idx] == min_h:
+            right_idx += 1
+        width = right_idx - left_idx
+        
+        return left_idx, height, width
+    
+    
+    def fill(self, heights, side_lens, left_idx):
+        res = []
+        for i in range(len(heights)):
+            if i < left_idx or i >= left_idx + side_lens:
+                res.append(heights[i])
+            else:
+                res.append(heights[i] + side_lens)
+        return res
+
+
+
+
+
+
+
+
 class Solution:
     def tilingRectangle(self, m: int, n: int) -> int:
         def backtrack(curr_height, curr_cnt):
