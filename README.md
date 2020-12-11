@@ -1312,8 +1312,6 @@ The start_node is height_arr = [0, 0, 0...], the end_node is height_arr = [m, m,
 backtrack. Each crushed board is a node in backtrack. from curr_crushed_board to next_crushed_board, we need to do a crush recurssively similar with 723. Candy Crush
 - [0949. Largest Time for Given Digits](Solutions/0949.Largest-Time-for-Given-Digits.py) (!!M Google) <br>
 backtrack. step 1: find all possible permutations - O(4!). step 2: update max_possible time that can be constructed from the permutations.
-- [1466. Reorder Routes to Make All Paths Lead to the City Zero](Solutions/1466.Reorder-Routes-to-Make-All-Paths-Lead-to-the-City-Zero.py) (!!M Google) <br>
-solution dfs. 问题等价于原来0不能到达所有的nodes, 现在需要改变一些connections使得0可以到达所有nodes. 建一个graph和一个anti_graph. 从0出发，先在anti_graph里面找next_node一直往前走，然后从graph里面找next_node, 从graph里面找说明需要反向，所以self.cnt += 1
 - [1377. Frog Position After T Seconds](Solutions/1377.Frog-Position-After-T-Seconds.py) (!!H Google) <br>
 dfs, 虚拟一个节点零出来，从0节点出发做dfs. dfs the graph and update the dist of target and the prob of reaching target
 - [1125. Smallest Sufficient Team](Solutions/1125.Smallest-Sufficient-Team.py) (!!H Google) <br>
@@ -1388,6 +1386,8 @@ step 2: start from target, use bfs/dfs to find the nodes with distance == K
 - [0529. Minesweeper](Solutions/0529.Minesweeper.py) (M) <br>
 in dfs: step 1: check how many MINES are there in adjacent to (curr_i, curr_j);
 step 2: based on adj_mine, we choose either continue dfs or stop
+- [1466. Reorder Routes to Make All Paths Lead to the City Zero](Solutions/1466.Reorder-Routes-to-Make-All-Paths-Lead-to-the-City-Zero.py) (!!M Google) <br>
+solution dfs. 问题等价于原来0不能到达所有的nodes, 现在需要改变一些connections使得0可以到达所有nodes. 建一个graph和一个anti_graph. 从0出发，先在anti_graph里面找next_node一直往前走，然后从graph里面找next_node, 从graph里面找说明需要反向，所以self.cnt += 1
 - [0753. Cracking the Safe](Solutions/0753.Cracking-the-Safe.py) (!!!H) <br>
 思路： dfs取cur_res的最后n-1个数字，加上k中的一个新的数字来组新的combination, 判断这个combination是否已经cover到了. dfs的结束条件是if len(covered) == k ** n
 - [1192. Critical Connections in a Network](Solutions/1192.Critical-Connections-in-a-Network.py) (!!H) <br>
