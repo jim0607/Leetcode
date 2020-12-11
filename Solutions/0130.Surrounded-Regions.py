@@ -34,37 +34,34 @@ class Solution:
         """
         Do not return anything, modify board in-place instead.
         """
+        def dfs(curr_i, curr_j):
+            visited.add((curr_i, curr_j))
+            
+            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                if 0 <= next_i < m and 0 <= next_j < n and board[next_i][next_j] == "O":
+                    if (next_i, next_j) not in visited:
+                        dfs(next_i, next_j)
+        
+
+        # step 1: put all "O" connected with board into a set
         if not board or not board[0]:
             return board
-        
-        # step 1: put all "O" connected with board into a set
         m, n = len(board), len(board[0])
-        visited = set()     # store all the "O" that are connected with board
+        visited = set()
         for i in range(m):
-            if board[i][0] == "O" and (i, 0) not in visited:
-                self._dfs(board, i, 0, visited)
-            if board[i][n-1] == "O" and (i, n-1) not in visited:
-                self._dfs(board, i, n-1, visited)
-        for j in range(n):
-            if board[0][j] == "O" and (0, j) not in visited:
-                self._dfs(board, 0, j, visited)
-            if board[m-1][j] == "O" and (m-1, j) not in visited:
-                self._dfs(board, m-1, j, visited)
-               
+            for j in range(n):
+                if i == 0 or i == m - 1 or j == 0 or j == n - 1:
+                    if board[i][j] == "O" and (i, j) not in visited:
+                        dfs(i, j)
+                
         # step 2: traverse the matrix again to switch "O" that are not connected with board
         for i in range(m):
             for j in range(n):
                 if board[i][j] == "O" and (i, j) not in visited:
-                    board[i][j] = "X"                
-    
-    def _dfs(self, board, curr_i, curr_j, visited):
-        visited.add((curr_i, curr_j))
-        for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
-            next_i, next_j = curr_i + delta_i, curr_j + delta_j
-            if 0 <= next_i < len(board) and 0 <= next_j < len(board[0]):
-                if board[next_i][next_j] == "O":
-                    if (next_i, next_j) not in visited:
-                        self._dfs(board, next_i, next_j, visited)
+                    board[i][j] = "X"
+                    
+        return board
 
 
 
