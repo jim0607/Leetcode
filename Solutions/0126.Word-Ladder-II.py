@@ -78,6 +78,79 @@
 2. 从start到end做DFS，每走一步都必须确保end的distance越来越近。最后将路径都存入到res里
 """
 
+class Solution:
+    def findLadders(self, beginword: str, endword: str, wordlist: list[str]) -> List[List[str]]:
+        def backtrack(curr_node, curr_comb):
+            if curr_node == endword:
+                res.append(curr_comb.copy())
+                return
+        
+            for next_node in get_nextwords(curr_node):
+                if next_node not in distance or distance[next_node] >= distance[curr_node]:
+                    continue
+                curr_comb.append(next_node)
+                backtrack(next_node, curr_comb)
+                curr_comb.pop()
+        
+        
+        def bfs():              # O(N), where N is number of words in word_set
+            q = deque()
+            visited = set()
+            q.append(endword)
+            visited.add(endword)
+            dist = -1
+            while len(q) > 0:
+                dist += 1
+                lens = len(q)
+                for _ in range(lens):
+                    curr_node = q.popleft()
+                    distance[curr_node] = dist
+                    if curr_node == beginword:      # don't need to keep going anymore
+                        return
+                    for next_node in get_nextwords(curr_node):
+                        if next_node not in visited:
+                            q.append(next_node)
+                            visited.add(next_node)        
+        
+        
+        def get_nextwords(word):                # O(L^2)
+            res = []
+            for i, ch in enumerate(word):
+                for letter in "abcdefghijklmnopqrstuvwxyz":
+                    if letter != ch:
+                        candidate = word[:i] + letter + word[i+1:]
+                        if candidate in wordset:
+                            res.append(candidate)
+            return res      
+
+        
+        wordset = set(wordlist)  
+        wordset.add(beginword)
+        if endword not in wordset:
+            return []
+        
+        distance = defaultdict(int)         # node --> distance of this node to end node
+        bfs()                               # update distance dictionary in bfs
+        
+        res = []
+        backtrack(beginword, [beginword])   # backtrack to find the path
+        return res
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
