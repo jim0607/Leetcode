@@ -31,42 +31,57 @@ Assign the first person RED, then anyone the first person doesn't like should be
 If a person has to be both BLUE and RED, then it is impossible. 
 Solution 1: dfs - Time: O(V+E); Space: O(V+E)
 """
-
+"""
+build the group - bi-direction
+red group and blue group
+traverse all the people and assign them into corresponding groups. if there is one people
+needs to assign to red and blue at the same time, then return false
+"""
 class Solution:
     def possibleBipartition(self, N: int, dislikes: List[List[int]]) -> bool:
-        def dfs(curr_node, flag):
-            if flag:
-                if curr_node in blue:
-                    return False
+        def dfs(curr_node, curr_color):
+            if curr_color == "r":
                 red.add(curr_node)
             else:
-                if curr_node in red:
-                    return False
                 blue.add(curr_node)
-            flag = not flag         # next_node 与curr_node 放在不同阵营
+                
             for next_node in graph[curr_node]:
-                if flag and next_node in red:
+                if next_node in red:
+                    if curr_color == "r":
+                        return False
                     continue
-                if not flag and next_node in blue:
+                elif next_node in blue:
+                    if curr_color == "b":
+                        return False
                     continue
-                if not dfs(next_node, flag):
-                    return False
+                else:
+                    if curr_color == "r":
+                        blue.add(next_node)
+                        next_color = "b"
+                    if curr_color == "b":
+                        red.add(next_node)
+                        next_color = "r"
+                    if not dfs(next_node, next_color):
+                        return False
+            
             return True
         
+        
         # step 1: change list of edges representation to adjacency list representation
-        graph = collections.defaultdict(list)
-        for u, v in dislikes:   
+        graph = defaultdict(list)
+        for u, v in dislikes:
             graph[u].append(v)
             graph[v].append(u)
             
-        red, blue = set(), set()
-        for node in range(1, N+1):
+        red = set()
+        blue = set()
+        
+        for node in range(1, N + 1):
             if node not in red and node not in blue:
-                if not dfs(node, True):
+                if not dfs(node, "r"):
                     return False
         return True
-
-
+                
 
 
 
