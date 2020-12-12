@@ -27,6 +27,34 @@ and
 are considered different island shapes, because we do not consider reflection / rotation.
 """
 
+"""
+solution 2: use the relative lacation of each "1" with respect to the staring point as the signature of shape.
+"""
+class Solution:
+    def numDistinctIslands(self, grid: List[List[int]]) -> int:
+        def dfs(org_i, org_j, curr_i, curr_j):
+            shape.append((curr_i - org_i, curr_j - org_j))      # append the relative lacation into shape
+            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]: 
+                next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                if 0 <= next_i < m and 0 <= next_j < n:
+                    if grid[next_i][next_j] == 1:
+                        if (next_i, next_j) not in visited:
+                            visited.add((next_i, next_j))
+                            dfs(org_i, org_j, next_i, next_j)
+                            
+        
+        shapes = []
+        visited = set()
+        m, n = len(grid), len(grid[0])
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1 and (i, j) not in visited:
+                    shape = []
+                    visited.add((i, j))
+                    dfs(i, j, i, j)         # pass original_i and original_j into dfs
+                    shapes.append(tuple(shape))
+        return len(set(shapes))
+       
 
 
 """
@@ -75,39 +103,6 @@ class Solution:
 folow up: note that we can also use the relative locations of each "1" 
 with respect to the starting point as the signature of shape 
 """
-"""
-solution 2: use the relative lacation of each "1" with respect to the staring point as the signature of shape.
-"""
-class Solution:
-    def numDistinctIslands(self, grid: List[List[int]]) -> int:
-        def dfs(org_i, org_j, curr_i, curr_j):
-            shape.append((curr_i - org_i, curr_j - org_j))      # append the relative lacation into shape
-            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]: 
-                next_i, next_j = curr_i + delta_i, curr_j + delta_j
-                if 0 <= next_i < m and 0 <= next_j < n:
-                    if grid[next_i][next_j] == 1:
-                        if (next_i, next_j) not in visited:
-                            visited.add((next_i, next_j))
-                            dfs(org_i, org_j, next_i, next_j)
-                            
-        
-        shapes = []
-        visited = set()
-        m, n = len(grid), len(grid[0])
-        for i in range(m):
-            for j in range(n):
-                if grid[i][j] == 1 and (i, j) not in visited:
-                    shape = []
-                    visited.add((i, j))
-                    dfs(i, j, i, j)         # pass original_i and original_j into dfs
-                    shapes.append(tuple(shape))
-        return len(set(shapes))
-
-
-
-
-
-
 
 
 
