@@ -49,22 +49,25 @@ solution 2: backtrack + memorization - O(n * t) where n is len(nums), t is large
 """
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        def backtrack(curr_idx, curr_sum):
+        def memorization(curr_idx, curr_sum):
+            """
+            how many ways to get to target starting from (curr_idx, currsum)
+            """
+            if (curr_idx, curr_sum) in memo:
+                return memo[(curr_idx, curr_sum)]
+            
             if curr_idx == len(nums) - 1:
                 if curr_sum == target:
                     return 1
                 return 0
             
-            if (curr_idx, curr_sum) in memo:
-                return memo[(curr_idx, curr_sum)]
-            
             res = 0
-            res += backtrack(curr_idx + 1, curr_sum + nums[curr_idx + 1])
-            res += backtrack(curr_idx + 1, curr_sum - nums[curr_idx + 1])
+            res += memorization(curr_idx + 1, curr_sum + nums[curr_idx + 1])
+            res += memorization(curr_idx + 1, curr_sum - nums[curr_idx + 1])
             
             memo[(curr_idx, curr_sum)] = res
             return res
         
         
-        memo = defaultdict(int)  
-        return backtrack(-1, 0)
+        memo = defaultdict(int)     # (curr_idx, curr_sum) --> how many ways to get to target starting from (curr_idx, currsum)
+        return memorization(-1, 0)
