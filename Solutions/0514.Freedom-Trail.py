@@ -49,7 +49,7 @@ class Solution:
             return min_step        
         
         
-        memo = collections.defaultdict(int) # (curr_ring, curr_idx --> minimum step needed to reach target)
+        memo = defaultdict(int) # (curr_ring, curr_idx --> minimum step needed to reach target)
         return dfs(ring, -1)
         
 """ 
