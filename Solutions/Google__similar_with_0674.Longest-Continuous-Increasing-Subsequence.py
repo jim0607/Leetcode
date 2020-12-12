@@ -11,7 +11,7 @@ Output: "ery"
 	             J
 	Solution 1: sliding window
 	Solution 2: dp[i] = the longest lens ended with s[i].
-	 Dp[i] = 0 if hashmap[s[i]] < hashmap[s[i-1]] else dp[i-1] + 1
+	 Dp[i] = 1 if hashmap[s[i]] < hashmap[s[i-1]] else dp[i-1] + 1
 Returtn max(dp)
 ---> O(1) space 
 """
