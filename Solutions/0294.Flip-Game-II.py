@@ -15,11 +15,44 @@ Derive your algorithm's runtime complexity.
 """
 
 
-
 """
 dfs+memo: O(N^2)
 memo = (curr_state-->guarantee a win)
 """
+class Solution:
+    def canWin(self, s: str) -> bool:
+        def dfs(curr_s):
+            """
+            return can curr_s garantee a win
+            """
+            if curr_s in memo:
+                return memo[curr_s]
+            
+            garantee_win = False
+            for next_s in one_move(curr_s):
+                if not dfs(next_s):     # 只要有一个next的dfs(next)稳输那就curr就稳赢
+                    garantee_win = True
+                    break
+            
+            memo[curr_s] = garantee_win
+            return garantee_win
+                
+                
+        def one_move(s):    # just copied Flip Game I to get next state
+            res = []
+            for i in range(1, len(s)):
+                if s[i-1] == s[i] == "+":
+                    res.append(s[:i-1] + "--" + s[i+1:])
+            return res
+
+        
+        memo = defaultdict(bool)     # curr_s --> can curr_s garantee a win
+        return dfs(s)
+
+
+
+
+
 class Solution:
     def canWin(self, s: str) -> bool:
         def dfs(curr_state):
