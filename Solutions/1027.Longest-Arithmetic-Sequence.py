@@ -29,7 +29,7 @@ class Solution:
         
         # dp[i] = dictionary (公差 --> LAS ended with ith)
         # collections.defaultdict(int)的默认值是0，可以通过collections.defaultdict(lambda: 1)把默认值改成1
-        dp = [collections.defaultdict(lambda: 1) for _ in range(lens)]  # why this is incorrect: dp = [collections.defaultdict(lambda: 1)] * lens
+        dp = [defaultdict(lambda: 1) for _ in range(lens)]  # why this is incorrect: dp = [collections.defaultdict(lambda: 1)] * lens
         
         maxLens = 1
         for j in range(1, lens):
