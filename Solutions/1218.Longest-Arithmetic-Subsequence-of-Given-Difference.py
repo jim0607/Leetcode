@@ -47,7 +47,7 @@ use hashmap, like two sum problem.
 """
 class Solution:
     def longestSubsequence(self, arr: List[int], diff: int) -> int:
-        dp = collections.defaultdict(lambda: 1)     # arr[i] --> LAC
+        dp = defaultdict(lambda: 1)     # arr[i] --> LAC
         dp[arr[0]] = 1
         for j in range(1, len(arr)):
             if arr[j] - diff in dp:
