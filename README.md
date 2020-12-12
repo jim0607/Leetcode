@@ -1466,7 +1466,7 @@ construct suff_sum similar with 304. Range Sum Query 2D - Immutable. Step 2: dfs
 - [Google Unique Paths With Ladder](Solutions/0063.Unique-Paths-II.py) (M) <br> 
 dp[i][j] = the number of unique paths to reach (i, j). dp[i][j] += dp[i-1][j] if grid[i][j] <= grid[i-1][j] + k; dp[i][j] += dp[i][j-1] if grid[i][j] <= grid[i][j-1] + k
 - [0064. Minimum Path Sum](Solutions/0064.Minimum-Path-Sum.py) (M) <br> 
-dp[i][j]=the minimum path sum to (i, j); dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j])
+dp[i][j]=the minimum path sum to (i, j); dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j]). DP works because we can pre compute two directions ... but we cannot pre-compute 4 directions or more .. in those cases Djikstra would be better
 - [0120. Triangle](Solutions/0120.Triangle.py) (M) <br>
 dp[i][j] = min(triangle[i][j] + dp[i-1][j], triangle[i][j] + dp[i-1][j-1]), rolling array to reduce space to O(N)
 - [0931. Minimum Falling Path Sum](Solutions/0931.Minimum-Falling-Path-Sum.py) (M) <br>
