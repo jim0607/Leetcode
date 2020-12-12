@@ -98,7 +98,7 @@ class Solution:
             return LIP
                         
         
-        memo = collections.defaultdict(int) # ((curr_i, curr_j) --> LIP starting from (curr_i curr_j))
+        memo = defaultdict(int) # ((curr_i, curr_j) --> LIP starting from (curr_i curr_j))
         m, n = len(grid), len(grid[0])
         max_lens = 1
         for i in range(m):
