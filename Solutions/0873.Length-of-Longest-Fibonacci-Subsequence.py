@@ -27,7 +27,7 @@ class Solution:
         if lens <= 2:
             return lens
             
-        dp = [collections.defaultdict(lambda: 1) for _ in range(lens)]
+        dp = [defaultdict(lambda: 1) for _ in range(lens)]
             
         maxLens = 2
         for j in range(1, lens):
