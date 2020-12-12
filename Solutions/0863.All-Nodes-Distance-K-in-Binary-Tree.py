@@ -38,14 +38,14 @@ step 2: start from target, use bfs/dfs to find the nodes with distance == K
 """
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, K: int) -> List[int]:
-        def dfs(curr_node, prev_node):
+        def dfs(curr_node):
             if not curr_node:
                 return
             for next_node in [curr_node.left, curr_node.right]:
                 if next_node:
                     graph[curr_node].append(next_node)
                     graph[next_node].append(curr_node)
-                    dfs(next_node, curr_node)
+                    dfs(next_node)
                     
                     
         def dfs2(curr_node, curr_dist):
@@ -58,8 +58,8 @@ class Solution:
                     dfs2(next_node, curr_dist + 1)
             
             
-        graph = collections.defaultdict(list)
-        dfs(root, None)
+        graph = defaultdict(list)
+        dfs(root)
         res = []
         visited = set()
         for node in graph:
