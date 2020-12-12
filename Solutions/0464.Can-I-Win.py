@@ -49,24 +49,28 @@ solution 2: dfs + memo
 """
 class Solution:
     def canIWin(self, maxChoosableInteger: int, desiredTotal: int) -> bool:
-        def dfs(curr_total, curr_choosable):
-            if len(curr_choosable) == 0:
+        def dfs(curr_left):
+            if curr_left in memo:
+                return memo[curr_left]
+            
+            if len(curr_left) == 0:
                 return False
-            if curr_choosable[-1] >= curr_total:    # 如果可一次性拿走，那就赢了
+            if total - sum(curr_left) + max(curr_left) >= desiredTotal:
                 return True
-            if curr_choosable in memo:
-                return memo[curr_choosable]
-            for i in range(len(curr_choosable)):
-                if not dfs(curr_total - curr_choosable[i], curr_choosable[:i] + curr_choosable[i+1:]):
-                    memo[curr_choosable] = True
-                    return True
-            memo[curr_choosable] = False
+            
+            res = False
+            for i, next_num in enumerate(curr_left):
+                if not dfs(curr_left[:i] + curr_left[i+1:]):
+                    res = True
+                    break
+            
+            memo[tuple(curr_left)] = res
+            return res
+        
+        
+        nums = tuple([i for i in range(1, maxChoosableInteger + 1)])
+        total = sum(nums)
+        if total < desiredTotal:
             return False
-        
-        
-        # 一个数只能用一次，所以如果所有maxChoosableInteger都用了都加不到desiredTotal那就return False
-        if maxChoosableInteger * (maxChoosableInteger + 1) // 2 < desiredTotal:
-            return False
-        
-        memo = collections.defaultdict(bool)    # (curr_choosable_numbers --> can_win_with_curr_choosable_numbers?)
-        return dfs(desiredTotal, tuple(range(1, maxChoosableInteger + 1)))  # 这里用了curr_choosable_numbers就不需要visited了
+        memo = defaultdict(bool)    # (curr_left) --> will win?
+        return dfs(nums)
