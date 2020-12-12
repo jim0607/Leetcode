@@ -70,39 +70,34 @@ in dfs: step 1: check how many MINES are there in adjacent to (curr_i, curr_j);
 step 2: based on adj_mine, we choose either continue dfs or stop
 """
 class Solution:
-    MINE = "M"
-    EMPTY = "E"
-    BLANK = "B"
-    def updateBoard(self, grid: List[List[str]], click: List[int]) -> List[List[str]]:
+    def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
         def dfs(curr_i, curr_j):
-            visited.add((curr_i, curr_j))
-            grid[curr_i][curr_j] = self.BLANK
-            # check how many MINES are there in adjacent to (curr_i, curr_j)
-            adj_mine = 0
-            for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (-1, 1), (1, -1), (-1, -1)]:
-                adj_i, adj_j = curr_i + delta_i, curr_j + delta_j
-                if 0 <= adj_i < m and 0 <= adj_j < n and grid[adj_i][adj_j] == self.MINE:
-                    adj_mine += 1
-                    
+            adj_mine = 0        # check how many MINES are there in adjacent to (curr_i, curr_j)
+            for delta_i, delta_j in [(1,0),(1,-1),(1,1),(0,1),(0,-1),(-1,1),(-1,-1),(-1,0)]:
+                next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                if 0 <= next_i < m and 0 <= next_j < n:
+                    if board[next_i][next_j] == "M":
+                        adj_mine += 1
+            
             # based on adj_mine, we choose either continue dfs or stop
-            if adj_mine > 0:    # if adj_mine > 0, change to the number and stop dfs
-                grid[curr_i][curr_j] = str(adj_mine)
-            else:               # if adj_mine == 0, continue dfs
-                for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (-1, 1), (1, -1), (-1, -1)]:
+            if adj_mine > 0:            # if adj_mine > 0, change to the number and stop dfs
+                board[curr_i][curr_j] = str(adj_mine)
+            elif adj_mine == 0:         # if adj_mine == 0, change curr_pos to "B" and continue dfs
+                board[curr_i][curr_j] = "B"
+                for delta_i, delta_j in [(1,0),(1,-1),(1,1),(0,1),(0,-1),(-1,1),(-1,-1),(-1,0)]:
                     next_i, next_j = curr_i + delta_i, curr_j + delta_j
                     if 0 <= next_i < m and 0 <= next_j < n:
-                        if grid[next_i][next_j] == self.EMPTY or grid[next_i][next_j] == self.BLANK:
-                            if (next_i, next_j) not in visited:
-                                dfs(next_i, next_j)
-
+                        if board[next_i][next_j] == "E":
+                            dfs(next_i, next_j)
         
-        m, n = len(grid), len(grid[0])
-        if grid[click[0]][click[1]] == self.MINE:
-            grid[click[0]][click[1]] = "X"
-        elif grid[click[0]][click[1]] == self.EMPTY:
-            visited = set()
+        
+        m, n = len(board), len(board[0])
+        if board[click[0]][click[1]] == "M":
+            board[click[0]][click[1]] = "X"
+            return board
+        if board[click[0]][click[1]] == "E":
             dfs(click[0], click[1])
-        return grid
+            return board
 
 
 
