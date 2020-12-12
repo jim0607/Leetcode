@@ -21,20 +21,18 @@ Output: False
 
 class Solution:
     def checkRecord(self, s: str) -> bool:
-        cnt_A = 0
-        i = 0
-        while i < len(s):
+        A_cnt = 0
+        conL_cnt = 0
+        for i in range(len(s)):
             if s[i] == "A":
-                cnt_A += 1
-                if cnt_A > 1:
+                A_cnt += 1
+                conL_cnt = 0
+                if A_cnt > 1:
                     return False
             elif s[i] == "L":
-                continuous_L = 1
-                while i + 1 < len(s) and s[i+1] == "L":
-                    continuous_L += 1
-                    i += 1
-                    if continuous_L > 2:
-                        return False
-            i += 1
-            
+                conL_cnt += 1
+                if conL_cnt > 2:
+                    return False
+            elif s[i] == "P":
+                conL_cnt = 0
         return True
