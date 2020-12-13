@@ -67,9 +67,9 @@ class Solution:
         backtrack(-1, [])
         return res
 
-
-
-
+"""
+可以像132. Palindrome Partitioning II 那样先把is_palin[i][j]提前算好，这样就不需要用O(L)去判断is_palind(next_s)了
+"""
 
 
 
