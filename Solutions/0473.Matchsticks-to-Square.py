@@ -21,33 +21,32 @@ Explanation: You cannot find a way to form a square with all the matchsticks.
 
 class Solution:
     def makesquare(self, nums: List[int]) -> bool:
-        if not nums or len(nums) < 4:
-            return False
-        return self.canPartitionKSubsets(nums, 4)
-        
-    def canPartitionKSubsets(self, nums: List[int], k: int) -> bool:
-        def backtrack(curr_sum, curr_idx, curr_cnt):
-            if curr_cnt == k:           # 结束条件是已有curr_cnt=k段满足条件了
+        def backtrack(curr_idx, curr_sum, curr_cnt):
+            if curr_cnt == 4:       # 如果拼出了四段target, 那说明就成功了
                 return True
-            if curr_sum > target:       # 提前return False - strong pruning
+            
+            if curr_sum > target:   # 提前return False - strong pruning
                 return False
-            if curr_sum == target:      # 拼出一段之后，从头开始去拼下一段
-                return backtrack(0, -1, curr_cnt + 1)        # 拼出一段之后，从头开始去拼下一段 - O(k)
-            for next_idx in range(curr_idx + 1, len(nums)): # 去后面找数来拼凑 - O(2^N)
-                if next_idx in visited:
-                    continue
-                visited.add(next_idx)
-                if backtrack(curr_sum + nums[next_idx], next_idx, curr_cnt):
-                    return True
-                visited.remove(next_idx)
+            
+            if curr_sum == target:  # 拼出一段之后，从头开始去拼下一段
+                return backtrack(-1, 0, curr_cnt + 1)   # 拼出一段之后，从头开始去拼下一段
+            
+            if curr_sum < target:
+                for next_idx in range(curr_idx + 1, len(nums)): # 去后面找数来拼凑 - O(2^N)
+                    if next_idx in visited:
+                        continue
+                    visited.add(next_idx)
+                    if backtrack(next_idx, curr_sum + nums[next_idx], curr_cnt):
+                        return True
+                    visited.remove(next_idx)
+                    
             return False
-
-                
-        if sum(nums) % k != 0:
+        
+        
+        sums = sum(nums)
+        if len(nums) < 4 or sums % 4 != 0:
             return False
-        target = sum(nums) // k
-        if max(nums) > target:
-            return False
+        target = sums // 4
         
         visited = set()
-        return backtrack(0, -1, 0)
+        return backtrack(-1, 0, 0)
