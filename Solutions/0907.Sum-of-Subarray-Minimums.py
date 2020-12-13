@@ -30,6 +30,9 @@ Minimums are 3, 1, 2, 4, 1, 1, 2, 1, 1, 1.  Sum is 17.
 最终的结果 res 就是将 dp 数组累加起来即可.
 
 为了更快速得到往左寻找第一个比当前A[i]小的数的 idx, 我们可以提前算好存起来，怎样算：monostack
+
+dp[i] = the sum of subarray minimums ended with i.
+dp[j] = arr[j] * (j - lt_idx) + dp[lt_idx], where lt_idx is the first idx that is lt nums[j]
 """
 class Solution:
     def sumSubarrayMins(self, nums: List[int]) -> int:
