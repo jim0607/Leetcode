@@ -29,45 +29,6 @@ Explanation: We can replace '0' with '1' to get t.
 
 
 
-
-class Solution:
-    def isOneEditDistance(self, A: str, B: str) -> bool:
-        m, n = len(A), len(B)
-        if abs(m - n) > 1: return False
-        if m == 0 and n == 0: return False
-        if m == 0 or n == 0: return True
-        
-        i, j = 0, 0
-        edit_cnt = 0
-        if m == n:
-            while i < m and j < n:
-                if A[i] != B[j]:
-                    edit_cnt += 1
-                i += 1
-                j += 1
-            return edit_cnt == 1
-        elif m > n:
-            while i < m and j < n:
-                if A[i] != B[j]:
-                    edit_cnt += 1;
-                    i += 1
-                    continue
-                i += 1
-                j += 1
-            return edit_cnt <= 1
-        else:
-            while i < m and j < n:
-                if A[i] != B[j]:
-                    edit_cnt += 1
-                    j += 1
-                    continue
-                i += 1
-                j += 1
-            return edit_cnt <= 1
-
-
-
-
 class Solution:
     def isOneEditDistance(self, s: str, t: str) -> bool:
         if s == t:
