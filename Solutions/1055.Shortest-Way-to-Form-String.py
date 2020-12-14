@@ -25,43 +25,78 @@ Explanation: The target string can be constructed as follows "xz" + "y" + "xz".
 
 
 """
-solution 1: greedy + two pointers - O(st)
+solution 1: algorithm: find the position of each chof_target in source.
+O(mn)
 """
 class Solution:
-    def shortestWay(self, source: str, target: str) -> int:
-        conc = 0
+    def shortestWay(self, s: str, target: str) -> int:
+        cnter = Counter(s)
+        for ch in target:
+            if ch not in cnter:
+                return -1
+        
+        res = 1
+        start_idx = 0
         i = 0
         while i < len(target):
-            lens = self._longest_continuous_substring(i, source, target)
-            if lens == 0:
-                return -1
-            i += lens
-            conc += 1
-        return conc
-    
-    def _longest_continuous_substring(self, start_idx, s, t):
-        """
-        find the longest consinuous substring in t that is a subsequence of s
-        return the lens of the continuous substring
-        two pointers
-        """
-        lens = 0
-        i = 0           # idx in s
-        j = start_idx   # idx in t
-        while i < len(s) and j < len(t):
-            if s[i] == t[j]:
-                lens += 1
+            ch = target[i]
+            can_find = False
+            for idx in range(start_idx, len(s)):
+                if s[idx] == ch:
+                    can_find = True
+                    start_idx = idx + 1
+                    break
+                    
+            if can_find:
                 i += 1
-                j += 1
             else:
-                i += 1
-        return lens
+                res += 1
+                start_idx = 0
+                
+        return res
+
 
 
 
 """
 solution 2: greedyf + binary seach - O(tlog(s))
 """
+"""
+algorithm: find the position of each chof_target in source.
+O(mn)
+"""
+class Solution:
+    def shortestWay(self, s: str, target: str) -> int:
+        ch_to_idx = defaultdict(list)
+        for i, ch in enumerate(s):
+            ch_to_idx[ch].append(i)
+        
+        for ch in target:
+            if ch not in ch_to_idx:
+                return -1
+        
+        res = 1
+        start_idx = 0
+        i = 0
+        while i < len(target):
+            ch = target[i]
+            idx_lst = ch_to_idx[ch]         # idx_lst is the list we are going to do binary search for ch
+            
+            if start_idx > idx_lst[-1]:     # if the binary search has to start at a index larger than the largest idx in idx_lst, 
+                res += 1                    # then we need to start over for another concatination
+                start_idx = 0
+            else:
+                start_idx = idx_lst[bisect.bisect_left(idx_lst, start_idx)] + 1
+                i += 1
+                
+        return res
+
+
+
+
+
+
+
 class Solution:
     def shortestWay(self, source: str, target: str) -> int:
         ch_to_idx = collections.defaultdict(list)     # ch --> idx
@@ -97,3 +132,41 @@ class Solution:
                 start = mid
         return idx_lst[start] if idx_lst[start] >= target_idx else idx_lst[end]
                 
+
+
+
+
+
+
+"""
+solution 1: greedy + two pointers - O(st)
+"""
+class Solution:
+    def shortestWay(self, source: str, target: str) -> int:
+        conc = 0
+        i = 0
+        while i < len(target):
+            lens = self._longest_continuous_substring(i, source, target)
+            if lens == 0:
+                return -1
+            i += lens
+            conc += 1
+        return conc
+    
+    def _longest_continuous_substring(self, start_idx, s, t):
+        """
+        find the longest consinuous substring in t that is a subsequence of s
+        return the lens of the continuous substring
+        two pointers
+        """
+        lens = 0
+        i = 0           # idx in s
+        j = start_idx   # idx in t
+        while i < len(s) and j < len(t):
+            if s[i] == t[j]:
+                lens += 1
+                i += 1
+                j += 1
+            else:
+                i += 1
+        return lens
