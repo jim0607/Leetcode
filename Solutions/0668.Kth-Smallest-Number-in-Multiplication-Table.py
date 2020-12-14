@@ -30,6 +30,33 @@ The k will be in the range [1, m * n]
 """
 
 
+"""
+heapq solution - O(klogk)  k很大的情况会TLE
+"""
+class Solution:
+    def findKthNumber(self, m: int, n: int, k: int) -> int:
+        if k == 1:
+            return 1
+        if k == m * n:
+            return m * n
+        
+        hq = []
+        heappush(hq, (1, 1, 1))
+        visited = set()
+        visited.add((1, 1))         # 不要忘了visited很重要
+        while len(hq) > 0:
+            curr_num, curr_i, curr_j = heappop(hq)
+            k -= 1
+            if k == 0:
+                return curr_num
+            
+            for next_i, next_j in [(curr_i + 1, curr_j), (curr_i, curr_j + 1)]:
+                if 1 <= next_i <= m and 1 <= next_j <= n and (next_i, next_j) not in visited:
+                    visited.add((next_i, next_j))
+                    heappush(hq, (next_i * next_j, next_i, next_j))        
+
+
+
 
 """
 helper函数定义为是否有k个数大于mid, helper函数利用sorted matrix的特性，可以达到O(m+n).
@@ -56,29 +83,3 @@ class Solution:
             else:
                 i -= 1      
         return cnt >= k      # 往左逼近
-    
-    
-"""
-heapq solution - O(klogk)
-"""
-class Solution:
-    def findKthNumber(self, m: int, n: int, k: int) -> int:
-        if k == 1:
-            return 1
-        if k == m * n:
-            return m * n
-        
-        hq = []
-        heappush(hq, (1, 1, 1))
-        visited = set()
-        visited.add((1, 1))         # 不要忘了visited很重要
-        while len(hq) > 0:
-            curr_num, curr_i, curr_j = heappop(hq)
-            k -= 1
-            if k == 0:
-                return curr_num
-            
-            for next_i, next_j in [(curr_i + 1, curr_j), (curr_i, curr_j + 1)]:
-                if 1 <= next_i <= m and 1 <= next_j <= n and (next_i, next_j) not in visited:
-                    visited.add((next_i, next_j))
-                    heappush(hq, (next_i * next_j, next_i, next_j))        
