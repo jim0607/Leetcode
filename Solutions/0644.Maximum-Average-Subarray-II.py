@@ -18,7 +18,8 @@ The answer with the calculation error less than 10-5 will be accepted.
 
 
 """
-The Most important concept here is, given any array and an average window of "k", it is possible to find whether there exists a subarray whose average value is bigger than "x", and find it in O(n) time.
+The Most important concept here is, given any array and an average window of "k", 
+it is possible to find whether there exists a subarray whose average value is bigger than "x", and find it in O(n) time.
 How to check whether an average bigger than "mid" exists in O(n) time?
 
 1. Minus all elements in the array by "mid".
@@ -32,28 +33,28 @@ With this very important algorithm, we can use binary search between the smalles
 """
 class Solution:
     def findMaxAverage(self, nums: List[int], k: int) -> float:
-        start, end = min(nums), max(nums)       # 二分答案: start, end不是idx,而是avg数值
-        while start + 10**(-5) < end:       
-            mid = start + (end - start) / 2     # 注意这题二分答案可能是小数，所以不要用整除号
-            if self._is_possible(nums, mid, k): # 判断是否有比mid更大的avg
+        start, end = min(nums), max(nums)
+        while start + 10**(-5) < end:            # 注意这题二分答案可能是小数，所以不是start + 1
+            mid = start + (end - start) / 2      # 注意这题二分答案可能是小数，所以不要用整除号
+            if self.is_possible(nums, mid, k):   # 判断是否有比mid更大的avg
                 start = mid
             else:
                 end = mid
-        return end if self._is_possible(nums, start, k) else start
+        
+        return start         # return start or end 都可以，因为start + 10**(-5) < end
     
-    def _is_possible(self, nums, target_avg, k):
+    def is_possible(self, nums, target_avg, k):
         """
         Return if there is an k-window avg that is larger than the target_avg
         """
-        pre_sum = [0 for _ in range(len(nums) + 1)]
-        for i in range(len(nums)):
-            pre_sum[i+1] = pre_sum[i] + nums[i] - target_avg    # 这里减去target_avg就只需要比较max_avg是不是大于零就可以了
+        presums = [0 for _ in range(len(nums) + 1)]
+        for i, num in enumerate(nums):
+            presums[i+1] = presums[i] + num - target_avg    # 这里减去target_avg就只需要比较max_avg是不是大于零就可以了
             
         # next is similar with 121. Best Time to Buy and Sell Stock, to find the max_diff in pre_sum arr
-        curr_min = nums[0]      # keep a curr_min and use it for compare
-        for i in range(len(pre_sum) - k):
-            curr_min = min(curr_min, pre_sum[i])
-            max_diff = pre_sum[i + k] - curr_min       # pre_sum[i + k]与min_sum之间至少有k个数, 这一点与121有点区别
-            if max_diff >= 0:
+        curr_min = presums[0]       # keep a curr_min and use it for compare
+        for i, presum in enumerate(presums):    
+            curr_min = min(curr_min, presum)
+            if i + k < len(presums) and presums[i+k] - curr_min >= 0:   # pre_sum[i + k]与min_sum之间至少有k个数, 这一点与121有点区别
                 return True
         return False
