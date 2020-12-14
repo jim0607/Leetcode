@@ -30,22 +30,21 @@ Output: true
 """
 class Solution:
     def validMountainArray(self, arr: List[int]) -> bool:
-        if len(arr) <= 2:
+        if len(arr) < 3:
             return False
-        
-        should_increase = True
-        dec_cnt = 0
+
         inc_cnt = 0
+        dec_cnt = 0
         for i in range(1, len(arr)):
-            if arr[i] > arr[i-1]:
-                if not should_increase:
+            if arr[i] == arr[i-1]:
+                return False
+            elif arr[i] > arr[i-1]:
+                if dec_cnt > 0:
                     return False
                 inc_cnt += 1
             elif arr[i] < arr[i-1]:
-                if should_increase:
-                    if dec_cnt == 0:
-                        dec_cnt += 1
-                        should_increase = False                        
-            else:
-                return False
-        return dec_cnt > 0 and inc_cnt > 0
+                if inc_cnt == 0:
+                    return False
+                dec_cnt += 1
+                
+        return inc_cnt > 0 and dec_cnt > 0
