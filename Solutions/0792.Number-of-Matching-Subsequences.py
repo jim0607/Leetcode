@@ -44,29 +44,30 @@ use binary search in s.  O(mklogn)
 """
 class Solution:
     def numMatchingSubseq(self, s: str, words: List[str]) -> int:
-        ch_to_idx = collections.defaultdict(list)
+        ch_to_idx = defaultdict(list)
         for i, ch in enumerate(s):
             ch_to_idx[ch].append(i)
         
         res = 0
         for word in words:
-            start_idx = 0           # start_idx for binary search in s
+            start_idx = 0               # start_idx for binary search in s
             i = 0
+            can_find_every_ch = True    # can find every ch_of_word in s
             for i in range(len(word)):
                 ch = word[i]
                 if ch not in ch_to_idx:
+                    can_find_every_ch = False
                     break
                     
                 idx_lst = ch_to_idx[ch]     # the index list we are going to do binary search in
-                if start_idx > idx_lst[-1]:
+                if start_idx > idx_lst[-1]: # 如果这个ch在s中最后一次出现都比start_idx早，那在start_idx后面就找不到ch了
+                    can_find_every_ch = False
                     break
                     
                 next_idx = self._binary_search(idx_lst, start_idx)
                 start_idx = next_idx + 1
-                
-                i += 1
             
-            if i == len(word):      # 每一个ch in word都在s中找到了
+            if can_find_every_ch:      # 每一个ch in word都在s中找到了
                 res += 1
                 
         return res
