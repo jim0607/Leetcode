@@ -1,5 +1,5 @@
 ## 每日40题，加油吧！太难的就跳过吧，最后的机会！！
-#### 11/24: 1153; 11/25: 432; 11/26: 158; 11/27: 503; 11/29: 992; 11/30: 689; 12/01: 1167; 12/02: 159; 12/03: 124; 12/05: 1038; 12/06: 327; 12/07: 815; 12/08: 1334; 12/10: 785; 12/11: 1444
+#### 11/24: 1153; 11/25: 432; 11/26: 158; 11/27: 503; 11/29: 992; 11/30: 689; 12/01: 1167; 12/02: 159; 12/03: 124; 12/05: 1038; 12/06: 327; 12/07: 815; 12/08: 1334; 12/10: 785; 12/11: 1444; 12/13: 644
 
 
 # [Data Structure](/Data-Structure.py)
@@ -1815,6 +1815,12 @@ helper函数定义为是否有k个数大于mid, helper函数利用sorted matrix�
 so overall O((m+n)log(mn))
 - [1060. Missing Element in Sorted Array](Solutions/1060.Missing-Element-in-Sorted-Array.py) (!!!M Google) <br>
 定义一个function missing(idx) to find the number of number missing before idx. so that we can compare missing(mid) with k. Google真的把binary search 玩出花了！
+
+
+
+
+### [二分答案](/Binary-Search.py)
+##### 1. minimum of maximum / maximum of minimum 的问题; 2. minimum/maximum to satisfy some condition 的问题
 - [0643. Maximum Average Subarray I](Solutions/0643.Maximum-Average-Subarray-I.py) (E) <br>
 - [0644. Maximum Average Subarray II](Solutions/0644.Maximum-Average-Subarray-II.py) (!!H Google) <br>
 binary search + prefix sum + best_time_to_buy_and_sell_stock (two pointers). 二分答案：初始化 left 为原数组的最小值，right 为原数组的最大值 - O(Nlog(max-min)). helper function比较难需要构造prefix_sum, 然后check if there is in a sum with at least K length that is larger than mid, which we can do in linear time by keeping a min_sum and use it for compare, similar with 121. Best Time to Buy and Sell Stock
@@ -1823,12 +1829,6 @@ binary search + sliding window 二分答案：sort the list, then it becomes [1,
 we use two pointers to go through the list to check if there is more than k distance smaller than mid. The algorithm of helper function is sliding window so it's only O(N)
 - [0302. Smallest Rectangle Enclosing Black Pixels](Solutions/0302.Smallest-Rectangle-Enclosing-Black-Pixels.py) (!!H) <br>
 solution 1: simple dfs visit every balck pixel, and update the max_i, max_j, min_i, min_j during dfs. - O(mn). solution 2: 我们需要知道Black出现的最大的i和最小的i, 所以我们可以求出每一行的第一个Black和最后一个Black的idx, 就是我们想求的最大的i和最小的i了，转换成了OOXX问题了. 这题可以用binary search的原因是有且只有一个Black的岛屿，所以每一行都是一个先上后下的mountain array. - O(mlogn+nlogm). 我们在某一行扫binary search的时候范围是start, end = 0, self.min_j 
-
-
-
-
-### [二分答案](/Binary-Search.py)
-##### 1. minimum of maximum / maximum of minimum 的问题; 2. minimum/maximum to satisfy some condition 的问题
 - [1283. Find the Smallest Divisor Given a Threshold](Solutions/1283.Find-the-Smallest-Divisor-Given-a-Threshold.py) (M) <br>
 minimum/maximum to satisfy some condition 的问题: helper function returns whether we can have sum(num//mid) <= threshold? start = 1, end = max(nums) + 1
 - [0875. Koko Eating Bananas](Solutions/0875.Koko-Eating-Bananas.py) (M) <br>
