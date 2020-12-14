@@ -37,21 +37,15 @@ Google真的把binary search 玩出花了！
 """
 class Solution:
     def missingElement(self, nums: List[int], k: int) -> int:
-        lens = len(nums)
-        if k > self._missing(nums, (lens - 1)):
-            return nums[-1] + (k - self._missing(nums, lens - 1))
+        if k > nums[-1] - nums[0] - len(nums) + 1:
+            return k + nums[0] + len(nums) - 1
         
-        start, end = 0, lens - 1
+        start, end = 0, len(nums) - 1
         while start + 1 < end:
             mid = start + (end - start) // 2
-            if self._missing(nums, mid) >= k:    # there are more than k numbers missing before mid idx
+            if nums[mid] - nums[0] - mid >= k:  # there are more than k numbers missing before mid idx
                 end = mid
             else:
                 start = mid
-
-        # after the while loop, k should be between start and end
-        return nums[start] + (k - self._missing(nums, start))  # 由于是往左逼，所以可以保证self._missing(start) <= k
-        
-        
-    def _missing(slef, nums, idx):      # calculate how many numbers are missing before idx
-        return nums[idx] - nums[0] - idx
+            
+        return k + nums[0] + start
