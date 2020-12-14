@@ -32,7 +32,7 @@ class Solution:
             while a >= (b << (shift + 1)):
                 shift += 1
                 
-            res += 1 << shift
-            a -= b << shift
+            res += 1 << shift   # 提取除数
+            a -= b << shift     # 提取余数
             
         return min(res if sign else -res, 2**31-1)
