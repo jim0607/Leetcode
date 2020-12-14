@@ -31,6 +31,36 @@ In a sorted arr, we want to place balls, each ball are at least mid distance to 
 can we place more than k balls?
 """
 class Solution:
+    def maxDistance(self, position: List[int], m: int) -> int:
+        position.sort()
+        
+        start = min(position[i] - position[i-1] for i in range(1, len(position)))
+        end = position[-1] - position[0]
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            if self.is_possible(position, mid, m):
+                start = mid
+            else:
+                end = mid
+        return end if self.is_possible(position, end, m) else start
+    
+    def is_possible(self, position, min_force, m):
+        """
+        return if it is possible to distribute m balls and make sure every two balls
+        have distance >= min_force with each other
+        Greedy: each time we find that a ball is possible to be placed, we place a ball.
+        """
+        ball_cnt = 1
+        curr_pos = position[0]
+        for pos in position:
+            if pos - curr_pos >= min_force: # each time we find that a ball is possible to be placed, we place a ball
+                ball_cnt += 1
+                curr_pos = pos
+        return ball_cnt >= m
+
+
+
+class Solution:
     def maxDistance(self, positions: List[int], k: int) -> int:
         positions.sort()
         start, end = 1, positions[-1] - positions[0]
