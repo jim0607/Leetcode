@@ -24,6 +24,41 @@ where the largest sum among the two subarrays is only 18.
 """
 
 
+
+"""
+if we can split the arr to realize s as it's max_sum, then we can spit is to realize > s as it's max_sum. So it is a XXXOOO problem to find the first O.
+binary search on the max_sum.
+helper function return whether or not the max_sum <= mid.
+if yes, drop the right part, else drop the left part
+"""
+class Solution:
+    def splitArray(self, nums: List[int], k: int) -> int:
+        start = max(nums)
+        end = sum(nums)
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            if self.is_possible(nums, mid, k):
+                end = mid
+            else:
+                start = mid
+        return start if self.is_possible(nums, start, k) else end
+    
+    def is_possible(self, nums, max_sum, k):
+        """
+        return whether or not it is possible to spit the arr, so that the max sum the m subarrays is smaller than max_sum
+        greedy: whenever we are about to get a sum larger than s, we stop and split
+        """
+        sub_cnt = 1
+        curr_sum = 0
+        for num in nums:
+            if curr_sum + num > max_sum:
+                sub_cnt += 1
+                curr_sum = 0
+            curr_sum += num
+        return sub_cnt <= k
+
+
+
 """
 If we can divide nums so that the minimum subarray sum is mid, we can also divide nums so that the minimum subarray sum is larger than mid.
 So this is a OOXX problem.  The difficult part is to check if mid is valid.
