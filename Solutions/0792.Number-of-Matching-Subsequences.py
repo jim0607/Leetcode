@@ -47,40 +47,67 @@ class Solution:
         ch_to_idx = defaultdict(list)
         for i, ch in enumerate(s):
             ch_to_idx[ch].append(i)
-        
+            
         res = 0
         for word in words:
             start_idx = 0               # start_idx for binary search in s
-            i = 0
             can_find_every_ch = True    # can find every ch_of_word in s
-            for i in range(len(word)):
-                ch = word[i]
+            for ch in word:
                 if ch not in ch_to_idx:
                     can_find_every_ch = False
                     break
-                    
+                
                 idx_lst = ch_to_idx[ch]     # the index list we are going to do binary search in
-                if start_idx > idx_lst[-1]: # 如果这个ch在s中最后一次出现都比start_idx早，那在start_idx后面就找不到ch了
+                if start_idx > idx_lst[-1]: # 如果在start_idx后面就找不到ch了
                     can_find_every_ch = False
                     break
                     
-                next_idx = self._binary_search(idx_lst, start_idx)
-                start_idx = next_idx + 1
-            
-            if can_find_every_ch:      # 每一个ch in word都在s中找到了
+                idx = bisect.bisect_left(idx_lst, start_idx)
+                start_idx = idx_lst[idx] + 1
+                
+            if can_find_every_ch:           # 每一个ch in word都在s中找到了
                 res += 1
                 
         return res
     
-    def _binary_search(self, idx_lst, target_idx):
-        """
-        find the first idx in idx_lst that is larger/equal than/to target_idx
-        """
-        start, end = 0, len(idx_lst) - 1
+    
+    
+    
+    
+class Solution:
+    def numMatchingSubseq(self, s: str, words: List[str]) -> int:
+        ch_to_idx = defaultdict(list)
+        for i, ch in enumerate(s):
+            ch_to_idx[ch].append(i)
+            
+        res = 0
+        for word in words:
+            start_idx = 0               # start_idx for binary search in s
+            can_find_every_ch = True    # can find every ch_of_word in s
+            for ch in word:
+                if ch not in ch_to_idx:
+                    can_find_every_ch = False
+                    break
+                
+                idx_lst = ch_to_idx[ch]     # the index list we are going to do binary search in
+                if start_idx > idx_lst[-1]: # 如果在start_idx后面就找不到ch了
+                    can_find_every_ch = False
+                    break
+                    
+                idx = self.binary_search(idx_lst, start_idx)
+                start_idx = idx + 1
+                
+            if can_find_every_ch:           # 每一个ch in word都在s中找到了
+                res += 1
+                
+        return res
+    
+    def binary_search(self, lst, num):
+        start, end = 0, len(lst) - 1
         while start + 1 < end:
             mid = start + (end - start) // 2
-            if idx_lst[mid] >= target_idx:
+            if lst[mid] >= num:
                 end = mid
             else:
                 start = mid
-        return idx_lst[start] if idx_lst[start] >= target_idx else idx_lst[end]
+        return lst[start] if lst[start] >= num else lst[end]
