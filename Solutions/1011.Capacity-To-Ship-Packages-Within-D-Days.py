@@ -47,6 +47,33 @@ similar with copy books
 """
 class Solution:
     def shipWithinDays(self, weights: List[int], D: int) -> int:
+        start, end = max(weights), sum(weights)
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            if self.can_ship(weights, mid, D):
+                end = mid
+            else:
+                start = mid
+        return start if self.can_ship(weights, start, D) else end
+    
+    def can_ship(self, weights, cap, D):
+        """
+        return whether we can ship all weights with cap ship, within D days
+        """
+        days_needed = 1
+        curr_load = 0
+        for weight in weights:
+            if curr_load + weight > cap:
+                days_needed += 1
+                curr_load = 0
+            curr_load += weight
+        return days_needed <= D
+
+
+
+
+class Solution:
+    def shipWithinDays(self, weights: List[int], D: int) -> int:
         start, end = max(weights), sum(weights) + 1
         while start + 1 < end:
             mid = start + (end - start) // 2
