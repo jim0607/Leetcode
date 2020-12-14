@@ -24,6 +24,39 @@ binary search: O(nlog(sum(pages)-max(pages))), n is the number of books
 """
 class Solution:
     def copyBooks(self, pages, k):
+        if not pages:
+            return 0
+            
+        start, end = max(pages), sum(pages)
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            if self.is_possible(pages, mid, k):
+                end = mid
+            else:
+                start = mid
+        return start if self.is_possible(pages, start, k) else end
+        
+    def is_possible(self, pages, threshold, k):
+        """
+        return if k paople can finish in mid time.  Algorithm: greedy. 每次发现要超时了就加一个人。
+        sweep the books and keep track of the curr_time. 
+        when we find we cannot finish all pages in timeLimit, we add a new person and set the curr_time for the new person to be zero
+        """
+        people_needed = 1
+        curr_time = 0
+        for page in pages:
+            if curr_time + page > threshold:
+                people_needed += 1
+                curr_time = 0
+            curr_time += page
+        return people_needed <= k
+
+
+
+
+
+class Solution:
+    def copyBooks(self, pages, k):
         if not pages: return 0
         start, end = max(pages), sum(pages) + 1
         while start + 1 < end:
@@ -51,33 +84,6 @@ class Solution:
     
   
 
-
-
-class Solution:
-    def copyBooks(self, pages, k):
-        if not pages:
-            return 0
-            
-        startTime, endTime = max(pages), sum(pages)
-        while startTime + 1 < endTime:
-            midTime = startTime + (endTime - startTime) // 2
-            if self.canFinish(pages, k, midTime):
-                endTime = midTime
-            else:
-                startTime = midTime
-                
-        return startTime if self.canFinish(pages, k, startTime) else endTime
-        
-    def canFinish(self, pages, k, timeLimit):
-        k -= 1
-        timeNeeded = 0   
-        for page in pages:
-            if timeNeeded + page > timeLimit:    
-                k -= 1
-                timeNeeded = 0  
-            timeNeeded += page
-            
-        return k >= 0
     
 
 """需要找到一种分段方式，使得所有段的数字之和的最大值最小
