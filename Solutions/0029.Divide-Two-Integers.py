@@ -28,7 +28,7 @@ class Solution:
         
         res = 0
         while a >= b:
-            shift = 0
+            shift = 0       # shift多少次就是乘以多少次2
             while a >= (b << (shift + 1)):
                 shift += 1
                 
