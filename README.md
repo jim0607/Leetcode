@@ -311,6 +311,8 @@ sliding window可解
 这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
 两个while循环，一个while loop do sliding window to update res, 从队首pop, 同时更新res, 
 另一个while loop do monostack to maintain an increasing dq, 从队尾pop, 对deq进行清理。
+- [1237. Find Positive Integer Solution for a Given Equation](Solutions/1237.Find-Positive-Integer-Solution-for-a-Given-Equation.py) (E Google) <br>
+反向双指针. 
 
 ### Sliding window with fixed size
 - [1456. Maximum Number of Vowels in a Substring of Given Length](Solutions/1456.Maximum-Number-of-Vowels-in-a-Substring-of-Given-Length.py) (M) <br>
@@ -1999,8 +2001,7 @@ Solution: two pointers, the same process of merge part in merge sort.
 three pointers: i starts from beginning of A; j starts from the end of A; k starts from end of res 
 - [0011. Container With Most Water](Solutions/0011.Container-With-Most-Water.py) (!!M) <br>
 if height[i] > height[j]: j -= 1  # meaning that 右边的栅栏更低，所以把右边指针移动一下，希望能用长度去compromise宽度，即寄希望于min(height[i], height[j])会变大，来compromise掉(j - i)的变小. 为什么不移左边指针呢？因为移动左边的话，min(height[i], height[j])不会变大，但是(j - i)一定变小，所以面积一定变小.
-- [1237. Find Positive Integer Solution for a Given Equation](Solutions/1237.Find-Positive-Integer-Solution-for-a-Given-Equation.py) (E Google) <br>
-反向双指针.  
+ 
 
 
 ### [同向双指针](/Two-pointers.py)
