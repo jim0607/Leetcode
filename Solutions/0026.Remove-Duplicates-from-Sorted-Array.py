@@ -61,16 +61,11 @@
 # }
 #
 
-# @lc code=start
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        slow = 0
-        for fast in range(1, len(nums)):
-            if nums[fast] != nums[slow]:
-                slow += 1
-                nums[slow] = nums[fast]
-        
-        return slow + 1
-        
-# @lc code=end
-
+        anchor = 0      # anchor keeps all the unique numbers on it's left
+        for i in range(1, len(nums)):
+            if nums[i] != nums[i-1]:
+                anchor += 1
+                nums[anchor] = nums[i]
+        return anchor + 1
