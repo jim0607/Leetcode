@@ -33,21 +33,19 @@ O(M+N)
 """
 class Solution:
     def customSortString(self, s: str, t: str) -> str:
-        ch_to_idx = collections.defaultdict(int)
+        ch_to_idx = defaultdict(int)
         for idx, ch in enumerate(s):
             ch_to_idx[ch] = idx
-        
+            
         n = len(s)
-        buckets = [[] for _ in range(n + 1)]
+        bucket = ["" for _ in range(n + 1)]
         for ch in t:
-            if ch not in ch_to_idx:
-                buckets[-1].append(ch)
+            if ch in ch_to_idx:
+                bucket[ch_to_idx[ch]] += ch
             else:
-                bucket_id = ch_to_idx[ch]
-                buckets[bucket_id].append(ch)
-        
+                bucket[n] += ch
+                
         res = ""
-        for bucket in buckets:
-            for ch in bucket:
-                res += ch
+        for chars in bucket:
+            res += chars
         return res
