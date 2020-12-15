@@ -1855,6 +1855,9 @@ minimum of maximum / maximum of minimum 的问题: If we can do it at D, then we
 The difficult part is to find if is_valid to place K stations so that every adjacent station has distance smaller than D - using greedy. 注意这一题的start, end都是小数
 - [0792. Number of Matching Subsequences](Solutions/0792.Number-of-Matching-Subsequences.py) (!!M Google) <br>
 solution 1: compare each word with source string using two pointers. O(nmk), where n = len(s), m = len(words) and k = average lens of word in words. solution 2: use binary search in s, similar with 1055.  O(mklogn)
+- [0524. Longest Word in Dictionary through Deleting](Solutions/0524.Longest-Word-in-Dictionary-through-Deleting.py) (!!M) <br>
+sort the words by lens, and check the word one by one to see if there is a match. How to check if word matches s? use two pointers to traverse word and s, compare as they go.
+solution 2: binary search on s. same as 792. Number of Matching Subsequences.
 - [0392. Is Subsequence](Solutions/0392.Is-Subsequence.py) (!!E Google) <br>
 solution 1: two pointers. solution 2: binary search.
 - [1055. Shortest Way to Form String](Solutions/1055.Shortest-Way-to-Form-String.py) (!!M Google) <br>
@@ -2080,8 +2083,7 @@ step 1: cut the list into two halves; step 2: reverse the 2nd half; step 3: conn
 - [0844. Backspace String Compare](Solutions/0844.Backspace-String-Compare.py) (!!!E) <br>
 这种双指针处理比较双序列问题很常见。由于题目"#"可以删掉前面的ch, We can use a pointer traverse from __right to left__, and use a counter to count how many "#" we got so far. 一般要求用O(1) space解决。Google follow up: 加一个按键是类似caps lock，即按了之后所有的字母小写变大写，再按一下大写变小写。
 思路：定义caps cnt，先扫一遍看多少个caps lock，比较s1.charAt(i) == s2.charAt(j) && caps1 == caps2
-- [0524. Longest Word in Dictionary through Deleting](Solutions/0524.Longest-Word-in-Dictionary-through-Deleting.py) (M) <br>
-sort the words by lens, and check the word one by one to see if there is a match. How to check if word matches s? use two pointers to traverse word and s, compare as they go.
+
 - [0809. Expressive Words](Solutions/0809.Expressive-Words.py) (!!!M Google) <br>
 pre-calculate how many successive same chars are there at each idx: "heeellooo" --> {0: 1, 1: 3, 2: 2, 3: 1, 4: 2, 5: 1, 6: 3, 7: 2, 8: 1}
 
