@@ -34,62 +34,34 @@ class Solution:
         
 # solution 1: merge sort (top down recurssion)
 # there are logN merge operations and each merging takes O(N) operations. That is why the time complexity is O(NlogN)
-class Solution:
-    def sortArray(self, nums: List[int]) -> List[int]:
-        return self._mergeSort_(nums)
+def sortArray(self, nums: List[int]) -> List[int]:
+    if len(nums) <= 1:
+        return nums
 
-    def _mergeSort_(self, arr):
-        lens = len(arr)
-        if lens <= 1:
-            return arr  # if return None, then leftArr = self._mergeSort_(arr[:mid]) could be a typeErrot: object of type "NoneType has no len()"
-        
-        # 1. divide 先局部有序
-        mid = lens // 2
-        leftArr = self._mergeSort_(arr[:mid])
-        rightArr = self._mergeSort_(arr[mid:])
+    # ste p1: divide - 由于每次都是稳定取中间进行divide
+    # 所以recursion tree的深度可以稳定在log(N)
+    mid = len(nums) // 2 
+    leftArr = self.sortArray(nums[:mid])
+    rightArr = self.sortArray(nums[mid:])
 
-        # 2. merge 再整体有序
-        i, j, k = 0, 0, 0
-        while i < len(leftArr) and j < len(rightArr):
-            if leftArr[i] < rightArr[j]:
-                arr[k] = leftArr[i]
-                i += 1
-            else:
-                arr[k] = rightArr[j]
-                j += 1
-            k += 1
-        while i < len(leftArr):
-            arr[k] = leftArr[i]
+    # step 2: conquer
+    i, j, k = 0, 0, 0
+    while i < len(leftArr) and j < len(rightArr):
+        if leftArr[i] < rightArr[j]:
+            nums[k] = leftArr[i]
             i += 1
             k += 1
-        while j < len(rightArr):
-            arr[k] = rightArr[j]
+        else:
+            nums[k] = rightArr[j]
             j += 1
             k += 1
-            
-        return arr
+    while i < len(leftArr):
+        nums[k] = leftArr[i]
+        i += 1
+        k += 1
+    while j < len(rightArr):
+        nums[k] = rightArr[j]
+        j += 1
+        k += 1
 
-    
-class Solution:
-    def sortArray(self, nums: List[int]) -> List[int]:
-        if len(nums) <= 1:
-            return nums
-        
-        mid = len(nums) // 2
-        left = self.sortArray(nums[:mid])
-        right = self.sortArray(nums[mid:])
-        
-        res = []
-        i, j, k = 0, 0, 0
-        while i < len(left) and j < len(right):
-            if left[i] < right[j]:
-                res.append(left[i])
-                i += 1
-            else:
-                res.append(right[j])
-                j += 1
-                
-        res += left[i:]
-        res += right[j:]
-        
-        return res
+    return nums
