@@ -20,18 +20,24 @@ Output: 2->3
 """
 anchor stays where on it's left there is only distinct numbers
 """
+"""
+anchor stays where on it's left there is only distinct numbers
+"""
 class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
-        if not head or not head.next:
-            return head
-        
-        slow, fast = head, head.next
-        while fast:
-            if fast.val != slow.val:
-                slow = slow.next
-                slow.val = fast.val
-            fast = fast.next
-        
-        slow.next = None    # 把anchor后面的都断开，因为后面的都是duplicated numbers
-        
-        return head
+        dummy = ListNode(float("inf"))
+        dummy.next = head
+        anchor, prev, curr = dummy, dummy, head
+        while curr:
+            if prev.val == curr.val:
+                prev = prev.next
+                curr = curr.next
+            else:
+                if not curr.next or curr.next.val != curr.val:
+                    anchor.next = curr
+                    anchor = anchor.next
+                prev = prev.next
+                curr = curr.next
+                
+        anchor.next = None      # 把anchor后面的都断开，因为后面的都是duplicated numbers
+        return dummy.next
