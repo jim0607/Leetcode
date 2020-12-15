@@ -39,35 +39,35 @@ Python quick select (use partition) average time O(N) and worst O(N^2)"""
 
 
 """  Celia's template for partition  """
-class Solution:
-    def findKthLargest(self, nums: List[int], k: int) -> int:
-        if not nums or k < 1 or k > len(nums):
-            return None
+def findKthLargest(self, nums: List[int], k: int) -> int:
+    if not nums or k < 1 or k > len(nums):
+        return None
 
-        return self.partition(nums, 0, len(nums) - 1, len(nums) - k)
+    return self._quick_select(nums, 0, len(nums) - 1, len(nums) - k)
 
-    def partition(self, nums, start, end, k):
-        if start == end:
-            return nums[k]      # 一定要心里记着partition function return的是什么
-
-        left, right = start, end
-        pivot = nums[(start + end) // 2]
-        while left <= right:
-            while left <= right and nums[left] < pivot:
-                left += 1
-            while left <= right and nums[right] > pivot:
-                right -= 1 
-            if left <= right:
-                nums[left], nums[right] = nums[right], nums[left]
-                left += 1
-                right -= 1
-
-        if k <= right:
-            return self.partition(nums, start, right, k)
-        if k >= left:
-            return self.partition(nums, left, end, k)
-
+def _quick_select(self, nums, start, end, k):
+    if start == end:    # 模板注意点1
         return nums[k]
+
+    left, right = start, end
+    pivot = nums[(start + end) // 2]
+    while left <= right:    # 模板注意点2
+        while left <= right and nums[left] < pivot:    # 模板注意点3
+            left += 1
+        while left <= right and nums[right] > pivot:
+            right -= 1 
+        if left <= right:
+            nums[left], nums[right] = nums[right], nums[left]
+            left += 1
+            right -= 1
+
+    if k <= right:      # 模板注意点4
+        return self._quick_select(nums, start, right, k)
+    elif k >= left:     # 模板注意点5
+        return self._quick_select(nums, left, end, k)
+    else:
+        return nums[k]
+
 
 
 
