@@ -32,7 +32,8 @@
 
 
 """
-anchor keeps the first zero position
+下面这个解法是move non-zeros whenever we find one. 
+这个解法可以maintain non-zero的relative order, 但是不能maintain zero的relative order
 """
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
@@ -43,21 +44,22 @@ class Solution:
         for i in range(len(nums)):
             if nums[i] != 0:
                 nums[i], nums[anchor] = nums[anchor], nums[i]
-                anchor += 1       
+                anchor += 1
+        return nums   
 
 
-
+"""
+下面这个解法是move zeros whenever we find one.
+这个解法可以maintain zero的relative order, 但是不能maintain non-zero的relative order
+"""
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
         """
         Do not return anything, modify nums in-place instead.
         """
-        lens = len(nums)
-        anchor, curr = 0, 0
-        while curr < lens:
-            if nums[curr] != 0:
-                nums[anchor], nums[curr] = nums[curr], nums[anchor]
-                anchor += 1
-            curr += 1
-            
-            
+        anchor = len(nums) - 1
+        for i in range(len(nums) - 1, -1, -1):
+            if nums[i] == 0:
+                nums[i], nums[anchor] = nums[anchor], nums[i]
+                anchor -= 1
+        return nums
