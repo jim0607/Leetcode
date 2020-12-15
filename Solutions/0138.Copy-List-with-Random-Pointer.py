@@ -106,7 +106,6 @@ class Solution:
                 nodeDict[curr] = Node(curr.val)
                 
             newCurr.next = nodeDict[curr]                       # val copied
-            newCurr.next.next = curr.next                       # next copied
             
             if curr.random:
                 if curr.random not in nodeDict:
