@@ -2010,7 +2010,7 @@ similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check w
 - [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py) (E) <br>
 modify nums1 in-place, 由于nums1有足够空间，我们可以从nums1的尾部开始排，use i, j, k = m - 1, n - 1, m + n -1; 把最大的数放到nums1的后面
 - [0283. Move Zeroes](Solutions/0283.Move-Zeroes.py) (E) <br>
-anchor is the first zero element, __anchor keeps all the non-zero numbers on it's left, that is the reason the pointer is called anchor__. while curr runs forward, whenever curr equals a non-zero number, switch it to anchor, and move anchor one step forward.  Solution 2: partition using the method in 31, but not accepted cuz partition changes the original order of non-zero numbers. Beacuase quick sort is a ramdomized sorting algorithm.
+anchor is the first zero element, __anchor keeps all the non-zero numbers on it's left, that is the reason the pointer is called anchor__. while curr runs forward, whenever curr equals a non-zero number, switch it to anchor, and move anchor one step forward.  __注意怎样maintain non-zero numbers的relative order非常的tricky__.  Solution 2: partition using the method in 31, but not accepted cuz partition changes the original order of non-zero numbers. Beacuase quick sort is a ramdomized sorting algorithm.
 - [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (!!E) <br>
 典型的同向双指针 on the left of anchor (including anchor) are the maintained array without duplicates
 - [0083. Remove Duplicates from Sorted List](Solutions/0083.Remove-Duplicates-from-Sorted-List.py) (!!E) <br>
