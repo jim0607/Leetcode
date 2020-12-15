@@ -62,32 +62,29 @@ The problem is asking for O(1) space.
 """
 class Solution:
     def backspaceCompare(self, s: str, t: str) -> bool:
-        s_cnt = 0
-        t_cnt = 0
         i, j = len(s) - 1, len(t) - 1
-        while True:         # 注意不要写成while i >= 0 and j >= 0 了
+        s_cnt, t_cnt = 0, 0
+        while True:     # 注意不要写成while i >= 0 and j >= 0 了
             # step 1: find the first 裸露在外面的ch of s and t
-            while i >= 0:
+            while i >= 0:    
                 if s[i] == "#":
                     s_cnt += 1
-                    i -= 1
                 else:
                     if s_cnt > 0:
                         s_cnt -= 1
-                        i -= 1
                     else:
                         break
+                i -= 1   
             while j >= 0:
                 if t[j] == "#":
                     t_cnt += 1
-                    j -= 1
                 else:
                     if t_cnt > 0:
                         t_cnt -= 1
-                        j -= 1
                     else:
                         break
-            
+                j -= 1
+                
             # step 2: 比较裸露在外面的ch of s and t
             if i < 0 and j < 0:
                 return True
@@ -95,9 +92,11 @@ class Solution:
                 return False
             if s[i] != t[j]:
                 return False
-            else:
-                i -= 1
-                j -= 1
+
+            i -= 1
+            j -= 1
+                
+        return False
                 
                     
                     
@@ -111,51 +110,52 @@ class Solution:
         idx1, idx2 = lens1 - 1, lens2 - 1
         cnt1, cnt2 = 0, 0
         cap1, cap2 = 0, 0
-        
-        # step 1: find how many caps are there in total for S and for T
+
+        # !!! step 1: find how many caps are there in total for S and for T
         for ch in S:
             if ch == "*":
                 cap1 += 1
         for ch in T:
             if ch == "*":
                 cap2 += 1
-        
+
         # step 2: traverse from right to left and 比较s1.charAt(i) == s2.charAt(j) && caps1 == caps2
         while True:
             while idx1 >= 0:
                 if S[idx1] == "#":
                     cnt1 += 1
-                    idx1 -= 1
                 elif S[idx1] == "*":
-                    cap1 -= 1    # the "*" in front of idx1 should be one less now
-                    idx1 -= 1
+                    cap1 -= 1  # the "*" in front of idx1 should be one less now
                 else:
                     if cnt1 > 0:
-                        idx1 -= 1
                         cnt1 -= 1
                     else:
                         break
+                idx1 -= 1
             while idx2 >= 0:
                 if T[idx2] == "#":
                     cnt2 += 1
-                    idx2 -= 1
                 elif T[idx2] == "*":
                     cap1 -= 1
-                    idx1 -= 1
                 else:
                     if cnt2 > 0:
-                        idx2 -= 1
                         cnt2 -= 1
                     else:
                         break
-                        
+                idx2 -= 1
+
+            # step 3: 比较裸露在外面的ch of s and t
             if idx1 < 0 and idx2 < 0:
                 return True
             if idx1 < 0 or idx2 < 0:
                 return False
-            if idx1 >= 0 and idx2 >= 0:
-                if S[idx1] != T[idx2] or cap1 % 2 != cap2 % 2:
+            if S[idx1] != T[idx2]:
+                if S[idx1].upper() != T[idx2].upper():
                     return False
-                else:
-                    idx1 -= 1
-                    idx2 -= 1
+                elif S[idx1].upper() == T[idx2].upper() and cap1 % 2 == cap2 % 2:
+                    return False
+            elif S[idx1] == T[idx2] and cap1 % 2 != cap2 % 2:
+                return False
+            
+            idx1 -= 1
+            idx2 -= 1
