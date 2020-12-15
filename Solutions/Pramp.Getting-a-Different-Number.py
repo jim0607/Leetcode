@@ -29,53 +29,15 @@ Constraints:
 
 
 
-
-"""
-arr = [0, 2, 1, 3]
-
-init:
-sort the arr
-[0,1,2,3]
-loop the arr:
-  the first number != idx
-O(nlogn)
-O(1)
-O(n)
-
-[0, 2, 1, 3]   # sum = 0 to len(arr)-1 - 6
-sum(arr) - 6: 6-6= 0, nothing is missing is [0 to 3], res = 4
-
-[0, 6, 1, 3]  # sum from 0 to  - 6
-sum(arr) = 10   # 10-6 = 4 means we are 
-
-max = max(arr), max-len(arr) = 2
-4 -2 = 2
-
-there could be more than one number missing
-
-thinking aobut ueing bit manipulation.
-
-bool = [False _ len(arr)] n  4
-loop arr:
-    bool[arr[i]] = True
-find the first False in bool
-
-0 5 1 3 10
-"""
-
-
-
-
 def get_different_number(arr):
-  n = len(arr)
-  b = [False for _ in range(n)]
+  seen = set()
   for num in arr:
-    if num > len(b) - 1:
-      continue
-    b[num] = True
-  for i in range(len(b)):
-    if not b[i]:
-      return i
-  return len(arr)
+    if num >= 0:
+      seen.add(num)
+  
+  n = 0
+  while n in seen:
+    n += 1
+  return n
   
   
