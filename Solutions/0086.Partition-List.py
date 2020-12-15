@@ -16,23 +16,22 @@ Output: 1->2->2->4->3->5
 #         self.val = val
 #         self.next = next
 class Solution:
-    def partition(self, head: ListNode, pivot: int) -> ListNode:
-        dummy1 = ListNode(-1)
-        dummy2 = ListNode(-1)
-        left, left_head = dummy1, dummy1        # 注意这里要用两个dummy node, 将左边和右边分开！！！
-        right, right_head = dummy2, dummy2
+    def partition(self, head: ListNode, x: int) -> ListNode:
+        left_dummy = ListNode(0)
+        right_dummy = ListNode(0)
+        left_curr, right_curr = left_dummy, right_dummy
         curr = head
         while curr:
-            if curr.val < pivot:
-                left.next = curr
-                left = left.next
+            if curr.val < x:
+                left_curr.next = curr
                 curr = curr.next
+                left_curr = left_curr.next
             else:
-                right.next = curr
-                right = right.next
+                right_curr.next = curr
                 curr = curr.next
-        
-        right.next = None               # 注意这里断开很重要
-        left.next = right_head.next     # 注意这里要把两边连起来
-            
-        return left_head.next
+                right_curr = right_curr.next
+                
+        right_curr.next = None              # 注意这里断开很重要
+        left_curr.next = right_dummy.next   # 注意这里要把两边连起来
+
+        return left_dummy.next
