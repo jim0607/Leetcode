@@ -35,6 +35,42 @@ Constructor: O(N). each query: O(logN)
 class TopVotedCandidate:
 
     def __init__(self, persons: List[int], times: List[int]):
+        self.res = []
+        self.times = times
+        cand_to_cnt = defaultdict(int)
+        
+        max_cnt = 0
+        for i in range(len(times)):
+            cand = persons[i]
+            cand_to_cnt[cand] += 1
+            if cand_to_cnt[cand] >= max_cnt:
+                max_cnt = cand_to_cnt[cand]
+                self.res.append(cand)
+            else:
+                self.res.append(self.res[-1])
+
+    def q(self, t: int) -> int:
+        start, end = 0, len(self.times) - 1
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            if self.times[mid] >= t:
+                end = mid
+            else:
+                start = mid
+        
+        if self.times[end] <= t:
+            return self.res[end]
+        else:
+            return self.res[start]
+
+
+
+
+
+
+class TopVotedCandidate:
+
+    def __init__(self, persons: List[int], times: List[int]):
         self.times = times
         
         # below 我们将每一个时刻的winner放到self.res中，这种提前计算好的思想非常重要！
