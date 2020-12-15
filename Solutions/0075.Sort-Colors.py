@@ -49,14 +49,14 @@ class Solution:
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
         # step 1: move all 0s to the left
-        anchor = 0
+        anchor = 0          # anchor keeps all the 0 on its left
         for curr in range(len(nums)):
             if nums[curr] == 0:
                 nums[anchor], nums[curr] = nums[curr], nums[anchor]
                 anchor += 1
         
         # step 2: move all 1s to the left of the rest of the arr
-        for curr in range(anchor, len(nums)):
+        for curr in range(anchor, len(nums)):   # now anchor keeps all the 1 on its left
             if nums[curr] == 1:
                 nums[anchor], nums[curr] = nums[curr], nums[anchor]
                 anchor += 1
