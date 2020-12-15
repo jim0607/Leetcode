@@ -48,6 +48,7 @@ class Solution:
             bucket[bucket_id] = nums[i]     # 把bucket_id加进去
             
             # 这一步是为了保证所有装在bucket dictionary里面的数的idx与下一个进来的i不会超过k的距离，如果有超过的就del出bucket dict
+            # 相当于sliding window with fixed size
             if i >= k:
                 bucket_id_to_delete = nums[i-k]//(t+1)    # 离i距离大于k的数字都用不到了，因为题目要求距离必须小于k
                 del bucket[bucket_id_to_delete]     # 可以delete掉的前提是一个bucket_id里面只有一个数，因为如果存在两个数的话早就return True了
