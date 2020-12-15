@@ -20,6 +20,18 @@ There is only one duplicate number in the array, but it could be repeated more t
 
 
 """
+cyclic sort
+"""
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        for num in nums:
+            idx = abs(num)
+            if nums[idx] < 0:
+                return idx
+            nums[idx] = -nums[idx]
+
+
+"""
 [1,5,3,6,2,2,4]
 1 -> 5 -> 2 -> 3 -> 6 -> 4 -> 2.... 形成了环
 可以把这个数组的每一个数num看成这样一个linked list node: num的下标代表.val, num的值代表.next指向下一个node。
