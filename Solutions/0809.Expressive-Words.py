@@ -31,6 +31,43 @@ S and all words in words consist only of lowercase letters
 """
 
 
+
+class Solution:
+    def expressiveWords(self, s: str, words: List[str]) -> int:
+        res = 0
+        for word in words:
+            if self.is_stretchy(s, word):
+                res += 1
+        return res
+    
+    def is_stretchy(self, s, word):
+        i, j = 0, 0
+        while i < len(s) and j < len(word):
+            if s[i] != word[j]:
+                return False
+            
+            s_pattern = s[i]
+            while i + 1 < len(s) and s[i+1] == s[i]:
+                s_pattern += s[i+1]
+                i += 1
+                
+            w_pattern = word[j]
+            while j + 1 < len(word) and word[j+1] == word[j]:
+                w_pattern += word[j+1]
+                j += 1
+            
+            if s_pattern != w_pattern and (len(s_pattern) < 3 or len(s_pattern) < len(w_pattern)):
+                return False
+            
+            i += 1
+            j += 1
+            
+        return i == len(s) and j == len(word)
+
+
+
+
+
 """
 pre-calculate how many successive same chars are there at each idx: "heeellooo" --> {0: 1, 1: 3, 2: 2, 3: 1, 4: 2, 5: 1, 6: 3, 7: 2, 8: 1}
 """
