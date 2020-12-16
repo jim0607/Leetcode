@@ -44,27 +44,32 @@ Notice you can have extra video after the event ends.
 """
 class Solution:
     def videoStitching(self, clips: List[List[int]], T: int) -> int:
+        if T == 0:
+            return 0
+        
         clips.sort(key = lambda x: (x[0], x[1]))
-    
-        # 下面就是套用jump game II的模板
-        curr_coverage = 0
+        
+        if clips[0][0] != 0:
+            return -1
+        
+        last_coverage = 0
+        next_coverage = clips[0][1]
+        cnt = 0
         i = 0
-        steps = 0
         while i < len(clips):
-            next_coverage = curr_coverage
-            while i < len(clips) and clips[i][0] <= curr_coverage:
+            while i < len(clips) and clips[i][0] <= last_coverage:
                 next_coverage = max(next_coverage, clips[i][1])
                 i += 1
+            cnt += 1
             
-            steps += 1
             if next_coverage >= T:
-                return steps
-            if curr_coverage == next_coverage:
+                return cnt
+            
+            if next_coverage == last_coverage:
                 return -1
             
-            i = curr_coverage + 1
-            curr_coverage = next_coverage
-        
+            last_coverage = next_coverage
+            
         return -1
 
 
