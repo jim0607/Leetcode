@@ -23,26 +23,24 @@ Explanation: The minimum number of jumps to reach the last index is 2.
 也就是说11-28我们可以通过两步跳到，那我们就继续在11-28这些位置中，选一个位置i跳第三步.........
 """
 class Solution:
-    def jump(self, nums: List[int]) -> int:
-        if len(nums) == 1:
-            return 0
-        if nums[0] >= len(nums) - 1:
-            return 1
-        
+    def canJump(self, nums: List[int]) -> bool:
         last_coverage = 0
-        next_coverage = nums[0]     # 记录第一步能跳到的最远的地方
+        next_coverage = nums[0] 
         i = 0
-        cnt = 0
         while i < len(nums):
-            while i <= last_coverage:   # 在0-10这些位置中，选一个位置i跳第二步，看看第二步能跳到最远的地方是哪里
+            while i <= last_coverage:           # 更新next_coverage
                 next_coverage = max(next_coverage, i + nums[i])
                 i += 1
             
-            cnt += 1
-            if next_coverage >= len(nums) - 1:      # check if reached destination already
-                return cnt
+            if next_coverage >= len(nums) - 1:  # 可以到达终点
+                return True
+            
+            if next_coverage == last_coverage:  # 无法前进了, 这个判断很重要，不然就死循环了
+                return False
             
             last_coverage = next_coverage
+            
+            
 
             
             
