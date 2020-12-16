@@ -50,6 +50,7 @@ class Solution:
         for spd, eff in workers:
             heappush(hq, spd)
             total_spd += spd
+            
             if len(hq) > k:
                 total_spd -= heappop(hq)
                 
