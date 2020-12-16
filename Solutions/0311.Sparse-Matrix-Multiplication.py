@@ -40,7 +40,7 @@ O(M+N + m*n), O(M+N), M is the number of elements in matrix A, m is the number o
 """
 class Solution:
     def multiply(self, A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
-        dictA, dictB = collections.defaultdict(int), collections.defaultdict(int)
+        dictA, dictB = defaultdict(int), defaultdict(int)
         for i in range(len(A)):
             for j in range(len(A[0])):
                 if A[i][j] != 0:
