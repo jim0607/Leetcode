@@ -54,7 +54,6 @@ Every time a fail happens, we start reset the gas_left to 0, and reset the possi
 The problem has an assumption: if sum of gas is more than sum of cost, then there must be a solution. 
 And the question guaranteed that the solution is unique(The first one I found is the right one).
 """
-"""
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
         if sum(gas) < sum(cost):
