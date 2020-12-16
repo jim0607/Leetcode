@@ -42,26 +42,26 @@ for other numbers try to check if existing groups can be used or it is neccessar
 """
 class Solution:
     def isPossible(self, nums: List[int]) -> bool:
-        counter = collections.Counter(nums)
-        need = collections.defaultdict(int)
+        cnter = Counter(nums)
+        can_append = defaultdict(int)
         for num in nums:
-            if counter[num] == 0:
+            if cnter[num] == 0:
                 continue
-            counter[num] -= 1      # 要用掉num, 所以别忘了freq自减一
+            cnter[num] -= 1     # 要用掉num, 所以别忘了freq自减一
             
-            # need[num] > 0说明num被前面的顺子所需要，也就是可以和前面组顺子
-            if need[num] > 0:       
-                need[num] -= 1      # 只要被前面的顺子需要，我就连上去
-                need[num + 1] += 1
+            # can_append[num] > 0 说明num可以append到前面的顺子中
+            # greedy: 只要能append到前面的顺子中，就append上去
+            if can_append[num] > 0:
+                can_append[num] -= 1        # 只要被前面的顺子需要，我就连上去
+                can_append[num + 1] += 1
                 
-            # need[num] == 0说明不被前面的顺子所需要，也就是不能和前面组顺子
+            # can_append[num] == 0 说明不能append到前面的顺子中
             # 那就只能往后面找顺子，去找num+1, num+2存不存在数组中
-            elif need[num] == 0:    
-                if counter[num + 1] > 0 and counter[num + 2] > 0:
-                    counter[num + 1] -= 1
-                    counter[num + 2] -= 1
-                    need[num + 3] += 1
-                else:
-                    return False    
-
-        return True
+            elif can_append[num] == 0:
+                if cnter[num + 1] == 0 or cnter[num + 2] == 0:
+                    return False
+                cnter[num + 1] -= 1
+                cnter[num + 2] -= 1
+                can_append[num + 3] += 1
+                
+        return True                
