@@ -13,6 +13,27 @@ Output: 9973
 Explanation: No swap.
 """
 
+
+"""
+solution 2: one pass from backward 一路更新 max_ch_idx - O(N)
+"""
+class Solution:
+    def maximumSwap(self, num: int) -> int:
+        s = [ch for ch in str(num)]
+        
+        max_ch_idx = len(s) - 1
+        swap = [0, 0]
+        for idx in range(len(s) - 1, -1, -1):
+            if s[idx] > s[max_ch_idx]:
+                max_ch_idx = idx
+            elif s[idx] < s[max_ch_idx]:
+                swap = [idx, max_ch_idx]
+        
+        s[swap[0]], s[swap[1]] = s[swap[1]], s[swap[0]]
+        
+        return int("".join(s))
+
+
 """
 solution 1: sort and compare - O(nlogn)
 """
@@ -30,22 +51,3 @@ class Solution:
                 res[i], res[idx] = res[idx], res[i]
                 break
         return int("".join(res))
-        
-
-"""
-solution 2: one pass from backward - O(N)
-"""
-class Solution:
-    def maximumSwap(self, num: int) -> int:
-        s = [ch for ch in str(num)]
-        num_to_idx = collections.defaultdict(int)
-        max_idx = len(s) - 1
-        need_swap = [-1, -1]
-        for i in range(len(s)-1, -1, -1):
-            if s[i] > s[max_idx]:
-                max_idx = i
-            elif s[i] < s[max_idx]:     # 如果碰到一个小的，应该与后面已经遍历过的max_idx交换
-                need_swap = (max_idx, i)    
-        
-        s[need_swap[0]], s[need_swap[1]] = s[need_swap[1]], s[need_swap[0]]
-        return int("".join(s))
