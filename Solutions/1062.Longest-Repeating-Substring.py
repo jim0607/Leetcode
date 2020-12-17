@@ -25,7 +25,37 @@ Output: 4
 Explanation: The longest repeating substring is "aaaa", which occurs twice.
 """
 
-
+"""
+solution 1: binary search
+"""
+class Solution:
+    def longestRepeatingSubstring(self, s: str) -> int:     # O(NLlogN)
+        start, end = 0, len(s)
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            if self.exist(s, mid):
+                start = mid
+            else:
+                end = mid
+        return end if self.exist(s, end) else start
+    
+    def exist(self, s, L):      # O(NL)
+        """
+        return if there exists L-lens repeating string in s
+        """
+        sub_s = deque()
+        sub_s_set = set()
+        for i, ch in enumerate(s):
+            sub_s.append(ch)
+            if i >= L:
+                sub_s.popleft()
+            
+            if i >= L - 1:
+                if str(sub_s) in sub_s_set:
+                    return True
+                sub_s_set.add(str(sub_s))
+                
+        return False                
 
 
 """
