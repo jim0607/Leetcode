@@ -14,6 +14,26 @@ Output: ["AAAAACCCCC", "CCCCCAAAAA"]
 """
 
 
+class Solution:
+    def findRepeatedDnaSequences(self, s: str) -> List[str]:
+        L = 10
+        sub_s = deque()
+        sub_s_set = set()
+        res = set()
+        for i, ch in enumerate(s):
+            sub_s.append(ch)
+            
+            if i >= L:
+                sub_s.popleft()
+                
+            if i >= L - 1:
+                temp = "".join(ch for ch in sub_s)
+                if temp in sub_s_set:
+                    res.add(temp)
+                else:
+                    sub_s_set.add(temp)
+        return list(res)
+
 """
 O(N) solution: Rabin Karp / Rolling hash. calculate the hash_code for each L = 10 window. 
 use a hash_code_set to record the calculated hash_code, if the newly calculated hahs_code is in the hash_code_set, then that means we have repeated sequance.
