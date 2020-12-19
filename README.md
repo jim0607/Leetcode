@@ -406,6 +406,8 @@ heap solution: maintain a hq with size k, the kth largest is always hq[0] - O(lo
 solution 1: heapq, time: O(N+KlogK), N 来自于for循环，logK来自于heap的长度是K，heap 的push 和pop都是logK; heapq适合做第K大，第K小，前K大，前K小问题; solution 2: quick select: O(N) - O(N^2).  solution 3: bucket sort O(N). use frequency as idx to store number.
 - [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (!!M) <br>
 需要一个freqDict来记录每个数出现的freq， heapq, heapq中放入的是(freq, key)对; 按照freq来做heapq，这样就保证了可以筛选出most freqent k item; solution 2: quick select should implement; solution 3: bucket sort O(N) faster then solution 2, cuz solution 2 is O(N^2) in worst case.
+- [Pramp__121820__Word-Count-Engine](Solutions/Pramp__121820__Word-Count-Engine.py) (!!M) <br>
+use freq as idx to do bucket sort. 做过了347结果还fail掉这题，真的是耻辱！
 - [0692. Top K Frequent Words](Solutions/0692.Top-K-Frequent-Words.py) (!!M) <br>
 heapq solution: O(N + klogN); quick select solution: O(N + klogk)
 - [0973. K Closest Points to Origin](Solutions/0973.K-Closest-Points-to-Origin.py) (M) <br>
