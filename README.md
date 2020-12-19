@@ -2309,6 +2309,9 @@ solution 1: sort and put larger lens in front. O(NlogN + N^2* L)
 ### [Math](/)
 - [1071. Greatest Common Divisor of Strings](Solutions/1071.Greatest-Common-Divisor-of-Strings.py) (!!!E) <br>
 交叉相除法，又叫Euclidean algorithm: The central idea is that if y > x, the GCD of x and y is the GCD of x and y − x. For example, GCD(156, 36) = GCD((156 − 36) = 120, 36). By extension, this implies that the GCD of x and y is the GCD of x and y mod x, i.e., GCD(156, 36) = GCD((156 mod 36) = 12, 36) = GCD(12, 36 mod 12 = 0) = 12. 具体implement的时候用recursion就可以了
+- [0780. Reaching Points](Solutions/0780.Reaching-Points.py) (!!H) <br>
+work backwards: we compare tx and ty, whenever we found tx > ty, we update tx: tx -= ty. else we update ty: ty -= tx.  we update tx and ty all the way until we reach sx and sy.
+O(max(tx, ty))
 - [0343. Integer Break](Solutions/0343.Integer-Break.py) (M)
 拆分乘积最大的两个原则：1. 当所有拆分出的数字相等时，乘积最大； 2：拆分成三份时，乘积最大
 - [0829. Consecutive Numbers Sum](Solutions/0829.Consecutive-Numbers-Sum.py) (H) <br>
