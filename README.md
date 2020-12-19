@@ -1937,6 +1937,8 @@ Segment Tree solution: O(NlogN) time and O(N) space. 从右往左遍历add num i
 solution 1: use hash map, and then convert to list, then sort, then conver to string - O(nlogn). solution 2: bucket sort: putting our chars in buckets/indexes based on their frequency - O(N).
 - [0347. Top K Frequent Elements](Solutions/0347.Top-K-Frequent-Elements.py) (!!M) <br>
 需要一个freqDict来记录每个数出现的freq， heapq, heapq中放入的是(freq, key)对; 按照freq来做heapq，这样就保证了可以筛选出most freqent k item; solution 2: quick select should implement; solution 3: bucket sort O(N) faster then solution 2, cuz solution 2 is O(N^2) in worst case. use the freq as index for the bucket.
+- [Pramp__1218__Word-Count-Engine](Solutions/Pramp__1218__Word-Count-Engine.py) (!!M) <br>
+use freq as idx to do bucket sort. 既然没做出来，真是耻辱呀！
 - [0217. Contains Duplicate](Solutions/0217.Contains-Duplicate.py) (E) <br>
 hash set to store the seen number, if seen again, return True. Warm up for 219
 - [0219. Contains Duplicate II](Solutions/0219.Contains-Duplicate-II.py) (E) <br>
