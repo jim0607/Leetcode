@@ -14,6 +14,10 @@ O(1) solution: self.freq = collections.defaultdict(int), # key is num, val is fr
 - [0166. Fraction to Recurring Decimal](Solutions/0166.Fraction-to-Recurring-Decimal.py) (!!M Facebook) <br>
 令人虎躯一震的好题，模拟除法的过程很有意思，Idea is to put every remainder into the hash table as a key, and the position where the remainder appears as val.
 如果remainder重复出现了，就说明找到循环的部分了，循环的部分就是从dict[remainder]到最后的部分
+- [0957. Prison Cells After N Days](Solutions/0957.Prison-Cells-After-N-Days.py) (M) <br>
+找重复出现的pattern就可以了
+
+
 - [0953. Verifying an Alien Dictionary](Solutions/0953.Verifying-an-Alien-Dictionary.py) (!!M Facebook) <br>
 hashmap存 the position of ch in the list. we traverse the words list and check adjacent word.
 - [0149. Max Points on a Line](Solutions/0149.Max-Points-on-a-Line.py) (H) <br>
@@ -64,6 +68,8 @@ use two stacks, a stack is to store all items, a minStack to store min items. If
 Solutino 1: just use one list. Since we have to implement popMax method, we have to find the maxItem pos in the stack, it takes O(N).  Solution 2: by using double linked list and heapq, we can realize O(logN) for push, pop and popMax. Use a doubly linkedlist for popMax.
 - [0346. Moving Average from Data Stream](Solutions/0346.Moving-Average-from-Data-Stream.cs) (!!E Google) <br>
 In C#, Queue class is by default a deque, with two methods: 1. enqueue, meaning push to the back of the queue; 2. dequeue, meaning pop from the front of the queue. They are all O(1).
+- [1086. High Five](Solutions/1086.High-Five.py) (E) <br>
+we can use heapq, but we can also just sort.
 - [0933. Number of Recent Calls](Solutions/0933.Number-of-Recent-Calls.py) (E) <br>
 use a queue so that we can remove the calls that happens long time ago.
 - [0946. Validate Stack Sequences](Solutions/0946.Validate-Stack-Sequences.py) (!!!M Google) <br>
