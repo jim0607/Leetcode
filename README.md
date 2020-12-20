@@ -16,8 +16,6 @@ O(1) solution: self.freq = collections.defaultdict(int), # key is num, val is fr
 如果remainder重复出现了，就说明找到循环的部分了，循环的部分就是从dict[remainder]到最后的部分
 - [0957. Prison Cells After N Days](Solutions/0957.Prison-Cells-After-N-Days.py) (M) <br>
 找重复出现的pattern就可以了
-
-
 - [0953. Verifying an Alien Dictionary](Solutions/0953.Verifying-an-Alien-Dictionary.py) (!!M Facebook) <br>
 hashmap存 the position of ch in the list. we traverse the words list and check adjacent word.
 - [0149. Max Points on a Line](Solutions/0149.Max-Points-on-a-Line.py) (H) <br>
