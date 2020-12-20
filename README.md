@@ -627,6 +627,7 @@ How to do it without for-loop: recursion
 方法：两个for loop在nums中取两个数nums[i] and nums[j]. 算出nums[i] and nums[j]这两个数加减乘除可能得到的数，
 将这些可能得到的数放进next_nums里面进行递归。递归的结束条件是len(nums)==1即无法再跟其他书加减乘除了。
 如果len(nums)==1 and nums[0]==24, then return True
+- [Pramp__121920__Flatten-a-Dictionary](Solutions/Pramp__121920__Flatten-a-Dictionary.py) (M) <br>
 
 
 ### [Binary Tree](/Binary-Tree-Divide-and-Conquer.py) <br> 
