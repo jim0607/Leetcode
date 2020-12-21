@@ -2283,6 +2283,9 @@ there are 9 cases in terms of repative pos of a circle and a rectangle
 Geometry. 看对角线吧 - 平分且相等且垂直
 - [0939. Minimum Area Rectangle](Solutions/0939.Minimum-Area-Rectangle.py) (!!M Google) <br>
 Geometry. O(N^2) - 我们choose two diagnol points to iterate, then check if other two diagonal points in p_set. 
+- [0356. Line Reflection](Solutions/0356.Line-Reflection.py) (M) <br>
+use a hashset to store all the points. loop through the points and check if (max_x + min_x - x, y)  in hashset
+
 
 
 
