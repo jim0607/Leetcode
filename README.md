@@ -152,6 +152,9 @@ In building a tree, since we are given __post-order expression__, we can use a s
 In evaluate the result, we just do divide and conquer.
 - [1597. Build Binary Expression Tree From Infix Expression](Solutions/1597.Build-Binary-Expression-Tree-From-Infix-Expression.py) (!!!H) <br>
 since we are given __in-order expression__, Divide and conquer - O(NlogN) in best case: 每次都能通过O(N)时间将问题分成2T(N/2)问题, O(N^2) in worst case: ((((((1)))))).
+- [1381. Design a Stack With Increment Operation](Solutions/1381.Design-a-Stack-With-Increment-Operation.py) (!!!M) <br>
+Use an additional array to record the increment value - O(1). inc[i] means for all elements st[0] ~ st[i], we should plus inc[i] when popped from the stack.
+When we pop, we should set inc[i-1] += inc[i], so that we can accumulate the increment inc[i] for the bottom elements and the following pops.
 
 
 
@@ -2219,7 +2222,10 @@ Facebook follow up: what if the lists are sorted and you are requred to use O(1)
 Fackbook follow up 1: what if sorted? solution is using two-pointers. Follow up 2: what if size of nums1 is small? solution is binary search.  Follow up 3: what if nums2 is so large that it cannot fit in the memory? solution: Divide nums2 into n chunks of 1/n size and load 1/n piece each time. Follow up 4: What if neither nums1 or nums2 can fully fit in memory? solution: external sort + n chunks + two pointers.
 - [1213. Intersection of Three Sorted Arrays](Solutions/1213.Intersection-of-Three-Sorted-Arrays.py) (E) <br>
 sorted arr, three-pointers 就可以了
-- [0311. Sparse Matrix Multiplication](Solutions/0311.Sparse-Matrix-Multiplication.py) (!!M Facebook) <br>
+- [1570. Dot Product of Two Sparse Vectors](Solutions/1570.Dot-Product-of-Two-Sparse-Vectors.py) (!!!M Facebook) <br>
+solution 1: use list to store the non-zero items then two pointers. O(M + N + m + n) where M is how many items in nums, m is how many non-zero items in nums.
+solution 2: use dictionary to store the non-zero items. O(M + N + min(m, n))
+- [0311. Sparse Matrix Multiplication](Solutions/0311.Sparse-Matrix-Multiplication.py) (!!!M Facebook) <br>
 Sparse matrices, which are common in scientific applications, are matrices in which most elements are zero. To save space and running time it is critical to only store the nonzero elements. Many real world applications of vectors include sparse vectors. An example of it in Machine Learning is the popular one-hot encoding method for categorical computation. We can use a dictinoary to store the index and value of non-zero values, O(M+N + mn), O(M+N), M is the number of elements in matrix A, m is the number of non-zero elements in A.
 - [0289. Game of Life](Solutions/0289.Game-of-Life.py) (M) <br>
 solution 1: O(MN), O(MN) solution, should be noted that we cannot use shallow copy for 2D nested list. Have to use deep copy.  Solution 2: O(MN), O(1) solution, Two traversals. Traversal 1: dead -> live: mark as 2; live -> dead: -1  can be whatever number you want, it's just for mark.
@@ -2334,6 +2340,11 @@ Math. there are 3 cases in total.
 solution 1: recursion; solution 2: math: return abs(math.log(n, 3) - round(math.log(n, 3))) < 1e-10
 - [1131. Maximum of Absolute Value Expression](Solutions/1131.Maximum-of-Absolute-Value-Expression.py) (M) <br>
 根据正负符号分为4个situations. 对于每一个situation, 我们用121. Best time to buy stock problem: maintain 一个prev_min
+- [0539. Minimum Time Difference](Solutions/0539.Minimum-Time-Difference.py) (M) <br>
+sort之后相邻的进行比较即可，最后compare time_points[0] and time_points[-1]
+- [1344. Angle Between Hands of a Clock](Solutions/1344.Angle-Between-Hands-of-a-Clock.py) (M) <br>
+
+
 
 
 ### [Rolling Hash/Rabin Karp]()
