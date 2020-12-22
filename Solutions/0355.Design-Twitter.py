@@ -1,3 +1,4 @@
+"""
 355. Design Twitter
 
 Design a simplified version of Twitter where users can post tweets, follow/unfollow another user and is able to see the 10 most recent tweets in the user's news feed. Your design should support the following methods:
@@ -32,9 +33,14 @@ twitter.unfollow(1, 2);
 // User 1's news feed should return a list with 1 tweet id -> [5],
 // since user 1 is no longer following user 2.
 twitter.getNewsFeed(1);
+"""
 
 
-
+"""
+self.time = 0; self.follows = collections.defaultdict(set) # key is user, val is a set of users that this use follows; 
+self.tweets = collections.defaultdict(collections.deque) # key is user, val is a deque of (time, tweetsId). 
+题目要求求top 10 recent posted tweetsId, 所以我们需要一个self.time记录时间，然后用heapq来求解top K问题
+"""
 class Twitter:
 
     def __init__(self):
