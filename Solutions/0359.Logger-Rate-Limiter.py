@@ -80,14 +80,10 @@ Output : arr[] = {4, 7, 8, 9, 10, 50, 60, 70}
     
 
 
-from heapq import heapify, heappop, heappush
-
 def sort_k(nums, k):
     hq = []
     for i in range(k):
-        hq.append(nums[i])
-
-    heapify(hq)
+        heappush(hq, nums[i])
 
     idx = 0
     for i in range(k, len(nums)):
@@ -95,7 +91,7 @@ def sort_k(nums, k):
         idx += 1                    # 这是因为nums是k程有序的，所以最小值永远在[idx, idx+k]范围内，所以只需要保证hq size为k就可以了
         heappush(hq, nums[i])
 
-    while hq:
+    while len(hq) > 0:
         nums[idx] = heappop(hq)
         idx += 1
 
