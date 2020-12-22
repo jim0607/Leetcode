@@ -172,22 +172,21 @@ Thus general complexity is O(N)
 """
 
 import collections
-import _heapq
 
 def min_deletion(s):
     counter = collections.Counter(s)
     hq = []
     for freq in counter.values():
-        _heapq.heappush(hq, -freq)
+        heappush(hq, -freq)
     cnt = 0
     while len(hq) > 0:
-        max_f = -_heapq.heappop(hq)
+        max_f = -heappop(hq)
         if len(hq) == 0:
             return cnt
         if max_f == -hq[0]:
             cnt += 1
             if max_f - 1 > 0:
-                _heapq.heappush(hq, -(max_f - 1))
+                heappush(hq, -(max_f - 1))
     return cnt
 
 print(min_deletion("eeeeffff"))             # 1
