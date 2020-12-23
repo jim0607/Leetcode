@@ -79,7 +79,8 @@ class Solution:
             if curr_sum > target:
                 return 
             
-            for next_idx in range(len(nums)):       # (1,3)和(3,1)都可以算到答案里，所以是Permutation problem, next_idx 从0开始
+            # (1,3)和(3,1)都可以算到答案里，所以是Permutation problem, next_idx 从0开始
+            for next_idx in range(len(nums)):       
                 if nums[next_idx] > target:
                     continue
                 curr_comb.append(nums[curr_idx])
