@@ -28,11 +28,11 @@ class Solution:
             
             if curr_sum == target:  # 拼出一段之后，从头开始去拼下一段
                 return backtrack(-1, 0, curr_cnt + 1)
-            if curr_sum > target:   # 拼出一段之后，从头开始去拼下一段 - O(k)
+            if curr_sum > target:   
                 return False
 
             for next_idx in range(curr_idx + 1, len(nums)):   # 去后面找数来拼凑 - O(2^N)
-                if next_idx in visited:
+                if next_idx in visited: # 正因为拼出一段之后，需要从"头!!"开始去拼下一段，所以需要visited
                     continue
                     
                 visited.add(next_idx)
