@@ -94,6 +94,34 @@ class Solution:
 
     
     
+"""
+dfs + memo - O(MN)
+"""
+class Solution:
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        def backtrack(curr_idx, curr_sum):
+            if curr_sum == target:
+                return 1
+            
+            if curr_sum > target:
+                return 0
+            
+            if (curr_idx, curr_sum) in memo:
+                return memo[(curr_idx, curr_sum)]
+            
+            res = 0
+            # (1,3)和(3,1)都可以算到答案里，所以是Permutation problem, next_idx 从0开始
+            for next_idx in range(len(nums)):
+                if nums[next_idx] > target:
+                    continue
+                res += backtrack(next_idx, curr_sum + nums[next_idx])
+                
+            memo[(curr_idx, curr_sum)] = res
+            return res
+        
+        
+        memo = defaultdict(int)     # start from (curr_idx, curr_sum), how many ways to reach target
+        return backtrack(0, 0)
     
     
     
