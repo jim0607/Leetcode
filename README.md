@@ -1214,8 +1214,6 @@ find all subsets, similar with 78. Subsets. O(26* 2^n), n = len(words)
 Time complexity: we basically iterate over nums and for each element either use it or drop it, 
 which is O(2^n). We are doing the same for each subset. Total subsets are k. 
 So Time Complexity becomes O(k*(2^n))
-- [0698. Partition to K Equal Sum Subsets](Solutions/0698.Partition-to-K-Equal-Sum-Subsets.py) (!!M) <br>
-backtrack: 698. Partition to 4 Equal Sum Subsets
 - [0254. Factor Combinations](Solutions/0254.Factor-Combinations.py) (M) <br>
 solution 1: step 1. we get a list of factors first; step 2. then we do a dfs like combination sum
 - [0046. Permutations](Solutions/0046.Permutations.py) (!!M)<br>
