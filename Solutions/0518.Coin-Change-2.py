@@ -66,7 +66,7 @@
 #
 
 """
-solution 1: just print all combinations - O(N*2^N)
+solution 1: just print all combinations - O(2^N)
 """
 class Solution:
     def change(self, target: int, nums: List[int]) -> int:
@@ -78,7 +78,9 @@ class Solution:
             if curr_sum > target:
                 return
             
-            for next_idx in range(curr_idx, len(nums)):     # 同一个数可以重复出现，所以可以从curr_idx开始
+            # (1, 3), (3, 1)被视为一样的，所以不能回头找，即不能从0开始
+            # (1, 1, 1)可以，即 同一个数可以重复出现，所以可以从curr_idx开始
+            for next_idx in range(curr_idx, len(nums)):     
                 if nums[next_idx] > target:
                     continue
                 curr_comb.append(nums[next_idx])
@@ -90,6 +92,38 @@ class Solution:
         backtrack(0, [], 0)
         return len(res)
 
+    
+"""
+solution 2: dfs + memo - O(MN)
+"""
+class Solution:
+    def change(self, target: int, nums: List[int]) -> int:
+        def backtrack(curr_idx, curr_sum):
+            if curr_sum == target:
+                return 1
+            
+            if curr_sum > target:
+                return 0
+            
+            if (curr_idx, curr_sum) in memo:
+                return memo[(curr_idx, curr_sum)]
+            
+            # (1, 3), (3, 1)被视为一样的，所以不能回头找，即不能从0开始
+            # (1, 1, 1)可以，即同一个数可以重复出现，所以可以从curr_idx开始
+            res = 0
+            for next_idx in range(curr_idx, len(nums)):  
+                if nums[next_idx] > target:
+                    continue
+                res += backtrack(next_idx, curr_sum + nums[next_idx])
+                
+            memo[(curr_idx, curr_sum)] = res
+            
+            return res
+                
+                
+        res = []
+        memo = defaultdict(int)
+        return backtrack(0, 0)
 
 
 
