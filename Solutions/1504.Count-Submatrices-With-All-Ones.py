@@ -88,6 +88,51 @@ class Solution:
         for i in range(1, m):
             for j in range(n):
                 if matrix[i][j] == 1:
+                    matrix[i][j] += matrix[i-1][j]      # construct the histogram 
+
+        res = 0
+        for i in range(m):
+            res += self._histogram(matrix[i])   # helper function return the total cnt of row i
+        return res
+    
+    def _histogram(self, heights):
+        """
+        算法核心是：以j结尾的submatrices的个数等于heights[j] * (j - 向左找第一个height小于heights[j]的idx)
+    与84.Largest-Rectangle-in-Histogram, 85.Maximal-Rectangle很类似. we need maintain an decreasing stack
+        """
+        lt = [-1 for _ in range(len(heights))]  # store the first idx that is less than heights[i]
+        st = []
+        for j, h in enumerate(heights):
+            while len(st) > 0 and st[-1][0] >= h:
+                st.pop()
+            
+            if len(st) > 0:
+                lt[j] = st[-1][1]
+                
+            st.append((h, j))
+        
+        dp = [0 for _ in range(len(heights))]   # dp[j] = how many submatrices ended with j
+        dp[0] = heights[0]
+        for j in range(1, len(heights)):
+            lt_idx = lt[j]
+            if lt_idx == -1:
+                dp[j] = heights[j] * (j - lt_idx)
+            else:
+                dp[j] = heights[j] * (j - lt_idx) + dp[lt_idx]
+
+        return sum(dp)
+
+
+
+
+
+
+class Solution:
+    def numSubmat(self, matrix: List[List[int]]) -> int:
+        m, n = len(matrix), len(matrix[0])
+        for i in range(1, m):
+            for j in range(n):
+                if matrix[i][j] == 1:
                     matrix[i][j] += matrix[i-1][j]  # construct the histogram 
                 
         res = 0
