@@ -39,6 +39,46 @@
 #
 
 
+class Solution:
+    def decodeString(self, s: str) -> str:
+        num_st = []     # store the number in s
+        str_st = [""]   # store the string in s
+        i = 0
+        while i < len(s):
+            if s[i].isdigit():
+                num = ord(s[i]) - ord("0")
+                while i + 1 < len(s) and s[i+1].isdigit():  # 应对"25[b]"这种情况
+                    num = 10 * num + ord(s[i+1]) - ord("0")
+                    i += 1
+                num_st.append(num)
+            
+            elif s[i].isalpha():
+                string = s[i]
+                while i + 1 < len(s) and s[i+1].isalpha():  # 应对"2[bcdef]"这种情况
+                    string += s[i+1]
+                    i += 1
+                str_st[-1] += string    # 注意不能用str_st.append(ch)，不然"3[a2[c]]"中a和cc就分开了
+                
+            elif s[i] == "[":
+                str_st.append("")       # 注意不能少，否则strStack[-1]会报错！
+            
+            elif s[i] == "]":
+                top_num = num_st.pop()
+                top_str = str_st.pop()
+                str_st[-1] += top_num * top_str      # 这里不能用append，原因同上！
+                
+            i += 1
+                
+        return "".join(str_st)
+
+
+
+
+
+
+
+
+
 
 class Solution:
     def decodeString(self, s: str) -> str:
