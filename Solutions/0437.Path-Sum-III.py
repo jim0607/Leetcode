@@ -58,32 +58,37 @@ class Solution:
         return cnt
 
 """
-solution 2: the above solution is easy to understand, but it takes O(N^2).
-presum solution: O(N). Use a presum to record presum --> how many paths have this presum accured
+how many sub-path that can sum up to k.
+presum_dict = defaultdict(int)      presum --> how many times this presum appeared.
+curr_pathsum = 从root_node到curr_node前面的那个node(其实是curr_node的parent_node)的path_sum. 
+注意curr_pathsum并不包括curr_node在内，这一点与上一题中的presum的定义是一致的。
+
+here subpath_sum = pathsum_from_root_to_curr_node - pathsum_from_root_to_prev_node.
+这就相当于arr中的prefix_sum是从arr[0]开始的.
+so checking subpath_sum == pathsum_from_root_to_curr_node - pathsum_from_root_to_prev_node
+is checking pathsum_from_root_to_curr_node - subpath_sum == pathsum_from_root_to_prev_node ? 
 """
 class Solution:
-    def pathSum(self, root: TreeNode, target: int) -> int:
+    def pathSum(self, root: TreeNode, k: int) -> int:
+        def backtrack(curr_node, curr_pathsum):
+            res = 0
+            if curr_pathsum - k in pathsum_dict:    # curr_pathsum = 从root_node到curr_node前面的那个node(其实是curr_node的parent_node)的path_sum. 
+                res += pathsum_dict[curr_pathsum - k]
+                
+            for next_node in (curr_node.left, curr_node.right):
+                if next_node:
+                    pathsum_dict[curr_pathsum] += 1      # 如果选择走curr_node.left或者curr_node.right, 那么肯定要经过curr_node, 所以这条路上的pathsum必须加上curr_pathsum
+                    res += backtrack(next_node, curr_pathsum + next_node.val)
+                    pathsum_dict[curr_pathsum] -= 1      # backtrack - 如果不选择走curr_node.left或者curr_node.right, 那么肯定不经过curr_node
+                    
+            return res
+        
         if not root:
             return 0
         
-        def backtrack(curr_node, curr_sum):
-            if not curr_node:
-                return 0
-            
-            res = presum_dict[curr_sum - target]    # 注意curr_sum等价于prefix_sum[j]
-            for next_node in (curr_node.left, curr_node.right):
-                if next_node:
-                    presum_dict[curr_sum] += 1
-                    res += backtrack(next_node, curr_sum + next_node.val)
-                    presum_dict[curr_sum] -= 1      # 做backtrack
-            
-            return res
-        
-        
-        presum_dict = defaultdict(int)  # presum --> how many paths have this presum occured
-        presum_dict[0] = 1
+        pathsum_dict = defaultdict(int)     # pathsum_from_root_to_curr_node --> how many times this pathsum appeared in the path from root to curr_node
+        pathsum_dict[0] = 1
         return backtrack(root, root.val)
-
 
 
 
