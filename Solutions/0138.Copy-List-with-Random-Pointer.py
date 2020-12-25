@@ -73,13 +73,6 @@
 """LaiOffer的video很好: https://www.youtube.com/watch?v=kGfsMookkzw"""
 O(N), O(N)
 """
-# Definition for a Node.
-class Node:
-    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
-        self.val = int(x)
-        self.next = next
-        self.random = random
-"""
 """
 # Definition for a Node.
 class Node:
@@ -89,36 +82,34 @@ class Node:
         self.random = random
 """
 
+"""
+一个new_curr往下走
+一个mapping dictionaty to map curr --> new_curr
+"""
 class Solution:
     def copyRandomList(self, head: 'Node') -> 'Node':
-        if not head:
-            return None
-        
+        mapping = defaultdict(Node)     # curr --> new_curr
         dummy = Node(0)
-        
         curr = head
-        newCurr = dummy
-        
-        nodeDict = collections.defaultdict(Node)
-        
+        new_curr = dummy
         while curr:
-            if curr not in nodeDict:    # 检查当前的node有没有被copy过，如果没有，就copy一份当前的node，存放到dict中去
-                nodeDict[curr] = Node(curr.val)
-                
-            newCurr.next = nodeDict[curr]                       # val copied
+            if curr not in mapping: # 检查当前的node有没有被copy过，如果没有，就copy一份当前的node，存放到dict中去
+                mapping[curr] = Node(curr.val)  
+            new_curr.next = mapping[curr]           # val copied
+            new_curr.next.next = curr.next          # next copied
             
-            if curr.random:
-                if curr.random not in nodeDict:
-                    nodeDict[curr.random] = Node(curr.random.val)
-                newCurr.next.random = nodeDict[curr.random]     # random copied
+            if curr.random :
+                if curr.random not in mapping:
+                    mapping[curr.random] = Node(curr.random.val)
+                new_curr.next.random = mapping[curr.random]     # random copied          
             
             curr = curr.next
-            newCurr = newCurr.next
+            new_curr = new_curr.next
             
         return dummy.next
     
     
-"""O(N), O(1)"""
+"""O(N), O(1) create new node and interleave new node into original node """
 """
 
 class Solution:
