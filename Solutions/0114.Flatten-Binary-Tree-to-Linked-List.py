@@ -46,7 +46,31 @@ class Solution:
             
         return root
 
+
+class Solution:
+    def flatten(self, root: TreeNode) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        if not root:
+            return None
+        if not root.left:
+            root.right = self.flatten(root.right)
+            return root
+        
+        left_root = self.flatten(root.left)
+        right_root = self.flatten(root.right)
+        
+        left_tail = left_root
+        while left_tail and left_tail.right:
+            left_tail = left_tail.right
             
+        root.left = None
+        root.right = left_root
+        left_tail.right = right_root
+        
+        return root
+        
             
 
 """If you notice carefully in the flattened tree, each node's right child points to the next node of a pre-order traversal."""
