@@ -17,36 +17,35 @@ Output: ["255.255.11.135", "255.255.111.35"]
 套backtrack的模板，这里的结束条件有两个: curr_intervals == 4 and curr_idx == len(s) - 1, 所以cur_interval数目和curr_idx都要传进backtrack里
 """
 """
-constraint: cannot have leading zero. each number should be 0 <= next_num <= 255.
-return if curr_cnt == 4.
-in backtrack, pass (curr_idx, curr_comb)
+backtrack结束条件：len(curr_comb) = 4 and curr_idx = len(s) - 1
+constraint for next candidate: next_num must be within [0, 255] and no leading "0"
+arguments pass into backtrack：curr_idx, curr_comb
 """
 class Solution:
     def restoreIpAddresses(self, s: str) -> List[str]:
         def backtrack(curr_idx, curr_comb):
-            if len(curr_comb) == 4 and curr_idx == len(s) - 1:
-                res.append(".".join(curr_comb.copy()))
-                return
-            
-            if len(curr_comb) >= 4:     # 注意这里的pruning很重要
+            if len(curr_comb) == 4:
+                if curr_idx == len(s) - 1:
+                    res.append(".".join(curr_comb.copy()))
                 return
             
             for next_idx in range(curr_idx + 1, len(s)):
                 next_num = s[curr_idx + 1: next_idx + 1]
-                if next_num[0] == "0" and len(next_num) > 1:    # "0" is valid but "01" is not
-                    continue
+                if next_num[0] == "0" and len(next_num) > 1:    # cannot have leading "0".  
+                    continue                                    # "0" is valid but "01" is not    
                 if 0 <= int(next_num) <= 255:
                     curr_comb.append(next_num)
                     backtrack(next_idx, curr_comb)
                     curr_comb.pop()
-                    
-        
+                
+                
         res = []
         backtrack(-1, [])
         return res
     
     
 
+    
 
 """
 Grandyang: 根据目前刷了这么多题，得出了两个经验，一是只要遇到字符串的子序列或配准问题首先考虑动态规划DP，二是只要遇到需要求出所有可能情况首先考虑用递归。
