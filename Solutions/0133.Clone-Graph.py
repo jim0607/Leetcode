@@ -50,28 +50,35 @@
 # 
 #
 
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+"""
 
 """
 用一个mapping 保存node-->node_copy. 然后一边dfs一边新建copied nodes
 """
 class Solution:
-    def cloneGraph(self, node: 'Node') -> 'Node':
-        if not node:
+    def cloneGraph(self, root: 'Node') -> 'Node':
+        if not root:
             return None
         
-        def dfs(node):
-            for neighbor in node.neighbors:
-                if neighbor in mapping:         # 注意这里不要continue
-                    mapping[node].neighbors.append(mapping[neighbor])
+        def dfs(curr_node):
+            for neib_node in curr_node.neighbors:
+                if neib_node in mapping:    # 注意这里不要continue
+                    mapping[curr_node].neighbors.append(mapping[neib_node])
                 else:
-                    mapping[neighbor] = Node(neighbor.val, [])
-                    mapping[node].neighbors.append(mapping[neighbor])
-                    dfs(neighbor)
-
-        mapping = collections.defaultdict(Node)
-        mapping[node] = Node(node.val, [])
-        dfs(node)
-        return mapping[node]
+                    mapping[neib_node] = Node(neib_node.val)
+                    mapping[curr_node].neighbors.append(mapping[neib_node])
+                    dfs(neib_node)
+        
+        mapping = defaultdict(Node)
+        mapping[root] = Node(root.val)
+        dfs(root)
+        return mapping[root]
 
 
 
