@@ -31,9 +31,9 @@ class Solution:
             
             for next_idx in range(curr_idx + 1, len(s)):
                 next_num = s[curr_idx + 1: next_idx + 1]
-                if next_num[0] == "0" and len(next_num) > 1:    # cannot have leading "0".  
+                if next_num[0] == "0" and len(next_num) > 1:    # constraint for next candidate: cannot have leading "0".  
                     continue                                    # "0" is valid but "01" is not    
-                if 0 <= int(next_num) <= 255:
+                if 0 <= int(next_num) <= 255:           # constraint for next candidate
                     curr_comb.append(next_num)
                     backtrack(next_idx, curr_comb)
                     curr_comb.pop()
