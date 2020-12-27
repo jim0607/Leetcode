@@ -95,37 +95,36 @@ A* is better than bfs in finding the shorted path from source node to end node. 
 bfs 需要visit every node. but A* only greedily choose the best route to go. The best route is estimated by heuristic estimation.
 """
 class Solution:
-    EMPTY = 0
-    BLOCK = 1
     def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
-        m, n = len(grid), len(grid[0])
-        if grid[0][0] == 1 or grid[m-1][n-1] == 1:
+        if grid[0][0] == 1 or grid[-1][-1] == 1:
             return -1
         
-        destination = (m-1, n-1)
-        
-        # (1. curr_heuristic_estimation of min # of steps from source to target if 经过currNode; 2. curr_steps from source to curr_node; 3. curr_pos))
-        # curr_heuristic_estimation = curr_steps + heuristic estimation of minimum distance from curr_pos to desitination.
-        hq = [(max(m, n), 1, (0, 0))]   
-        steps = collections.defaultdict(int)   # position --> steps from source to curr_node. 用一个dictionary记录curr_steps是很有必要的!!
-        steps[(0, 0)] = 1
+        m, n = len(grid), len(grid[0])
+        hq = []
+        # hq stores (curr_heuristic_estimation, curr_steps, curr_node)
+        # curr_heuristic_estimation = curr_steps + heuristic estimation of minimum distance from curr_node to desitination.
+        # 以heuristic_estimation为标准来pop heapq里面的nodes，这是A*与Dijkstra's的唯一区别，其他都一样，套模板即可
+        heappush(hq, (max(m, n), 1, 0, 0)) 
+        dist = defaultdict(int)     # curr_node --> curr_steps
         
         while len(hq) > 0:
-            curr_heuristic_estimation, curr_steps, (curr_i, curr_j)  = heappop(hq)
-            if (curr_i, curr_j) == destination:
+            curr_estm, curr_steps, curr_i, curr_j = heappop(hq)
+            
+            if (curr_i, curr_j) == (m - 1, n - 1):
                 return curr_steps
             
-            for delta_i, delta_j in [(1,0),(-1,0),(0,1),(0,-1),(1,1),(1,-1),(-1,-1),(-1,1)]:
+            if (curr_i, curr_j) in dist:
+                continue
+            dist[(curr_i, curr_j)] = curr_steps
+            
+            for delta_i, delta_j in [(1,0),(0,1),(-1,0),(0,-1),(1,1),(1,-1),(-1,1),(-1,-1)]:
                 next_i, next_j = curr_i + delta_i, curr_j + delta_j
-                if 0 <= next_i < m and 0 <= next_j < n and grid[next_i][next_j] == self.EMPTY:
+                if 0 <= next_i < m and 0 <= next_j < n and grid[next_i][next_j] == 0:
+                    next_estm = curr_steps + 1 + max(n - next_i, n - next_j)     # calculate next_heuristic_estimation 
+                    heappush(hq, (next_estm, curr_steps + 1, next_i, next_j))
                     
-                    # 这一句是精华，如果之前访问过(next_x, next_y)，但是这次访问的时候发现能更快到达，
-                    # 那就把这个(next_x, next_y)重新再次放进去, 这就是为什么需要用一个dictionary记录curr_steps
-                    if (next_i, next_j) not in steps or curr_steps + 1 < steps[(next_i, next_j)]:
-                        steps[(next_i, next_j)] = curr_steps + 1        # 更新从source到(next_x, next_y)的距离
-                        next_heuristic_estimation = curr_steps + 1 + max(m - next_i, n - next_j)    
-                        heappush(hq, (next_heuristic_estimation, curr_steps + 1, (next_i, next_j)))
         return -1
+    
 """
 想想这个题的执行顺序for this example: [[0,1,0,1,0],[1,0,0,0,1],[0,0,1,1,1],[0,0,0,0,0],[1,0,1,0,0]]
 还真和wiki上的动画执行顺序一模一样
