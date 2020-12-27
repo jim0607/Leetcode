@@ -19,35 +19,41 @@ so we can find all combinations for n//2 lens, using backtrack.
 """
 O(5^(n//2))
 """
-class Solution:
-    def findStrobogrammatic(self, n: int) -> List[str]:
-        def backtrack(curr_comb):
-            if len(curr_comb) == n // 2:
-                res.append(curr_comb)
-                return
-            
-            for next_num in mapping:
-                if len(curr_comb) == 0 and next_num == "0":     # avoid the leading 0
-                    continue
-                backtrack(curr_comb + next_num)
-        
-        
-        mapping = {"6": "9", "9": "6", "1": "1", "0": "0", "8": "8"}
-        same = {"1": "1", "0": "0", "8": "8"}
-        res = []
-        backtrack("")
-        
-        ans = []
-        if n % 2 == 0:
-            for left in res:
-                right = "".join([mapping[left[i]] for i in range(len(left) - 1, -1, -1)])
-                ans.append(left + right)
-        elif n % 2 == 1:
-            for left in res:
-                right = "".join([mapping[left[i]] for i in range(len(left) - 1, -1, -1)])
-                for ch in same:
-                    ans.append(left + ch + right)        
-        return ans
+"""
+find all possible permutation with of n//2 long that are composed of [0, 1, 6, 8, 9].
+backtrack结束条件：len(curr_comb) == n // 2
+constraint on next_candidate: cannot have leading "0"
+arguments pass into backtrack function: curr_comb
+"""
+def findStrobogrammatic(self, n: int) -> List[str]:
+    def backtrack(curr_comb):
+        if len(curr_comb) == n // 2:
+            res.append(curr_comb)
+            return
+
+        for next_num in ["0", "1", "6", "8", "9"]:        # O(5^(n//2))
+            if len(curr_comb) == 0 and next_num == "0":   # avoid the leading 0
+                continue
+            backtrack(curr_comb + next_num)
+
+
+    mapping = {"6": "9", "9": "6", "1": "1", "0": "0", "8": "8"}
+    same_nums = {"1": "1", "0": "0", "8": "8"}
+    
+    res = []
+    backtrack("")
+
+    ans = []
+    if n % 2 == 0:
+        for left in res:
+            right = "".join([mapping[ch] for ch in left[::-1]])
+            ans.append(left + right)
+    elif n % 2 == 1:
+        for left in res:
+            right = "".join([mapping[ch] for ch in left[::-1]])
+            for ch in same_nums:
+                ans.append(left + ch + right)
+    return ans
     
     
     
