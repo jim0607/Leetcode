@@ -58,32 +58,33 @@ class Solution:
         return self.res
         
         
+
 """
-solution 1: a little modified backtrack - O(6^N) in worst case.
-不需要传入curr_comb, 只需要last_num和the repeat time of last_num
+solution 1: Backtrack - O(6^N) in worst case.
+backtrack结束条件: curr_cnt == n
+constraints on next_candidate: next_candidate could be from 1~6, but cannot be consecutive with prev for two long
+arguments pass into backtrack function: curr_cnt, curr_num, repeat_time_of_curr_num
 """
-class Solution:
-    def dieSimulator(self, n: int, rollMax: List[int]) -> int:
-        def backtrack(curr_roll, last_num, repeat_time):
-            """
-            不需要传入curr_comb, 只需要last_num和the repeat time of last_num
-            """
-            if curr_roll == n:
-                self.res += 1
-                return
-            
-            for num in [1, 2, 3, 4, 5, 6]:
-                if num == last_num:
-                    if repeat_time >= rollMax[num-1]:     # 如果已经加了好几个num了，
-                        continue                        # 那么这个num就不能再继续加入了
-                    backtrack(curr_roll + 1, num, repeat_time + 1)
-                else:
-                    backtrack(curr_roll + 1, num, 1)
-                
+def dieSimulator(self, n: int, roll_max: List[int]) -> int:
+    def backtrack(curr_cnt, curr_num, repeat_time):
+        if curr_cnt == n:
+            self.res += 1
+            return
         
-        self.res = 0
-        backtrack(0, -1, -1)    
-        return self.res
+        for next_num in [1, 2, 3, 4, 5, 6]:
+            if next_num == curr_num:
+                if repeat_time == roll_max[curr_num-1]:  # 如果已经加了好几个num了，
+                    continue                         # 那么这个num就不能再继续加入了
+                backtrack(curr_cnt + 1, next_num, repeat_time + 1)
+            else:
+                backtrack(curr_cnt + 1, next_num, 1)
+            
+            
+    self.res = 0
+    backtrack(0, -1, 0)
+    return self.res % (10**9 + 7)
+
+
         
         
 """
@@ -91,29 +92,28 @@ solution 2: backtrack + memo - O(6n^2).
 套backtrack + memo的模板即可
 """
 class Solution:
-    def dieSimulator(self, n: int, rollMax: List[int]) -> int:
-        def backtrack(curr_roll, last_num, repeat_time):
-            if (curr_roll, last_num, repeat_time) in memo:
-                return memo[(curr_roll, last_num, repeat_time)]
-            
-            if curr_roll == n:
+    def dieSimulator(self, n: int, roll_max: List[int]) -> int:
+        def backtrack(curr_cnt, curr_num, repeat_time):
+            if curr_cnt == n:
                 return 1
-            if curr_roll > n:
-                return 0
+            
+            if (curr_cnt, curr_num, repeat_time) in memo:
+                return memo[(curr_cnt, curr_num, repeat_time)]
             
             res = 0
-            for num in [1, 2, 3, 4, 5, 6]:
-                if num == last_num:
-                    if repeat_time >= rollMax[num-1]:   # 如果已经加了好几个num了，
-                        continue                        # 那么这个num就不能再继续加入了
-                    res = (res + backtrack(curr_roll + 1, num, repeat_time + 1) % MOD) % MOD 
+            for next_num in [1, 2, 3, 4, 5, 6]:
+                if next_num == curr_num:
+                    if repeat_time == roll_max[curr_num-1]:  # 如果已经加了好几个num了，
+                        continue                         # 那么这个num就不能再继续加入了
+                    res += backtrack(curr_cnt + 1, next_num, repeat_time + 1)
                 else:
-                    res = (res + backtrack(curr_roll + 1, num, 1) % MOD) % MOD
-            
-            memo[(curr_roll, last_num, repeat_time)] = res
+                    res += backtrack(curr_cnt + 1, next_num, 1)
+                    
+            memo[(curr_cnt, curr_num, repeat_time)] = res
             return res
-                
         
-        MOD = 10**9 + 7
-        memo = collections.defaultdict(int)   # (curr_roll, last_num, repeat_time) --> how many ways
-        return backtrack(0, 0, 0)    
+                
+        # (curr_cnt, curr_num, repeat_time) --> from (curr_cnt, curr_num, repeat_time),
+        # how many ways to reach curr_cnt == n
+        memo = defaultdict(int)
+        return backtrack(0, -1, 0) % (10**9 + 7)
