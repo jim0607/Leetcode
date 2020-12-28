@@ -92,7 +92,7 @@ class Solution:
                         for next_j1 in [j1 - 1, j1, j1 + 1]:
                             for next_j2 in [j2 - 1, j2, j2 + 1]:
                                 if 0 <= next_j1 < n and 0 <= next_j2 < n:
-                                    next_cherry = grid[i+1][next_j1] + grid[i+1][next_j2] if next_j1 != next_j2 else grid[i+1][next_j1]
+                                    next_cherry = grid[i+1][next_j1] + grid[i+1][next_j2] if next_j1 != next_j2 else grid[i+1][next_j1]   # A, B在同一点只能pick up 一次
                                     dp[i+1][next_j1][next_j2] = max(dp[i+1][next_j1][next_j2], dp[i][j1][j2] + next_cherry)
         
         max_cherry = 0
