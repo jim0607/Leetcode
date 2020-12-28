@@ -74,3 +74,29 @@ class Solution:
             for j2 in range(j1 + 1, n):
                 max_cherry = max(max_cherry, dp[-1][j1][j2])
         return max_cherry
+       
+       
+       
+"""
+dp[i][j1][j2] = the max cherry we can pick up for robots ended at (i, j1), (i, j2)
+"""
+class Solution:
+    def cherryPickup(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        dp = [[[-1] * n for _ in range(n)] for _ in range(m)]
+        dp[0][0][-1] = grid[0][0] + grid[0][-1]
+        for i in range(0, m - 1):
+            for j1 in range(n):
+                for j2 in range(n):
+                    if dp[i][j1][j2] != -1:     # j1, j2 could be reached
+                        for next_j1 in [j1 - 1, j1, j1 + 1]:
+                            for next_j2 in [j2 - 1, j2, j2 + 1]:
+                                if 0 <= next_j1 < n and 0 <= next_j2 < n:
+                                    next_cherry = grid[i+1][next_j1] + grid[i+1][next_j2] if next_j1 != next_j2 else grid[i+1][next_j1]
+                                    dp[i+1][next_j1][next_j2] = max(dp[i+1][next_j1][next_j2], dp[i][j1][j2] + next_cherry)
+        
+        max_cherry = 0
+        for j1 in range(n):
+            for j2 in range(n):
+                max_cherry = max(max_cherry, dp[-1][j1][j2])
+        return max_cherry
