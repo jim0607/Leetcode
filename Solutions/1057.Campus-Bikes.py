@@ -65,21 +65,24 @@ Since the range of distance is [0, 2000] which is much lower than the # of pairs
 It's a good time to use bucket sort. Basically, it's to put each pair into the bucket representing its distance.
 Eventually, we can loop thru each bucket from lower distance.
 """
+"""
+Among the available bikes and workers, we choose the (worker, bike) pair with the shortest Manhattan distance between each other, and assign the bike to that worker.
+"""
 class Solution:
     def assignBikes(self, workers: List[List[int]], bikes: List[List[int]]) -> List[int]:
-        # in the bucket, idx represents dist, val in the idx is a list of (workers, bikes) combinations
-        buckets = [[] for _ in range(2001)]   # the bucket size is the range of distance
-        for i, worker in enumerate(workers):
-            for j, bike in enumerate(bikes):
-                dist = abs(worker[0] - bike[0]) + abs(worker[1] - bike[1])
-                buckets[dist].append((i, j))
-        
-        res = [-1] * len(workers)
-        assigned_bikes = set()
-        for dist in buckets:  # everytime, we deal with the smallest dist, by looping thru idx/dist
-            for i, j in dist:
-                if res[i] == -1 and j not in assigned_bikes:
-                    res[i] = j
-                    assigned_bikes.add(j)
+        # idx is distance, val is a list of (worker, bike) that have that distance   
+        buckets = [[] for _ in range(2000)]   # the bucket size is the max_possible_distance 
+        for w_idx, w in enumerate(workers):
+            for b_idx, b in enumerate(bikes):
+                dist = abs(w[0] - b[0]) + abs(w[1] - b[1])
+                buckets[dist].append((w_idx, b_idx))
                 
+        res = [-1 for _ in range(len(workers))]
+        bike_assigned = set()
+        for dist_lst in buckets:  # everytime, we deal with the smallest dist, by looping thru idx/dist
+            for w_idx, b_idx in dist_lst:
+                if res[w_idx] != -1 or b_idx in bike_assigned:  # if worker is assigned or bike is assigned
+                    continue
+                res[w_idx] = b_idx
+                bike_assigned.add(b_idx)
         return res
