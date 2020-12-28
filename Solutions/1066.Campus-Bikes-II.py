@@ -40,15 +40,15 @@ class Solution:
                 self.min_dist = min(self.min_dist, curr_dist)
                 return
             
-            for next_w in range(len(workers)):
-                if next_w not in assigned_workers:
-                    for next_b in range(len(bikes)):
-                        if next_b not in assigned_bikes:
-                            assigned_workers.add(next_w)
-                            assigned_bikes.add(next_b)
-                            backtrack(curr_dist + abs(workers[next_w][0] - bikes[next_b][0]) + abs(workers[next_w][1] - bikes[next_b][1]))
-                            assigned_workers.remove(next_w)
-                            assigned_bikes.remove(next_b)
+            for next_w_idx in range(len(workers)):
+                if next_w_idx not in assigned_workers:
+                    for next_b_idx in range(len(bikes)):
+                        if next_b_idx not in assigned_bikes:
+                            assigned_workers.add(next_w_idx)
+                            assigned_bikes.add(next_b_idx)
+                            backtrack(curr_dist + abs(workers[next_w_idx][0] - bikes[next_b_idx][0]) + abs(workers[next_w_idx][1] - bikes[next_b_idx][1]))
+                            assigned_workers.remove(next_w_idx)
+                            assigned_bikes.remove(next_b_idx)
             
                 
         self.min_dist = sys.maxsize
@@ -58,42 +58,61 @@ class Solution:
         return self.min_dist
 
        
+       
+"""
+a little improved backtrack: next_w_idx always equals to curr_w_idx + 1, so we don't need a assigned_workers set
+backtrack结束条件：curr_w_idx == n - 1
+constraint on next_candidate: the bike is not in assigned_bikes
+arguments pass into backtrack function: curr_w_idx, curr_dist
+"""
+class Solution:
+    def assignBikes(self, workers: List[List[int]], bikes: List[List[int]]) -> int:
+        def backtrack(curr_w_idx, curr_dist):
+            if curr_w_idx == len(workers) - 1:
+                self.min_dist = min(self.min_dist, curr_dist)
+                return
+            
+            for next_b_idx in range(len(bikes)):
+                if next_b_idx not in assigned_bikes:
+                    assigned_bikes.add(next_b_idx)
+                    backtrack(curr_w_idx + 1, curr_dist + abs(workers[curr_w_idx + 1][0] - bikes[next_b_idx][0]) + abs(workers[curr_w_idx + 1][1] - bikes[next_b_idx][1]))
+                    assigned_bikes.remove(next_b_idx)   # backtrack, 指数级别的复杂度, 因为memo会有2^M中state
+            
+                
+        self.min_dist = sys.maxsize
+        assigned_bikes = set()
+        backtrack(-1, 0)
+        return self.min_dist
+       
+       
+       
 
 
 class Solution:
-    def assignBikes(self, workers: List[List[int]], bikes: List[List[int]]) -> int:   
-        def dist(w, b):
-            return abs(w[0] - b[0]) + abs(w[1] - b[1])
-        
-        def dfs(curr_w, assigned_bikes, memo):
-            """
-            curr_w: curr idx for workers
-            """
-            if curr_w == len(workers):
+    def assignBikes(self, workers: List[List[int]], bikes: List[List[int]]) -> int:
+        def backtrack(curr_w_idx, assigned_bikes):
+            if curr_w_idx == len(workers) - 1:
                 return 0
-            
-            if (curr_w, tuple(assigned_bikes)) in memo:     # change set to tuple cuz set is not hashable
-                return memo[(curr_w, tuple(assigned_bikes))]
-            
-            res = float("inf")
-            for next_b in range(len(bikes)):
-                if next_b in assigned_bikes:
-                    continue
-                
-                next_dist = dist(workers[curr_w], bikes[next_b])
-                
-                assigned_bikes.add(next_b)
-                res = min(res, next_dist + dfs(curr_w + 1, assigned_bikes, memo))
-                assigned_bikes.remove(next_b)       # backtrack, 指数级别的复杂度
-                
-            memo[(curr_w, tuple(assigned_bikes))] = res
-            
+
+            if (curr_w_idx, tuple(assigned_bikes)) in memo:
+                return memo[(curr_w_idx, tuple(assigned_bikes))]
+
+            res = sys.maxsize
+            for next_b_idx in range(len(bikes)):
+                if next_b_idx not in assigned_bikes:
+                    assigned_bikes.add(next_b_idx)
+                    res = min(res, backtrack(curr_w_idx + 1, assigned_bikes) + abs(workers[curr_w_idx + 1][0] - bikes[next_b_idx][0]) + abs(workers[curr_w_idx + 1][1] - bikes[next_b_idx][1]))
+                    assigned_bikes.remove(next_b_idx)
+
+            memo[(curr_w_idx, tuple(assigned_bikes))] = res
             return res
-        
-        memo = collections.defaultdict()
+
+
+        self.min_dist = sys.maxsize
+        memo = defaultdict(int)   # (curr_w_idx, curr_assgined_bikes_tuple) --> 
+                                  # the min_dist from (curr_w_idx, curr_assgined_bikes_tuple) to get all workers assigned, i.e. curr_w_idx == len(workers) - 1
         assigned_bikes = set()
-        
-        return dfs(0, assigned_bikes, memo)
+        return backtrack(-1, assigned_bikes)
        
        
        
