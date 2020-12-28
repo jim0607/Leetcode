@@ -67,12 +67,15 @@
 
 """
 solution 1: just print all combinations - O(2^N)
+backtrack结束条件：curr_sum == target
+constraints on next_candidate: 不能回头找，但一个数可以重复使用，next_idx in range(curr_idx, len(nums))
+arguments pass into backtrack function: curr_idx, curr_sum
 """
 class Solution:
     def change(self, target: int, nums: List[int]) -> int:
-        def backtrack(curr_idx, curr_comb, curr_sum):
+        def backtrack(curr_idx, curr_sum):
             if curr_sum == target:
-                res.append(curr_comb.copy())
+                self.res += 1
                 return
             
             if curr_sum > target:
@@ -80,21 +83,17 @@ class Solution:
             
             # (1, 3), (3, 1)被视为一样的，所以不能回头找，即不能从0开始
             # (1, 1, 1)可以，即 同一个数可以重复出现，所以可以从curr_idx开始
-            for next_idx in range(curr_idx, len(nums)):     
-                if nums[next_idx] > target:
-                    continue
-                curr_comb.append(nums[next_idx])
-                backtrack(next_idx, curr_comb, curr_sum + nums[next_idx])
-                curr_comb.pop()
+            for next_idx in range(curr_idx, len(nums)):
+                backtrack(next_idx, curr_sum + nums[next_idx])
                 
                 
-        res = []
-        backtrack(0, [], 0)
-        return len(res)
+        self.res = 0
+        backtrack(0, 0)
+        return self.res
 
     
 """
-solution 2: dfs + memo - O(MN)
+solution 2: recursion + memo
 """
 class Solution:
     def change(self, target: int, nums: List[int]) -> int:
@@ -109,20 +108,17 @@ class Solution:
                 return memo[(curr_idx, curr_sum)]
             
             # (1, 3), (3, 1)被视为一样的，所以不能回头找，即不能从0开始
-            # (1, 1, 1)可以，即同一个数可以重复出现，所以可以从curr_idx开始
+            # (1, 1, 1)可以，即 同一个数可以重复出现，所以可以从curr_idx开始
             res = 0
-            for next_idx in range(curr_idx, len(nums)):  
-                if nums[next_idx] > target:
-                    continue
+            for next_idx in range(curr_idx, len(nums)):
                 res += backtrack(next_idx, curr_sum + nums[next_idx])
                 
             memo[(curr_idx, curr_sum)] = res
-            
             return res
+        
                 
-                
-        res = []
-        memo = defaultdict(int)
+        # (curr_idx, curr_sum) --> start from (curr_idx, curr_sum), how many ways to reach target
+        memo = defaultdict(int)     
         return backtrack(0, 0)
 
 
