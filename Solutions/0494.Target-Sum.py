@@ -23,51 +23,56 @@ There are 5 ways to assign symbols to make the sum of nums be target 3.
 
 
 """
-solution 1: naive dfs - O(2^n)
+solution 1: naive backtrack - O(2^n)
+backtrack结束条件：curr_idx == len(nums) - 1 and curr_sum == target
+constraint for next_candidate: next_idx = curr_idx + 1, next_num either be added or be subtracted
+arguments pass into backtrack function: curr_idx, curr_sum
 """
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
         def backtrack(curr_idx, curr_sum):
             if curr_idx == len(nums) - 1:
                 if curr_sum == target:
-                    self.cnt += 1
+                    self.res += 1
                 return
-            backtrack(curr_idx + 1, curr_sum + nums[curr_idx + 1])
-            backtrack(curr_idx + 1, curr_sum - nums[curr_idx + 1])
+            
+            for next_num in [nums[curr_idx + 1], -nums[curr_idx + 1]]:
+                backtrack(curr_idx + 1, curr_sum + next_num)
             
             
-        self.cnt = 0
+        self.res = 0
         backtrack(-1, 0)
-        return self.cnt
+        return self.res
     
     
         
 """
+solution 2: recursion + memorization 
 从backtrack到memorization只需要将memo dict的key定义为backtrack的arguments, val是需要return的东西。
-time complexty is how many diferent keys are possible there.
-solution 2: backtrack + memorization - O(n * t) where n is len(nums), t is largest sum possible.
+time complexty is how many diferent keys are possible there
+O(n * t) where n is len(nums), t is largest sum possible.
 """
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        def memorization(curr_idx, curr_sum):
-            """
-            how many ways to get to target starting from (curr_idx, currsum)
-            """
-            if (curr_idx, curr_sum) in memo:
-                return memo[(curr_idx, curr_sum)]
-            
+        def backtrack(curr_idx, curr_sum):
             if curr_idx == len(nums) - 1:
                 if curr_sum == target:
                     return 1
                 return 0
             
-            res = 0
-            res += memorization(curr_idx + 1, curr_sum + nums[curr_idx + 1])
-            res += memorization(curr_idx + 1, curr_sum - nums[curr_idx + 1])
+            if (curr_idx, curr_sum) in memo:        # memorization与naive backtrack相比就多了这么一句，
+                return memo[(curr_idx, curr_sum)]   # 就这一句把O(2^n) 变成了O(n*t)
             
+            res = 0
+            for next_num in [nums[curr_idx + 1], -nums[curr_idx + 1]]:
+                res += backtrack(curr_idx + 1, curr_sum + next_num)
+                
             memo[(curr_idx, curr_sum)] = res
             return res
-        
-        
-        memo = defaultdict(int)     # (curr_idx, curr_sum) --> how many ways to get to target starting from (curr_idx, currsum)
-        return memorization(-1, 0)
+            
+            
+        # 注意memo的定义要遵守bottom up的原则
+        # (curr_idx, curr_sum) --> start from (curr_idx, curr_sum), how many ways to get to (last_idx, target)
+        memo = defaultdict(int)     
+        # backtrack函数返回值必须跟memo的val一致: start from (curr_idx, curr_sum), how many ways to get to (last_idx, target)
+        return backtrack(-1, 0)   
