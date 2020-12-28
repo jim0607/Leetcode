@@ -41,51 +41,46 @@ Note that the starting and ending square can be anywhere in the grid.
 套用backtrack模板就可以了. 每一个位置都有3种可能，所以time complexity O(3^N). 
 """
 """
-backtrack ends with: reach the end pos and already visited all empty nodes.
-constraint of next candidate: 1. is not block, 2. not visited
-pass into backtrack: (curr_pos)
+backtrack结束条件：every non-obstacle squares are already visited (len(visited) == empty_cnt) and (curr_i, curr_j) == destination
+constraints on next_candidates: can go to 4 neighbors
+arguments pass into backtrack function: curr_i, curr_j
 """
 class Solution:
-    start = 1
-    end = 2
-    empty = 0
-    block = -1
     def uniquePathsIII(self, grid: List[List[int]]) -> int:
         def backtrack(curr_i, curr_j):
-            if (curr_i, curr_j) == end_pos and len(visited) == empty_cnt + 2:
-                self.res += 1
+            if len(visited) == empty_cnt:
+                if (curr_i, curr_j) == dest:
+                    self.res += 1
                 return
             
-            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+            for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
                 next_i, next_j = curr_i + delta_i, curr_j + delta_j
-                if 0 <= next_i < m and 0 <= next_j < n and grid[next_i][next_j] != self.block:  # 注意不能用==self.empty
+                if 0 <= next_i < m and 0 <= next_j < n and grid[next_i][next_j] != -1:  # 注意不能用==self.empty
                     if (next_i, next_j) not in visited:
                         visited.add((next_i, next_j))
                         backtrack(next_i, next_j)
                         visited.remove((next_i, next_j))
-            
-            
+        
+        
         m, n = len(grid), len(grid[0])
-        start_i, start_j = 0, 0
-        end_pos = (0, 0)
+        start, dest = (0, 0), (0, 0)
         empty_cnt = 0
         for i in range(m):
             for j in range(n):
-                if grid[i][j] == self.start:
-                    start_i, start_j = i, j
-                elif grid[i][j] == self.end:
-                    end_pos = (i, j)
-                elif grid[i][j] == self.empty:
+                if grid[i][j] == 1:
+                    start = (i, j)
                     empty_cnt += 1
-                
+                elif grid[i][j] == 2:
+                    dest = (i, j)
+                    empty_cnt += 1
+                elif grid[i][j] == 0:
+                    empty_cnt += 1
+                    
         self.res = 0
         visited = set()
-        visited.add((start_i, start_j))
-        backtrack(start_i, start_j)
+        visited.add(start)
+        backtrack(start[0], start[1])
         return self.res
-
-
-
 
 
 
