@@ -30,33 +30,67 @@ Explanation: The longest increasing path is [3, 4, 5, 6]. Moving diagonally is n
 solution 1: 从每一个点开始做backtrack -  next candidate valid的条件是matrix[next_i][next_j] > matrix[curr_i][curr_j].  
 O(MN*2^(MN)).  The search is repeated for each valid increasing path. TLE.
 """
+"""
+backtrack结束条件：None, can go as long as you are
+constraints on next_candidate: has to be larger than the curr_num
+arguments pass into backtrack function: curr_pos, curr_lens
+# O(MN * 3^(MN))
+"""
 class Solution:
-    def longestIncreasingPath(self, grid: List[List[int]]) -> int:
-        if not grid or not grid[0]:
-            return 0
-        
-        
+    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
         def backtrack(curr_i, curr_j, curr_lens):
             self.max_lens = max(self.max_lens, curr_lens)
-            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+            
+            for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:     # O(3^(MN))
                 next_i, next_j = curr_i + delta_i, curr_j + delta_j
                 if 0 <= next_i < m and 0 <= next_j < n:
-                    if grid[next_i][next_j] > grid[curr_i][curr_j]:
-                        visited.add((next_i, next_j))
+                    if matrix[next_i][next_j] > matrix[curr_i][curr_j]:
                         backtrack(next_i, next_j, curr_lens + 1)
-                        visited.remove((next_i, next_j))
                         
-        
-        self.max_lens = 1
-        m, n = len(grid), len(grid[0])
+            
+        if not matrix or not matrix[0]:
+            return 0
+        m, n = len(matrix), len(matrix[0])
+        self.max_lens = 0
         for i in range(m):
             for j in range(n):
-                visited = set()
-                visited.add((i, j))
-                backtrack(i, j, 1)    # 以(i, j)开始backtrack
+                backtrack(i, j, 1)
         return self.max_lens
       
 
+"""
+recursion + memorization
+O(number of states) = O(MN)
+"""
+class Solution:
+    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
+        def backtrack(curr_i, curr_j):
+            if (curr_i, curr_j) in memo:
+                return memo[(curr_i, curr_j)]
+            
+            LIP = 1
+            for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]: 
+                next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                if 0 <= next_i < m and 0 <= next_j < n:
+                    if matrix[next_i][next_j] > matrix[curr_i][curr_j]:
+                        LIP = max(LIP, 1 + backtrack(next_i, next_j))
+                        
+            memo[(curr_i, curr_j)] = LIP
+            return LIP
+                        
+            
+        if not matrix or not matrix[0]:
+            return 0
+        
+        m, n = len(matrix), len(matrix[0])
+        memo = defaultdict(int)     # curr_pos --> the max_lens from (curr_pos)
+        max_LIP = 0
+        for i in range(m):
+            for j in range(n):
+                max_LIP = max(max_LIP, backtrack(i, j))     # backtrack returns the max_lens from (i, j)
+        return max_LIP
+      
+      
        
         
         
