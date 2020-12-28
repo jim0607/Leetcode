@@ -1703,6 +1703,8 @@ dp[i][j] = if A[i-1]==B[j-1]: dp[i-1][j-1] + 1; else: 0 cuz has ot be continuous
 solution 2: binary search - (m+n)mlogm.
 - [583. Delete Operation for Two Strings](Solutions/0583.Delete-Operation-for-Two-Strings.py) (M) <br>
 f[i][j] = the min number of steps needed to make word1[:i] and word[:j] the same; f[i][j]=f[i-1][j-1] when A[i-1]=B[j-1], else f[i][j]=min(f[i-1][j], f[i][j-1])) + 1
+- [1092. Shortest Common Supersequence](Solutions/1092.Shortest-Common-Supersequence.py) (!!H) <br>
+solution 1: naive backtrack - O(2^(M+N)); solution 2: recursion + memorization (bottom up dp) - O(MN); solution 3: top down dp - O(MN); step 1: construct_dp_table; step 2: get_result_by_reversely_traverse_dp_table
 - [0161. One Edit Distance](Solutions/0161.One-Edit-Distance.py) (M) <br>
 warm up problem for 72.  One pass solution using two pointers: if s[i] != t[j]: return s[i+1:] == t[j+1:] or s[i+1:] == t[j:] or s[i:] == t[j+1:]
 - [0097. Interleaving String](Solutions/0097.Interleaving-String.py) (!!H) <br>
