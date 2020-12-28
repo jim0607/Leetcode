@@ -45,7 +45,7 @@ def diffBetweenTwoStrings(s, t):
             else:
                 # if we choose to insert a ch to s, then dp[i][j] = 1 + dp[i][j-1]
                 # if we choose to delete a ch from s, then dp[i][j] = 1 + dp[i-1][j]
-                dp[i][j] = 1 + min(dp[i-1][j], dp[i][j-1])
+                dp[i][j] = 1 + min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1])
 
     # step 2: construct the answer using the dp list we constructed
     res = []
