@@ -28,6 +28,37 @@ We first assign bike 0 to worker 0, then assign bike 1 to worker 1 or worker 2, 
 """
 
 
+"""
+backtrack结束条件：len(assigned_workers) == n
+constraint on next_candidate: the worker is not in assigned_workers, the bike is not in assigned_bikes
+arguments pass into backtrack function: curr_dist
+"""
+class Solution:
+    def assignBikes(self, workers: List[List[int]], bikes: List[List[int]]) -> int:
+        def backtrack(curr_dist):
+            if len(assigned_workers) == len(workers):
+                self.min_dist = min(self.min_dist, curr_dist)
+                return
+            
+            for next_w in range(len(workers)):
+                if next_w not in assigned_workers:
+                    for next_b in range(len(bikes)):
+                        if next_b not in assigned_bikes:
+                            assigned_workers.add(next_w)
+                            assigned_bikes.add(next_b)
+                            backtrack(curr_dist + abs(workers[next_w][0] - bikes[next_b][0]) + abs(workers[next_w][1] - bikes[next_b][1]))
+                            assigned_workers.remove(next_w)
+                            assigned_bikes.remove(next_b)
+            
+                
+        self.min_dist = sys.maxsize
+        assigned_workers = set()
+        assigned_bikes = set()
+        backtrack(0)
+        return self.min_dist
+
+       
+
 
 class Solution:
     def assignBikes(self, workers: List[List[int]], bikes: List[List[int]]) -> int:   
