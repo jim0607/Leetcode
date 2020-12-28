@@ -22,6 +22,60 @@ Note that different sequences are counted as different combinations.
 Therefore the output is 7.
 """
 
+"""
+backtrack结束条件：curr_sum == target
+constraints on next_candidate: no constraint, any num in nums can be added
+arguments to pass in backtrack function: curr_sum
+"""
+class Solution:
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        def backtrack(curr_sum):
+            if curr_sum == target:
+                self.res += 1
+                return
+            
+            if curr_sum > target:
+                return
+            
+            for next_num in nums:      # (1,3)和(3,1)都可以算到答案里，所以是Permutation problem, next_idx 从0开始
+                backtrack(curr_sum + next_num)
+                
+        self.res = 0
+        backtrack(0)
+        return self.res
+    
+    
+    
+"""
+solution 2: memorization
+Will call recusively call backtrack function at most t times, 
+each time we cann the backtrack function, it takes O(n), so total time is O(n*t)
+"""
+class Solution:
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        def backtrack(curr_sum):
+            if curr_sum == target:
+                return 1
+            
+            if curr_sum > target:
+                return 0
+            
+            if curr_sum in memo:
+                return memo[curr_sum]
+            
+            res = 0
+            for next_num in nums:    
+                res += backtrack(curr_sum + next_num)
+                
+            memo[curr_sum] = res
+            return res
+                
+        memo = defaultdict(int)   # curr_sum --> start from curr_sum, how many ways to get target
+        return backtrack(0)
+
+
+
+
 
 """
 不要求输出所有的combination，所以除了dfs，还有更快的方法：背包问题。
