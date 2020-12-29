@@ -76,13 +76,13 @@ class Solution:
             for b_idx, b in enumerate(bikes):
                 dist = abs(w[0] - b[0]) + abs(w[1] - b[1])
                 buckets[dist].append((w_idx, b_idx))
-                
-        res = [-1 for _ in range(len(workers))]
+
+        worker_assigned = [-1 for _ in range(len(workers))]
         bike_assigned = set()
-        for dist_lst in buckets:  # everytime, we deal with the smallest dist, by looping thru idx/dist
+        for dist_lst in buckets:      # everytime, we deal with the smallest dist, by looping thru idx/dist
             for w_idx, b_idx in dist_lst:
-                if res[w_idx] != -1 or b_idx in bike_assigned:  # if worker is assigned or bike is assigned
+                if worker_assigned[w_idx] != -1 or b_idx in bike_assigned:  # if worker is assigned or bike is assigned
                     continue
-                res[w_idx] = b_idx
+                worker_assigned[w_idx] = b_idx
                 bike_assigned.add(b_idx)
-        return res
+        return worker_assigned 
