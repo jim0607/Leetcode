@@ -27,25 +27,29 @@ binary search: 这是google 7月份的面试题，这个题说明做过和没做
 最好还是多做一些题，刷到900是最好的状态！
 """
 """
-[4,7,9,10]
-     \
-how many numbers are missing before position 2?
-missing[idx] = 9 - 4 - 2 = 3 = nums[idx] - nums[0] - idx
+for [4,7,9,10], how many number are missing between 4 and 10?
+there should be 10-4-1 = 5 numbers between 4 and 10 if nothing is missing,
+however, now there are only 3-0-1 = 2 numbers between 4 and 10.
+so the total number that are missing between 4 and 10 is 5-2 = 3.
+total number missing between i and j is (nums[j] - nums[i]) - (j - i).
 
-定义一个function missing(idx) to find the number of number missing before idx. so that we can compare missing(mid) with k. 
-Google真的把binary search 玩出花了！
+how do we determine to drop left or to drop right in binary search?
+if the total_number_missing_between_mid_and_0 is more than k, so we drop right.
+else we drop left.
 """
 class Solution:
     def missingElement(self, nums: List[int], k: int) -> int:
-        if k > nums[-1] - nums[0] - len(nums) + 1:
-            return k + nums[0] + len(nums) - 1
+        n = len(nums)
+        missing_cnt_from_end_to_start = (nums[n-1] - nums[0]) - (n - 1)     # if k is too very large
+        if k > missing_cnt_from_end_to_start:
+            return nums[n-1] + k - missing_cnt_from_end_to_start
         
         start, end = 0, len(nums) - 1
         while start + 1 < end:
             mid = start + (end - start) // 2
-            if nums[mid] - nums[0] - mid >= k:  # there are more than k numbers missing before mid idx
+            if nums[mid] - nums[0] - mid >= k:
                 end = mid
             else:
                 start = mid
-            
-        return k + nums[0] + start
+        
+        return nums[start] + k - (nums[start] - nums[0] - start)
