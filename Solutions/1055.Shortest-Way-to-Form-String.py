@@ -61,10 +61,6 @@ class Solution:
 """
 solution 2: greedyf + binary seach - O(tlog(s))
 """
-"""
-algorithm: find the position of each chof_target in source.
-O(mn)
-"""
 class Solution:
     def shortestWay(self, s: str, target: str) -> int:
         ch_to_idx = defaultdict(list)
