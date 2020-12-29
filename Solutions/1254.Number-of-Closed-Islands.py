@@ -29,6 +29,39 @@ Input: grid = [[1,1,1,1,1,1,1],
 Output: 2
 
 
+  
+"""
+one pass solution
+"""
+class Solution:
+    LAND = 0
+    WATER = 1
+    def closedIsland(self, grid: List[List[int]]) -> int:
+        def dfs(curr_i, curr_j):
+            if curr_i in (0, m - 1) or curr_j in (0, n - 1):
+                self.is_touching_border = True
+                
+            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                if 0 <= next_i < m and 0 <= next_j < n:
+                    if grid[next_i][next_j] == self.LAND:
+                        grid[next_i][next_j] = -1
+                        dfs(next_i, next_j)        
+        
+        
+        m, n = len(grid), len(grid[0])
+        visited = set()
+        cnt = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == self.LAND:
+                    self.is_touching_border = False
+                    dfs(i, j)
+                    if not self.is_touching_border:
+                        cnt += 1
+        return cnt
+
+
 
 """
 与130出重复了，代码一模一样
