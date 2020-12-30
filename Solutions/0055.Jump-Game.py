@@ -40,25 +40,23 @@ Greedy算法：第一步可以跳到比如位置10，也就是说0-10我们都�
 """
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        curr_coverage = nums[0]
-        if curr_coverage >= len(nums) - 1:
-            return True
-        
+        last_coverage = 0
+        next_coverage = nums[0]
         i = 0
         while i < len(nums):
-            next_coverage = curr_coverage
-            for j in range(i, curr_coverage + 1):   # 更新next_coverage
-                next_coverage = max(next_coverage, j + nums[j])
-                
+            while i <= last_coverage:       # 更新next_coverage
+                next_coverage = max(next_coverage, i + nums[i])
+                i += 1
+
             if next_coverage >= len(nums) - 1:  # 可以到达终点
                 return True
-            if next_coverage == curr_coverage:  # 无法前进了, 这个判断很重要，不然就死循环了
+
+            if next_coverage == last_coverage:  # 无法前进了, 这个判断很重要，不然就死循环了
                 return False
+
+            last_coverage = next_coverage
             
-            i = curr_coverage + 1
-            curr_coverage = next_coverage
-            
-        return False
+        return True
 
 
 
