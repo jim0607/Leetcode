@@ -20,7 +20,7 @@ Return the following binary tree:
    
    
 """
-solution 1: simple recursion - O(N^2)
+solution 1: simple recursion - O(N^2), maybe O(nlogn) I think according to Master's theorem.
 """
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
