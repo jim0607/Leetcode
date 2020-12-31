@@ -30,15 +30,13 @@ logger.shouldPrintMessage(10,"foo"); returns false;
 logger.shouldPrintMessage(11,"foo"); returns true;
 """
 
-
 class Logger:
 
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        # maintain a message_to_time dict, where val is time when a message is last printed
-        self.message_to_time = collections.defaultdict(int)
+        self.msg_time = defaultdict(int)    # msg --> time
 
     def shouldPrintMessage(self, timestamp: int, message: str) -> bool:
         """
@@ -46,14 +44,47 @@ class Logger:
         If this method returns false, the message will not be printed.
         The timestamp is in seconds granularity.
         """
-        if message not in self.message_to_time or self.message_to_time[message] + 10 <= timestamp:
-            self.message_to_time[message] = timestamp
+        if message not in self.msg_time or timestamp >= 10 + self.msg_time[message]:
+            self.msg_time[message] = timestamp
             return True
         return False
+    
 
-# Your Logger object will be instantiated and called as such:
-# obj = Logger()
-# param_1 = obj.shouldPrintMessage(timestamp,message)
+"""
+When applying the dctionary solution, since we are not removing the outdated messages (messages printed more than 10 seconds ago), 
+the space complexity can grow linearly with the number of messages.
+
+To prevent this, we need to actively find the obsolete messages and remove them from the dictionary. 
+We can do this by using OrderedDict in python. Starting from the left-most element of the dictionary, 
+we remove that element, if its time was before timestamp-10, then we can just throw it out and remove the next message from the dictionary. 
+But if it was not, it means that we are done cleaning the obsolete messages and we return the removed message to its original place as the left-most message in the OrderedDict.
+"""
+class Logger:
+
+    def __init__(self):
+        # use ordered dict to maintain time ordered, odered dict is an enhanced deque
+        # because each time we put a new key --> val pair in ordered dict, we put it at the end of the Double Linked List
+        self.msg_time = OrderedDict(int)
+
+    def shouldPrintMessage(self, timestamp: int, message: str) -> bool:
+        # step 1: check if we should print the incoming msg
+        should_print = False
+        if message not in self.msg_time or timestamp >= 10 + self.msg_time[message]:
+            self.msg_time[message] = timestamp
+            should_print = True
+
+        # step 2: remove the outdated msg
+        while len(self.msg_time) > 0:
+            msg, time = self.msg_time.popitem(last=False)
+            if timestamp <= 10 + time:
+                self.msg_time[msg] = time
+                self.msg_time.move_to_end(msg, last=False)  # move back to the beginning
+                break
+                
+        return should_print
+
+
+
 
 
 """ 
@@ -77,7 +108,7 @@ Output : arr[] = {2, 3, 5, 6, 8, 9, 10}
 Input : arr[] = {10, 9, 8, 7, 4, 70, 60, 50}
          k = 4
 Output : arr[] = {4, 7, 8, 9, 10, 50, 60, 70}
-    
+"""
 
 
 def sort_k(nums, k):
@@ -100,4 +131,3 @@ if __name__ == "__main__":
     arr = [2, 6, 3, 12, 56, 8]
     sort_k(arr, k)
     print(arr)
-"""
