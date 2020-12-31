@@ -54,7 +54,13 @@ class Solution:
             graph[u].append(v)
             graph[v].append(u)
             
-        # step 1: build the DP table to find the minimum edit distance to targetPath
+        dp = self.get_dp_table(n, roads, names, targetPath, graph)
+        min_path = self.get_minpath_from_dp_table(dp, n, roads, names, targetPath, graph)
+        return min_path
+            
+            
+    # step 1: build the DP table to find the minimum edit distance to targetPath
+    def get_dp_table(self, n, roads, names, targetPath, graph):
         m = len(targetPath)
         dp = [[sys.maxsize] * n for _ in range(m)]     
         for u in range(n):
@@ -66,9 +72,13 @@ class Solution:
                     dp[i][u] = min(dp[i][u], dp[i-1][v]) + 0
                 dp[i][u] += 0 if names[u] == targetPath[i] else 1
                 
+        return dp
                 
-        # step 2: 反向遍历the dp table to find the best path that leads to min_edit_dist
-        # first we find the last min_dist_node, use it as the last node we take in the best path
+                
+    # step 2: 反向遍历the dp table to find the best path that leads to min_edit_dist
+    # first we find the last min_dist_node, use it as the last node we take in the best path
+    def get_minpath_from_dp_table(self, dp, n, roads, names, targetPath, graph):
+        m = len(targetPath)
         min_dist = sys.maxsize
         min_dist_node = -1
         for u in range(n):
@@ -78,17 +88,16 @@ class Solution:
 
         # then we reversely find each node in the best path
         res = [min_dist_node]
-        curr_min = min_dist
         curr_min_node = min_dist_node
         for i in range(m - 2, -1, -1):   
             for v in graph[curr_min_node]:
                 edit_dist = 0 if names[curr_min_node] == targetPath[i+1] else 1
-                if dp[i][v] + edit_dist == curr_min:
-                    curr_min = dp[i][v]
+                if dp[i][v] + edit_dist == dp[i+1][curr_min_node]:
                     curr_min_node = v
                     res.append(v)
                     break       # 可能有多个u都等于curr_min, 我们只需要任意一个就可以
         return res[::-1]
+    
         
         
 """
