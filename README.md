@@ -7,13 +7,8 @@ In this way, the wordlist is narrowed down each time we do a guess.
 How to choose a word: solution 1: random guess; 2. choose the guess word wisely (Heuristically). Soltion 2: Each time we guess, we choose the word that has the most common chars (overlaps) with other words in the candidates list. This is just a hueristic estimation, hard to prove why it works. But indeed it works much better than random guess.
 - [1423. Maximum Points You Can Obtain from Cards](Solutions/1423.Maximum-Points-You-Can-Obtain-from-Cards.py) (!!!M Google) <br>
 sliding window with fix size problem, the only difference is that some part of the window is at the beginning of the list and some are at the end. 我们可以转化为 find the minimum points you can get within window with fixed size: lens-k. 套用模板即可 Google真是滑窗控
-- [1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](Solutions/1438.Longest-Continuous-Subarray-With-Absolute-Diff-Less-Than-or-Equal-to-Limit.py) (!!!M Google) <br>
-总结：如果题目需要我们在window里更新最大值或最小值，我们往往需要maintian一个mono increasing or mono decreasing deque.
-这个题目我们maintain an increasing dq and a decreasing dq. step 1: 更新maxdq, just like what we did for monostack; step 2: 更新mindq, 套用mono stack模板; step 3: sliding window to update res - 套用sliding window模板
 - [0727. Minimum Window Subsequence](Solutions/0727.Minimum-Window-Subsequence.py) (!!!H) <br>
 solution 1: sliding window - O(MN) 这题subseq与上题substring不同，上题只需要freq都满足了就行，这题不仅如此，而且还是讲究顺序的，; solution 2: dp. dp[i][j] = the min window subsequence that ends with ith ch in t, and jth ch in s. If t[i-1] == s[j-1]: dp[i][j] = dp[i-1][j-1] + 1; else: dp[i][j] = dp[i][j-1] + 1
-- [0946. Validate Stack Sequences](Solutions/0946.Validate-Stack-Sequences.py) (!!!M Google) <br>
-需要一个 __辅助栈st__ 来模拟push和pop的过程，用一个指针在popped list里面跑，如果popped[i]==st[-1]那就一直pop, 最后判断st能不能pop为空
 - [0359. Logger Rate Limiter](Solutions/0359.Logger-Rate-Limiter.py) (!!!E Google) <br>
 很简单，用一个dictionary存(message, last timestamp when message was printed)就可以了。Google followup: input在K长度内无序的，但是时间t+K之后的输入一定出现在t之后。比如K是5，
 [4, foo], [1, foo], [0, bar], [6, bar] => 在[4, foo], [1, foo], [0, bar]内是无序的，但是[6, bar]一定出现在[0, bar]之后，因为6>0+5.
@@ -42,10 +37,6 @@ same as 1296. 用以一个hashmap记录frequency. 由于必须固定长度为W, 
 String manipulation. manipulate string line by line.
 - [1060. Missing Element in Sorted Array](Solutions/1060.Missing-Element-in-Sorted-Array.py) (!!!M Google) <br>
 定义一个function missing(idx) to find the number of number missing before idx. so that we can compare missing(mid) with k. Google真的把binary search 玩出花了！
-- [1477. Find Two Non-overlapping Sub-arrays Each With Target Sum](Solutions/1477.Find-Two-Non-overlapping-Sub-arrays-Each-With-Target-Sum.py) (!!!!M Google) <br>
-prefix sum + dp. step 1: construct a pre_sum and a suf_sum. Step 2: then use the pre_sum and suf_sum to construct two lists: pre_min[i] = minimum lens of valid subarray that ends before i. suf_min[i] = minimum lens of valid subarray that starts after i. step 3: find the ans as we iterate the arr
-- [0528. Random Pick with Weight](Solutions/0528.Random-Pick-with-Weight.py) (!!!M Google) <br>
-step 1: create a __prefix sum arr__; step 2: generate a rand_idx; step 3: __binary search__ to find where the idx is in the prefix_sum arr; follow up 是设计一个class支持修改已有元素的权重, 可能要用到数的结构实现o(logn)吧，没弄明白
 - [1056. Confusing Number](Solutions/1056.Confusing-Number.py) (E) <br>
 use a hashmap
 - [1088. Confusing Number II](Solutions/1088.Confusing-Number-II.py) (!!H Google) <br>
@@ -62,14 +53,10 @@ bfs. 最短距离问题
 String manipulation.
 - [0995. Minimum Number of K Consecutive Bit Flips](Solutions/0995.Minimum-Number-of-K-Consecutive-Bit-Flips.py) (!!H Google) <br>
 q 记录区间[i-k, i]内被反转了的idx, 遍历过程中把里i很远的idx都pop出来，保持窗口小于等于K, 此时len(q)就是位置i已经被翻转的次数，如果为奇数表示i已经从0翻到1或者从1翻到0了
-- [0489. Robot Room Cleaner](Solutions/0489.Robot-Room-Cleaner.py) (!!!H Google) <br>
-遍历机器人的四个方向即可，唯一需要注意的是每次都需要调整机器人的朝向才能move一下，毕竟是机器人嘛. backtrack函数需要传入(curr_i, curr_j, curr_facing). 另外需要定义一个go_back function so that we can go back to the original position and facing for backtracking purpose.
 - [0753. Cracking the Safe](Solutions/0753.Cracking-the-Safe.py) (!!!H) <br>
 思路： dfs取cur_res的最后n-1个数字，加上k中的一个新的数字来组新的combination, 判断这个combination是否已经cover到了. dfs的结束条件是if len(covered) == k ** n
 - [0308. Range Sum Query 2D - Mutable](Solutions/0308.Range-Sum-Query-2D-Mutable.py) (H) <br>
 solution: segment tree. 代码裸长115行，我去NMLGB! 放弃这题算了
-- [1110. Delete Nodes And Return Forest](Solutions/1110.Delete-Nodes-And-Return-Forest.py) (!!!M Google) <br>
-we update res as we traverse the tree. we append a node into res if two conditions are satisfied: 1. the node should not be deleted; 2. the node has not parent (meaning it's the root of a forest). In order to check if a node has parent or not, we need to pass has_parent bool into dfs arguments. If a node is in to_delete list, then the node should pass the information to it's children that it has been deleted and it's children has no parent now.
 - [0085. Maximal Rectangle](Solutions/0085.Maximal-Rectangle.py) (!!!H Google) <br>
 step 1: construct a heights list for each row; step 2: calculate the largestRectangularHistogram of each height using the same method in 84; Should think about dynamic programming solution also.
 - [0690. Employee Importance](Solutions/0690.Employee-Importance.py) (!!E Google) <br>
@@ -79,8 +66,6 @@ solution 1: sparse array. Since 题目说了 initially, each element equals 0.
 we treated it as a sparse matrix: use a dictionary to store only the non-zero values.
 - [1293. Shortest Path in a Grid with Obstacles Elimination](Solutions/1293.Shortest-Path-in-a-Grid-with-Obstacles-Elimination.py) (!!!H Google) <br>
 bfs. q 里面需要放入当前用了多少eliminations. q.append((next_i, next_j, curr_elimination_cnt))
-- [0444. Sequence Reconstruction](Solutions/0444.Sequence-Reconstruction.py) (!!!M) <br>
-这个题目要做三个判断：1. 判断seqs的拓扑排序是否存在，只需判断len(res) 是否等于len(graph) or len(inDegrees), 如果小于说明有孤立节点，如果大于说明有环，两者都不存在拓扑排序; 2. 判断是否只存在一个拓扑排序的序列, 只需要保证队列中一直最多只有1个元素, 即每一层只有一个选择: if len(q)>1: return False; 3. 最后判断这个唯一的拓扑排序res是否等于org
 - [1368. Minimum Cost to Make at Least One Valid Path in a Grid](Solutions/1368.Minimum-Cost-to-Make-at-Least-One-Valid-Path-in-a-Grid.py) (!!!H Google) <br>
 由于我们可以选择四个方向都可以走，所以不能用dp. 如果只能朝右下方向走才能用dp. 可以朝四个方向走只能用bfs/dfs. 由于我们需要maitain min_cost, 所以可以用Dijkstra's. heapq stores (curr_cost, curr_i, curr_j). 
 - [1231. Divide Chocolate](Solutions/1231.Divide-Chocolate.py) (!!!H Google) <br>
@@ -91,14 +76,10 @@ Obviously, it is a minimum of max_val problem, which is typical Dijkstra's. main
 Segment Tree solution: O(NlogN) time and O(N) space. 从右往左遍历add num into the tree one by one， at the same time update the cnt of smaller number after self. Follow up: how to solve Spare Segment Tree problem? - Merge sort. 正解是solution 2: merge sort O(nlogn)
 - [1377. Frog Position After T Seconds](Solutions/1377.Frog-Position-After-T-Seconds.py) (!!H Google) <br>
 dfs, 虚拟一个节点零出来，从0节点出发做dfs. dfs the graph and update the dist of target and the prob of reaching target
-- [0001. Two Sum](Solutions/0001.Two-Sum.py) (!!E) <br>
-九章算法：对于求 2 个变量如何组合的问题可以循环其中一个变量，然后研究另外一个变量如何变化, 普世的方法是：for循环一个变量a，然后看另外一个变量target-a是不是在一个hashmap中
 - [1277. Count Square Submatrices with All Ones](Solutions/1277.Count-Square-Submatrices-with-All-Ones.py) (M Google) <br>
 DP. very similar with 221.Maximal-Square. dp[i][j] 表示以 (i, j) 结尾所组成的最大正方形的边长。dp[i][j] 也表示以 (i, j) 结尾能组成的正方形的个数。
 - [1376. Time Needed to Inform All Employees](Solutions/1376.Time-Needed-to-Inform-All-Employees.py) (!!!M Google) <br> 
 Same as Path Sum II except it's a N-arry tree.
-- [0329. Longest Increasing Path in a Matrix](Solutions/0329.Longest-Increasing-Path-in-a-Matrix.py) (!!!H Google) <br>
-solution 1: 从每一个点开始做backtrack - next candidate valid的条件是matrix[next_i][next_j] > matrix[curr_i][curr_j].  - O(MN2^(MN)).  solution 2: 由于题目并不要求算出path, 所以可以用recurssion with memorization to memorize the LIP from (curr_i, curr_j) (top down dp). Time complexity : O(MN). solution 3: buttom up dp.
 - [1240. Tiling a Rectangle with the Fewest Squares](Solutions/1240.Tiling-a-Rectangle-with-the-Fewest-Squares.py) (!!!H Google) <br>
 backtrack. The basic idea is to fill the entire block bottom up.  In every step, find the lowest unfilled square first, and select a square with different possible sizes to fill it.  What is the nodes in the graph? It is a height array (skyline) height_arr!!!!! 
 The start_node is height_arr = [0, 0, 0...], the end_node is height_arr = [m, m, m...]. Pruning: 1. When the current cnt has exceeded the value of the current global optimal solution, then no need to move forward. 2. Try largest square possible first (improves time by a lot).
@@ -136,18 +117,10 @@ solution 1: compare each word with source string using two pointers. O(nmk), whe
 If two subtrees have the same string representation, then they are duplicated subtress.  solution 1: serialize the every subtree using bfs, and put (string presentation of subtree --> subtree node) into a hashmap. Since serialization takes O(N), so the overall algorithm takes O(N^2). solution 2: serialize the binary tree using post-order traversal.  Since we can update the mapping during the traversal, the whole algorith takes O(N)
 - [0767. Reorganize String](Solutions/0767.Reorganize-String.py) (!!M Google) <br>
 这种间隔k个位置安排座位的问题，都是task schedule的做法！这一题k=1. 用一个hq保存最大的freq, 然后按要求排座位，注意add_back. # case 1: if we can put seat ch into res, then go ahead and seat it it; # case 2: if there is already to same ch on top of res, then we cannot seat the 1st_freq ch, instead, we seat the 2nd highest freq
-- [0146. LRU Cache](Solutions/0146.LRU-Cache.py) (!!!M youtubed) <br>
-use a double linked list and a dictionary; Double linkedlist: newest node append to tail, eldest node remove from head, so that the operation is O(1); Hashmap: key is key, value is the corresponding double linkedlist node
-- [0460. LFU Cache](Solutions/0460.LFU-Cache.py) (!!!H Google) <br>
-其实是在LRU的基础上加了一个frequency的要求。Use a dictionary to store (key, freq) pair. Use another dicitonary to store (freq, list of keys) pair, where list of keys could be OrderedDict like LRU to enable O(1) operations. Use a self.min_freq to store the min_freq. Follow up 变形题snapchat：在一个data stream 中find top K most frequent number用LFU来解，也可以用heapq O(Nlogk) or quick select O(N).
 - [1444. Number of Ways of Cutting a Pizza](Solutions/1444.Number-of-Ways-of-Cutting-a-Pizza.py) (!!!H Google) <br>
 dfs + memo. memo[(i, j, k)] returns the number of ways to cut pizza[i:n][j:m] into k pieces.
 Step 1: In order to fast get how many apples are there in the down-right corner pizza[i:n][j:m] block,
 construct suff_sum similar with 304. Range Sum Query 2D - Immutable. Step 2: dfs + memo.
-- [0527. Word Abbreviation](Solutions/0527.Word-Abbreviation.py) (!!!H Google) <br>
-Trie. step 1: 建立一个abbrev函数：从idx开始，对 word 做abbreviation. step 2: 建立一个abbr2word保存 abbr-->word. step 3: 遍历建立好了的abbr2word。 for abbr, word_lst in abbr2word.items(), 
-如果len(word_lst)==1, 那说明这个abbr是unique的，直接res.append(abbr); 如果len(word_lst)>1, 那说明这个abbr不是unique的，我们需要去寻找每一个word的unique prefix, 所以对这个word_lst就一个Trie, Trie中写一个find_idx函数 to where the prefix for word is unique (cur_node.cnt == 1)
-Time Complexity: O(C) where C is the number of characters across all words in the given array. Space Complexity: O(C).
 - [0777. Swap Adjacent in LR String](Solutions/0777.Swap-Adjacent-in-LR-String.py) (!!M Google) <br>
 观察之后可以发现每次replace "XL" to "LX"都是相当于把"L"向左移动。
 所以"L"一直向左移动，并且不会跨越其他"L" or "R". 而"R"一直向右移动，并且不会跨越其他"R" or "L".
@@ -157,20 +130,12 @@ Time Complexity: O(C) where C is the number of characters across all words in th
 sums(Y) = sums(X) + cnt(X) - cnt(Y) = sums(X) + (N - cnt(Y) - cnt(Y) = sums(X) + N - 2* cnt(X).
 cnt[X]可以通过dfs遍历一次算出来存到一个list里面，这样我们如果已知sums(0)的话，
 那么其余的sums(X)都可以通过上述公式算出来了
-- [0911. Online Election](Solutions/0911.Online-Election.py) (!!M Google) <br>
-Precomputed Answer + Binary Search.
-Constructor: O(N). each query: O(logN). 我们将每一个时刻的winner放到self.res中，这种提前计算好的思想非常重要！
 - [1244. Design A Leaderboard](Solutions/1244.Design-A-Leaderboard.py) (M) <br>
 use a dictionary for fast addscore and reset. use a heapq to find top K elements
 - [0299. Bulls and Cows](Solutions/0299.Bulls-and-Cows.py) (!!!M Google) <br>
 use a digit_to_cnt hashmap for digit. one pass to update A_cnt, another pass to update B_cnt.
-- [0642. Design Search Autocomplete System](Solutions/0642.Design-Search-Autocomplete-System.py) (!!!H Google) <br>
-与1268很像，只不过输入input_str是流数据，需要不断更新hotness. In TrieNode, there should be self.child, self.is_end, self.sentence, self.hotness. In Trie, there should be a method to insert a sentence into the trie; there should also be 
-a method to search for all the possible autocomplete words of a given input string; 这个search mehtod分三步，第一步是遍历找到需要search的input_str在trie中所在的node, 第二步是从这个node出发，找到其所有能到达的endNode, 显然是backtrack来做，第三步是对所有能达到的endNode.hotness排个序，取前三作为输出。
 - [0130. Surrounded Regions](Solutions/0130.Surrounded-Regions.py) (!!M) <br>
 Solution 1: dfs/bfs: Step 1: Start from border, do a bfs for "O", mark all the "O" that can be reached from the border. We can either mark by putting them into a visited set, or just change it to some symbol "#". Step 2: 2nd pass, we change to "X" tha "O" that could not be visited from the border.  Solution 2: Union Find.  Step 1: Union all the "O" that are neighborign with each other. We do a weighted union, meaning when we union, we also choose to point to the one that is on the border. Step 2: 2nd pass, we change to "X" tha "O" that has a root not on border.  bfs只从border出发做bfs, 很中间的"O"就不用管了，而Union Find中间的也需要union, 所以bfs 比union find 更快。Solution 3: dfs interatively, only change one line in the bfs solution. Solution 4: dfs recurssively.
-- [1254. Number of Closed Islands](Solutions/1254.Number-of-Closed-Islands.py) (M) <br>
-与130出重复了
 - [0394. Decode String](Solutions/0394.Decode-String.py) (!!M Google) <br>
 定义一个numStack, 一个strStack 存nums和parenthesis. if it's a digit, should use a while loop to add the num in case there are multiple digits; if it's a ch, then put it into strStack; if it's a [, then put the num in numStack and re-initialize the tempNum and tempStr for calculation inside the []; if it's a ], then pop the resStack and signStack and update res.
 - [1296. Divide Array in Sets of K Consecutive Numbers](Solutions/1296.Divide-Array-in-Sets-of-K-Consecutive-Numbers.py) (!!!M Google) <br>
@@ -179,9 +144,6 @@ Solution 1: dfs/bfs: Step 1: Start from border, do a bfs for "O", mark all the "
 two pointers.  split the version by "." first before processing.
 - [1074. Number of Submatrices That Sum to Target](Solutions/1074.Number-of-Submatrices-That-Sum-to-Target.py) (H) <br>
 也可以先把行处理好，让每一行里面保存上面所有行的和，接下来就是在每一行里面去求560问题了，注意一点不同的是需要遍历upRow和downRow的, 如果不遍历就是solution 3的错误写法举一个反例想明白solution 3为什么行不通，自然就会改成solution 2了O(MMN)
-- [0295. Find Median from Data Stream](Solutions/0295.Find-Median-from-Data-Stream.py) (!!H) <br>
-定义两个heap: self.leftHq as a maxheap to store the nums that are smaller than median; and self.rightHq as a minheap store the nums that are larger then median.  每次新增一个数num的时候，先根据比 maxheap 中最后一个数大还是小丢到对应的 heap 里。丢完以后，再处理左右两边的平衡性:如果左边太少了，就从右边拿出一个最小的丢到左边。如果右边太少了，从左边拿出一个最大的丢到右边。时间复杂度是O(logN). Follow up questions are important. 
-Follow up: leetcode 1093
 - [0679. 24 Game](Solutions/0679.24-Game.py) (!!H Google) <br>
 方法：两个for loop在nums中取两个数nums[i] and nums[j]. 算出nums[i] and nums[j]这两个数加减乘除可能得到的数，
 将这些可能得到的数放进next_nums里面进行递归。递归的结束条件是len(nums)==1即无法再跟其他书加减乘除了。
@@ -203,20 +165,10 @@ dp.  dp[i][j][k] = from (i, j) the number of ways you to end up at the original 
 dp[i][j][k] = dp[i - 1][j][k - 1] + dp[i][j - 1][k - 1] + dp[i + 1][j][k - 1] + dp[i][j + 1][k - 1]
 - [0840. Magic Squares In Grid](Solutions/0840.Magic-Squares-In-Grid.py) (!!!M Google) <br>
 Array. 找规律就可以了
-- [0056. Merge Intervals](Solutions/0056.Merge-Intervals.py) (!!M) <br>
-这种interval的题目首先都需要sort, 因为我们总不可能一会处理前面的，一会处理后面的区间。 Sort the intervals first. Loop over the intervals:
-If the curr_interval start time is larger than the largest end time in res, then the interval cannot be merged. 
-If cannot be merged, then res.append(curr_interval), else then update the new end time: res[-1][1] = max(res[-1][1], curr_interval_end). 
-Merge interval的算法非常重要，后面的题经常用到！！！
 - [0992. Subarrays with K Different Integers](Solutions/0992.Subarrays-with-K-Different-Integers.py) (!!H) <br>
 exactly(K) = atMost(K) - atMost(K-1). Helper function is exactly the same as 340. Longest Substring with At Most K Distinct Characters
 - [1218. Longest Arithmetic Subsequence of Given Difference](Solutions/1218.Longest-Arithmetic-Subsequence-of-Given-Difference.py) (!!!M Google) <br>
 dp, similar with. solution 1: O(N^2), dp[i] = the LAS ended with arr[i]. dp[j] = dp[i] + 1 for i < j and arr[j] - arr[i] == diff. O(N) use hashmap, like two sum problem. dp[arr[j]] = dp[arr[j] - diff] + 1 if arr[j] - diff in dp else 1.
-- [0351. Android Unlock Patterns](Solutions/0351.Android-Unlock-Patterns.py) (!!!M Google) <br>
-backtrack: 跟普通的backtrack不同的是From a number in the keypad we can reach any other number, but can't reach the one's that have a number as obstacle in between. 
-For example, for (1 to 3), the obstacle is 2. 所以在判断要不要把next_num作为下一个valid candidates的时候如果(curr_num, next_num) in cannot_pass那就不行。
-- [1223. Dice Roll Simulation](Solutions/1223.Dice-Roll-Simulation.py) (!!!M Google) <br>
-solution 1: backtrack - O(6^N) in worst case. 不需要传入curr_comb, 只需要last_num和the repeat time of last_num. solution 2: backtrack + memo - O(6n^2). 套backtrack + memo的模板即可
 - [0818. Race Car](Solutions/0818.Race-Car.py) (!!H) <br>
 层序遍历的bfs. 这个graph的nodes比较特殊，nodes是(curr_pos, curr_speed). strong pruning that is 100 times faster: 我们是有条件的回退，只有在超过了target的情况下我们才回退
 - [0174. Dungeon Game](Solutions/0174.Dungeon-Game.py) (!!H Google) <br>
@@ -224,8 +176,6 @@ find the max of mininum_sum in all the paths.这题不能像1102.Path-With-Maxim
 那我们就知道了我们到达(m-1, n)房间所需的最小血量是dp[m-1][n] = 到达(m, n)房间所需要的血量减去在(m-1, n)房间的损耗，
 即dp[m-1][n] =max(dp[m][n] - A[m-1][n], 1); 到达(m, n-1)房间所需的最小血量是dp[m][n-1] = max(dp[m][n] - A[m][n-1], 1).
 所以我们是从终点倒着往起点推。
-- [0428. Serialize and Deserialize N-ary Tree](Solutions/0428.Serialize-and-Deserialize-N-ary-Tree.py) (!!H Google) <br>
-solution: level order bfs.  This is very similar with serialize and deserialze a binary tree. In binary tree, we know after visit left and right of a node, we can move to another node, but in Nary tree, we don't know when to finish visiting a node cuz there could be multiple children for a node. So we need to do  some trick to mark the end of a level.  The trick is, when we do bfs to serialze, we append "#" into a res when we switch from one parent to another parent. In deserialize, while res[idx] != "#" 就说明还要继续给curr_node添加child，而res[idx] == "#"意味着要换node append child了, idx += 1
 - [0949. Largest Time for Given Digits](Solutions/0949.Largest-Time-for-Given-Digits.py) (!!M Google) <br>
 backtrack. step 1: find all possible permutations - O(4!). step 2: update max_possible time that can be constructed from the permutations.
 - [1219. Path with Maximum Gold](Solutions/1219.Path-with-Maximum-Gold.py) (!!M)<br>
@@ -265,18 +215,9 @@ step 2: Binary find the target in strict increasing/left part.
 step 3: Binary find the target in strict decreasing/right part.
 - [1048. Longest String Chain](Solutions/1048.Longest-String-Chain.py) (!!M Google) <br>
 dp = dict, key is word, val is the longest chain lens ended with word; prevWord = word[:i]+word[i+1:]; if prevWord in dp: dp[word] = max(dp[redesessor]+1)
-- [0726. Number of Atoms](Solutions/0726.Number-of-Atoms.py) (!!H Google) <br>
-Parenetheses. 与394.Decode String非常类似, 我们需要反向遍历，这样只要遇到upper case的ch就可以加到dictionary了
 - [0659. Split Array into Consecutive Subsequences](Solutions/0659.Split-Array-into-Consecutive-Subsequences.py) (!!!M Google) <br>
 这道题我们遍历nums的时候只要当前的num被前面的顺子需要，就把num连上去，顺子连得越长越好，这就是greedy所在，使用两个 HashMap，第一个 HashMap 用来建立某个数字和其出现次数之间的映射 freq，
 第二个用来建立某个数字被前面顺子所需要的次数之间的映射 need。
-- [1057.Campus-Bikes.py](Solutions/1057.Campus-Bikes.py) (!!M) <br>
-brutal force solution O(MNlog(MN)): find the distance of all combinations, and sort them.
-. bucket sort solution O(MN): find the distance of all combinations, and put them into bucket based on their distance. 
-In this way, the distances are represented by idx, which were sort by nature. <br>
-- [1066. Campus Bikes II](Solutions/1066.Campus-Bikes-II.py) (!!M Google) <br>
-backtracking with memorization, 由于必须把assigned_bike set放入到state中，所以是指数级别的复杂度, solution 2: backtrack + Dijkstra's <br>
-Extention: __Campus Bikes III (minimize max) - Dijkstra's__
 - [0053. Maximum Subarray](Solutions/0053.Maximum-Subarray.py) (!!E) <br>
 step 1: 构造前缀和pre_sum; 
 step 2: the same as 127. Best time to buy and sell stock
@@ -305,8 +246,6 @@ O(2^M* L* N) where L is len(prices), M is how many specials are there, N is valu
 - [0844. Backspace String Compare](Solutions/0844.Backspace-String-Compare.py) (!!!E) <br>
 这种双指针处理比较双序列问题很常见。由于题目"#"可以删掉前面的ch, We can use a pointer traverse from __right to left__, and use a counter to count how many "#" we got so far. 一般要求用O(1) space解决。Google follow up: 加一个按键是类似caps lock，即按了之后所有的字母小写变大写，再按一下大写变小写。
 思路：定义caps cnt，先扫一遍看多少个caps lock，比较s1.charAt(i) == s2.charAt(j) && caps1 == caps2
-- [0224. Basic Calculator](Solutions/0224.Basic-Calculator.py) (!!H) <br>
-if it's a digit, should use a while loop to add the num in case there are multiple digits, eg: 322 - 16; if it's a sign, then use 1 or -1 to represent it; if it's a (, then append the previous res and sign into the numStack and signStack, and initialize the sign and num for calculation inside the (); if it's a ), then pop the numStack and signStack and update res.
 - [0406. Queue Reconstruction by Height](Solutions/0406.Queue-Reconstruction-by-Height.py) (!!M) <br>
 Greedy: Since short people will not disturb/affect the relative order of taller people so we can start from tallest guy(s). Then for each person [i,j], we insert it into res based on j.
 - [0907. Sum of Subarray Minimums](Solutions/0907.Sum-of-Subarray-Minimums.py) (!!M) <br>
@@ -444,63 +383,136 @@ step 1: find all possible divisible lens - O(n^0.5); step 2: try each possible d
 Hashmap. Convert long url to short url via hashing. Look up long url from short url in hash table. # hash(str) returns the hash_code for the str
 - [1162. As Far from Land as Possible](Solutions/1162.As-Far-from-Land-as-Possible.py) (!!M) <br>
 The max distance is the max steps to change all WATER to LAND. So we firslty put all land in a q, than do bfs layer by layer to change WATER to LAND in-place - O(MN).  solution 2: DP same as 542. 01 matrix
+- [0698. Partition to K Equal Sum Subsets](Solutions/0698.Partition-to-K-Equal-Sum-Subsets.py) (!!!M) <br>
+套backtrack模板即可，backtrack里面需要传入(curr_sum, curr_idx, curr_cnt).
+结束条件是已有curr_cnt=k段满足条件了. 
+Time complexity: we basically iterate over nums and for each element either use it or drop it, 
+which is O(2^n). We are doing the same for each subset. Total subsets are k. 
+So Time Complexity becomes O(k*(2^n))
+- [0123. Best Time to Buy and Sell Stock III](Solutions/0123.Best-Time-to-Buy-and-Sell-Stock-III.py) (H) <br>
+Only two transactions are allowed.  Maintain buy1=the minimum money you can **owe** after the first buy, sell1=the maximum money you **earn** after the first sell, also, buy2, sell2, and update them together in a for loop, 算法只是把121中的算法重复两次而已.
+- [0188. Best Time to Buy and Sell Stock IV](Solutions/0188.Best-Time-to-Buy-and-Sell-Stock-IV.py) (H) <br>
+Only k transactions are allowed.   Maintain buy=[]* k, sell=[]* k, and update them together in a for loop. buy[i] = min(buy[i], price - sell[i - 1]), buy[i] = the minimum money you can own after the ith purchase; sell[i] = max(sell[i], price - buy[i]), sell[i] = the maximum money you can earn after the ith purchase.  Solve the memory overflow problem: if k>prices.length/2, then it is the same as 122.
+- [0801. Minimum Swaps To Make Sequences Increasing](Solutions/0801.Minimum-Swaps-To-Make-Sequences-Increasing.py) (M) <br>
+与714. Best Time to Buy and Sell Stock with Transaction Fee 很像，都有交换和不交换两种情况
+- [0226. Invert Binary Tree](Solutions/0226.Invert-Binary-Tree.py) (E) <br>
+- [0017. Letter Combinations of a Phone Number](Solutions/0017.Letter-Combinations-of-a-Phone-Number.py) (!!M) <br>
+经典的backtrack题，in dfs template, find solution: if currIdx == len(digits); for next_candidate in list_of_candidates: for ch in self.phone[digits[next_idx]];
+- [0072. Edit Distance/Levenshtein distance](Solutions/0072.Edit-Distance.py) (!!H) <br>
+f[i][j]=A前i个字符[0..i)和B前j个字符[0..j)的最小编辑距离; f[i][j]=min{case 1. f[i-1][j]+1 (f[i-1][j]表示A[0..i-1)就可以拼成B[0..j)了，所以A[0..i)要拼成B[0..j)需要删掉A[0..i)的最后一个字母); case 2. f[i][j-1]+1 (B[0..j)需要删掉最后一个字母，即A[0..i)的后面需要增加一个字母); case 3. f[i-1][j-1]+1 (A[0..i)的后面需要replace一个字母); case 4. f[i-1][j-1] (if A[i-1]=B[j-1] 就不需要任何操作直接就是了)}
+- [1007. Minimum Domino Rotations For Equal Row](Solutions/1007.Minimum-Domino-Rotations-For-Equal-Row.py) (!!M) <br>
+Try all possibilities from 1 to 6. If we can make number i in a whole row, it should satisfy that countA[i] + countB[i] - same[i] = n
+- [0560. Subarray Sum Equals K](Solutions/0560.Subarray-Sum-Equals-K.py) (!!M Google) <br>
+新建一个prefixSumDict = {0: 1}, key是prefixSum, val是how many times the prefixSum appears; if prefixSum - k in prefixSumDict: 等价于if prefixSum[j+1]-prefixSum[i] == k
+- [0284. Peeking Iterator](Solutions/0284.Peeking-Iterator.py) (!!M) <br>
+define a self.iterator, and a self.next_item to record the top item of the iterator, 相当于提前预支next_item.
+- [0246. Strobogrammatic Number](Solutions/0246.Strobogrammatic-Number.py) (E) <br>
+Two pointers. similar with 1056. Confusing Number.
+- [0247. Strobogrammatic Number II](Solutions/0247.Strobogrammatic-Number-II.py) (!!M Google) <br>
+Backtrack. find all combinations for n//2 lens, using backtrack.
+- [0979. Distribute Coins in Binary Tree](Solutions/0979.Distribute-Coins-in-Binary-Tree.py) (!!M) <br> 
+The algorithm is: one node by another, try to balance node from down to top.
+helper function returns how many coins should the node receive from it's parent in order to balance itself.
+用一个全局变量打擂台记录移动了多少个coins
+- [0214. Shortest Palindrome](Solutions/0214.Shortest-Palindrome.py) (!!H Google) <br>
+The problem really is to find the longest palindrome starts with s[0].
+rabin carp / rolling hash O(N). The algorithm is for string s, left_code = the hash_code scan from left to right,
+right_code = the hash_code scan from right to left. if left_code == right_code, then s is a palindrome.
+- [0133. Clone Graph](Solutions/0133.Clone-Graph.py) (!!!M) <br>
+用一个mapping 保存node-->node_copy. 然后一边dfs一边新建copied nodes 
+- [0022. Generate Parentheses](Solutions/0022.Generate-Parentheses.py) (!!M)  <br>
+Very similar with permutation problem. if leftCnt == n and rightCnt == n: self.res.append(curr) return; if leftCnt < rightCnt: return  # 这个判断尤为关键！
+- [0132. Palindrome Partitioning II](Solutions/0132.Palindrome-Partitioning-II.py) (!!H) <br>
+子数组或者子字符串且求极值的题，基本就是 DP 没差了. f[j]=the minimum number of total palindrome till the jth character (not including j); f[j]=min(f[i]+1) for i<j and s[i:j] is palindrome. O(N^3), 划分型的dp的状态一般都not include j, 这样就有一个buffer layer可以用。Solution 2: 优化为O(N^2), 用一个isPalin[i][j]记录s[i:j]是否是palindrome, 更新isPalin[i][j]的方法与leetcode 5 相同，这样就不用每次都用双指针去判断s[i:j]是不是palindrome. 这种预先计算好的思想非常重要，参看907. Sum of Subarray Minimums.  输出所有的可能的partition成palindrome的组合问题只能dfs+backtracking了- 131. Palindrome Partitioning
+- [0041. First Missing Positive](Solutions/0041.First-Missing-Positive.py) (!!H) <br>
+1st pass: change all negtive numbers to be 1, so that there will be no negtive numbers;  2nd pass: change the positive numbers into negative; 3rd pass: find the first positive number, and the corresponding idx is missing
+- [0399. Evaluate Division](Solutions/0399.Evaluate-Division.py) (!!M) <br>
+Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hashmap构建邻接表 graph = collections.defaultdict(dict), in graph, key is node1, val is a dict of (key: node2, val: node1/node2), 然后每次query其实就是从单源节点出发寻求不带权值最短路径问题。  Soltution 2: DFS;
+- [0048. Rotate Image](Solutions/0048.Rotate-Image.py) (!M) <br>
+Step 1: reverse columns: swap( matrix[][i], matrix[][j] ); Step 2: transpose: swap( matrix[i][j], matrix[j][i] )
+- [0050. Pow(x, n)](Solutions/0050.Pow(x,n).py) (M) <br>
+recursion solution: half = self.myPow(x, n//2); if n%2 == 0: res = half * half; else: res = half * half * x
+- [0036. Valid Sudoku](Solutions/0036.Valid-Sudoku.py) (M) <br>
+use a row_dict to record each row, a col_dict to record each col; a block_dict to record each 3x3 block. block_id is (row // 3, col // 3)
+- [0209. Minimum Size Subarray Sum](Solutions/0209.Minimum-Size-Subarray-Sum.py) (!!M) <br>
+这题是第一种模板：find min subarray size for at least problem. 写法是while loop里让后面的指针逐渐远离前面的指针；
+Can we solve in O(NlogN)? Yes, we can traverse the the list, say at i, we search the fisrt j that satisfy sum(nums[i:]>=s), so it is a OOXX probelm, which could be solved using binary search. Follow up: 如果有负数怎么办？那就不能用sliding window了, 只能用pre_sum / deque, 详见862.
+- [0862. Shortest Subarray with Sum at Least K](Solutions/0862.Shorteast-Subarray-with-Sum-at-Least-K.py) (!!H) <br>
+不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
+这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
+两个while循环，一个while loop do sliding window to update res, 从队首pop, 同时更新res, 
+另一个while loop do monostack to maintain an increasing dq, 从队尾pop, 对deq进行清理。
+- [0054. Spiral Matrix](Solutions/000054.Spiral-Matrix.py) (!!M) <br>
+每一个转弯的点是dfs的node, dfs helper function 需要传入的参数有(min_row, max_row, min_col, max_col, curr_dir)
+- [0095. Unique Binary Search Trees II](Solutions/0095.Unique-Binary-Search-Trees-II.py) (!!M) <br>
+helper(start, end): return the trees from start to end.  Finally return helper(1, n). Time complexity: The main computations are to construct all possible trees with a given root, that is actually Catalan number Gn (超纲).
+- [0096. Unique Binary Search Trees](Solutions/0096.Unique-Binary-Search-Trees.py) (!!M) <br>
+solution 1: brutal force, same as 95, return len(helper(1, n)). If we defind dp[i] = how many trees possible in a range with width == i, then we have
+dp[j] = sum for (dp[i] * dp[j - i - 1] for all i < j)
+- [0131. Palindrome Partitioning](Solutions/0131.Palindrome-Partitioning.py) (!!!M) <br>
+要求输出所有的可能组合，所以只能backtrack. O(L* 2^L), where L is the lens of string, 2 is two choices: 这这里分还是不分。  
+如果题目只是要求输出所有可能组合的数目，那就dp - O(L^2)
+- [0150. Evaluate Reverse Polish Notation](Solutions/0150.Evaluate-Reverse-Polish-Notation.py) (!!M) <br>
+stack存num就可以了
+- [0435. Non-overlapping Intervals](Solutions/0435.Non-overlapping-Intervals.py) (!!M) <br>
+This is actually greedy algorithm: always pick the interval with the earliest end time. 
+Step 1: sort the list based on the end time of the intervals, cuz we want to pick up the earliest end time.
+step 2: maintain a min_end_time as we sweep over the intervals. each time, we compare the start time with the pointer.
+if the current start time is larger than the pointer, then renew the pointer to be the new end time;
+else then we will have to remove the current interval in order to to keep the end time as small as possible,  removed_cnt += 1
+- [0430. Flatten a Multilevel Doubly Linked List](Solutions/0430.Flatten-a-Multilevel-Doubly-Linked-List.py) (!!M) <br>
+递归即可，易错点是return head之前别忘了把head.child设置成None
+- [0037. Sudoku Solver](Solutions/0037.Sudoku-Solver.py) (!!H) <br> 
+use rows, cols, boxes dictionary to record the numbers in each row, each col and each small box, then do standard backtrack
+- [0228. Summary Ranges](Solutions/0228.Summary-Ranges.py) (M) <br>
+sliding window可解
+- [0163. Missing Ranges](Solutions/0163.Missing-Ranges.py) (M) <br>
+这题是上一题的延伸，跟sliding window没啥关系
+- [0341. Flatten Nested List Iterator](Solutions/0341.Flatten-Nested-List-Iterator.py) (!!M) <br>
+solution 1: 用一个辅助函数把nested_list flatten掉存到一个q中就可以了，用递归去flatten既可以了. Solution 2: use a q to partially flatten the list in hasnext function.
+- [0136. Single Number](Solutions/0136.Single-Number.py) (!!E) <br>
+Bitwise XOR is the most important in bit manipulation. 要牢记xor的三条定律: If we take XOR of zero and some bit, it will return that bit: a⊕0=a; If we take XOR of two same bits, it will return 0: a⊕a=0; Commutative law for XOR: a⊕b⊕a=(a⊕a)⊕b=0⊕b=b. So we can XOR all bits together to find the unique number.
+- [0137. Single Number II](Solutions/0137.Single-Number-II.py) (M) <br>
+A general solution for dealing with numbers with n-repeating time is to deal with bit by bit, and then take the mod of n.
+- [0658. Find K Closest Elements](Solutions/0658.Find-K-Closest-Elements.py) (M) <br>
+step 1: binary search to find the idx where x should be; step 2: put the closest k elements in a hq - O(klogk); step 3: output - O(klogk)
+- [0159. Longest Substring with At Most Two Distinct Characters](Solutions/0159.Longest-Substring-with-At-Most-Two-Distinct-Characters.py) (M) <br>
+Exactly the same as 340.
+- [0904. Fruit Into Baskets](Solutions/0904.Fruit-Into-Baskets.py) (M) <br>
+Exactly the same as 159.
+- [0286. Walls and Gates](Solutions/0286.Walls-and-Gates.py) (M) <br>
+求最小距离问题，必须用bfs. Step 1: append all the gates into the queue; Step 2: change all the EMPTY rooms to a value that equals the layer number, 必须层序遍历才可以保证每次都能变成最小距离
+- [0622. Design Circular Queue](Solutions/0622.Design-Circular-Queue.py) (!!M) <br>
+we can use a Singly-Linked List. 也可以用double-linked-list这把宰牛刀也非常快
+enqueue: we append the value to the tail; dequeue: we remove node from head.
+front: the head; rear: the tail; isempty: cnt=0; isFull: cnt = k
+- [0403. Frog Jump](Solutions/0403.Frog-Jump.py) (H) <br>
+维护一个stonesDict的key is the stone in stones. value is the possible steps to reach the stone.
+There could be multiple possible steps to reach the stone, so stonesDict[stone] = set(). 
+状态转移方程为：1. 跳k-1到stone+k-1: stonesDict[stone + k - 1].add(k - 1); 2. 跳k到stone + k: stonesDict[stone + k].add(k); 3. 跳k + 1到stone + k + 1:stonesDict[stone + k + 1].add(k + 1); Return stonesDict[last stone] is not empty; this is bottom up method O(N^2), O(N^2)
+- [0279. Perfect Squares](Solutions/0279.Perfect-Squares.py) (!!M) <br>
+f[j]=the least number of perfect square numbers which sum to i; f[j] = min(f[j-i^2]+1) for i^2<=j; Time complexity: j is from 0 to n, i is from 0 to j^0.5, so O(N^1.5); solution 2: level order BFS.
+Given a N-ary tree, where each node represents a __remainder__ of the number n subtracting a combination of square numbers, 
+our task is to find a node in the tree, which should meet the conditions or remainder=0.
+Time complexity: 比较复杂最后是 O(n^(h/2)), where h is the height of the N-ary tree, h is 0 to 4
+- [0733. Flood Fill](Solutions/0733.Flood-Fill.py) (!!E) <br>
+Solution 1: dfs recurssively, don't need a set to record visited nodes, cuz we can modify the matrix in place; Solution 2: bfs; Solution 3: dfs iteratively; Solution 4: Union Find; 
+- [0849. Maximize Distance to Closest Person](Solutions/0849.Maximize-Distance-to-Closest-Person.py) (E) <br>
+step 1: check what is the distace if he sits at two ends;
+step 2: check what is the distance if he sits in the middle, two pinters: same method as 245. Shortest Word Distance III. warm up for next question.
+- [0855. Exam Room](Solutions/0855.Exam-Room.py) (M) <br>
+Use a sorted list to record the index of seats where people sit, so that we can save tons of space if the seats is sparse;
+seat(): 1. find the biggest distance at the start, at the end and in the middle. 2. insert index of seat into the idx list. 3. return index.
+leave(p): pop out p.
+- [0134. Gas Station](Solutions/0134.Gas-Station.py) (!!M) <br>
+Every time a fail happens, we start reset the gas_left to 0, and reset the possible_station. 
+The problem has an assumption: if sum of gas is more than sum of cost, then there must be a solution. 
+And the question guaranteed that the solution is unique(The first one I found is the right one).
+- [0863. All Nodes Distance K in Binary Tree](Solutions/0863.All-Nodes-Distance-K-in-Binary-Tree.py) (M) <br>
+step 1: use dfs, change a tree to a graph with adjacency list representation; 
+step 2: start from target, use bfs/dfs to find the nodes with distance == K
+- [1283. Find the Smallest Divisor Given a Threshold](Solutions/1283.Find-the-Smallest-Divisor-Given-a-Threshold.py) (M) <br>
+minimum/maximum to satisfy some condition 的问题: helper function returns whether we can have sum(num//mid) <= threshold? start = 1, end = max(nums) + 1
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+----------853------1483--1610--1642---419----363--1101--- 1329 --847---817---397-- 1697 --248---1616----1044-------
