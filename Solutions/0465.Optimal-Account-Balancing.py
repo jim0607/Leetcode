@@ -47,6 +47,7 @@ Therefore, person #1 only need to give person #0 $4, and all debt is settled.
 
 
 """
+我们分账总得有一定顺序吧，用什么顺序呢？我们一个人一个人去balance, 这个人balance完之后就再也不用管他了
 用backtrack的方法我们一个idx一个idx去balance
 backtrack结束条件: curr_balanced_idx == len(lst) - 1
 constraints for next_candidate: next_balanced_idx = curr_balanced_idx + 1 
