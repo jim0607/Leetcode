@@ -35,7 +35,7 @@ solution dp. dp[i][j] is the encode of substring including index i to index j. d
 potential_concadenation = "k[repeating_pattern]",  where pattern is the repeating string in substring s[i:j+1] and k is the number of repeating times. 
 initializaton: dp[i][j] = s[i:j+1] originally, return dp[0][n-1]
 - [0715. Range Module](Solutions/0715.Range-Module.py) (!!!H) <br>
-Store intervals in a 1D sorted array. Use bisect_left and bisect_right to locate where the incoming interval should be. addRange and removeRange takes O(N). queryRange can also use bisect to locate where the interval location is, [left, right]必须在某一个且同一个range内才return True - O(logN),  这题需要很细致，没有完全弄明白。
+Store intervals in a 1D sorted array. Use bisect_left and bisect_right to locate where the incoming interval should be. addRange and removeRange use bisect to replace the exsited range, takes O(log(N)). queryRange can also use bisect to locate where the interval location is, [left, right]必须在某一个且同一个range内才return True - O(logN)
 - [0846. Hand of Straights](Solutions/0846.Hand-of-Straights.py) (!!!M Google) <br>
 same as 1296. 用以一个hashmap记录frequency. 由于必须固定长度为W, 所以我们每次都去连W个就可以了
 - [0722. Remove Comments](Solutions/0722.Remove-Comments.py) (!!M Google) <br>
