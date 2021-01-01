@@ -43,39 +43,42 @@ Therefore, person #1 only need to give person #0 $4, and all debt is settled.
 
 
 """
+用backtrack的方法我们一个idx一个idx去balance
+backtrack结束条件: curr_balanced_idx == len(lst) - 1
+constraints for next_candidate: next_balanced_idx = curr_balanced_idx + 1 
+arguments pass into backtrack function: curr_idx, curr_cnt
+
 time complexity is O(N*2^N) cuz we need to to balance curr_idx one by one, so O(N),
 and each balance process, we need to put or not-put next_idx to balance curr_idx, so O(2^N)
 """
 class Solution:
     def minTransfers(self, transactions: List[List[int]]) -> int:
-        def backtrack(curr_idx, curr_cnt):      # 我们backtrack的目标是是一个idx一个idx地去balance
+        def backtrack(curr_idx, curr_cnt):
             if curr_idx == len(lst) - 1:
-                self.cnt = min(self.cnt, curr_cnt)
+                self.min_cnt = min(self.min_cnt, curr_cnt)
                 return
-            if lst[curr_idx] == 0:              # 如果当前curr_idx已经balanced了，那我们就去balance他的下一个idx
+            
+            if lst[curr_idx] == 0:      # 如果当前curr_idx已经balanced了，那我们就去balance他的下一个idx
                 backtrack(curr_idx + 1, curr_cnt)
-            for next_idx in range(curr_idx + 1, len(lst)):  # 如果当前curr_idx没有balanced, 那我们就去后面找一个或几个idx去balance他
-                if lst[curr_idx] * lst[next_idx] < 0:       # 题眼 - 只在一正一负的时候去balance curr_idx, 这样保证没有多余的操作
-                    lst[next_idx] += lst[curr_idx]          # next_idx把钱交给curr_idx让curr_idx balance起来
-                    backtrack(curr_idx + 1, curr_cnt + 1)   # 注意这里不要写成了backtrack(next_idx)哦，因为我们要一个idx一个idx去balance, 不能跳跃idx
-                    lst[next_idx] -= lst[curr_idx]          # backrack
-                    if lst[curr_idx] + lst[next_idx] == 0:  # 想想这个for loop是干什么的 - 在后面找一个或者几个idx去balance他
-                        break     # 有可能在找的过程中lst[curr_idx]很负，但是lst[next_idx]不是很正，这时候就需要几个lst[next_idx]去balanced他
-                                  # 但是如果lst[curr_idx]不是很负，一个lst[next_idx]就可以balanced他，那就不用继续在for loop里面找了
+
+            for idx in range(curr_idx + 1, len(lst)):     # 如果当前curr_idx没有balanced, 那我们就去后面找一个或几个idx去balance他
+                if lst[idx] * lst[curr_idx] < 0:          # 题眼 - 只在一正一负的时候去balance curr_idx, 这样保证没有多余的操作
+                    lst[idx] += lst[curr_idx]             # 把curr_idx里面的钱都扔给idx, 这样让lst[curr_idx] = 0
+                    backtrack(curr_idx + 1, curr_cnt + 1) # 我们一个idx一个idx去balance, next_idx = curr_idx + 1
+                    lst[idx] -= lst[curr_idx]             # backrack
         
-        # step 1: find all the balance information for each person
-        mapping = collections.defaultdict(int)
+        
+        # step 1: create a lst of person who needs to get money (either positive or negative)
+        mapping = defaultdict(int)  # person_id --> how much he/she needs to get
         for u, v, money in transactions:
             mapping[u] += money
             mapping[v] -= money
-        
-        # step 2: we care only those person who own or owe money - put them in a list
         lst = []
-        for key, val in mapping.items():
-            if val != 0:
-                lst.append(val)
-
-        # step 3: backtrack to update the minimum transaction needed
-        self.cnt = float("inf")     # minimum transaction needed
+        for person_id, money in mapping.items():
+            if money != 0:          # if a person doesn't own/owe money, don't put him/her in the lst
+                lst.append(money)
+                
+        # step 2: do backtrack 模板
+        self.min_cnt = sys.maxsize
         backtrack(-1, 0)
-        return self.cnt
+        return self.min_cnt
