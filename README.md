@@ -24,7 +24,12 @@ in order to get the minimum edit distance. At last, we return res[::-1]. dp[i][u
 - [0809. Expressive Words](Solutions/0809.Expressive-Words.py) (!!!M Google) <br>
 pre-calculate how many successive same chars are there at each idx: "heeellooo" --> {0: 1, 1: 3, 2: 2, 3: 1, 4: 2, 5: 1, 6: 3, 7: 2, 8: 1}
 - [0465. Optimal Account Balancing](Solutions/0465.Optimal-Account-Balancing.py) (!!H Google) <br> 
-step 1: find all the balance information for each person; step 2: we care only those person who own or owe money - put them in a list; backtrack to update the minimum transaction needed. backtrack传入(curr_idx, curr_cnt)
+用backtrack的方法我们一个idx一个idx去balance,
+backtrack结束条件: curr_balanced_idx == len(lst) - 1,
+constraints for next_candidate: next_balanced_idx = curr_balanced_idx + 1,
+arguments pass into backtrack function: curr_idx, curr_cnt,
+time complexity is O(N* 2^N) cuz we need to to balance curr_idx one by one, so O(N),
+and each balance process, we need to put or not-put next_idx to balance curr_idx, so O(2^N)
 - [0471. Encode String with Shortest Length](Solutions/0471.Encode-String-with-Shortest-Length.py) (!!!H Google) <br>
 solution dp. dp[i][j] is the encode of substring including index i to index j. dp[i][j] = min(dp[i][j], dp[i][k]+dp[k][j], potential_candidate) in terms of length.
 potential_candidate = "k[repeating_pattern]",  where pattern is the repeating string in substring s[i:j+1] and k is the number of repeating times. 
