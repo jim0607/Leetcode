@@ -31,8 +31,8 @@ arguments pass into backtrack function: curr_idx, curr_cnt,
 time complexity is O(N* 2^N) cuz we need to to balance curr_idx one by one, so O(N),
 and each balance process, we need to put or not-put next_idx to balance curr_idx, so O(2^N)
 - [0471. Encode String with Shortest Length](Solutions/0471.Encode-String-with-Shortest-Length.py) (!!!H Google) <br>
-solution dp. dp[i][j] is the encode of substring including index i to index j. dp[i][j] = min(dp[i][j], dp[i][k]+dp[k][j], potential_candidate) in terms of length.
-potential_candidate = "k[repeating_pattern]",  where pattern is the repeating string in substring s[i:j+1] and k is the number of repeating times. 
+solution dp. dp[i][j] is the encode of substring including index i to index j. dp[i][j] = min(dp[i][j], dp[i][k]+dp[k][j], potential_concadenation) in terms of length.
+potential_concadenation = "k[repeating_pattern]",  where pattern is the repeating string in substring s[i:j+1] and k is the number of repeating times. 
 initializaton: dp[i][j] = s[i:j+1] originally, return dp[0][n-1]
 - [0715. Range Module](Solutions/0715.Range-Module.py) (!!!H) <br>
 Store intervals in a 1D sorted array. Use bisect_left and bisect_right to locate where the incoming interval should be. addRange and removeRange takes O(N). queryRange can also use bisect to locate where the interval location is, [left, right]必须在某一个且同一个range内才return True - O(logN),  这题需要很细致，没有完全弄明白。
