@@ -35,16 +35,16 @@ class Solution:
     def isNStraightHand(self, nums: List[int], W: int) -> bool:
         nums.sort()
         
-        freq = collections.Counter(nums)
+        cnter = collections.Counter(nums)
 
         for num in nums:
-            if freq[num] == 0: 
+            if cnter[num] == 0: 
                 continue
 
             for i in range(W):
-                if freq[num + i] == 0:
+                if cnter[num + i] == 0:
                     return False
-                freq[num + i] -= 1
+                cnter[num + i] -= 1
             
         return True
        
