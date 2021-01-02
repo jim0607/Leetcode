@@ -41,6 +41,26 @@ class Solution:
         return importance
 
 
+class Solution:
+    def getImportance(self, employees: List['Employee'], id: int) -> int:
+        def dfs(curr_id):
+            self.sums += impt[curr_id]
+            for next_id in graph[curr_id]:
+                dfs(next_id)
+        
+        
+        graph = defaultdict(list)
+        impt = defaultdict(int)
+        for emp in employees:
+            graph[emp.id] = emp.subordinates
+            impt[emp.id] = emp.importance
+            
+        self.sums = 0
+        dfs(id)
+        return self.sums  
+       
+       
+       
 """
 solution 2: use a dictionary to map employee_id with employee, so that looking for employee by id takes O(1)
 """
