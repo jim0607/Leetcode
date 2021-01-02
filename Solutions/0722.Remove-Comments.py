@@ -73,23 +73,28 @@ There are no single-quote, double-quote, or control characters in the source cod
 class Solution:
     def removeComments(self, source: List[str]) -> List[str]:
         res = []
-        line = ""       # the code part of current line
-        block_comment_open = False      # wheather or not there is a "/*" waiting for a "*/"
+        open = False   # wheather or not there is a "/*" waiting for a "*/"
+        line = ""      # the code part of current line
         for s in source:
-            i, n = 0, len(s)
-            while i < n:
-                if s[i] == "/" and i + 1 < n and s[i+1] == "/" and not block_comment_open:
-                    break
-                elif s[i] == "/" and i + 1 < n and s[i+1] == "*" and not block_comment_open:
-                    block_comment_open = True
-                    i += 1
-                elif s[i] == "*" and i + 1 < n and s[i+1] == "/" and block_comment_open:
-                    block_comment_open = False
-                    i += 1
-                elif not block_comment_open:
-                    line += s[i]
+            i = 0
+            while i < len(s):
+                if not open:
+                    if s[i:i+2] == "//":
+                        break
+                    elif s[i:i+2] == "/*":
+                        open = True
+                        i += 1
+                    else:
+                        line += s[i]
+                        
+                else:
+                    if s[i:i+2] == "*/":
+                        open = False
+                        i += 1
                 i += 1
-            if line and not block_comment_open:
+                    
+            if not open and len(line) > 0:
                 res.append(line)
                 line = ""
+                
         return res
