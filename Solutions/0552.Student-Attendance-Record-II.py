@@ -22,36 +22,32 @@ Only "AA" won't be regarded as rewardable owing to more than one absent times.
 
 
 """
-typical backtrack - O(3^N)
+backtrack结束条件: len(curr_comb) == n
+constraints for next_candidate: could not have more than one "L", could not have three continuous "L"
+arguments pass into backtrack function: curr_A_cnt, curr_comb
 """
 class Solution:
     def checkRecord(self, n: int) -> int:
-        def backtrack(curr_comb, cnt_of_A):
+        def backtrack(curr_A_cnt, curr_comb):
             if len(curr_comb) == n:
                 self.cnt += 1
                 return
             
-            for next_ch in ["A", "L", "P"]:
-                if next_ch == "A":
-                    if cnt_of_A == 1:
+            for next_ch in "ALP":       # O(3^n)
+                if next_ch == "P":
+                    backtrack(curr_A_cnt, curr_comb + "P")
+                elif next_ch == "A":
+                    if curr_A_cnt == 1:
                         continue
-                    curr_comb.append("A")
-                    backtrack(curr_comb, cnt_of_A + 1)
-                    curr_comb.pop()
-                elif next_ch == "L":
-                    if len(curr_comb) >= 2 and curr_comb[-1] == curr_comb[-2] == "L":
+                    backtrack(curr_A_cnt + 1, curr_comb + "A")
+                else:
+                    if len(curr_comb) >= 2 and curr_comb[-2:] == "LL":
                         continue
-                    curr_comb.append("L")
-                    backtrack(curr_comb, cnt_of_A)
-                    curr_comb.pop()
-                elif next_ch == "P":
-                    curr_comb.append("P")
-                    backtrack(curr_comb, cnt_of_A)
-                    curr_comb.pop()
-        
-        
+                    backtrack(curr_A_cnt, curr_comb + "L")
+                
+                
         self.cnt = 0
-        backtrack([], 0)        
+        backtrack(0, "")
         return self.cnt % (10**9 + 7)
         
         
