@@ -41,7 +41,7 @@ Leetcode China题解：首先我们可以知道，对于每个位置而言，只
 """
 class Solution:
     def minKBitFlips(self, A: List[int], K: int) -> int:
-        q = collections.deque()     # q 记录区间[i-k, i]内被反转了的idx
+        q = deque()     # q 记录区间[i-k, i]内被反转了的idx
         res = 0
         for i, num in enumerate(A):
             while q and q[0] + K <= i:   # 把里i很远的idx都pop出来，保持窗口小于等于K
