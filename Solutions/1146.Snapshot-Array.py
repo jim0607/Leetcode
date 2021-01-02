@@ -41,7 +41,7 @@ class SnapshotArray:
     def __init__(self, length: int):
         self.arr = [0 for _ in range(length)]
         self.snap_cnt = 0
-        self.mapping = collections.defaultdict(list)
+        self.mapping = defaultdict(list)
 
     def set(self, index: int, val: int) -> None:   
         self.arr[index] = val
