@@ -1,8 +1,11 @@
+"""
 1056. Confusing Number
 
 Given a number N, return true if and only if it is a confusing number, which satisfies the following condition:
 
-We can rotate digits by 180 degrees to form new digits. When 0, 1, 6, 8, 9 are rotated 180 degrees, they become 0, 1, 9, 8, 6 respectively. When 2, 3, 4, 5 and 7 are rotated 180 degrees, they become invalid. A confusing number is a number that when rotated 180 degrees becomes a different number with each digit valid.
+We can rotate digits by 180 degrees to form new digits. When 0, 1, 6, 8, 9 are rotated 180 degrees, they become 0, 1, 9, 8, 6 respectively. 
+When 2, 3, 4, 5 and 7 are rotated 180 degrees, they become invalid. 
+A confusing number is a number that when rotated 180 degrees becomes a different number with each digit valid.
 
 Example 1:
 
@@ -28,7 +31,7 @@ Input: 25
 Output: false
 Explanation: 
 We get an invalid number after rotating 25.
-
+"""
 
 
 class Solution:
@@ -40,3 +43,22 @@ class Solution:
         for i in range(len(s) - 1, -1, -1):
             rotated += mapping[s[i]]
         return rotated != s
+
+    
+class Solution:
+    def confusingNumber(self, N: int) -> bool:
+        mapping = {6: 9, 9: 6, 8: 8, 1: 1, 0: 0}
+        
+        digits = []
+        while N != 0:
+            mod = N % 10
+            if mod not in mapping:
+                return False
+            digits.append(mod)
+            N //= 10
+        
+        r_digits = []
+        for i in range(len(digits) - 1, -1, -1):
+            r_digits.append(mapping[digits[i]])
+
+        return r_digits != digits
