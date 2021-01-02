@@ -25,8 +25,29 @@ Flip A[0],A[1],A[2]: A becomes [1,1,1,1,0,1,1,0]
 Flip A[4],A[5],A[6]: A becomes [1,1,1,1,1,0,0,0]
 Flip A[5],A[6],A[7]: A becomes [1,1,1,1,1,1,1,1]
 
+ 
+"""
+solution 1: modify the input nums by changing the 0 one by one - O(nk)
+"""
+class Solution:
+    def minKBitFlips(self, nums: List[int], K: int) -> int:
+        n = len(nums)
+        res = 0
+        i = 0
+        while i < n:
+            if nums[i] == 0:
+                if i + K > len(nums):  # 如果位置i需要一次翻转，但是空间又不够，就表示不可能了
+                    return -1
+                for k in range(K):
+                    nums[i+k] = 1 - nums[i+k]
+                res += 1
+                
+            i += 1
+        
+        return res
 
 """
+solution 2: do not change the input nums, just use a q to record if ith num has been changed - O(n)
 Leetcode China题解：首先我们可以知道，对于每个位置而言，只有初始状态和总共被反转了多少次决定了自己最终的状态。
 另一方面，我们知道每一个长度为K的区间，最多只会被反转一次，因为两次反转后对最终结果没有影响。
 基于此，我们从前往后遍历数组，如果遇到一个0，我们将当前位置开始的长度为k区间的区间反转。
