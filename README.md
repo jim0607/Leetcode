@@ -70,7 +70,7 @@ simple dfs 可破, use a dictionary to map employee_id with employee, so that lo
 solution 1: sparse array. Since 题目说了 initially, each element equals 0.
 we treated it as a sparse matrix: use a dictionary to store only the non-zero values.
 - [1293. Shortest Path in a Grid with Obstacles Elimination](Solutions/1293.Shortest-Path-in-a-Grid-with-Obstacles-Elimination.py) (!!!H Google) <br>
-bfs. q 里面需要放入当前用了多少eliminations. q.append((next_i, next_j, curr_elimination_cnt))
+bfs. q 里面需要放入当前用了多少eliminations. q.append((next_i, next_j, curr_elimination_cnt)). if we can get to (next_i, next_j) with less elimination, we should also visit, even if it is visited already
 - [1368. Minimum Cost to Make at Least One Valid Path in a Grid](Solutions/1368.Minimum-Cost-to-Make-at-Least-One-Valid-Path-in-a-Grid.py) (!!!H Google) <br>
 由于我们可以选择四个方向都可以走，所以不能用dp. 如果只能朝右下方向走才能用dp. 可以朝四个方向走只能用bfs/dfs. 由于我们需要maitain min_cost, 所以可以用Dijkstra's. heapq stores (curr_cost, curr_i, curr_j). 
 - [1231. Divide Chocolate](Solutions/1231.Divide-Chocolate.py) (!!!H Google) <br>
