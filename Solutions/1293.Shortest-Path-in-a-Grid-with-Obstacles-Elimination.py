@@ -50,6 +50,42 @@ O(mnk), 这是因为一共可能visit m* n个点，一个点最多可能被visit
 class Solution:
     def shortestPath(self, grid: List[List[int]], k: int) -> int:
         m, n = len(grid), len(grid[0])
+        q = deque()
+        visited = defaultdict(int)  # pos --> elimination left
+        q.append((0, 0, k))
+        visited[(0, 0)] = k
+        
+        step = -1
+        while len(q) > 0:
+            step += 1
+            lens = len(q)
+            for _ in range(lens):
+                curr_i, curr_j, curr_left = q.popleft()
+                if (curr_i, curr_j) == (m - 1, n - 1):
+                    return step
+                    
+                for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                    next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                    if 0 <= next_i < m and 0 <= next_j < n:
+                        if grid[next_i][next_j] == 0:
+                            if (next_i, next_j) not in visited or visited[(next_i, next_j)] < curr_left:    # if we can get to (next_i, next_j) with less elimination, we should also visit
+                                visited[(next_i, next_j)] = curr_left
+                                q.append((next_i, next_j, curr_left))
+                        else:
+                            if curr_left == 0:      # if not enimilation left, we cannot pass this "1"
+                                continue
+                            if (next_i, next_j) not in visited or visited[(next_i, next_j)] < curr_left - 1:
+                                visited[(next_i, next_j)] = curr_left - 1
+                                q.append((next_i, next_j, curr_left - 1))
+                                
+        return -1
+
+
+
+
+class Solution:
+    def shortestPath(self, grid: List[List[int]], k: int) -> int:
+        m, n = len(grid), len(grid[0])
         q = collections.deque()
         visited = set()
         elimination_cnt = 0
