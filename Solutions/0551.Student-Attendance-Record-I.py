@@ -18,21 +18,15 @@ Output: False
 """
 
 
-
 class Solution:
     def checkRecord(self, s: str) -> bool:
         A_cnt = 0
-        conL_cnt = 0
-        for i in range(len(s)):
-            if s[i] == "A":
+        for i, ch in enumerate(s):
+            if ch == "A":
                 A_cnt += 1
-                conL_cnt = 0
                 if A_cnt > 1:
                     return False
-            elif s[i] == "L":
-                conL_cnt += 1
-                if conL_cnt > 2:
+            elif ch == "L":
+                if i + 2 < len(s) and s[i:i+3] == "LLL":
                     return False
-            elif s[i] == "P":
-                conL_cnt = 0
         return True
