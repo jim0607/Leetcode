@@ -28,39 +28,30 @@ The confusing numbers are [6,9,10,16,18,19,60,61,66,68,80,81,86,89,90,91,98,99,1
 """
 
 """
+backtrack结束条件: int(curr_comb) in range [1, N +1] and curr_comb is confusing nubmer
+constraints on next_candidates: has to come from mapping, cannot have leading zero
+arguments pass into function: curr_comb
 time complexity: O(M*5^M)
 """
 class Solution:
     def confusingNumberII(self, N: int) -> int:
+        mapping = {"0": "0", "1": "1", "6": "9", "8": "8", "9": "6"}
+        
         def backtrack(curr_comb):
-            if int(curr_comb) > N:
-                return
+            if 1 <= int(curr_comb) <= N and curr_comb != "".join([mapping[ch] for ch in curr_comb[::-1]]):
+                res.add(curr_comb)
             
-            if is_confusing(curr_comb):
-                res.add(curr_comb)      # 注意这里不要return, 因为"16"是valid的，"168"也是valid的
+            if int(curr_comb) >= N:
+                return
                 
-            for num in mapping:
-                backtrack(curr_comb + num)
-                
-        
-        def is_confusing(comb):
-            rotated = ""
-            for i in range(len(comb) - 1, -1, -1):
-                rotated += mapping[comb[i]]
-            return rotated != comb
+            for next_num in mapping:
+                backtrack(curr_comb + next_num)
         
         
-        nums = ["1", "6", "8", "9"]
-        mapping = {"0": "0", "1": "1", "6": "9", "9": "6", "8": "8"}
         res = set()
-        for num in nums:
+        for num in ["1", "6", "8", "9"]:
             backtrack(num)
         return len(res)
-
-
-
-
-
 
 
 
