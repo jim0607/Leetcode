@@ -10,7 +10,8 @@ For example, if we have S = "abcd" and we have some replacement operation i = 2,
 then because "cd" starts at position 2 in the original string S, we will replace it with "ffff".
 
 Using another example on S = "abcd", if we have both the replacement operation i = 0, x = "ab", y = "eee", 
-as well as another replacement operation i = 2, x = "ec", y = "ffff", this second operation does nothing because in the original string S[2] = 'c', which doesn't match x[0] = 'e'.
+as well as another replacement operation i = 2, x = "ec", y = "ffff", this second operation does nothing because in the original string S[2] = 'c', 
+which doesn't match x[0] = 'e'.
 
 All these operations occur simultaneously.  It's guaranteed that there won't be any overlap in replacement: 
 for example, S = "abc", indexes = [0, 1], sources = ["ab","bc"] is not a valid test case.
@@ -37,21 +38,18 @@ All characters in given inputs are lowercase letters.
 
 class Solution:
     def findReplaceString(self, s: str, indexes: List[int], sources: List[str], targets: List[str]) -> str:
+        info = [(indexes[i], sources[i], targets[i]) for i in range(len(indexes))]
+        info.sort()     # 之所以zip到一起就是为了一起sort
         
-        replace = []    # record the idx that need to be replaced 
-        for i in range(len(indexes)):
-            idx = indexes[i]
-            source = sources[i]
-            target = targets[i]
-            if s[idx:idx+len(source)] == source:
-                replace.append((idx, len(source), target))
-                
-        replace.sort(key = lambda x: x[0])      # sort based on starting index
         res = ""
-        prev = 0
-        for i, (idx, lens, target) in enumerate(replace):
-            res += s[prev:idx]
-            res += target
-            prev = idx + lens
-        res += s[prev:]
-        return res
+        s_idx = 0
+        for i in range(len(info)):
+            (idx, source, target) = info[i]
+            while s_idx < idx:
+                res += s[s_idx]
+                s_idx += 1
+            if s[s_idx:s_idx+len(source)] == source:
+                res += target
+                s_idx += len(source)
+
+        return res + s[s_idx:]
