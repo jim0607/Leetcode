@@ -45,8 +45,8 @@ String manipulation. manipulate string line by line.
 - [1056. Confusing Number](Solutions/1056.Confusing-Number.py) (E) <br>
 use a hashmap
 - [1088. Confusing Number II](Solutions/1088.Confusing-Number-II.py) (!!H Google) <br>
-solution 2: Only 0, 1, 6, 8, 9 are the valid set of digits, do a backtracking to generate all the numbers containing this digits and check they are valid.
-time complexity: O(5^M), where M is how many digits are there in str(N), which scales with ~logN, where log is 10-based.
+Only 0, 1, 6, 8, 9 are the valid set of digits, do a backtracking to generate all the numbers containing this digits and check they are valid. backtrack结束条件: int(curr_comb) in range [1, N +1] and curr_comb is confusing nubmer; constraints on next_candidates: has to come from mapping, cannot have leading zero; arguments pass into function: curr_comb
+time complexity: O(M* 5^M), where M is how many digits are there in str(N), which scales with ~logN, where log is 10-based.
 - [0551. Student Attendance Record I](Solutions/0551.Student-Attendance-Record-I.py) (E Google) <br>
 warm up for 552. Student Attendance Record II.
 - [0552. Student Attendance Record II](Solutions/0552.Student-Attendance-Record-II.py) (!!!H Google) <br>
