@@ -76,34 +76,15 @@ class Solution:
 
 """
 Same idea, implemented using recurssion.
+
+dfs结束条件: len(covered) == n**k
+constraints on next_candidates: greedily choose the last n-1 chars from curr_candidate, and next_candidate not in covered
+arguments pass into dfs function: None
 """
 class Solution:
     def crackSafe(self, n: int, k: int) -> str:
-        res = "0" * n
-        covered = set()
-        covered.add(res)
-        self._dfs(n, k, res, covered)
-        return res    # not working here because res is string which is immutable, so this solution will always return "00"
-                      # we have to return res in the dfs, or change res to a global variable
-        
-    def _dfs(self, n, k, res, covered):
-        if len(covered) == k**n:     # if all the combinations are covered
-            return
-        
-        prefix = res[-n+1:] if n > 1 else ""
-        for j in range(k-1, -1, -1):
-            combination = prefix + str(j)
-            if combination in covered:
-                continue
-            covered.add(combination)
-            res += str(j)
-            self._dfs(n, k, res, covered)
-            
-
-class Solution:
-    def crackSafe(self, n: int, k: int) -> str:
         def dfs():
-            if len(covered) == k ** n:
+            if len(covered) == k ** n:    # if all the combinations are covered
                 return
             for next_num in range(k-1, -1, -1):
                 next_password = self.curr_res[-n+1:] + str(next_num)
