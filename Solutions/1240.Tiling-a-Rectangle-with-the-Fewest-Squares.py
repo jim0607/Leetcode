@@ -32,6 +32,49 @@ Pruning:
 2. Try largest square possible first (improves time by a lot).
 """
 """
+backtrack结束条件: heights[i] == m for i in range(n)
+constraints on next_candidates: has to fill the min height first
+arguments pass into backtrack: curr_cnt
+"""
+class Solution:
+    def tilingRectangle(self, n: int, m: int) -> int:
+        def backtrack(curr_heights, curr_cnt):
+            if all(h == m for h in curr_heights):
+                self.cnt = min(self.cnt, curr_cnt)
+                return 
+            
+            if curr_cnt >= self.cnt:        # pruning 1
+                return
+            
+            min_h = min(curr_heights)
+            min_h_idx = curr_heights.index(min_h)
+            min_h_lens = 0
+            for idx in range(min_h_idx, n):
+                if curr_heights[idx] == min_h:
+                    min_h_lens += 1
+            side_lens = min(min_h_lens, m - min_h)
+            
+            for lens in range(side_lens, 0, -1):   # 注意我们需要遍历所有可能的side_lens for the square. 逆序遍历is pruning 2
+                for idx in range(min_h_idx, min_h_idx + lens):
+                    curr_heights[idx] += lens
+                backtrack(curr_heights, curr_cnt + 1)
+                for idx in range(min_h_idx, min_h_idx + lens):
+                    curr_heights[idx] -= lens
+
+                    
+        self.cnt = m * n
+        backtrack([0 for _ in range(n)], 0)
+        return self.cnt
+
+
+
+
+
+
+
+
+
+"""
 end condition of backtrack: curr_heights == [all m].
 constraint on next candidate: next_lens should not be too large.
 pass into backtrack function: (curr_heights, curr_cnt)
