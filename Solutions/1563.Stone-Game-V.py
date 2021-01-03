@@ -28,7 +28,49 @@ Example 3:
 Input: stoneValue = [4]
 Output: 0
 """
-
+"""
+bottom up solution
+"""
+class Solution:
+    def stoneGameV(self, nums: List[int]) -> int:
+        def dfs(curr_nums):
+            n = len(curr_nums)
+            if n <= 1:
+                return 0
+            
+            if tuple(curr_nums) in memo:
+                return memo[tuple(curr_nums)]
+            
+            res = 0
+            total = sum(curr_nums)
+            presums = self.get_presums(curr_nums)
+            for i in range(1, n):
+                left_sum = presums[i]
+                right_sum = total - presums[i]
+                
+                if left_sum < right_sum:
+                    ans = left_sum + dfs(curr_nums[:i])
+                elif left_sum > right_sum:
+                    ans = right_sum + dfs(curr_nums[i:])
+                else:
+                    ans = left_sum + max(dfs(curr_nums[:i]), dfs(curr_nums[i:]))
+                    
+                res = max(res, ans)
+                
+            memo[tuple(curr_nums)] = res
+            return res        
+        
+        
+        memo = defaultdict(int)     # curr_list --> what's the max score we can get with curr_list
+        return dfs(nums)
+    
+    
+    def get_presums(self, nums):
+        presums = [0 for _ in range(len(nums) + 1)]
+        for i in range(len(nums)):
+            presums[i+1] = presums[i] + nums[i]
+        return presums
+    
 
 """
 dp[i][j] = the number of scores Alice can get for [i, j].
