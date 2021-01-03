@@ -33,12 +33,7 @@ return dp[0][n-1]
 """
 class Solution:
     def stoneGame(self, piles: List[int]) -> bool:
-        n = len(piles)
-        if n == 0:
-            return 0
-        if n == 1:
-            return piles[0]
-        
+        n = len(piles)       
         dp = [[0 for _ in range(n)] for _ in range(n)]
         for i in range(n):
             dp[i][i] = piles[i]
