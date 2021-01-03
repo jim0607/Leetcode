@@ -35,6 +35,28 @@ columns == heights[i].length
 1 <= heights[i][j] <= 106
 """
 
+"""
+hq stores the (curr_maxdiff to curr_pos, curr_pos)
+"""
+class Solution:
+    def minimumEffortPath(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        hq = [(0, 0, 0)]
+        min_maxcosts = defaultdict(int)    # curr_pos --> curr_min_maxcost until curr_pos
+        while len(hq) > 0:
+            curr_maxcost, curr_i, curr_j = heappop(hq)
+            if (curr_i, curr_j) == (m - 1, n - 1):
+                return curr_maxcost
+            
+            if (curr_i, curr_j) in min_maxcosts:
+                continue
+            min_maxcosts[(curr_i, curr_j)] = curr_maxcost
+            
+            for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                if 0 <= next_i < m and 0 <= next_j < n:
+                    next_maxcost = max(curr_maxcost, abs(grid[next_i][next_j] - grid[curr_i][curr_j]))
+                    heappush(hq, (next_maxcost, next_i, next_j))
 
 
 """
