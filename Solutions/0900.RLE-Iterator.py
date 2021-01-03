@@ -37,27 +37,25 @@ one stack store cnt, one stack store num
 """
 class RLEIterator:
 
-    def __init__(self, A: List[int]):
-        self.cnt_st = []
+    def __init__(self, nums: List[int]):
         self.num_st = []
-        for i in range(len(A) - 1, -1, -1):
-            if i % 2 == 0:
-                self.cnt_st.append(A[i])
-            else:
-                self.num_st.append(A[i])
-        
+        self.cnt_st = []
+        for i in range(len(nums) - 2, -1, -2):
+            if nums[i] == 0:
+                continue
+            self.cnt_st.append(nums[i])
+            self.num_st.append(nums[i+1])
+
     def next(self, n: int) -> int:
         while n > 0:
-            if len(self.cnt_st) > 0 and self.cnt_st[-1] >= n:
-                self.cnt_st[-1] -= n
-                top = self.num_st[-1]
-                if self.cnt_st[-1] == 0:
-                    self.cnt_st.pop()
-                    self.num_st.pop()
-                return top
-            elif len(self.cnt_st) > 0 and self.cnt_st[-1] < n:
+            if len(self.cnt_st) == 0:
+                return -1
+            if self.cnt_st[-1] < n:
                 n -= self.cnt_st.pop()
                 self.num_st.pop()
-            elif len(self.cnt_st) == 0:
-                return -1
-        return res
+            elif self.cnt_st[-1] == n:
+                self.cnt_st.pop()
+                return self.num_st.pop()
+            else:
+                self.cnt_st[-1] -= n
+                return self.num_st[-1]
