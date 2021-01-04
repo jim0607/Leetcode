@@ -45,23 +45,22 @@ Both start and end will only consist of characters in 'L', 'R', and 'X'.
 """
 class Solution:
     def canTransform(self, start: str, end: str) -> bool:
-        if len(start) != len(end):
+        if Counter(start) != Counter(end):
             return False
         
-        start_idx = [(s_ch, idx) for idx, s_ch in enumerate(start) if s_ch == "L" or s_ch == "R"]
-        end_idx = [(e_ch, idx) for idx, e_ch in enumerate(end) if e_ch == "L" or e_ch == "R"]
+        start_idx = [(i, start[i]) for i in range(len(start)) if start[i] == "L" or start[i] == "R"]
+        end_idx = [(i, end[i]) for i in range(len(end)) if end[i] == "L" or end[i] == "R"]
         
-        if len(start_idx) != len(end_idx):
-            return False
-        
-        for (s_ch, s_idx), (e_ch, e_idx) in zip(start_idx, end_idx):
-            if s_ch != e_ch:      # "R" or "L" 无法跨越其他 "R" or "L"
+        for i in range(len(start_idx)):
+            s_pos, s_ch = start_idx[i]
+            e_pos, e_ch = end_idx[i]
+            
+            if s_ch != e_ch:    # "R" or "L" 无法跨越其他 "R" or "L"
                 return False
-            if s_ch == "L":
-                if s_idx < e_idx:   # "L"一直向左移动
-                    return False
-            elif s_ch == "R":
-                if s_idx > e_idx:   # "R"一直向右移动
-                    return False
-        
+            
+            if s_ch == "L" and s_pos < e_pos:       # "L"只能向左移动
+                return False
+            elif s_ch == "R" and s_pos > e_pos:     # "R"只能向右移动
+                return False
+            
         return True
