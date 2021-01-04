@@ -146,7 +146,7 @@ Solution 1: dfs/bfs: Step 1: Start from border, do a bfs for "O", mark all the "
 - [1296. Divide Array in Sets of K Consecutive Numbers](Solutions/1296.Divide-Array-in-Sets-of-K-Consecutive-Numbers.py) (!!!M Google) <br>
 用以一个hashmap记录frequency. 由于必须固定长度为k, 所以我们每次都去连k个就可以了
 - [0165. Compare Version Numbers](Solutions/0165.Compare-Version-Numbers.py) (M Google) <br>
-two pointers.  split the version by "." first before processing.
+把每一段的num计算出来是最好的
 - [1074. Number of Submatrices That Sum to Target](Solutions/1074.Number-of-Submatrices-That-Sum-to-Target.py) (H) <br>
 也可以先把行处理好，让每一行里面保存上面所有行的和，接下来就是在每一行里面去求560问题了，注意一点不同的是需要遍历upRow和downRow的, 如果不遍历就是solution 3的错误写法举一个反例想明白solution 3为什么行不通，自然就会改成solution 2了O(MMN)
 - [0679. 24 Game](Solutions/0679.24-Game.py) (!!H Google) <br>
