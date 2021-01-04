@@ -44,36 +44,35 @@ use binary search in s.  O(mklogn)
 """
 class Solution:
     def numMatchingSubseq(self, s: str, words: List[str]) -> int:
-        ch_to_idx = defaultdict(list)
+        ch_idx = defaultdict(list)      # construct a char-->index dictionary
         for i, ch in enumerate(s):
-            ch_to_idx[ch].append(i)
+            ch_idx[ch].append(i)
             
-        res = 0
+        cnt = 0
         for word in words:
-            start_idx = 0               # start_idx for binary search in s
-            can_find_every_ch = True    # can find every ch_of_word in s
-            for ch in word:
-                if ch not in ch_to_idx:
-                    can_find_every_ch = False
-                    break
-                
-                idx_lst = ch_to_idx[ch]     # the index list we are going to do binary search in
-                if start_idx > idx_lst[-1]: # 如果在start_idx后面就找不到ch了
-                    can_find_every_ch = False
-                    break
-                    
-                idx = bisect.bisect_left(idx_lst, start_idx)
-                start_idx = idx_lst[idx] + 1
-                
-            if can_find_every_ch:           # 每一个ch in word都在s中找到了
-                res += 1
-                
-        return res
+            if self._match(ch_idx, word):
+                cnt += 1
+        return cnt
+    
+    def _match(self, ch_idx, word):
+        start_idx = 0       # start_idx for binary search in s
+        for i, ch in enumerate(word):
+            if ch not in ch_idx:    
+                return False
+            
+            lst = ch_idx[ch]    # the index list we are going to do binary search in
+            if start_idx > lst[-1]: # 如果在start_idx后面就找不到ch了
+                return False
+            
+            idx = bisect.bisect_left(lst, start_idx)
+            start_idx = lst[idx] + 1
+            
+        return True
     
     
-    
-    
-    
+"""
+自己写binary search
+"""
 class Solution:
     def numMatchingSubseq(self, s: str, words: List[str]) -> int:
         ch_to_idx = defaultdict(list)
