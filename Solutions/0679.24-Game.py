@@ -1,3 +1,4 @@
+"""
 679. 24 Game
 
 You have 4 cards each containing a number from 1 to 9. You need to judge whether they could operated through *, /, +, -, (, ) to get the value of 24.
@@ -11,14 +12,22 @@ Input: [1, 2, 1, 2]
 Output: False
 Note:
 The division operator / represents real division, not integer division. For example, 4 / (1 - 2/3) = 12.
-Every operation done is between two numbers. In particular, we cannot use - as a unary operator. For example, with [1, 1, 1, 1] as input, the expression -1 - 1 - 1 - 1 is not allowed.
+Every operation done is between two numbers. In particular, we cannot use - as a unary operator. 
+For example, with [1, 1, 1, 1] as input, the expression -1 - 1 - 1 - 1 is not allowed.
 You cannot concatenate numbers together. For example, if the input is [1, 2, 1, 2], we cannot write this as 12 + 12.
+"""
 
 
 """
 方法：两个for loop在nums中取两个数nums[i] and nums[j]. 算出nums[i] and nums[j]这两个数加减乘除可能得到的数，
 将这些可能得到的数放进next_nums里面进行递归。递归的结束条件是len(nums)==1即无法再跟其他书加减乘除了。
 如果len(nums)==1 and nums[0]==24, then return True
+
+There are only 4 cards and only 4 operations that can be performed. Even when all operations do not commute, 
+that gives us an upper bound of 12 * 6 * 2 * 4 * 4 * 4 = 921612∗6∗2∗4∗4∗4=9216 possibilities, which makes it feasible to just try them all. 
+Specifically, we choose two numbers (with order) in 12 ways and perform one of 4 operations (12 * 4). 
+Then, with 3 remaining numbers, we choose 2 of them and perform one of 4 operations (6 * 4). 
+Finally we have two numbers left and make a final choice of 2 * 4 possibilities.
 """
 class Solution:
     def judgePoint24(self, nums: List[int]) -> bool:
