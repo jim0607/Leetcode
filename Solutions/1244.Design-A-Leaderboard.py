@@ -29,6 +29,7 @@ leaderboard.reset(1);         // leaderboard = [[2,56],[3,39],[4,51],[5,4]];
 leaderboard.reset(2);         // leaderboard = [[3,39],[4,51],[5,4]];
 leaderboard.addScore(2,51);   // leaderboard = [[2,51],[3,39],[4,51],[5,4]];
 leaderboard.top(3);           // returns 141 = 51 + 51 + 39;
+"""
 
 
 
