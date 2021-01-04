@@ -28,6 +28,67 @@ Therefore, you need to return above trees' root in the form of a list.
 
 
 """
+use a hashmap to store the serialization_representation --> a list of the root_node, the whole algorith takes O(N)
+"""
+class Solution:
+    def findDuplicateSubtrees(self, root: TreeNode) -> List[TreeNode]:
+        def serialize(root):
+            if not root:
+                return "#"
+            
+            left_serialization = serialize(root.left)
+            right_serialization = serialize(root.right)
+            
+            root_serialization = str(root.val) + "," + left_serialization + "," + right_serialization   # 注意这里如果直接相加就不对, 必须要加逗号将root, left, right分隔开来，不然就从string representation就不能唯一得到subtree了
+            
+            mapping[root_serialization].append(root)    # put the root_serialization into the hashmap
+            
+            return root_serialization
+            
+        
+        mapping = defaultdict(list)     # serialization_of_root --> root
+        serialize(root)
+        return [lst[0] for lst in mapping.values() if len(lst) > 1]
+
+
+
+"""
+solution 3: similar with solution 2 postOrder traversal with memorization.   Note that in-order traversal never works for serialization!
+"""
+class Solution:
+    def findDuplicateSubtrees(self, root: TreeNode) -> List[TreeNode]:
+        memo = set()
+        res = []
+        already_added = set()
+        
+        def postOrder(root):
+            """
+            return a str constrcucted by a tree
+            """
+            if not root:
+                return "#"
+            
+            left = postOrder(root.left)
+            right = postOrder(root.right)
+            
+            rootStr = left + right + str(root.val)  # don't know why preOrder and inOrder doesn't work
+            
+            if rootStr in memo:
+                if rootStr not in already_added:
+                    already_added.add(rootStr)
+                    res.append(root)
+            else:
+                memo.add(rootStr)
+                
+            return rootStr
+
+        postOrder(root)
+        
+        return res
+        
+  
+
+"""
 solution 1: serialize the every subtree using bfs, and put (string presentation of subtree --> subtree node) into a hashmap.
 Since serialization takes O(N), so the overall algorithm takes O(N^2)
 """
@@ -69,69 +130,3 @@ class Solution:
             res += level
 
         return ",".join(res)
-
-
-
-"""
-solution 2: serialize the binary tree using post-order traversal. 
-Since we can update the mapping during the traversal, the whole algorith takes O(N)
-"""
-class Solution:
-    def findDuplicateSubtrees(self, root: TreeNode) -> List[TreeNode]:
-        mapping = collections.defaultdict(list)
-        self._postorder(root, mapping)
-        return [lst[0] for lst in mapping.values() if len(lst) > 1]
-    
-    def _postorder(self, root, mapping):
-        """
-        Return serialized string representation of subtree rooted as root
-        """
-        if not root:
-            return "#"      # we use "#" to represent None
-        
-        left_serialized = self._postorder(root.left, mapping)
-        right_serialized = self._postorder(root.right, mapping)
-        
-        root_serialized = str(root.val) + "," + left_serialized + "," + right_serialized  # 注意这里如果直接相加就不对, 必须要加逗号将root, left, right分隔开来，不然就从string representation就不能唯一得到subtree了
-        mapping[root_serialized].append(root)
-        
-        return root_serialized
-        
-
-
-        
-"""
-solution 3: similar with solution 2 postOrder traversal with memorization.   Note that in-order traversal never works for serialization!
-"""
-class Solution:
-    def findDuplicateSubtrees(self, root: TreeNode) -> List[TreeNode]:
-        memo = set()
-        res = []
-        already_added = set()
-        
-        def postOrder(root):
-            """
-            return a str constrcucted by a tree
-            """
-            if not root:
-                return "#"
-            
-            left = postOrder(root.left)
-            right = postOrder(root.right)
-            
-            rootStr = left + right + str(root.val)  # don't know why preOrder and inOrder doesn't work
-            
-            if rootStr in memo:
-                if rootStr not in already_added:
-                    already_added.add(rootStr)
-                    res.append(root)
-            else:
-                memo.add(rootStr)
-                
-            return rootStr
-
-        postOrder(root)
-        
-        return res
-        
-        
