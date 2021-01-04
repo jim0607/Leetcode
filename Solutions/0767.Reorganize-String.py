@@ -14,6 +14,39 @@ Input: S = "aaab"
 Output: ""
 
     
+class Solution:
+    def reorganizeString(self, s: str) -> str:
+        cnter = Counter(s)
+        
+        hq = []
+        for ch, cnt in cnter.items():
+            heappush(hq, (-cnt, ch))
+            
+        addback = []
+        res = ""
+        while len(hq) > 0:
+            for _ in range(2):
+                if len(hq) == 0 and len(addback) > 0:
+                    return ""
+                
+                if len(hq) > 0:
+                    cnt, ch = heappop(hq)
+                    cnt = -cnt
+                    cnt -= 1
+                    if cnt > 0:
+                        print((ch, cnt))
+                        addback.append((ch, cnt))
+
+                    res += ch
+
+                    if len(hq) == 0 and len(addback) == 0:
+                        return res
+                
+            while len(addback) > 0:
+                ch, cnt = addback.pop()
+                heappush(hq, (-cnt, ch))
+    
+    
 
 """
 这种间隔k个位置安排座位的问题，都是task schedule的做法！这一题k=1.
