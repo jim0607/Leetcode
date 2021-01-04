@@ -93,7 +93,7 @@ Monostack. solution 1: dp. O(M^2N) 固定以up_row为长方形上边，然后去
 我们把这个计算转换成一维来计算，对于每一个up_row, 都构建一个一位数组arr.  arr[j] = 1 if from up_row to down_row, all values in column j are 1. 只要up_row到down_row有一个value is 0，
 我们就设置arr[j] = 0, 表示不可能以up_row为上边以down_row为下边以j为右col构造valid submatrce. solution 2: 与84.Largest-Rectangle-in-Histogram, 85.Maximal-Rectangle很类似.
 先构造histogram. 以j结尾的submatrices的个数等于heights[j] * (j - 向左找第一个height小于heights[j]的idx).
-- [0729. My Calendar I](Solutions/0729.My-Calendar-I.py) (！！M Google) <br>
+- [0729. My Calendar I](Solutions/0729.My-Calendar-I.py) (!!M Google) <br>
 Maitian a intervals list. The problem is to find the overlap of two intervals. We loop over the intervals. 
 一个interval与另一个interval的位置关系就三种情况(1. 没有交集; 2. 一个包含了另一个; 3. 有交集但是没有谁能完全包含谁). 
 这里我们只要遇到case 2 or case 3, then there is an overlap, return False
@@ -121,7 +121,7 @@ solution 1: compare each word with source string using two pointers. O(nmk), whe
 - [0652. Find Duplicate Subtrees](Solutions/0652.Find-Duplicate-Subtrees.py) (!!M Google) <br>
 If two subtrees have the same string representation, then they are duplicated subtrees. serialize the binary tree using divide and conque.  use a hashmap to store the serialization_representation --> a list of the root_node, the whole algorith takes O(N)
 - [0767. Reorganize String](Solutions/0767.Reorganize-String.py) (!!M Google) <br>
-这种间隔k个位置安排座位的问题，都是task schedule的做法！这一题k=1. 用一个hq保存最大的freq, 然后按要求排座位，注意add_back. # case 1: if we can put seat ch into res, then go ahead and seat it it; # case 2: if there is already to same ch on top of res, then we cannot seat the 1st_freq ch, instead, we seat the 2nd highest freq
+套task schedule的模板即可
 - [1444. Number of Ways of Cutting a Pizza](Solutions/1444.Number-of-Ways-of-Cutting-a-Pizza.py) (!!!H Google) <br>
 dfs + memo. memo[(i, j, k)] returns the number of ways to cut pizza[i:n][j:m] into k pieces.
 Step 1: In order to fast get how many apples are there in the down-right corner pizza[i:n][j:m] block,
