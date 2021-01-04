@@ -53,6 +53,44 @@ secret and guess consist of digits only.
 这道题提出了一个叫公牛母牛的游戏，其实就是之前文曲星上有的猜数字的游戏，
 有一个四位数字，你猜一个结果，然后根据你猜的结果和真实结果做对比，提示有多少个数字和位置都正确的叫做bulls，
 还提示有多少数字正确但位置不对的叫做cows，根据这些信息来引导我们继续猜测正确的数字。
+"""
+class Solution:
+    def getHint(self, secret: str, guess: str) -> str:
+        # step 1: build digit to idx dictionary
+        s_idx = defaultdict(list)
+        for i, digit in enumerate(secret):
+            s_idx[digit].append(i)
+        g_idx = defaultdict(list)
+        for i, digit in enumerate(guess):
+            g_idx[digit].append(i)
+
+        # update the a_cnt and b_cnt
+        a_cnt, b_cnt = 0, 0
+        for digit, s_lst in s_idx.items():
+            g_lst = g_idx[digit]
+            temp_a_cnt, temp_b_cnt = self.get_cnt(s_lst, g_lst)
+            a_cnt += temp_a_cnt
+            b_cnt += temp_b_cnt
+            
+        return str(a_cnt) + "A" + str(b_cnt) + "B"
+    
+    def get_cnt(self, s_lst, g_lst):
+        a_cnt = 0
+        i, j = 0, 0     # update a_cnt using two pointers
+        while i < len(s_lst) and j < len(g_lst):
+            if s_lst[i] == g_lst[j]:
+                a_cnt += 1
+                i += 1
+                j += 1
+            elif s_lst[i] < g_lst[j]:
+                i += 1
+            else:
+                j += 1
+        # b_cnt is easy to find after we get a_cnt
+        return a_cnt, min(len(s_lst), len(g_lst)) - a_cnt
+
+
+"""
 use a digit_to_cnt hashmap for digit. one pass to update A_cnt, another pass to update B_cnt.
 """
 class Solution:
