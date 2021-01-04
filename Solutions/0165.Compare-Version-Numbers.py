@@ -46,37 +46,35 @@ All the given revisions in version1 and version2 can be stored in a 32-bit integ
 """
 
 
-"""
-two pointers.  split the version by "." first before processing.
-"""
 class Solution:
     def compareVersion(self, version1: str, version2: str) -> int:
         v1 = version1.split(".")
         v2 = version2.split(".")
-        i, j = 0, 0
-        while i < len(v1) and j < len(v2):
-            num1, num2 = v1[i], v2[j]
-
-            p, n1 = 0, 0
-            while p < len(num1):
-                n1 = 10 * n1 + int(num1[p])
-                p += 1
-            q, n2 = 0, 0
-            while q < len(num2):
-                n2 = 10 * n2 + int(num2[q])
-                q += 1
+        
+        for i in range(min(len(v1), len(v2))):
+            num1, num2 = v1[i], v2[i]
             
+            p = 0
+            n1 = 0
+            while p < len(num1):
+                n1 = 10 * n1 + ord(num1[p]) - ord("0")
+                p += 1
+                
+            q = 0
+            n2 = 0
+            while q < len(num2):
+                n2 = 10 * n2 + ord(num2[q]) - ord("0")
+                q += 1
+                
             if n1 > n2:
+                print(n1, n2)
                 return 1
             elif n1 < n2:
                 return -1
-            else:
-                i += 1
-                j += 1
+                
+        if i != len(v1) - 1 and any(ch != "0" for s in v1[i+1:] for ch in s):
+            return 1
+        if i != len(v2) - 1 and any(ch != "0" for s in v2[i+1:] for ch in s):
+            return -1
         
-        if i == len(v1) and j == len(v2):
-            return 0
-        elif i == len(v1):
-            return 0 if all(digit == "0" for num in v2[j:] for digit in num) else -1
-        elif j == len(v2):
-            return 0 if all(digit == "0" for num in v1[i:] for digit in num) else 1
+        return 0
