@@ -97,5 +97,5 @@ class Solution:
                         visited.add((curr_pos, -1))
                 if curr_speed < 0:
                     if curr_pos + curr_speed < target and (curr_pos, +1) not in visited:
-                        q.append((curr_pos, +1))
+                        q.append((curr_pos, +1))            # 我们是有条件的回退，只有在超过了target的情况下我们才回退
                         visited.add((curr_pos, +1))
