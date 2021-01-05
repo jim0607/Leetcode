@@ -24,6 +24,7 @@ S consists of lowercase English letters.
 """
 step 1: find the lens of longest duplicated substring using binary search - 1062. Longest Repeating Substring;
 step 2: use the longest lens to find the substring - 187. Repeated DNA Sequences
+O(NlogN)
 """
 class Solution:
     def longestDupSubstring(self, s: str) -> str:
@@ -45,13 +46,13 @@ class Solution:
         """
         Return if there are two L-long substrings that are equal
         """
-        SIZE = 2**31        # 由于采用了冲突解决办法，所以size选的很小也没关系
+        SIZE = 2**31 + 7        # 由于采用了冲突解决办法，所以size选的很小也没关系, magic number 7, 不用 7会有几个cases过不了
         BASE = 31
         power = 1
         for _ in range(L):
             power = (power * BASE) % SIZE
             
-        mapping = collections.defaultdict(set)      # hash_code --> strings with that hash_code
+        mapping = defaultdict(set)      # hash_code --> strings with that hash_code
         hash_code = 0
         for i, ch in enumerate(s):
             hash_code = (hash_code * BASE + ord(ch) - ord("a")) % SIZE
@@ -60,14 +61,15 @@ class Solution:
             if i >= L:
                 hash_code = (hash_code - (ord(s[i-L]) - ord("a")) * power % SIZE) % SIZE    # ***注意每一步都要 % SIZE, 防止数字越界,
             if hash_code in mapping:                      # 这样写有两个case过不了hash_code -= (ord(s[i-L]) - ord("a")) * power % SIZE
-                if s[i-L+1:i+1] in mapping[hash_code]:
+                if s[i-L+1:i+1] in mapping[hash_code]:    # 这里couble check一遍是为了avoid hash collision, 如果不double check一遍会有4个cases过不了
                     return True
             mapping[hash_code].add(s[i-L+1:i+1])
+            
         return False
     
     # below is just a copy of 187. Repeated DNA Sequences
     def findRepeatedDnaSequences(self, s: str, L: int) -> List[str]:
-        HASH_SIZE = 2**31
+        HASH_SIZE = 2**31 + 7
         BASE = 31  
 
         power = 1
