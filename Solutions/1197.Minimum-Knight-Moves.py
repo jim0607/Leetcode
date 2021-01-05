@@ -140,16 +140,27 @@ Therefore, they have to be manually added at the beginning."""
 
 class Solution:
     def minKnightMoves(self, x: int, y: int) -> int:
-        x, y = abs(x), abs(y)
+        x = abs(x)
+        y = abs(y)
         
-        memo = {(0, 0): 0, (1, 1): 2, (1, 0): 3, (0, 1): 3}
+        def backtrack(curr_x, curr_y):
+            if (curr_x, curr_y) in memo:
+                return memo[(curr_x, curr_y)]
         
-        def memorization(x, y):                
-            if (x, y) in memo:
-                return memo[(x, y)]
-
-            memo[(x, y)] = min(memorization(abs(x-2), abs(y-1)), memorization(abs(x-1), abs(y-2))) + 1
-            
-            return memo[(x, y)]
+            res = sys.maxsize
+            for delta_x, delta_y in [(-1, -2), (-2, -1)]:   # 只往(0, 0)的方向走，不然会maximum resursion depth exceeded
+                next_x, next_y = curr_x + delta_x, curr_y + delta_y
+                next_x = abs(next_x)
+                next_y = abs(next_y)
+                res = min(res, 1 + backtrack(next_x, next_y))
+                
+            memo[(curr_x, curr_y)] = res
+            return res
         
-        return memorization(x, y)
+        
+        memo = defaultdict(int)     # bottom up: from (x, y) --> from (x, y), minimum steps to get to (0, 0)
+        memo[(0, 0)] = 0
+        memo[(1, 1)] = 2
+        memo[(1, 0)] = 3
+        memo[(0, 1)] = 3
+        return backtrack(x, y)  # returns from (x, y), minimum steps to get to (0, 0)
