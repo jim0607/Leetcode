@@ -23,9 +23,6 @@ def ways_to_travel(m, n, K, r, c):
     :param c: col of the original coordinate
     :return: the number of ways to travel K steps from (r, c), and finally get back to (r, c)
     """
-    if K % 2 == 1:      # 如果K是奇数，那就一定回不来
-        return 0
-
     dp = [[[0 for _ in range(K + 1)] for _ in range(n)] for _ in range(m)]  # 注意 K + 1
     dp[r][c][0] = 1     # note that dp[other_than_r][other_than_c][0] = 0
     for k in range(1, K + 1):   # 特别注意三个for 循环K是在最外面的
