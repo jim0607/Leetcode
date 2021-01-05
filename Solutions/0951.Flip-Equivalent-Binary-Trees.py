@@ -45,9 +45,7 @@ class Solution:
     def flipEquiv(self, root1: TreeNode, root2: TreeNode) -> bool:
         if not root1 and not root2:
             return True
-        if not root1:
-            return False
-        if not root2:
+        if not root1 or not root2:
             return False
         
         if root1.val != root2.val:
