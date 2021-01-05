@@ -187,8 +187,9 @@ backtrack. step 1: find all possible permutations - O(4!). step 2: update max_po
 尝试每一个pos出发backtrack所有可能的path比较哪一条path能得到最多的gold - O(4^N). 注意backtrack遍历得到的是每一条path的curr_sum, 而不是像普通dfs那样得遍历的是整个区域的. 对比这一题与200. Number of islands. 我们可以看到求path一定需要用backtrack. backtrack与dfs相比其实就是多了一步visited.remove(next_candidate). 这就导致dfs的时间复杂度是O(N), while backtrack的时间复杂度是O(4^N), where N is the number of cells in the matrix. 4 is the number of next_nodes in the for next_candidate in ...
 - [0068. Text Justification](Solutions/0068.Text-Justification.py) (!!H Google) <br>
 String manipulation. use curr_line = [] to record curr words in curr_line; use curr_width = 0 to record curr total number of chars in curr_line. Iterate the word in words, if too many words to fit in one line, we first justify that line and update res, then start over the curr_line = [] and curr_width = 0 for the next line. Lastly, we deal with the last line seperately.
-- [0609. Two Sum - Less than or equal to target](Solutions/0609.Two-Sum-Less-than-or-equal-to-target.py) (!!E Lintcode) <br>
-反向双指针：if nums[i] + nums[j] <= target: cnt += j - i		# 注意这里是 cnt += j - i 表示nums[i] 加上 (i 到 j之间的任何数)，一定也是小于等于target的
+- [0609. Find Duplicate File in System](Solutions/0609.Find-Duplicate-File-in-System.py) (!!M) <br>
+build a content_to_dir dictionary where key is content in txt file, val is a list of dir holding the content eg: ["root/a/1.txt"];
+需要用到string.split(char), string.index(substring). Super important follow up questions for big data.
 - [0951. Flip Equivalent Binary Trees](Solutions/0951.Flip-Equivalent-Binary-Trees.py) (!!!H Google) <br>
 recursion - O(min(N1, N2))
 - [0298. Binary Tree Longest Consecutive Sequence](Solutions/0298.Binary-Tree-Longest-Consecutive-Sequence.py) (!!M) <br> 
