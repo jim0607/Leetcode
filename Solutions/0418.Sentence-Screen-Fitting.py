@@ -82,7 +82,7 @@ class Solution:
                         remaining -= 1
                         
                     i += 1
-                    if i == n:      # this is when we need to repeat in a col
+                    if i == n:      # this is when we need to repeat in a row
                         i = 0
                         res += (1 + remaining // total_len)
                         remaining %= total_len
