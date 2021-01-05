@@ -66,13 +66,13 @@ class Solution:
             for next_idx in range(curr_idx + 1, len(words)):
                 next_word = words[next_idx]                    
                 next_word_cnter = Counter(next_word)
-                if any(next_word_cnter[ch] > ch_cnter[ch] for ch in w_cnter):
+                if any(next_word_cnter[ch] > ch_cnter[ch] for ch in next_word_cnter):
                     continue        # 如果现有的letters无法组成这个word, 那就不能继续
 
                 for ch in next_word_cnter:         # 从letters中减去word
                     ch_cnter[ch] -= next_word_cnter[ch]
                 backtrack(next_idx, curr_score + word_score[next_word])
-                for ch in w_cnter:         # 在letters中加入word: backtrack
+                for ch in next_word_cnter:         # 在letters中加入word: backtrack
                     ch_cnter[ch] += next_word_cnter[ch]
 
                     
