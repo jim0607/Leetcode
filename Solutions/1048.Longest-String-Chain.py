@@ -26,6 +26,40 @@ words[i] only consists of English lowercase letters.
 """
 
 
+
+class Solution:
+    def longestStrChain(self, words: List[str]) -> int:
+        words.sort(key = lambda x: len(x))
+        
+        len_words = defaultdict(list)
+        for idx, word in enumerate(words):
+            len_words[len(word)].append(idx)
+            
+        dp = [1 for _ in range(len(words))]
+        for idx, word in enumerate(words):
+            lens = len(word)
+            if lens > 1:
+                for prev_idx in len_words[lens - 1]:    # instead of exploring all the previous words, we explore only words with lens - 1
+                    if self.is_additive(words, idx, prev_idx):
+                        dp[idx] = max(dp[idx], 1 + dp[prev_idx])
+        return max(dp)
+    
+    def is_additive(self, words, curr_idx, prev_idx):
+        curr_word, prev_word = words[curr_idx], words[prev_idx]
+        i, j = 0, 0
+        diff_cnt = 0
+        while i < len(curr_word) and j < len(prev_word):
+            if curr_word[i] == prev_word[j]:
+                i += 1
+                j += 1
+            else:
+                if diff_cnt > 0:
+                    return False
+                diff_cnt += 1
+                i += 1
+        return True
+
+
 """
 dp = dict, key is word, val is the longest chain lens ended with word
 predecessor = word[:i]+word[i+1:]
