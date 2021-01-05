@@ -53,7 +53,7 @@ class Solution:
                 backtrack(next_bought, curr_cost + special[-1])
 
         self.min_cost = float("inf")
-        for i in range(len(price)):
+        for i in range(len(price)):     # 第一步：把单买的方式也转换成specials
             special = [0 for _ in range(len(price) + 1)]
             special[i] = 1
             special[-1] = price[i]
