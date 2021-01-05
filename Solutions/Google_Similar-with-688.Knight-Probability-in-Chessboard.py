@@ -34,7 +34,7 @@ def ways_to_travel(m, n, K, r, c):
                 for delta_i, delta_j in [(-1, 0), (0, -1), (1, 0), (0, 1)]:
                     neigh_i, neigh_j = i + delta_i, j + delta_j
                     if 0 <= neigh_i < m and 0 <= neigh_j < n:
-                        dp[i][j][k] += dp[neigh_i][neigh_j][k-1]
+                        dp[i][j][k] += dp[neigh_i][neigh_j][k-1]   # 代表 prev_i, prev_j 
     return dp[r][c][K]
 
 print(ways_to_travel(10, 10, 4, 2, 2))
