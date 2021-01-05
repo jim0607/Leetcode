@@ -47,11 +47,11 @@ class Solution:
         for num in nums:
             if cnter[num] == 0:
                 continue
-            cnter[num] -= 1     # 要用掉num, 所以别忘了freq自减一
-            
-            # can_append[num] > 0 说明num可以append到前面的顺子中，那就不需要开一个新顺子了
-            # greedy: 只要能append到前面的顺子中，就append上去
+
+            # can_append[num] > 0 说明num可以append到前面已经存在的顺子中，那就不需要开一个新顺子了
+            # greedy: 只要能append到前面已经存在的顺子中，就append上去
             if can_append[num] > 0:
+                cnter[num] -= 1         # 用num append到前面的顺子中
                 can_append[num] -= 1        # 只要被前面的顺子需要，我就连上去
                 can_append[num + 1] += 1
                 
@@ -60,8 +60,9 @@ class Solution:
             elif can_append[num] == 0:
                 if cnter[num + 1] == 0 or cnter[num + 2] == 0:
                     return False
-                cnter[num + 1] -= 1
-                cnter[num + 2] -= 1
-                can_append[num + 3] += 1
+                cnter[num] -= 1         # 用num append到新开的顺子中
+                cnter[num + 1] -= 1     # 用num - 1 append到新开的顺子中
+                cnter[num + 2] -= 1     # 用num - 2 append到新开的顺子中
+                can_append[num + 3] += 1    # can_append[num + 3] += 1只是表示num + 3可以append到一个新顺子上去，num + 3不一定需要存在于nums中
                 
         return True                
