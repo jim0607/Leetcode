@@ -36,10 +36,36 @@ class Solution:
     def longestSubsequence(self, arr: List[int], diff: int) -> int:
         dp = [1 for _ in range(len(arr))]
         for j in range(1, len(arr)):
-            for i in range(j):
+            for i in range(j):     # need to explore all the nums[i] before nums[j]
                 if arr[j] - arr[i] == diff:
                     dp[j] = max(dp[j], dp[i] + 1)
         return max(dp)
+        
+        
+"""
+solution 1 needs to explore all the nums[i] before nums[j]. 
+How about pre-find which i satisfies nums[j] - nums[i] == diff?
+pre-calculation: O(N)
+"""
+class Solution:
+    def longestSubsequence(self, arr: List[int], diff: int) -> int:
+        # step 1: pre-find the nums[i], that equals nums[j] - diff.
+        mapping = defaultdict(list)  # num --> idx
+        diff_arr = [[] for _ in range(len(arr))]    # store the idx of nums[i], that satisfies nums[j] - nums[i] == diff
+        for j, num in enumerate(arr):
+            if num - diff in mapping:
+                diff_arr[j] += mapping[num - diff]
+            mapping[num].append(j)
+
+        # step 2: dp to update the las
+        dp = [1 for _ in range(len(arr))]
+        for j in range(1, len(arr)):
+            for i in diff_arr[j]:     # only explore the idx that satisfy nums[j] - nums[i] == diff
+                dp[j] = max(dp[j], dp[i] + 1)
+        return max(dp)
+                    
+        
+        
         
 """
 O(N)
