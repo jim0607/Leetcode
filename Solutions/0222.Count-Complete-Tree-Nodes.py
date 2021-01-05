@@ -96,11 +96,11 @@ class Solution:
             return 0
         return 1 + self.get_level(root.left)
     
-    def get_graycode(self, level, num):
+    def get_graycode(self, level, mid):
         res = []
-        for i in range(level - 1, -1, -1):
-            res.append(num & 1)
-            num = num >> 1
+        for _ in range(level):
+            res.append(mid % 2)
+            mid //= 2
         return res[::-1]
     
     def get_node_from_graycode(self, root, gray_code):
