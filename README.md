@@ -1,5 +1,5 @@
 ### Google top 200
-#### 12/30, 01/03: 130
+#### 12/30, 01/03: 130; 01/04: 1131
 
 - [0843. Guess the Word](Solutions/0843.Guess-the-Word.py) (!!!H Google) <br>
 Repeatedly choose a word to guess, and then eliminate all words that do not have the same number of matches as the guessed word. 
