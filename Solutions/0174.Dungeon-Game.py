@@ -29,16 +29,14 @@ https://www.youtube.com/watch?v=qx8VCY-zScA
 class Solution:
     def calculateMinimumHP(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
-        dp = [[1 for _ in range(n)] for _ in range(m)]
-        for i in range(m - 1, -1, -1):      # 注意是从终点倒着往起点推
-            for j in range(n - 1, -1, -1):
-                if i == m - 1 and j == n - 1:       # base case
-                    dp[i][j] = 1 if grid[i][j] >= 0 else 1- grid[i][j]
-                    continue
-                if i == m - 1:
-                    dp[i][j] = max(1, dp[i][j + 1] - grid[i][j])
-                elif j == n - 1:
-                    dp[i][j] = max(1, dp[i + 1][j] - grid[i][j])
-                else:
-                    dp[i][j] = max(1, min(dp[i][j + 1] - grid[i][j], dp[i + 1][j] - grid[i][j]))
+        dp = [[0] * n for _ in range(m)]
+        dp[m-1][n-1] = max(1, 1 - grid[m-1][n-1])
+        for i in range(m - 2, -1, -1):
+            dp[i][n-1] = max(1, dp[i+1][n-1] - grid[i][n-1])
+        for j in range(n - 2, -1, -1):
+            dp[m-1][j] = max(1, dp[m-1][j+1] - grid[m-1][j])        
+        
+        for i in range(m - 2, -1, -1):
+            for j in range(n - 2, -1, -1):
+                dp[i][j] = min(max(1, dp[i+1][j] - grid[i][j]), max(1, dp[i][j+1] - grid[i][j]))
         return dp[0][0]
