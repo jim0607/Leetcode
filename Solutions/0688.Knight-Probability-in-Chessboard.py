@@ -21,25 +21,26 @@ Each move is two squares in a cardinal direction, then one square in an orthogon
 
 """
 其中dp[i][j][k]表示在棋盘(i, j)位置上走完k步数还留在棋盘上的走法总和(注意是走法，不是步数)
+dp[i][j][k] = from (i, j), we move k steps, how many ways to stay on the board.
+move k steps, how many ways are there 8 ** k.
 """
 class Solution:
     def knightProbability(self, N: int, K: int, r: int, c: int) -> float:
-        if K == 0:
-            return 1
-        
         steps = [[1,2], [1,-2], [-1,2], [-1,-2], [2,1], [2,-1], [-2,1], [-2,-1]]
+        
         dp = [[[0 for _ in range(K + 1)] for _ in range(N)] for _ in range(N)]
         for i in range(N):
             for j in range(N):
                 dp[i][j][0] = 1
                 
-        for k in range(1, K + 1):           # 千万注意是先更新k, 不然后面的转移方程就不成立了
+        for k in range(1, K + 1):     # 千万注意是先更新k, 不然后面的转移方程就不成立了
             for i in range(N):
                 for j in range(N):
                     for delta_i, delta_j in steps:
                         neigb_i, neigb_j = i + delta_i, j + delta_j
                         if 0 <= neigb_i < N and 0 <= neigb_j < N:
-                            dp[i][j][k] += dp[neigb_i][neigb_j][k-1]      # 表示从(next_i, next_j)跳到(i, j)
+                            dp[i][j][k] += dp[neigb_i][neigb_j][k-1]      # 表示从(prev_i, prev_j)跳到(i, j)
+                            
         return dp[r][c][K] / 8**K
 
 
