@@ -49,13 +49,13 @@ class Solution:
                 continue
             cnter[num] -= 1     # 要用掉num, 所以别忘了freq自减一
             
-            # can_append[num] > 0 说明num可以append到前面的顺子中
+            # can_append[num] > 0 说明num可以append到前面的顺子中，那就不需要开一个新顺子了
             # greedy: 只要能append到前面的顺子中，就append上去
             if can_append[num] > 0:
                 can_append[num] -= 1        # 只要被前面的顺子需要，我就连上去
                 can_append[num + 1] += 1
                 
-            # can_append[num] == 0 说明不能append到前面的顺子中
+            # can_append[num] == 0 说明不能append到前面的顺子中，那只能新开一个新顺子
             # 那就只能往后面找顺子，去找num+1, num+2存不存在数组中
             elif can_append[num] == 0:
                 if cnter[num + 1] == 0 or cnter[num + 2] == 0:
