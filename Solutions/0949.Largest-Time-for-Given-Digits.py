@@ -37,32 +37,30 @@ step 2: update max_possible time that can be constructed from the permutations.
 """
 class Solution:
     def largestTimeFromDigits(self, arr: List[int]) -> str:
-        def _permutations(curr_idx, curr_comb):
-            if len(curr_comb) == len(arr):
-                permt.append(curr_comb.copy())
+        def backtrack(curr_comb):
+            if len(curr_comb) == 4:
+                permut.append(curr_comb)
                 return
             
-            for next_idx in range(len(arr)):
-                if next_idx not in visited:
-                    curr_comb.append(arr[next_idx])
-                    visited.add(next_idx)
-                    _permutations(next_idx, curr_comb)
-                    visited.remove(next_idx)
-                    curr_comb.pop()
+            for idx in range(4):
+                if idx not in visited:
+                    visited.add(idx)
+                    backtrack(curr_comb + str(arr[idx]))
+                    visited.remove(idx)
+                    
         
-        
-        permt = []
+        permut = []
         visited = set()
-        _permutations(0, [])
+        backtrack("")
         
-        hour, minite = 0, 0
-        max_time, res = -1, ''
-        for hour1, hour2, minute1, minute2 in permt:
-            hour = hour1 * 10 + hour2
-            minute = minute1 * 10 + minute2
-            if hour < 24 and minute < 60:
+        max_time = -1
+        res = ""
+        for a, b, c, d in permut:
+            hour = int(a) * 10 + int(b)
+            minute = int(c) * 10 + int(d)
+            if 0 <= hour < 24 and 0 <= minute < 60:
                 time = hour * 60 + minute
                 if time > max_time:
                     max_time = time
-                    res = str(hour1) + str(hour2) + ":" + str(minute1) + str(minute2)
+                    res = str(a) + str(b) + ":" + str(c) + str(d)
         return res
