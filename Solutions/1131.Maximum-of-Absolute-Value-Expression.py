@@ -34,35 +34,25 @@ Constraints:
 """
 class Solution:
     def maxAbsValExpr(self, arr1: List[int], arr2: List[int]) -> int:
-        n = len(arr1)
-        res = 0
-        
-        # situation 1
-        arr = [arr1[i] + arr2[i] for i in range(n)]
-        curr_min = sys.maxsize
-        for i, num in enumerate(arr):
-            curr_min = min(curr_min, num + i)
-            res = max(res, num + i - curr_min)
-        
-        # situation 2
-        arr = [arr1[i] - arr2[i] for i in range(n)]
-        curr_min = sys.maxsize
-        for i, num in enumerate(arr):
-            curr_min = min(curr_min, num + i)
-            res = max(res, num + i - curr_min)
+        min_val = sys.maxsize
+        max_diff = 0
+        for i in range(len(arr1)):
+            min_val = min(min_val, arr1[i] + arr2[i] + i)
+            max_diff = max(max_diff, arr1[i] + arr2[i] + i - min_val)
             
-        # situation 3
-        arr = [-arr1[i] - arr2[i] for i in range(n)]
-        curr_min = sys.maxsize
-        for i, num in enumerate(arr):
-            curr_min = min(curr_min, num + i)
-            res = max(res, num + i - curr_min)
+        min_val = sys.maxsize
+        for i in range(len(arr1)):
+            min_val = min(min_val, -arr1[i] + arr2[i] + i)
+            max_diff = max(max_diff, -arr1[i] + arr2[i] + i - min_val)
             
-        # situation 4
-        arr = [-arr1[i] + arr2[i] for i in range(n)]
-        curr_min = sys.maxsize
-        for i, num in enumerate(arr):
-            curr_min = min(curr_min, num + i)
-            res = max(res, num + i - curr_min)
+        min_val = sys.maxsize
+        for i in range(len(arr1)):
+            min_val = min(min_val, -arr1[i] - arr2[i] + i)
+            max_diff = max(max_diff, -arr1[i] - arr2[i] + i - min_val)
             
-        return res
+        min_val = sys.maxsize
+        for i in range(len(arr1)):
+            min_val = min(min_val, arr1[i] - arr2[i] + i)
+            max_diff = max(max_diff, arr1[i] - arr2[i] + i - min_val)
+            
+        return max_diff
