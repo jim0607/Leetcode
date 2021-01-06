@@ -243,10 +243,9 @@ string. fit the sentence in line by line
 step 1: find the lens of longest duplicated substring using binary search - 1062. Longest Repeating Substring;
 step 2: use the longest lens to find the substring - 187. Repeated DNA Sequences
 - [0638. Shopping Offers](Solutions/0638.Shopping-Offers.py) (!!M) <br>
-solution 1: backtrack - 套用backtrack模板，backtrack加入的参数有(curr_bought, curr_cost).
-backtrack结束条件是if all(curr_bought[i] >= needs[i] for i in range(len(needs))).
-backtrack的剪枝很重要 - skip deals that exceed needs: if any(special[i] > needs[i] - curr_bought[i] for i in range(len(needs)))
-O(2^M* L* N) where L is len(prices), M is how many specials are there, N is value of needs; solution 2: dfs + memorization
+solution 1: backtrack - 第一步：把单买的方式也转换成specials; backtrack结束条件: the needs has been met: all(curr_bought[i] > needs[i] for i in range(len(needs)))
+constraint on next_candidates: 题目要求You are not allowed to buy more items than you want, even if that would lower the overall price.
+arguments pass into backtrack function: curr_bought, curr_cost solution 2: dfs + memorization
 - [1237. Find Positive Integer Solution for a Given Equation](Solutions/1237.Find-Positive-Integer-Solution-for-a-Given-Equation.py) (E Google) <br>
 反向双指针. 
 - [0844. Backspace String Compare](Solutions/0844.Backspace-String-Compare.py) (!!!E) <br>
