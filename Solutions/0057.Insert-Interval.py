@@ -37,23 +37,37 @@ class Solution:
     
     
 """
-Solution 2: add the interval on the run O(nlogn).  If there is overlap, we update the new interval.
+O(N) solution. just loop over the interval and check 是不是相交，
+如果不相交就直接append到merged，如果相交就expand new_interval
 """
 class Solution:
-    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        merged = []
-        new_start, new_end = newInterval
-        for start, end in intervals:
-            if end < new_start or start > new_end:
-                merged.append([start, end])
-            else:       # there is overlap - 更新new interval
-                new_start = min(new_start, start)
-                new_end = max(new_end, end)
-                
-        merged.append([new_start, new_end])
+    def insert(self, intervals: List[List[int]], new_interval: List[int]) -> List[List[int]]:
+        if not intervals:
+            return [new_interval]
         
-        return sorted(merged)   # to sort a nearly sorted list, use insertion sort - close to O(N)
+        merged = []
+        for i, (start, end) in enumerate(intervals):
+            if end < new_interval[0]:
+                merged.append([start, end])
+                
+            elif start > new_interval[1]:
+                merged.append(new_interval)     # 注意在这里 append new_interval
+                return merged + intervals[i:]
+            
+            else:       # if there is overlap, we expand the new_interval
+                new_interval[0] = min(new_interval[0], start)   
+                new_interval[1] = max(new_interval[1], end)
+                
+        merged.append(new_interval)   # 在这里append new_interval in case new_interval在最右边
+                
+        return merged
 
+"""
+Since the input intervals are well sorted by start time, meaning there is no overlaps in the interval, 
+we can do binary Search to find the first start_idx > new_interval.end, and the last end_idx < new_interval.start
+However, even with a Binary Search we can't do better than O(n). 
+This is due to the fact that we need to merge all overlapping intervals.
+"""
     
 """
 Facebook follow up:  How do you add intervals and merge them for a large stream of intervals?
