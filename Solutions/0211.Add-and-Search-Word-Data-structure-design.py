@@ -19,6 +19,58 @@ search("b..") -> true
 """
 
 
+"""
+backtrack for search
+"""
+class TrieNode:
+    
+    def __init__(self):
+        self.child = defaultdict(TrieNode)
+        self.is_end = False
+
+
+class WordDictionary:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.root = TrieNode()
+
+    def addWord(self, word: str) -> None:       # O(L) where L is lens of word
+        curr = self.root
+        for ch in word:
+            curr = curr.child[ch]
+        curr.is_end = True
+
+    def search(self, word: str) -> bool:        # worst case O(26^M), where M is how many wildcard in word
+        def backtrack(curr_node, curr_idx):
+            if curr_idx == len(word) - 1:
+                if curr_node.is_end:
+                    return True
+                return False
+            
+            if word[curr_idx + 1] != ".":
+                if word[curr_idx + 1] in curr_node.child:
+                    if backtrack(curr_node.child[word[curr_idx + 1]], curr_idx + 1):
+                        return True
+            else:
+                for next_ch in "abcdefghijklmnopqrstuvwxyz":    # worst case O(26^M), where M is how many wildcard in word
+                    if next_ch in curr_node.child:      # but since there is pruning here, the time complexity is better than O(26^M)
+                        if backtrack(curr_node.child[next_ch], curr_idx + 1):
+                            return True
+            
+            return False
+        
+        
+        return backtrack(self.root, -1)
+
+
+
+
+"""
+bfs for search
+"""
 class TrieNode:
     
     def __init__(self):
@@ -68,7 +120,36 @@ class WordDictionary:
         return False
 
 
-# Your WordDictionary object will be instantiated and called as such:
-# obj = WordDictionary()
-# obj.addWord(word)
-# param_2 = obj.search(word)
+"""
+solution 2: hashset
+"""
+class WordDictionary:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.word_set = set()
+
+    def addWord(self, word: str) -> None:
+        self.word_set.add(word)
+
+    def search(self, word: str) -> bool:
+        def backtrack(curr_idx, curr_comb):     # backtrack to find all combinations
+            if curr_idx == len(word) - 1:
+                if curr_comb in self.word_set:
+                    return True
+                return False
+            
+            if word[curr_idx+1] != ".":
+                if backtrack(curr_idx + 1, curr_comb + word[curr_idx+1]):
+                    return True
+            else:
+                for next_ch in "abcdefghijklmnopqrstuvwxyz":        # solid O(26^M), where M is how many wildcard in word
+                    if backtrack(curr_idx + 1, curr_comb + next_ch):
+                        return True
+                
+            return False
+        
+        
+        return backtrack(-1, "")
