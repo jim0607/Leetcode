@@ -5,9 +5,12 @@ In LeetCode Store, there are some kinds of items to sell. Each item has a price.
 
 However, there are some special offers, and a special offer consists of one or more different kinds of items with a sale price.
 
-You are given the each item's price, a set of special offers, and the number we need to buy for each item. The job is to output the lowest price you have to pay for exactly certain items as given, where you could make optimal use of the special offers.
+You are given the each item's price, a set of special offers, 
+and the number we need to buy for each item. The job is to output the lowest price you have to pay for exactly certain items as given, 
+where you could make optimal use of the special offers.
 
-Each special offer is represented in the form of an array, the last number represents the price you need to pay for this special offer, other numbers represents how many specific items you could get if you buy this offer.
+Each special offer is represented in the form of an array, the last number represents the price you need to pay for this special offer, 
+other numbers represents how many specific items you could get if you buy this offer.
 
 You could use any of special offers as many times as you want.
 
@@ -35,30 +38,33 @@ You are not allowed to buy more items than you want, even if that would lower th
 
 
 """
-solution 1: backtrack - 套用backtrack模板，backtrack加入的参数有(curr_bought, curr_cost).
-backtrack结束条件是if all(curr_bought[i] >= needs[i] for i in range(len(needs))).
-backtrack的剪枝很重要 - skip deals that exceed needs: if any(special[i] > needs[i] - curr_bought[i] for i in range(len(needs)))
+backtrack结束条件: the needs has been met: all(curr_bought[i] > needs[i] for i in range(len(needs)))
+constraint on next_candidates: You are not allowed to buy more items than you want, even if that would lower the overall price.
+arguments pass into backtrack function: curr_bought, curr_cost
 O(2^M*L*N) where L is len(prices), M is how many specials are there, N is value of needs
 """
 class Solution:
-    def shoppingOffers(self, price, specials, needs) -> int:
+    def shoppingOffers(self, prices: List[int], specials: List[List[int]], needs: List[int]) -> int:
         def backtrack(curr_bought, curr_cost):
-            if all(curr_bought[i] >= needs[i] for i in range(len(needs))):
+            if all(curr_bought[i] >= needs[i] for i in range(n)):
                 self.min_cost = min(self.min_cost, curr_cost)
-                return
+                
             for special in specials:
-                if any(special[i] > needs[i] - curr_bought[i] for i in range(len(needs))):  # skip deals that exceed needs
-                    continue            # 这里很重要，不然会 maximum recursion depth exceeded
-                next_bought = [curr_bought[i] + special[i] for i in range(len(needs))]
+                if any(special[i] > needs[i] - curr_bought[i] for i in range(n)):    
+                    continue    # You are not allowed to buy more items than you want, even if that would lower the overall price.
+                next_bought = [curr_bought[i] + special[i] for i in range(n)]
                 backtrack(next_bought, curr_cost + special[-1])
-
-        self.min_cost = float("inf")
-        for i in range(len(price)):     # 第一步：把单买的方式也转换成specials
-            special = [0 for _ in range(len(price) + 1)]
-            special[i] = 1
-            special[-1] = price[i]
-            specials.append(special)
-        backtrack([0 for _ in range(len(needs))], 0)
+                                
+                
+        n = len(needs)
+        for i, price in enumerate(prices):      # 第一步：把单买的方式也转换成specials
+            alone = [0 for _ in range(n)]
+            alone[i] = 1
+            alone.append(price)
+            specials.append(alone)
+        
+        self.min_cost = sys.maxsize
+        backtrack([0 for _ in range(n)], 0)
         return self.min_cost
         
         
