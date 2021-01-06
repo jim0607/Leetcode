@@ -126,3 +126,49 @@ class Solution:
                                 visited.add((next_i, next_j))
                                 
         return can_reach_buldings == total_buildings - 1    # STRONG PRUNING: if some bulding can not be reached from bulding (i, j), then return -1
+    
+    
+    
+    
+    
+    
+class Solution:
+    def shortestDistance(self, grid: List[List[int]]) -> int:
+        def bfs(i, j):
+            q = deque()
+            visited = set()
+            q.append((i, j))
+            visited.add((i, j))
+            
+            steps = -1
+            while len(q) > 0:
+                steps += 1
+                lens = len(q)
+                for _ in range(lens):
+                    curr_i, curr_j = q.popleft()
+            
+                    if grid[curr_i][curr_j] == 1:
+                        self.reach_cnt += 1
+                        self.dist += steps
+
+                    if grid[curr_i][curr_j] == 0:
+                        for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                            next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                            if 0 <= next_i < m and 0 <= next_j < n and grid[next_i][next_j] != 2:
+                                if (next_i, next_j) not in visited:
+                                    q.append((next_i, next_j))
+                                    visited.add((next_i, next_j))
+        
+        
+        m, n = len(grid), len(grid[0])
+        min_dist = sys.maxsize
+        total_building = sum([grid[i][j] for i in range(m) for j in range(n) if grid[i][j] == 1])
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 0:
+                    self.reach_cnt = 0
+                    self.dist = 0
+                    bfs(i, j)
+                    if self.reach_cnt == total_building:
+                        min_dist = min(min_dist, self.dist)
+        return min_dist if min_dist != sys.maxsize else -1
