@@ -39,7 +39,7 @@ You are not allowed to buy more items than you want, even if that would lower th
 
 """
 backtrack结束条件: the needs has been met: all(curr_bought[i] > needs[i] for i in range(len(needs)))
-constraint on next_candidates: You are not allowed to buy more items than you want, even if that would lower the overall price.
+constraint on next_candidates: 题目要求You are not allowed to buy more items than you want, even if that would lower the overall price.
 arguments pass into backtrack function: curr_bought, curr_cost
 O(2^M*L*N) where L is len(prices), M is how many specials are there, N is value of needs
 """
@@ -74,26 +74,30 @@ solution 2: dfs + memorization
 - O(MLN) where L is len(prices), M is how many specials are there, N is value of needs
 """
 class Solution:
-    def shoppingOffers(self, price, specials, needs) -> int:
+    def shoppingOffers(self, prices: List[int], specials: List[List[int]], needs: List[int]) -> int:
         def backtrack(curr_bought):
-            if all(curr_bought[i] >= needs[i] for i in range(len(needs))):
+            if all(curr_bought[i] == needs[i] for i in range(n)):
                 return 0
-            if tuple(curr_bought) in memo:          # check if curr_state is in memo
+                
+            if tuple(curr_bought) in memo:
                 return memo[tuple(curr_bought)]
-            min_cost = float("inf")
-            for special in specials:    # O(M)
-                if any(special[i] > needs[i] - curr_bought[i] for i in range(len(needs))):  # skip deals that exceed needs
-                    continue            
-                next_bought = [curr_bought[i] + special[i] for i in range(len(needs))]
-                min_cost = min(min_cost, backtrack(next_bought) + special[-1])
-            memo[tuple(curr_bought)] = min_cost     # update memo
-            return min_cost
-
-        self.min_cost = float("inf")
-        for i in range(len(price)):     # step 1: 把一个一个单买的也放进specials中
-            special = [0 for _ in range(len(price) + 1)]
-            special[i] = 1
-            special[-1] = price[i]
-            specials.append(special)
-        memo = collections.defaultdict(lambda: float("inf"))  # (curr_bought --> how much more we need to spend to satisfy needs)
-        return backtrack([0 for _ in range(len(needs))])
+                
+            res = sys.maxsize
+            for special in specials:
+                if any(special[i] > needs[i] - curr_bought[i] for i in range(n)):   # You are not allowed to buy more items than you want, 
+                    continue                        # even if that would lower the overall price.
+                next_bought = [curr_bought[i] + special[i] for i in range(n)]
+                res = min(res, special[-1] + backtrack(next_bought))
+                               
+            memo[tuple(curr_bought)] = res
+            return res
+                
+        n = len(needs)
+        for i, price in enumerate(prices):      # 第一步：把单买的方式也转换成specials
+            alone = [0 for _ in range(n)]
+            alone[i] = 1
+            alone.append(price)
+            specials.append(alone)
+        
+        memo = defaultdict(int)     # curr_bought --> from curr_bought, what is the minimum cost to meet needs
+        return backtrack([0 for _ in range(n)])     # returns from curr_bought, what is the minimum cost to meet needs
