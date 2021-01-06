@@ -52,7 +52,7 @@ class Solution:
             total_spd += spd
             
             if len(hq) > k:
-                total_spd -= heappop(hq)
+                total_spd -= heappop(hq)   # 不用担心踢出去的是现在这个，因为如果踢出去的正好是现在这个，那么上一个遍历已经考虑到了
                 
             max_perf = max(max_perf, total_spd * eff)
             
