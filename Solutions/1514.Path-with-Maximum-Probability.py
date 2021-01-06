@@ -22,6 +22,34 @@ Output: 0.00000
 Explanation: There is no path between 0 and 2.
 """
 
+class Solution:
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -> float:
+        graph = defaultdict(list)  # node --> (neib_node, cost)
+        for i, (u, v) in enumerate(edges):
+            graph[u].append((v, succProb[i]))
+            graph[v].append((u, succProb[i]))
+            
+        hq = [(-1, start)]
+        costs = defaultdict(int)    # curr_node --> max_prob to curr_node
+        while len(hq) > 0:
+            curr_cost, curr_node = heappop(hq)
+            curr_cost = -curr_cost
+            
+            if curr_node == end:
+                return curr_cost
+            
+            if curr_node in costs:
+                continue
+            costs[curr_node] = curr_cost
+            
+            for next_node, next_cost in graph[curr_node]:
+                heappush(hq, (-curr_cost * next_cost, next_node))
+                
+        return 0.0
+
+
+
+
 
 import math
 
