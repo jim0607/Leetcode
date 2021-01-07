@@ -89,7 +89,7 @@ class MyHashMap:
         """
         value will always be non-negative.
         """
-        idx = key % self.SIZE     # this is hash function - take MOD
+        idx = key % self.SIZE     # this is hash function - take MOD, idx is hash code
         head = self.map[idx]
         curr = head
         while curr.next:
