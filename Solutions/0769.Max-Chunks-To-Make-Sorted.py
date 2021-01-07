@@ -25,15 +25,27 @@ However, splitting into [1, 0], [2], [3], [4] is the highest number of chunks po
 
 
 """
-Iterate the array, if the max(A[0] ~ A[i]) = i, then we need to cut it at this index,
-so that the chunk can end with i. 这是因为最后sorted nums 是 [0, 1, 2, 3, 4..]
+similar with 45. Jump Game, define a curr_must_reach and next_must_reach.
+if next_must_reach == curr_must_reach, we can cut it.
 """
 class Solution:
     def maxChunksToSorted(self, arr: List[int]) -> int:
+        curr_must_reach = arr[0]
+        next_must_reach = arr[0]
         cnt = 0
-        curr_max = arr[0]
-        for i, num in enumerate(arr):
-            curr_max = max(curr_max, num)
-            if curr_max == i:
+        i = 0
+        while i < len(arr):
+            while i <= curr_must_reach:
+                next_must_reach = max(next_must_reach, arr[i])
+                i += 1
+
+            if next_must_reach == curr_must_reach:
                 cnt += 1
+                if i < len(arr):
+                    curr_must_reach = arr[i]
+                    next_must_reach = arr[i]
+                
+            else:
+                curr_must_reach = next_must_reach
+            
         return cnt
