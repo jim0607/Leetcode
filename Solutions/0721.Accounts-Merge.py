@@ -20,10 +20,11 @@ Note:
 The length of accounts will be in the range [1, 1000].
 The length of accounts[i] will be in the range [1, 10].
 The length of accounts[i][j] will be in the range [1, 30].
+"""
 
 
 """
-union find: if email under the same name, then connect emails, or if email under name_1 equals to email under name_2, connect emails.
+union find: if email in a list, connect them.
 In this way, we build a graph, then we map each disjoint_component into one name.
 Step 1: use a dictionary to store email_to_name map. Step 2: iterate the edges to connect them. 
 Step 3: use the email_to_name map and the graph to generage a new list where each name corresponding to a disjoint_component
