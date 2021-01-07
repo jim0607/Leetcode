@@ -60,7 +60,7 @@ class Solution:
             for j in range(n):
                 if grid[i][j] == 0:
                     size = 0
-                    for island in islands:
+                    for island in islands:      # 只要有一个连上了就加上去
                         if any((adj_i, adj_j) in island for adj_i, adj_j in [(i+1, j), (i-1, j), (i, j+1), (i, j-1)]):
                             size += len(island)
                     max_size = max(max_size, size + 1)
