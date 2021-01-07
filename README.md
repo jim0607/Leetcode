@@ -316,8 +316,7 @@ step 1: read file to buf4; step 2: write buf4 into buf
 - [0158. Read N Characters Given Read4 II - Call multiple times](Solutions/0158.Read-N-Characters-Given-Read4-II-Call-multiple-times.py) (!!H Google) <br>
 Get data from read4 and store it in a queue. When read data, transfer data from queue to buf.
 - [0769. Max Chunks To Make Sorted](Solutions/0769.Max-Chunks-To-Make-Sorted.py) (!!M) <br>
-Iterate the array, if the max(A[0] ~ A[i]) = i, then we can cut it at this index.,
-so that it the chunk ended with i. - just some game about number.
+similar with 45. Jump Game, define a curr_must_reach and next_must_reach. if next_must_reach == curr_must_reach, we can cut it.
 - [0253. Meeting Rooms II](Solutions/0253.Meeting-Rooms-II.py) (!!M) <br>
 solution 1: 扫描线；minimum meeting rooms required could be understood us maximum meeting rooms in use
 Then this problem is exaclty the same as the lintcode 0391. Number of Airplanes in the Sky <br> solution 2: 先把interval进行sort: intervals.sort(key = lambda x: (x[0], x[1])), 然后以end时间来构造最小堆，每次进来一个interval比较其start与最小的end，如果start较小就需要开新房间
