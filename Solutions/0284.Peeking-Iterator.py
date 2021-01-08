@@ -32,7 +32,50 @@ Calling hasNext() after that should return false.#         """
 #         Returns the next element in the iteration.
 #         :rtype: int
 #         """
+   
+    
+"""
+solutoin 1: use a q to store the peek 了但是不需要remove掉的nums
+"""
+class PeekingIterator:
+    def __init__(self, iterator):
+        """
+        Initialize your data structure here.
+        :type iterator: Iterator
+        """
+        self.q = deque()
+        self.iter = iterator
 
+    def peek(self):
+        """
+        Returns the next element in the iteration without advancing the iterator.
+        :rtype: int
+        """
+        if len(self.q) > 0:
+            return self.q[0]
+        else:
+            self.q.append(self.iter.next())
+            return self.q[0]
+
+    def next(self):
+        """
+        :rtype: int
+        """
+        if len(self.q) > 0:
+            return self.q.popleft()
+        else:
+            return self.iter.next()
+
+    def hasNext(self):
+        """
+        :rtype: bool
+        """
+        return len(self.q) > 0 or self.iter.hasNext()
+    
+    
+"""
+solution 2: 我们看到solution 1中只用到了q[0], 所以其实可以用一个参数self.next_item来代替q[0]就可以了
+"""
 class PeekingIterator:
     def __init__(self, iterator):
         """
