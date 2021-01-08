@@ -24,23 +24,23 @@ right_code = the hash_code scan from right to left. if left_code == right_code, 
 """
 class Solution:
     def shortestPalindrome(self, s: str) -> str:
-        if not s or len(s) <= 1:
-            return s
+        lens = self.longest_palind(s)
+        pre = s[lens:]
+        return pre[::-1] + s
         
-        palin_len = 0
-        n = len(s)
-        HASH_SIZE = 2**31
+    def longest_palind(self, s):    # returns the longest palindrome starts with s[0]
+        hash_size = 10**9 + 7
         power = 1
         left_code, right_code = 0, 0
+        lens = 1
         for i, ch in enumerate(s):
-            left_code = (left_code * 31 % HASH_SIZE + ord(ch) - ord("a")) % HASH_SIZE           # 从左至右扫的hash_code
-            right_code = (power * (ord(ch) - ord("a")) % HASH_SIZE + right_code) % HASH_SIZE    # 从右往左扫的hash_code
+            left_code = (left_code * 31 + ord(ch) - ord("a")) % hash_size           # 从左至右扫的hash_code
+            right_code = (power * (ord(ch) - ord("a")) + right_code) % hash_size    # 从右往左扫的hash_code
+            power = 31 * power % hash_size
+            
             if left_code == right_code:
-                palin_len = i + 1
-                
-            power = (power * 31) % HASH_SIZE
-
-        return s[palin_len:][::-1] + s
+                lens = i + 1
+        return lens
 
 
 
