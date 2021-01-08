@@ -28,8 +28,6 @@ class Solution:
         # if k >= lens / 2, then the problem becomes 122, where you can make as much transactions as possible
         if k >= lens // 2:
             return self.stockII(prices)
-
-        return maxProf
         
         buy = [float("inf")] * k    # 第i次buy欠下的最小值
         sell = [0] * k              # 第i次sell赚下的最大值
@@ -41,7 +39,6 @@ class Solution:
                 sell[i] = max(sell[i], price - buy[i])      # sell[i] = the maximum money you can earn after the ith purchase
                 
         return sell[-1]
-    
    
     def stockII(self, prices: List[int]) -> int:
         prof = 0
