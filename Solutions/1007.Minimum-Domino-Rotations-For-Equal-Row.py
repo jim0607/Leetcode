@@ -45,14 +45,16 @@ so we can make 2 in a whole row.
 """
 class Solution:
     def minDominoRotations(self, A: List[int], B: List[int]) -> int:
-        counter_A, counter_B = collections.Counter(A), collections.Counter(B)
+        cnter_A = Counter(A)        # cnter里面只可能有6个key
+        cnter_B = Counter(B)
         
-        counter_same = collections.Counter()    # record the same num for A and B that appears at the same position,
-        for a, b in zip(A, B):                  # so counter_same[num] means how many positions A[i] == num == B[i]
-            if a == b:
-                counter_same[a] += 1
-        
+        cnter_same = defaultdict(int)   # record the same num for A and B that appears at the same position,
+        n = len(A)                      # so counter_same[num] means how many positions A[i] == num == B[i]
+        for i in range(n):
+            if A[i] == B[i]:
+                cnter_same[A[i]] += 1
+                
         for num in range(1, 7):
-            if counter_A[num] + counter_B[num] - counter_same[num] == len(A):
-                return min(counter_A[num], counter_B[num]) - counter_same[num]
+            if cnter_A[num] + cnter_B[num] - cnter_same[num] == n:
+                return min(cnter_A[num], cnter_B[num]) - cnter_same[num]
         return -1
