@@ -53,7 +53,7 @@ class Solution:
         # horizontal crush
         for i in range(m):
             for j in range(n - 2):
-                if board[i][j] == 0:
+                if board[i][j] == 0:    # 注意别忘了check, 不然会TLE
                     continue
                 if abs(board[i][j]) == abs(board[i][j+1]) == abs(board[i][j+2]):
                     board[i][j] = -abs(board[i][j])
