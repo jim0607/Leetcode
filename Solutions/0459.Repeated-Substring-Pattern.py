@@ -27,22 +27,14 @@ step 1: find all possible divisible lens - O(n^0.5); step 2: try each possible d
 class Solution:
     def repeatedSubstringPattern(self, s: str) -> bool:
         n = len(s)
-        if n <= 1:
-            return False
-        
-        possible_lens = []
-        for i in range(2, n + 1):
-            if n % i == 0:
-                possible_lens.append(n // i)
-        
-        for lens in possible_lens:
-            if self.check_valid(s, lens):
+        for lens in range(1, n // 2 + 1):      # there are n^0.5 possible lens, each check takes O(n)
+            if n % lens == 0 and self.check_possible(s, lens):
                 return True
         return False
     
-    def check_valid(self, s, k):
-        substr = s[:k]
-        for i in range(k, len(s), k):
-            if s[i:i+k] != substr:
+    def check_possible(self, s, lens):
+        sub = s[:lens]
+        for i in range(0, len(s), lens):
+            if s[i:i+lens] != sub:
                 return False
         return True
