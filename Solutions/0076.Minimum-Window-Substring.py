@@ -17,45 +17,33 @@ If there is such window, you are guaranteed that there will always be only one u
 """
 below solution is easy, but time comsuming O(MN) 
 """
-
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        lens, lensTarget = len(s), len(t)
-        
-        if lens == 0 or lens < lensTarget:
-            return ""
-        
-        targetDict, sourceDict = collections.defaultdict(int), collections.defaultdict(int)
-        for char in t:
-            targetDict[char] += 1
-        
-        res = ""
-        minLen = float("inf")
+        cnter_t = Counter(t)
+        cnter = defaultdict(int)
+        min_len = sys.maxsize
+        start, end = 0, 0
         j = 0
         
-        # 套用九章的模板
-        for i in range(lens):   # O(N)
-            while j < lens and not self.allIncluded(sourceDict, targetDict):  # O(M)
-                sourceDict[s[j]] += 1
+        # 套用九章的模板 for at least problems
+        for i, ch in enumerate(s):
+            while j < len(s) and not self.is_valid(cnter, cnter_t):
+                cnter[s[j]] += 1
                 j += 1
-                
-            if self.allIncluded(sourceDict, targetDict):   
-                if j - i < minLen:
-                    minLen = j - i
-                    res = s[i: j]    # O(N)
             
-            sourceDict[s[i]] -= 1
+            if self.is_valid(cnter, cnter_t):
+                if j - i < min_len:
+                    min_len = j - i
+                    start, end = i, j
+                    
+            cnter[s[i]] -= 1
             
-        return res
+        return s[start:end]
     
-    def allIncluded(self, sourceDict, targetDict):
-        """
-        return true if all the chars in target are included in source
-        """
-        for char, freq in targetDict.items():
-            if freq > sourceDict[char]:
-                return False 
-            
+    def is_valid(self, cnter_s, cnter_t):
+        for ch, cnt in cnter_t.items():
+            if cnt > cnter_s[ch]:
+                return False
         return True
     
     
@@ -67,28 +55,26 @@ also, in stead of using s[i:j] everytime we renew res, we use start, end to rene
 """
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        if len(s) == 0 or len(s) < len(t):
-            return ""
-        
-        need = collections.Counter(t)  # store how many chars are needed, positive means needed, negative means have more chars than needed
-        missing = len(t) # store how many chars are still missing in order to match, positive means we need more chars to match t, 0 means matched, same as self.allIncluded(sourceDict, targetDict) 
+        cnter_t = Counter(t)
+        cnter = defaultdict(int)
+        missing = len(cnter_t)    # how many ch are still missing in order to match t
+        min_len = sys.maxsize
         start, end = 0, 0
-        i, j = 0, 0
-        res = ""
-        
-        for i in range(len(s)):
+        j = 0
+        for i, ch in enumerate(s):
             while j < len(s) and missing > 0:
-                if need[s[j]] > 0:  # if s[j] could be a valid add up in order to match t, then missing-1
+                cnter[s[j]] += 1
+                if cnter[s[j]] == cnter_t[s[j]]:    # 正好加到满足条件了，就需要missing -= 1
                     missing -= 1
-                need[s[j]] -= 1
                 j += 1
-
-            if missing == 0:    # instead of use self.allIncluded(sourceDict, targetDict) to check matched, we use missing == 0?
-                if end == 0 or j-i < end-start:
+            
+            if missing == 0:            # missing == 0 means matched
+                if j - i < min_len:
+                    min_len = j - i
                     start, end = i, j   # 也可以定义一个res, 用res = s[i:j]来更新结果，但是takes O(N)时间，所以用start, end来记录就可以了
-                    
-            if need[s[i]] >= 0:
+            
+            cnter[s[i]] -= 1
+            if cnter[s[i]] == cnter_t[s[i]] - 1:    # 正好减到不满足条件了，就需要missing += 1
                 missing += 1
-            need[s[i]] += 1
                 
         return s[start:end]
