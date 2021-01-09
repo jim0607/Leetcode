@@ -37,10 +37,11 @@ class Solution:
     def numSquares(self, n: int) -> int:
         squares = [i**2 for i in range(1, n + 1) if i**2 <= n]  # 这里的if i**2 <= n很重要，可以大大提高速度
         
-        q = collections.deque()
+        q = deque()
         visited = set()     # 这里的visited很重要，可以提高速度
         q.append(n)
         visited.add(n)
+        
         level = 0
         while len(q) > 0:
             level += 1
@@ -57,4 +58,3 @@ class Solution:
                         continue
                     q.append(remain)
                     visited.add(remain)
-        return level
