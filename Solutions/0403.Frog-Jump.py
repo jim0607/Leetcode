@@ -34,15 +34,35 @@ There could be multiple possible steps to reach the stone, so stonesDict[stone] 
 3. 跳k + 1到stone + k + 1:stonesDict[stone + k + 1].add(k + 1); Return the len(stonesDict[last stone])>0?
 this is bottom up method O(N^2), O(N^2)
 """
+"""
+dp[i][k] = can the frog jump to the ith stone using k units?
+dp[0][1] = True dp[0][other] = False
+dp[j][k] = True if there is a dp[i][k,k+1,k-1] which nums[i] == k, k+1, k-1 is True
+return dp[n-1][any] is True
+"""
+class Solution:
+    def canCross(self, stones: List[int]) -> bool:
+        n = len(stones)
+        dp = [defaultdict(lambda: False) for _ in range(n)]
+        dp[0][0] = True
+        for j in range(1, n):
+            for i in range(j):
+                k = stones[j] - stones[i]
+                if dp[i][k] or dp[i][k+1] or (k > 0 and dp[i][k-1]):
+                    dp[j][k] = True
+        return any(val == True for val in dp[n-1].values())
+    
+    
 
 """
 stone_to_steps = (stone --> possible steps taken to reach stone)
+O(N)
 """
 class Solution:
     def canCross(self, stones: List[int]) -> bool:
         stones_set = set(stones)    # convert to set for fast loop up
         
-        stone_to_steps = collections.defaultdict(set)
+        stone_to_steps = defaultdict(set)
         stone_to_steps[stones[0]].add(0)
         for stone in stones:
             for k in stone_to_steps[stone]:     # 注意这个k不是任意取的
@@ -54,6 +74,7 @@ class Solution:
                     stone_to_steps[k-1+stone].add(k-1)
                     
         return len(stone_to_steps[stones[-1]]) > 0
+    
     
     
 
