@@ -102,6 +102,9 @@ class Solution:
                 if next_node:
                     next_node.prev = child_tail                
                 curr.child = None       # return head之前别忘了把head.child设置成None
+                
+                curr = curr.next
+                
         return head
     
     def _find_tail(self, head):
