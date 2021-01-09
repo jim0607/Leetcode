@@ -53,3 +53,9 @@ class Solution:
             dq.append((pre, i))
             
         return min_len if min_len != float("inf") else -1
+    
+    
+"""
+注意binary search是行不通的，因为 [10, -5, 5], K = 9 的情况，
+mid_L = 2 不行，但是这不意味着 L = 1 不行，也意味着 L = 3 不行
+"""
