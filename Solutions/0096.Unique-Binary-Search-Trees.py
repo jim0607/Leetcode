@@ -1,3 +1,4 @@
+"""
 Given n, how many structurally unique BST's (binary search trees) that store values 1 ... n?
 
 Example:
@@ -12,6 +13,7 @@ Given n = 3, there are a total of 5 unique BST's:
      3     2     1      1   3      2
     /     /       \                 \
    2     1         2                 3
+"""
 
 
    
@@ -55,6 +57,7 @@ Actually, we only need to know how many number of trees in the left say l, and h
 Then the total number of possible tree paths is l * r.
 If we defind dp[i] = how many trees possible in a range with width == i, then we have
 dp[j] = sum for (dp[i] * dp[j - i - 1] for all i < j)
+O(N^2)
 """
 class Solution:
     def numTrees(self, n: int) -> int:
