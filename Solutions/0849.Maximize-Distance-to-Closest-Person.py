@@ -51,8 +51,7 @@ class Solution:
         prev, curr = start, start
         for i in range(start, end + 1):
             if seats[i] == 1:
-                prev = curr
-                curr = i
+                prev, curr = curr, 1
                 max_dist = max(max_dist, (curr - prev) // 2)
                 
         return max_dist
