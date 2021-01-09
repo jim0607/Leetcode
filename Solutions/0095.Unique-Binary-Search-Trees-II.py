@@ -1,3 +1,4 @@
+"""
 95. Unique Binary Search Trees II
 
 Given an integer n, generate all structurally unique BST's (binary search trees) that store values 1 ... n.
@@ -21,33 +22,33 @@ The above output corresponds to the 5 unique BST's shown below:
      3     2     1      1   3      2
     /     /       \                 \
    2     1         2                 3
+"""
 
 
 
 class Solution:
     def generateTrees(self, n: int) -> List[TreeNode]:
-        if n == 0:
-            return []
-
         def helper(start, end):
             """
             return all the path of trees for numbers from start to end
             """
             if start > end:
                 return [None]
+            if start == end:
+                return [TreeNode(start)]
             
-            allTrees = []
-            for i in range(start, end + 1):
-                leftTrees = helper(start, i - 1)
-                rightTrees = helper(i + 1, end)
-                
-                for leftTree in leftTrees:
-                    for rightTree in rightTrees:
-                        currRoot = TreeNode(i)        # 注意这个不能写到两个for loop 外面去了的！！！
-                        currRoot.left = leftTree
-                        currRoot.right = rightTree
-                        allTrees.append(currRoot)
-                        
-            return allTrees
-        
+            res = []
+            for mid in range(start, end + 1):
+                left_trees = helper(start, mid - 1)
+                right_trees = helper(mid + 1, end)
+                for left in left_trees:
+                    for right in right_trees:
+                        root = TreeNode(mid)    # 注意这个不能写到两个for loop 外面去了的！！！不然root的连接关系就不对了
+                        root.left = left
+                        root.right = right
+                        res.append(root)
+            return res
+            
+        if n == 0:
+            return []
         return helper(1, n)
