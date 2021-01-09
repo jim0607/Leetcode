@@ -70,7 +70,40 @@ class Solution:
 """
 可以像132. Palindrome Partitioning II 那样先把is_palin[i][j]提前算好，这样就不需要用O(L)去判断is_palind(next_s)了
 """
-
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        def backtrack(curr_idx, curr_comb):
+            if curr_idx == len(s) - 1:
+                res.append(curr_comb.copy())
+                return
+            
+            for next_idx in range(curr_idx + 1, len(s)):
+                next_sub = s[curr_idx + 1 : next_idx + 1]
+                if dp[curr_idx + 1][next_idx]:
+                    curr_comb.append(next_sub)
+                    backtrack(next_idx, curr_comb)
+                    curr_comb.pop()
+        
+        
+        dp = self.get_palin(s)      # 把is_palin[i][j]提前算好
+        res = []
+        backtrack(-1, [])
+        return res
+        
+    
+    def get_palin(self, s):
+        # dp[i][j] = is s[i:j] including i and j, is palin?
+        n = len(s)
+        dp = [[False] * n for _ in range(n)]
+        for i in range(n):
+            dp[i][i] = True
+            
+        for i in range(n - 2, -1, -1):
+            for j in range(i + 1, n):
+                if s[i] == s[j]:
+                    dp[i][j] = True if i + 1 == j else dp[i+1][j-1]
+        return dp
+    
 
 
 """
