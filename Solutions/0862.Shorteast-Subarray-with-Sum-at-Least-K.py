@@ -36,7 +36,7 @@ class Solution:
             presum[i+1] = presum[i] + num
         
         # step 2: use the presum to do sliding window on a mono increasing dq
-        dq = collections.deque()     # maintain a mono increasing dq, dq存(val, idx) pair
+        dq = deque()     # maintain a mono increasing dq, dq存(val, idx) pair
         min_len = float("inf")
         for i, pre in enumerate(presum):
             
