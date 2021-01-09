@@ -1,10 +1,13 @@
+"""
 733. Flood Fill
 
 An image is represented by a 2-D array of integers, each integer representing the pixel value of the image (from 0 to 65535).
 
 Given a coordinate (sr, sc) representing the starting pixel (row and column) of the flood fill, and a pixel value newColor, "flood fill" the image.
 
-To perform a "flood fill", consider the starting pixel, plus any pixels connected 4-directionally to the starting pixel of the same color as the starting pixel, plus any pixels connected 4-directionally to those pixels (also with the same color as the starting pixel), and so on. Replace the color of all of the aforementioned pixels with the newColor.
+To perform a "flood fill", consider the starting pixel, plus any pixels connected 4-directionally to the starting pixel of the same color as the starting pixel, 
+plus any pixels connected 4-directionally to those pixels (also with the same color as the starting pixel), and so on. 
+Replace the color of all of the aforementioned pixels with the newColor.
 
 At the end, return the modified image.
 
@@ -23,36 +26,9 @@ Note:
 The length of image and image[0] will be in the range [1, 50].
 The given starting pixel will satisfy 0 <= sr < image.length and 0 <= sc < image[0].length.
 The value of each color in image[i][j] and newColor will be an integer in [0, 65535].
-
-
-
 """
-solution 4: dfs recurssively   
-"""    
-class Solution:
-    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
-        moves = [(1, 0), (0, 1), (-1, 0), (0, -1)]
-        m, n = len(image), len(image[0])
-        s_color = image[sr][sc]
-        
-        visited = set()
-        visited.add((sr, sc))
-        
-        def dfs(curr_i, curr_j):
-            image[curr_i][curr_j] = newColor
-            
-            for delta_i, delta_j in moves:
-                next_i, next_j = curr_i + delta_i, curr_j + delta_j
-                if 0 <= next_i < m and 0 <= next_j < n and image[next_i][next_j] == s_color and \
-                (next_i, next_j) not in visited:
-                    visited.add((next_i, next_j))
-                    dfs(next_i, next_j)
-                    image[next_i][next_j] = newColor
-                    
-        dfs(sr, sc)
-        
-        return image
-    
+
+   
     
 """
 dfs 不需要visited, since we can modify the matrix in place
