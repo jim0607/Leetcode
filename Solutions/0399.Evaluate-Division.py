@@ -75,32 +75,35 @@ dfs is also veyr concise
 """
 class Solution:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
-        def dfs(curr_node, end_node, curr_val):
-            if curr_node == end_node:
-                res.append(curr_val)
-                return True
-            for next_node, next_val in graph[curr_node]:
+        def dfs(curr_node, end, curr_div):
+            if curr_node == end:
+                self.div = curr_div
+                return
+            for next_node, div in graph[curr_node]:
                 if next_node not in visited:
+                    next_div = div * curr_div
                     visited.add(next_node)
-                    if dfs(next_node, end_node, curr_val * next_val):
-                        return True
-            return False
+                    dfs(next_node, end, next_div)
         
         
         graph = defaultdict(list)
         for i, (u, v) in enumerate(equations):
             graph[u].append((v, values[i]))
-            graph[v].append((u, 1/values[i]))
+            graph[v].append((u, 1 / values[i]))
             
         res = []
-        for u, v in queries:
-            if u not in graph or v not in graph:
+        for start, end in queries:
+            if start not in graph or end not in graph:
                 res.append(-1)
-            else:
-                visited = set()
-                visited.add(u)
-                if not dfs(u, v, 1):
-                    res.append(-1)
+                continue
+            if start == end:
+                res.append(1.0)
+                continue
+            self.div = -1
+            visited = set()
+            visited.add(start)
+            dfs(start, end, 1)
+            res.append(self.div)
         return res
 
 
