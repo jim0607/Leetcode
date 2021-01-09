@@ -433,7 +433,7 @@ Very similar with permutation problem. if leftCnt == n and rightCnt == n: self.r
 - [0399. Evaluate Division](Solutions/0399.Evaluate-Division.py) (!!M) <br>
 Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hashmap构建邻接表 graph = collections.defaultdict(dict), in graph, key is node1, val is a dict of (key: node2, val: node1/node2), 然后每次query其实就是从单源节点出发寻求不带权值最短路径问题。  Soltution 2: DFS;
 - [0048. Rotate Image](Solutions/0048.Rotate-Image.py) (!M) <br>
-Step 1: reverse columns: swap( matrix[][i], matrix[][j] ); Step 2: transpose: swap( matrix[i][j], matrix[j][i] )
+Step 1: 沿对角线swap; Step 2: 沿水平线swap
 - [0050. Pow(x, n)](Solutions/0050.Pow(x,n).py) (M) <br>
 recursion solution: half = self.myPow(x, n//2); if n%2 == 0: res = half * half; else: res = half * half * x
 - [0036. Valid Sudoku](Solutions/0036.Valid-Sudoku.py) (M) <br>
