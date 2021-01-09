@@ -55,7 +55,6 @@ class Solution:
             if nums[i] <= 0 or nums[i] > n:
                 nums[i] = 1
 
-        print(nums)
         # 2nd pass: change the positive numbers into negative [3,4,1,1] --> [-3,-4,1,-1]
         for num in nums:
             idx = abs(num)
@@ -69,4 +68,4 @@ class Solution:
             if nums[idx] > 0:
                 return idx
             
-        return n + 1 if nums[0] < 0 else n
+        return n if nums[0] > 0 else n + 1
