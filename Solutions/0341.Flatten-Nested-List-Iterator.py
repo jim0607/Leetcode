@@ -1,3 +1,4 @@
+"""
 341. Flatten Nested List Iterator
 
 Given a nested list of integers, implement an iterator to flatten it.
@@ -10,7 +11,7 @@ Input: [[1,1],2,[1,1]]
 Output: [1,1,2,1,1]
 Explanation: By calling next repeatedly until hasNext returns false, 
              the order of elements returned by next should be: [1,1,2,1,1].
-
+"""
 
 
 # """
@@ -40,7 +41,6 @@ Explanation: By calling next repeatedly until hasNext returns false,
 """
 用一个辅助函数把nested_list flatten掉存到一个q中就可以了，用递归去flatten既可以了
 """
-"""
 class NestedIterator:
     def __init__(self, nestedList: [NestedInteger]):
         self.q = collections.deque()
@@ -64,28 +64,31 @@ class NestedIterator:
             
 
 """ Implement using q """
-
 class NestedIterator:
-    def __init__(self, nestedList: [NestedInteger]):
-        self.dq = collections.deque()
-        for lst in nestedList:
-            self.dq.append(lst)
+    def __init__(self, nested_list: [NestedInteger]):
+        self.q = deque()
+        for lst in nested_list:
+            self.q.append(lst)
     
     def next(self) -> int:
-        if self.hasNext:
-            return self.dq.popleft()
+        if self.hasNext():
+            return self.q.popleft()
     
     def hasNext(self) -> bool:
-        if len(self.dq) == 0:
+        if len(self.q) == 0:
             return False
         
-        while self.dq:
-            if self.dq[0].isInteger():
+        while len(self.q) > 0:
+            if self.q[0].isInteger():
                 return True
-            
-            topItem = self.dq.popleft()
-            for lst in topItem.getList()[::-1]:
-                self.dq.appendleft(lst)
+
+            top_item = self.q.popleft()
+            for item in top_item.getList()[::-1]:
+                self.q.appendleft(item)
+
+# Your NestedIterator object will be instantiated and called as such:
+# i, v = NestedIterator(nestedList), []
+# while i.hasNext(): v.append(i.next())
 
 
                 
