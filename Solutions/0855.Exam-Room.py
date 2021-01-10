@@ -44,6 +44,9 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+
+
+
 """
 Very straight forward idea.
 Use a sorted list to record the index of seats where people sit, so that we can save tons of space if the seats is sparse
@@ -55,49 +58,85 @@ seat():
 
 leave(p): pop out p
 
-Time Complexity:
-O(N) for seat() and leave()
+O(M) for seat() and leave(), where M is how many person are sitting there.
 """
 class ExamRoom:
 
     def __init__(self, N: int):
+        self.idx_arr = []       # store the idx where people sit
         self.N = N
-        self.idx = []
 
-    def seat(self) -> int:
-        if len(self.idx) == 0:
-            self.idx.append(0)
+    def seat(self) -> int:      # O(M), where M is how many person are sitting there
+        if len(self.idx_arr) == 0:
+            self.idx_arr.append(0)
             return 0
-        
-        if len(self.idx) == 1:
-            if self.idx[0] >= self.N // 2:
-                self.idx.insert(0, 0)
-                return 0
-            else:
-                self.idx.append(self.N - 1)
-                return self.N - 1
-        
-        # below is the same as 849. Maximize Distance to Closest Person
-        # step 1: check two ends; step 2: check middle
+
         max_dist = 0
-        should_seat_pos = 0
-        if self.idx[0] > max_dist:      # check both ends
-            max_dist = self.idx[0]
-            should_seat = 0
-            should_seat_pos = -1
-        if self.N - 1 - self.idx[-1] > max_dist:
-            max_dist = self.idx[0]
-            should_seat = self.N - 1
-            should_seat_pos = self.idx[-1]
+        sit_pos = 0
+        if self.idx_arr[0] > max_dist:                  # step 1: check left end
+            max_dist = self.idx_arr[0]
+            sit_pos = 0
             
-        for i in range(len(self.idx) - 1):      # check middle
-            if (self.idx[i+1] - self.idx[i]) // 2 > max_dist:
-                max_dist = (self.idx[i+1] - self.idx[i]) // 2
-                should_seat_pos = i
-                should_seat = (self.idx[i] + self.idx[i+1]) // 2
+        for i in range(1, len(self.idx_arr)):           # step 2: check mid
+            if (self.idx_arr[i] - self.idx_arr[i-1]) // 2 > max_dist:
+                max_dist = (self.idx_arr[i] - self.idx_arr[i-1]) // 2
+                sit_pos = (self.idx_arr[i] + self.idx_arr[i-1]) // 2
                 
-        self.idx.insert(should_seat_pos + 1, should_seat)
-        return should_seat
+        if self.N - self.idx_arr[-1] - 1 > max_dist:    # step 3: check right part
+            max_dist = self.N - self.idx_arr[-1] - 1
+            sit_pos = self.N - 1
+
+        insert_idx = bisect.bisect_right(self.idx_arr, sit_pos)
+        self.idx_arr.insert(insert_idx, sit_pos)
+        return sit_pos
+
+    def leave(self, p: int) -> None:        # O(M)
+        self.idx_arr.remove(p)
+        
+        
+        
+"""
+O(N) solution - TLE
+"""
+class ExamRoom:
+
+    def __init__(self, N: int):
+        self.arr = [0 for _ in range(N)]
+
+    def seat(self) -> int:      # O(N)
+        if 1 not in self.arr:
+            self.arr[0] = 1
+            return 0
+
+        # step 1: check left
+        max_dist = 0
+        sit_pos = -1
+        left = 0
+        while left <= len(self.arr) and self.arr[left] == 0:
+            left += 1
+        if left > max_dist:
+            max_dist = left
+            sit_pos = 0
+        
+        # step 2: check middle
+        prev, curr = 0, 0
+        for i in range(1, len(self.arr)):
+            if self.arr[i] == 1:
+                prev, curr = curr, i
+                if (curr - prev) // 2 > max_dist:
+                    max_dist = (curr - prev) // 2
+                    sit_pos = prev + (curr - prev) // 2
+                 
+        # step 3: check right
+        right = len(self.arr) - 1
+        while right >= 0 and self.arr[right] == 0:
+            right -= 1
+        if len(self.arr) - 1 - right > max_dist:
+            max_dist = len(self.arr) - 1 - right
+            sit_pos = len(self.arr) - 1
+                    
+        self.arr[sit_pos] = 1
+        return sit_pos
 
     def leave(self, p: int) -> None:
-        self.idx.remove(p)
+        self.arr[p] = 0
