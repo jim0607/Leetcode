@@ -19,12 +19,12 @@ Output: 2
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
         cnt = 0
-        major_num = sys.maxsize
+        candidate = sys.maxsize
         for num in nums:
             if cnt == 0:
-                major_num = num
-            if num == major_num:
+                candidate = num
+            if num == candidate:
                 cnt += 1
             else:
                 cnt -= 1
-        return major_num
+        return candidate
