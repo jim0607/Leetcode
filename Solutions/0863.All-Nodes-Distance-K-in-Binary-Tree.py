@@ -69,104 +69,43 @@ class Solution:
         return res
 
 
-
-
-
-
-
-
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, K: int) -> List[int]:
         # step 1: use dfs, change a tree to a graph with adjacency list representation
-        graph = collections.defaultdict(list)
-        def dfs(root):
-            if not root:
-                return
-            if root.left:
-                graph[root.val].append(root.left.val)
-                graph[root.left.val].append(root.val)
-            if root.right:
-                graph[root.val].append(root.right.val)
-                graph[root.right.val].append(root.val)
+        def dfs(curr_node):
+            if curr_node.left:
+                graph[curr_node.val].append(curr_node.left.val)
+                graph[curr_node.left.val].append(curr_node.val)
+                dfs(curr_node.left)
+            if curr_node.right:
+                graph[curr_node.val].append(curr_node.right.val)
+                graph[curr_node.right.val].append(curr_node.val)
+                dfs(curr_node.right)
                 
-            dfs(root.left)
-            dfs(root.right)
-            
-        dfs(root)
-        
-        if not graph:
-            return []
-        
-        # step 2: start from target, use bfs/dfs to find the nodes with distance == K
-        q = collections.deque()
-        q.append(target.val)
-        visited = set()
-        visited.add(target.val)
-        
-        level = -1
-        res = []
-        while q:
-            lens = len(q)
-            level += 1
-            res = []
-            for _ in range(lens):
-                curr = q.popleft()
-                res.append(curr)
-                for next in graph[curr]:
-                    if next not in visited:
-                        q.append(next)
-                        visited.add(next)
-       
-            if level == K:
-                return res
-            
-        return []
-        
-        
-"""
-dfs 的写法
-"""        
-class Solution:
-    def distanceK(self, root: TreeNode, target: TreeNode, K: int) -> List[int]:
-        # step 1: use dfs, change a tree to a graph with adjacency list representation
-        graph = collections.defaultdict(list)
-        def dfs(root):
-            if not root:
-                return
-            if root.left:
-                graph[root.val].append(root.left.val)
-                graph[root.left.val].append(root.val)
-            if root.right:
-                graph[root.val].append(root.right.val)
-                graph[root.right.val].append(root.val)
                 
-            dfs(root.left)
-            dfs(root.right)
-            
-        dfs(root)
-
-        if not graph:
-            return []
-
         # step 2: start from target, use bfs/dfs to find the nodes with distance == K
-        def dfs_2(curr_node, curr_level):       # 带层序遍历，一定要把curr_level传进去
-            # if not curr_node:     #  *****Bug: 注意不能用if not curr_node, 因为curr_node现在是数，可能等于0的******
-            #     return
+        def bfs():
+            q = deque()
+            visited = set()
+            q.append(target.val)
+            visited.add(target.val)
             
-            if curr_level == K:
-                res.append(curr_node)
-            
-            if curr_level > K:
-                return
-            
-            for next_node in graph[curr_node]:
-                if next_node not in visited:
-                    visited.add(next_node)
-                    dfs_2(next_node, curr_level + 1)
-            
-        res = []
-        visited = set()
-        visited.add(target.val)
-        dfs_2(target.val, 0)
-        
-        return res
+            dist = -1
+            while len(q) > 0:
+                dist += 1
+                if dist == K:
+                    return list(q)
+                
+                lens = len(q)
+                for _ in range(lens):
+                    curr_node = q.popleft()
+                    for next_node in graph[curr_node]:
+                        if next_node not in visited:
+                            q.append(next_node)
+                            visited.add(next_node)
+            return []
+                
+
+        graph = defaultdict(list)
+        dfs(root)
+        return bfs()
