@@ -1,3 +1,4 @@
+"""
 871. Minimum Number of Refueling Stops
 
 A car travels from a starting position to a destination which is target miles east of the starting position.
@@ -12,8 +13,6 @@ What is the least number of refueling stops the car must make in order to reach 
 
 Note that if the car reaches a gas station with 0 fuel left, the car can still refuel there.  
 If the car reaches the destination with 0 fuel left, it is still considered to have arrived.
-
- 
 
 Example 1:
 
@@ -35,7 +34,7 @@ We drive to position 10, expending 10 liters of fuel.  We refuel from 0 liters t
 Then, we drive from position 10 to position 60 (expending 50 liters of fuel),
 and refuel from 10 liters to 50 liters of gas.  We then drive to and reach the target.
 We made 2 refueling stops along the way, so we return 2.
-
+"""
 
 
 """
