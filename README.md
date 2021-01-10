@@ -529,8 +529,17 @@ Boyer-Moore Voting Algorithm
 同理我们可以求more than 25%的num.
 step 1: 找出 n//4, 2n//4, 3n//4 位置处的num, 因为答案只可能存在于这三个位置上
 step 2: 对这三个num分别做binary search求出first_pos and last_pos, 如果last_pos - first_pos >= n//4 就找到了
+- [0853. Car Fleet](Solutions/0853.Car-Fleet.py) (!!M) <br>
+算法：我的位置比你小，需要的时间还比你少，那说明我可以追上你
+- [1483. Kth Ancestor of a Tree Node](Solutions/1483.Kth-Ancestor-of-a-Tree-Node.py) (H) <br>
+just memo it. dfs + binary search, or binary lifting can realize O(logk) time for getKthAncester
+- [1610. Maximum Number of Visible Points](Solutions/1610.Maximum-Number-of-Visible-Points.py) (H) <br>
+step 1: calculate all the angles with respect to the location; step 2: sort the angles; step 3: find the max_subarray size with diff_of_max_and_min <= angle, using sliding window
+- [1642. Furthest Building You Can Reach](Solutions/1642.Furthest-Building-You-Can-Reach.py) (H) <br>
+solution 1: backtrack; solution 2: memorization; solution 3: greedy
 
-----------853------1483--1610--1642---419----363--1101--- 1329 --847---817---397-- 1697 --248---1616----1044-------
+
+----419----363--1101--- 1329 --847---817---397-- 1697 --248---1616----1044-------
 
 
 
