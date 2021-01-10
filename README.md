@@ -1,5 +1,5 @@
 ### Google top 200
-#### 12/30, 01/03: 130; 01/04: 1131; 01/05: 265; 01/06: 761; 01/07: 188
+#### 12/30, 01/03: 130; 01/04: 1131; 01/05: 265; 01/06: 761; 01/07: 188; 01/09: 1287
 
 - [0843. Guess the Word](Solutions/0843.Guess-the-Word.py) (!!!H Google) <br>
 Repeatedly choose a word to guess, and then eliminate all words that do not have the same number of matches as the guessed word. 
@@ -518,5 +518,19 @@ step 2: start from target, use bfs/dfs to find the nodes with distance == K
 - [1283. Find the Smallest Divisor Given a Threshold](Solutions/1283.Find-the-Smallest-Divisor-Given-a-Threshold.py) (M) <br>
 minimum/maximum to satisfy some condition 的问题: helper function returns whether we can have sum(num//mid) <= threshold? start = 1, end = max(nums) + 1
 
+<br>
+## New
+- [0169. Majority Element](Solutions/0169.Majority-Element.py) (!!E) <br>
+Boyer-Moore Voting Algorithm - IO(N), O(1)
+- [0229. Majority Element II](Solutions/0229.Majority-Element-II.py) (M) <br>
+Boyer-Moore Voting Algorithm
+- [1287. Element Appearing More Than 25% In Sorted Array](Solutions/1287.Element-Appearing-More-Than-25%-In-Sorted-Array.py) (!!E) <br>
+想想如果我们需要求sorted arr 里 more than n//2 times的num, 只需要直接return arr[n//2]就可以了
+同理我们可以求more than 25%的num.
+step 1: 找出 n//4, 2n//4, 3n//4 位置处的num, 因为答案只可能存在于这三个位置上
+step 2: 对这三个num分别做binary search求出first_pos and last_pos, 如果last_pos - first_pos >= n//4 就找到了
 
 ----------853------1483--1610--1642---419----363--1101--- 1329 --847---817---397-- 1697 --248---1616----1044-------
+
+
+
