@@ -59,7 +59,7 @@ class Solution:
             
             
         graph = defaultdict(list)
-        dfs(root)
+        dfs(root)     # 第一个dfs用于建图
         res = []
         visited = set()
         for node in graph:
