@@ -518,8 +518,8 @@ step 2: start from target, use bfs/dfs to find the nodes with distance == K
 - [1283. Find the Smallest Divisor Given a Threshold](Solutions/1283.Find-the-Smallest-Divisor-Given-a-Threshold.py) (M) <br>
 minimum/maximum to satisfy some condition 的问题: helper function returns whether we can have sum(num//mid) <= threshold? start = 1, end = max(nums) + 1
 
-<br>
 ## New
+
 - [0169. Majority Element](Solutions/0169.Majority-Element.py) (!!E) <br>
 Boyer-Moore Voting Algorithm - IO(N), O(1)
 - [0229. Majority Element II](Solutions/0229.Majority-Element-II.py) (M) <br>
