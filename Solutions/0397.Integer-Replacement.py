@@ -26,7 +26,7 @@ Output: 2
 
 
 """
-similar with 991. Broken Calculator 
+similar with 991. Broken Calculator (bfs)
 backtrack with memo - O(n)
 """
 class Solution:
@@ -40,13 +40,12 @@ class Solution:
             
             res = sys.maxsize
             if n % 2 == 1:
-                res = 1 + min(backtrack(n + 1), backtrack(n - 1))
-                memo[n] = res
-                return res
+                res = min(res, 1 + min(backtrack(n + 1), backtrack(n - 1)))
             else:
-                res = 1 + backtrack(n // 2)
-                memo[n] = res
-                return res     
+                res = min(res, 1 + backtrack(n // 2))
+            
+            memo[n] = res
+            return res     
         
         
         memo = defaultdict(int)
