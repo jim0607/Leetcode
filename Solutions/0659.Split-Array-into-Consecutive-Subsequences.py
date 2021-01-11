@@ -57,12 +57,11 @@ class Solution:
                 
             # can_append[num] == 0 说明不能append到前面的顺子中，那只能新开一个新顺子
             # 那就只能往后面找顺子，去找num+1, num+2存不存在数组中
-            elif can_append[num] == 0:
-                if cnter[num + 1] == 0 or cnter[num + 2] == 0:
-                    return False
-                cnter[num] -= 1         # 用num append到新开的顺子中
-                cnter[num + 1] -= 1     # 用num - 1 append到新开的顺子中
-                cnter[num + 2] -= 1     # 用num - 2 append到新开的顺子中
-                can_append[num + 3] += 1    # can_append[num + 3] += 1只是表示num + 3可以append到一个新顺子上去，num + 3不一定需要存在于nums中
+            else:
+                for i in range(3):
+                    if cnter[num + i] == 0:
+                        return False
+                    cnter[num + i] -= 1
+                can_append[num + 3] += 1  # can_append[num + 3] += 1只是表示num + 3可以append到一个新顺子上去，num + 3不一定需要存在于nums中
                 
         return True                
