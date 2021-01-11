@@ -237,29 +237,131 @@ Step 2: now go backwards on A, and compare the values to the stack to see the ma
 
 
 
+# [Two Pointers](/Two-pointers.py)
+### [反向双指针](/Two-pointers.py)
+- [EPI book](Solutions/) (E) <br>
+Question: given an array, move all the even numbers to the left while all the odd numbers to the right.
+Solution: two pointers, the same process of merge part in merge sort.
+- [0977. Squares of a Sorted Array](Solutions/0977.Squares-of-a-Sorted-Array.py) (E) <br>
+three pointers: i starts from beginning of A; j starts from the end of A; k starts from end of res 
+- [0011. Container With Most Water](Solutions/0011.Container-With-Most-Water.py) (!!M) <br>
+if height[i] > height[j]: j -= 1  # meaning that 右边的栅栏更低，所以把右边指针移动一下，希望能用长度去compromise宽度，即寄希望于min(height[i], height[j])会变大，来compromise掉(j - i)的变小. 为什么不移左边指针呢？因为移动左边的话，min(height[i], height[j])不会变大，但是(j - i)一定变小，所以面积一定变小.
+ 
 
 
-## [Mono Deque](/Data-Structure.py) 
-#### 首先while loop 左端作为sliding window去限定window size， 然后while loop 右端作为stack or monostack for fast access of previous min/max
-- [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (!!H) <br>
-heapq的方法是O(NK)因为需要从前面remove; monostack O(N): Iterate over the array. At each step: I. Clean the deque: 1. Remove the items that are outside the curr window and keep only the indexes of elements from the current sliding window; 2. Remove indexes of all elements smaller than the current one, since they will not be the maximum ones. eg: [1,2,7,3,5,4], k = 3, because of 7, 1 and 2 will never be in res; II. Append the current element to the deque. Append deque[0] to the output.
-我们回头看看这题其实就是mono st多了一步保持窗口大小的步骤，而这个保持窗口大小的步骤需要从前面pop, 这就是为什么不直接用st, 而是用dq的原因. 总结：如果题目需要我们在window里更新最大值或最小值，我们往往需要maintian一个mono increasing or mono decreasing deque.
-- [0751. John's business](Solutions/0751.John's-business.py) (!!M Lintcode) <br>
-Solution 1: sliding window minimum - use a mono deque - O(n). similar with 239. Sliding Window Maximum.min_vals[i]表示以i结尾的window的minimum value, 特别注意sliding window maximum/minimum 都是以以i为dq window的最右端 构造 mono deque. solution 2: segment tree - O(nlogk). Maintain a self.min_num in building the SegmentTree.
-- [0862. Shortest Subarray with Sum at Least K](Solutions/0862.Shorteast-Subarray-with-Sum-at-Least-K.py) (!!H) <br>
-不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
-这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
-两个while循环，一个while loop do sliding window to update res, 从队首pop, 同时更新res, 
-另一个while loop do monostack to maintain an increasing dq, 从队尾pop, 对deq进行清理。
-- [0995. Minimum Number of K Consecutive Bit Flips](Solutions/0995.Minimum-Number-of-K-Consecutive-Bit-Flips.py) (!!H Google) <br>
-q 记录区间[i-k, i]内被反转了的idx, 遍历过程中把里i很远的idx都pop出来，保持窗口小于等于K, 此时len(q)就是位置i已经被翻转的次数，如果为奇数表示i已经从0翻到1或者从1翻到0了
-- [1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](Solutions/1438.Longest-Continuous-Subarray-With-Absolute-Diff-Less-Than-or-Equal-to-Limit.py) (!!!M Google) <br>
-总结：如果题目需要我们在window里更新最大值或最小值，我们往往需要maintian一个mono increasing or mono decreasing deque.
-这个题目我们maintain an increasing dq and a decreasing dq. step 1: 更新maxdq, just like what we did for monostack; step 2: 更新mindq, 套用mono stack模板; step 3: sliding window to update res - 套用sliding window模板
-- [1499. Max Value of Equation](Solutions/1499.Max-Value-of-Equation.py) (!!!H Google) <br>
-__maintain previous min/max problem__ solution 1: heapq; solution 2: monodeque - O(N). 如果题目需要我们在window里更新最大值或最小值，我们往往需要maintian一个mono increasing or mono decreasing deque.  在mono deque中会有两个while loop，第一个while loop从左端pop作为sliding window去限定window size, 第二个while loop从右端pop作为monostack去maintain 最大值/最小值
+### [同向双指针](/Two-pointers.py)
+- [0415. Add Strings](Solutions/0415.Add-Strings.py) (E) <br>
+similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check while i >= 0: ;  while i >= 0: ; 最后还要check if carryBit > 0:
+- [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py) (E) <br>
+modify nums1 in-place, 由于nums1有足够空间，我们可以从nums1的尾部开始排，use i, j, k = m - 1, n - 1, m + n -1; 把最大的数放到nums1的后面
+- [0283. Move Zeroes](Solutions/0283.Move-Zeroes.py) (E) <br>
+anchor is the first zero element, __anchor keeps all the non-zero numbers on it's left, that is the reason the pointer is called anchor__. while curr runs forward, whenever curr equals a non-zero number, switch it to anchor, and move anchor one step forward.  __注意怎样maintain non-zero numbers的relative order非常的tricky__.  Solution 2: partition using the method in 31, but not accepted cuz partition changes the original order of non-zero numbers. Beacuase quick sort is a ramdomized sorting algorithm.
+- [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (!!E) <br>
+典型的同向双指针 on the left of anchor (including anchor) are the maintained array without duplicates
+- [0083. Remove Duplicates from Sorted List](Solutions/0083.Remove-Duplicates-from-Sorted-List.py) (!!E) <br>
+- [0082. Remove Duplicates from Sorted List II](Solutions/0082.Remove-Duplicates-from-Sorted-List-II.py) (M) <br>
+要把duplicates都去掉一个不留，anchor stays where on it's left there is only distinct numbers，需要比较prev,curr,curr.next的val来判断一个数是不是合格的
+- [0203. Remove Linked List Elements](Solutions/0203.Remove-Linked-List-Elements.py) (!!E) <br>
+anchor keeps all not_equal_val nodes on its left
+- [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) <br>
+同向双指针法，注意题目需要去重，如果碰到符合条件的，把i和j往前挪到不重复的元素去。有点像3-sum去重的问题
+- [0042. Trapping Rain Water](Solutions/0042.Trapping-Rain-Water.py) (!!H) <br>
+首先找到最高highestBar的位置。然后从左边往最高的位置扫，同时maintain一个指针记录leftHighest的高度，如果扫到的地方i小于这个leftHighest的高度，
+则说明i这个地方可以蓄水，可蓄水量为leftHighest的高度减去i的高度；如果扫到的地方i大于这个leftHighest的高度，则说明i这个地方不可以蓄水，所以这时候要更新leftHighest为i的高度。同理对右边做同样的操作
+- [0165. Compare Version Numbers](Solutions/0165.Compare-Version-Numbers.py) (M Google) <br>
+two pointers.  split the version by "." first before processing.
 
----------- 1425. Constrained Subsequence Sum (lee215 solution is good) -------
+
+
+### [Linked List](/Linked-List)
+- [0138. Copy List with Random Pointer](Solutions/0138.Copy-List-with-Random-Pointer.py) (!!M) <br>
+Solution 1 O(N), O(N): Just iterate the linked list and create copies of the nodes on the go. Since a node can be referenced from multiple nodes due to the random pointers, make sure you are not making multiple copies of the same node. we can use extra space to keep old node --> new node mapping to prevent creating multiples copies of same node.   Solution 2 O(N), O(1): use 3 steps, each step requires iterate the loop one time.  step 1: create new node and interleave new node into original node; step 2: link the random pointer for the new nodes; step 3: seperate the interleaved old nodes and new nodes
+- [0430. Flatten a Multilevel Doubly Linked List](Solutions/0430.Flatten-a-Multilevel-Doubly-Linked-List.py) (!!M) <br>
+递归即可，易错点是return head之前别忘了把head.child设置成None
+- [0021. Merge Two Sorted Lists](Solutions/0021.Merge-Two-Sorted-Lists.py) (E) <br>
+如果需要return一个新的headNode，一般定义一个dummyNode = ListNode(0), curr = dummyNode; 最后return dymmyNode.next
+- [0148. Sort List](Solutions/0148.Sort-List.py) (!!M) <br>
+step1: divide: 先找到mid, 然后在mid处cut成左右half, 再分别sort left and right; step 2: merge, 同21
+- [0086. Partition List](Solutions/0086.Partition-List.py) (!!M) <br>
+注意这里要用两个dummy node, 左边一个，右边一个，将左边和右边分开！！！左右分别用两个指针一个往前跑，另一个留守head的位置
+- [0206. Reverse Linked List](Solutions/0206.Reverse-Linked-List.py) (!!E) <br>
+需要熟背理解solution 1: interrative: 注意初始化 __prev, curr = None, head__ 因为head需要point to None; solution 2: recurssive: 非常容易漏掉 head.next = None
+- [0092. Reverse Linked List II](Solutions/0092.Reverse-Linked-List-II.py) (M) <br>
+reverse node from m to n: step 1: find node_m and node_m_minus; find node_n and node_n_plus; step 2. reverse the nodes from m to n; 3. hook up node_m_minus with node_n, node_m with node_n_plus
+- [0024. Swap Nodes in Pairs](Solutions/0024.Swap-Nodes-in-Pairs.py) (M) <br>
+Solution 1: recursion, easier to implement. Solution 2: iterative. 想要reverse n1->n2->n3->n4->n5->n6 in pairs: step 1: 在n1前面添加一个dummy n0, 然后在while curr循环里每次都调用reverse函数，reverse函数做的事情是操作四个节点n0->n1->n2->n3, 将其变成n0->n2->n1->n3, 然后return n1，注意每次都是return想要swap的两个节点的前一个节点！step 2: curr = return的n1，然后继续循环
+- [0025. Reverse Nodes in k-Group](Solutions/0025.Reverse-Nodes-in-k-Group.py) (!!H) <br>
+Solution 1: recursion: step 1: exit of recursion: when less than k elements left, return head directly; step 2: reverse the first k elements; step 3: revursivey find the new head of the reversed list
+- [0141. Linked List Cycle](Solutions/0141.Linked-List-Cycle.py) (E) <br>
+在做环形list的题目时,模板是 __slow, fast = head, head; while fast and fast.next:__
+- [0202. Happy Number](Solutions/0202.Happy-Number.py) (!!E) <br>
+solution 1: 用一个hashset记录number, if next number is in visited, 说明成环了，就return False - O(N), O(N);
+solution 2: slow, fast双指针往前跑，fast跑两步，如果slow == fast说明成环了，return False - O(N), O(1).
+- [0142. Linked List Cycle II](Solutions/0142.Linked-List-Cycle-II.py) (!!M) <br>
+step 1: 快慢指针找到相遇的点; step 2: 重新定义两根指针p1, p2分别从head和上面相遇的点出发，然后p1,p2相遇的地方就是环的入口
+- [0287. Find the Duplicate Number](Solutions/0287.Find-the-Duplicate-Number.py) (!!M) <br>
+[1,5,3,6,2,2,4]: 1 -> 5 -> 2 -> 3 -> 6 -> 4 -> 2.... 形成了环. 把这个数组的每一个数num看成这样一个linked list node: num的下标代表.val, num的值代表.next指向下一个node。那么如果存在重复的num，那就表示有两个不同node都指向了同一个公共，也就是成环的地点。这么想这个题目就和142一样了，具体实现过程中对p取一个nums[p]，就相当于取一个p.next
+- [0160. Intersection of Two Linked Lists](Solutions/0160.Intersection-of-Two-Linked-Lists.py) (E) <br>
+两个指针currA, currB; if not currA: currA = headB; if not currB: currB = headA
+- [0002. Add Two Numbers](Solutions/0002.Add-Two-Numbers.py) (!!M) <br>
+本题的考点是关于如何新建一个linked list, 要用someNode.next = ListNode(someVal), 而不是简单的修改value; 还考察了是否细心, 最后很容易漏掉carryBit != 0的判断"
+- [0445. Add Two Numbers II](Solutions/0445.Add-Two-Numbers-II.py) (M) <br>
+Follow up: What if you cannot modify the input lists? In other words, reversing the lists is not allowed. solution: use two stacks to store the numbers in two linked lists.
+- [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!H) <br>
+正解 Solution 1: divide and conquer. solution 2: maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we need to override ListNode compare function __ lt __ to make customized compare happens: compare ListNode. 
+- [0234. Palindrome Linked List](Solutions/0234.Palindrome-Linked-List.py) (E) <br>
+题目要求O(n) time and O(1) space: 我们只能reverse 一半的linked list，先找到中点，然后reverse the left part，最后比较判断是否为panlindrome
+- [0019. Remove Nth Node From End of List](Solutions/0019.Remove-Nth-Node-From-End-of-List.py) (M) <br>
+fast 比 slow 先出发 n 步即可
+- [0061. Rotate List](Solutions/0061.Rotate-List.py) (M) <br>
+fast 比slow先出发k步
+- [0143. Reorder List](Solutions/0143.Reorder-List.py) (M) <br>
+step 1: cut the list into two halves; step 2: reverse the 2nd half; step 3: connect the 1st and 2nd half
+- [0328. Odd Even Linked List](Solutions/0328.Odd-Even-Linked-List.py) (!!M) <br>
+把dummy指向head.next的地方，因为一会儿会丢失掉head.next的位置, 害怕什么node的位置会丢掉就拿一个dummy指向那个位置
+
+
+
+
+### [双指针处理双序列问题](/Two-pointers.py)
+- [0844. Backspace String Compare](Solutions/0844.Backspace-String-Compare.py) (!!!E) <br>
+这种双指针处理比较双序列问题很常见。由于题目"#"可以删掉前面的ch, We can use a pointer traverse from __right to left__, and use a counter to count how many "#" we got so far. 一般要求用O(1) space解决。Google follow up: 加一个按键是类似caps lock，即按了之后所有的字母小写变大写，再按一下大写变小写。
+思路：定义caps cnt，先扫一遍看多少个caps lock，比较s1.charAt(i) == s2.charAt(j) && caps1 == caps2
+
+- [0809. Expressive Words](Solutions/0809.Expressive-Words.py) (!!!M Google) <br>
+pre-calculate how many successive same chars are there at each idx: "heeellooo" --> {0: 1, 1: 3, 2: 2, 3: 1, 4: 2, 5: 1, 6: 3, 7: 2, 8: 1}
+
+
+
+
+### [Two Sum]()
+- [0001. Two Sum](Solutions/0001.Two-Sum.py) (!!E) <br>
+九章算法：对于求 2 个变量如何组合的问题可以循环其中一个变量，然后研究另外一个变量如何变化, 普世的方法是：for循环一个变量a，然后看另外一个变量target-a是不是在一个hashmap中
+- [0167. Two Sum II - Input array is sorted](Solutions/0167.Two-Sum-II-Input-array-is-sorted.py) (E) <br>
+sorted 就用反向双指针
+- [0170. Two Sum III - Data structure design](Solutions/0170.Two-Sum-III-Data-structure-design.py) (E) <br>
+self.numsDict = collections.defaultdict(lambda: 0) # val is num val, key is how namy times the val was added
+- [1099. Two Sum Less Than K](Solutions/1099.Two-Sum-Less-Than-K.py) (E) <br>
+最优解是sort之后用反向双指针O(nlogn); solution 2: bucket sort: O(n)? coudl be a good follow up question.
+- [0609. Two Sum - Less than or equal to target](Solutions/0609.Two-Sum-Less-than-or-equal-to-target.py) (!!E Lintcode) <br>
+反向双指针：if nums[i] + nums[j] <= target: cnt += j - i		# 注意这里是 cnt += j - i 表示nums[i] 加上 (i 到 j之间的任何数)，一定也是小于等于target的
+- [0653. Two Sum IV - Input is a BST](Solutions/0653.Two-Sum-IV-Input-is-a-BST.py) (E) <br>
+iterative in-order traversal of a tree要背熟
+- [1214. Two Sum BSTs](Solutions/1214.Two-Sum-BSTs.py) (M) <br>
+Iteratively do an inorder traversal for root1, and store the val in a hashSet; then itteratively do an inorder traversal for root2, and at the same time check if a target-val is in the hashSet. time complexity: O(M + N). 算法跟two sum是一样的，如果闭着眼睛能写要会iterative in-order traversal的哈！
+- [0015. 3Sum](Solutions/0015.3Sum.py) (!!M) <br>
+step 1: sort the list; step 2: 背模板，注意点一：对i去重；注意点二：left, right=i+1, lens-1; 注意点三：left和right的初始值；注意点三：对left和right去重
+- [0016. 3Sum Closest](Solutions/0016.3Sum-Closest.py) (M) <br>
+- [0259. 3Sum Smaller](Solutions/0259.3Sum-Smaller.py) (M) <br>
+优化：if nums[i] * 3 >= target: break；解法类似609
+- [0018. 4Sum](Solutions/0018.4Sum.py) (M) <br>
+solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1开始，因为要至少让j先取上第一个值i+1之后才能与前一个数比较！不然[0,0,0,0], 0就通不过了；solution 2: O(N^2): hashmap. for循环a, b,保存a+b的值进hashmap, 再for循环c, d, 判断c+d是否在hashmap中
+- [0454. 4Sum II](Solutions/0454.4Sum-II.py) (M) <br>
+有四个数组，不好用双指针，所以就使用hashmap，用一个hashmap 保存a + b
+- [0089. k Sum](Solutions/0089.k-Sum.py) (!!H Lintcode) <br>
+采用动态规划，用dp[i][j][t]表示前i个数里选j个和为t的方案数。dp[i][j][t] = 选A[i-1]: dp[i-1][j-1][t-A[i-1]] + 不选 A[i-1]: dp[i-1][j][t]; initialize: dp[i][0][0] = 1; return dp[lens][k][target]
+
+
 
 
 
@@ -399,6 +501,32 @@ prefix sum.  Keep all prefix products of numbers in an array, then calculate the
 prefix sum 2D version. similar with 304. Range Sum Query 2D - Immutable
 - [1292. Maximum Side Length of a Square with Sum Less than or Equal to Threshold](Solutions/1292.Maximum-Side-Length-of-a-Square-with-Sum-Less-than-or-Equal-to-Threshold.py) (!!M Google) <br>
 prefix sum 2D version + binary search. solution 1: max problem - binary search O(mnlogmn). solution 2: prefix sum
+
+
+
+
+## [Mono Deque](/Data-Structure.py) 
+#### 首先while loop 左端作为sliding window去限定window size， 然后while loop 右端作为stack or monostack for fast access of previous min/max
+- [0239. Sliding Window Maximum](Solutions/0239.Sliding-Window-Maximum.py) (!!H) <br>
+heapq的方法是O(NK)因为需要从前面remove; monostack O(N): Iterate over the array. At each step: I. Clean the deque: 1. Remove the items that are outside the curr window and keep only the indexes of elements from the current sliding window; 2. Remove indexes of all elements smaller than the current one, since they will not be the maximum ones. eg: [1,2,7,3,5,4], k = 3, because of 7, 1 and 2 will never be in res; II. Append the current element to the deque. Append deque[0] to the output.
+我们回头看看这题其实就是mono st多了一步保持窗口大小的步骤，而这个保持窗口大小的步骤需要从前面pop, 这就是为什么不直接用st, 而是用dq的原因. 总结：如果题目需要我们在window里更新最大值或最小值，我们往往需要maintian一个mono increasing or mono decreasing deque.
+- [0751. John's business](Solutions/0751.John's-business.py) (!!M Lintcode) <br>
+Solution 1: sliding window minimum - use a mono deque - O(n). similar with 239. Sliding Window Maximum.min_vals[i]表示以i结尾的window的minimum value, 特别注意sliding window maximum/minimum 都是以以i为dq window的最右端 构造 mono deque. solution 2: segment tree - O(nlogk). Maintain a self.min_num in building the SegmentTree.
+- [0862. Shortest Subarray with Sum at Least K](Solutions/0862.Shorteast-Subarray-with-Sum-at-Least-K.py) (!!H) <br>
+不能像209. Minimum Size Subarray Sum那样用sliding window因为209那题是positive numbers, 这题可以为负值。
+这题的最优解是mono deque. O(N). 先构造一个presum list, 接下来方法与239类似的，
+两个while循环，一个while loop do sliding window to update res, 从队首pop, 同时更新res, 
+另一个while loop do monostack to maintain an increasing dq, 从队尾pop, 对deq进行清理。
+- [0995. Minimum Number of K Consecutive Bit Flips](Solutions/0995.Minimum-Number-of-K-Consecutive-Bit-Flips.py) (!!H Google) <br>
+q 记录区间[i-k, i]内被反转了的idx, 遍历过程中把里i很远的idx都pop出来，保持窗口小于等于K, 此时len(q)就是位置i已经被翻转的次数，如果为奇数表示i已经从0翻到1或者从1翻到0了
+- [1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit](Solutions/1438.Longest-Continuous-Subarray-With-Absolute-Diff-Less-Than-or-Equal-to-Limit.py) (!!!M Google) <br>
+总结：如果题目需要我们在window里更新最大值或最小值，我们往往需要maintian一个mono increasing or mono decreasing deque.
+这个题目我们maintain an increasing dq and a decreasing dq. step 1: 更新maxdq, just like what we did for monostack; step 2: 更新mindq, 套用mono stack模板; step 3: sliding window to update res - 套用sliding window模板
+- [1499. Max Value of Equation](Solutions/1499.Max-Value-of-Equation.py) (!!!H Google) <br>
+__maintain previous min/max problem__ solution 1: heapq; solution 2: monodeque - O(N). 如果题目需要我们在window里更新最大值或最小值，我们往往需要maintian一个mono increasing or mono decreasing deque.  在mono deque中会有两个while loop，第一个while loop从左端pop作为sliding window去限定window size, 第二个while loop从右端pop作为monostack去maintain 最大值/最小值
+
+---------- 1425. Constrained Subsequence Sum (lee215 solution is good) -------
+
 
 
 
@@ -621,6 +749,123 @@ similar with design hashmap, we use seperate chaining to resovle collision.
 - [1206. Design Skiplist](Solutions/1206.Design-Skiplist.py) (!!H) <br>
 Each node has 2 pointers: "next" targets to the next node in the same level, "down" targets the "next" level node. We need to define a helper function to find the largest node that is smaller than search target in all levels. If you add a node in a level, all levels after that also need to be added.  In add mehtod, we need to use random function to randomly choose if we want to add the node into upper levels.
 
+
+# [Big Data]()
+- [0349. Intersection of Two Arrays](Solutions/0349.Intersection-of-Two-Arrays.py) (!!E) <br>
+Facebook follow up: what if the lists are sorted and you are requred to use O(1) space. Approach: two-pointers solution, 注意去重的方法！！
+- [0350. Intersection of Two Arrays II](Solutions/0350.Intersection-of-Two-Arrays-II.py) (!!E) <br>
+Fackbook follow up 1: what if sorted? solution is using two-pointers. Follow up 2: what if size of nums1 is small? solution is binary search.  Follow up 3: what if nums2 is so large that it cannot fit in the memory? solution: Divide nums2 into n chunks of 1/n size and load 1/n piece each time. Follow up 4: What if neither nums1 or nums2 can fully fit in memory? solution: external sort + n chunks + two pointers.
+- [1213. Intersection of Three Sorted Arrays](Solutions/1213.Intersection-of-Three-Sorted-Arrays.py) (E) <br>
+sorted arr, three-pointers 就可以了
+- [1570. Dot Product of Two Sparse Vectors](Solutions/1570.Dot-Product-of-Two-Sparse-Vectors.py) (!!!M Facebook) <br>
+solution 1: use list to store the non-zero items then two pointers. O(M + N + m + n) where M is how many items in nums, m is how many non-zero items in nums.
+solution 2: use dictionary to store the non-zero items. O(M + N + min(m, n))
+- [0311. Sparse Matrix Multiplication](Solutions/0311.Sparse-Matrix-Multiplication.py) (!!!M Facebook) <br>
+Sparse matrices, which are common in scientific applications, are matrices in which most elements are zero. To save space and running time it is critical to only store the nonzero elements. Many real world applications of vectors include sparse vectors. An example of it in Machine Learning is the popular one-hot encoding method for categorical computation. We can use a dictinoary to store the index and value of non-zero values, O(M+N + mn), O(M+N), M is the number of elements in matrix A, m is the number of non-zero elements in A.
+- [0289. Game of Life](Solutions/0289.Game-of-Life.py) (M) <br>
+solution 1: O(MN), O(MN) solution, should be noted that we cannot use shallow copy for 2D nested list. Have to use deep copy.  Solution 2: O(MN), O(1) solution, Two traversals. Traversal 1: dead -> live: mark as 2; live -> dead: -1  can be whatever number you want, it's just for mark.
+Traversal 2: re-mark 2 to 1, -1 to 0.  Follow up: what if the board is infinite and matrix is sparse? If matrix is sparse, we use a dictionary to store the position of 1s. If the board is infinite and we cannot read the whole board into the memory, then we can read three rows each time because the live or dead state only depends on the up row and down row.
+- [0849. Maximize Distance to Closest Person](Solutions/0849.Maximize-Distance-to-Closest-Person.py) (E) <br>
+step 1: check what is the distace if he sits at two ends;
+step 2: check what is the distance if he sits in the middle, two pinters: same method as 245. Shortest Word Distance III. warm up for next question.
+- [0855. Exam Room](Solutions/0855.Exam-Room.py) (M) <br>
+Use a sorted list to record the index of seats where people sit, so that we can save tons of space if the seats is sparse;
+seat(): 1. find the biggest distance at the start, at the end and in the middle. 2. insert index of seat into the idx list. 3. return index.
+leave(p): pop out p.
+- [0609. Find Duplicate File in System](Solutions/0609.Find-Duplicate-File-in-System.py) (!!M) <br>
+build a content_to_dir dictionary where key is content in txt file, val is a list of dir holding the content eg: ["root/a/1.txt"];
+需要用到string.split(char), string.index(substring). Super important follow up questions for big data.
+- [0766. Toeplitz Matrix](Solutions/0766.Toeplitz-Matrix.py) (!!E Google) <br>
+Big data. 遍历整个matrix, 每次都与其右下角的数进行比较. 遇到这么简单的题，follow up 就不会太简单了, 三个follow up很重要！！
+
+
+
+
+# [Data Stream and Multiple Query]()
+- [0243. Shortest Word Distance](Solutions/0243.Shortest-Word-Distance.py) (E) <br>
+Should know both two pass solution and One pass solution. follow up 1:  如果word1在words中很少只有两个，word2在words中很多有1 million个，怎么优化算法？那么这时候solution 1就派上用场了，我们可以存下idx1 和 idx2两个list. eg: idx1 = [10, 50000]; idx2 = [.......], 那么我们可以在idx2中binary search离10最近的数，然后binary search离50000最近的数。这样时间复杂度就是O(MlogN)了。
+Follow up 2: 如果题目改成不是求两个word的最短距离而是是求K个word的最短距离呢？ solution 1: leetcode 76. Minimum Window Substring.  O(N) where N is the the lens of words.  soltution 2: leetcode 23. Merge k Sorted Lists.  O(NlogK), 方法与solution 1类似，只是为了知道k个idx list中哪根指针需要往前移动一下, 我们需要一个heapq, heapq中最小的那个往前挪动一步.
+- [0244. Shortest Word Distance II](Solutions/0244.Shortest-Word-Distance-II.py) (!!M) <br>
+如果题目要求multiple query with unlimited time, 那么一定考察的是precomputation!! precomputation记录结果一般都需要一个hash map!! 
+这个思想非常重要！！这个题用dictionary记录每个word在words中的位置，这样如果这次需要query a and b, 下次需要query c and d, 
+我们都可以很快找到他们的位置。    # 注意可能会有重复的query，比如第一次query a and b, 第三次又需要query a and b, 这时候为了为了避免重复计算，我们可以直接用memo/cache保存query a and b 的结果, 这个思想非常重要！！这个思想成立的前提是memory不值钱！Follow up 1: 
+你都用两个额外空间去存结果以达到加速的目的了（一个是dictinoary存放每个word在words中的位置，另一个是cache/memo记录已经query过的a and b的结果）,可是面试官还不开心，他还希望调用 query method 能更快一些，怎么办？那咱们就采用最极端的方法：把所有words里可能的word1 and word2组合的结果都算出来存到cache中，这样所有的query 就都是O(1)了这个方法的前提是words list是不会变的，如果重新instantiate一个class把constrcutor里的words list变了那之前的所有结果就都白算了。
+- [245. Shortest Word Distance III](Solutions/0245.Shortest-Word-Distance-III.py) (M) <br>
+word1 and word2 may be the same and they represent two individual words in the list. 分word1等于和不等于两种情况讨论就可以了。
+- [0460. LFU Cache](Solutions/0460.LFU-Cache.py) (!!!H) <br>
+Use a dictionary to store (key, freq) pair.
+Use another dicitonary to store (freq, list of keys) pair, where list of keys could be OrderedDict like LRU to enable O(1) operations.
+其实是在LRU的基础上加了一个frequency的要求。
+Follow up 变形题snapchat：在一个data stream 中find top K most frequent number用LFU来解，也可以用heapq O(Nk).
+
+
+
+# [Random/Sampling](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+### [Shuffle]()
+- [0384. Shuffle an Array](Solutions/0384.Shuffle-an-Array.py) (!!M Google) <br>
+step 1: generate a random idx after i;
+step 2: swap the num in i with random idx after i, then we have got the random num for ith pos;
+step 3: keep going forward until we generate all the random num using the generated random idx;
+follow up是写test方案证明自己写的shuffle符合要求
+- [0528. Random Pick with Weight](Solutions/0528.Random-Pick-with-Weight.py) (!!!M Google) <br>
+step 1: create a __prefix sum arr__; step 2: generate a rand_idx; step 3: __binary search__ to find where the idx is in the prefix_sum arr; follow up 是设计一个class支持修改已有元素的权重, 可能要用到数的结构实现o(logn)吧，没弄明白
+- [Google Random Point in Non-overlapping intervals](Solutions/Google__Random-Point-in-Non-overlapping-intervals.py) (!!!M Google) <br>
+Given a list of non-overlapping intervals, generate a number that is drawn uniformly from one of the intervals. <br>
+Similar with random pick with weight, here we use number of points in the interval as weight.
+Firslty, create a weight list w, where w[i] is the number of points in the interval. 
+Secondly, use a prefix_sum list to store the prefix_sum of the weight list.
+Then generate a rand_int and use binary search to find which rectangle the rand_int belongs to. 
+- [0497. Random Point in Non-overlapping Rectangles](Solutions/0497.Random-Point-in-Non-overlapping-Rectangles.py) (!!!M) <br>
+Similar with random pick with weight, here we use number of points in the rectangle as weight.
+Firslty, create a weight list w, where w[i] is the number of points in the rectangle. 
+Secondly, use a prefix_sum list to store the prefix_sum of the weight list.
+Then generate a rand_int and use binary search to find which rectangle the rand_int belongs to. 
+- [0380	Insert Delete GetRandom O(1)](Solutions/0380.Insert-Delete-GetRandom-O(1).py) (!!!M Google) <br>
+这道题让我们在常数时间范围内实现插入删除和获得随机数操作，如果这道题没有常数时间的限制，那么将会是一道非常简单的题，直接用一个 HashSet 就可以搞定所有的操作。
+但是由于时间的限制，无法在常数时间内实现获取随机数，所以只能另辟蹊径。此题的正确解法是利用到了一个一维数组和一个 HashMap，
+其中数组用来保存数字，HashMap 用来建立每个数字和其在数组中的位置之间的映射，
+对于插入操作，先看这个数字是否已经在 HashMap 中存在，如果存在的话直接返回 false，不存在的话，将其插入到数组的末尾，然后建立数字和其位置的映射。
+删除操作是比较 tricky 的，还是要先判断其是否在 HashMap 里，如果没有，直接返回 false。由于 HashMap 的删除是常数时间的，而数组并不是，为了使数组删除也能常数级，
+实际上将要删除的数字和数组的最后一个数字调换个位置，然后修改对应的 HashMap 中的值，这样只需要删除数组的最后一个元素即可，保证了常数时间内的删除。
+而返回随机数对于数组来说就很简单了，只要随机生成一个位置idx，返回该位置上的数字即可.
+Google follow up: 对一棵二叉树做增删改node操作，如何get random node，可能把树的node加到list里面吧
+- [0381. Insert Delete GetRandom O(1) - Duplicates allowed](Solutions/0381.Insert-Delete-GetRandom-O(1)-Duplicates-allowed.py) (!!H) <br>
+这题是之前那道 Insert Delete GetRandom O(1) 的拓展，与其不同的是，之前那道题不能有重复数字，而这道题可以有，
+那么就不能像之前那道题那样建立每个数字和其坐标的映射了，但是我们可以建立数字和其所有出现位置的集合set之间的映射，
+虽然写法略有不同，但是思路和之前那题完全一样。
+对于 insert 函数，我们在数组 nums 末尾加入 val，然后将val所在 nums 中的位置idx加入 dict[val] set中。
+remove 函数是这题的难点，我们首先看 HashMap 中有没有 val，或者有val但是对应的idx set 为空，则直接返回 false。
+然后跟380是一样的。我们取出 nums 的尾元素和要删除的元素调换位置，
+如果dict[val]有多个元素，那我们就pop set中的一个元素，当然要记录其对应的idx然后把idx的位置填上last_num, 还要更新last_num在pos_dict中的新位置。
+- [0710. Random Pick with Blacklist](Solutions/0710.Random-Pick-with-Blacklist.py) (H) <br>
+建立一个tricky的一一映射。
+既然数字总共有N个，那么减去黑名单中数字的个数，就是最多能随机出来的个数。比如N=6，黑名单中有两个数{2, 4}，那么我们最多只能随机出四个随机数0,1,3,5，
+但是我们如果直接randrange(4)的话会得到0,1,2,3, 我们发现有两个问题，一是黑名单中的2可以随机到，二是数字5没法随机到。
+那么我们想，能不能随机到0,1,3就返回其本身，而当随机到2到时候，我们返回的是5， __我们需要建立这样的映射把2映射到5, 这就是使用HashMap的动机啦__
+- [0519. Random Flip Matrix](Solutions/0519.Random-Flip-Matrix.py) (M) <br>
+没搞明白想干嘛
+
+
+### [Reservoir Sampling]()
+- [0398. Random Pick Index](Solutions/0398.Random-Pick-Index.py) (!!M)  <br>
+Reservoir Sampling solution reservoir sampling 特点是来一个算一下，因此适用于data stream with unknown length. 算法：
+来第一个num: 选第一个num的概率为1/1；<br>
+来第二个num: 选第二个num的概率为1/2; 选第一个num的概率为(1-1/2)* 1/1 = 1/2 <br>
+来第三个num: 选第三个num的概率为1/3; 选第一个num的概率为(1-1/3)* 1/2 = 1/3; 选第一个num的概率为(1-1/3)* 1/2 = 1/3 <br>
+来第四个num: 选第四个num的概率为1/4; 选第一个num的概率为(1-1/4)* 1/3 = 1/4; 选第二个num的概率为(1-1/4)* 1/3 = 1/4; 选第三个num的概率为(1-1/4)* 1/3 = 1/4; <br>
+来第m个num: 选第m个num的概率为1/m; 选第一个num的概率为(1-1/m)* 1/(m-1) = 1/m..........
+- [0382. Linked List Random Node](Solutions/0382.Linked-List-Random-Node.py) (!!M Google) <br>
+Linkedlist has unknow length so we use reservior sampling: O(1), O(n). It is good for really large linkedlist and the linkedlist dynamically changing length; solution 2: O(n), O(1) just use an arr to store all the node vals
+
+
+### [Rejection Sampling]()
+- [0470. Implement Rand10() Using Rand7()](Solutions/0470.Implement-Rand10-Using-Rand7.py) (!!M) <br>
+This solution is based upon Rejection Sampling. 
+The main idea is when you generate a number in the desired range, output that number immediately. 
+If the number is out of the desired range, reject it and re-sample again. 
+Step 1: generate one rand_int1 in range (1, 7),  step 2: generate another rand_int2 in range (1, 7). Then from 7 * rand_int1 + rand_int2, we can get a random number in range (1, 49).
+- [0478. Generate Random Point in a Circle](Solutions/0478.Generate-Random-Point-in-a-Circle.py) (!!!M) <br>
+we use Polar coodinates. step 1: generate one rand_int1 for radius; step 2: generate anoter rand_int2 for angle. 注意对rand_int1要取平方根, 这是因为random.randrange()取的点在线性范围内是uniform的，但是在2D圆内不是
 
 
 
@@ -885,52 +1130,6 @@ a method to search for all the possible autocomplete words of a given input stri
 Trie. step 1: 建立一个abbrev函数：从idx开始，对 word 做abbreviation. step 2: 建立一个abbr2word保存 abbr-->word. step 3: 遍历建立好了的abbr2word。 for abbr, word_lst in abbr2word.items(), 
 如果len(word_lst)==1, 那说明这个abbr是unique的，直接res.append(abbr); 如果len(word_lst)>1, 那说明这个abbr不是unique的，我们需要去寻找每一个word的unique prefix, 所以对这个word_lst就一个Trie, Trie中写一个find_idx函数 to where the prefix for word is unique (cur_node.cnt == 1)
 Time Complexity: O(C) where C is the number of characters across all words in the given array. Space Complexity: O(C).
-
-
-
-
-###  [Segment Tree](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-##### build, update, query三个函数都是用递归(divide and conquer)的方式实现的
-- [0201. Segment Tree Build](Solutions/0201.Segment-Tree-Build.py) (M Lintcode) <br>
-Segment tree build takes O(N), where lens of the input arr
-- [0439. Segment Tree Build II](Solutions/0439.Segment-Tree-Build-II.py) (M Lintcode) <br>
-Segment tree build takes O(N), root.max need to be updated in this problem
-- [0203. Segment Tree Modify](Solutions/0203.Segment-Tree-Modify.py) (M Lintcode) <br>
-Segment tree update takes O(h) or O(logN)
-- [0202. Segment Tree Query](Solutions/0202.Segment-Tree-Query.py) (M Lintcode) <br>
-Segment tree query takes O(h) or O(logN). This problem is to query the max number in a range.
-- [0247. Segment Tree Query II](Solutions/0247.Segment-Tree-Query-II.py) (M Lintcode) <br>
-Segment tree query takes O(h) or O(logN). This problem is to query the count in a range.
-- [0205. Interval Minimum Number](Solutions/0205.Interval-Minimum-Number.py) (!!M Lintcode) <br>
-Maintain a self.min_num in building the SegmentTree. 
-- [0751. John's business](Solutions/0751.John's-business.py) (!!M Lintcode) <br>
-Solution 1: sliding window minimum - use a mono deque - O(n). similar with 239. Sliding Window Maximum.min_vals[i]表示以i结尾的window的minimum value, 特别注意sliding window maximum/minimum 都是以以i为dq window的最右端 构造 mono deque. solution 2: segment tree - O(nlogk). Maintain a self.min_num in building the SegmentTree.
-- [0206. Interval Sum](Solutions/0206.Interval-Sum.py) (M Lintcode) <br>
-Maintain a self.range_sum in buildign the SegmentTree
-- [0207. Interval Sum II](Solutions/0207.Interval-Sum-II.py) (!!M Lintcode) <br>
-Segment tree is good for 需要动态更新数组和query range sum的情况，O(logN) update and O(logN) range sum query
-- [0303. Range Sum Query - Immutable](Solutions/0303.Range-Sum-Query-Immutable.py) (!!E) <br>
-输入数组是immutable的，因此用不着segment tree, 用一个prefix_sum数组做cache就可以实现O(1) query 了
-- [0307. Range Sum Query - Mutable](Solutions/0307.Range-Sum-Query-Mutable.py) (!!M) <br>
-输入数组是mutable, 需要快速的update, 所以可以用segment tree来实现O(logn) update and O(logn) query.
-- [0304. Range Sum Query 2D - Immutable](Solutions/0304.Range-Sum-Query-2D-Immutable.py) (!!M) <br>
-a 2D version prefix sum. O(1) for query.
-- [0308. Range Sum Query 2D - Mutable](Solutions/0308.Range-Sum-Query-2D-Mutable.py) (H) <br>
-solution: segment tree. 代码裸长115行，我去NMLGB! 放弃这题算了
-- [0699. Falling Squares](Solutions/0699.Falling-Squares.py) (!!H) <br>
-solution 1: O(N^2). Every time a new square falls down, we check the previous square to see if there is any square beneath the current falling square. If we found that we have squares i intersect with us, which means my current square will go above to that square. Then we should update the max_h. solution 2: 因为每进来一个squre我们都需要query 在这个interval里的max_num, 所以我们segement tree to enable O(logN) query. - O(NlogN)
-- [0248. Count of Smaller Number](Solutions/0248.Count-of-Smaller-Number.py) (M Lintcode) <br>
-solution 1: binary search, need to sort the arr first which takes O(NlogN). This solution is better for an interview.
-solution 2: Segment Tree, which takes O(N) to build the tree and O(logN) to query. To find how many numbers are less than num, 
-is actually to find how many numbers are there in range [0, num-1], since the minimum number is 0 given by the description of the problem. 这样就相当于转化成了类似range_sum的问题了，since we add num into the tree one by one, each update takes O(logN), so the whole updating takes O(NlogN).
-这题的self.start, self.end represent the num, not idx.  sel.cnt is how many numbers are there in range [start, end], and again start, end are not idx, they are actual vals.
-- [0493. Reverse Pairs](Solutions/0493.Reverse-Pairs.py) (!!H) <br>
-merge sort才是这道题的正解！Count "important reverse pairs" while doing mergesort: When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j.  So in addition to the while loop for do merge/conquer,我们在conquer那个while loop之前额外加一个 while loop to compare nums[i] and 2* nums[j] to update cnt. - O(nlogn)
-- [0315. Count of Smaller Numbers After Self](Solutions/0315.Count-of-Smaller-Numbers-After-Self.py) (!!H) <br>
-正解是solution 2: merge sort O(nlogn). 注意因为self.res是要更新没有个idx的cnt, 所以要把idx带在nums里面去sort nums. 在conquer 的 while loop之前，我们用一个while loop to compare nums[i] and nums[j] to update self.res
-- [0327. Count of Range Sum](Solutions/0327.Count-of-Range-Sum.py) (!!H) <br>
-Solution 1: prefix_sum + hashmap.  construct a prefix_sum. Then do the LC 0001. Two Sum problem. The presum_dict stores (presum --> how many times the presum occurs). O(NW), where N is len(nums) and W is the width of the range we want to query. 面试第一反应就应该是solution 1, 如果面试官说[lower, upper] range is very large much larger than N, 
-then we might consider the following solution prefix_sum + merge_sort. solution 2: prefix_sum + merge_sort 在conquer 的 while loop之前，我们用一个while loop to compare lower <= (right[j] - left[i]) <= upper to update self.res. update self.res 的方法可以是暴力也可以是sliding window来实现
 
 
 
@@ -2031,132 +2230,6 @@ midIdx1, midIdx2 = len(nums1)//2, len(nums2)//2; midVal1, midVal2 = nums1[midIdx
 
 
 
-# [Two Pointers](/Two-pointers.py)
-### [反向双指针](/Two-pointers.py)
-- [EPI book](Solutions/) (E) <br>
-Question: given an array, move all the even numbers to the left while all the odd numbers to the right.
-Solution: two pointers, the same process of merge part in merge sort.
-- [0977. Squares of a Sorted Array](Solutions/0977.Squares-of-a-Sorted-Array.py) (E) <br>
-three pointers: i starts from beginning of A; j starts from the end of A; k starts from end of res 
-- [0011. Container With Most Water](Solutions/0011.Container-With-Most-Water.py) (!!M) <br>
-if height[i] > height[j]: j -= 1  # meaning that 右边的栅栏更低，所以把右边指针移动一下，希望能用长度去compromise宽度，即寄希望于min(height[i], height[j])会变大，来compromise掉(j - i)的变小. 为什么不移左边指针呢？因为移动左边的话，min(height[i], height[j])不会变大，但是(j - i)一定变小，所以面积一定变小.
- 
-
-
-### [同向双指针](/Two-pointers.py)
-- [0415. Add Strings](Solutions/0415.Add-Strings.py) (E) <br>
-similar with leetcode 2.  while i >= 0 and j >= 0:  循环之后，还要check while i >= 0: ;  while i >= 0: ; 最后还要check if carryBit > 0:
-- [0088. Merge Sorted Array](Solutions/0088.Merge-Sorted-Array.py) (E) <br>
-modify nums1 in-place, 由于nums1有足够空间，我们可以从nums1的尾部开始排，use i, j, k = m - 1, n - 1, m + n -1; 把最大的数放到nums1的后面
-- [0283. Move Zeroes](Solutions/0283.Move-Zeroes.py) (E) <br>
-anchor is the first zero element, __anchor keeps all the non-zero numbers on it's left, that is the reason the pointer is called anchor__. while curr runs forward, whenever curr equals a non-zero number, switch it to anchor, and move anchor one step forward.  __注意怎样maintain non-zero numbers的relative order非常的tricky__.  Solution 2: partition using the method in 31, but not accepted cuz partition changes the original order of non-zero numbers. Beacuase quick sort is a ramdomized sorting algorithm.
-- [0026. Remove Duplicates from Sorted Array](Solutions/0026.Remove-Duplicates-from-Sorted-Array.py) (!!E) <br>
-典型的同向双指针 on the left of anchor (including anchor) are the maintained array without duplicates
-- [0083. Remove Duplicates from Sorted List](Solutions/0083.Remove-Duplicates-from-Sorted-List.py) (!!E) <br>
-- [0082. Remove Duplicates from Sorted List II](Solutions/0082.Remove-Duplicates-from-Sorted-List-II.py) (M) <br>
-要把duplicates都去掉一个不留，anchor stays where on it's left there is only distinct numbers，需要比较prev,curr,curr.next的val来判断一个数是不是合格的
-- [0203. Remove Linked List Elements](Solutions/0203.Remove-Linked-List-Elements.py) (!!E) <br>
-anchor keeps all not_equal_val nodes on its left
-- [0532. K-diff Pairs in an Array](Solutions/0532.K-diff-Pairs-in-an-Array.py) (E) <br>
-同向双指针法，注意题目需要去重，如果碰到符合条件的，把i和j往前挪到不重复的元素去。有点像3-sum去重的问题
-- [0042. Trapping Rain Water](Solutions/0042.Trapping-Rain-Water.py) (!!H) <br>
-首先找到最高highestBar的位置。然后从左边往最高的位置扫，同时maintain一个指针记录leftHighest的高度，如果扫到的地方i小于这个leftHighest的高度，
-则说明i这个地方可以蓄水，可蓄水量为leftHighest的高度减去i的高度；如果扫到的地方i大于这个leftHighest的高度，则说明i这个地方不可以蓄水，所以这时候要更新leftHighest为i的高度。同理对右边做同样的操作
-- [0165. Compare Version Numbers](Solutions/0165.Compare-Version-Numbers.py) (M Google) <br>
-two pointers.  split the version by "." first before processing.
-
-
-
-### [Linked List](/Linked-List)
-- [0138. Copy List with Random Pointer](Solutions/0138.Copy-List-with-Random-Pointer.py) (!!M) <br>
-Solution 1 O(N), O(N): Just iterate the linked list and create copies of the nodes on the go. Since a node can be referenced from multiple nodes due to the random pointers, make sure you are not making multiple copies of the same node. we can use extra space to keep old node --> new node mapping to prevent creating multiples copies of same node.   Solution 2 O(N), O(1): use 3 steps, each step requires iterate the loop one time.  step 1: create new node and interleave new node into original node; step 2: link the random pointer for the new nodes; step 3: seperate the interleaved old nodes and new nodes
-- [0430. Flatten a Multilevel Doubly Linked List](Solutions/0430.Flatten-a-Multilevel-Doubly-Linked-List.py) (!!M) <br>
-递归即可，易错点是return head之前别忘了把head.child设置成None
-- [0021. Merge Two Sorted Lists](Solutions/0021.Merge-Two-Sorted-Lists.py) (E) <br>
-如果需要return一个新的headNode，一般定义一个dummyNode = ListNode(0), curr = dummyNode; 最后return dymmyNode.next
-- [0148. Sort List](Solutions/0148.Sort-List.py) (!!M) <br>
-step1: divide: 先找到mid, 然后在mid处cut成左右half, 再分别sort left and right; step 2: merge, 同21
-- [0086. Partition List](Solutions/0086.Partition-List.py) (!!M) <br>
-注意这里要用两个dummy node, 左边一个，右边一个，将左边和右边分开！！！左右分别用两个指针一个往前跑，另一个留守head的位置
-- [0206. Reverse Linked List](Solutions/0206.Reverse-Linked-List.py) (!!E) <br>
-需要熟背理解solution 1: interrative: 注意初始化 __prev, curr = None, head__ 因为head需要point to None; solution 2: recurssive: 非常容易漏掉 head.next = None
-- [0092. Reverse Linked List II](Solutions/0092.Reverse-Linked-List-II.py) (M) <br>
-reverse node from m to n: step 1: find node_m and node_m_minus; find node_n and node_n_plus; step 2. reverse the nodes from m to n; 3. hook up node_m_minus with node_n, node_m with node_n_plus
-- [0024. Swap Nodes in Pairs](Solutions/0024.Swap-Nodes-in-Pairs.py) (M) <br>
-Solution 1: recursion, easier to implement. Solution 2: iterative. 想要reverse n1->n2->n3->n4->n5->n6 in pairs: step 1: 在n1前面添加一个dummy n0, 然后在while curr循环里每次都调用reverse函数，reverse函数做的事情是操作四个节点n0->n1->n2->n3, 将其变成n0->n2->n1->n3, 然后return n1，注意每次都是return想要swap的两个节点的前一个节点！step 2: curr = return的n1，然后继续循环
-- [0025. Reverse Nodes in k-Group](Solutions/0025.Reverse-Nodes-in-k-Group.py) (!!H) <br>
-Solution 1: recursion: step 1: exit of recursion: when less than k elements left, return head directly; step 2: reverse the first k elements; step 3: revursivey find the new head of the reversed list
-- [0141. Linked List Cycle](Solutions/0141.Linked-List-Cycle.py) (E) <br>
-在做环形list的题目时,模板是 __slow, fast = head, head; while fast and fast.next:__
-- [0202. Happy Number](Solutions/0202.Happy-Number.py) (!!E) <br>
-solution 1: 用一个hashset记录number, if next number is in visited, 说明成环了，就return False - O(N), O(N);
-solution 2: slow, fast双指针往前跑，fast跑两步，如果slow == fast说明成环了，return False - O(N), O(1).
-- [0142. Linked List Cycle II](Solutions/0142.Linked-List-Cycle-II.py) (!!M) <br>
-step 1: 快慢指针找到相遇的点; step 2: 重新定义两根指针p1, p2分别从head和上面相遇的点出发，然后p1,p2相遇的地方就是环的入口
-- [0287. Find the Duplicate Number](Solutions/0287.Find-the-Duplicate-Number.py) (!!M) <br>
-[1,5,3,6,2,2,4]: 1 -> 5 -> 2 -> 3 -> 6 -> 4 -> 2.... 形成了环. 把这个数组的每一个数num看成这样一个linked list node: num的下标代表.val, num的值代表.next指向下一个node。那么如果存在重复的num，那就表示有两个不同node都指向了同一个公共，也就是成环的地点。这么想这个题目就和142一样了，具体实现过程中对p取一个nums[p]，就相当于取一个p.next
-- [0160. Intersection of Two Linked Lists](Solutions/0160.Intersection-of-Two-Linked-Lists.py) (E) <br>
-两个指针currA, currB; if not currA: currA = headB; if not currB: currB = headA
-- [0002. Add Two Numbers](Solutions/0002.Add-Two-Numbers.py) (!!M) <br>
-本题的考点是关于如何新建一个linked list, 要用someNode.next = ListNode(someVal), 而不是简单的修改value; 还考察了是否细心, 最后很容易漏掉carryBit != 0的判断"
-- [0445. Add Two Numbers II](Solutions/0445.Add-Two-Numbers-II.py) (M) <br>
-Follow up: What if you cannot modify the input lists? In other words, reversing the lists is not allowed. solution: use two stacks to store the numbers in two linked lists.
-- [0023. Merge k Sorted Lists](Solutions/0023.Merge-k-Sorted-Lists.py) (!!H) <br>
-正解 Solution 1: divide and conquer. solution 2: maintain一个heapq，初始化将每个list的head放入，然后每次pop出一个最小的，再把最小的那个的.next push进heapq, O(NlogK); we need to override ListNode compare function __ lt __ to make customized compare happens: compare ListNode. 
-- [0234. Palindrome Linked List](Solutions/0234.Palindrome-Linked-List.py) (E) <br>
-题目要求O(n) time and O(1) space: 我们只能reverse 一半的linked list，先找到中点，然后reverse the left part，最后比较判断是否为panlindrome
-- [0019. Remove Nth Node From End of List](Solutions/0019.Remove-Nth-Node-From-End-of-List.py) (M) <br>
-fast 比 slow 先出发 n 步即可
-- [0061. Rotate List](Solutions/0061.Rotate-List.py) (M) <br>
-fast 比slow先出发k步
-- [0143. Reorder List](Solutions/0143.Reorder-List.py) (M) <br>
-step 1: cut the list into two halves; step 2: reverse the 2nd half; step 3: connect the 1st and 2nd half
-- [0328. Odd Even Linked List](Solutions/0328.Odd-Even-Linked-List.py) (!!M) <br>
-把dummy指向head.next的地方，因为一会儿会丢失掉head.next的位置, 害怕什么node的位置会丢掉就拿一个dummy指向那个位置
-
-
-
-
-### [双指针处理双序列问题](/Two-pointers.py)
-- [0844. Backspace String Compare](Solutions/0844.Backspace-String-Compare.py) (!!!E) <br>
-这种双指针处理比较双序列问题很常见。由于题目"#"可以删掉前面的ch, We can use a pointer traverse from __right to left__, and use a counter to count how many "#" we got so far. 一般要求用O(1) space解决。Google follow up: 加一个按键是类似caps lock，即按了之后所有的字母小写变大写，再按一下大写变小写。
-思路：定义caps cnt，先扫一遍看多少个caps lock，比较s1.charAt(i) == s2.charAt(j) && caps1 == caps2
-
-- [0809. Expressive Words](Solutions/0809.Expressive-Words.py) (!!!M Google) <br>
-pre-calculate how many successive same chars are there at each idx: "heeellooo" --> {0: 1, 1: 3, 2: 2, 3: 1, 4: 2, 5: 1, 6: 3, 7: 2, 8: 1}
-
-
-
-
-### [Two Sum]()
-- [0001. Two Sum](Solutions/0001.Two-Sum.py) (!!E) <br>
-九章算法：对于求 2 个变量如何组合的问题可以循环其中一个变量，然后研究另外一个变量如何变化, 普世的方法是：for循环一个变量a，然后看另外一个变量target-a是不是在一个hashmap中
-- [0167. Two Sum II - Input array is sorted](Solutions/0167.Two-Sum-II-Input-array-is-sorted.py) (E) <br>
-sorted 就用反向双指针
-- [0170. Two Sum III - Data structure design](Solutions/0170.Two-Sum-III-Data-structure-design.py) (E) <br>
-self.numsDict = collections.defaultdict(lambda: 0) # val is num val, key is how namy times the val was added
-- [1099. Two Sum Less Than K](Solutions/1099.Two-Sum-Less-Than-K.py) (E) <br>
-最优解是sort之后用反向双指针O(nlogn); solution 2: bucket sort: O(n)? coudl be a good follow up question.
-- [0609. Two Sum - Less than or equal to target](Solutions/0609.Two-Sum-Less-than-or-equal-to-target.py) (!!E Lintcode) <br>
-反向双指针：if nums[i] + nums[j] <= target: cnt += j - i		# 注意这里是 cnt += j - i 表示nums[i] 加上 (i 到 j之间的任何数)，一定也是小于等于target的
-- [0653. Two Sum IV - Input is a BST](Solutions/0653.Two-Sum-IV-Input-is-a-BST.py) (E) <br>
-iterative in-order traversal of a tree要背熟
-- [1214. Two Sum BSTs](Solutions/1214.Two-Sum-BSTs.py) (M) <br>
-Iteratively do an inorder traversal for root1, and store the val in a hashSet; then itteratively do an inorder traversal for root2, and at the same time check if a target-val is in the hashSet. time complexity: O(M + N). 算法跟two sum是一样的，如果闭着眼睛能写要会iterative in-order traversal的哈！
-- [0015. 3Sum](Solutions/0015.3Sum.py) (!!M) <br>
-step 1: sort the list; step 2: 背模板，注意点一：对i去重；注意点二：left, right=i+1, lens-1; 注意点三：left和right的初始值；注意点三：对left和right去重
-- [0016. 3Sum Closest](Solutions/0016.3Sum-Closest.py) (M) <br>
-- [0259. 3Sum Smaller](Solutions/0259.3Sum-Smaller.py) (M) <br>
-优化：if nums[i] * 3 >= target: break；解法类似609
-- [0018. 4Sum](Solutions/0018.4Sum.py) (M) <br>
-solution 1: O(N^3): 3Sum模板双指针法。注意这里给j去重不能从j>=1开始，因为要至少让j先取上第一个值i+1之后才能与前一个数比较！不然[0,0,0,0], 0就通不过了；solution 2: O(N^2): hashmap. for循环a, b,保存a+b的值进hashmap, 再for循环c, d, 判断c+d是否在hashmap中
-- [0454. 4Sum II](Solutions/0454.4Sum-II.py) (M) <br>
-有四个数组，不好用双指针，所以就使用hashmap，用一个hashmap 保存a + b
-- [0089. k Sum](Solutions/0089.k-Sum.py) (!!H Lintcode) <br>
-采用动态规划，用dp[i][j][t]表示前i个数里选j个和为t的方案数。dp[i][j][t] = 选A[i-1]: dp[i-1][j-1][t-A[i-1]] + 不选 A[i-1]: dp[i-1][j][t]; initialize: dp[i][0][0] = 1; return dp[lens][k][target]
-
-
-
 # [Greedy](/) <br>
 这个视频讲贪心不错：https://www.bilibili.com/video/BV1hJ411v7w4
 - [0455. Assign Cookies](Solutions/0455.Assign-Cookies.py) (!!E) <br>
@@ -2239,53 +2312,6 @@ Greedy. 分三个区间讨论：1. n <= 5: return max(6 - n, missing_types), 用
 pre-calculation: O(N)
 
 
-
-# [Data Stream and Multiple Query]()
-- [0243. Shortest Word Distance](Solutions/0243.Shortest-Word-Distance.py) (E) <br>
-Should know both two pass solution and One pass solution. follow up 1:  如果word1在words中很少只有两个，word2在words中很多有1 million个，怎么优化算法？那么这时候solution 1就派上用场了，我们可以存下idx1 和 idx2两个list. eg: idx1 = [10, 50000]; idx2 = [.......], 那么我们可以在idx2中binary search离10最近的数，然后binary search离50000最近的数。这样时间复杂度就是O(MlogN)了。
-Follow up 2: 如果题目改成不是求两个word的最短距离而是是求K个word的最短距离呢？ solution 1: leetcode 76. Minimum Window Substring.  O(N) where N is the the lens of words.  soltution 2: leetcode 23. Merge k Sorted Lists.  O(NlogK), 方法与solution 1类似，只是为了知道k个idx list中哪根指针需要往前移动一下, 我们需要一个heapq, heapq中最小的那个往前挪动一步.
-- [0244. Shortest Word Distance II](Solutions/0244.Shortest-Word-Distance-II.py) (!!M) <br>
-如果题目要求multiple query with unlimited time, 那么一定考察的是precomputation!! precomputation记录结果一般都需要一个hash map!! 
-这个思想非常重要！！这个题用dictionary记录每个word在words中的位置，这样如果这次需要query a and b, 下次需要query c and d, 
-我们都可以很快找到他们的位置。    # 注意可能会有重复的query，比如第一次query a and b, 第三次又需要query a and b, 这时候为了为了避免重复计算，我们可以直接用memo/cache保存query a and b 的结果, 这个思想非常重要！！这个思想成立的前提是memory不值钱！Follow up 1: 
-你都用两个额外空间去存结果以达到加速的目的了（一个是dictinoary存放每个word在words中的位置，另一个是cache/memo记录已经query过的a and b的结果）,可是面试官还不开心，他还希望调用 query method 能更快一些，怎么办？那咱们就采用最极端的方法：把所有words里可能的word1 and word2组合的结果都算出来存到cache中，这样所有的query 就都是O(1)了这个方法的前提是words list是不会变的，如果重新instantiate一个class把constrcutor里的words list变了那之前的所有结果就都白算了。
-- [245. Shortest Word Distance III](Solutions/0245.Shortest-Word-Distance-III.py) (M) <br>
-word1 and word2 may be the same and they represent two individual words in the list. 分word1等于和不等于两种情况讨论就可以了。
-- [0460. LFU Cache](Solutions/0460.LFU-Cache.py) (!!!H) <br>
-Use a dictionary to store (key, freq) pair.
-Use another dicitonary to store (freq, list of keys) pair, where list of keys could be OrderedDict like LRU to enable O(1) operations.
-其实是在LRU的基础上加了一个frequency的要求。
-Follow up 变形题snapchat：在一个data stream 中find top K most frequent number用LFU来解，也可以用heapq O(Nk).
-
-
-
-# [Big Data]()
-- [0349. Intersection of Two Arrays](Solutions/0349.Intersection-of-Two-Arrays.py) (!!E) <br>
-Facebook follow up: what if the lists are sorted and you are requred to use O(1) space. Approach: two-pointers solution, 注意去重的方法！！
-- [0350. Intersection of Two Arrays II](Solutions/0350.Intersection-of-Two-Arrays-II.py) (!!E) <br>
-Fackbook follow up 1: what if sorted? solution is using two-pointers. Follow up 2: what if size of nums1 is small? solution is binary search.  Follow up 3: what if nums2 is so large that it cannot fit in the memory? solution: Divide nums2 into n chunks of 1/n size and load 1/n piece each time. Follow up 4: What if neither nums1 or nums2 can fully fit in memory? solution: external sort + n chunks + two pointers.
-- [1213. Intersection of Three Sorted Arrays](Solutions/1213.Intersection-of-Three-Sorted-Arrays.py) (E) <br>
-sorted arr, three-pointers 就可以了
-- [1570. Dot Product of Two Sparse Vectors](Solutions/1570.Dot-Product-of-Two-Sparse-Vectors.py) (!!!M Facebook) <br>
-solution 1: use list to store the non-zero items then two pointers. O(M + N + m + n) where M is how many items in nums, m is how many non-zero items in nums.
-solution 2: use dictionary to store the non-zero items. O(M + N + min(m, n))
-- [0311. Sparse Matrix Multiplication](Solutions/0311.Sparse-Matrix-Multiplication.py) (!!!M Facebook) <br>
-Sparse matrices, which are common in scientific applications, are matrices in which most elements are zero. To save space and running time it is critical to only store the nonzero elements. Many real world applications of vectors include sparse vectors. An example of it in Machine Learning is the popular one-hot encoding method for categorical computation. We can use a dictinoary to store the index and value of non-zero values, O(M+N + mn), O(M+N), M is the number of elements in matrix A, m is the number of non-zero elements in A.
-- [0289. Game of Life](Solutions/0289.Game-of-Life.py) (M) <br>
-solution 1: O(MN), O(MN) solution, should be noted that we cannot use shallow copy for 2D nested list. Have to use deep copy.  Solution 2: O(MN), O(1) solution, Two traversals. Traversal 1: dead -> live: mark as 2; live -> dead: -1  can be whatever number you want, it's just for mark.
-Traversal 2: re-mark 2 to 1, -1 to 0.  Follow up: what if the board is infinite and matrix is sparse? If matrix is sparse, we use a dictionary to store the position of 1s. If the board is infinite and we cannot read the whole board into the memory, then we can read three rows each time because the live or dead state only depends on the up row and down row.
-- [0849. Maximize Distance to Closest Person](Solutions/0849.Maximize-Distance-to-Closest-Person.py) (E) <br>
-step 1: check what is the distace if he sits at two ends;
-step 2: check what is the distance if he sits in the middle, two pinters: same method as 245. Shortest Word Distance III. warm up for next question.
-- [0855. Exam Room](Solutions/0855.Exam-Room.py) (M) <br>
-Use a sorted list to record the index of seats where people sit, so that we can save tons of space if the seats is sparse;
-seat(): 1. find the biggest distance at the start, at the end and in the middle. 2. insert index of seat into the idx list. 3. return index.
-leave(p): pop out p.
-- [0609. Find Duplicate File in System](Solutions/0609.Find-Duplicate-File-in-System.py) (!!M) <br>
-build a content_to_dir dictionary where key is content in txt file, val is a list of dir holding the content eg: ["root/a/1.txt"];
-需要用到string.split(char), string.index(substring). Super important follow up questions for big data.
-- [0766. Toeplitz Matrix](Solutions/0766.Toeplitz-Matrix.py) (!!E Google) <br>
-Big data. 遍历整个matrix, 每次都与其右下角的数进行比较. 遇到这么简单的题，follow up 就不会太简单了, 三个follow up很重要！！
 
 
 
@@ -2500,72 +2526,51 @@ solution 1: mark the rows and cols that need to be set to zero - O(mn), O(m+n); 
 
 
 
-# [Random/Sampling](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
-### [Shuffle]()
-- [0384. Shuffle an Array](Solutions/0384.Shuffle-an-Array.py) (!!M Google) <br>
-step 1: generate a random idx after i;
-step 2: swap the num in i with random idx after i, then we have got the random num for ith pos;
-step 3: keep going forward until we generate all the random num using the generated random idx;
-follow up是写test方案证明自己写的shuffle符合要求
-- [0528. Random Pick with Weight](Solutions/0528.Random-Pick-with-Weight.py) (!!!M Google) <br>
-step 1: create a __prefix sum arr__; step 2: generate a rand_idx; step 3: __binary search__ to find where the idx is in the prefix_sum arr; follow up 是设计一个class支持修改已有元素的权重, 可能要用到数的结构实现o(logn)吧，没弄明白
-- [Google Random Point in Non-overlapping intervals](Solutions/Google__Random-Point-in-Non-overlapping-intervals.py) (!!!M Google) <br>
-Given a list of non-overlapping intervals, generate a number that is drawn uniformly from one of the intervals. <br>
-Similar with random pick with weight, here we use number of points in the interval as weight.
-Firslty, create a weight list w, where w[i] is the number of points in the interval. 
-Secondly, use a prefix_sum list to store the prefix_sum of the weight list.
-Then generate a rand_int and use binary search to find which rectangle the rand_int belongs to. 
-- [0497. Random Point in Non-overlapping Rectangles](Solutions/0497.Random-Point-in-Non-overlapping-Rectangles.py) (!!!M) <br>
-Similar with random pick with weight, here we use number of points in the rectangle as weight.
-Firslty, create a weight list w, where w[i] is the number of points in the rectangle. 
-Secondly, use a prefix_sum list to store the prefix_sum of the weight list.
-Then generate a rand_int and use binary search to find which rectangle the rand_int belongs to. 
-- [0380	Insert Delete GetRandom O(1)](Solutions/0380.Insert-Delete-GetRandom-O(1).py) (!!!M Google) <br>
-这道题让我们在常数时间范围内实现插入删除和获得随机数操作，如果这道题没有常数时间的限制，那么将会是一道非常简单的题，直接用一个 HashSet 就可以搞定所有的操作。
-但是由于时间的限制，无法在常数时间内实现获取随机数，所以只能另辟蹊径。此题的正确解法是利用到了一个一维数组和一个 HashMap，
-其中数组用来保存数字，HashMap 用来建立每个数字和其在数组中的位置之间的映射，
-对于插入操作，先看这个数字是否已经在 HashMap 中存在，如果存在的话直接返回 false，不存在的话，将其插入到数组的末尾，然后建立数字和其位置的映射。
-删除操作是比较 tricky 的，还是要先判断其是否在 HashMap 里，如果没有，直接返回 false。由于 HashMap 的删除是常数时间的，而数组并不是，为了使数组删除也能常数级，
-实际上将要删除的数字和数组的最后一个数字调换个位置，然后修改对应的 HashMap 中的值，这样只需要删除数组的最后一个元素即可，保证了常数时间内的删除。
-而返回随机数对于数组来说就很简单了，只要随机生成一个位置idx，返回该位置上的数字即可.
-Google follow up: 对一棵二叉树做增删改node操作，如何get random node，可能把树的node加到list里面吧
-- [0381. Insert Delete GetRandom O(1) - Duplicates allowed](Solutions/0381.Insert-Delete-GetRandom-O(1)-Duplicates-allowed.py) (!!H) <br>
-这题是之前那道 Insert Delete GetRandom O(1) 的拓展，与其不同的是，之前那道题不能有重复数字，而这道题可以有，
-那么就不能像之前那道题那样建立每个数字和其坐标的映射了，但是我们可以建立数字和其所有出现位置的集合set之间的映射，
-虽然写法略有不同，但是思路和之前那题完全一样。
-对于 insert 函数，我们在数组 nums 末尾加入 val，然后将val所在 nums 中的位置idx加入 dict[val] set中。
-remove 函数是这题的难点，我们首先看 HashMap 中有没有 val，或者有val但是对应的idx set 为空，则直接返回 false。
-然后跟380是一样的。我们取出 nums 的尾元素和要删除的元素调换位置，
-如果dict[val]有多个元素，那我们就pop set中的一个元素，当然要记录其对应的idx然后把idx的位置填上last_num, 还要更新last_num在pos_dict中的新位置。
-- [0710. Random Pick with Blacklist](Solutions/0710.Random-Pick-with-Blacklist.py) (H) <br>
-建立一个tricky的一一映射。
-既然数字总共有N个，那么减去黑名单中数字的个数，就是最多能随机出来的个数。比如N=6，黑名单中有两个数{2, 4}，那么我们最多只能随机出四个随机数0,1,3,5，
-但是我们如果直接randrange(4)的话会得到0,1,2,3, 我们发现有两个问题，一是黑名单中的2可以随机到，二是数字5没法随机到。
-那么我们想，能不能随机到0,1,3就返回其本身，而当随机到2到时候，我们返回的是5， __我们需要建立这样的映射把2映射到5, 这就是使用HashMap的动机啦__
-- [0519. Random Flip Matrix](Solutions/0519.Random-Flip-Matrix.py) (M) <br>
-没搞明白想干嘛
+###  [Segment Tree](https://docs.google.com/document/d/17TreXs76VcuSkbqIz7UTaambKF81O9gdK8ruT5nFG1M/edit#)
+##### build, update, query三个函数都是用递归(divide and conquer)的方式实现的
+- [0201. Segment Tree Build](Solutions/0201.Segment-Tree-Build.py) (M Lintcode) <br>
+Segment tree build takes O(N), where lens of the input arr
+- [0439. Segment Tree Build II](Solutions/0439.Segment-Tree-Build-II.py) (M Lintcode) <br>
+Segment tree build takes O(N), root.max need to be updated in this problem
+- [0203. Segment Tree Modify](Solutions/0203.Segment-Tree-Modify.py) (M Lintcode) <br>
+Segment tree update takes O(h) or O(logN)
+- [0202. Segment Tree Query](Solutions/0202.Segment-Tree-Query.py) (M Lintcode) <br>
+Segment tree query takes O(h) or O(logN). This problem is to query the max number in a range.
+- [0247. Segment Tree Query II](Solutions/0247.Segment-Tree-Query-II.py) (M Lintcode) <br>
+Segment tree query takes O(h) or O(logN). This problem is to query the count in a range.
+- [0205. Interval Minimum Number](Solutions/0205.Interval-Minimum-Number.py) (!!M Lintcode) <br>
+Maintain a self.min_num in building the SegmentTree. 
+- [0751. John's business](Solutions/0751.John's-business.py) (!!M Lintcode) <br>
+Solution 1: sliding window minimum - use a mono deque - O(n). similar with 239. Sliding Window Maximum.min_vals[i]表示以i结尾的window的minimum value, 特别注意sliding window maximum/minimum 都是以以i为dq window的最右端 构造 mono deque. solution 2: segment tree - O(nlogk). Maintain a self.min_num in building the SegmentTree.
+- [0206. Interval Sum](Solutions/0206.Interval-Sum.py) (M Lintcode) <br>
+Maintain a self.range_sum in buildign the SegmentTree
+- [0207. Interval Sum II](Solutions/0207.Interval-Sum-II.py) (!!M Lintcode) <br>
+Segment tree is good for 需要动态更新数组和query range sum的情况，O(logN) update and O(logN) range sum query
+- [0303. Range Sum Query - Immutable](Solutions/0303.Range-Sum-Query-Immutable.py) (!!E) <br>
+输入数组是immutable的，因此用不着segment tree, 用一个prefix_sum数组做cache就可以实现O(1) query 了
+- [0307. Range Sum Query - Mutable](Solutions/0307.Range-Sum-Query-Mutable.py) (!!M) <br>
+输入数组是mutable, 需要快速的update, 所以可以用segment tree来实现O(logn) update and O(logn) query.
+- [0304. Range Sum Query 2D - Immutable](Solutions/0304.Range-Sum-Query-2D-Immutable.py) (!!M) <br>
+a 2D version prefix sum. O(1) for query.
+- [0308. Range Sum Query 2D - Mutable](Solutions/0308.Range-Sum-Query-2D-Mutable.py) (H) <br>
+solution: segment tree. 代码裸长115行，我去NMLGB! 放弃这题算了
+- [0699. Falling Squares](Solutions/0699.Falling-Squares.py) (!!H) <br>
+solution 1: O(N^2). Every time a new square falls down, we check the previous square to see if there is any square beneath the current falling square. If we found that we have squares i intersect with us, which means my current square will go above to that square. Then we should update the max_h. solution 2: 因为每进来一个squre我们都需要query 在这个interval里的max_num, 所以我们segement tree to enable O(logN) query. - O(NlogN)
+- [0248. Count of Smaller Number](Solutions/0248.Count-of-Smaller-Number.py) (M Lintcode) <br>
+solution 1: binary search, need to sort the arr first which takes O(NlogN). This solution is better for an interview.
+solution 2: Segment Tree, which takes O(N) to build the tree and O(logN) to query. To find how many numbers are less than num, 
+is actually to find how many numbers are there in range [0, num-1], since the minimum number is 0 given by the description of the problem. 这样就相当于转化成了类似range_sum的问题了，since we add num into the tree one by one, each update takes O(logN), so the whole updating takes O(NlogN).
+这题的self.start, self.end represent the num, not idx.  sel.cnt is how many numbers are there in range [start, end], and again start, end are not idx, they are actual vals.
+- [0493. Reverse Pairs](Solutions/0493.Reverse-Pairs.py) (!!H) <br>
+merge sort才是这道题的正解！Count "important reverse pairs" while doing mergesort: When we're doing mergesort, original index of elements in left part (smaller side), i, must less than those in right part, j.  So in addition to the while loop for do merge/conquer,我们在conquer那个while loop之前额外加一个 while loop to compare nums[i] and 2* nums[j] to update cnt. - O(nlogn)
+- [0315. Count of Smaller Numbers After Self](Solutions/0315.Count-of-Smaller-Numbers-After-Self.py) (!!H) <br>
+正解是solution 2: merge sort O(nlogn). 注意因为self.res是要更新没有个idx的cnt, 所以要把idx带在nums里面去sort nums. 在conquer 的 while loop之前，我们用一个while loop to compare nums[i] and nums[j] to update self.res
+- [0327. Count of Range Sum](Solutions/0327.Count-of-Range-Sum.py) (!!H) <br>
+Solution 1: prefix_sum + hashmap.  construct a prefix_sum. Then do the LC 0001. Two Sum problem. The presum_dict stores (presum --> how many times the presum occurs). O(NW), where N is len(nums) and W is the width of the range we want to query. 面试第一反应就应该是solution 1, 如果面试官说[lower, upper] range is very large much larger than N, 
+then we might consider the following solution prefix_sum + merge_sort. solution 2: prefix_sum + merge_sort 在conquer 的 while loop之前，我们用一个while loop to compare lower <= (right[j] - left[i]) <= upper to update self.res. update self.res 的方法可以是暴力也可以是sliding window来实现
 
 
-### [Reservoir Sampling]()
-- [0398. Random Pick Index](Solutions/0398.Random-Pick-Index.py) (!!M)  <br>
-Reservoir Sampling solution reservoir sampling 特点是来一个算一下，因此适用于data stream with unknown length. 算法：
-来第一个num: 选第一个num的概率为1/1；<br>
-来第二个num: 选第二个num的概率为1/2; 选第一个num的概率为(1-1/2)* 1/1 = 1/2 <br>
-来第三个num: 选第三个num的概率为1/3; 选第一个num的概率为(1-1/3)* 1/2 = 1/3; 选第一个num的概率为(1-1/3)* 1/2 = 1/3 <br>
-来第四个num: 选第四个num的概率为1/4; 选第一个num的概率为(1-1/4)* 1/3 = 1/4; 选第二个num的概率为(1-1/4)* 1/3 = 1/4; 选第三个num的概率为(1-1/4)* 1/3 = 1/4; <br>
-来第m个num: 选第m个num的概率为1/m; 选第一个num的概率为(1-1/m)* 1/(m-1) = 1/m..........
-- [0382. Linked List Random Node](Solutions/0382.Linked-List-Random-Node.py) (!!M Google) <br>
-Linkedlist has unknow length so we use reservior sampling: O(1), O(n). It is good for really large linkedlist and the linkedlist dynamically changing length; solution 2: O(n), O(1) just use an arr to store all the node vals
 
-
-### [Rejection Sampling]()
-- [0470. Implement Rand10() Using Rand7()](Solutions/0470.Implement-Rand10-Using-Rand7.py) (!!M) <br>
-This solution is based upon Rejection Sampling. 
-The main idea is when you generate a number in the desired range, output that number immediately. 
-If the number is out of the desired range, reject it and re-sample again. 
-Step 1: generate one rand_int1 in range (1, 7),  step 2: generate another rand_int2 in range (1, 7). Then from 7 * rand_int1 + rand_int2, we can get a random number in range (1, 49).
-- [0478. Generate Random Point in a Circle](Solutions/0478.Generate-Random-Point-in-a-Circle.py) (!!!M) <br>
-we use Polar coodinates. step 1: generate one rand_int1 for radius; step 2: generate anoter rand_int2 for angle. 注意对rand_int1要取平方根, 这是因为random.randrange()取的点在线性范围内是uniform的，但是在2D圆内不是
 
 
 
