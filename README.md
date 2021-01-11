@@ -536,10 +536,33 @@ just memo it. dfs + binary search, or binary lifting can realize O(logk) time fo
 - [1610. Maximum Number of Visible Points](Solutions/1610.Maximum-Number-of-Visible-Points.py) (H) <br>
 step 1: calculate all the angles with respect to the location; step 2: sort the angles; step 3: find the max_subarray size with diff_of_max_and_min <= angle, using sliding window
 - [1642. Furthest Building You Can Reach](Solutions/1642.Furthest-Building-You-Can-Reach.py) (H) <br>
-solution 1: backtrack; solution 2: memorization; solution 3: greedy
-
-
-----419----363--1101--- 1329 --847---817---397-- 1697 --248---1616----1044-------
-
+solution 1: backtrack; solution 2: memorization; solution 3: greedy heapq - O(nlog(n))
+- [0419. Battleships in a Board](Solutions/0419.Battleships-in-a-Board.py) (!!M) <br>
+solution 1: unionfind. solutoin 2: O(1) space solution
+whenever we meet a "X", we check if it is the top left corner of a battleship,
+if it is cnt += 1
+- [1101. The Earliest Moment When Everyone Become Friends](Solutions/1101.The-Earliest-Moment-When-Everyone-Become-Friends.py) (!!M) <br>
+算法有点像MST, 首先sort by cost, 然后union one by one as we loop over the logs.
+if uf.disjoint_cnt == 1, then that means all nodes are connected.
+- [1329. Sort the Matrix Diagonally](Solutions/1329.Sort-the-Matrix-Diagonally.py) (M) <br>
+just sort each diagonal - O(MNlog(min(M, N)))
+- [817. Linked List Components](Solutions/0817.Linked-List-Components.py) (M) <br>
+solution 1: 直接遍历linked list, 如果curr.val in nums_set and curr.next.val in nums_set, 那就disjoint_cnt -= 1. solution 2: union find
+- [0397. Integer Replacement](Solutions/0397.Integer-Replacement.py) (!!M) <br>
+similar with 991. Broken Calculator (bfs). backtrack with memo - O(n)
+- [1553. Minimum Number of Days to Eat N Oranges](Solutions/1553.Minimum-Number-of-Days-to-Eat-N-Oranges.py) (!!H) <br>
+solution 1: bfs - O(N), solution 2: backtrack with memo
+- [1658. Minimum Operations to Reduce X to Zero](Solutions/1658.Minimum-Operations-to-Reduce-X-to-Zero.py) (!!M) <br>
+这题是从两端找 the fewest number added to x. 
+换个角度就是找 the longest subarry that sum up to sum(nums) - x.
+由于nums are all positive, sliding window即可 - O(N)
+- [1697. Checking Existence of Edge Length Limited Paths](Solutions/1697.Checking-Existence-of-Edge-Length-Limited-Paths.py) (H) <br>
+loop over the queries, each query is a dijkstra's to find min_max problem. O(QVlogV), Q is how many queries are there, V is how many nodes are there.
+- [0248. Strobogrammatic Number III](Solutions/0248.Strobogrammatic-Number-III.py) (H) <br>
+我们只需要算组合个数就行，不需要做 backtrack
+- [1616. Split Two Strings to Make Palindrome](Solutions/1616.Split-Two-Strings-to-Make-Palindrome.py) (H) <br>
+pre-calculation: O(N)
+- [0913. Cat and Mouse](Solutions/0913.Cat-and-Mouse.py) (H) <br>
+dp + bfs
 
 
