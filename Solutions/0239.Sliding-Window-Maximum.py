@@ -99,6 +99,26 @@ class Solution:
 """
 我们回头看看这题其实就是mono st多了一步保持窗口大小的步骤，而这个保持窗口大小的步骤需要从前面pop, 这就是为什么不直接用st, 而是用dq的原因
 """
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        dq = deque()
+        res = []        # (num, idx)
+        for i, num in enumerate(nums):
+            while len(dq) > 0 and dq[0][1] + k <= i:
+                dq.popleft()
+                
+            while len(dq) > 0 and dq[-1][0] <= num:
+                dq.pop()
+            dq.append((num, i))
+            
+            if i >= k - 1:
+                res.append(dq[0][0])
+                
+        return res
+
+
+
+
 
 
 """
