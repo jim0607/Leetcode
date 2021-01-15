@@ -46,6 +46,56 @@ class MyCalendar:
         return True
 
 
+"""
+binary search tree - O(logN)
+"""
+class TreeNode:
+    
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+        self.left = None
+        self.right = None
+
+
+class MyCalendar:
+
+    def __init__(self):
+        self.root = None
+        
+    def insert(self, start, end, root):
+        """
+        insert an interval into a root (not self.root), return whether or not it could be inserted
+        """
+        if start >= root.end:
+            if root.right:
+                return self.insert(start, end, root.right)
+            else:
+                root.right = TreeNode(start, end)
+                return True
+        elif end <= root.start:
+            if root.left:
+                return self.insert(start, end, root.left)
+            else:
+                root.left = TreeNode(start, end)
+                return True
+        else:
+            return False
+
+    def book(self, start: int, end: int) -> bool:       # O(logN) on random data. O(N) if the tree is highly un-balanced
+        if not self.root:
+            self.root = TreeNode(start, end)
+            return True
+        return self.insert(start, end, self.root)
+
+
+# Your MyCalendar object will be instantiated and called as such:
+# obj = MyCalendar()
+# param_1 = obj.book(start,end)
+    
+    
+    
+    
 
                                                                                                                           
 """
