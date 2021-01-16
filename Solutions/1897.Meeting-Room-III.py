@@ -46,7 +46,7 @@ class Solution:
     def meetingRoomIII(self, intervals, rooms, queries):
         max_end = max(max(end for _, end in intervals), max(end for _, end in queries))
         
-        # cnter[x]代表的是x这个时刻有多少个会议同时在进行，算法: 只记录上升沿和下降沿
+        # cnter[x]代表的是x这个时刻有多少个会议同时在进行，算法: 只记录上升沿和下降沿(same as sweep line)
         cnter = [0 for _ in range(max_end + 1)]
         for start, end in intervals:
             cnter[start] += 1   # 只记录上升沿和下降沿
