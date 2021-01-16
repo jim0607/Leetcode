@@ -1,3 +1,4 @@
+"""
 732. My Calendar III
 
 Implement a MyCalendarThree class to store your events. A new event can always be added.
@@ -24,6 +25,7 @@ The third event [10, 40) intersects the first event, and the maximum K-booking i
 The remaining events cause the maximum K-booking to be only a 3-booking.
 Note that the last event locally causes a 2-booking, but the answer is still 3 because
 eg. [10, 20), [10, 40), and [5, 15) are still triple booked.
+"""
 
 
 """
@@ -33,34 +35,34 @@ Do do exactly the same as the airplane in the sky problem. O(N)
 class MyCalendarThree:
 
     def __init__(self):
-        self.left = []
-        self.right = []
+        self.starts = []
+        self.ends = []
 
     def book(self, start: int, end: int) -> int:
-        # binary search to find where the time should be inserted and insert into the left and right list - O(N)
-        left_idx = bisect.bisect_left(self.left, start)
-        right_idx = bisect.bisect_right(self.right, end)
-        self.left.insert(left_idx, start)
-        self.right.insert(right_idx, end)
+        # step 1: binary search to find where the time should be inserted and insert into the left and right list - O(N)
+        start_idx = bisect.bisect_left(self.starts, start)
+        self.starts.insert(start_idx, start)
+        end_idx = bisect.bisect_left(self.ends, end)
+        self.ends.insert(end_idx, end)
         
+        # step 2: airplane in the sky problem
         i, j = 0, 0
-        cnt = 0
-        max_cnt = 0
-        while i < len(self.left) and j < len(self.right):
-            if self.left[i] < self.right[j]:
-                cnt += 1
+        max_overlap = 0
+        curr_overlap = 0
+        while i < len(self.starts) and j < len(self.ends):
+            if self.starts[i] < self.ends[j]:
+                curr_overlap += 1
                 i += 1
             else:
-                cnt -= 1
+                curr_overlap -= 1
                 j += 1
-            max_cnt = max(max_cnt, cnt)
-            
-        return max_cnt
+            max_overlap = max(max_overlap, curr_overlap)
+        return max_overlap
 
 
 # Your MyCalendarThree object will be instantiated and called as such:
 # obj = MyCalendarThree()
-# param_1 = obj.book(start,end)                         
+# param_1 = obj.book(start,end)
              
                              
                              
