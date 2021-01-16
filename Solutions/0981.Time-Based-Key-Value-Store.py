@@ -42,7 +42,7 @@ class TimeMap:
         """
         Initialize your data structure here.
         """
-        self.mapping = collections.defaultdict(list)   # a list of tuple: (timestamp, val)
+        self.mapping = defaultdict(list)   # a list of tuple: (timestamp, val)
 
     def set(self, key: str, value: str, timestamp: int) -> None:
         """
