@@ -666,6 +666,8 @@ update calendar: just append [start, end] cuz we don't need the calendar be sort
 update overlap: find where the overlap is by go through the calendar list, and update it.
 - [0732. My Calendar III](Solutions/0732.My-Calendar-III.py) (H) <br>
 Do do exactly the same as the airplane in the sky problem to count how many overlapping are there - O(N). Maintain a start_time list and end_time list and keep them sorted by using binary search each time we insert a time. Solution 2: we can use a segment tree, each query takes O(logn). Should know but don't need to implement.
+- [1897. Meeting Room III](Solutions/1897.Meeting-Room-III.py) (!!M Lintcode) <br>
+sweep line + pre calculation solution: O(1) for queery. O(M + N) overall, M = len(intervals), N = len(ask)
 - [1353. Maximum Number of Events That Can Be Attended](Solutions/1353.Maximum-Number-of-Events-That-Can-Be-Attended.py) (!!M) <br>
 Sort events. use a min hq stores the end time of events cuz we want to pop the min end time first.
 loop over the curr_time from 1 to max day 100000, each day, we do: 1. add new events that start before curr_time to hq so that we can attend the event;  2. remove the events that are already ended before curr_time; 3. greedily attend the event that ends soonest by popping from the hq, and update cnt += 1.
