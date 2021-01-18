@@ -1868,7 +1868,8 @@ dp. similar with 394. Coins in a Line.  dp[i] = __the max one can win with [i:] 
 dp. dp[j] = can one win with j. dp[j] = True if not dp[j - i* i] for i in range(1, sqrt(j)). O(N^1.5)
 - [1563. Stone Game V](Solutions/1563.Stone-Game-V.py) (H Google) <br>
 dp. dp[i][j] = the number of scores Alice can get for [i, j]. dp[i][i] = for k in range(i, j) max(dp[i][k], dp[k+1][j]) + min(sums[i, k], sums[k+1, j]). O(N^3)
-
+- [1025. Divisor Game](Solutions/1025.Divisor-Game.py) (E) <br>
+dp[i] = can he/she win facing i
 
 
 
