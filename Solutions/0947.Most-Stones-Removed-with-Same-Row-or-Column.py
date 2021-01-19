@@ -22,6 +22,47 @@ Output: 0
 """
 
 
+"""
+可以remove的个数是 n - disjoint_cnt
+"""
+class Solution:
+    def removeStones(self, stones: List[List[int]]) -> int:
+        n = len(stones)
+        uf = UnionFind(n)
+        for i in range(n - 1):
+            for j in range(i + 1, n):
+                if stones[i][0] == stones[j][0] or stones[i][1] == stones[j][1]:
+                    uf.union(i, j)
+        return n - uf.disjoint_cnt
+    
+
+class UnionFind:
+    
+    def __init__(self, n):
+        self.father = defaultdict(int)
+        self.disjoint_cnt = 0
+        
+        for x in range(n):
+            self.add(x)
+    
+    def add(self, x):
+        if x not in self.father:
+            self.father[x] = x
+            self.disjoint_cnt += 1
+                
+    def find(self, x):
+        if self.father[x] == x:
+            return x
+        self.father[x] = self.find(self.father[x])
+        return self.father[x]
+    
+    def union(self, a, b):
+        root_a, root_b = self.find(a), self.find(b)
+        if root_a != root_b:
+            self.father[root_a] = root_b
+            self.disjoint_cnt -= 1
+
+
 
 """
 Use two for loops to compare each pos with another pos in the list, if two positions share same row or col,
