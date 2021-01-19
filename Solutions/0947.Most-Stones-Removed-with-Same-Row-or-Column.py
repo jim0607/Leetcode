@@ -111,22 +111,41 @@ next time we see a new stone, just union it with its parent, which stores in the
 thus we can do it in one pass.
 Very cool!!
 """
-
 class Solution:
     def removeStones(self, stones: List[List[int]]) -> int:
         uf = UnionFind(stones)
-        rowmap = collections.defaultdict(int)
-        colmap = collections.defaultdict(int)
+        
+        rowmap = defaultdict(tuple)
+        colmap = defaultdict(tuple)
+        
         for x, y in stones:
             if x not in rowmap:
                 rowmap[x] = (x, y)
             if y not in colmap:
                 colmap[y] = (x, y)
+            
             uf.union((x, y), rowmap[x])
             uf.union((x, y), colmap[y])
+            
         return uf.cnt
-
-       
+    
+    
 class UnionFind:
-    The same as above O(N^2) solution
-  
+    
+    def __init__(self, stones):
+        self.father = defaultdict(tuple)
+        self.cnt = 0        # how many union performed (or how many move we can perform)
+        for i, j in stones:
+            self.father[(i, j)] = (i, j)
+            
+    def find(self, x):
+        if self.father[x] == x:
+            return x
+        self.father[x] = self.find(self.father[x])
+        return self.father[x]
+    
+    def union(self, a, b):
+        root_a, root_b = self.find(a), self.find(b)
+        if root_a != root_b:
+            self.father[root_a] = root_b
+            self.cnt += 1
