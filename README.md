@@ -270,7 +270,8 @@ anchor keeps all not_equal_val nodes on its left
 则说明i这个地方可以蓄水，可蓄水量为leftHighest的高度减去i的高度；如果扫到的地方i大于这个leftHighest的高度，则说明i这个地方不可以蓄水，所以这时候要更新leftHighest为i的高度。同理对右边做同样的操作
 - [0165. Compare Version Numbers](Solutions/0165.Compare-Version-Numbers.py) (M Google) <br>
 two pointers.  split the version by "." first before processing.
-
+- [0925. Long Pressed Name](Solutions/0925.Long-Pressed-Name.py) (E) <br>
+two pointers
 
 
 ### [Linked List](/Linked-List)
@@ -2226,6 +2227,8 @@ Use a list to record the appearance of idx.
 
 
 ### [Sorted Array](/Sort.py) 
+- [1051. Height Checker](Solutions/1051.Height-Checker.py) (E) <br>
+just check 谁不在他该有的位置
 - [0561. Array Partition I](Solutions/0561.Array-Partition-I.py) (E) <br>
 sort the arr first, then the maximum sum of pairs is the sum of every other num
 - [0004. Median of Two Sorted Arrays](Solutions/0004.Median-of-Two-Sorted-Arrays.py) (!!H) <br>
