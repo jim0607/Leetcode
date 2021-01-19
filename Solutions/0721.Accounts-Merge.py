@@ -30,36 +30,28 @@ The length of accounts[i][j] will be in the range [1, 30].
 """
 
 
-"""
-union find: if email in a list, connect them.
-In this way, we build a graph, then we map each disjoint_component into one name.
-Step 1: use a dictionary to store email_to_name map. Step 2: iterate the edges to connect them. 
-Step 3: use the email_to_name map and the graph to generage a new list where each name corresponding to a disjoint_component
-"""
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
-        uf = UnionFind(accounts)    # 初始化uf图 by using vertex in accounts
-        
-        # connect the edges in the uf图
-        email_to_name = collections.defaultdict(str)
+        uf = UnionFind(accounts)    # 建一个uf图
+
+        # step 1: map email to name for fast access name from email
+        email_to_name = defaultdict(str)
         for account in accounts:
             name = account[0]
             for email in account[1:]:
-                uf.union(account[1], email)
                 email_to_name[email] = name
                 
-        # 接下来的部分是得到图里面连到一起的emails. 这里没有想出来
-        # 建立root_email to emails dictionary as we go over uf.father.
-        root_to_email = collections.defaultdict(list)
-        for email in uf.father:
+        # step 2: 接下来把uf图里面连到一起的email放到一起去. 这里没有想出来
+        root_to_emails = defaultdict(list)
+        for email in email_to_name:
             root = uf.find(email)
-            root_to_email[root].append(email)
+            root_to_emails[root].append(email)
             
-        # 最后输出结果
+        # step 3: 输出结果
         res = []
-        for root, emails in root_to_email.items():
-            account = []
-            account.append(email_to_name[root])
+        for root, emails in root_to_emails.items():
+            name = email_to_name[root]
+            account = [name]
             account += sorted(emails)
             res.append(account)
         return res
@@ -68,11 +60,15 @@ class Solution:
 class UnionFind:
     
     def __init__(self, accounts):
-        self.father = collections.defaultdict(str)
-        
+        self.father = defaultdict(str)
         for account in accounts:
             for email in account[1:]:
-                self.father[email] = email
+                self.add(email)
+                self.union(email, account[1])   # 将同一个acount下的email都连接起来
+                    
+    def add(self, x):
+        if x not in self.father:
+            self.father[x] = x
     
     def find(self, x):
         if self.father[x] == x:
