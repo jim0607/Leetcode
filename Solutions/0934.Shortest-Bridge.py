@@ -54,7 +54,7 @@ class Solution:
                         dfs(i, j, outliners_2)
         
         # step 2: 接下来是多源节点出发求最短路径问题 - bfs
-        q = collections.deque()
+        q = deque()
         visited = set()
         for i, j in outliners_1:
             q.append((i, j))
