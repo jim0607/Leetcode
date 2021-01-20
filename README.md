@@ -1563,8 +1563,6 @@ Solution 1: dfs - Time: O(V+E); Space: O(V+E); solution 2: 层序遍历bfs; Goog
 - [1042. Flower Planting With No Adjacent](Solutions/1042.Flower-Planting-With-No-Adjacent.py) (!!M) <br>
 start from garden 1, do dfs, assign along the way the correponding color,
 assign which color? the color that is not in the exclude_color list
-
-
 - [0399. Evaluate Division](Solutions/0399.Evaluate-Division.py) (!!M) <br>
 Solution 1: bfs 去做path compression; 注意这里构建图的时候采用hashmap构建邻接表 graph = collections.defaultdict(dict), in graph, key is node1, val is a dict of (key: node2, val: node1/node2), 然后每次query其实就是从单源节点出发寻求不带权值最短路径问题。  Soltution 2: DFS;
 - [1236. Web Crawler](Solutions/1236.Web-Crawler.py) (!!M) <br>
