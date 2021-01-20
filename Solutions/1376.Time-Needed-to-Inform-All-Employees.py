@@ -49,23 +49,27 @@ Example 5:
 Input: n = 4, headID = 2, manager = [3,3,-1,2], informTime = [0,0,162,914]
 Output: 1076
 """
-
+"""
+可以问问面试官公司结构会不会有环，我们的理解应该是没环的，就是一个N-arr tree
+由于我们各个manager是并行往下通知的，所以我们return的是花费时间最长的那条路径 
+"""
 class Solution:
-    def numOfMinutes(self, n: int, headID: int, managers: List[int], informTime: List[int]) -> int:
-        def backtrack(curr_id, curr_time):
-            if len(graph[curr_id]) == 0:        # 叶子节点
-                self.res = max(self.res, curr_time)     # 由于我们各个manager是并行往下通知的，所以我们return的是花费时间最长的那条路径 
-            for next_id in graph[curr_id]:
-                backtrack(next_id, curr_time + informTime[curr_id])
-        
-        
-        graph = collections.defaultdict(list)
-        for i, manager in enumerate(managers):
-            graph[manager].append(i)
+    def numOfMinutes(self, n: int, headID: int, managers: List[int], inform_time: List[int]) -> int:
+        def dfs(curr_node, curr_time):
+            if inform_time[curr_node] == 0:     # leaf of the tree
+                self.max_informtime = max(self.max_informtime, curr_time) 
             
-        self.res = 0
-        backtrack(headID, 0)
-        return self.res
+            for next_node in graph[curr_node]:
+                dfs(next_node, curr_time + inform_time[curr_node])
+            
+        
+        graph = defaultdict(list)
+        for sub, mang in enumerate(managers):
+            graph[mang].append(sub)
+        
+        self.max_informtime = 0
+        dfs(headID, 0)
+        return self.max_informtime
 
 
 
