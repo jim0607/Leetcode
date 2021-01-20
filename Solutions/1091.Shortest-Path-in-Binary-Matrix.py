@@ -121,7 +121,7 @@ class Solution:
             for delta_i, delta_j in [(1,0),(0,1),(-1,0),(0,-1),(1,1),(1,-1),(-1,1),(-1,-1)]:
                 next_i, next_j = curr_i + delta_i, curr_j + delta_j
                 if 0 <= next_i < m and 0 <= next_j < n and grid[next_i][next_j] == 0:
-                    next_estm = curr_steps + 1 + max(n - next_i, n - next_j)     # calculate next_heuristic_estimation 
+                    next_estm = curr_steps + 1 + max(m - next_i, n - next_j)     # calculate next_heuristic_estimation 
                     heappush(hq, (next_estm, curr_steps + 1, next_i, next_j))
                     
         return -1
