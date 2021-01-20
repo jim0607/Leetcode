@@ -1585,8 +1585,10 @@ Solution 1: dfs recurssively, don't need a set to record visited nodes, cuz we c
 dfs. 这题不能用union find来解
 - [0130. Surrounded Regions](Solutions/0130.Surrounded-Regions.py) (!!M) <br>
 Solution 1: dfs/bfs: Step 1: Start from border, do a bfs for "O", mark all the "O" that can be reached from the border. We can either mark by putting them into a visited set, or just change it to some symbol "#". Step 2: 2nd pass, we change to "X" tha "O" that could not be visited from the border.  Solution 2: Union Find.  Step 1: Union all the "O" that are neighborign with each other. We do a weighted union, meaning when we union, we also choose to point to the one that is on the border. Step 2: 2nd pass, we change to "X" tha "O" that has a root not on border.  bfs只从border出发做bfs, 很中间的"O"就不用管了，而Union Find中间的也需要union, 所以bfs 比union find 更快。Solution 3: dfs interatively, only change one line in the bfs solution. Solution 4: dfs recurssively.
-- [1254. Number of Closed Islands](Solutions/1254.Number-of-Closed-Islands.py) (M) <br>
-与130出重复了
+- [1254. Number of Closed Islands](Solutions/1254.Number-of-Closed-Islands.py) (!!M) <br>
+与130出重复了, one pass solution很重要
+- [1020. Number of Enclaves](Solutions/1020.Number-of-Enclaves.py) (M) <br>
+very similar with 1254. 用一个全局变量self.is_touching_border来判断是否touching border.
 - [0417. Pacific Atlantic Water Flow](Solutions/0417.Pacific-Atlantic-Water-Flow.py) (!!M) <br>
 题目的意思是外围一圈的地方是water进来的地方，左上角的外围是pacific ocean water进来的地方，右下角的外围是atlantic ocean water进来的地方。
 step 1: 从左上角外围的每个点出发做dfs, next_pos is a valid candidate if matrix[curr_pos] <= matrix[next_pos], 
