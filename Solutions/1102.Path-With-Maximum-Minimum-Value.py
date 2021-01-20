@@ -27,8 +27,8 @@ Output: 3
 
 """
 Solution 1: Dijkstra's : 
-我们要的是path里面的最大的min_val, 所以我们把每个path里面的min_val放入max heap, 这样我们每次pop出来的都是path里面最大的那个min_val
-每次都把目前为止min_val最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走
+我们要的是path里面的最大的minval, 所以我们把每个path里面的minval放入max heap, 这样我们每次pop出来的都是path里面最大的那个minval
+每次都把目前为止minval最大的那个path的那个cueeNode pop出来，从那个currNode开始往后走
 maintain a heapq to store (the minimum value in the path so far till the currPos, currPos)
 each time, we push (min(nextVal, currMinVal), nextPos)
 O(MNlogMN), O(MN)
@@ -36,25 +36,26 @@ O(MNlogMN), O(MN)
 class Solution:
     def maximumMinimumPath(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
-        hq = [(-grid[0][0], 0, 0)]  # (the minimum value in the path so far till the currPos, currPos)
-        maxmins = defaultdict(int)  # (i, j) --> the max_min_val to reach (i, j), 这个extra space必不可少是用来换时间的
+        
+        hq = [(-grid[0][0], 0, 0)]   # max heap for (min_val_in_the_path_to_curr_pos, curr_pos)
+        max_minvals = defaultdict(int)  # curr_pos --> the maximum minval in the path, 这个extra space必不可少是用来换时间的
+        
         while len(hq) > 0:
-            curr_maxmin, curr_i, curr_j = heappop(hq)  # 每次pop出来的都是min_val最大的path, 我们选择这个path走
-            curr_maxmin = -curr_maxmin                 # curr_min_val stands for the curr max score of path so far
-
-            if (curr_i, curr_j) in maxmins:            # 如果curr_maxmin很大的话也是就不用continue了
-                continue
-            maxmins[(curr_i, curr_j)] = curr_maxmin
-
+            curr_minval, curr_i, curr_j = heappop(hq)   # 每次pop出来的都是minval最大的path, 我们选择这个path走
+            curr_minval = -curr_minval
+            
             if (curr_i, curr_j) == (m - 1, n - 1):
-                return curr_maxmin
-
-            for delta_i, delta_j in [(0, 1), (-1, 0), (0, -1), (1, 0)]:
+                return curr_minval
+            
+            if (curr_i, curr_j) in max_minvals:
+                continue
+            max_minvals[(curr_i, curr_j)] = curr_minval
+            
+            for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
                 next_i, next_j = curr_i + delta_i, curr_j + delta_j
                 if 0 <= next_i < m and 0 <= next_j < n:
-                    next_val = grid[next_i][next_j]
-                    heappush(hq, (-min(next_val, curr_maxmin), next_i, next_j))  # ***** 注意这里很容易错，我们要的是path里面的最大的min_val, 
-                                                # 所以我们把每个path里面的min_val放入max heap, 这样我们每次pop出来的都是path里面最大的那个最小值
+                    next_minval = min(curr_minval, grid[next_i][next_j])    # ***** 注意这里很容易错，我们要的是path里面的最大的minval, 
+                    heappush(hq, (-next_minval, next_i, next_j))  # 所以我们把每个path里面的minval放入max heap, 这样我们每次pop出来的都是path里面最大的那个最小值
               
 
                 
