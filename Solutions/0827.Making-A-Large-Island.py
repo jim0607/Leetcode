@@ -24,7 +24,8 @@ Explanation: Can't change any 0 to 1, only one island with area = 4.
 
 
 """
-solution 1: dfs
+naive dfs - O(M^2*N^2)
+record each islands during dfs - O(MN). then the island size is len(island)
 """
 class Solution:
     def largestIsland(self, grid: List[List[int]]) -> int:
@@ -60,7 +61,7 @@ class Solution:
             for j in range(n):
                 if grid[i][j] == 0:
                     size = 0
-                    for island in islands:      # 只要有一个连上了就加上去
+                    for island in islands:      # # can connect to island if any (adj_i, adj_j) is in island 只要有一个连上了就加上去
                         if any((adj_i, adj_j) in island for adj_i, adj_j in [(i+1, j), (i-1, j), (i, j+1), (i, j-1)]):
                             size += len(island)
                     max_size = max(max_size, size + 1)
@@ -69,7 +70,7 @@ class Solution:
 
 
 """
-solution 1: UnionFind O(MN) - 要注意每次将0变1都会改变uf的图，所以要提前用一个temp_father=uf.father来保存father的信息
+solution 3: UnionFind O(MN) - 要注意每次将0变1都会改变uf的图，所以要提前用一个temp_father=uf.father来保存father的信息
 """
 class UnionFind:
 
