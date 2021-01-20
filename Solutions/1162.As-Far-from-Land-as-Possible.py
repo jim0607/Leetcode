@@ -26,6 +26,44 @@ Note:
 grid[i][j] is 0 or 1
 """
 
+"""
+The max distance is the max steps to change all WATER to LAND. So we firslty put all land in a q, then do bfs layer by layer to change WATER to LAND in-place. Time: O(MN)
+"""
+class Solution:
+    def maxDistance(self, grid: List[List[int]]) -> int:
+        # step 1: initialize q by putting all LAND into q
+        m, n = len(grid), len(grid[0])
+        q = deque()
+        visited = set()
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    q.append((i, j))
+                    visited.add((i, j))
+                    
+        if len(visited) == 0 or len(visited) == m * n:
+            return -1
+                    
+        # step 2: bfs to change all WATER to LAND
+        steps = -1
+        while len(q) > 0:
+            steps += 1
+            lens = len(q)
+            for _ in range(lens):
+                curr_i, curr_j = q.popleft()
+                for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                    next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                    if 0 <= next_i < m and 0 <= next_j < n and grid[next_i][next_j] == 0:
+                        if (next_i, next_j) not in visited:
+                            q.append((next_i, next_j))
+                            visited.add((next_i, next_j))
+        return steps
+
+
+
+
+
+
 
 """
 solution 1: Time: O(MN)
