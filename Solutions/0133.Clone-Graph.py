@@ -57,28 +57,27 @@ class Node:
         self.val = val
         self.neighbors = neighbors if neighbors is not None else []
 """
-
 """
 用一个mapping 保存node-->node_copy. 然后一边dfs一边新建copied nodes
 """
 class Solution:
-    def cloneGraph(self, root: 'Node') -> 'Node':
-        if not root:
-            return None
-        
+    def cloneGraph(self, node: 'Node') -> 'Node':
         def dfs(curr_node):
             for neib_node in curr_node.neighbors:
-                if neib_node in mapping:    # 注意这里不要continue
+                if neib_node in mapping:    # 相当于visited
                     mapping[curr_node].neighbors.append(mapping[neib_node])
-                else:
-                    mapping[neib_node] = Node(neib_node.val)
-                    mapping[curr_node].neighbors.append(mapping[neib_node])
-                    dfs(neib_node)
+                    continue
+                mapping[neib_node] = Node(neib_node.val, [])
+                mapping[curr_node].neighbors.append(mapping[neib_node])
+                dfs(neib_node)
         
+        
+        if not node:
+            return None
         mapping = defaultdict(Node)
-        mapping[root] = Node(root.val)
-        dfs(root)
-        return mapping[root]
+        mapping[node] = Node(node.val, [])
+        dfs(node)
+        return mapping[node]
 
 
 
