@@ -99,29 +99,25 @@ class Solution:
 Solution 3: dfs O(N), O(N)
 """
 class Solution:
-    MOVES = [(1, 0), (0, 1), (-1, 0), (0, -1)]
     def numIslands(self, grid: List[List[str]]) -> int:
-        if not grid or not grid[0]:
-            return 0
+        def dfs(curr_i, curr_j):
+            for delta_i, delta_j in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                next_i, next_j = curr_i + delta_i, curr_j + delta_j
+                if 0 <= next_i < m and 0 <= next_j < n and grid[next_i][next_j] == "1":
+                    if (next_i, next_j) not in visited:
+                        visited.add((next_i, next_j))
+                        dfs(next_i, next_j)
+                        
         
         m, n = len(grid), len(grid[0])
+        visited = set()
         cnt = 0
         for i in range(m):
             for j in range(n):
-                if grid[i][j] == "1":
-                    self.dfs(grid, i, j)
+                if grid[i][j] == "1" and (i, j) not in visited:
+                    dfs(i, j)
                     cnt += 1
-        
         return cnt
-    
-    def dfs(self, grid, x, y):
-        if x < 0 or x >= len(grid) or y < 0 or y >= len(grid[0]) or grid[x][y] == "0":  # "0"就不在访问
-            return
-        
-        grid[x][y] = "0"    # 访问过的变成零
-        for move in self.MOVES:
-            next_x, next_y = x + move[0], y + move[1]
-            self.dfs(grid, next_x, next_y)
 
             
             
