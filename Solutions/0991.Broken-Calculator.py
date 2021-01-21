@@ -89,6 +89,8 @@ class Solution:
 backtrack end condition: if curr_Y <= X
 constraints on next_candidates: could be curr_Y // 2 or curr_Y + 1
 arguments pass into backtrack function: curr_steps
+这类题的首选算法是BFS, 因为BFS只需要闭着眼睛一步一步往前就可以了。
+而backtrack + memo的方法需要贪心判断不能除2才能进行+1的操作！否则会导致算法degrade to O(N) TLE. 这里是很容易出错的！
 """
 class Solution:
     def brokenCalc(self, X: int, Y: int) -> int:
