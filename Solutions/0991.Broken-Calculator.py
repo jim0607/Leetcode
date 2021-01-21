@@ -48,7 +48,7 @@ class Solution:
         step = 0
         while y > x:
             if y % 2 == 0:
-                y //= 2
+                y //= 2         # O(log(Y))
             else:
                 y += 1
             step += 1
