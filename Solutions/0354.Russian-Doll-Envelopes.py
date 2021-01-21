@@ -16,26 +16,25 @@ Explanation: The maximum number of envelopes you can Russian doll is 3 ([2,3] =>
 
 
 
-"""similiar with 300. LIS; here we not only compare nums[j]>nums[i], but instead both the width and height;
-TLE, should learn how to do 300. LIS using DP+binary search, O(NlogN)"""
+"""
+dp[j] = the max number of envs we can Russian doll ended with j.
+dp[j] = max(1 + dp[i] for i < j if env[i] can fit in env[j])
+"""
 class Solution:
     def maxEnvelopes(self, envelopes: List[List[int]]) -> int:
-        if not envelopes:
+        if len(envelopes) == 0:
             return 0
         
-        lens = len(envelopes)
-        dp = [1] * lens
+        envelopes.sort(key=lambda x: (x[0], x[1]))
         
-        envelopes.sort(key = lambda x: (x[0], x[1]))
-        
-        res = 1
-        for j in range(1, lens):
+        n = len(envelopes)
+        dp = [1 for _ in range(n)]
+        for j in range(1, n):
             for i in range(j):
-                if envelopes[j][0] > envelopes[i][0] and envelopes[j][1] > envelopes[i][1]:
-                    dp[j] = max(dp[j], dp[i] + 1)
-                    res = max(dp[j], res)
+                if (envelopes[j][0] > envelopes[i][0] and envelopes[j][1] > envelopes[i][1]):
+                    dp[j] = max(dp[j], 1 + dp[i])
                     
-        return res
+        return max(dp)
 
     
 
