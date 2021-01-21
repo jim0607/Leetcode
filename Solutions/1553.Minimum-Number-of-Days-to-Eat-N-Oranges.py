@@ -66,7 +66,7 @@ class Solution:
 backtrack end condition: curr_num == 0
 constraints on next_candidates: next_num could be curr_num-1, curr_num//2 curr_num//3
 arguments pass into backtrack: curr_num, curr_cnt
-O(3^N)
+O(3^N) - TLE
 """
 class Solution:
     def minDays(self, n: int) -> int:
@@ -88,7 +88,8 @@ class Solution:
 
 """
 memorization - O(logN)
-tricky: only when (n-1) could improve, otherwise don't bother.
+这类题的首选算法是BFS, 因为BFS只需要闭着眼睛一步一步往前就可以了。
+而backtrack + memo的方法需要贪心判断不能除2或除3才能进行-1的操作！否则会导致算法degrade to O(N) TLE. 这里是很容易出错的！
 """
 class Solution:
     def minDays(self, n: int) -> int:
