@@ -58,27 +58,59 @@ class Solution:
 注意这题不能将x乘上去，将x乘上去肯定没有将y除下来步数更少，eg:x = 1, y = 80, x 乘上去会变成64，距离100还有16步；而将100除下来会变成5，距离1只有4步
 """
 
-
-
 """
-单源节点出发最短路径问题：bfs - O(2^(Y-X))  TLE
+单源节点出发最短路径问题：bfs
 """
 class Solution:
     def brokenCalc(self, X: int, Y: int) -> int:
-        q = collections.deque()
+        q = deque()
         visited = set()
-        q.append(X)
-        visited.add(X)
+        q.append(Y)
+        visited.add(Y)
+        
         steps = -1
         while len(q) > 0:
-            lens = len(q)
             steps += 1
+            lens = len(q)
             for _ in range(lens):
-                curr = q.popleft()
-                if curr == Y:
-                    return steps
+                curr_Y = q.popleft()
+                if curr_Y <= X:     # 注意如果curr_Y < X的话直接可以return 了, 否则TLE
+                    return steps + X - curr_Y
                 
-                for next in [curr * 2, curr - 1]:
-                    if next not in visited:
-                        q.append(next)
-                        visited.add(next)
+                elif curr_Y > X:
+                    if curr_Y % 2 == 0 and curr_Y // 2 not in visited:
+                        q.append(curr_Y // 2)
+                        visited.add(curr_Y // 2)
+                    if curr_Y + 1 not in visited:
+                        q.append(curr_Y + 1)
+                        visited.add(curr_Y + 1)
+                        
+"""
+backtrack end condition: if curr_Y <= X
+constraints on next_candidates: could be curr_Y // 2 or curr_Y + 1
+arguments pass into backtrack function: curr_steps
+"""
+class Solution:
+    def brokenCalc(self, X: int, Y: int) -> int:
+        def backtrack(curr_Y, curr_steps):
+            if curr_Y <= X:
+                self.min_steps = min(self.min_steps, curr_steps + X - curr_Y)
+                return
+            
+            if curr_Y % 2 == 0:
+                if (curr_Y // 2) not in visited:
+                    visited.add(curr_Y // 2)
+                    backtrack(curr_Y // 2, curr_steps + 1)
+                    visited.remove(curr_Y // 2)
+            else:               # 注意要不能除2才加一
+                if curr_Y + 1 not in visited:
+                    visited.add(curr_Y + 1)
+                    backtrack(curr_Y + 1, curr_steps + 1)
+                    visited.remove(curr_Y + 1)
+            
+            
+        self.min_steps = sys.maxsize
+        visited = set()
+        visited.add(Y)
+        backtrack(Y, 0)
+        return self.min_steps
