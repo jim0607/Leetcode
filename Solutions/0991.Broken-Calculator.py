@@ -98,19 +98,37 @@ class Solution:
                 return
             
             if curr_Y % 2 == 0:
-                if (curr_Y // 2) not in visited:
-                    visited.add(curr_Y // 2)
-                    backtrack(curr_Y // 2, curr_steps + 1)
-                    visited.remove(curr_Y // 2)
+                backtrack(curr_Y // 2, curr_steps + 1)
             else:               # 注意要不能除2才加一
-                if curr_Y + 1 not in visited:
-                    visited.add(curr_Y + 1)
-                    backtrack(curr_Y + 1, curr_steps + 1)
-                    visited.remove(curr_Y + 1)
+                backtrack(curr_Y + 1, curr_steps + 1)
             
             
         self.min_steps = sys.maxsize
-        visited = set()
-        visited.add(Y)
         backtrack(Y, 0)
         return self.min_steps
+    
+    
+"""
+recursion + memo: log(Y)
+"""
+class Solution:
+    def brokenCalc(self, X: int, Y: int) -> int:
+        def backtrack(curr_Y):
+            if curr_Y <= X:
+                return X - curr_Y
+            
+            if curr_Y in memo:
+                return memo[curr_Y]
+            
+            res = sys.maxsize
+            if curr_Y % 2 == 0:
+                res = min(res, 1 + backtrack(curr_Y // 2))
+            else:               # 注意要不能除2才加一
+                res = min(res, 1 + backtrack(curr_Y + 1))
+                
+            memo[curr_Y] = res
+            return res
+            
+            
+        memo = defaultdict(int)  # curr_Y --> from curr_Y, min_steps to reach X
+        return backtrack(Y)
