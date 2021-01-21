@@ -33,7 +33,7 @@ You need at least 3 days to eat the 6 oranges.
 
 
 """
-bfs: O(n)
+bfs: O(logN) because each step we on average can get rid of n/2 nodes.
 """
 class Solution:
     def minDays(self, n: int) -> int:
@@ -42,71 +42,74 @@ class Solution:
         q.append(n)
         visited.add(n)
         
-        step = -1
+        steps = -1
         while len(q) > 0:
-            step += 1
+            steps += 1
             lens = len(q)
             for _ in range(lens):
-                curr_n = q.popleft()
-                if curr_n == 0:
-                    return step
+                curr_num = q.popleft()
+                if curr_num == 0:
+                    return steps
                 
-                if curr_n - 1 not in visited:
-                    q.append(curr_n - 1)
-                    visited.add(curr_n - 1)
-                if curr_n % 2 == 0:
-                    q.append(curr_n // 2)
-                    visited.add(curr_n // 2)
-                if curr_n % 3 == 0:
-                    q.append(curr_n // 3)
-                    visited.add(curr_n // 3)
+                if curr_num - 1 not in visited:
+                    q.append(curr_num - 1)
+                    visited.add(curr_num - 1)
+                if curr_num % 2 == 0 and curr_num // 2 not in visited:
+                    q.append(curr_num // 2)
+                    visited.add(curr_num // 2)
+                if curr_num % 3 == 0 and curr_num // 3 not in visited:
+                    q.append(curr_num // 3)
+                    visited.add((curr_num // 3))
                     
 
 """
-backtrack结束条件: curr_n == 0
-constraints on next_candidate: can have three different options to eat
-arguments pass into backtrack function: curr_n
+backtrack end condition: curr_num == 0
+constraints on next_candidates: next_num could be curr_num-1, curr_num//2 curr_num//3
+arguments pass into backtrack: curr_num, curr_cnt
+O(3^N)
 """
 class Solution:
     def minDays(self, n: int) -> int:
-        def backtrack(curr_n, curr_days):
-            if curr_n == 0:
-                self.min_days = min(self.min_days, curr_days)
+        def backtrack(curr_num, curr_cnt):
+            if curr_num == 0:
+                self.min_cnt = min(self.min_cnt, curr_cnt)
                 return
             
-            backtrack(curr_n - 1, curr_days + 1)
-            if curr_n % 2 == 0:
-                backtrack(curr_n // 2, curr_days + 1)
-            if curr_n % 3 == 0:
-                backtrack(curr_n // 3, curr_days + 1)
-
-            
-        self.min_days = n
+            backtrack(curr_num - 1, curr_cnt + 1)
+            if curr_num % 2 == 0:
+                backtrack(curr_num // 2, curr_cnt + 1)
+            if curr_num % 3 == 0:
+                backtrack(curr_num // 3, curr_cnt + 1)
+                
+                
+        self.min_cnt = n
         backtrack(n, 0)
-        return self.min_days
+        return self.min_cnt
 
 """
-memorization - O(N)
+memorization - O(logN)
+tricky: only when (n-1) could improve, otherwise don't bother.
 """
 class Solution:
     def minDays(self, n: int) -> int:
-        def backtrack(curr_n):
-            if curr_n == 0:
+        def backtrack(curr_num):
+            if curr_num == 0:
                 return 0
             
-            if curr_n in memo:
-                return memo[curr_n]
+            if curr_num in memo:
+                return memo[curr_num]
             
-            res = curr_n
-            res = min(res, 1 + backtrack(curr_n - 1))
-            if curr_n % 3 == 0:
-                res = min(res, 1 + backtrack(curr_n // 3))
-            elif curr_n % 2 == 0:
-                res = min(res, 1 + backtrack(curr_n // 2))
-
-            memo[curr_n] = res
+            res = sys.maxsize
+            if curr_num % 2 == 0:
+                res = min(res, 1 + backtrack(curr_num // 2))
+            if curr_num % 3 == 0:
+                res = min(res, 1 + backtrack(curr_num // 3))
+            if curr_num % 2 != 0 or curr_num % 3 != 0:      # !!!注意这里用or, eg: 10
+                res = min(res, 1 + backtrack(curr_num - 1)) # !!! 注意不能不判断就直接curr_num - 1, 不然就O(N) TLE了
+                
+            memo[curr_num] = res
             return res
-
-            
-        memo = defaultdict(int)     # curr_n --> how many days to eat curr_n
-        return backtrack(n)
+                
+                
+        memo = defaultdict(int)  # curr_num --> from curr_num, what's the minimum day to reach 0
+        return backtrack(n)      # returns from curr_num, what's the minimum day to reach 0
