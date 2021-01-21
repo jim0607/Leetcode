@@ -26,27 +26,85 @@ Output: 2
 
 
 """
-similar with 991. Broken Calculator (bfs)
-backtrack with memo - O(n)
+单源节点出发的bfs: log(N)
 """
 class Solution:
     def integerReplacement(self, n: int) -> int:
-        def backtrack(n):
-            if n == 1:
+        q = deque()
+        visited = set()
+        q.append(n)
+        visited.add(n)
+        
+        steps = -1
+        while len(q) > 0:
+            steps += 1
+            lens = len(q)
+            for _ in range(lens):
+                curr_num = q.popleft()
+                if curr_num == 1:
+                    return steps
+                
+                if curr_num % 2 == 0 and curr_num // 2 not in visited:
+                    q.append(curr_num // 2)
+                    visited.add(curr_num // 2)
+                if curr_num + 1 not in visited:
+                    q.append(curr_num + 1)
+                    visited.add(curr_num + 1)
+                if curr_num - 1 not in visited:
+                    q.append(curr_num - 1)
+                    visited.add(curr_num - 1)
+
+
+"""
+这类题的首选算法是BFS, 因为BFS只需要闭着眼睛一步一步往前就可以了。
+而backtrack + memo的方法需要贪心判断不能除2才能进行+1或-1的操作！否则会导致算法degrade to O(N) TLE. 这里是很容易出错的！
+backtrack end condition: curr_num == 1
+constraints on next_candidates: can be curr_num//2, curr_num+-1
+arguments pass into backtrack function: curr_num, curr_steps
+O(log(N))
+"""
+class Solution:
+    def integerReplacement(self, n: int) -> int:
+        def backtrack(curr_num, curr_steps):
+            if curr_num == 1:
+                self.min_steps = min(self.min_steps, curr_steps)
+                return
+            
+            if curr_num % 2 == 0:
+                backtrack(curr_num // 2, curr_steps + 1)
+            else:       # 注意要不能除2才选择 +1或-1, 核心算法是能除2就除2，不能除才+1或-1
+                backtrack(curr_num + 1, curr_steps + 1)
+                backtrack(curr_num - 1, curr_steps + 1)
+                        
+            
+        self.min_steps = sys.maxsize
+        backtrack(n, 0)
+        return self.min_steps
+    
+    
+    
+"""
+memo: O(logN)
+"""
+class Solution:
+    def integerReplacement(self, n: int) -> int:
+        def backtrack(curr_num):
+            if curr_num == 1:
                 return 0
             
-            if n in memo:
-                return memo[n]
+            if curr_num in memo:
+                return memo[curr_num]
             
             res = sys.maxsize
-            if n % 2 == 1:
-                res = min(res, 1 + min(backtrack(n + 1), backtrack(n - 1)))
-            else:
-                res = min(res, 1 + backtrack(n // 2))
+            if curr_num % 2 == 0:
+                res = min(res, 1 + backtrack(curr_num // 2))
+            else:       # 注意要不能除2才选择 +1或-1, 核心算法是能除就除，不能除才+1或-1
+                res = min(res, 1 + backtrack(curr_num + 1))
+                res = min(res, 1 + backtrack(curr_num - 1))
+                
+            memo[curr_num] = res
+            return res
+                        
             
-            memo[n] = res
-            return res     
-        
-        
-        memo = defaultdict(int)
+        memo = defaultdict(int) # curr_num --> from curr_num, min_steps to reach 1
         return backtrack(n)
