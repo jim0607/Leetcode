@@ -42,6 +42,45 @@ class Solution:
         return dp[-1][-1]
        
        
+"""
+backtrack end condition: curr_idx == len(nums) - 1, curr_sum =? target
+constraints on next_candidates: next_idx in range(curr_idx + 1, len(nums))
+arguments pass into backtrack: curr_idx, curr_sum
+"""
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        def backtrack(curr_idx, curr_sum):
+            if curr_idx == len(nums) - 1:
+                if curr_sum == target:
+                    return True
+                return False
+            
+            if curr_sum > target:
+                return False
+            
+            if (curr_idx, curr_sum) in memo:
+                return memo[(curr_idx, curr_sum)]
+            
+            res = False
+            for next_idx in range(curr_idx + 1, len(nums)):
+                if backtrack(next_idx, curr_sum + nums[next_idx]):
+                    res = True
+                    break           # 注意有一个True了就可以break出来了，否则TLE
+            
+            memo[(curr_idx, curr_sum)] = res
+            return res
+        
+
+        if sum(nums) % 2 != 0:
+            return False
+        target = sum(nums) // 2
+        
+        memo = defaultdict(int) # (curr_idx, curr_sum) --> from (curr_idx, curr_sum), can we get target?
+        return backtrack(-1, 0) # returns if we can get target from (curr_idx, curr_sum)
+        
+       
+       
+       
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
         # select some nums to sum up to sum/2, if sum/2 is not int, then not possible
