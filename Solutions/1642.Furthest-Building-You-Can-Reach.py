@@ -89,28 +89,23 @@ class Solution:
     
 """
 To go as further as we can, we should use n ladders for the n largest height differences and thus we can save as many bricks as we can.
-We use a priority queue to store the height differences and accumulate their sum. 
-Wherever the sum is bigger than our bricks at hand, we should use one ladder.
-We keep moving until we run out of ladder and the bricks we have are not enough to climb another building.
+We use a max_heap to store the height differences. 
+Wherever there is a height_diff, we use bricks, if there is not enough bricks at hand, we should use one ladder.
+Where do we use the ladder?  We use it at the max_height_diff!!!!!!
 O(nlog(n))
 """
 class Solution:
     def furthestBuilding(self, heights: List[int], bricks: int, ladders: int) -> int:
-        hq = []         # max heap to store the heights_diff
-        total_diff = 0
-        for i in range(1, len(heights)):
-            if heights[i] > heights[i-1]:
-                diff = heights[i] - heights[i-1]
-                if diff <= 0:
-                    continue
-                    
-                heappush(hq, -diff)     # max heap to store heights_diff
-                total_diff += diff      # total_diff accumulated so far
+        hq = []           # max heap for height_diff
+        for i in range(len(heights) - 1):
+            if heights[i+1] > heights[i]:
+                heappush(hq, -(heights[i+1] - heights[i]))
                 
-                if total_diff > bricks: # if bricks is not enough to 填补total_diff, 我们就需要架梯子
+                bricks -= heights[i+1] - heights[i]
+                if bricks < 0:          # if bricks is not enough to 填补total_diff, 我们就需要架梯子
                     if ladders == 0:    # 需要架梯子却又没有梯子了，那就不能继续往前了
-                        return i - 1    
-                    total_diff -= -heappop(hq)  # 如果有梯子可用的话，那咱们把梯子架在哪里呢？
-                    ladders -= 1                # 答案是架在height_diff最大的地方，这样就可以节省下更多的bricks
+                        return i
+                    bricks += -heappop(hq)  # 如果有梯子可用的话，那咱们把梯子架在哪里呢？
+                    ladders -= 1            # 答案是架在height_diff最大的地方，这样就可以节省下更多的bricks
                     
         return len(heights) - 1
