@@ -22,9 +22,6 @@ dp[j] = max(1 + dp[i] for i < j if env[i] can fit in env[j])
 """
 class Solution:
     def maxEnvelopes(self, envelopes: List[List[int]]) -> int:
-        if len(envelopes) == 0:
-            return 0
-        
         envelopes.sort(key=lambda x: (x[0], x[1]))
         
         n = len(envelopes)
@@ -49,20 +46,20 @@ Now when we sort and extract the second element from the input we get [5, 4, 3, 
 """
 class Solution:
     def maxEnvelopes(self, envelopes: List[List[int]]) -> int:
-        lens = len(envelopes)
-        if lens <= 1: return lens
-        
         # sort width ascendingly以保证后面的width肯定能fit进前面的width, 
         # while sort length descendingly以保证相同的width不同的length不能相互fit进去
-        envelopes.sort(key = lambda x: (x[0], -x[1]))   # 这一步的sort很tricky
+        # 这样一来，只要后面来的envelope[j]的length比前面的envelope[i]的length大，那j一定能套住i
+        # 这样我们只需要对length做300. Longest Increasing Subsequence就可以了
+        envelopes.sort(key=lambda x: (x[0], -x[1]))     # !!!!这一步的sort很tricky
+        nums = [lens for width, lens in envelopes]      # sort完之后只需要对length做300. LIS
         
-        # now below we are just doing LIS problem using the length, which is exactly the same as 300
-        dp = [envelopes[0][1]]      # 用length来做300. LIS
-        for i in range(1, len(envelopes)):
-            if envelopes[i][1] > dp[-1]:
-                dp.append(envelopes[i][1])
+        # below is exactly the same as 300. LIS
+        dp = []
+        for num in nums:
+            if len(dp) == 0 or num > dp[-1]:
+                dp.append(num)
             else:
-                idx = bisect.bisect_left(dp, envelopes[i][1])
-                dp[idx] = envelopes[i][1]
-                
+                idx = bisect.bisect_left(dp, num)
+                dp[idx] = num
+                    
         return len(dp)
