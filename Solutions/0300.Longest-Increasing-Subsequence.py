@@ -36,20 +36,16 @@ class Solution:
     
     
 """NlogN的算法，还是网上的高人讲得好。https://www.youtube.com/watch?v=YoeWZ3ELMEk"""
-
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        if not nums or len(nums) == 0:
-            return 0
-        
-        dp = [nums[0]]  # dp[i]中的i是指最长上升子序列长度，好难讲dp[i]代表什么，看视频吧！
-        for i in range(1, len(nums)):
-            if nums[i] > dp[-1]:        # 如果num比dp中的数都大，则说明num放入的位置是整个递增数组的最右端
-                dp.append(nums[i])
+        dp = []     # dp is the maintianed array to keep as many increadsing numbers as possible
+        for num in nums:
+            if len(dp) == 0 or num > dp[-1]:    # 如果num比dp中的数都大，则说明num放入的位置是整个递增数组的最右端
+                dp.append(num)
             else:
-                idx = bisect.bisect_left(dp, nums[i])   # 用binary search找到num应该放入的位置，以保证dp这个数组是递增的  
-                dp[idx] = nums[i]                       # 将该位置的值改为num
-                
+                idx = bisect.bisect_left(dp, num)   # binary search找到num应该放入的位置，以保证dp这个数组是递增的
+                dp[idx] = num           # 将该位置的值改为num,so that 我们可以在dp中放更多的num later on
+                    
         return len(dp)
  
 
