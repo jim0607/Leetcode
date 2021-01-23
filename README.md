@@ -984,8 +984,7 @@ record the position of each node as we dfs to traverse the tree. 记录在遍历
 - [0987. Vertical Order Traversal of a Binary Tree](Solutions/0987.Vertical-Order-Traversal-of-a-Binary-Tree.py) (M) <br>
 same as 314. in 314, left nodes output first, in 987, smaller value comes first. So the only difference is at sort
 - [1026. Maximum Difference Between Node and Ancestor](Solutions/1026.Maximum-Difference-Between-Node-and-Ancestor.py) (!!M) <br>
-solution 1: dfs visit every node, at each node, stop there and find the max and min of its subtree to get its max_diff.
-since finding max and min of subtee takes O(N), so the overall time comlexity is O(N^2).
+helper function return max, min in root tree.  self.max_diff 打擂台.
 - [0105. Construct Binary Tree from Preorder and Inorder Traversal](Solutions/0105.Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal.py) (!!M) <br>
 solution 1中需要O(N^2)的原因是1. preorder.pop(0) takes O(N). We can convert preorder into a deque and popleft. 2. finding the idx in inorder list takes O(N). We can use a hash table to store num-to-idx pair in advance. This leads to solution 2, which takes O(N) instead of O(N^2).
 - [0106. Construct Binary Tree from Inorder and Postorder Traversal](Solutions/0106.Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal.py) (!!M) <br>
