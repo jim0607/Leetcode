@@ -19,34 +19,34 @@ We have various ancestor-node differences, some of which are given below :
 Among all possible differences, the maximum value of 7 is obtained by |8 - 1| = 7.
 """
 
+"""
+helper function return max, min in root tree.  self.max_diff 打擂台.
+"""
 class Solution:
     def maxAncestorDiff(self, root: TreeNode) -> int:
         def helper(root):
             """
-            return the max and the min of the tree
+            return max, min in root tree
             """
             if not root.left and not root.right:
                 return root.val, root.val
             
-            root_max = root.val
-            root_min = root.val
+            root_max, root_min = root.val, root.val
             if root.left:
                 left_max, left_min = helper(root.left)
-                self.max_diff = max(self.max_diff, abs(root.val - left_max), abs(root.val - left_min))
                 root_max = max(root_max, left_max)
                 root_min = min(root_min, left_min)
-                if root.val == 8:
-                    print(root.val, root_max, root_min, "h")
             if root.right:
                 right_max, right_min = helper(root.right)
-                self.max_diff = max(self.max_diff, abs(root.val - right_max), abs(root.val - right_min))
                 root_max = max(root_max, right_max)
                 root_min = min(root_min, right_min)
-                
+            
+            self.max_diff = max(self.max_diff, abs(root.val - root_max), abs(root.val - root_min), abs(root.val - root_min), abs(root.val - root_max))
+            
             return root_max, root_min
+            
         
-        
-        self.max_diff = 0
+        self.max_diff = -sys.maxsize
         helper(root)
         return self.max_diff
 
