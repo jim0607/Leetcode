@@ -21,10 +21,12 @@ class Solution:
         cnt = 0
         candidate = sys.maxsize
         for num in nums:
-            if cnt == 0:
-                candidate = num
             if num == candidate:
                 cnt += 1
             else:
-                cnt -= 1
+                if cnt == 0:
+                    candidate = num
+                    cnt = 1
+                else:
+                    cnt -= 1
         return candidate
