@@ -41,27 +41,29 @@ O(N), O(1)
 """
 class Solution:
     def majorityElement(self, nums: List[int]) -> List[int]:
-        cnt1, cnt2 = 0, 0   
-        candidate1, candidate2 = sys.maxsize, sys.maxsize
+        # step 1: find the two most freq num in nums
+        cnt1, cnt2 = 0, 0
+        cand1, cand2 = sys.maxsize, sys.maxsize
         for num in nums:
-            if num == candidate1:
+            if num == cand1:
                 cnt1 += 1
-            elif num == candidate2:
-                cnt2 += 1
-  
-            elif cnt1 == 0:
-                candidate1 = num
-                cnt1 += 1
-            elif cnt2 == 0:
-                candidate2 = num
+            elif num == cand2:
                 cnt2 += 1
             else:
-                cnt1 -= 1
-                cnt2 -= 1            
-                
+                if cnt1 == 0:
+                    cand1 = num
+                    cnt1 = 1
+                elif cnt2 == 0:
+                    cand2 = num
+                    cnt2 = 1
+                else:
+                    cnt1 -= 1
+                    cnt2 -= 1
+                    
+        # step 2: check the if two most freq num larger n//3
         res = []
-        if nums.count(candidate1) > len(nums) // 3:
-            res.append(candidate1)
-        if nums.count(candidate2) > len(nums) // 3:
-            res.append(candidate2)
-        return list(set(res))
+        if nums.count(cand1) > len(nums) // 3:
+            res.append(cand1)
+        if nums.count(cand2) > len(nums) // 3:
+            res.append(cand2)
+        return res
