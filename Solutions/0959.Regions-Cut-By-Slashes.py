@@ -74,7 +74,7 @@ grid[i][j] is either '/', '\', or ' '.
 """
 Split a grid into 4 parts, each part is a uf component.
 先把一个1*1大小的正方形分成四个0.5*0.5大小的正方形小格子。
-然后把一个小格子斜刀分成四部分，把这四部分分别加到图中, each part is a uf component. 
+然后把每一个小格子斜刀分成四部分，把这四部分分别加到图中, each part is a uf component. 
 如果遇到"/", 我们就把上部分和左部分连接起来, also把下部分和右部分连接起来
 https://leetcode.com/problems/regions-cut-by-slashes/discuss/205680/JavaC%2B%2BPython-Split-4-parts-and-Union-Find
 Split a cell in to 4 parts like this (斜刀切成四个部分).
