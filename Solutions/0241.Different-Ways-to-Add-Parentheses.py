@@ -1,3 +1,4 @@
+"""
 241. Different Ways to Add Parentheses
 
 Given a string of numbers and operators, return all possible results from computing all the different possible ways to group numbers and operators. The valid operators are +, - and *.
@@ -19,6 +20,37 @@ Explanation:
 ((2*(3-4))*5) = -10 
 (2*((3-4)*5)) = -10 
 (((2*3)-4)*5) = 10
+"""
+
+class Solution:
+    def diffWaysToCompute(self, s: str) -> List[int]:
+        if s.isdigit():
+            return [int(s)]
+        
+        results = []
+        for i, ch in enumerate(s):
+            if ch in "+-*":
+                left_results = self.diffWaysToCompute(s[:i])
+                right_results = self.diffWaysToCompute(s[i+1:])
+                
+                for left_res in left_results:
+                    for right_res in right_results:
+                        results.append(self.calculate(left_res, right_res, ch))
+                        
+        return results
+    
+    def calculate(self, num1, num2, opt):
+        if opt == "*":
+            return num1 * num2
+        elif opt == "+":
+            return num1 + num2
+        elif opt == "-":
+            return num1 - num2
+
+
+
+
+
 
 
 class Solution:
