@@ -1,3 +1,4 @@
+"""
 173. Binary Search Tree Iterator
 
 Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST.
@@ -23,6 +24,8 @@ next() and hasNext() should run in average O(1) time and uses O(h) memory, where
 You may assume that next() call will always be valid, that is, there will be at least a next smallest number in the BST when next() is called.
 
 """
+
+
 """solution 2: use a stack with controlled recursion, some part of the algorithm is similar with the in order traversal of a tree using a stack
 this algorithm has space complexity of O(h)"""
 # Definition for a binary tree node.
@@ -34,34 +37,20 @@ this algorithm has space complexity of O(h)"""
 class BSTIterator:
 
     def __init__(self, root: TreeNode):
+        self.curr = root
         self.st = []
-        self._get_leftmost(root)
         
-    def _get_leftmost(self, root):
-        while root:
-            self.st.append(root)
-            root = root.left
-
     def next(self) -> int:
-        """
-        @return the next smallest number
-        """
-        if self.hasNext():
-            next_node = self.st.pop()
-            self._get_leftmost(next_node.right)
-            return next_node.val
+        while self.curr:
+            self.st.append(self.curr)
+            self.curr = self.curr.left
+        self.curr = self.st.pop()
+        val = self.curr.val
+        self.curr = self.curr.right
+        return val
 
     def hasNext(self) -> bool:
-        """
-        @return whether we have a next smallest number
-        """
-        return len(self.st) > 0
-
-
-# Your BSTIterator object will be instantiated and called as such:
-# obj = BSTIterator(root)
-# param_1 = obj.next()
-# param_2 = obj.hasNext()
+        return self.curr or len(self.st) != 0
 
 
 
