@@ -60,7 +60,7 @@ class Solution:
         trie = Trie(nums)
         max_XOR = 0
         for num in nums:    # O(32N) since trie.get_max takes at most O(32)
-            max_XOR = max(global_max, trie.get_max(num))
+            max_XOR = max(max_XOR, trie.get_max(num))
         return max_XOR
 
 
