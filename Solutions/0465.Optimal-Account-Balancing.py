@@ -82,10 +82,12 @@ class Solution:
         for person_id, money in mapping.items():
             if money != 0:          # if a person doesn't own/owe money, don't put him/her in the lst
                 lst.append(money)
+        if len(lst) == 0:
+            return 0
                 
         # step 2: do backtrack 模板
         self.min_cnt = sys.maxsize
-        backtrack(-1, 0)
+        backtrack(0, 0)
         return self.min_cnt
     
     
@@ -129,8 +131,10 @@ class Solution:
         for person_id, money in mapping.items():
             if money != 0:          # if a person doesn't own/owe money, don't put him/her in the lst
                 lst.append(money)
+        if len(lst) == 0:
+            return 0
                 
         # step 2: do backtrack 模板
         self.min_cnt = sys.maxsize
-        backtrack(-1, 0)
+        backtrack(0, 0)
         return self.min_cnt
