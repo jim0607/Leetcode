@@ -55,8 +55,7 @@ class Solution:
             graph[v].append(u)
             
         dp = self.get_dp_table(n, roads, names, targetPath, graph)
-        min_path = self.get_minpath_from_dp_table(dp, n, roads, names, targetPath, graph)
-        return min_path
+        return self.get_minpath_from_dp_table(dp, n, roads, names, targetPath, graph)
             
             
     # step 1: build the DP table to find the minimum edit distance to targetPath
@@ -68,10 +67,8 @@ class Solution:
             
         for i in range(1, m):
             for u in range(n):
-                for v in graph[u]:
-                    dp[i][u] = min(dp[i][u], dp[i-1][v]) + 0
-                dp[i][u] += 0 if names[u] == targetPath[i] else 1
-                
+                edit_dist = 0 if names[u] == targetPath[i] else 1
+                dp[i][u] = edit_dist + min(dp[i-1][prev_node] for prev_node in graph[u])   
         return dp
                 
                 
@@ -79,22 +76,18 @@ class Solution:
     # first we find the last min_dist_node, use it as the last node we take in the best path
     def get_minpath_from_dp_table(self, dp, n, roads, names, targetPath, graph):
         m = len(targetPath)
-        min_dist = sys.maxsize
-        min_dist_node = -1
-        for u in range(n):
-            if dp[m-1][u] < min_dist:
-                min_dist = dp[m-1][u]
-                min_dist_node = u
+        min_dist = min(dp[m-1])
+        min_dist_node = dp[m-1].index(min_dist)
 
         # then we reversely find each node in the best path
         res = [min_dist_node]
         curr_min_node = min_dist_node
         for i in range(m - 2, -1, -1):   
-            for v in graph[curr_min_node]:
+            for prev_node in graph[curr_min_node]:
                 edit_dist = 0 if names[curr_min_node] == targetPath[i+1] else 1
-                if dp[i][v] + edit_dist == dp[i+1][curr_min_node]:
-                    curr_min_node = v
-                    res.append(v)
+                if dp[i][prev_node] + edit_dist == dp[i+1][curr_min_node]:
+                    curr_min_node = prev_node
+                    res.append(curr_min_node)
                     break       # 可能有多个u都等于curr_min, 我们只需要任意一个就可以
         return res[::-1]
     
