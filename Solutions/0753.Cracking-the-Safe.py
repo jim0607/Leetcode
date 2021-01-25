@@ -1,3 +1,4 @@
+"""
 753. Cracking the Safe
 
 There is a box protected by a password. The password is a sequence of n digits where each digit can be one of the first k digits 0, 1, ..., k-1.
@@ -7,8 +8,6 @@ While entering a password, the last n digits entered will automatically be match
 For example, assuming the correct password is "345", if you type "012345", the box will open because the correct password matches the suffix of the entered password.
 
 Return any password of minimum length that is guaranteed to open the box at some point of entering it.
-
- 
 
 Example 1:
 
@@ -21,13 +20,12 @@ Input: n = 2, k = 2
 Output: "00110"
 Note: "01100", "10011", "11001" will be accepted too.
  
-
 Note:
 
 n will be in the range [1, 4].
 k will be in the range [1, 10].
 k^n will be at most 4096.
-
+"""
 
 
 """
@@ -77,32 +75,32 @@ class Solution:
 """
 Same idea, implemented using recurssion.
 
-dfs结束条件: len(covered) == n**k
-constraints on next_candidates: greedily choose the last n-1 chars from curr_candidate, and next_candidate not in covered
-arguments pass into dfs function: None
+dfs end condition: len(covered) == k ** n
+constraints on next_candidates: next_password should choose the last k-1 ch from curr_comb, and then choose one ch from (0, k)
+arguments pass into dfs: curr_comb
 """
 class Solution:
     def crackSafe(self, n: int, k: int) -> str:
-        def dfs():
-            if len(covered) == k ** n:    # if all the combinations are covered
+        def dfs(curr_comb):
+            if len(covered) == k ** n:    # if all passwords are covered
+                self.res = curr_comb
                 return
-            for next_num in range(k-1, -1, -1):
-                next_password = self.curr_res[-n+1:] + str(next_num)
-                if next_password in covered:
-                    continue
-                covered.add(next_password)
-                self.curr_res += str(next_num)
-                dfs()
-                
             
+            for next_num in range(k - 1, -1, -1):    # 为什么要反向遍历呢？becuase we start from "00", the path is then blocked
+                next_password = curr_comb[-n + 1:] + str(next_num)
+                if next_password not in covered:
+                    covered.add(next_password)
+                    dfs(curr_comb + str(next_num))
+                
+                
         if n == 1:
-            return "".join([str(i) for i in range(k)])       
+            return "".join(str(i) for i in range(k))
         
-        self.curr_res = "0" * n
+        self.res = ""
         covered = set()
-        covered.add(self.curr_res)
-        dfs()
-        return self.curr_res
+        covered.add("0" * n)
+        dfs("0" * n)
+        return self.res
             
             
 """
