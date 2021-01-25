@@ -1,6 +1,8 @@
+"""
 784. Letter Case Permutation
 
-Given a string S, we can transform every letter individually to be lowercase or uppercase to create another string.  Return a list of all possible strings we could create.
+Given a string S, we can transform every letter individually to be lowercase or uppercase to create another string.  
+Return a list of all possible strings we could create.
 
 Examples:
 Input: S = "a1b2"
@@ -11,7 +13,7 @@ Output: ["3z4", "3Z4"]
 
 Input: S = "12345"
 Output: ["12345"]
-
+"""
 
 
 """
@@ -21,23 +23,21 @@ class Solution:
     def letterCasePermutation(self, s: str) -> List[str]:
         def backtrack(curr_idx, curr_comb):
             if len(curr_comb) == len(s):
-                res.append("".join(curr_comb.copy()))
-                return
-            for next_idx in range(curr_idx + 1, len(s)):    # 注意这个题目next_idx不能往回找，
-                if s[next_idx].isdigit():                   # 不然的话"a1b2"-->"1a2b"就变成valid答案了
-                    curr_comb.append(s[next_idx])
-                    backtrack(next_idx, curr_comb)
-                    curr_comb.pop()
-                elif s[next_idx].isalpha():
-                    for ch in [s[next_idx].upper(), s[next_idx].lower()]:
-                        curr_comb.append(ch)
-                        backtrack(next_idx, curr_comb)
-                        curr_comb.pop()
-  
+                res.append(curr_comb)
+                return res
+
+            if s[curr_idx + 1].isdigit():       # 这一题next_dix = curr_idx + 1
+                backtrack(curr_idx + 1, curr_comb + s[curr_idx + 1])
+            else:
+                for next_ch in [s[curr_idx + 1].lower(), s[curr_idx + 1].upper()]:
+                    backtrack(curr_idx + 1, curr_comb + next_ch)
+                        
+        
         res = []
-        backtrack(-1, [])
+        backtrack(-1, "")
         return res
 
+    
 
 
 """
