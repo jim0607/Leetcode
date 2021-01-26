@@ -29,7 +29,7 @@ class RangeModule:
         if end % 2 == 0:
             sub_track.append(right)
             
-        self.track[start:end] = sub_track
+        self.track[start:end] = sub_track   # slicing arr takes O(N)
 
     def removeRange(self, left: int, right: int) -> None:
         start = bisect.bisect_left(self.track, left)
@@ -41,7 +41,7 @@ class RangeModule:
         if end % 2 == 1:
             sub_track.append(right)
             
-        self.track[start:end] = sub_track
+        self.track[start:end] = sub_track   # slicing arr takes O(N)
 
     def queryRange(self, left: int, right: int) -> bool:
         start = bisect.bisect_right(self.track, left)       # 注意这里要用bisect_right
