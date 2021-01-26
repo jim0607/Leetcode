@@ -40,24 +40,23 @@ class Solution:
                 importance += self.getImportance(employees, subordinate_id)
         return importance
 
-
+       
 class Solution:
     def getImportance(self, employees: List['Employee'], id: int) -> int:
-        def dfs(curr_id):
-            self.sums += impt[curr_id]
-            for next_id in graph[curr_id]:
-                dfs(next_id)
-        
-        
-        graph = defaultdict(list)
-        impt = defaultdict(int)
-        for emp in employees:
-            graph[emp.id] = emp.subordinates
-            impt[emp.id] = emp.importance
+        def dfs(emp_id):
+            total_impt = emp_impt[emp_id]
+            for next_emp in graph[emp_id]:
+                total_impt += dfs(next_emp)
+            return total_impt
             
-        self.sums = 0
-        dfs(id)
-        return self.sums  
+        
+        emp_impt = defaultdict(int)
+        graph = defaultdict(int)
+        for emp in employees:
+            emp_impt[emp.id] = emp.importance
+            graph[emp.id] = emp.subordinates
+            
+        return dfs(id)
        
        
        
