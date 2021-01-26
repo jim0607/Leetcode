@@ -1,7 +1,8 @@
 """
 359. Logger Rate Limiter
 
-Design a logger system that receive stream of messages along with its timestamps, each message should be printed if and only if it is not printed in the last 10 seconds.
+Design a logger system that receive stream of messages along with its timestamps, 
+each message should be printed if and only if it is not printed in the last 10 seconds.
 
 Given a message and a timestamp (in seconds granularity), return true if the message should be printed in the given timestamp, otherwise returns false.
 
@@ -56,8 +57,10 @@ the space complexity can grow linearly with the number of messages.
 
 To prevent this, we need to actively find the obsolete messages and remove them from the dictionary. 
 We can do this by using OrderedDict in python. Starting from the left-most element of the dictionary, 
-we remove that element, if its time was before timestamp-10, then we can just throw it out and remove the next message from the dictionary. 
-But if it was not, it means that we are done cleaning the obsolete messages and we return the removed message to its original place as the left-most message in the OrderedDict.
+we remove that element, if its time was before timestamp-10, 
+then we can just throw it out and remove the next message from the dictionary. 
+But if it was not, it means that we are done cleaning the obsolete messages 
+and we return the removed message to its original place as the left-most message in the OrderedDict.
 """
 class Logger:
 
@@ -70,7 +73,7 @@ class Logger:
         # step 1: check if we should print the incoming msg
         should_print = False
         if message not in self.msg_time or timestamp >= 10 + self.msg_time[message]:
-            self.msg_time[message] = timestamp
+            self.msg_time[message] = timestamp      # 将新的key → val pair添加到末尾
             should_print = True
 
         # step 2: remove the outdated msg
@@ -82,9 +85,6 @@ class Logger:
                 break
                 
         return should_print
-
-
-
 
 
 """ 
