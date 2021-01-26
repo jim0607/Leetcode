@@ -36,36 +36,6 @@ All initial positions are different.
 """
 
 
-
-"""
-算法：我的位置比你小，需要的时间还比你少，那说明我可以追上你
-O(N^2)
-"""
-class Solution:
-    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
-        n = len(position)
-        times = []
-        
-        for i in range(n):
-            pos = position[i]
-            spd = speed[i]
-            dist = target - pos
-            time = dist / spd
-            times.append(time)
-            
-        cars = [(position[i], times[i]) for i in range(n)]
-        cars.sort(key=lambda x: (x[0], x[1]))
-
-        fleet_cnt = n
-        for i in range(n - 1):
-            for j in range(i + 1, n):
-                if cars[i][1] <= cars[j][1]:    # 我的位置比你小，需要的时间还比你少，那说明我可以追上你
-                    fleet_cnt -= 1              
-                    break       # i追上j之后就被j黏住了，不能再继续追别人了，所以需要break出来
-        return fleet_cnt
-        
-        
-        
 """
 算法：我的位置比你小，需要的时间还比你少，那说明我可以追上你
 这题有一个特点是: 位置靠后的i追上j之后就被j黏住了，不能继续追其他人了
@@ -99,3 +69,32 @@ class Solution:
                 times[-1] = lead_car_arrive_time  # i追上j之后就被j黏住了
                 
         return 0
+
+
+
+"""
+算法：我的位置比你小，需要的时间还比你少，那说明我可以追上你
+O(N^2)
+"""
+class Solution:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        n = len(position)
+        times = []
+        
+        for i in range(n):
+            pos = position[i]
+            spd = speed[i]
+            dist = target - pos
+            time = dist / spd
+            times.append(time)
+            
+        cars = [(position[i], times[i]) for i in range(n)]
+        cars.sort(key=lambda x: (x[0], x[1]))
+
+        fleet_cnt = n
+        for i in range(n - 1):
+            for j in range(i + 1, n):
+                if cars[i][1] <= cars[j][1]:    # 我的位置比你小，需要的时间还比你少，那说明我可以追上你
+                    fleet_cnt -= 1              
+                    break       # i追上j之后就被j黏住了，不能再继续追别人了，所以需要break出来
+        return fleet_cnt
