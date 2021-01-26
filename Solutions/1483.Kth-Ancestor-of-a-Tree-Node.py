@@ -38,7 +38,7 @@ class TreeAncestor:
     def getKthAncestor(self, node: int, k: int) -> int:    # O(min(k, h)), where h is height of tree
         if k == 0:
             return node
-        elif self.parent[node] == -1:
+        elif self.parent[node] == -1:   # the parent of root is -1
             return -1
 
         if (node, k) in self.memo:
