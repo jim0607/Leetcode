@@ -78,25 +78,27 @@ class Solution:
         
 """
 solution 3: dp
-dp[i][j] = the min window subsequence that ends with ith ch in t, and jth ch in s.
-If t[i-1] == s[j-1]: dp[i][j] = dp[i-1][j-1] + 1; else: dp[i][j] = dp[i][j-1] + 1
+dp[i][j] = the minimum window subsequence that ends with ith in s, and jth in t
+if s[i-1] == t[j-1]: dp[i][j] = 1 + dp[i-1][j-1]
+else: dp[i][j] = 1 + dp[i-1][j]
 """
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        m, n = len(t), len(s)
-        dp = [[20000 for _ in range(n + 1)] for _ in range(m + 1)]  # 20000是因为题目给的len(s)<20000
-        for j in range(n + 1):
-            dp[0][j] = 0
+        m, n = len(s), len(t)
+        dp = [[20000] * (n + 1) for _ in range(m + 1)]
+        for i in range(m + 1):
+            dp[i][0] = 0
         
         for i in range(1, m + 1):
             for j in range(1, n + 1):
-                if t[i-1] == s[j-1]:
-                    dp[i][j] = dp[i-1][j-1] + 1
+                if s[i-1] == t[j-1]:
+                    dp[i][j] = 1 + dp[i-1][j-1]
                 else:
-                    dp[i][j] = dp[i][j-1] + 1
+                    dp[i][j] = 1 + dp[i-1][j]
         
-        min_len = min(dp[-1])
-        if min_len == 20000: return ""
-        for j in range(1, n + 1):
-            if dp[-1][j] == min_len:
-                return s[j-min_len:j]
+        min_len = min(dp[i][n] for i in range(m + 1))
+        if min_len == 20000:
+            return ""
+        for i in range(m + 1):
+            if dp[i][n] == min_len:
+                return s[i-min_len:i]
