@@ -1464,7 +1464,10 @@ Two pointers. similar with 1056. Confusing Number.
 - [0247. Strobogrammatic Number II](Solutions/0247.Strobogrammatic-Number-II.py) (!!M Google) <br>
 Backtrack. find all combinations for n//2 lens, using backtrack.
 - [0248. Strobogrammatic Number III](Solutions/0248.Strobogrammatic-Number-III.py) (H) <br>
-我们只需要算组合个数就行，不需要做 backtrack
+解法：每次都按照一个lens做backtrack. 每次添加next_ch都在curr_comb前面和后面添加
+backtrack end consition: if len(curr_comb) == lens, check if curr_comb in range(low, high)
+constraints on next_candidates: next_comb = ch + curr_comb + mapping[ch], cannot have leading zero
+arguments pass into backtrack function: curr_comb
 - [1239. Maximum Length of a Concatenated String with Unique Characters](Solutions/1239.Maximum-Length-of-a-Concatenated-String-with-Unique-Characters.py) (!!M)<br>
 subsets问题的变形 - constraint subsets
 - [0526. Beautiful Arrangement](Solutions/0526.Beautiful-Arrangement.py) (!!M)<br>
@@ -2994,6 +2997,11 @@ define a self.iterator, and a self.next_item to record the top item of the itera
 Two pointers. similar with 1056. Confusing Number.
 - [0247. Strobogrammatic Number II](Solutions/0247.Strobogrammatic-Number-II.py) (!!M Google) <br>
 Backtrack. find all combinations for n//2 lens, using backtrack.
+- [0248. Strobogrammatic Number III](Solutions/0248.Strobogrammatic-Number-III.py) (H) <br>
+解法：每次都按照一个lens做backtrack. 每次添加next_ch都在curr_comb前面和后面添加
+backtrack end consition: if len(curr_comb) == lens, check if curr_comb in range(low, high)
+constraints on next_candidates: next_comb = ch + curr_comb + mapping[ch], cannot have leading zero
+arguments pass into backtrack function: curr_comb
 - [0979. Distribute Coins in Binary Tree](Solutions/0979.Distribute-Coins-in-Binary-Tree.py) (!!M) <br> 
 The algorithm is: one node by another, try to balance node from down to top.
 helper function returns how many coins should the node receive from it's parent in order to balance itself.
@@ -3138,8 +3146,6 @@ solution 1: bfs - O(N), solution 2: backtrack with memo
 由于nums are all positive, sliding window即可 - O(N)
 - [1697. Checking Existence of Edge Length Limited Paths](Solutions/1697.Checking-Existence-of-Edge-Length-Limited-Paths.py) (H) <br>
 loop over the queries, each query is a dijkstra's to find min_max problem. O(QVlogV), Q is how many queries are there, V is how many nodes are there.
-- [0248. Strobogrammatic Number III](Solutions/0248.Strobogrammatic-Number-III.py) (H) <br>
-我们只需要算组合个数就行，不需要做 backtrack
 - [1616. Split Two Strings to Make Palindrome](Solutions/1616.Split-Two-Strings-to-Make-Palindrome.py) (H) <br>
 pre-calculation: O(N)
 - [0913. Cat and Mouse](Solutions/0913.Cat-and-Mouse.py) (H) <br>
