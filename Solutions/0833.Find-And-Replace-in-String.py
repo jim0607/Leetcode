@@ -39,17 +39,17 @@ All characters in given inputs are lowercase letters.
 class Solution:
     def findReplaceString(self, s: str, indexes: List[int], sources: List[str], targets: List[str]) -> str:
         info = [(indexes[i], sources[i], targets[i]) for i in range(len(indexes))]
-        info.sort()     # 之所以zip到一起就是为了一起sort
+        info.sort()     # 之所以zip到一起就是为了一起sort, sort完了之后index比较小的在前面
         
-        res = ""
         s_idx = 0
-        for i in range(len(info)):
-            (idx, source, target) = info[i]
+        res = ""
+        for idx, src, t in info:
             while s_idx < idx:
                 res += s[s_idx]
                 s_idx += 1
-            if s[s_idx:s_idx+len(source)] == source:
-                res += target
-                s_idx += len(source)
-
+            
+            if s[s_idx:s_idx+len(src)] == src:
+                res += t
+                s_idx += len(src)
+        
         return res + s[s_idx:]
