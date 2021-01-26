@@ -18,7 +18,7 @@ Explanation:
 
 
 """
-naive sliding window - O(MN)
+naive sliding window - O(N*(M+N))
 """
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
@@ -48,7 +48,7 @@ class Solution:
         
         
 """
-a little faster liding window - still O(MN)
+a little faster liding window - still O(N*(M+N))
 """
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
