@@ -33,7 +33,7 @@ class Solution:
             
             for next_ch in mapping:
                 next_comb = next_ch + curr_comb + mapping[next_ch]
-                if len(next_comb) == n and next_comb[0] == "0":
+                if len(next_comb) == n and next_comb[0] == "0":     # cannot have leading zero
                     continue
                 backtrack(next_comb, n)       
         
