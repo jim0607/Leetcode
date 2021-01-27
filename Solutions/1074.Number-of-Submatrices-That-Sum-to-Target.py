@@ -1,3 +1,4 @@
+"""
 1074. Number of Submatrices That Sum to Target
 
 Given a matrix, and a target, return the number of non-empty submatrices that sum to target.
@@ -16,8 +17,7 @@ Example 2:
 Input: matrix = [[1,-1],[-1,1]], target = 0
 Output: 5
 Explanation: The two 1x2 submatrices, plus the two 2x1 submatrices, plus the 2x2 submatrix.
-
-
+"""
 
     
     
@@ -27,26 +27,33 @@ solution 2: same idea O(M*M*N)
 接下来就是在每一行里面去求560问题了，注意一点不同的是需要遍历upRow和downRow的, 如果不遍历就是solution 3的错误写法
 举一个反例想明白solution 3为什么行不通，自然就会改成solution 2了
 """   
-"""
 class Solution:
     def numSubmatrixSumTarget(self, matrix: List[List[int]], target: int) -> int:
         m, n = len(matrix), len(matrix[0])
-        for row in range(1, m):
-            for col in range(n):
-                matrix[row][col] += matrix[row - 1][col]
-            
+        for i in range(1, m):
+            for j in range(n):
+                matrix[i][j] += matrix[i - 1][j]
+
         cnt = 0
-        for upRow in range(m):
-            for downRow in range(upRow, m):
-                prefixSumDict = collections.defaultdict(int)
-                prefixSumDict[0] = 1
-                prefixSum = 0
-                for col in range(n):
-                    prefixSum += matrix[downRow][col] - (matrix[upRow-1][col] if upRow >= 1 else 0)
-                    if prefixSum - target in prefixSumDict:
-                        cnt += prefixSumDict[prefixSum - target]
-                    prefixSumDict[prefixSum] += 1
-                
+        for uprow in range(m):
+            for downrow in range(uprow, m):
+                nums = []   # 构造nums for 560. Subarray Sum Equals K
+                for j in range(n):
+                    nums.append(matrix[downrow][j] - (0 if uprow == 0 else matrix[uprow - 1][j]))
+                cnt += self.subarr_target_sum(nums, target)
+        return cnt
+    
+    # exactly the same as 560. Subarray Sum Equals K
+    def subarr_target_sum(self, nums, target):      
+        presum_dict = defaultdict(int)  # presum --> how many presum are there
+        presum_dict[0] = 1
+        presum = 0
+        cnt = 0
+        for num in nums:
+            presum += num
+            if presum - target in presum_dict:
+                cnt += presum_dict[presum - target]
+            presum_dict[presum] += 1
         return cnt
 
 
