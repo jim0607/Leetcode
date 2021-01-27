@@ -62,32 +62,28 @@ fit the sentence in line by line
 """
 class Solution:
     def wordsTyping(self, sentence: List[str], rows: int, cols: int) -> int:
-        for s in sentence:
-            if len(s) > cols:
-                return 0
-            
-        total_len = 0       # get the total_len we need to fit in the whole sentence
-        for s in sentence:
-            total_len += len(s) + 1
-            
         n = len(sentence)
+        
+        total_len = 0   # get the total_len we need to fit in the whole sentence
+        for s in sentence:
+            total_len += 1 + len(s)
+        
         res = 0
         i = 0
-        for row in range(rows):
-            remaining = cols       # how many empty space we have in curr_row
-            while remaining > 0:
-                if len(sentence[i]) <= remaining:
-                    remaining -= len(sentence[i])
-                    if remaining > 0:
-                        remaining -= 1
-                        
-                    i += 1
-                    if i == n:      # this is when we need to repeat in a row
-                        i = 0
-                        res += (1 + remaining // total_len)
-                        remaining %= total_len
-                        
-                else:
+        for _ in range(rows):
+            remain = cols   # how many empty space we have in curr_row
+            while remain > 0:
+                if remain < len(sentence[i]):
                     break
-                       
+                    
+                remain -= len(sentence[i])
+                if remain > 0:
+                    remain -= 1
+                
+                i += 1
+                if i == n:  # this is when we need to repeat in a row
+                    i = 0
+                    res += 1 + remain // total_len
+                    remain %= total_len
+                
         return res
