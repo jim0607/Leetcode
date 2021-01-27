@@ -58,7 +58,7 @@ class Leaderboard:
         return sums
 
     def reset(self, playerId: int) -> None:
-        self.mapping[playerId] = 0
+        del self.mapping[playerId]
 
 
 """
