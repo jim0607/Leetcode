@@ -63,6 +63,11 @@ constraints on next_candidates: can be curr_num//2, curr_num+-1
 arguments pass into backtrack function: curr_num, curr_steps
 O(log(N))
 """
+"""
+backtrack end condition: curr_num == 1
+constraints on next_candidates: can be curr_num//2, curr_num+-1
+arguments pass into backtrack function: curr_num, curr_steps
+"""
 class Solution:
     def integerReplacement(self, n: int) -> int:
         def backtrack(curr_num, curr_steps):
@@ -70,9 +75,12 @@ class Solution:
                 self.min_steps = min(self.min_steps, curr_steps)
                 return
             
+            if curr_steps >= self.min_steps:    # strong pruning, which I learnt from 1240. Tiling a Rectangle with the Fewest Squares
+                return
+            
             if curr_num % 2 == 0:
                 backtrack(curr_num // 2, curr_steps + 1)
-            else:       # 注意要不能除2才选择 +1或-1, 核心算法是能除2就除2，不能除才+1或-1
+            else:       # 注意要不能除2才选择 +1或-1, 核心算法是能除就除，不能除才+1或-1
                 backtrack(curr_num + 1, curr_steps + 1)
                 backtrack(curr_num - 1, curr_steps + 1)
                         
