@@ -38,10 +38,9 @@ class Solution:
         dp = [1 for _ in range(len(words))]
         for idx, word in enumerate(words):
             lens = len(word)
-            if lens > 1:
-                for prev_idx in len_words[lens - 1]:    # instead of exploring all the previous words, we explore only words with lens - 1
-                    if self.is_additive(words, idx, prev_idx):
-                        dp[idx] = max(dp[idx], 1 + dp[prev_idx])
+            for prev_idx in len_words[lens - 1]:    # instead of exploring all the previous words, we explore only words with lens - 1
+                if self.is_additive(words, idx, prev_idx):
+                    dp[idx] = max(dp[idx], 1 + dp[prev_idx])
         return max(dp)
     
     def is_additive(self, words, curr_idx, prev_idx):
