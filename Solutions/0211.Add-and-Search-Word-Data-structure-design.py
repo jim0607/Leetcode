@@ -43,7 +43,7 @@ class WordDictionary:
             curr = curr.child[ch]
         curr.is_end = True
 
-    def search(self, word: str) -> bool:        # worst case O(26^M), where M is how many wildcard in word
+    def search(self, word: str) -> bool:      # worst case O(26^M), where M is how many wildcard in word
         def backtrack(curr_node, curr_idx):
             if curr_idx == len(word) - 1:
                 if curr_node.is_end:
@@ -55,10 +55,9 @@ class WordDictionary:
                     if backtrack(curr_node.child[word[curr_idx + 1]], curr_idx + 1):
                         return True
             else:
-                for next_ch in "abcdefghijklmnopqrstuvwxyz":    # worst case O(26^M), where M is how many wildcard in word
-                    if next_ch in curr_node.child:      # but since there is pruning here, the time complexity is better than O(26^M)
-                        if backtrack(curr_node.child[next_ch], curr_idx + 1):
-                            return True
+                for next_ch in curr_node.child: # worst case O(26^M), where M is how many wildcard in word
+                    if backtrack(curr_node.child[next_ch], curr_idx + 1):
+                        return True
             
             return False
         
