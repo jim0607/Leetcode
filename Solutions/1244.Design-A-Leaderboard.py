@@ -39,7 +39,7 @@ use a dictionary for fast addscore and reset. use a heapq to find top K elements
 class Leaderboard:
 
     def __init__(self):
-        self.mapping = collections.defaultdict(int)
+        self.mapping = defaultdict(int)
 
     def addScore(self, playerId: int, score: int) -> None:
         self.mapping[playerId] += score
