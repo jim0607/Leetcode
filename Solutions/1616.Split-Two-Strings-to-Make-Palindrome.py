@@ -56,35 +56,31 @@ Time O(N), Space O(N)
 """
 class Solution:
     def checkPalindromeFormation(self, s: str, t: str) -> bool:
-        if self.is_palin(s) or self.is_palin(t):
-            return True
-        
-        middle = []
         n = len(s)
+        middle = []
         i, j = 0, n - 1
         while i < n:
             if s[i] != t[j]:
                 break
             i += 1
             j -= 1
-        middle.append(s[i:j+1])
-        middle.append(t[i:j+1])
+        middle.append(s[i : j + 1])     # eg: ula bob xyz, mnp tql alu
+        middle.append(t[i : j + 1])     # eg: ula tql xyz, mnp bob alu
         
-        i, j = n - 1, 0
-        while j < n:
-            if s[i] != t[j]:
+        i, j = 0, n - 1
+        while i < n:
+            if s[j] != t[i]:
                 break
-            i -= 1
-            j += 1
-        middle.append(s[j:i+1])
-        middle.append(t[j:i+1])
+            i += 1
+            j -= 1
+        middle.append(s[i : j + 1])
+        middle.append(t[i : j + 1])
         
-        for substr in middle:
+        for substr in middle:       # there are only 4 substr in middle, so O(N)
             if self.is_palin(substr):
                 return True
         return False
-        
-        
+    
     def is_palin(self, s):
         i, j = 0, len(s) - 1
         while i < j:
@@ -93,6 +89,9 @@ class Solution:
             i += 1
             j -= 1
         return True
+       
+       
+       
         
 """
 O(n^2) solution
