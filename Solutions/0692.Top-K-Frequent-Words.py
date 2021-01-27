@@ -46,6 +46,25 @@ class Solution:
             
         return res
 
+ """
+ bucket sort
+ """
+ class Solution:
+    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+        cnter = Counter(words)
+        max_cnt = max(cnter.values())
+        buckets = [[] for _ in range(max_cnt + 1)]
+        for word, cnt in cnter.items():
+            buckets[cnt].append(word)
+            
+        res = []
+        for word_lst in buckets[::-1]:
+            word_lst.sort()
+            for word in word_lst:
+                res.append(word)
+                if len(res) == k:
+                    return res
+    
 
 """
 quick select solution: O(N + klogk)
