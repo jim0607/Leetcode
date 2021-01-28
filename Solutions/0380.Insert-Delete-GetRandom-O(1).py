@@ -51,7 +51,7 @@ class RandomizedSet:
         Initialize your data structure here.
         """
         self.arr = []
-        self.val_to_idx = collections.defaultdict(int)
+        self.val_to_idx = defaultdict(int)
 
     def insert(self, val: int) -> bool:
         """
