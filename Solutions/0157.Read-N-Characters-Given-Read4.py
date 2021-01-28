@@ -28,7 +28,8 @@ read4(buf4); // read4 returns 0. Now buf = "", fp points to end of file
 
 Method read:
 
-By using the read4 method, implement the method read that reads n characters from the file and store it in the buffer array buf. Consider that you cannot manipulate the file directly.
+By using the read4 method, implement the method read that reads n characters from the file and store it in the buffer array buf. 
+Consider that you cannot manipulate the file directly.
 
 The return value is the number of actual characters read.
 
@@ -44,7 +45,8 @@ Example 1:
 
 Input: file = "abc", n = 4
 Output: 3
-Explanation: After calling your read method, buf should contain "abc". We read a total of 3 characters from the file, so return 3. Note that "abc" is the file's content, not buf. buf is the destination buffer that you will have to write the results to.
+Explanation: After calling your read method, buf should contain "abc". We read a total of 3 characters from the file, so return 3. 
+Note that "abc" is the file's content, not buf. buf is the destination buffer that you will have to write the results to.
 Example 2:
 
 Input: file = "abcde", n = 5
@@ -86,6 +88,11 @@ read4(buf4) # read4 returns 4. Now buf = ['e','f','g','h'], fp points to 'i'
 read4(buf4) # read4 returns 3. Now buf = ['i','j','k',...], fp points to end of file
 """
 
+
+"""
+函数的目的是从某个mistery_string中read n个ch存到buf arr中去，
+给你提供一个函数read4(buf4), 可以从mistery_string中read 4 chars and store them into buf4 arr.
+"""
 class Solution:
     def read(self, buf, n):
         """
@@ -98,7 +105,7 @@ class Solution:
             # step 1: read file to buf4
             buf4 = [""] * 4     # Create buffer with enough space to store characters
             lens = read4(buf4)  # buf4[] is destination not source, the results from read4 will be copied to buf4[]
-
+            
             # step 2: write buf4 into buf
             if lens == 0:   # if not more char in file, return direcitly
                 return idx
