@@ -825,7 +825,7 @@ Secondly, use a prefix_sum list to store the prefix_sum of the weight list.
 Then generate a rand_int and use binary search to find which rectangle the rand_int belongs to. 
 - [0380	Insert Delete GetRandom O(1)](Solutions/0380.Insert-Delete-GetRandom-O(1).py) (!!!M Google) <br>
 这道题让我们在常数时间范围内实现插入删除和获得随机数操作，如果这道题没有常数时间的限制，那么将会是一道非常简单的题，直接用一个 HashSet 就可以搞定所有的操作。
-但是由于时间的限制，无法在常数时间内实现获取随机数，所以只能另辟蹊径。此题的正确解法是利用到了一个一维数组和一个 HashMap，
+但是由于时间的限制，无法在常数时间内实现获取随机数，所以只能另辟蹊径. __核心算法与heappop()有点像,__ 此题的正确解法是利用到了一个一维数组和一个 HashMap，
 其中数组用来保存数字，HashMap 用来建立每个数字和其在数组中的位置之间的映射，
 对于插入操作，先看这个数字是否已经在 HashMap 中存在，如果存在的话直接返回 false，不存在的话，将其插入到数组的末尾，然后建立数字和其位置的映射。
 删除操作是比较 tricky 的，还是要先判断其是否在 HashMap 里，如果没有，直接返回 false。由于 HashMap 的删除是常数时间的，而数组并不是，为了使数组删除也能常数级，
