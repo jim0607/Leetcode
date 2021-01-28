@@ -1,3 +1,4 @@
+"""
 3. Longest Substring Without Repeating Characters
 
 Given a string, find the length of the longest substring without repeating characters.
@@ -18,7 +19,31 @@ Input: "pwwkew"
 Output: 3
 Explanation: The answer is "wke", with the length of 3. 
              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
-             
+"""
+           
+"""
+套模板：window size is j - i + 1, if len(cnter) == window_size, then every ch in the window appears only one time
+"""
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        cnter = defaultdict(int)
+        max_len = 0
+        i = 0
+        for j, ch in enumerate(s):
+            cnter[ch] += 1
+            
+            while i <= j and j - i + 1 > len(cnter):  # window size is j - i + 1, if len(cnter) == window_size, then every ch in the window appears only one time
+                cnter[s[i]] -= 1
+                if cnter[s[i]] == 0:
+                    del cnter[s[i]]
+                i += 1
+                
+            if j - i + 1 == len(cnter):
+                max_len = max(max_len, j - i + 1)
+                
+        return max_len
+  
+  
              
 # sliding window, tiem complexity: O(N)
 # 维护一个included=set(), 用来记录i->j中include的char，套模板时满足的条件是s[j] not in included; 
