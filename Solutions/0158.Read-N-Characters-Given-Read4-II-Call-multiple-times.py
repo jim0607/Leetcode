@@ -80,12 +80,12 @@ Get data from read4 and store it in a queue. When read data, transfer data from 
 class Solution:
     
     def __init__(self):
-        self.q = collections.deque()    # act as a global queue
+        self.q = deque()    # act as a global queue
     
     def read(self, buf: List[str], n: int) -> int:
         idx = 0
         while idx < n:
-            if self.q:
+            if len(self.q) > 0:
                 buf[idx] = self.q.popleft()
                 idx += 1
             else:
