@@ -888,6 +888,7 @@ How to do it without for-loop: recursion
 
 
 ### [Binary Tree](/Binary-Tree-Divide-and-Conquer.py) <br> 
+- [0101. Symmetric Tree](Solutions/0101.Symmetric-Tree.py) (E)
 - [0144. Binary Tree Preorder Traversal](Solutions/0144.Binary-Tree-Preorder-Traversal.py) (M) memorize the iterative version using stack
 - [0094. Binary Tree Inorder Traversal](Solutions/0094.Binary-Tree-Inorder-Traversal.py) (M) memorize the iterative version using stack
 solution 2: in order traversal of BST (iteratively) - O(k+H) where H is height of tree. solution 1: trivial - in order traversal of BST - O(N), O(N).
