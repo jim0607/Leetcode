@@ -3150,7 +3150,8 @@ loop over the queries, each query is a dijkstra's to find min_max problem. O(QVl
 pre-calculation: O(N)
 - [0913. Cat and Mouse](Solutions/0913.Cat-and-Mouse.py) (H) <br>
 dp + bfs
-
+- [1576. Replace All ?'s to Avoid Consecutive Repeating Characters](Solutions/1576.Replace-All-?-s-to-Avoid -Consecutive-Repeating-Characters.py) (E) <br>
+just choose to replace "?" to be one of "abc"
 
 
 
